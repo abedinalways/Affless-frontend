@@ -1,0 +1,129 @@
+"use client";
+
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Image from "next/image";
+import { useRef } from "react";
+
+type FormValues = {
+  otp: string[];
+};
+
+export default function OtpForm() {
+  const { register, handleSubmit, setValue, watch } = useForm<FormValues>({
+    defaultValues: {
+      otp: ["", "", "", "", "", ""],
+    },
+  });
+
+  const otpValues = watch("otp");
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const code = data.otp.join("");
+    console.log("OTP Code:", code);
+  };
+
+  const handleOtpChange = (value: string, index: number) => {
+    if (!/^\d?$/.test(value)) return; // only allow single digit
+
+    setValue(`otp.${index}`, value);
+
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleBackspace = (index: number) => {
+    if (otpValues[index] === "" && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  return (
+    <div
+  className="
+    grid grid-cols-1 lg:grid-cols-2
+   gap-5 md:gap-7 xl:gap-[73px] 
+   container mx-auto
+    items-stretch
+  "
+>
+
+  {/* Left Image */}
+  <div className="flex items-center justify-center bg-white rounded-2xl h-full">
+    <Image
+      src="/svgIcons/otp.svg"
+      alt="verify email"
+      width={500}
+      height={450}
+      className="
+        w-[260px] 
+        sm:w-[340px]
+        md:w-[420px]
+        lg:w-[480px]
+        xl:w-[520px]
+        h-auto
+        object-contain
+      "
+    />
+  </div>
+
+  {/* Right Content */}
+  <div className="flex flex-col justify-center bg-[#FAD2D4] rounded-2xl h-full">
+    <div className="w-full max-w-lg mx-auto text-center py-10">
+
+      {/* Back + Title */}
+      <div className="flex items-center gap-3 justify-center pb-4">
+        <Link href="/forgotpassword">
+          <span className="text-[#333] text-2xl cursor-pointer">&#8592;</span>
+        </Link>
+        <h2 className="text-[#333] font-poppins text-2xl font-medium leading-[150%]">
+          Verify Email
+        </h2>
+      </div>
+
+      {/* Subtitle */}
+      <p className="text-[#333] font-poppins text-base leading-[150%] pb-6">
+        Please enter the otp we have sent you in<br /> your email.
+      </p>
+
+      {/* OTP Form */}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+     <div className="flex justify-center gap-3">
+  {[0, 1, 2, 3, 4, 5].map((index) => (
+    <Input
+      key={index}
+      maxLength={1}
+      {...register(`otp.${index}` as const)}
+      ref={(el) => {
+        inputRefs.current[index] = el;
+      }}
+      onChange={(e) => handleOtpChange(e.target.value, index)}
+      onKeyDown={(e) => {
+        if (e.key === "Backspace") handleBackspace(index);
+      }}
+      className="
+        w-12 h-12 text-center text-xl 
+        rounded-full border border-gray-300
+        focus:border-[#FF4D4F] focus:ring-0
+        font-poppins bg-white
+      "
+    />
+  ))}
+</div>
+
+
+        <Button className="w-full py-3 bg-[#FF4D4F] text-white text-xl font-poppins rounded-xl">
+          Verify
+        </Button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+  );
+}

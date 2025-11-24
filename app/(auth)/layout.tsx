@@ -1,3 +1,4 @@
+import AuthHeader from "@/components/AuthHeader/AuthHeader";
 
 export default function Layout({
   children,
@@ -6,9 +7,9 @@ export default function Layout({
 }>) {
   return (
     <html lang="en">
-      <body
-      
+      <body 
       >
+        <AuthHeader/>
         {children}
       </body>
     </html>
