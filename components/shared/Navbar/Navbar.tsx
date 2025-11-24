@@ -26,7 +26,7 @@ export default function Navbar() {
         </ul>
 
         {/* Sign In */}
-        <Link href="/signin">
+        <Link href="/login">
           <button className="flex justify-center items-center mx-auto gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base mt-2">
             <span><DubbleUser/></span> Sign In
           </button>
