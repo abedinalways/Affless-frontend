@@ -11,11 +11,15 @@ export default function Layout({
     <html lang="en">
       <body 
       >
-           <Navbar/>
+         <div>
+            <div className="w-screen flex justify-center container">
+              <Navbar/>
+            </div>
         {children}
 
         <ContactUs/>
         <Footer/>
+         </div>
       </body>
     </html>
   );

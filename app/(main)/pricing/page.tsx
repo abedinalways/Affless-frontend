@@ -1,3 +1,4 @@
+import CheckCircelIcon from '@/components/Icons/CheckCircelIcon';
 import PageBanner from '@/components/reusable/Bgbanner'
 import { CheckCircle } from 'lucide-react';
 import React from 'react'
@@ -70,19 +71,19 @@ export default function Pricing() {
         <div className="container mx-auto py-20">
 
           <div className='text-center mb-10'>
-            <h3 className="text-[#333] text-center font-poppins text-[56px] font-medium leading-[120%]">Pricing Plans</h3>
-           <p className="text-[#4A4C56] text-center font-poppins text-[24px] font-normal leading-[150%]">Choose the plan that fits your needs and increase your visibility in the marketplace</p>
+            <h3 className="text-[#333] text-center font-poppins text-[40px] md:text-[45px] lg:text-[56px] font-medium leading-[120%]">Pricing Plans</h3>
+           <p className="text-[#4A4C56] text-center font-poppins text-[24px] font-normal leading-[150%] mt-6">Choose the plan that fits your needs and increase your visibility in the <br /> marketplace</p>
           </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 
         {pricingPlans.map((plan, index) => (
           <div
             key={index}
-            className="bg-white shadow-[0_5px_30px_rgba(0,0,0,0.1)] rounded-3xl p-8 flex flex-col justify-between"
+            className="bg-white shadow-[0_5px_30px_rgba(0,0,0,0.1)] rounded-3xl px-6 py-4 flex flex-col justify-between"
           >
             {/* Title & Price */}
             <div>
-              <h2 className="text-center text-[26px] font-semibold">
+              <h2 className=" text-[#333] text-center font-poppins text-[20px] lg:text-[28px] font-medium leading-[130%]">
                 {plan.title}
               </h2>
 
@@ -98,9 +99,8 @@ export default function Pricing() {
              <ul className="mt-6 space-y-3 text-gray-800">
   {plan.features.map((feature, i) => (
     <li key={i} className="flex items-start gap-2">
-      <CheckCircle
-        size={20}
-        strokeWidth={2.2}
+      <CheckCircelIcon
+       
         className="text-red-500 shrink-0"
       />
       <span>{feature}</span>
