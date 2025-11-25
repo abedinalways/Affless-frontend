@@ -1,0 +1,130 @@
+import PageBanner from '@/components/reusable/Bgbanner'
+import { CheckCircle } from 'lucide-react';
+import React from 'react'
+
+const pricingPlans = [
+    {
+      title: "Free",
+      price: "$0/month",
+      description:
+        "Get started with standard visibility and explore the core features.",
+      features: [
+        "Standard visibility in search and Quick-Match results",
+        "No profile or job boosting",
+      ],
+      buttonLabel: "Get Started",
+    },
+    {
+      title: "Starter",
+      price: "$19/month",
+      description:
+        "Gain higher visibility and stand out from standard listings.",
+      features: [
+        "+25% visibility in search and Quick-Match results",
+        "Higher matching priority in Quick-Match",
+      ],
+      buttonLabel: "Subscribe",
+    },
+    {
+      title: "Growth",
+      price: "$49/month",
+      description:
+        "Reach more clients with significantly enhanced exposure.",
+      features: [
+        "+75% visibility in search and Quick-Match results",
+        "Boosted badge displayed on profile and job posts",
+        "High-priority placement in Quick-Match",
+      ],
+      buttonLabel: "Subscribe",
+    },
+    {
+      title: "Pro",
+      price: "$99/month",
+      description:
+        "Dominate the marketplace and maximize your visibility with top-tier placement.",
+      features: [
+        "Top-tier visibility (+150%) across search and Quick-Match results",
+        "Priority badge displayed on profile and job posts",
+        "Always appear in the top search placements",
+        "Highest-priority placement in Quick-Match",
+      ],
+      buttonLabel: "Subscribe",
+    },
+  ];
+
+
+export default function Pricing() {
+  return (
+    <div>
+      <div>
+        <PageBanner
+  title="Pricing"
+  bgImage="/findEditor.jpg"
+  links={[
+    { label: "Home", href: "/" },
+    { label: "Pricing" }
+  ]}
+/>
+
+      </div>
+        <div className="container mx-auto py-20">
+
+          <div className='text-center mb-10'>
+            <h3 className="text-[#333] text-center font-poppins text-[56px] font-medium leading-[120%]">Pricing Plans</h3>
+           <p className="text-[#4A4C56] text-center font-poppins text-[24px] font-normal leading-[150%]">Choose the plan that fits your needs and increase your visibility in the marketplace</p>
+          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        {pricingPlans.map((plan, index) => (
+          <div
+            key={index}
+            className="bg-white shadow-[0_5px_30px_rgba(0,0,0,0.1)] rounded-3xl p-8 flex flex-col justify-between"
+          >
+            {/* Title & Price */}
+            <div>
+              <h2 className="text-center text-[26px] font-semibold">
+                {plan.title}
+              </h2>
+
+              <p className="text-center text-red-500 text-xl font-medium mt-1">
+                {plan.price}
+              </p>
+
+              <p className="text-center text-gray-600 mt-3 text-sm leading-relaxed">
+                {plan.description}
+              </p>
+
+              {/* Features */}
+             <ul className="mt-6 space-y-3 text-gray-800">
+  {plan.features.map((feature, i) => (
+    <li key={i} className="flex items-start gap-2">
+      <CheckCircle
+        size={20}
+        strokeWidth={2.2}
+        className="text-red-500 shrink-0"
+      />
+      <span>{feature}</span>
+    </li>
+  ))}
+</ul>
+
+            </div>
+
+            {/* Button */}
+            <button
+              className="
+                w-full mt-8 p-[14px] rounded-xl font-medium border border-red-400 text-black 
+                hover:bg-red-500  hover:text-white transition-all duration-300
+              "
+            >
+              {plan.buttonLabel}
+            </button>
+
+          </div>
+        ))}
+
+      </div>
+    </div>
+    </div>
+  )
+}

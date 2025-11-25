@@ -8,6 +8,7 @@ import MailIcon from "@/components/Icons/MailIcon";
 import KeyIcon from "@/components/Icons/KeyIcon";
 import UserIcon from "@/components/Icons/userIcon";
 import Link from "next/link";
+import { EyeClosed, EyeIcon, EyeOff } from "lucide-react";
 
 type FormValues = {
   name: string;
@@ -103,18 +104,18 @@ export default function SingUpForm() {
                 className="w-full px-6 py-3 pl-12 pr-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />
 
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-4 top-1/2 -translate-y-1/2"
-              >
-                <Image
-                  src="/svgIcons/eyeImage.svg"
-                  alt="Toggle Password"
-                  width={20}
-                  height={20}
-                />
-              </button>
+<button
+  type="button"
+  onClick={() => setShowPassword((prev) => !prev)}
+  className="absolute right-4 top-1/2 -translate-y-1/2"
+>
+  {showPassword ? (
+    <EyeOff className="w-6 h-6 text-gray-600" />
+  ) : (
+    <EyeIcon className="w-6 h-6 text-gray-600" />
+  )}
+</button>
+
             </div>
             {errors.password && (
               <p className="text-red-500 text-sm font-poppins">{errors.password.message}</p>
