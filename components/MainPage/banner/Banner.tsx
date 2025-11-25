@@ -20,7 +20,7 @@ export default function Banner() {
 
           {/* Banner Content */}
       <div className="flex items-center min-h-[500px]">
-  <div className="relative z-10 px-[100px] lg:px-[200px]">
+  <div className="relative z-10 px-[100px] lg:px-[150px]">
     <h3 className="text-white font-[Poppins] text-[72px] font-semibold leading-[120%]"
 >
       Find the Right Editor <br /> or the Right Client

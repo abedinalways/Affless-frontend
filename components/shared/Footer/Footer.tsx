@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-[#0F1623] text-white pt-16 pb-10 mt-10">
-      <div className="container  mx-auto ">
+      <div className="containers  mx-auto ">
         <div className="
           grid grid-cols-1 
           sm:grid-cols-2
@@ -46,9 +46,9 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">Platform</h3>
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
-              <li><Link href="#">How It Works</Link></li>
+              <li><Link href="/howWork">How It Works</Link></li>
               <li><Link href="#">Pricing</Link></li>
-              <li><Link href="#">Trust & Safety</Link></li>
+              <li><Link href="/trustSeftey">Trust & Safety</Link></li>
               <li><Link href="#">Success Stories</Link></li>
               <li><Link href="#">FAQs</Link></li>
             </ul>
@@ -81,7 +81,7 @@ export default function Footer() {
             <h3 className="text-lg font-poppins font-medium mb-4">Support</h3>
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="#">Help Center</Link></li>
-              <li><Link href="#">Contact Us</Link></li>
+              <li><Link href="/contactUs">Contact Us</Link></li>
               <li><Link href="#">Dispute Resolution</Link></li>
               <li><Link href="#">Status Page</Link></li>
               <li><Link href="#">Platform Safety Rules</Link></li>

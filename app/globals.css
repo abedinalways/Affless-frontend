@@ -126,13 +126,13 @@
   }
 }
 @layer utilities {
-  .container {
+  .containers {
     @apply 
       px-4 
       sm:px-[50px] 
-      md:px-[100px] 
+      md:px-[50px] 
       lg:px-[150px] 
       xl:px-[100px]
-      2xl:px-[300px];
+      2xl:px-[200px];
   }
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ContactUs() {
   return (
-    <div className="container mx-auto">
+    <div className="containers mx-auto">
         <div className="pt-[80px] ">
       {/* Banner Wrapper */}
       <div className="relative rounded-3xl overflow-hidden ">

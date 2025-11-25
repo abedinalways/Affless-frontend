@@ -6,12 +6,12 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-   <div className=" w-full">
+   <div className="containers w-full">
      <nav className=" w-full ">
-      <div className=" bg-white w-full  flex  justify-between items-center py-3 ">
+      <div className=" bg-white w-full  flex  justify-between py-3  ">
 
         {/* Left Logo */}
-       <div className="flex justify-center items-center">
+       <div className="flex gap-10 justify-center items-center">
          <div className=" gap-2 w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
            <Image src="/fdf.png" alt='logo' height={500} width={500} className=" w-full object-cover"></Image>
         

@@ -12,7 +12,7 @@ export default function Layout({
       <body 
       >
          <div>
-            <div className="w-screen flex justify-center container">
+            <div className="w-screen flex mx-auto ">
               <Navbar/>
             </div>
         {children}
