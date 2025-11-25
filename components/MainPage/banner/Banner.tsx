@@ -2,9 +2,9 @@ import React from "react";
 
 export default function Banner() {
   return (
-    <div className=" py-16">
+    <div className=" ">
       {/* Banner Wrapper */}
-      <div className="relative rounded-3xl overflow-hidden ">
+      <div className="relative overflow-hidden ">
 
         {/* Background Image */}
         <div
@@ -20,12 +20,14 @@ export default function Banner() {
 
           {/* Banner Content */}
       <div className="flex items-center min-h-[500px]">
-  <div className="relative z-10 px-[100px] lg:px-[300px]">
-    <h3 className="text-white font-poppins text-3xl sm:text-4xl font-semibold leading-[130%] max-w-2xl">
+  <div className="relative z-10 px-[100px] lg:px-[200px]">
+    <h3 className="text-white font-[Poppins] text-[72px] font-semibold leading-[120%]"
+>
       Find the Right Editor <br /> or the Right Client
     </h3>
 
-    <p className="text-white font-poppins text-base sm:text-lg leading-[150%] max-w-3xl mt-4">
+    <p className="text-white font-[Poppins] text-[16px] font-normal leading-[150%] mt-6"
+>
       Editor Marketplace connects clients and editors across YouTube,
       Tiktok, Instagram, X (Twitter), Snapchat, Facebook, podcasts, ads,
       and more, with clear fees, secure payments, and fast results.

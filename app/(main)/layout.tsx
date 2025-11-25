@@ -1,3 +1,4 @@
+import ContactUs from "@/components/MainPage/Contact-Us/Contact-Us";
 import Footer from "@/components/shared/Footer/Footer";
 import Navbar from "@/components/shared/Navbar/Navbar";
 
@@ -12,6 +13,8 @@ export default function Layout({
       >
            <Navbar/>
         {children}
+
+        <ContactUs/>
         <Footer/>
       </body>
     </html>

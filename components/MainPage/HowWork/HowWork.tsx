@@ -1,4 +1,12 @@
+import BrowseIcon from '@/components/Icons/BrowseIcon'
+import CreateProfile from '@/components/Icons/crateProfile'
+import DeleverIcon from '@/components/Icons/DeleverIcon'
+import FoundEscrow from '@/components/Icons/FoundEscrowIcon'
+import GetPaidIcon from '@/components/Icons/GetPaidIcon'
+import GetProposal from '@/components/Icons/getProposal'
 import MailIcon from '@/components/Icons/MailIcon'
+import Postjob from '@/components/Icons/postJob'
+import ReleaseIcon from '@/components/Icons/ReleseFoundIcon'
 import { EyeIcon } from 'lucide-react'
 import React from 'react'
 
@@ -7,27 +15,27 @@ const data1 = [
        ddf:"for client"
     },
     { id:1,
-        icon:<MailIcon/>,
+        icon:<Postjob/>,
         title:" Post Job",
         desc:"Describe your project needs and budget"
     },
     {
         id:2,
-        icon:<MailIcon/>,
-        title:" Post Job",
-        desc:"Describe your project needs and budget"
+        icon:<GetProposal/>,
+        title:" Get Proposals",
+        desc:"Review editor profiles and proposals"
     },
     {
         id:3,
-        icon:<MailIcon/>,
-        title:" Post Job",
-        desc:"Describe your project needs and budget"
+        icon:<FoundEscrow/>,
+        title:"Fund Escrow",
+        desc:"Secure payment until work is complete"
     },
     {
         id:4,
-        icon:<MailIcon/>,
-        title:" Post Job",
-        desc:"Describe your project needs and budget"
+        icon:<ReleaseIcon/>,
+        title:" Release Funds",
+        desc:"Approve delivery and release payment"
     },
 ]
 
@@ -37,55 +45,60 @@ const data2 = [
        ddf:"for client"
     },
     { id:1,
-        icon:<MailIcon/>,
-        title:" Post Job",
+        icon:<CreateProfile/>,
+        title:" Create Profile",
         desc:"Describe your project needs and budget"
     },
     {
         id:2,
-        icon:<MailIcon/>,
-        title:" Post Job",
-        desc:"Describe your project needs and budget"
+        icon:<BrowseIcon/>,
+        title:" Browse & Apply",
+        desc:"Find projects that match your expertise"
     },
     {
         id:3,
-        icon:<MailIcon/>,
-        title:" Post Job",
-        desc:"Describe your project needs and budget"
+        icon:<DeleverIcon/>,
+        title:"Deliver",
+        desc:"Complete project to client specifications"
     },
     {
         id:4,
-        icon:<MailIcon/>,
-        title:" Post Job",
-        desc:"Describe your project needs and budget"
+        icon:<GetPaidIcon/>,
+        title:" Get Paid",
+        desc:"Receive payment securely and quickly"
     },
 ]
 
 export default function HowWork() {
   return (
-    <div className='container mx-auto'>
+ <div className='bg-[#F9FAFB]'>
+     <div className='container mx-auto py-20'>
       <div>
-        <h3 className='text-center font-bold text-4xl'>
+        <h3 className='text-[#333] text-center font-[Poppins] text-[50px] md:text-[55px] lg:text-[64px] font-normal leading-[124%] [text-stroke-width:1px] [text-stroke-color:#333]'>
           How It Works
         </h3>
 
-        <p className='text-center text-xl'>
+        <p className="text-[#4A4C56] text-center font-[Poppins] text-[18px] font-normal leading-[150%] mt-4"
+>
           A simple, secure, and efficient process for both clients and editors
         </p>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-9'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-[34px] mt-[]'>
 
           {/* LEFT CARD */}
-          <div className='mt-10 bg-white shadow-lg w-full py-[30px] px-8'>
-            <p className='font-semibold text-lg mb-4 text-center text-[32px]'>For Client</p>
+          <div className='mt-10 bg-white shadow-lg w-full py-[30px] px-8 rounded-lg'>
+            <p className='text-[#333] text-center font-[Poppins] text-[32px] font-medium leading-[130%]'>For Client</p>
 
             <div className="space-y-[60px]">
               {data1.slice(1).map((item) => (
-                <div key={item.id} className='flex gap-5'>
+                <div key={item.id} className='flex  gap-[18px]'>
                   <div>{item.icon}</div>
                   <div>
-                    <p className='font-semibold'>{item.title}</p>
-                    <p className='text-gray-600'>{item.desc}</p>
+                    <p className="text-[#333] font-[Poppins] text-[24px] font-medium leading-[150%]"
+>{item.title}</p>
+                    <p className="text-[#4A4C56] font-[Poppins] text-[16px] font-normal leading-[150%]"
+
+>{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -93,16 +106,19 @@ export default function HowWork() {
           </div>
 
           {/* RIGHT CARD */}
-          <div className='mt-10 bg-white shadow-lg w-full py-[30px] px-8 '>
-            <p className='font-semibold text-lg mb-4 text-center text-[32px]'>For Editors</p>
+          <div className='mt-10 bg-white shadow-lg w-full py-[30px] px-8 rounded-lg '>
+            <p className='text-[#333] text-center font-[Poppins] text-[32px] font-medium leading-[130%]'>For Editors</p>
 
             <div className="space-y-[60px]">
               {data2.slice(1).map((item) => (
-                <div key={item.id} className='flex gap-5'>
+                <div key={item.id} className='flex gap-[18px]'>
                   <div>{item.icon}</div>
                   <div>
-                    <p className='font-semibold'>{item.title}</p>
-                    <p className='text-gray-600'>{item.desc}</p>
+                    <p className="text-[#333] font-[Poppins] text-[24px] font-medium leading-[150%]"
+>{item.title}</p>
+                    <p className="text-[#4A4C56] font-[Poppins] text-[16px] font-normal leading-[150%]"
+
+>{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -112,5 +128,6 @@ export default function HowWork() {
         </div>
       </div>
     </div>
+ </div>
   )
 }
