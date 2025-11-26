@@ -6,9 +6,9 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-   <div className="containers w-full">
-     <nav className=" w-full ">
-      <div className="  w-full  flex  justify-between py-3  ">
+   <div className="containers w-full  ">
+     <nav className=" ">
+      <div className=" flex  justify-between py-3  ">
 
         {/* Left Logo */}
        <div className="flex gap-10 justify-center items-center">

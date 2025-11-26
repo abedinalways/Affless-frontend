@@ -8,17 +8,16 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div
-      >
-         <div>
-            <div className="w-screen flex mx-auto ">
-              <Navbar/>
-            </div>
+    <div>
+      <div>
+        <div className=" ">
+          <Navbar />
+        </div>
         {children}
 
-        <ContactUs/>
-        <Footer/>
-         </div>
+        <ContactUs />
+        <Footer />
       </div>
+    </div>
   );
 }

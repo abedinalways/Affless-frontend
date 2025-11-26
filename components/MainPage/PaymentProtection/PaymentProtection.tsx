@@ -1,6 +1,8 @@
 import PageBanner from "@/components/reusable/Bgbanner";
 import React from "react";
 import TikmarkIcon from "@/components/Icons/TikmarkIcon";
+import HowPayments from "./HowPayments";
+import WhyUsPamymet from "./WhyUsPayment";
 
 export default function PaymentProtectionPage() {
   return (
@@ -47,7 +49,7 @@ export default function PaymentProtectionPage() {
           </div>
 
           {/* RIGHT ROUND ICON */}
-          <div className="flex justify-center items-center mt-10 md:mt-0">
+          <div className="flex justify-center items-center mt-10 md:mt-20">
             <div className="w-[150px] h-[150px] rounded-full bg-white/30 backdrop-blur flex items-center justify-center">
               <div className="w-[70px] h-[70px] rounded-full bg-white flex items-center justify-center">
                 <TikmarkIcon className="w-[32px] h-[32px] text-black" />
@@ -56,6 +58,13 @@ export default function PaymentProtectionPage() {
           </div>
 
         </div>
+      </div>
+      <div>
+        <HowPayments/>
+      </div>
+
+      <div>
+        <WhyUsPamymet/>
       </div>
     </div>
   );
