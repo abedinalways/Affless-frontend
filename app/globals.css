@@ -126,7 +126,7 @@
   }
 }
 @layer utilities {
-  .container {
+  .containers {
     @apply 
       px-4 
       sm:px-[50px] 

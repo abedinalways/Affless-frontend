@@ -9,17 +9,16 @@ export default function Layout({
 }>) {
   return (
     <html lang="en">
-      <body 
+      <body
       >
-         <div>
-            <div className="w-screen flex justify-center container">
-              <Navbar/>
-            </div>
-        {children}
-
-        <ContactUs/>
-        <Footer/>
-         </div>
+        <div>
+          <div className="w-screen flex justify-center containers">
+            <Navbar />
+          </div>
+          {children}
+          <ContactUs />
+          <Footer />
+        </div>
       </body>
     </html>
   );
