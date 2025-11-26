@@ -60,7 +60,7 @@ export default function Footer() {
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="#">Post a Job</Link></li>
               <li><Link href="#">Find Editors</Link></li>
-              <li><Link href="#">Payment Protection</Link></li>
+              <li><Link href="/payment-protection">Payment Protection</Link></li>
               <li><Link href="#">Client Guide</Link></li>
             </ul>
           </div>
