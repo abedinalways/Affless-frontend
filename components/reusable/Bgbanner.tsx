@@ -14,7 +14,7 @@ export default function PageBanner({ title, bgImage, links }: PageBannerProps) {
       className="h-[394px] bg-cover bg-center"
       style={{ backgroundImage: `url('${bgImage}')` }}
     >
-      <div className="container pt-20 mx-auto">
+      <div className="containers pt-20 mx-auto">
         <h1 className="text-white text-[64px] font-medium">{title}</h1>
 
         <BreadCrumb links={links} />

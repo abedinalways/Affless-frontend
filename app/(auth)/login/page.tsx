@@ -27,10 +27,10 @@ export default function SignInForm() {
   };
 
   return (
-   <div className="container mx-auto">
+   <div className="containers">
      <div
       className="
-        grid grid-cols-1 md:grid-cols-2
+        grid grid-cols-1 md:grid-cols-2 py-[]
         lg:gap-[164px]
       "
     >
@@ -46,7 +46,7 @@ export default function SignInForm() {
       </div>
 
       {/* Right Form */}
-      <div className="w-full max-w-lg bg-[#FFE2E3] rounded-3xl shadow-md p-8 sm:p-14 mx-auto">
+      <div className="w-full max-w-lg bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-14 mx-auto">
         <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-[42px]">
           Sign In
         </h2>
@@ -65,7 +65,7 @@ export default function SignInForm() {
               })}
               type="email"
               placeholder="Enter Your Email"
-              className="w-full px-6 py-2 pl-12 rounded-xl focus:outline-none bg-white text-[#333] font-poppins text-base leading-[150%]"
+              className="w-full px-6 py-4 pl-12 rounded-xl focus:outline-none bg-white text-[#333] font-poppins text-base leading-[150%]"
             />
           </div>
           {errors.email && (
@@ -85,7 +85,7 @@ export default function SignInForm() {
               })}
               type={showPassword ? "text" : "password"}
               placeholder="Enter Password"
-              className="w-full px-6 py-2 pl-12 pr-12 rounded-xl focus:outline-none bg-white text-[#333] font-poppins text-base leading-[150%]"
+              className="w-full px-6 py-4 pl-12 pr-12 rounded-xl focus:outline-none bg-white text-[#333] font-poppins text-base leading-[150%]"
             />
 
             <button

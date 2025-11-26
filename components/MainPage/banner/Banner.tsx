@@ -20,10 +20,10 @@ export default function Banner() {
 
           {/* Banner Content */}
       <div className="flex items-center min-h-[500px]">
-  <div className="relative z-10 px-[100px] lg:px-[200px]">
-    <h3 className="text-white font-[Poppins] text-[72px] font-semibold leading-[120%]"
+  <div className="relative z-10 px-4 md:px-20  lg:px-[230px]">
+    <h3 className="text-white font-[Poppins] lg:text-[72px] md:text-[50px] text-[40px] font-semibold leading-[120%]"
 >
-      Find the Right Editor <br /> or the Right Client
+      Find the Right Editor <br className="hidden md:block"/> or the Right Client
     </h3>
 
     <p className="text-white font-[Poppins] text-[16px] font-normal leading-[150%] mt-6"
@@ -33,12 +33,12 @@ export default function Banner() {
       and more, with clear fees, secure payments, and fast results.
     </p>
 
-    <div className="flex flex-wrap items-center gap-[42px] mt-8">
-      <button className="bg-[#FF4D4F] text-white px-6 py-4 rounded-xl font-poppins text-base sm:text-lg">
+    <div className="flex  items-center gap-[42px] mt-8 ">
+      <button className="bg-[#FF4D4F] text-white px-3 md:px-6 py-0 md:py-4  rounded-xl font-poppins text-base sm:text-lg">
         Post a Job Free
       </button>
 
-      <button className="text-white px-6 py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F]">
+      <button className="text-white px-3 md:px-6 py-0 md:py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F]">
         Become an Editor
       </button>
     </div>

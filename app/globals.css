@@ -3,6 +3,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+ 
+body{
+  background-color: #F9FAFB;
+  font-family: 'Poppins';
+}
+
 @theme inline {
 
   --color-background: [#F9FAFB];
@@ -130,9 +142,9 @@
     @apply 
       px-4 
       sm:px-[50px] 
-      md:px-[100px] 
-      lg:px-[150px] 
-      xl:px-[100px]
+      md:px-[50px] 
+      lg:px-[100px] 
+      xl:px-[150px]
       2xl:px-[300px];
   }
 }

@@ -2,8 +2,8 @@ import React from "react";
 
 export default function ContactUs() {
   return (
-    <div className="container mx-auto">
-        <div className="pt-[80px] ">
+    <div className="containers mx-auto">
+        <div className="pt-8 md:pt-[80px] ">
       {/* Banner Wrapper */}
       <div className="relative rounded-3xl overflow-hidden ">
 
@@ -22,7 +22,7 @@ export default function ContactUs() {
           {/* Banner Content */}
     <div >
            <div className=" ">
-           <div className="relative z-10 px-[50px] lg:px-[150px]">
+           <div className="relative z-10 px-[5x] lg:px-[150px]">
             <p className="text-white font-['Plus_Jakarta_Sans'] text-[16px] font-bold leading-[150%]"
 >CONTACT US</p>
             <h3 className="text-white font-['Plus_Jakarta_Sans'] text-[48px] font-bold leading-[118%]"

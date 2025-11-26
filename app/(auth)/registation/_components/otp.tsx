@@ -72,7 +72,7 @@ export default function OtpForm() {
   </div>
 
   {/* Right Content */}
-  <div className="flex flex-col justify-center bg-[#FAD2D4] rounded-2xl h-full">
+  <div className="flex flex-col justify-center bg-[#FFDBDC] rounded-2xl h-full">
     <div className="w-full max-w-lg mx-auto text-center py-10">
 
       {/* Back + Title */}
@@ -80,7 +80,8 @@ export default function OtpForm() {
         <Link href="/forgotpassword">
           <span className="text-[#333] text-2xl cursor-pointer">&#8592;</span>
         </Link>
-        <h2 className="text-[#333] font-poppins text-2xl font-medium leading-[150%]">
+        <h2 className="text-[#333] font-poppins text-[40px] font-medium leading-[130%]"
+>
           Verify Email
         </h2>
       </div>

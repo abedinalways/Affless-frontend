@@ -62,7 +62,7 @@ const data = [
 
 export default function Popularcategory() {
   return (
-    <div className="container mx-auto py-20">
+    <div className="containers mx-auto py-20">
       <h2 className="text-[#333] text-center font-[Poppins] text-[64px] font-normal leading-[124%] [text-stroke-width:1px] [text-stroke-color:#333]"
 >Popular Categories</h2>
       <p className="text-[#4A4C56] text-center font-[Poppins] text-[18px] font-normal leading-[150%] mt-4"
@@ -70,7 +70,7 @@ export default function Popularcategory() {
         Find the perfect editor for any project
       </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 justify-center pt-[50px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4  gap-6 justify-center pt-[50px]">
 
         {data.map((item) => (
           <div

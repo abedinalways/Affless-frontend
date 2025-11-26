@@ -3,8 +3,13 @@ import React from 'react'
 
 export default function AuthHeader() {
   return (
-    <div className='container'>
-      <Image src="/logo (2).png" alt='logo' height={55} width={167}></Image>
-    </div>
+<div className=''>
+     <div className='containers pb-[88px]'>
+     <div className=" w-[100px] h-[50px] ">
+              <Image src="/fdf.png" alt='logo' height={500} width={500} className=" w-full object-cover"></Image>
+           
+           </div>
+   </div>
+</div>
   )
 }
