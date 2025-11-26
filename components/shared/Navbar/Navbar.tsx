@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="containers w-full  ">
+    <div className="containers w-screen">
       <nav className=" ">
         <div className=" flex  justify-between py-3  ">
 
