@@ -3,56 +3,10 @@
 import Image from "next/image";
 import { useState, useMemo } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { stories } from "@/app/(main)/success-story/data";
+import PageBanner from "@/components/reusable/Bgbanner";
 
-// ----------------------------
-// STORY JSON DATA
-// ----------------------------
-const stories = [
-  {
-    id: 1,
-    name: "Sarah Mitchell",
-    role: "Video Editor",
-    type: "Success",
-    category: "Editing",
-    country: "USA",
-    image: "/story1.jpg",
-    description: "From zero clients to full-time editor in 6 months.",
-  },
-  {
-    id: 2,
-    name: "Marcus Chen",
-    role: "Creator",
-    type: "Team Growth",
-    category: "Management",
-    country: "Canada",
-    image: "/story2.jpg",
-    description: "Built a team of 10 editors and scaled content 5x.",
-  },
-  {
-    id: 3,
-    name: "Emma Rodriguez",
-    role: "Video Editor",
-    type: "Income",
-    category: "Editing",
-    country: "Mexico",
-    image: "/story3.jpg",
-    description: "Turned passion for editing into $8K/month income stream.",
-  },
-  {
-    id: 4,
-    name: "David Park",
-    role: "Client",
-    type: "Client Story",
-    category: "Business",
-    country: "USA",
-    image: "/story4.jpg",
-    description: "Launched successful product with help from platform editors.",
-  },
-];
-
-// ============================================================
-// SINGLE COMPONENT (FILTERS + CARDS + PAGINATION)
-// ============================================================
 export default function SuccessStroyPage() {
   const [storyType, setStoryType] = useState("All");
   const [category, setCategory] = useState("All");
@@ -62,7 +16,7 @@ export default function SuccessStroyPage() {
   const ITEMS_PER_PAGE = 6;
 
 // FILTER LOGIC
-// ==============================
+
 const filteredStories = useMemo(() => {
   return stories.filter((story) => {
     return (
@@ -83,13 +37,26 @@ const pageStories = filteredStories.slice(
 );
 
   return (
-    <div className="container mx-auto py-16">
+  <div className="">
+      
+     <div>
+        <PageBanner
+  title="Success Stories"
+  bgImage="/findEditor.jpg"
+  links={[
+    { label: "Home", href: "/" },
+    { label: "Success Stories" }
+  ]}
+/>
 
+      </div>
+      <div className="containers mx-auto py-16">
       {/* FILTERS */}
-      <div className="flex flex-wrap gap-6 items-center bg-white p-5 rounded-xl shadow-sm border">
+      <div className="flex flex-wrap gap-6 items-center bg-white p-5 rounded-xl  border-none border">
         <span className="text-gray-700 font-medium">Filter by:</span>
 
         {/* Story Type */}
+        <p>story Type</p>
         <FilterSelect
           value={storyType}
           setValue={setStoryType}
@@ -97,6 +64,7 @@ const pageStories = filteredStories.slice(
         />
 
         {/* Category */}
+        <p>category</p>
         <FilterSelect
           value={category}
           setValue={setCategory}
@@ -104,6 +72,7 @@ const pageStories = filteredStories.slice(
         />
 
         {/* Country */}
+        <p>country</p>
         <FilterSelect
           value={country}
           setValue={setCountry}
@@ -116,24 +85,29 @@ const pageStories = filteredStories.slice(
         {pageStories.map((story) => (
           <div
             key={story.id}
-            className="bg-white shadow-md rounded-2xl p-4"
+            className="bg-[#FFFFFF] shadow-2xl rounded-2xl p-6"
           >
             <Image
               src={story.image}
               alt={story.name}
-              width={400}
-              height={250}
-              className="rounded-xl w-full h-[230px] object-cover"
+              width={500}
+              height={500}
+              className="rounded-xl w-full h-[209px] object-cover "
             />
 
-            <h3 className="text-[20px] font-semibold mt-4">{story.name}</h3>
-            <p className="text-gray-500 text-sm">{story.role}</p>
+           <div className="flex justify-between pt-4">
+             <h3 className="text-[#333] font-poppins text-[18px] font-medium leading-[120%]">{story.name}</h3>
+            <p className="text-[#777980] text-right font-poppins text-[12px] font-normal leading-[150%]">{story.role}</p>
+           </div>
 
-            <p className="mt-2 text-gray-600">{story.description}</p>
+            <p className="text-[#4A4C56] font-poppins text-[14px] font-normal leading-[150%] py-4">{story.description}</p>
 
-            <button className="flex items-center gap-1 mt-4 text-red-500 font-medium">
-              Read Story <ArrowRight size={16} />
-            </button>
+           <Link href={`/success-story/${story.id}`}>
+  <button className="flex items-center gap-1 text-[#FF4D4F] font-poppins text-[14px] font-medium leading-[150%]">
+    Read Story <ArrowRight size={16} />
+  </button>
+</Link>
+
           </div>
         ))}
       </div>
@@ -145,12 +119,11 @@ const pageStories = filteredStories.slice(
         setPage={setCurrentPage}
       />
     </div>
+  </div>
   );
 }
 
-// ============================================================
 // REUSABLE SELECT COMPONENT
-// ============================================================
 function FilterSelect({
   value,
   setValue,
@@ -176,9 +149,8 @@ function FilterSelect({
   );
 }
 
-// ============================================================
 // PAGINATION COMPONENT
-// ============================================================
+
 function Pagination({
   currentPage,
   totalPages,

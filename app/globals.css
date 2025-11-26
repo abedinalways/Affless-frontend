@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+body{
+  background-color: #F9FAFB;
+}
 
 @theme inline {
 
@@ -131,8 +134,8 @@
       px-4 
       sm:px-[50px] 
       md:px-[50px] 
-      lg:px-[150px] 
-      xl:px-[100px]
-      2xl:px-[200px];
+      lg:px-[100px] 
+      xl:px-[150px]
+      2xl:px-[300px];
   }
 }

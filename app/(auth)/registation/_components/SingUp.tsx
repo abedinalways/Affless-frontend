@@ -31,24 +31,24 @@ export default function SingUpForm() {
   };
 
   return (
-    <div className="     container mx-auto ">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <div className="containers">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center ">
 
         {/* Left Image */}
-        <div className="flex justify-center">
+        <div className="flex ">
           <Image
             src="/svgIcons/singUpImage.svg"
             alt="signup"
             height={457}
             width={545}
-            className="w-full max-w-md"
+            className=" max-w-m w-[545px]"
           />
         </div>
 
         {/* Right Form */}
-        <div className="w-full max-w-lg bg-[#FFE2E3] rounded-3xl shadow-md p-8 sm:p-10 mx-auto">
+        <div className="w-full max-w-lg bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto">
           <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-6">
-            Sign Up
+            Sign Up 
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -60,7 +60,7 @@ export default function SingUpForm() {
                 {...register("name", { required: "Name is required" })}
                 type="text"
                 placeholder="Enter Your Name"
-                className="w-full px-6 py-3 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
+                className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />
             </div>
             {errors.name && (
@@ -80,7 +80,7 @@ export default function SingUpForm() {
                 })}
                 type="email"
                 placeholder="Enter Your Email"
-                className="w-full px-6 py-3 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
+                className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />
             </div>
             {errors.email && (
@@ -101,7 +101,7 @@ export default function SingUpForm() {
                 })}
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
-                className="w-full px-6 py-3 pl-12 pr-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
+                className="w-full px-6 py-4 pl-12 pr-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />
 
 <button

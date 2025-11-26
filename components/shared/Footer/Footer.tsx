@@ -49,7 +49,7 @@ export default function Footer() {
               <li><Link href="/howWork">How It Works</Link></li>
               <li><Link href="#">Pricing</Link></li>
               <li><Link href="/trustSeftey">Trust & Safety</Link></li>
-              <li><Link href="#">Success Stories</Link></li>
+              <li><Link href="/success-story">Success Stories</Link></li>
               <li><Link href="#">FAQs</Link></li>
             </ul>
           </div>

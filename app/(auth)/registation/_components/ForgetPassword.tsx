@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import MailIcon from "@/components/Icons/MailIcon";
 import Link from "next/link";
 import Image from "next/image";
+import ArrowLeftIcon from "@/components/Icons/arrowleftIcon";
 
 type FormValues = {
   email: string;
@@ -21,8 +22,8 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+    <div className="containers ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 ">
 
         {/* Left Image */}
         <div className=" mb-10 lg:mb-0">
@@ -32,9 +33,9 @@ export default function ForgotPasswordForm() {
             width={500}
             height={450}
             className="
-              w-[260px]
-              sm:w-[340px]
-              md:w-[420px]
+              w-full
+              sm:w-full
+              md:w-full 
               lg:w-[480px]
               xl:w-[520px]
               h-auto
@@ -43,21 +44,22 @@ export default function ForgotPasswordForm() {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center justify-center rounded-2xl bg-[#FAD2D4]">
+        <div className="flex items-center justify-center rounded-2xl bg-[#FFDBDC]">
           <div className="w-full max-w-lg text-center">
 
             {/* Back + Title */}
             <div className="flex items-center gap-3 justify-center pb-4">
               <Link href="/signin">
-                <span className="text-[#333] text-2xl cursor-pointer">&#8592;</span>
+                <span className="text-[#333] text-2xl cursor-pointer"><ArrowLeftIcon color="black" /></span>
               </Link>
-              <h2 className="text-[#333] font-poppins text-2xl font-medium leading-[150%]">
+              <h2 className="text-[#333] text-center font-poppins text-[40px] font-medium leading-[130%]">
                 Forgot Password
               </h2>
             </div>
 
             {/* Subtitle */}
-            <p className="text-[#333] font-poppins text-base leading-[150%] pb-6 px-4">
+            <p className="text-[#333] text-center font-poppins text-[16px] font-normal leading-[150%] pb-4"
+>
               Please enter your email address to reset
               <br /> your password.
             </p>
@@ -79,7 +81,7 @@ export default function ForgotPasswordForm() {
                   })}
                   type="email"
                   placeholder="E mail"
-                  className="w-full px-6 py-3 pl-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
+                  className="w-full px-6 py-[18px] pl-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
                 />
               </div>
 
@@ -90,7 +92,8 @@ export default function ForgotPasswordForm() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full py-3 bg-[#FF4D4F] text-white font-poppins text-xl font-medium rounded-xl"
+                className="text-white font-poppins text-[24px] font-medium leading-[150%] bg-[#FF4D4F] w-full py-3 px-4 rounded-lg"
+
               >
                 Send OTP
               </button>

@@ -6,12 +6,12 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body 
-      >
-        <AuthHeader/>
+    
+      <div>
+  <AuthHeader/>
         {children}
-      </body>
-    </html>
+    
+      </div>
+      
   );
 }

@@ -8,8 +8,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body 
+    <div
       >
          <div>
             <div className="w-screen flex mx-auto ">
@@ -20,7 +19,6 @@ export default function Layout({
         <ContactUs/>
         <Footer/>
          </div>
-      </body>
-    </html>
+      </div>
   );
 }
