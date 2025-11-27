@@ -71,7 +71,7 @@ export default function Footer() {
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="#">Create Profile</Link></li>
               <li><Link href="#">Browse Jobs</Link></li>
-              <li><Link href="#">Editor Resources</Link></li>
+              <li><Link href="/editor-resource">Editor Resources</Link></li>
               <li><Link href="#">Getting Started</Link></li>
             </ul>
           </div>
@@ -80,7 +80,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">Support</h3>
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
-              <li><Link href="#">Help Center</Link></li>
+              <li><Link href="/help-center">Help Center</Link></li>
               <li><Link href="/contactUs">Contact Us</Link></li>
               <li><Link href="#">Dispute Resolution</Link></li>
               <li><Link href="#">Status Page</Link></li>
