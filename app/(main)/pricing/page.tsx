@@ -68,7 +68,7 @@ export default function Pricing() {
 />
 
       </div>
-        <div className="container mx-auto py-20">
+        <div className="containers mx-auto py-20">
 
           <div className='text-center mb-10'>
             <h3 className="text-[#333] text-center font-poppins text-[40px] md:text-[45px] lg:text-[56px] font-medium leading-[120%]">Pricing Plans</h3>

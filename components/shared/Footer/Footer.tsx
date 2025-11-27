@@ -47,7 +47,7 @@ export default function Footer() {
             <h3 className="text-lg font-poppins font-medium mb-4">Platform</h3>
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="/howWork">How It Works</Link></li>
-              <li><Link href="#">Pricing</Link></li>
+              <li><Link href="/pricing">Pricing</Link></li>
               <li><Link href="/trustSeftey">Trust & Safety</Link></li>
               <li><Link href="/success-story">Success Stories</Link></li>
               <li><Link href="/frequently-question">FAQs</Link></li>
@@ -59,7 +59,7 @@ export default function Footer() {
             <h3 className="text-lg font-poppins font-medium mb-4">For Clients</h3>
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="#">Post a Job</Link></li>
-              <li><Link href="#">Find Editors</Link></li>
+              <li><Link href="/find-editors">Find Editors</Link></li>
               <li><Link href="/payment-protection">Payment Protection</Link></li>
               <li><Link href="#">Client Guide</Link></li>
             </ul>
@@ -82,9 +82,10 @@ export default function Footer() {
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="/help-center">Help Center</Link></li>
               <li><Link href="/contactUs">Contact Us</Link></li>
-              <li><Link href="#">Dispute Resolution</Link></li>
+              <li><Link href="/dispute-resoulation">Dispute Resolution</Link></li>
               <li><Link href="#">Status Page</Link></li>
-              <li><Link href="#">Platform Safety Rules</Link></li>
+               <li><Link href="/terms-condition">Terms & Conditions Page</Link></li>
+              <li><Link href="/platfrom-sefety">Platform Safety Rules</Link></li>
             </ul>
           </div>
         </div>

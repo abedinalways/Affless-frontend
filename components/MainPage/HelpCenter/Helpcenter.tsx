@@ -3,10 +3,23 @@
 import { Search } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Headphones, User, CreditCard, LifeBuoy, MessageCircle } from "lucide-react";
+import PageBanner from "@/components/reusable/Bgbanner";
 
 export default function HelpCenterPage() {
   return (
-    <div className="bg-[#F7F7F7] min-h-screen py-12">
+    <div> 
+          <div>
+        <PageBanner
+  title="Help Center"
+  bgImage="/findEditor.jpg"
+  links={[
+    { label: "Home", href: "/" },
+    { label: "Help Center" }
+  ]}
+/>
+
+      </div>
+      <div className="bg-[#F7F7F7] min-h-screen py-12">
       <div className="containers mx-auto px-4">
 
         <h1 className="text-[36px] font-semibold text-[#333] mb-6">Help Center</h1>
@@ -134,6 +147,7 @@ export default function HelpCenterPage() {
         </div>
 
       </div>
+    </div>
     </div>
   );
 }
