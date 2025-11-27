@@ -43,7 +43,7 @@ function AccordionTrigger({
         {children}
 
         {/* Plus / Minus */}
-        <span className="text-[22px] font-bold text-[#333] leading-none select-none flex items-center">
+        <span className="text-[22px] font-normal text-[#333] leading-none select-none flex items-center">
           {/* CLOSED → show + */}
           <span className="block group-data-[state=open]:hidden">+</span>
 

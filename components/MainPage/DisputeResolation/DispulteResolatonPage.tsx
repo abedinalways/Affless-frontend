@@ -9,9 +9,9 @@ export default function DisputeResolutionPage() {
       <div className="containers mx-auto px-4 md:px-0 grid grid-cols-1 md:grid-cols-[280px_1fr] lg:gap-10.5 md:gap-6">
 
         {/* ---------------- Sidebar ---------------- */}
-        <aside className="bg-white shadow-sm rounded-xl p-6 h-fit">
-          <h3 className="text-lg font-semibold text-[#333] mb-4">Quick links</h3>
-          <ul className="space-y-3 text-[#333] text-sm">
+        <div className="bg-white shadow-sm rounded-xl p-6 h-fit">
+          <h3 className="text-[24px] font-medium text-[#333] mb-6">Quick links</h3>
+          <ul className="space-y-4 text-[#333] text-[16px] font-normal leading-150%">
             <li>
               <Link href="#" className="hover:text-red-500 transition">
                 Accessing the Resolution Center
@@ -33,11 +33,11 @@ export default function DisputeResolutionPage() {
               </Link>
             </li>
           </ul>
-        </aside>
+        </div>
 
         {/* ---------------- Content Section ---------------- */}
         <section className="bg-white shadow-sm rounded-xl p-10 leading-relaxed text-[#333]">
-          <h2 className="text-2xl font-semibold mb-4">How to use the Resolution Center</h2>
+          <h2 className="text-[24px] font-medium leading-150%  mb-4 ">How to use the Resolution Center</h2>
 
           <p className="mb-4">
             The Resolution Center is a place where editors and clients can work together to solve order
@@ -51,7 +51,7 @@ export default function DisputeResolutionPage() {
             freelancer’s and client’s perspectives.
           </p>
 
-          <h3 className="text-xl font-semibold mt-6 mb-3">Accessing the Resolution Center</h3>
+          <h3 className="  mt-6 mb-3">Accessing the Resolution Center</h3>
 
           <p className="mb-4">
             Once inside the Resolution Center, users and freelancers can see updates relevant to their
@@ -69,7 +69,7 @@ export default function DisputeResolutionPage() {
           </ol>
 
           {/* ---------------- Cancellations Section ---------------- */}
-          <h3 className="text-xl font-semibold mt-8 mb-3">Cancellations</h3>
+          <h3 className="text-[24px] font-medium leading-150%  mt-8 mb-3">Cancellations</h3>
 
           <p className="mb-4">
             The Order Resolution Center is a safe tool for managing disputes and developing positive

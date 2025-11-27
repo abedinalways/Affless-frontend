@@ -1,6 +1,8 @@
 
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { BsDiscord } from "react-icons/bs";
 
 export default function Footer() {
   return (
@@ -17,13 +19,13 @@ export default function Footer() {
 
           {/* LEFT COLUMN */}
           <div className="">
-            <div className="flex items-center gap-2">
+            <div className="">
               <Image
                 src="/logo (2).png"
                 width={100}
                 height={50}
                 alt="Logo"
-                className="w-20 h-10"
+                className="w-40 h-12 object-cover justify-start"
               />
         
             </div>
@@ -34,11 +36,18 @@ export default function Footer() {
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-4 mt-6">
-              <Image src="/discord.svg" width={35} height={35} alt="Discord" />
-              <Image src="/facebook.svg" width={35} height={35} alt="Facebook" />
-              <Image src="/instagram.svg" width={35} height={35} alt="Instagram" />
-              <Image src="/linkedin.svg" width={35} height={35} alt="LinkedIn" />
+            <div className="flex items-center gap-2 mt-6">
+            <div className="border-2 border-white p-3 rounded-full">  <BsDiscord width={40} height={35} className=""/></div>
+              <div className="border-2 border-white p-2 rounded-full">
+                <Facebook width={23} height={25} />
+              </div>
+                 <div className="border-2 border-white p-2 rounded-full">
+                <Instagram width={23} height={25} />
+              </div>
+             
+               <div className="border-2 border-white p-2 rounded-full">
+                <Linkedin width={23} height={25} />
+              </div>
             </div>
           </div>
 
