@@ -70,7 +70,7 @@ export default function EditorCard({
           alt={name}
           width={70}
           height={70}
-          className="rounded-full object-cover border-2 border-red-500"
+          className="rounded-full object-cover "
         />
 
         <div>

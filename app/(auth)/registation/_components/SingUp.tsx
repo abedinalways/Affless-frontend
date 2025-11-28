@@ -41,13 +41,13 @@ export default function SingUpForm() {
             alt="signup"
             height={457}
             width={545}
-            className=" max-w-m w-[545px]"
+            className=" "
           />
         </div>
 
         {/* Right Form */}
-        <div className="w-full max-w-lg bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto">
-          <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-6">
+        <div className="w-full max-w-lg bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto mb-8">
+          <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-6 ">
             Sign Up 
           </h2>
 

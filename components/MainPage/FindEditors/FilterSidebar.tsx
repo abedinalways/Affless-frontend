@@ -1,7 +1,10 @@
 "use client";
 
+import { Slider } from "@/components/ui/slider";
+import React from "react";
+
 /* ----------------------------------------
-   JSON DATA (same file)
+   JSON DATA
 -----------------------------------------*/
 export const jobCategories = [
   { label: "Long-Form Video", count: "54" },
@@ -27,7 +30,7 @@ export const deliveryTimes = [
 ];
 
 /* ----------------------------------------
-   Checkbox Row Component (inside same file)
+   Checkbox Component
 -----------------------------------------*/
 type CheckboxProps = {
   label: string;
@@ -37,7 +40,7 @@ type CheckboxProps = {
 
 function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
   return (
-    <label className="flex items-center justify-between cursor-pointer ">
+    <label className="flex items-center justify-between cursor-pointer">
       <div className="flex items-center gap-3">
         <input
           type="checkbox"
@@ -57,9 +60,12 @@ function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
 }
 
 /* ----------------------------------------
-   Filter Sidebar Component (same file)
+   FILTER SIDEBAR
 -----------------------------------------*/
 export default function FilterSidebar() {
+  // ✅ HOOK MUST BE INSIDE COMPONENT
+  const [range, setRange] = React.useState([5, 35]);
+
   return (
     <div className="w-[320px] border p-6 rounded-[20px] bg-white shadow-sm h-fit sticky top-5">
       
@@ -79,14 +85,31 @@ export default function FilterSidebar() {
         ))}
       </div>
 
-      {/* Delivery */}
+      {/* Price Range */}
+      <div className="w-full flex flex-col items-center gap-3 mb-8">
+        <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
+          <span>${range[0]}</span>
+          <span>${range[1]}</span>
+        </div>
+
+        <Slider
+          defaultValue={[5, 35]}
+          max={100}
+          min={0}
+          step={1}
+          value={range}
+          onValueChange={setRange}
+          className="w-full"
+        />
+      </div>
+
+      {/* Delivery Time */}
       <h2 className="text-[#333] font-semibold text-xl mb-4">Delivery Time</h2>
       <div className="flex flex-col gap-4">
         {deliveryTimes.map((d, idx) => (
           <CheckboxRow key={idx} label={d} defaultChecked={idx === 0} />
         ))}
       </div>
-
     </div>
   );
 }

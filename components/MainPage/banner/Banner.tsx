@@ -2,52 +2,64 @@ import React from "react";
 
 export default function Banner() {
   return (
-    <div className=" ">
-      {/* Banner Wrapper */}
-      <div className="relative overflow-hidden ">
+  <div className="">
+  {/* Banner Wrapper */}
+  <div className="relative overflow-hidden">
 
-        {/* Background Image */}
-        <div
-          className="
-            bg-cover bg-center bg-no-repeat 
-           h-[500px] md:h-[700px] w-full 
-            p-10 sm:p-16 
-          " 
-          style={{ backgroundImage: "url('/banner.png')" }} 
-        >
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/70"></div>
+    {/* Background Image */}
+    <div
+      className="
+        bg-cover bg-center bg-no-repeat 
+        h-[500px] md:h-[700px] w-full relative
+      "
+      style={{ backgroundImage: "url('/banner.png')" }}
+    >
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/70"></div>
 
-          {/* Banner Content */}
-      <div className="flex items-center min-h-[500px]">
-  <div className="relative z-10 px-4 md:px-20  lg:px-[230px]">
-    <h3 className="text-white font-[Poppins] lg:text-[72px] md:text-[50px] text-[40px] font-semibold leading-[120%]"
->
-      Find the Right Editor <br className="hidden md:block"/> or the Right Client
-    </h3>
+      {/* Banner Content */}
+      <div className="absolute inset-0 flex items-center  containers">
+        
+        {/* Left aligned content */}
+        <div className="relative z-10 ">
+          
+          <h3
+            className="
+              text-white font-[Poppins]
+              lg:text-[72px] md:text-[50px] text-[32px]
+              font-medium leading-[120%]
+            "
+          >
+            Find the Right Editor <br className="hidden md:block" /> or the Right Client
+          </h3>
 
-    <p className="text-white font-[Poppins] text-[16px] font-normal leading-[150%] mt-6"
->
-      Editor Marketplace connects clients and editors across YouTube,
-      Tiktok, Instagram, X (Twitter), Snapchat, Facebook, podcasts, ads,
-      and more, with clear fees, secure payments, and fast results.
-    </p>
+          <p
+            className="
+              text-white font-[Poppins] text-[16px]
+              font-normal leading-[150%] mt-6
+            "
+          >
+            Editor Marketplace connects clients and editors across YouTube,
+            Tiktok, Instagram, X (Twitter), Snapchat, Facebook, podcasts, ads,
+            and more, with clear fees, secure payments, and fast results.
+          </p>
 
-    <div className="flex  items-center gap-[42px] mt-8 ">
-      <button className="bg-[#FF4D4F] text-white px-3 md:px-6 py-0 md:py-4  rounded-xl font-poppins text-base sm:text-lg">
-        Post a Job Free
-      </button>
+          <div className="flex items-center gap-5 md:gap-[42px] mt-8">
+            <button className="bg-[#FF4D4F] text-white px-3 md:px-6 py-4 md:py-4 rounded-xl font-poppins text-base sm:text-lg">
+              Post a Job Free
+            </button>
 
-      <button className="text-white px-3 md:px-6 py-0 md:py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F]">
-        Become an Editor
-      </button>
+            <button className="text-white px-3 md:px-6 py-4 md:py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F]">
+              Become an Editor
+            </button>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-        </div>
-
-      </div>
-    </div>
   );
 }

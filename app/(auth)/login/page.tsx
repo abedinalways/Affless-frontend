@@ -30,23 +30,23 @@ export default function SignInForm() {
    <div className="containers">
      <div
       className="
-        grid grid-cols-1 md:grid-cols-2 py-[]
-        lg:gap-[164px]
+        grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
+        lg:gap-[100px] space-y-8
       "
     >
       {/* Left Image */}
-      <div className="flex justify-center">
+      <div className="">
         <Image
           src="/svgIcons/loginImage.svg"
           alt="login"
           height={434}
           width={432}
-          className="w-[300px] sm:w-[350px] md:w-[420px] lg:w-[532px] h-[450px]"
+          className=" w-full"
         />
       </div>
 
       {/* Right Form */}
-      <div className="w-full max-w-lg bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-14 mx-auto">
+      <div className="w-full  mb-9 bg-[#FFDBDC] rounded-3xl shadow-md  p-8 sm:p-14 mx-auto">
         <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-[42px]">
           Sign In
         </h2>

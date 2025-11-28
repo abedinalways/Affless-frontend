@@ -40,7 +40,7 @@ export default function TrustSafety() {
   return (
     <div className="containers mx-auto py-20">
       {/* Heading */}
-      <h2 className="text-[#333] text-center font-[Poppins] text-[64px] font-normal leading-[124%] [text-stroke-width:1px] [text-stroke-color:#333]"
+      <h2 className="text-[#333] text-center font-[Poppins] text-[28px] md:text-[40px] lg:text-[64px] font-normal leading-[124%] [text-stroke-width:1px] [text-stroke-color:#333]"
 >Trust & Safety</h2>
       <p className="text-[#4A4C56] text-center font-[Poppins] text-[18px] font-normal leading-[150%] mt-[18px]"
 >
