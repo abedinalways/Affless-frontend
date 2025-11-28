@@ -37,7 +37,7 @@ type CheckboxProps = {
 
 function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
   return (
-    <label className="flex items-center justify-between cursor-pointer">
+    <label className="flex items-center justify-between cursor-pointer ">
       <div className="flex items-center gap-3">
         <input
           type="checkbox"
@@ -61,7 +61,7 @@ function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
 -----------------------------------------*/
 export default function FilterSidebar() {
   return (
-    <div className="w-[320px] border p-6 rounded-[20px] bg-white shadow-sm">
+    <div className="w-[320px] border p-6 rounded-[20px] bg-white shadow-sm h-fit sticky top-5">
       
       {/* Job Category */}
       <h2 className="text-[#333] font-semibold text-xl mb-4">Job Category</h2>

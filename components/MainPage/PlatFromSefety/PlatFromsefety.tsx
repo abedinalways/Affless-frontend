@@ -1,8 +1,14 @@
 "use client";
 
+import SecureIcon from "@/components/Icons/secureIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
 import { AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
-
+import { MdBlockFlipped } from "react-icons/md";
+import { LuTriangleAlert } from "react-icons/lu";
+import { TbAlertTriangle, TbAlertTriangleFilled } from "react-icons/tb";
+import { IoMdCheckbox } from "react-icons/io";
+import { RxCross2 } from "react-icons/rx";
+import { FaSquareCheck } from "react-icons/fa6";
 export default function PlatformSefetyPage() {
   return (
     <div>
@@ -24,7 +30,7 @@ export default function PlatformSefetyPage() {
         {/* Header Box */}
         <div className="bg-[#FFF6EE] border-1 border-[#FF8C8B]  rounded-xl shadow-sm p-4 ">
           <h2 className=" font-normal text-[18px] text-[#333] flex items-center gap-2 pb-3.5">
-            <AlertTriangle size={20} />
+            <MdBlockFlipped className="text-red-500"/>
             Off-Platform Communication & Payment Policy
           </h2>
           <p className="text-[20px] lg:text-[24px]  text-[#4A4C56] ">
@@ -74,7 +80,7 @@ export default function PlatformSefetyPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <div className="border border-[#6D9AFD] bg-[#EFF6FF] p-4 rounded-lg">
-              <h5 className="text-[#1F398E] text-[24px] font-medium leading-[150%] pb-4">Secure Payment</h5>
+              <h5 className="text-[#1F398E] text-[24px] font-medium leading-[150%] pb-4"> Secure Payment</h5>
               <p className="text-[#1F398E]  text-[14px] font-normal leading-[150%] ">All payments run through a secure system with escrow protection.</p>
             </div>
 
@@ -109,7 +115,7 @@ export default function PlatformSefetyPage() {
           {/* First Violation */}
           <div className=" border border-[#FF4D4F] bg-[#FFEEEE] p-5 rounded-xl">
             <h5 className="font-semibold text-[#FF4D4F] mb-2 flex items-center gap-2">
-              <AlertTriangle size={18} /> First Violation (Automated)
+             <TbAlertTriangleFilled className="text-yellow-500"/> First Violation (Automated)
             </h5>
 
             <p className="text-[14px] font-normal leading-150% text-[#FF4D4F] pb-4">The following actions are triggered immediately and automatically:</p>
@@ -125,7 +131,7 @@ export default function PlatformSefetyPage() {
           {/* Second Violation */}
           <div className="mt-6 border border-red-300 bg-red-50 p-5 rounded-xl">
             <h5 className="font-semibold text-[#FF4D4F] mb-2 flex items-center gap-2">
-              <XCircle size={18} /> Second Violation (Automated – Permanent)
+              <MdBlockFlipped className="text-red-500"/> Second Violation (Automated – Permanent)
             </h5>
             <p className="text-[14px] font-normal leading-150% text-[#FF4D4F] pb-4">No manual review required. The system will:</p>
 
@@ -171,7 +177,7 @@ export default function PlatformSefetyPage() {
           {/* Allowed */}
           <div className="border border-green-300 bg-green-50 p-4 rounded-lg mb-4">
             <h5 className=" text-[18px] font-normal flex items-center gap-2 text-[#333]">
-              <CheckCircle2 size={18} /> Allowed
+               <FaSquareCheck className="text-green-500" /> Allowed
             </h5>
             <p className="text-[18px] font-normal leading-150% pt-3.5">
               Sharing project files through Editor Marketplace’s built-in upload system. All work-related files, feedback, and deliverables should use our secure file sharing.
@@ -181,7 +187,7 @@ export default function PlatformSefetyPage() {
           {/* Not Allowed */}
           <div className="border border-red-300 bg-red-50 p-4 rounded-lg">
             <h5 className="font-normal text-[#333] mb-2 flex items-center gap-2 text-[18px]">
-              <XCircle size={18} /> Not Allowed
+              <RxCross2 className="text-red-500 font-semibold text-2xl"/> Not Allowed
             </h5>
 
             <ul className="list-disc ml-6 text-[18px] font-normal leading-150% space-y-3.5">

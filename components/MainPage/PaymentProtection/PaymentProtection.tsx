@@ -3,6 +3,7 @@ import React from "react";
 import TikmarkIcon from "@/components/Icons/TikmarkIcon";
 import HowPayments from "./HowPayments";
 import WhyUsPamymet from "./WhyUsPayment";
+import { LuShieldCheck } from "react-icons/lu";
 
 export default function PaymentProtectionPage() {
   return (
@@ -32,7 +33,7 @@ export default function PaymentProtectionPage() {
           <div className="max-w-lg text-white space-y-4 ">
             {/* Badge */}
             <button className="bg-[#534E45] px-4 py-2 rounded-md text-[14px] font-medium flex items-center gap-2">
-              <TikmarkIcon className="w-4 h-4" /> 100% Secure
+              <LuShieldCheck className="w-4 h-4" /> 100% Secure
             </button>
 
             <p className="text-[28px] font-semibold leading-[130%]">
