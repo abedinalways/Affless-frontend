@@ -6,7 +6,7 @@ import GetPaidIcon from "@/components/Icons/GetPaidIcon";
 import GetProposal from "@/components/Icons/getProposal";
 import MailIcon from "@/components/Icons/MailIcon";
 import Postjob from "@/components/Icons/postJob";
-import ReleaseIcon from "@/components/Icons/ReleseFoundIcon";
+import ReleaseFoundIcon from "@/components/Icons/ReleseFoundIcon";
 import { EyeIcon } from "lucide-react";
 import React from "react";
 
@@ -34,7 +34,7 @@ const data1 = [
   },
   {
     id: 4,
-    icon: <ReleaseIcon />,
+    icon: <ReleaseFoundIcon/>,
     title: " Release Funds",
     desc: "Approve delivery and release payment",
   },
@@ -93,7 +93,7 @@ export default function HowWork() {
               <div className="space-y-4 lg:space-y-[60px]">
                 {data1.slice(1).map((item) => (
                   <div key={item.id} className="flex  gap-[18px]">
-                    <div>{item.icon}</div>
+                    <div className="">{item.icon}</div>
                     <div>
                       <p className="text-[#333] font-[Poppins] text-[16px] md:text-[24px] font-medium pb-1.5 leading-[150%]">
                         {item.title}

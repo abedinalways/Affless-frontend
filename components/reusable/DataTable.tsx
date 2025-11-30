@@ -1,82 +1,120 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 
-export default function Pagination({
-  page,
-  pageSize,
-  total,
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+import Pagination from "./pagination";
+
+interface DataTableProps<TData, TValue> {
+  children?: React.ReactNode;
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  page?: number;
+  pageSize?: number;
+  total?: number;
+  onPageChange?: (page: number) => void;
+}
+
+export function DataTable<TData, TValue>({
+  children,
+  columns,
+  data,
+  page = 1,
+  pageSize = 10,
+  total = data.length,
   onPageChange,
-}: {
-  page: number;
-  pageSize: number;
-  total: number;
-  onPageChange: (page: number) => void;
-}) {
-  const totalPages = Math.ceil(total / pageSize);
+}: DataTableProps<TData, TValue>) {
 
-  // show only first 3 pages for UI (you can improve later)
-  const pagesToShow = [1, 2, 3];
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
 
   return (
-    <div className="flex justify-center items-center gap-3 mt-10">
+    <div className="rounded-md">
 
-      {/* Prev */}
-      <button
-        disabled={page === 1}
-        onClick={() => onPageChange(page - 1)}
-        className="w-10 h-10 flex items-center justify-center rounded-full border bg-white shadow hover:bg-gray-50 disabled:opacity-40"
-      >
-        <ChevronLeft size={18} />
-      </button>
+      {children && <div className="px-4 pt-4">{children}</div>}
 
-      {/* Page Numbers */}
-      <ul className="flex items-center gap-3">
-        {pagesToShow.map((p) => (
-          <li key={p}>
-            <button
-              onClick={() => onPageChange(p)}
-              className={`w-10 h-10 flex items-center justify-center rounded-full font-medium 
-                ${
-                  page === p
-                    ? "bg-red-500 text-white"
-                    : "bg-red-100 text-red-500"
-                }`}
-            >
-              {p}
-            </button>
-          </li>
-        ))}
+      <div className="overflow-x-auto">
 
-        {/* Dots */}
-        <li className="w-10 h-10 flex items-center justify-center rounded-full bg-red-50 text-red-400">
-          ...
-        </li>
+        <Table className=" border-separate border-spacing-y-4">
 
-        {/* Last Page */}
-        <li>
-          <button
-            onClick={() => onPageChange(totalPages)}
-            className={`w-10 h-10 flex items-center justify-center rounded-full font-medium 
-              ${
-                page === totalPages
-                  ? "bg-red-500 text-white"
-                  : "bg-red-100 text-red-500"
-              }`}
-          >
-            {totalPages}
-          </button>
-        </li>
-      </ul>
+          {/* HEADER */}
+          <TableHeader className="bg-white rounded-md border-2 border-red-500 ">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id} className="p-9" >
+                {headerGroup.headers.map((header) => (
+                  <TableHead
+                    key={header.id}
+                    className="p text-sm font-semibold "
+                  >
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
 
-      {/* Next */}
-      <button
-        disabled={page === totalPages}
-        onClick={() => onPageChange(page + 1)}
-        className="w-10 h-10 flex items-center justify-center rounded-full border bg-white shadow hover:bg-gray-50 disabled:opacity-40"
-      >
-        <ChevronRight size={18} />
-      </button>
+          {/* BODY */}
+          <TableBody>
+            {table.getRowModel().rows.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  className="
+                    bg-white 
+                     border-2 border-red-500
+                    rounded-xl 
+                    hover:bg-red-100
+                    transition
+                  "
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} className="p-2.5 ">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center text-gray-500"
+                >
+                  No results found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+
+        </Table>
+      </div>
+
+      {onPageChange && (
+        <div className="py-4">
+          <Pagination
+            page={page}
+            pageSize={pageSize}
+            total={total}
+            onPageChange={onPageChange}
+          />
+        </div>
+      )}
 
     </div>
   );

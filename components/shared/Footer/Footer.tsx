@@ -100,9 +100,14 @@ export default function Footer() {
         </div>
 
         {/* COPYRIGHT */}
-        <div className="border-t border-[#253045] mt-14 pt-6 text-center text-[#D7D7D7] font-poppins text-sm">
-          © Copyright — All rights reserved. 2024
-        </div>
+        <div className="border-t border-[#253045] mt-14 pt-6 text-center text-[#D7D7D7] font-poppins text-sm "></div>
+    <div className="w-[696px] flex items-center mx-auto ">
+       <div className="flex justify-between w-[400px]  md:w-[696px]">
+         <p className="">© Copyright</p>
+         <p className="">All rights reserved. 2024</p>
+         </div>
+    </div>
+        
       </div>
     </footer>
   );

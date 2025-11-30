@@ -15,8 +15,19 @@ export default function Pagination({
 }) {
   const totalPages = Math.ceil(total / pageSize);
 
-  // Dynamic pages
-  const pagesToShow = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const getPages = () => {
+    if (totalPages <= 6) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (page <= 3) return [1, 2, 3, "...", totalPages];
+    if (page >= totalPages - 2)
+      return [1, "...", totalPages - 2, totalPages - 1, totalPages];
+
+    return [1, "...", page - 1, page, page + 1, "...", totalPages];
+  };
+
+  const pagesToShow = getPages();
 
   return (
     <div className="flex justify-center items-center gap-3 mt-10">
@@ -32,17 +43,21 @@ export default function Pagination({
 
       {/* Page numbers */}
       <ul className="flex items-center gap-3">
-        {pagesToShow.map((p) => (
-          <li key={p}>
-            <button
-              onClick={() => onPageChange(p)}
-              className={`w-10 h-10 flex items-center justify-center rounded-full font-medium 
-                ${page === p ? "bg-red-500 text-white" : "bg-red-100 text-red-500"}`}
-            >
-              {p}
-            </button>
-          </li>
-        ))}
+        {pagesToShow.map((p, idx) =>
+          p === "..." ? (
+            <li key={idx} className="text-gray-400">...</li>
+          ) : (
+            <li key={idx}>
+              <button
+                onClick={() => onPageChange(Number(p))}
+                className={`w-10 h-10 flex items-center justify-center rounded-full font-medium 
+                  ${page === p ? "bg-red-500 text-white" : "bg-red-100 text-red-500"}`}
+              >
+                {p}
+              </button>
+            </li>
+          )
+        )}
       </ul>
 
       {/* Next */}
