@@ -26,6 +26,9 @@ interface DataTableProps<TData, TValue> {
   pageSize?: number;
   total?: number;
   onPageChange?: (page: number) => void;
+
+  // ✅ No Row<TData>, just plain data
+  onRowClick?: (row: TData) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -36,6 +39,7 @@ export function DataTable<TData, TValue>({
   pageSize = 10,
   total = data.length,
   onPageChange,
+  onRowClick,
 }: DataTableProps<TData, TValue>) {
 
   const table = useReactTable({
@@ -51,17 +55,14 @@ export function DataTable<TData, TValue>({
 
       <div className="overflow-x-auto">
 
-        <Table className=" border-separate border-spacing-y-4">
+        <Table className="border-separate border-spacing-y-4">
 
           {/* HEADER */}
-          <TableHeader className="bg-white rounded-md border-2 border-red-500 ">
+          <TableHeader className="bg-white rounded-md border-2 border-red-500">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="p-9" >
+              <TableRow key={headerGroup.id} className="p-9">
                 {headerGroup.headers.map((header) => (
-                  <TableHead
-                    key={header.id}
-                    className="p text-sm font-semibold "
-                  >
+                  <TableHead key={header.id} className="text-sm font-semibold">
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 ))}
@@ -75,16 +76,18 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  onClick={() => onRowClick?.(row.original)}   
                   className="
-                    bg-white 
-                     border-2 border-red-500
-                    rounded-xl 
+                    cursor-pointer
+                    bg-white
+                    border-2 border-red-500
+                    rounded-xl
                     hover:bg-red-100
                     transition
                   "
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="p-2.5 ">
+                    <TableCell key={cell.id} className="p-2.5">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}

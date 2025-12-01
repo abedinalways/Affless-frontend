@@ -221,9 +221,11 @@ export default function ManageJobsPage() {
 </div>
 
 
+        <Link href="/post-job">
         <div className="bg-[#FF4D4F] py-3 px-4 h-fit top-5 text-white rounded-lg cursor-pointer">
           Create a new Job
         </div>
+        </Link>
       </div>
 
       {/* Title */}

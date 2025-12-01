@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ProposalRow {
   id: number;
@@ -100,10 +101,13 @@ const Proposal: ProposalRow[] = [
 const PAGE_SIZE = 8;
 
 export default function JobProposalPage() {
-  const [page, setPage] = useState(1);
-  const [timeFilter, setTimeFilter] = useState<"ALL" | "5 Days" | "7 Days" | "3 Days">("ALL");
+  const router = useRouter();
 
-  // 1️⃣ Filter by time first
+  const [page, setPage] = useState(1);
+  const [timeFilter, setTimeFilter] = useState<
+    "ALL" | "5 Days" | "7 Days" | "3 Days"
+  >("ALL");
+
   const filteredData = useMemo(() => {
     if (timeFilter === "ALL") return Proposal;
     return Proposal.filter((p) => p.time === timeFilter);
@@ -111,7 +115,6 @@ export default function JobProposalPage() {
 
   const total = filteredData.length;
 
-  // 2️⃣ Then paginate the filtered data
   const paginatedData = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
     return filteredData.slice(start, start + PAGE_SIZE);
@@ -121,23 +124,22 @@ export default function JobProposalPage() {
     {
       accessorKey: "service",
       header: "Service",
-      cell: ({ row }) => {
-        const data = row.original;
-        return (
-          <div className="flex items-center gap-4">
+      cell: ({ row }) => (
+        <Link href={`/job-details?id=${row.original.id}`} className="block">
+          <div className="flex items-center gap-4 cursor-pointer">
             <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
               <img
-                src={data.thumbnail}
-                alt={data.service}
+                src={row.original.thumbnail}
+                alt={row.original.service}
                 className="h-full w-full object-cover"
               />
             </div>
             <span className="text-sm font-medium text-gray-800">
-              {data.service}
+              {row.original.service}
             </span>
           </div>
-        );
-      },
+        </Link>
+      ),
     },
     {
       accessorKey: "amount",
@@ -157,12 +159,11 @@ export default function JobProposalPage() {
       accessorKey: "status",
       header: "STATUS",
       cell: ({ row }) => (
-       <Link href="/job-details">
-        <div className="">
-          <span className="px-4 py-1 rounded-md text-xs font-semibold uppercase text-white bg-green-600">
+        <Link href={`/job-details?id=${row.original.id}`}>
+          <span className="px-4 py-1 rounded-md text-[18px] font-normal uppercase text-white bg-green-600 cursor-pointer">
             {row.original.status}
           </span>
-        </div></Link>
+        </Link>
       ),
     },
   ];
@@ -170,7 +171,7 @@ export default function JobProposalPage() {
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value as "ALL" | "5 Days" | "7 Days" | "3 Days";
     setTimeFilter(value);
-    setPage(1); // reset to first page when filter changes
+    setPage(1);
   };
 
   return (
@@ -179,37 +180,38 @@ export default function JobProposalPage() {
         Job Proposals
       </h2>
 
-      <div className="flex justify-between items-center mb-6">
+      {/* Filter and Buttons */}
+      <div className="flex justify-between items-center mb-6 text-[18px] fontnt-normal">
         <div className="flex gap-4">
-          <button className="px-4 py-2 bg-black text-white rounded-md">
+          <button className="p-2.5  bg-[#FF4D4F] text-white rounded-md">
             Proposals
           </button>
-          <button className="px-4 py-2 bg-gray-200 rounded-md text-gray-700">
+          <button className="p-2.5 bg-[#FFEDED] rounded-md text-[#FF4D4F]">
             Declined
           </button>
         </div>
 
-        <div>
-          <select
-            className="rounded-lg p-2.5 border border-gray-300 text-sm"
-            value={timeFilter}
-            onChange={handleFilterChange}
-          >
-            <option value="ALL">CAST 30 DAYS</option>
-            <option value="5 Days">5 Days</option>
-            <option value="7 Days">7 Days</option>
-            <option value="3 Days">3 Days</option>
-          </select>
-        </div>
+        <select
+          className="rounded-lg p-2.5 border border-gray-300 text-sm"
+          value={timeFilter}
+          onChange={handleFilterChange}
+        >
+          <option value="ALL">CAST 30 DAYS</option>
+          <option value="5 Days">5 Days</option>
+          <option value="7 Days">7 Days</option>
+          <option value="3 Days">3 Days</option>
+        </select>
       </div>
 
-      <DataTable<ProposalRow, any>
+      {/* TABLE */}
+      <DataTable
         columns={columns}
         data={paginatedData}
         page={page}
         pageSize={PAGE_SIZE}
         total={total}
         onPageChange={setPage}
+        onRowClick={(row) => router.push(`/job-details?id=${row.id}`)}
       />
     </div>
   );

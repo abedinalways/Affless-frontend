@@ -26,16 +26,18 @@ export default function ReviewConfirmPage() {
 
   return (
     <div className="containers mx-auto py-10 px-5">
-      <h1 className="text-3xl font-semibold mb-2">Review & Confirm</h1>
-      <p className="text-gray-600 mb-7">
+      <h1 className="text-[30px] md:text-[35px] lg:text-[40px] font-medium text-[#333] pb-3">Review & Confirm</h1>
+      <p className="text-[#4A4C56] text-[16px]">
         Please review your project details before sending the hire request.
       </p>
 
       {/* Editor Info */}
-      <div className="p-6 bg-[#FF4D4F] text-white rounded-xl mb-8">
-        <h2 className="text-xl font-semibold">Selected Editor</h2>
-        <p className="text-sm opacity-90">Professional Video Editor</p>
+     <div className="py-6">
+       <div className="p-8 bg-[#F6E5E5] text-white rounded-lg">
+        <h2 className="text-xl text-[#333] font-medium">Selected Editor</h2>
+        <p className="text-sm pt-[18px] text-[#4A4C56]">Professional Video Editor</p>
       </div>
+     </div>
 
       {/* Project Details */}
       <div className="bg-white p-6 rounded-xl shadow-sm mb-8">

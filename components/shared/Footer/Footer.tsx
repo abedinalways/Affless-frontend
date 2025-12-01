@@ -7,7 +7,7 @@ import { BsDiscord } from "react-icons/bs";
 export default function Footer() {
   return (
     <footer className="bg-[#0F1623] text-white pt-16 pb-10 mt-10">
-      <div className="containers  mx-auto ">
+      <div className="containers overflow-hidden ">
         <div className="
           grid grid-cols-1 
           sm:grid-cols-2
