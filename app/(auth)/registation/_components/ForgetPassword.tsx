@@ -44,7 +44,7 @@ export default function ForgotPasswordForm() {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center justify-center rounded-2xl bg-[#FFDBDC]">
+        <div className="flex items-center justify-center rounded-2xl bg-[#FFDBDC] mb-8 p-3">
           <div className="w-full max-w-lg text-center">
 
             {/* Back + Title */}

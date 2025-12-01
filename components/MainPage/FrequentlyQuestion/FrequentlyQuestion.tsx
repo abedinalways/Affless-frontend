@@ -1,5 +1,8 @@
 "use client";
 
+import PaymentFaqIcon from "@/components/Icons/PaymentFaq";
+import PlaneIcon from "@/components/Icons/PlaneIcon";
+import PoliceIcon from "@/components/Icons/PoliceRoles";
 import PageBanner from "@/components/reusable/Bgbanner";
 import {
   Accordion,
@@ -7,12 +10,14 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import { GiftIcon } from "lucide-react";
+import { BellRing, GiftIcon } from "lucide-react";
+import { HiOutlineLightBulb } from "react-icons/hi";
+import { TiGift } from "react-icons/ti";
 
 export default function Frequently() {
   // 🔹 All FAQ Data Inside Same Component
   const faqData = [
-    { icon:<GiftIcon/>,
+    { 
       category: "General Platform Questions",
       items: [
         {
@@ -29,6 +34,7 @@ export default function Frequently() {
     },
 
     {
+      icon:<PaymentFaqIcon/>,
       category: "Payments & Fees",
       items: [
         { question: "How do payments work?", answer: "Payments are protected by escrow." },
@@ -39,6 +45,7 @@ export default function Frequently() {
     },
 
     {
+        icon:<PaymentFaqIcon/>,
       category: "Escrow, Disputes & Refunds",
       items: [
         { question: "What is escrow?", answer: "Escrow ensures safe payment until delivery." },
@@ -51,6 +58,7 @@ export default function Frequently() {
     },
 
     {
+        icon:<PlaneIcon/>,
       category: "Boosts & Promotions",
       items: [
         { question: "What are job boosts?", answer: "Boosts increase job visibility." },
@@ -59,18 +67,37 @@ export default function Frequently() {
     },
 
     {
-      category: "Policies & Rules",
+  icon:<TiGift />,
+      category: "Special Promotions",
       items: [
-        { question: "Can I work outside the platform?", answer: "No, this violates policy." },
+        { question: "What's the YouTube subscription reward??", answer: "No, this violates policy." },
         { question: "What happens if rules are violated?", answer: "Penalties may apply." },
       ],
     },
 
     {
+        icon:<BellRing />,
       category: "Technical",
       items: [
         { question: "Do I need to install software?", answer: "No, it works in your browser." },
         { question: "What if I find a bug?", answer: "Report it to support." },
+      ],
+    },
+        {
+  icon:<PoliceIcon />,
+      category: "Policies & Rules",
+      items: [
+        { question: "Can I work with clients/editors outside the platform?", answer: "No, this violates policy." },
+        { question: "What happens if someone violates the rules?", answer: "Penalties may apply." },
+      ],
+    },
+
+    {
+        icon:<HiOutlineLightBulb />,
+      category: "Technical",
+      items: [
+        { question: "Do I need to install software to use the platform?", answer: "No, it works in your browser." },
+        { question: "What if I encounter a bug or technical issue?", answer: "Report it to support." },
       ],
     },
   ];
@@ -95,7 +122,7 @@ export default function Frequently() {
         <div key={idx} className="border rounded-lg overflow-hidden">
 
           {/* 🔴 Category Heading */}
-          <div className="bg-[#FF4D4F] text-white px-4 py-3 font-semibold text-[16px] flex gap-4">
+          <div className="bg-[#FF4D4F] text-white px-6 py-5 font-medium text-[20px] md:text-2xl lg:text-[28px] flex gap-4">
             {section.icon}
             {section.category}
           </div>
@@ -108,7 +135,7 @@ export default function Frequently() {
                 value={`item-${idx}-${index}`}
                 className="border-b"
               >
-                <AccordionTrigger className="px-4 py-3 text-left text-[15px] font-medium">
+                <AccordionTrigger className="px-6 py-5 text-left text-[15px] font-medium">
                   {faq.question}
                 </AccordionTrigger>
 

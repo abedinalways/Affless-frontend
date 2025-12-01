@@ -62,8 +62,8 @@ const data = [
 
 export default function Popularcategory() {
   return (
-    <div className="containers mx-auto py-20">
-      <h2 className="text-[#333] text-center font-[Poppins] text-[64px] font-normal leading-[124%] [text-stroke-width:1px] [text-stroke-color:#333]"
+    <div className="containers mx-auto lg:py-20">
+      <h2 className="text-[#333] text-center font-[Poppins] text-[28px] md:text-[64px] font-medium leading-[124%] [text-stroke-width:1px] "
 >Popular Categories</h2>
       <p className="text-[#4A4C56] text-center font-[Poppins] text-[18px] font-normal leading-[150%] mt-4"
 >

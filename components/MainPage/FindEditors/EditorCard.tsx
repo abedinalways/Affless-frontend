@@ -1,54 +1,49 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Star, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 
-/* ----------------------------------------
-   EDITORS JSON DATA
------------------------------------------*/
+
 export const editors = [
   {
     name: "Jane Cooper",
     country: "Charlton, United States",
-    avatar: "/avatar1.jpg",
+    avatar: "/images/jonekeper.png",
     budget: "$562",
     rating: 4.9,
     reviews: 338,
-    skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
+    skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora",],
     description:
-      "In this digital age, video is a powerful tool that can engage millions of people around the world...",
+      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
   {
     name: "Robert Fox",
     country: "United States",
-    avatar: "/avatar2.jpg",
+    avatar: "/images/robatfox.png",
     budget: "$562",
     rating: 4.9,
     reviews: 338,
     skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
     description:
-      "In this digital age, video is a powerful tool that can engage millions of people around the world...",
+    "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
   {
     name: "Bessie Cooper",
     country: "Algeria",
-    avatar: "/avatar3.jpg",
+    avatar: "/images/basse.png",
     budget: "$562",
     rating: 4.9,
     reviews: 338,
     skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
     description:
-      "In this digital age, video is a powerful tool that can engage millions of people around the world...",
+      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
 ];
 
-/* ----------------------------------------
-   EDITOR CARD COMPONENT
------------------------------------------*/
 export type EditorCardProps = {
   name: string;
   country: string;
-  avatar: string;
+  avatar: string | StaticImageData; 
   budget: string;
   rating: number;
   reviews: number;
@@ -75,13 +70,13 @@ export default function EditorCard({
           alt={name}
           width={70}
           height={70}
-          className="rounded-full object-cover"
+          className="rounded-full object-cover "
         />
 
         <div>
-          <h2 className="text-[22px] font-semibold">{name}</h2>
+          <h2 className="text-[20px] md:text-[24px] font-medium leading-150% text-[#333]">{name}</h2>
 
-          <div className="flex items-center gap-1 text-gray-600 text-sm">
+          <div className="flex items-center gap-1 text-[14px] leading-150% font-normal text-[#777980]">
             <MapPin size={15} />
             <span>{country}</span>
           </div>
@@ -89,12 +84,12 @@ export default function EditorCard({
       </div>
 
       {/* Budget + Rating */}
-      <div className="mt-4 flex items-center gap-4">
-        <p className="text-[16px] text-black font-medium">
-          Project Budget: <span className="text-red-500">{budget}</span>
+      <div className="mt-4 flex items-center gap-5">
+        <p className="text-[16px] text-[#777980]  font-medium">
+          Project Budget: <span className="">{budget}</span>
         </p>
 
-        <div className="flex items-center gap-1 text-[16px]">
+        <div className="flex items-center gap-1 text-[16px] text-[#777980]">
           <Star size={18} className="text-yellow-500 fill-yellow-500" />
           <span>
             {rating}({reviews})
@@ -103,7 +98,7 @@ export default function EditorCard({
       </div>
 
       {/* Description */}
-      <p className="text-gray-600 mt-3 leading-relaxed">{description}</p>
+      <p className="text-[#777980] text-[14px] font-normal mt-3 ">{description}</p>
 
       {/* Skills */}
       <div className="flex items-center mt-5 gap-4 lg:gap-[100px]">
@@ -111,7 +106,7 @@ export default function EditorCard({
         {skills.map((skill, idx) => (
           <span
             key={idx}
-            className="bg-gray-100 px-4 py-1 rounded-full text-sm w-full"
+            className="bg-gray-100 px-4 py-1 rounded-full text-sm "
           >
             {skill}
           </span>
@@ -120,7 +115,7 @@ export default function EditorCard({
       </div>
 
       {/* Hire Button */}
-      <button className="w-full bg-red-500 text-white mt-6 py-3 rounded-lg font-medium">
+      <button className="w-full bg-red-500 text-white mt-6  p-3 rounded-lg font-medium">
         Hire Editor
       </button>
       

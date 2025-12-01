@@ -10,15 +10,16 @@ type PageBannerProps = {
 
 export default function PageBanner({ title, bgImage, links }: PageBannerProps) {
   return (
-    <div
-      className="h-[394px] bg-cover bg-center"
+  <div className="hidden md:block">
+      <div
+      className="h-[394px] bg-cover bg-center flex items-center "
       style={{ backgroundImage: `url('${bgImage}')` }}
     >
-      <div className="containers pt-20 mx-auto">
-        <h1 className="text-white text-[64px] font-medium">{title}</h1>
-
+      <div className="containers justify-center items-start ">
+        <h1 className="text-white text-[40px] md:text-[50px] lg:text-[64px] font-medium">{title}</h1>
         <BreadCrumb links={links} />
       </div>
     </div>
+  </div>
   );
 }

@@ -45,7 +45,7 @@ export default function ResetPasswordForm() {
         </div>
 
         {/* Right Panel */}
-        <div className="flex items-center justify-center bg-[#FFDBDC] rounded-2xl">
+        <div className="flex items-center justify-center bg-[#FFDBDC] rounded-2xl mb-8">
           <div className="w-full max-w-lg text-center py-10 px-4 sm:px-8">
 
             {/* Back + Title */}

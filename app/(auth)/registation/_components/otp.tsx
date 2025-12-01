@@ -47,7 +47,7 @@ export default function OtpForm() {
   className="
     grid grid-cols-1 lg:grid-cols-2
    gap-5 md:gap-7 xl:gap-[73px] 
-   container mx-auto
+   containers mx-auto
     items-stretch
   "
 >
@@ -72,8 +72,8 @@ export default function OtpForm() {
   </div>
 
   {/* Right Content */}
-  <div className="flex flex-col justify-center bg-[#FFDBDC] rounded-2xl h-full">
-    <div className="w-full max-w-lg mx-auto text-center py-10">
+  <div className="flex flex-col justify-center bg-[#FFDBDC] rounded-2xl mb-8">
+    <div className="w-full max-w-lg mx-auto text-center py-10  ">
 
       {/* Back + Title */}
       <div className="flex items-center gap-3 justify-center pb-4">
@@ -117,9 +117,11 @@ export default function OtpForm() {
 </div>
 
 
-        <Button className="w-full py-3 bg-[#FF4D4F] text-white text-xl font-poppins rounded-xl">
+        <div className="px-4">
+          <Button className="w-full py-3  bg-[#FF4D4F] text-white text-xl font-poppins rounded-xl">
           Verify
         </Button>
+        </div>
       </form>
 
     </div>

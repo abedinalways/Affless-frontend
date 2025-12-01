@@ -4,16 +4,16 @@ import Youtube from "@/components/Icons/Youtube";
 
 export default function Subscribe() {
   return (
-    <div className="">
-        <div className="w-full bg-[#E74C4C] py-10 text-center text-white ">
+    <div className="pt-8 lg:pt-0 ">
+        <div className="w-full bg-[#E74C4C] py-10 text-center text-white containers   ">
       
       {/* YouTube Icon */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6 ">
        <Youtube/>
       </div>
 
       {/* Heading */}
-      <h2 className="text-white text-center font-[Poppins] text-[48px] font-semibold leading-[120%]"
+      <h2 className="text-white text-center font-[Poppins] text-[32px] lg:text-[48px] font-semibold leading-[120%]"
 >
         Subscribe to our YouTube channel
       </h2>

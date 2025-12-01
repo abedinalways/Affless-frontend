@@ -20,12 +20,12 @@ export default function ContactUs() {
           <div className="absolute inset-0 bg-black/70"></div>
 
           {/* Banner Content */}
-    <div >
+    <div className="absolute inset-0 flex items-center px-5 lg:px-0 " >
            <div className=" ">
            <div className="relative z-10 px-[5x] lg:px-[150px]">
             <p className="text-white font-['Plus_Jakarta_Sans'] text-[16px] font-bold leading-[150%]"
 >CONTACT US</p>
-            <h3 className="text-white font-['Plus_Jakarta_Sans'] text-[48px] font-bold leading-[118%]"
+            <h3 className="text-white font-['Plus_Jakarta_Sans'] text-[32px] lg:text-[48px] font-bold leading-[118%]"
 >
               Still Have Questions?
             </h3>

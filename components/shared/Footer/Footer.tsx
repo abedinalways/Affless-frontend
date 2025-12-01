@@ -1,6 +1,8 @@
 
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { BsDiscord } from "react-icons/bs";
 
 export default function Footer() {
   return (
@@ -17,13 +19,13 @@ export default function Footer() {
 
           {/* LEFT COLUMN */}
           <div className="">
-            <div className="flex items-center gap-2">
+            <div className="">
               <Image
                 src="/logo (2).png"
                 width={100}
                 height={50}
                 alt="Logo"
-                className="w-20 h-10"
+                className="w-40 h-12 object-cover justify-start"
               />
         
             </div>
@@ -34,11 +36,18 @@ export default function Footer() {
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-4 mt-6">
-              <Image src="/discord.svg" width={35} height={35} alt="Discord" />
-              <Image src="/facebook.svg" width={35} height={35} alt="Facebook" />
-              <Image src="/instagram.svg" width={35} height={35} alt="Instagram" />
-              <Image src="/linkedin.svg" width={35} height={35} alt="LinkedIn" />
+            <div className="flex items-center gap-2 mt-6">
+            <div className="border-2 border-white p-3 rounded-full">  <BsDiscord width={40} height={35} className=""/></div>
+              <div className="border-2 border-white p-2 rounded-full">
+                <Facebook width={23} height={25} />
+              </div>
+                 <div className="border-2 border-white p-2 rounded-full">
+                <Instagram width={23} height={25} />
+              </div>
+             
+               <div className="border-2 border-white p-2 rounded-full">
+                <Linkedin width={23} height={25} />
+              </div>
             </div>
           </div>
 
@@ -47,7 +56,7 @@ export default function Footer() {
             <h3 className="text-lg font-poppins font-medium mb-4">Platform</h3>
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="/howWork">How It Works</Link></li>
-              <li><Link href="#">Pricing</Link></li>
+              <li><Link href="/pricing">Pricing</Link></li>
               <li><Link href="/trustSeftey">Trust & Safety</Link></li>
               <li><Link href="/success-story">Success Stories</Link></li>
               <li><Link href="/frequently-question">FAQs</Link></li>
@@ -59,9 +68,9 @@ export default function Footer() {
             <h3 className="text-lg font-poppins font-medium mb-4">For Clients</h3>
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="#">Post a Job</Link></li>
-              <li><Link href="#">Find Editors</Link></li>
+              <li><Link href="/find-editors">Find Editors</Link></li>
               <li><Link href="/payment-protection">Payment Protection</Link></li>
-              <li><Link href="#">Client Guide</Link></li>
+              <li><Link href="/client-guide">Client Guide</Link></li>
             </ul>
           </div>
 
@@ -71,7 +80,7 @@ export default function Footer() {
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
               <li><Link href="#">Create Profile</Link></li>
               <li><Link href="#">Browse Jobs</Link></li>
-              <li><Link href="#">Editor Resources</Link></li>
+              <li><Link href="/editor-resource">Editor Resources</Link></li>
               <li><Link href="#">Getting Started</Link></li>
             </ul>
           </div>
@@ -80,19 +89,25 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">Support</h3>
             <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
-              <li><Link href="#">Help Center</Link></li>
+              <li><Link href="/help-center">Help Center</Link></li>
               <li><Link href="/contactUs">Contact Us</Link></li>
-              <li><Link href="#">Dispute Resolution</Link></li>
+              <li><Link href="/dispute-resoulation">Dispute Resolution</Link></li>
               <li><Link href="#">Status Page</Link></li>
-              <li><Link href="#">Platform Safety Rules</Link></li>
+               <li><Link href="/terms-condition">Terms & Conditions Page</Link></li>
+              <li><Link href="/platfrom-sefety">Platform Safety Rules</Link></li>
             </ul>
           </div>
         </div>
 
         {/* COPYRIGHT */}
-        <div className="border-t border-[#253045] mt-14 pt-6 text-center text-[#D7D7D7] font-poppins text-sm">
-          © Copyright — All rights reserved. 2024
-        </div>
+        <div className="border-t border-[#253045] mt-14 pt-6 text-center text-[#D7D7D7] font-poppins text-sm "></div>
+    <div className="w-[696px] flex items-center mx-auto ">
+       <div className="flex justify-between w-[400px]  md:w-[696px]">
+         <p className="">© Copyright</p>
+         <p className="">All rights reserved. 2024</p>
+         </div>
+    </div>
+        
       </div>
     </footer>
   );

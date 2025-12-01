@@ -8,18 +8,16 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-      >
+  
+      
         <div>
-          <div className="w-screen flex justify-center containers">
+          <div className="">
             <Navbar />
           </div>
           {children}
           <ContactUs />
           <Footer />
         </div>
-      </body>
-    </html>
+     
   );
 }
