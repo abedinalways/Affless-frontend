@@ -61,7 +61,7 @@ export default function HireVideoEditorForm() {
       </p>
 
       {/* Basic Information */}
-      <div className="bg-white p-6 rounded-xl mb-8 shadow-sm">
+      <div className="bg-white p-8 rounded-xl mb-8 shadow-sm">
         <h2 className="text-xl font-semibold mb-5">Basic Information</h2>
 
         {/* Project Title */}
@@ -71,7 +71,7 @@ export default function HireVideoEditorForm() {
             {...register("projectTitle", { required: true })}
             type="text"
             placeholder="e.g. YouTube Travel Vlog Editing"
-            className="w-full border px-4 py-3 rounded-lg"
+            className="w-full px-4 py-3.5 rounded-lg bg-[#F3F3F5]"
           />
           {errors.projectTitle && <p className="text-red-500 text-sm mt-1">Project Title is required</p>}
         </div>
