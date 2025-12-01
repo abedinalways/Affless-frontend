@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
+import Link from "next/link";
 
 type JobStatus = "IN_PROGRESS" | "IN_REVISION";
 
@@ -168,20 +169,31 @@ export default function ManageJobsPage() {
   accessorKey: "status",
   header: "STATUS",
   cell: ({ row }) => {
-    const isRevision = row.original.status === "IN_REVISION";
+    const data = row.original;
+
+    const isRevision = data.status === "IN_REVISION";
+
+    // create dynamic URL
+    const route =
+      data.status === "IN_PROGRESS"
+        ? `/inprogress?id=${data.id}&title=${encodeURIComponent(data.service)}`
+        : `/inrevision?id=${data.id}&title=${encodeURIComponent(data.service)}`;
 
     return (
-      <div className="">
-        <span
-          className={`px-4 py-1 rounded-md text-xs font-semibold uppercase text-white 
-          ${isRevision ? "bg-red-500" : "bg-sky-700"}`}
-        >
-          {isRevision ? "IN REVISION" : "IN PROGRESS"}
-        </span>
-      </div>
+      <Link href={route}>
+        <div className="cursor-pointer">
+          <span
+            className={`px-4 py-1 rounded-md text-xs font-semibold uppercase text-white
+            ${isRevision ? "bg-red-500" : "bg-sky-700"}`}
+          >
+            {isRevision ? "IN REVISION" : "IN PROGRESS"}
+          </span>
+        </div>
+      </Link>
     );
   },
 }
+
 
 
   ];

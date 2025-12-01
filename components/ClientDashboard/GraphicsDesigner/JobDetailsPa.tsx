@@ -1,74 +1,10 @@
-// import Youtube from '@/components/Icons/Youtube'
-// import { YoutubeIcon } from 'lucide-react'
-// import Image from 'next/image'
-// import React from 'react'
-
-// const data =[
-//     { 
-//         id:1,
-//         img:<YoutubeIcon/>,
-//         itemBg:"bg-[#E1E7FF]",
-//         title:"Job Category",
-//         desc:"Video"
-//     },
-//       {
-//         id:2,
-//         img:<YoutubeIcon/>,
-//           itemBg:"bg-[#EBE6FE]",
-//         title:"Job Category",
-//         desc:"Video"
-//     },
-//       { id:3,
-//         img:<YoutubeIcon/>,
-//           itemBg:"bg-[#FFCCE4]",
-//         title:"Job Category",
-//         desc:"Video"
-//     },
-//       { id:4,
-//         img:<YoutubeIcon/>,
-//           itemBg:"bg-[#FFF1CC]",
-//         title:"Job Category",
-//         desc:"Video"
-//     },
-//       {
-//         id:5,
-//         img:<YoutubeIcon/>,
-//           itemBg:"#E6F7D9",
-//         title:"Job Category",
-//         desc:"Video"
-//     },
-// ]
-
-// export default function JobDetailsPage() {
-//   return (
-//     <div>
-//       <div className="grid grid-cols-1 md:grid-cols-2 gap-9 containers ">
-//         {
-//             data.map((index)=>{
-//                 return <div key={index.id} className=''>
-//                     <div className='flex bg-amber-400'>
-//                        <span className='text-black '>
-//                          {index.img}
-//                        </span>
-//                       <div>
-//                          <div>{index.title}</div>
-//                        <div>{index.desc}</div>
-//                       </div>
-
-//                     </div>
-//                 </div>
-//             })
-//         }
-//       </div>
-//     </div>
-//   )
-// }
 
 
 "use client";
 
 import { FileText, File, YoutubeIcon } from "lucide-react";
 import { useState } from "react";
+import { TbClock } from "react-icons/tb";
 
 export default function JobDetailsPage() {
 
@@ -92,7 +28,7 @@ export default function JobDetailsPage() {
 
       {/* Top Info Boxes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-        <div className="p-4 rounded-xl border bg-blue-100">
+        <div className="p-4 rounded-xl border bg-[#E1E7FF]">
           <div className="flex gap-4"> <div className="flex justify-center items-center">
             <YoutubeIcon />
           </div>
@@ -103,9 +39,15 @@ export default function JobDetailsPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border bg-purple-100">
-          <p className="text-sm text-gray-600">Project Budget</p>
+            <div className="p-4 rounded-xl border bg-[#EBE6FE]">
+          <div className="flex gap-4"> <div className="flex justify-center items-center">
+           <TbClock />
+          </div>
+            <div>
+                <p className="text-sm text-gray-600">Project Budget</p>
           <p className="text-lg font-semibold">$675</p>
+            </div>
+          </div>
         </div>
 
       
@@ -113,19 +55,36 @@ export default function JobDetailsPage() {
 
       {/* 2nd Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl border bg-pink-100">
-          <p className="text-sm text-gray-600">Platform</p>
-          <p className="text-lg font-semibold">Youtube</p>
+         <div className="flex gap-4 border bg-[#FFCCE4] rounded-lg"> <div className="flex justify-center items-center">
+           <TbClock />
+          </div>
+            <div className="">
+                <p className="text-sm text-gray-600">Platform</p>
+          <p className="text-lg font-semibold">$Youtobe</p>
+            </div>
+          </div>
+
+       
+            <div className="p-4 rounded-xl border bg-[#FFF1CC]">
+          <div className="flex gap-4"> <div className="flex justify-center items-center">
+           <TbClock />
+          </div>
+            <div>
+                <p className="text-sm text-gray-600">Project Budget</p>
+          <p className="text-lg font-semibold">$675</p>
+            </div>
+          </div>
         </div>
 
-        <div className="p-4 rounded-xl border bg-yellow-100">
-          <p className="text-sm text-gray-600">Project Duration</p>
-          <p className="text-lg font-semibold">5 Days</p>
-        </div>
-
-        <div className="p-4 rounded-xl border bg-green-100">
-          <p className="text-sm text-gray-600">Country</p>
-          <p className="text-lg font-semibold">USA</p>
+            <div className="p-4 rounded-xl border bg-[#E6F7D9]">
+          <div className="flex gap-4"> <div className="flex justify-center items-center">
+           <TbClock />
+          </div>
+            <div>
+                <p className="text-sm text-gray-600">Project Budget</p>
+          <p className="text-lg font-semibold">$675</p>
+            </div>
+          </div>
         </div>
       </div>
 
