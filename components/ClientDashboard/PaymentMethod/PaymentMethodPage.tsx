@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { FaCcVisa, FaCcMastercard } from "react-icons/fa";
 import { RiBankCardLine } from "react-icons/ri";
-import ReviewConfirm from "@/app/(client-dashboard)/review-confirm/page";
+import ReviewConfirm from "@/app/(client-dashboard)/client/review-confirm/page";
 import Link from "next/link";
 type FormValues = {
   paymentMethod: "card" | "paypal";

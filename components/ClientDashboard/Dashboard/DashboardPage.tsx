@@ -4,6 +4,7 @@ import LocationIcon from "@/components/Icons/LocationIcon";
 import WorldIcon from "@/components/Icons/WorldIcon";
 import { LocateIcon, LocationEdit } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 type OrderStatus = "pending" | "accept";
 
@@ -95,9 +96,11 @@ export default function ClientDashboard() {
                   <p className="flex gap-2"><LocationIcon/> Pakistan  <WorldIcon/> English</p>
                 </div>
               </div>
+            <Link href="/client/find-editor-match">
               <button className="mt-6 w-full cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white">
                 Match Me with an Editor
               </button>
+              </Link>
             </div>
           </div>
 

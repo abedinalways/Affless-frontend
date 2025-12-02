@@ -13,7 +13,7 @@ export default function GraphicsDesignerPage() {
         bgImage="/findEditor.jpg"
         links={[
           { label: "Home", href: "/" },
-          { label: "job details", href: "/job-details" },
+          { label: "job details", href: "#" },
           { label: "Graphic Designer for ongoing job", href: "/pricing" },
         ]}
         />

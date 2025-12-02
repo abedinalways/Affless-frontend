@@ -5,13 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdKeyboardArrowDown, MdMailOutline } from "react-icons/md";
+import { HiOutlineMenu, HiX } from "react-icons/hi";
 
 export default function ClientDashboardHeader() {
-  const [open, setOpen] = useState(false);
- const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [open, setOpen] = useState(false); // Desktop dropdown
+  const [mobileMenu, setMobileMenu] = useState(false); // Mobile menu
+  const [mobileDropdown, setMobileDropdown] = useState(false); // Mobile dropdown
 
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  // Close dropdown when clicking outside
+  // Close desktop dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -27,83 +30,142 @@ export default function ClientDashboardHeader() {
       <nav>
         <div className="flex justify-between items-center py-3">
 
-          {/* Left Section */}
+          {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
 
             {/* Logo */}
-            <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
-              <Image
-                src="/fdf.png"
-                alt="logo"
-                width={500}
-                height={500}
-                className="w-full object-cover"
-              />
-            </div>
+            <Link href="/">
+              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
+                <Image
+                  src="/fdf.png"
+                  alt="logo"
+                  width={500}
+                  height={500}
+                  className="w-full object-cover"
+                />
+              </div>
+            </Link>
 
-            {/* Main Menu */}
+            {/* DESKTOP MENU */}
             <ul className="hidden md:flex items-center gap-8 text-[#333] font-poppins text-base relative">
-
               <li>
-                <Link href="/dashboard">Dashboard</Link>
+                <Link href="/client/dashboard">Dashboard</Link>
               </li>
 
               {/* My Business Dropdown */}
-              <li className="relative" >
-              <div ref={dropdownRef}>
-                  <button
-                  onClick={() => setOpen(!open)}
-                  className="flex items-center gap-1 cursor-pointer select-none"
-                >
-                  My Business
-                  <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
-                 <MdKeyboardArrowDown />
-                  </span>
-                </button>
+             <li className="relative">
+  <div ref={dropdownRef}>
+    <button
+      onClick={() => setOpen(!open)}
+      className="flex items-center gap-1 cursor-pointer select-none"
+    >
+      My Business
+      <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
+        <MdKeyboardArrowDown />
+      </span>
+    </button>
 
-                {open && (
-                  <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                    <Link href="/manage-job" className="block px-4 py-2 hover:bg-gray-100">
-                      Manage Job
-                    </Link>
-                    <Link href="/find-editor" className="block px-4 py-2 hover:bg-gray-100">
-                      Find Editor
-                    </Link>
-                    <Link href="/job-proposal" className="block px-4 py-2 hover:bg-gray-100">
-                      Job Proposal
-                    </Link>
-                    <Link href="/payment-history" className="block px-4 py-2 hover:bg-gray-100">
-                      Payment History
-                    </Link>
-                    <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100">
-                      Profile
-                    </Link>
-                  </div>
-                )}
-              </div>
-              </li>
+    {open && (
+      <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
+        <Link href="/client/manage-job" className="block px-4 py-2 hover:bg-gray-100">Manage Job</Link>
+        <Link href="/client/find-editor" className="block px-4 py-2 hover:bg-gray-100">Find Editor</Link>
+        <Link href="/client/job-proposal" className="block px-4 py-2 hover:bg-gray-100">Job Proposal</Link>
+        <Link href="/client/payment-history" className="block px-4 py-2 hover:bg-gray-100">Payment History</Link>
+        <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
+      </div>
+    )}
+  </div>
+</li>
+
 
               <li>
-                <Link href="#">Pricing</Link>
+                <Link href="/pricing">Pricing</Link>
               </li>
-
             </ul>
           </div>
 
-          {/* Right Section */}
-          <div className="flex gap-8 items-center">
+          {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
+          <div className="hidden md:flex gap-8 items-center">
             <Link href="#" className="">Become an Editor</Link>
-
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
             <MdMailOutline className="w-7 h-7 cursor-pointer" />
-
-            <Link href="#" className="flex">
-              <Image src="/images/profile.png" alt="profile" width={32} height={32} />
+            <Link href="/client/profile" className="flex">
+              <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
             </Link>
           </div>
 
+          {/* ---------- MOBILE HAMBURGER ---------- */}
+          <button
+            className="md:hidden text-3xl"
+            onClick={() => setMobileMenu(true)}
+          >
+            <HiOutlineMenu />
+          </button>
+
         </div>
       </nav>
+
+      {/* ========== MOBILE MENU OVERLAY ========== */}
+      {mobileMenu && (
+        <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setMobileMenu(false)} />
+      )}
+
+      {/* ========== MOBILE MENU SLIDE ========== */}
+      <div
+        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${
+          mobileMenu ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Close Button */}
+        <button className="text-3xl mb-5" onClick={() => setMobileMenu(false)}>
+          <HiX />
+        </button>
+
+        {/* Mobile Items */}
+        <ul className="space-y-4 text-lg">
+
+          <li>
+            <Link href="/client/dashboard" onClick={() => setMobileMenu(false)}>
+              Dashboard
+            </Link>
+          </li>
+
+          {/* Mobile dropdown */}
+          <li>
+            <button
+              className="flex items-center justify-between w-full"
+              onClick={() => setMobileDropdown(!mobileDropdown)}
+            >
+              My Business
+              <MdKeyboardArrowDown
+                className={`transition-transform ${mobileDropdown ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {mobileDropdown && (
+              <ul className="mt-2 ml-3 space-y-3 text-base">
+                <li><Link href="/client/manage-job" onClick={() => setMobileMenu(false)}>Manage Job</Link></li>
+                <li><Link href="/client/find-editor" onClick={() => setMobileMenu(false)}>Find Editor</Link></li>
+                <li><Link href="/client/job-proposal" onClick={() => setMobileMenu(false)}>Job Proposal</Link></li>
+                <li><Link href="/client/payment-history" onClick={() => setMobileMenu(false)}>Payment History</Link></li>
+                <li><Link href="/client/profile" onClick={() => setMobileMenu(false)}>Profile</Link></li>
+              </ul>
+            )}
+          </li>
+
+          <li>
+            <Link href="/pricing" onClick={() => setMobileMenu(false)}>
+              Pricing
+            </Link>
+          </li>
+
+          <li>
+            <Link href="#" onClick={() => setMobileMenu(false)}>
+              Become an Editor
+            </Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

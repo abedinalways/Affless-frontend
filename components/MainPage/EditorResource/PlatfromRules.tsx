@@ -27,7 +27,7 @@ export default function PlatfromRules() {
             <div className='bg-white w-12 h-12 rounded-full mt-3 md:mt-0'>
               <QualityIcon className='mt-4 flex justify-center items-center mx-auto '/>
             </div>
-            <AccordionTrigger className='text-[16px] lg:text-[18px] font-normal leading-120%'> Quality Standards for Video & Audio Editing</AccordionTrigger>
+            <AccordionTrigger className='text-[16px] lg:text-[18px] font-normal leading-120%'style={{color: 'red'}}> Quality Standards for Video & Audio Editing</AccordionTrigger>
         </div>
     <AccordionContent className='px-6 py-4'>
       All delivered content must meet minimum technical specifications: Video resolution of 1080p or higher, frame rate of 24fps minimum, audio at -16 LUFS for social media or -23 LUFS for broadcast. Ensure proper color correction, no visual artifacts, and clean audio with no clipping or distortion. Maintain consistent quality across all deliverables.
@@ -40,7 +40,7 @@ export default function PlatfromRules() {
             <div className='bg-white w-12 h-12 rounded-full mt-2 md:mt-0'>
               <DocumentIcon className='mt-3 text-[#FFDBDC] flex justify-center items-center mx-auto'/>
             </div>
-            <AccordionTrigger className=' text-[16px] lg:text-[18px] font-normal leading-120%'> File Delivery Format Guidelines</AccordionTrigger>
+            <AccordionTrigger className=' text-[16px] lg:text-[18px] font-normal leading-120%' style={{color: 'red'}}> File Delivery Format Guidelines</AccordionTrigger>
         </div>
     <AccordionContent className='px-6 py-4'>
       All delivered content must meet minimum technical specifications: Video resolution of 1080p or higher, frame rate of 24fps minimum, audio at -16 LUFS for social media or -23 LUFS for broadcast. Ensure proper color correction, no visual artifacts, and clean audio with no clipping or distortion. Maintain consistent quality across all deliverables.
@@ -53,7 +53,7 @@ export default function PlatfromRules() {
             <div className='bg-white w-12 h-12 rounded-full mt-3 md:mt-0'>
               <QualityIcon className='mt-4 flex justify-center items-center mx-auto'/>
             </div>
-            <AccordionTrigger className='text-[16px] lg:text-[18px]  font-normal leading-120%'>Quality Standards for Video & Audio Editing</AccordionTrigger>
+            <AccordionTrigger className='text-[16px] lg:text-[18px]  font-normal leading-120%' style={{color: 'red'}}>Quality Standards for Video & Audio Editing</AccordionTrigger>
         </div>
     <AccordionContent className='px-6 py-4'>
       All delivered content must meet minimum technical specifications: Video resolution of 1080p or higher, frame rate of 24fps minimum, audio at -16 LUFS for social media or -23 LUFS for broadcast. Ensure proper color correction, no visual artifacts, and clean audio with no clipping or distortion. Maintain consistent quality across all deliverables.
@@ -66,7 +66,7 @@ export default function PlatfromRules() {
             <div className='bg-white w-12 h-12 rounded-full mt-3 md:mt-0'>
               <QualityIcon className='mt-4 flex justify-center items-center mx-auto'/>
             </div>
-            <AccordionTrigger className=' text-[16px] lg:text-[18px] font-normal leading-120%'> Quality Standards for Video & Audio Editing</AccordionTrigger>
+            <AccordionTrigger className=' text-[16px] lg:text-[18px] font-normal leading-120%' style={{color: 'red'}}> Quality Standards for Video & Audio Editing</AccordionTrigger>
         </div>
     <AccordionContent className='px-6 py-4'>
       All delivered content must meet minimum technical specifications: Video resolution of 1080p or higher, frame rate of 24fps minimum, audio at -16 LUFS for social media or -23 LUFS for broadcast. Ensure proper color correction, no visual artifacts, and clean audio with no clipping or distortion. Maintain consistent quality across all deliverables.

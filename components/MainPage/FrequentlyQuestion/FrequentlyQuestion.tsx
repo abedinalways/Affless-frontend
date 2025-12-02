@@ -135,7 +135,9 @@ export default function Frequently() {
                 value={`item-${idx}-${index}`}
                 className="border-b"
               >
-                <AccordionTrigger className="px-6 py-5 text-left text-[15px] font-medium">
+                <AccordionTrigger className="px-6 py-5 text-left text-[15px] font-medium"
+                style={{color: 'black'}}
+                >
                   {faq.question}
                 </AccordionTrigger>
 

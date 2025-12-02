@@ -34,11 +34,11 @@ export default function InProgressPage({
 
            <div>
                 <PageBanner
-          title="job details"
+          title="Graphic Designer for ongoing job"
           bgImage="/findEditor.jpg"
           links={[
             { label: "Home", href: "/" },
-            { label: "job details", href:"/job-details" },
+            { label: "Manage Job", href:"/client/manage-job" },
             { label: "Graphic Designer for ongoing job", href:"/pricing" },
 
           ]}
