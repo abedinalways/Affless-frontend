@@ -1,31 +1,38 @@
 "use client";
 
-import PageBanner from "@/components/reusable/Bgbanner";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { cn } from "@/lib/utils";
+import PageBanner from "@/components/reusable/Bgbanner";
 
-type JobForm = {
-  title: string;
-  description: string;
-  budget: number;
+type FormValues = {
+  jobTitle: string;
+  jobDescription: string;
+  budget: string;
   category: string;
   duration: string;
   platform: string;
-  skills: string;
   experience: string;
-  pdf?: FileList;
-  doc?: FileList;
-  paymentMethod: "single" | "milestone";
+  pdfFile?: FileList;
+  textFile?: FileList;
 };
 
-export default function PostJobPage() {
-  const { register, handleSubmit, watch } = useForm<JobForm>();
+export default function PostJobForm() {
+  const [paymentType, setPaymentType] = useState<"single" | "milestone">("single");
 
-  const onSubmit = (data: JobForm) => {
-    console.log("FORM SUBMITTED:", data);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
 
+  // Submit handler (you will connect API later)
+  const onSubmit = (data: FormValues) => {
+    console.log("Form Submitted:", data, "Payment Type:", paymentType);
   };
 
   return (
+
    <div>
       <div>
             <PageBanner
@@ -37,174 +44,221 @@ export default function PostJobPage() {
       ]}
     />
           </div>
-     <div className="containers mx-auto p-8">
-      <h1 className="text-2xl font-semibold mb-4">Create Job</h1>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full flex  p-6 containers"
+    >
+      <div className="flex flex-col md:flex-row gap-8 w-full ">
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-5 bg-white p-6 rounded-xl shadow"
-      >
-        {/* Job Title */}
-        <div>
-          <label className="block font-medium">Job Title</label>
+        {/* LEFT SIDE */}
+        <div className="w-full md:w-2/3 bg-white p-6 rounded-xl shadow">
+
+          {/* Job Title */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Job Title
+          </label>
           <input
-            {...register("title")}
-            className="w-full mt-1 border rounded p-2"
-            placeholder="I will do..."
+            {...register("jobTitle", { required: true })}
+            type="text"
+            placeholder="I will do"
+            className="w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400"
           />
-        </div>
+          {errors.jobTitle && (
+            <p className="text-red-500 text-sm mb-4">Job title is required.</p>
+          )}
 
-        {/* Description */}
-        <div>
-          <label className="font-medium">Job Description</label>
+          {/* Job Description */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Job Description
+          </label>
           <textarea
-            {...register("description")}
-            className="w-full mt-1 border rounded p-2 h-24"
+            {...register("jobDescription", { required: true })}
             placeholder="Write Job Description"
+            className="w-full border rounded-lg p-3 mb-2 h-24 focus:outline-none focus:border-gray-400"
           />
-        </div>
+          {errors.jobDescription && (
+            <p className="text-red-500 text-sm mb-4">Job description is required.</p>
+          )}
 
-        {/* Budget */}
-        <div>
-          <label className="font-medium">Project Budget ($)</label>
-          <input
-            type="number"
-            {...register("budget")}
-            className="w-full mt-1 border rounded p-2"
-          />
-        </div>
-
-        {/* Warning Box */}
-        <div className="border border-red-400 bg-red-100 p-4 rounded">
-          <p className="text-red-700 font-semibold">
-            All payments must be processed through Marketplace.
-          </p>
-          <ul className="text-sm text-red-600 mt-2">
-            <li>• 1st violation: $25 penalty + 21-day warning</li>
-            <li>• 2nd violation: Permanent ban + funds withheld</li>
-          </ul>
-        </div>
-
-        {/* Job Category */}
-        <div>
-          <label className="font-medium">Job Category</label>
-          <select
-            {...register("category")}
-            className="w-full mt-1 border rounded p-2"
-          >
-            <option value="">Select Category</option>
-            <option value="video">Video</option>
-            <option value="graphic">Graphic Design</option>
-            <option value="writing">Writing</option>
-          </select>
-        </div>
-
-        {/* Project Duration */}
-        <div>
-          <label className="font-medium">Project Duration</label>
-          <select
-            {...register("duration")}
-            className="w-full mt-1 border rounded p-2"
-          >
-            <option value="">Select Duration</option>
-            <option value="1_day">1 Day</option>
-            <option value="1_week">1 Week</option>
-            <option value="1_month">1 Month</option>
-          </select>
-        </div>
-
-        {/* Platform */}
-        <div>
-          <label className="font-medium">Platform</label>
-          <select
-            {...register("platform")}
-            className="w-full mt-1 border rounded p-2"
-          >
-            <option value="youtube">YouTube</option>
-            <option value="tiktok">TikTok</option>
-            <option value="instagram">Instagram</option>
-          </select>
-        </div>
-
-        {/* Skills */}
-        <div>
-          <label className="font-medium">Skills</label>
-          <input
-            {...register("skills")}
-            className="w-full mt-1 border rounded p-2"
-            placeholder="Photoshop, Video Editing"
-          />
-        </div>
-
-        {/* Experience */}
-        <div>
-          <label className="font-medium">Years of Experience</label>
-          <select
-            {...register("experience")}
-            className="w-full mt-1 border rounded p-2"
-          >
-            <option value="1">1 Year</option>
-            <option value="2">2 Years</option>
-            <option value="3">3+ Years</option>
-          </select>
-        </div>
-
-        {/* File Uploads */}
-        <div>
-          <label className="font-medium">Upload PDF</label>
-          <input
-            type="file"
-            accept="application/pdf"
-            {...register("pdf")}
-            className="w-full mt-1"
-          />
-        </div>
-
-        <div>
-          <label className="font-medium">Upload Text Document</label>
-          <input
-            type="file"
-            accept=".txt,.doc,.docx"
-            {...register("doc")}
-            className="w-full mt-1"
-          />
-        </div>
-
-        {/* Payment Options */}
-        <div className="border p-4 rounded bg-red-50">
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              value="single"
-              {...register("paymentMethod")}
-              defaultChecked
-            />
-            <span className="font-medium">Single Payment</span>
+          {/* Budget */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Project Budget*
           </label>
-          <p className="text-xs mt-1 text-gray-600">
-            Receive full payment once the project is completed.
-          </p>
-        </div>
+          <input
+            {...register("budget", { required: true })}
+            type="text"
+            placeholder="$354"
+            className="w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400"
+          />
+          {errors.budget && (
+            <p className="text-red-500 text-sm mb-4">Budget is required.</p>
+          )}
 
-        <div className="border p-4 rounded">
-          <label className="flex items-center gap-2">
-            <input type="radio" value="milestone" {...register("paymentMethod")} />
-            <span className="font-medium">Milestone Payments</span>
+          {/* Warning Box */}
+          <div className="p-4 bg-red-50 border border-red-300 rounded-lg mb-6">
+            <p className="text-red-600 font-semibold mb-2">
+              All payments must be processed through Editor Marketplace
+            </p>
+            <p className="text-red-600 text-sm mb-2">
+              DO NOT: Request or accept payment via external methods.
+            </p>
+            <p className="text-red-600 text-sm">
+              <strong>Consequences:</strong><br />
+              • 1st violation: $25 penalty + warning<br />
+              • 2nd violation: Permanent ban + funds withheld
+            </p>
+            <a href="#" className="text-red-600 underline text-sm mt-2 inline-block">
+              Read full Off-Platform Policy →
+            </a>
+          </div>
+
+          {/* Category */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Job Category
           </label>
-          <p className="text-xs mt-1 text-gray-600">
-            Divide project into stages and get paid per milestone.
-          </p>
+          <select
+            {...register("category", { required: true })}
+            className="w-full border rounded-lg p-3 mb-6"
+          >
+            <option value="Video">Video</option>
+            <option value="Audio">Audio</option>
+            <option value="Design">Design</option>
+          </select>
+
+          {/* Duration */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Project Duration
+          </label>
+          <select
+            {...register("duration", { required: true })}
+            className="w-full border rounded-lg p-3 mb-6"
+          >
+            <option value="">Project Duration</option>
+            <option value="1 Day">1 Day</option>
+            <option value="3 Days">3 Days</option>
+            <option value="1 Week">1 Week</option>
+          </select>
+
+          {/* Platform */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Platform
+          </label>
+          <select
+            {...register("platform", { required: true })}
+            className="w-full border rounded-lg p-3 mb-6"
+          >
+            <option value="YouTube">YouTube</option>
+            <option value="TikTok">TikTok</option>
+            <option value="Instagram">Instagram</option>
+          </select>
+
+          {/* Skills (Static UI) */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Skill:
+          </label>
+          <div className="flex gap-2 mb-6">
+            <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm">
+              Photoshop
+            </span>
+            <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm">
+              Video editing
+            </span>
+          </div>
+
+          {/* Experience */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Years of experience
+          </label>
+          <select
+            {...register("experience", { required: true })}
+            className="w-full border rounded-lg p-3 mb-6"
+          >
+            <option value="1 Year">1 Year</option>
+            <option value="2 Years">2 Years</option>
+            <option value="3+ Years">3+ Years</option>
+          </select>
+
+          {/* PDF File */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            PDF File
+          </label>
+          <input
+            {...register("pdfFile")}
+            type="file"
+            className="w-full mb-6"
+          />
+
+          {/* Text File */}
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            Text Document
+          </label>
+          <input
+            {...register("textFile")}
+            type="file"
+            className="w-full mb-6"
+          />
+
+          {/* Payment Options */}
+          <div
+            className={cn(
+              "p-4 border rounded-lg cursor-pointer mb-4",
+              paymentType === "single"
+                ? "border-red-300 bg-red-50"
+                : "border-gray-300"
+            )}
+            onClick={() => setPaymentType("single")}
+          >
+            <p className="font-semibold text-red-600">Single Payment</p>
+            <p className="text-sm text-gray-600">
+              Receive full payment once the project is completed.
+            </p>
+          </div>
+
+          <div
+            className={cn(
+              "p-4 border rounded-lg cursor-pointer",
+              paymentType === "milestone"
+                ? "border-red-300 bg-red-50"
+                : "border-gray-300"
+            )}
+            onClick={() => setPaymentType("milestone")}
+          >
+            <p className="font-semibold">Milestone Payments</p>
+            <p className="text-sm text-gray-600">
+              Divide the project into stages for partial payments.
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-red-500 text-white py-3 rounded-lg mt-8 hover:bg-red-600"
+          >
+            Next
+          </button>
         </div>
 
-        {/* Submit */}
-        <button
-          type="submit"
-          className="w-full bg-red-500 text-white font-semibold p-3 rounded"
-        >
-          Next
-        </button>
-      </form>
-    </div>
+        {/* RIGHT SUMMARY */}
+        <div className="w-full md:w-1/3 bg-white p-6 rounded-xl shadow h-fit">
+          <div className="flex justify-between text-gray-700 mb-4">
+            <span>Initial Budget</span>
+            <span>$350.00</span>
+          </div>
+
+          <div className="flex justify-between text-gray-700 mb-4">
+            <span>Platform Fee (20%)</span>
+            <span>$70.00</span>
+          </div>
+
+          <hr className="my-4" />
+
+          <div className="flex justify-between font-semibold text-gray-900">
+            <span>Total Payment</span>
+            <span>$654.00</span>
+          </div>
+        </div>
+
+      </div>
+    </form>
    </div>
   );
 }

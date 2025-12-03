@@ -217,20 +217,20 @@ export default function HireVideoEditorForm() {
       {/* Buttons */}
       <div className="flex justify-between mt-8 gap-6">
        
-        <div className="w-full bg-gray-200 rounded-xl">
-           <Link href="/find-editor"></Link>
+        <div className="w-full bg-gray-200 rounded-xl cursor-pointer">
+           <Link href="/client/find-editor-match">
           <button type="button" className="px-8 py-3 flex text-center items-center mx-auto">
           Back
         </button>
-      
+      </Link>
 
         </div>
       
 
-        <div className="w-full bg-[#FF4D4F] rounded-lg">
+        <div className="w-full bg-[#FF4D4F] rounded-lg cursor-pointer">
           <button
           type="submit"
-          className="px-8 py-3  text-white flex text-center items-center mx-auto"
+          className="px-8 py-3  text-white flex text-center items-center mx-auto cursor-pointer "
         >
           Continue to Review
         </button>

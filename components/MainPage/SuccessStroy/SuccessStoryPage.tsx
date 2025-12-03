@@ -52,33 +52,43 @@ const pageStories = filteredStories.slice(
       </div>
       <div className="containers mx-auto py-16">
       {/* FILTERS */}
-      <div className="flex flex-wrap gap-6 items-center bg-white p-5 rounded-xl  border-none border">
-        <span className="text-gray-700 font-medium">Filter by:</span>
+      {/* FILTERS */}
+<div className="flex flex-col gap-4 lg:flex-row lg:items-center bg-white p-5 rounded-xl">
+  <p className="text-gray-700 font-medium ">Filter by:</p>
 
-        {/* Story Type */}
-        <p>story Type</p>
-        <FilterSelect
-          value={storyType}
-          setValue={setStoryType}
-          options={["All", "Success", "Team Growth", "Client Story", "Income"]}
-        />
+  <div className="flex flex-col gap-4 w-full lg:grid lg:grid-cols-3 lg:gap-6">
+    {/* Story Type */}
+    <div className="flex items-center  gap-3 lg:flex-row ">
+      <p className="text-gray-700 font-medium text-sm">Story Type</p>
+      <FilterSelect
+        value={storyType}
+        setValue={setStoryType}
+        options={["All", "Success", "Team Growth", "Client Story", "Income"]}
+      />
+    </div>
 
-        {/* Category */}
-        <p>category</p>
-        <FilterSelect
-          value={category}
-          setValue={setCategory}
-          options={["All", "Editing", "Management", "Business"]}
-        />
+    {/* Category */}
+    <div className="flex items-center justify-between gap-3 ">
+      <p className="text-gray-700 font-medium text-sm">Category</p>
+      <FilterSelect
+        value={category}
+        setValue={setCategory}
+        options={["All", "Editing", "Management", "Business"]}
+      />
+    </div>
 
-        {/* Country */}
-        <p>country</p>
-        <FilterSelect
-          value={country}
-          setValue={setCountry}
-          options={["All", "USA", "Canada", "Mexico"]}
-        />
-      </div>
+    {/* Country */}
+    <div className="flex items-center justify-between gap-3 ">
+      <p className="text-gray-700 font-medium text-sm">Country</p>
+      <FilterSelect
+        value={country}
+        setValue={setCountry}
+        options={["All", "USA", "Canada", "Mexico"]}
+      />
+    </div>
+  </div>
+</div>
+
 
       {/* STORY CARDS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-14">
@@ -134,11 +144,11 @@ function FilterSelect({
   options: string[];
 }) {
   return (
-    <div className="relative">
+    <div className="relative w-[60%] lg:w-full">
       <select
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="appearance-none bg-white px-4 py-2 border rounded-xl pr-10"
+        className="appearance-none bg-white px-4 py-2 border rounded-xl pr-10 w-full"
       >
         {options.map((op) => (
           <option key={op}>{op}</option>
@@ -148,6 +158,7 @@ function FilterSelect({
     </div>
   );
 }
+
 
 // PAGINATION COMPONENT
 

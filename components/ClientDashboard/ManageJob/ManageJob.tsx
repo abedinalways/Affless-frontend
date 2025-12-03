@@ -180,7 +180,7 @@ export default function ManageJobsPage() {
         : `/inrevision?id=${data.id}&title=${encodeURIComponent(data.service)}`;
 
     return (
-      <Link href={route}>
+      <Link href="/client/inprogress">
         <div className="cursor-pointer">
           <span
             className={`px-4 py-1 rounded-md text-xs font-semibold uppercase text-white
@@ -221,7 +221,7 @@ export default function ManageJobsPage() {
 </div>
 
 
-        <Link href="/post-job">
+        <Link href="/client/post-job">
         <div className="bg-[#FF4D4F] py-3 px-4 h-fit top-5 text-white rounded-lg cursor-pointer">
           Create a new Job
         </div>

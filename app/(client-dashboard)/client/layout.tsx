@@ -1,4 +1,7 @@
+import AuthHeader from "@/components/AuthHeader/AuthHeader";
+import ClientDashboard from "@/components/ClientDashboard/Dashboard/DashboardPage";
 import ContactUs from "@/components/MainPage/Contact-Us/Contact-Us";
+import ClientDashboardHeader from "@/components/shared/ClientDashboardHeader/ClinetDashboardHeaader";
 import Footer from "@/components/shared/Footer/Footer";
 import Navbar from "@/components/shared/Navbar/Navbar";
 
@@ -12,7 +15,7 @@ export default function Layout({
       
         <div>
           <div className="">
-            <Navbar />
+            <ClientDashboardHeader/>
           </div>
           {children}
           <ContactUs />

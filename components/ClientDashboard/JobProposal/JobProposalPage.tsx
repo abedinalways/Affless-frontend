@@ -125,7 +125,7 @@ export default function JobProposalPage() {
       accessorKey: "service",
       header: "Service",
       cell: ({ row }) => (
-        <Link href={`/job-details?id=${row.original.id}`} className="block">
+        <Link href={`/client/job-details?id=${row.original.id}`} className="block">
           <div className="flex items-center gap-4 cursor-pointer">
             <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
               <img
@@ -159,7 +159,7 @@ export default function JobProposalPage() {
       accessorKey: "status",
       header: "STATUS",
       cell: ({ row }) => (
-        <Link href={`/job-details?id=${row.original.id}`}>
+        <Link href={`/client/job-details?id=${row.original.id}`}>
           <span className="px-4 py-1 rounded-md text-[18px] font-normal uppercase text-white bg-green-600 cursor-pointer">
             {row.original.status}
           </span>
@@ -183,10 +183,10 @@ export default function JobProposalPage() {
       {/* Filter and Buttons */}
       <div className="flex justify-between items-center mb-6 text-[18px] fontnt-normal">
         <div className="flex gap-4">
-          <button className="p-2.5  bg-[#FF4D4F] text-white rounded-md">
+          <button className="p-2.5  hover:bg-[#FF4D4F] hover:text-white bg-[#FFEDED]  rounded-md text-[#FF4D4F]">
             Proposals
           </button>
-          <button className="p-2.5 bg-[#FFEDED] rounded-md text-[#FF4D4F]">
+          <button className="p-2.5 hover:text-white hover:bg-[#FF4D4F]  bg-[#FFEDED] rounded-md text-[#FF4D4F]">
             Declined
           </button>
         </div>
@@ -211,7 +211,7 @@ export default function JobProposalPage() {
         pageSize={PAGE_SIZE}
         total={total}
         onPageChange={setPage}
-        onRowClick={(row) => router.push(`/job-details?id=${row.id}`)}
+        onRowClick={(row) => router.push(`/client/job-details?id=${row.id}`)}
       />
     </div>
   );

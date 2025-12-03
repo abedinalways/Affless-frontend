@@ -1,52 +1,59 @@
 import MailIcon from '@/components/Icons/MailIcon'
+import VideoIcon from '@/components/Icons/VideoIcon';
+import Youtube from '@/components/Icons/Youtube';
+import { YoutubeIcon } from 'lucide-react';
 import React from 'react'
+import { FiMusic } from 'react-icons/fi';
+import { GrMicrophone } from 'react-icons/gr';
+import { LuCalendarDays } from 'react-icons/lu';
+import { RxImage } from 'react-icons/rx';
 
 const data = [
   {
     id: 1,
-    icon: <MailIcon />,
+    icon: <YoutubeIcon className='text-red-400' />,
     bg: "bg-[#FEE8E8] border border-[#FECACA]",
     title: "YouTube Long-form",
     desc: "Educational, vlogs, tutorials"
   },
   {
     id: 2,
-    icon: <MailIcon />,
+    icon: <VideoIcon />,
     bg: "bg-[#FCEAF4] border border-[#FBCFE8]",
     title: "Shorts/Reels/TikTok",
     desc: "Viral short-form content"
   },
   {
     id: 3,
-    icon: <MailIcon />,
+    icon: <RxImage className='text-blue-500' />,
     bg: "bg-[#E3EFFE] border border-[#C0DCFE]",
     title: "Thumbnails",
     desc: "High-conversion thumbnails."
   },
   {
     id: 4,
-    icon: <MailIcon />,
+    icon: <LuCalendarDays className='' />,
     bg: "bg-[#E3FCEC] border border-[#BBF7D0]",
     title: "Ads/UGC",
     desc: "Commercial & user content"
   },
   {
     id: 5,
-    icon: <MailIcon />,
+    icon: <GrMicrophone className='text-[#AB61EF]' />,
     bg: "bg-[#F6EEFF] border border-[#E9D5FF]",
     title: "Podcasts",
     desc: "Audio editing & mixing"
   },
   {
     id: 6,
-    icon: <MailIcon />,
+    icon: <LuCalendarDays className='text-[#EA580C]'/>,
     bg: "bg-[#FFF0DD] border border-[#FED7AA]",
     title: "Weddings/Events",
     desc: "Special occasions"
   },
   {
     id: 7,
-    icon: <MailIcon />,
+    icon: <FiMusic className='text-green-600' />,
     bg: "bg-[#D6FBF3] border border-[#E6FCF8]",
     title: "Color & Audio",
     desc: "Post-production polish"

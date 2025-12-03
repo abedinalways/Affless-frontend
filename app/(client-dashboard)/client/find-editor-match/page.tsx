@@ -1,4 +1,6 @@
-import FindEditorsPage from '@/components/ClientDashboard/FindEditor/FindEditorPage'
+
+
+import FindEditorsPage from '@/components/ClientDashboard/FindEditorMatch/FindEditorPage'
 import React from 'react'
 
 export default function FindEditor() {

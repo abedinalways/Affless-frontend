@@ -23,12 +23,12 @@ export default function Frequently() {
         {
           question: "What is Editor Marketplace?",
           answer:
-            "Editor Marketplace is a secure platform that connects clients and editors across YouTube, TikTok, Instagram, and other platforms.",
+            "Editor Marketplace is a platform that connects YouTubers and other creators with skilled video editors. Clients can easily post projects, set their budgets, and hire editors with confidence through our secure escrow system. Editors can showcase their skills, receive work opportunities, and get paid safely.",
         },
         {
           question: "Who can use Editor Marketplace?",
           answer:
-            "Anyone who wants to hire editors or work as an editor can use the platform.",
+            "Any video creator looking for editing services, and any editor offering editing work, can use the platform. This includes YouTubers, brands, marketers, agencies, freelancers, and students.",
         },
       ],
     },
@@ -37,10 +37,10 @@ export default function Frequently() {
       icon:<PaymentFaqIcon/>,
       category: "Payments & Fees",
       items: [
-        { question: "How do payments work?", answer: "Payments are protected by escrow." },
-        { question: "What fees do clients pay?", answer: "Clients pay a small service fee." },
-        { question: "Are there payment processor fees?", answer: "Yes, depending on provider." },
-        { question: "When do editors get paid?", answer: "After the client approves the work." },
+        { question: "How do payments work?", answer: "Clients deposit funds into an escrow system before work begins. Editors complete the project, deliver the work, and once the client approves, the payment is released from escrow to the editor." },
+        { question: "What fees do clients pay?", answer: "Clients pay a 20% service fee on top of each project. This fee helps support secure payments, customer support, platform safety, and dispute protection." },
+        { question: "Are there payment processor fees?", answer: "Yes. Standard payment processor fees (Stripe, PayPal, etc.) apply depending on the client’s location and payment method. These fees are displayed during checkout." },
+        { question: "When do editors get paid?", answer: "Editors are paid immediately after the client approves the final delivery. If the client does not respond within the auto-approval time window, the payment will be released automatically." },
       ],
     },
 
@@ -48,11 +48,11 @@ export default function Frequently() {
         icon:<PaymentFaqIcon/>,
       category: "Escrow, Disputes & Refunds",
       items: [
-        { question: "What is escrow?", answer: "Escrow ensures safe payment until delivery." },
-        { question: "Can I get a refund?", answer: "Refunds depend on project terms." },
+        { question: "What is escrow?", answer: "Escrow protects both clients and editors by securely holding the client’s funds until the work is completed and approved. This ensures editors are paid fairly and clients receive the quality they expect." },
+        { question: "Can I get a refund?", answer: "Refunds may be possible if the editor fails to deliver work or if a project is canceled before any work begins. Refund requests are reviewed by our support team to ensure fairness." },
         {
           question: "What if an editor never delivers?",
-          answer: "The platform resolves the issue based on guidelines.",
+          answer: "If an editor misses the delivery deadline and does not communicate, clients may request cancellation. Escrow funds will be returned after review.",
         },
       ],
     },
@@ -61,8 +61,8 @@ export default function Frequently() {
         icon:<PlaneIcon/>,
       category: "Boosts & Promotions",
       items: [
-        { question: "What are job boosts?", answer: "Boosts increase job visibility." },
-        { question: "How much do boosts cost?", answer: "Prices vary based on plan." },
+        { question: "What are job boosts?", answer: "Boosts allow editors to increase the visibility of their posted services. A boosted listing appears higher in search results, increasing views and potential orders" },
+        { question: "How much do boosts cost?", answer: "Boost prices vary depending on the visibility tier selected. Editors can choose from multiple boost levels based on how much reach they want." },
       ],
     },
 
@@ -70,25 +70,25 @@ export default function Frequently() {
   icon:<TiGift />,
       category: "Special Promotions",
       items: [
-        { question: "What's the YouTube subscription reward??", answer: "No, this violates policy." },
-        { question: "What happens if rules are violated?", answer: "Penalties may apply." },
+        { question: "What’s the YouTube subscription reward?", answer: "Clients who subscribe to our official YouTube channel may be eligible for limited promotional rewards, discounts, or platform perks when available. All reward availability is subject to change and may vary over time." },
+        { question: "What happens if rules are violated?", answer: "Rule violations—such as off-platform payments, abuse, fraud, or harassment—may result in warnings, penalties, reduced visibility, temporary suspension, or permanent removal depending on severity." },
       ],
     },
 
     {
         icon:<BellRing />,
-      category: "Technical",
+      category: "Notifications",
       items: [
-        { question: "Do I need to install software?", answer: "No, it works in your browser." },
-        { question: "What if I find a bug?", answer: "Report it to support." },
+        { question: "Do I need to install software?", answer: "No. Editor Marketplace works entirely online. Clients and editors can manage everything from their browser without installing any software." },
+        { question: "What if I find a bug?", answer: "If you encounter a bug, please report it using the support form. Include screenshots and details so our team can resolve the issue quickly." },
       ],
     },
         {
   icon:<PoliceIcon />,
       category: "Policies & Rules",
       items: [
-        { question: "Can I work with clients/editors outside the platform?", answer: "No, this violates policy." },
-        { question: "What happens if someone violates the rules?", answer: "Penalties may apply." },
+        { question: "Can I work with clients/editors outside the platform?", answer: "No. For safety and payment protection, all communication and payments must remain on the platform. Off-platform payments violate policy and may result in penalties." },
+        { question: "What happens if someone violates the rules?", answer: "Consequences may include warnings, temporary restrictions, removal of boosts, reduced visibility, or permanent suspension depending on the severity of the violation." },
       ],
     },
 
@@ -135,7 +135,9 @@ export default function Frequently() {
                 value={`item-${idx}-${index}`}
                 className="border-b"
               >
-                <AccordionTrigger className="px-6 py-5 text-left text-[15px] font-medium">
+                <AccordionTrigger className="px-6 py-5 text-left text-[15px] font-medium"
+                style={{color: 'black'}}
+                >
                   {faq.question}
                 </AccordionTrigger>
 

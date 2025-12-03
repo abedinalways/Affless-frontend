@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TiStarFullOutline } from "react-icons/ti";
-
+import Pagination from "@/components/reusable/pagination";
 interface Editor {
   id: number;
   name: string;
@@ -16,14 +17,14 @@ interface Editor {
   image: string;
 }
 
-const editors: Editor[] = [
+const allEditors: Editor[] = [
   {
     id: 1,
     name: "Jerome Bell",
     rating: 4.9,
     reviews: 338,
     skills: 3,
-    experience: "2 Year+",
+    experience: "Professional",
     country: "Pakistan",
     match: 84,
     image: "/images/Jerome.jpg",
@@ -34,7 +35,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     skills: 3,
-    experience: "2 Year+",
+    experience: "Professional",
     country: "Pakistan",
     match: 75,
     image: "/images/Courtney.jpg",
@@ -45,7 +46,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     skills: 3,
-    experience: "2 Year+",
+    experience: "Professional",
     country: "Pakistan",
     match: 27,
     image: "/images/Annette.jpg",
@@ -56,7 +57,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     skills: 3,
-    experience: "2 Year+",
+    experience: "Professional",
     country: "Pakistan",
     match: 75,
     image: "/images/Esther.jpg",
@@ -67,215 +68,173 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     skills: 3,
-    experience: "2 Year+",
+    experience: "Professional",
     country: "Pakistan",
     match: 75,
     image: "/images/Floyd.jpg",
   },
 ];
 
-export default function FindEditorsPage() {
+export default function FindEditorPage() {
+  // Pagination setup
+  const [page, setPage] = useState(1);
+  const pageSize = 2; // how many cards per page
+
+  const startIndex = (page - 1) * pageSize;
+  const visibleEditors = allEditors.slice(startIndex, startIndex + pageSize);
+
   return (
-    <div className="min-h-screen bg-[#f6f6f6] py-10 ">
+    <div className="min-h-screen bg-white py-10">
       <div className="containers mx-auto flex gap-8">
 
         {/* LEFT FILTER SIDEBAR */}
-        <div className="w-1/4 bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
+        <aside className="w-1/4 bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
 
-          {/* Project Types */}
+          {/* Job Category */}
           <div>
-            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 leading-150% text-[#333]">Project Types</h3>
+            <h3 className="font-bold text-[20px] mb-3">Job Category</h3>
 
-      <div className="space-y-4">
-              <label className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span className="text-[16px] font-normal text-[#333] leading-150%"> YouTube Editing</span>
-              </div>
-               <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">32+</span>
-            </label>
-
-            <label className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span className="text-[16px] font-normal text-[#333] leading-150%">Marketing Video Editing</span>
-              </div>
-               <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">36+</span>
-            </label>
-
-            <label className="flex items-center justify-between ">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span className="text-[16px] font-normal text-[#333] leading-150%">Business Video Editing</span>
-              </div>
-               <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">555+</span>
-            </label>
-
-            <label className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-               <span className="text-[16px] font-normal text-[#333] leading-150%">Music Video Editing</span>
-              </div>
-             <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">36+</span>
-            </label>
-      </div>
+            <div className="space-y-4">
+              {[
+                ["Long-Form Video", "54"],
+                ["Shorts/Reels/TikToks", "9+"],
+                ["Photo", "36+"],
+                ["Audio", "28+"],
+              ].map(([label, count], i) => (
+                <label key={i} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" />
+                    <span className="text-[16px]">{label}</span>
+                  </div>
+                  <span className="bg-red-100 text-[#FF4D4F] px-3 py-1 rounded-md">
+                    {count}
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
 
-          {/* Skill Level */}
+          {/* Platform */}
           <div>
-            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 leading-150% text-[#333]">Skill Level</h3>
+            <h3 className="font-bold text-[20px] mb-3">Platform</h3>
 
-     <div className="space-y-4">
-               <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Beginner</span>
-              <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">
-                372+
-              </span>
-            </label>
-
-            <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Intermediate</span>
-              <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">
-                36+
-              </span>
-            </label>
-
-            <label className="flex items-center gap-2">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Expert</span>
-               <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">
-                36+
-              </span>
-            </label>
+            <div className="space-y-4">
+              {[
+                ["YouTube", "372+"],
+                ["TikTok", "36+"],
+                ["Instagram", "36+"],
+                ["X (Twitter)", "36+"],
+                ["Facebook", "36+"],
+                ["Snapchat", "36+"],
+              ].map(([name, count], i) => (
+                <label key={i} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox"  />
+                    <span className="text-[16px]">{name}</span>
+                  </div>
+                  <span className="bg-red-100 text-[#FF4D4F] px-3 py-1 rounded-md">
+                    {count}
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
-     </div>
 
           {/* Budget */}
           <div>
-            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 leading-150% text-[#333]">Project Budget:</h3>
+            <h3 className="font-bold text-[20px] mb-3">Budget</h3>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-gray-500">
               <span>$5</span>
               <span>$35</span>
             </div>
 
-            <input type="range" min="5" max="35" className="w-full mt-2 " />
+            <input type="range" min="5" max="35" className="w-full mt-2" />
           </div>
 
-          {/* Deadline */}
+          {/* Project Duration */}
           <div>
-            <h3 className="font-semibold mb-3">Deadline</h3>
+            <h3 className="font-bold text-[20px] mb-3">Project Duration</h3>
 
-           <div className="space-y-4">
-             <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-             <span className="text-[16px] font-normal text-[#333] leading-150%">Express 24H</span>
-            </label>
-
-            <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Up to 3 days</span>
-            </label>
-
-            <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Up to 7 days</span>
-            </label>
-
-            <label className="flex items-center gap-2">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Anytime</span>
-            </label>
-           </div>
+            <div className="space-y-3">
+              {[
+                "Express 24H",
+                "Up to 3 days",
+                "Up to 7 days",
+                "Anytime",
+              ].map((label, i) => (
+                <label key={i} className="flex items-center gap-2">
+                  <input type="checkbox"  />
+                  <span className="text-[16px]">{label}</span>
+                </label>
+              ))}
+            </div>
           </div>
-
-          {/* Button */}
-          <button className="mt-4 w-full rounded-lg bg-[#ff4b4b] text-white p-2.5 text-[16px] font-normal">
-            Find Another Match
-          </button>
-        </div>
+        </aside>
 
         {/* RIGHT SIDE: EDITOR LIST */}
         <div className="w-3/4 space-y-6">
-          {editors.map((editor) => (
+
+          {visibleEditors.map((editor) => (
             <div
               key={editor.id}
-              className="bg-white rounded-xl p-5 shadow-sm flex justify-between "
+              className="bg-white rounded-xl p-5 shadow-sm flex justify-between"
             >
-              {/* Left: Image + Basic Info */}
               <div className="flex gap-4">
-                <div className=" overflow-hidden">
-                  <Image
-                    src={editor.image}
-                    alt={editor.name}
-                    width={251}
-                    height={184}
-                    className="object-cover rounded-lg  "
-                  />
-                </div>
+                <Image
+                  src={editor.image}
+                  alt={editor.name}
+                  width={200}
+                  height={160}
+                  className="rounded-lg object-cover"
+                />
 
                 <div>
-                  <h2 className="text-[20px] md:text-[24px] font-medium leading-150% text-[#333] pb-2.5">{editor.name}</h2>
+                  <h2 className="text-[22px] font-medium">{editor.name}</h2>
 
-                  {/* Rating */}
-                  <p className="text-[16px] font-normal text-[#333] flex items-center gap-1">
-                    <TiStarFullOutline className="text-[#FAAD14] " /> {editor.rating} ({editor.reviews} Review)
+                  <p className="text-[15px] text-gray-700 flex items-center gap-1">
+                    <TiStarFullOutline className="text-[#FAAD14]" />
+                    {editor.rating} ({editor.reviews} Review)
                   </p>
 
-                  <div className="flex gap-3 mt-2 text-xs text-gray-600 py-4">
+                  <div className="flex gap-3 mt-3 text-sm text-gray-700">
 
-                    <span className="px-3 py-1 text-[14px] bg-[#F2F3F3] text-[#333] rounded-full">
-                      {editor.skills} Skill+
+                    <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
+                      Link Building
                     </span>
 
-                    <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
-                      ⏳ {editor.experience}
+                    <span className="bg-green-100 text-green-600 px-3 py-1 rounded-full">
+                      {editor.experience}
                     </span>
 
-                    <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
-                      🌍 {editor.country}
+                    <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
+                      {editor.country}
                     </span>
                   </div>
-                   <div className="flex gap-3 mt-3 ">
-                  <Link href="/hire-vedio-editor">
-                  <button className="px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full">
-                    Hire Editor
-                  </button>
-                  </Link>
-                  <button className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full">
-                    Message
-                  </button>
-                </div>
+
+                  <div className="flex gap-3 mt-4">
+                    <button className="px-4 py-2 bg-red-500 text-white rounded-full text-sm">
+                      Hire Editor
+                    </button>
+                    <button className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm">
+                      Message
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* Right Section */}
-              <div className="text-right">
-
-                {/* Match Score */}
-                <span
-                  className={`px-3.5 text-[14px] py-1.5  rounded-full font-semibold
-                    ${
-                      editor.match >= 70
-                        ? "bg-[#EEFAE9] text-[#52C41A]"
-                        : editor.match <= 40
-                        ? "bg-[#FEE9EA] text-[#F5222D]"
-                        : "bg-yellow-100 text-yellow-600"
-                    }
-                  `}
-                >
-                  {editor.match}% Match
-                </span>
-
-                    
-
-              </div>
+             
             </div>
           ))}
-        </div>
 
+          {/* PAGINATION */}
+          <Pagination
+            page={page}
+            pageSize={pageSize}
+            total={allEditors.length}
+            onPageChange={setPage}
+          />
+        </div>
       </div>
     </div>
   );
