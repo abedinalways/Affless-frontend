@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { RxRotateCounterClockwise } from "react-icons/rx";
 
 type FormValues = {
   email: string;
@@ -21,13 +23,27 @@ export default function SignInForm() {
   } = useForm<FormValues>();
 
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log("Form Submitted:", data);
+    // console.log("Form Submitted:", data);
+    setLoading(true);
+    // Simulate an async operation like form submission
+    setTimeout(() => {
+      setLoading(false);
+      localStorage.setItem("isLogin", "true");
+      router.push("/");
+    }, 2000);
   };
 
   return (
-   <div className="containers">
+   <div className="
+      sm:px-[50px] 
+      md:px-[50px] 
+      lg:px-[100px] 
+      xl:px-[150px]
+      2xl:px-[300px]">
      <div
       className="
         grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
@@ -46,7 +62,7 @@ export default function SignInForm() {
       </div>
 
       {/* Right Form */}
-      <div className="w-full  mb-9 bg-[#FFDBDC] rounded-3xl shadow-md  p-8 sm:p-14 mx-auto">
+      <div className="w-full  mb-9 bg-[#FFDBDC] sm:rounded-3xl shadow-md p-8 sm:p-14 mx-auto">
         <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-[42px]">
           Sign In
         </h2>
@@ -125,9 +141,10 @@ export default function SignInForm() {
           {/* Sign In Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-2xl font-medium leading-[150%] rounded-xl"
+            className={`w-full py-3 bg-[#FF4D4F] ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} text-[#FDFDFD] font-poppins text-2xl font-medium leading-[150%] rounded-xl`}
+            disabled={loading}
           >
-            Sign In
+            {loading ? "Sign Inning In..." : "Sign In"}
           </button>
 
           {/* Sign Up */}
