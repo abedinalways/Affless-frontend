@@ -41,7 +41,7 @@ export default function BudgetPage() {
         <div className="flex flex-col items-center space-y-2">
           <div className="w-20 h-20 rounded-full overflow-hidden border">
             <Image
-              src="/images/jerome.png" // তোমার ইমেজ path বসাও
+              src="/images/jerome.png" 
               alt="Buyer"
               width={80}
               height={80}
@@ -53,9 +53,9 @@ export default function BudgetPage() {
 
           {/* Small Badge Icons */}
           <div className="flex items-center gap-2 mt-2">
-            <span className="w-6 h-6 bg-blue-400 rounded-md" />
-            <span className="w-6 h-6 bg-orange-400 rounded-md" />
-            <span className="w-6 h-6 bg-pink-400 rounded-md" />
+            <Image src="/images/coper1.png" alt="img" width={30} height={30}></Image>
+             <Image src="/images/coper2.png" alt="img" width={30} height={30}></Image>
+              <Image src="/images/coper3.png" alt="img" width={30} height={30}></Image>
           </div>
         </div>
 
@@ -81,7 +81,7 @@ function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between text-sm py-1">
       <span className="text-gray-500 font-medium">{label}</span>
-      <span className="text-[#4A6375] font-normal text-[16px] leading-150%">{value}</span>
+      <span className="text-[#4A6375] font-medium text-[16px] leading-150%">{value}</span>
     </div>
   );
 }

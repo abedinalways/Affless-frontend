@@ -76,119 +76,99 @@ const editors: Editor[] = [
 
 export default function FindEditorsPage() {
   return (
-    <div className="min-h-screen bg-[#f6f6f6] py-10 ">
-      <div className="containers mx-auto flex gap-8">
+    <div className="min-h-screen bg-[#f6f6f6] py-10">
+      <div className="containers mx-auto flex flex-col lg:flex-row gap-8">
 
         {/* LEFT FILTER SIDEBAR */}
-        <div className="w-1/4 bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
-
+        <div className="w-full lg:w-1/4 hidden md:block bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
           {/* Project Types */}
           <div>
-            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 leading-150% text-[#333]">Project Types</h3>
-
-      <div className="space-y-4">
+            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 text-[#333]">Project Types</h3>
+            <div className="space-y-4">
               <label className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span className="text-[16px] font-normal text-[#333] leading-150%"> YouTube Editing</span>
-              </div>
-               <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">32+</span>
-            </label>
-
-            <label className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span className="text-[16px] font-normal text-[#333] leading-150%">Marketing Video Editing</span>
-              </div>
-               <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">36+</span>
-            </label>
-
-            <label className="flex items-center justify-between ">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span className="text-[16px] font-normal text-[#333] leading-150%">Business Video Editing</span>
-              </div>
-               <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">555+</span>
-            </label>
-
-            <label className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-               <span className="text-[16px] font-normal text-[#333] leading-150%">Music Video Editing</span>
-              </div>
-             <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">36+</span>
-            </label>
-      </div>
+                <div className="flex items-center gap-2">
+                  <input type="checkbox" />
+                  <span className="text-[16px] font-normal text-[#333]"> YouTube Editing</span>
+                </div>
+                <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F]">32+</span>
+              </label>
+              <label className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <input type="checkbox" />
+                  <span className="text-[16px] font-normal text-[#333]">Marketing Video Editing</span>
+                </div>
+                <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F]">36+</span>
+              </label>
+              <label className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <input type="checkbox" />
+                  <span className="text-[16px] font-normal text-[#333]">Business Video Editing</span>
+                </div>
+                <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F]">555+</span>
+              </label>
+              <label className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <input type="checkbox" />
+                  <span className="text-[16px] font-normal text-[#333]">Music Video Editing</span>
+                </div>
+                <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F]">36+</span>
+              </label>
+            </div>
           </div>
 
           {/* Skill Level */}
           <div>
-            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 leading-150% text-[#333]">Skill Level</h3>
-
-     <div className="space-y-4">
-               <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Beginner</span>
-              <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">
-                372+
-              </span>
-            </label>
-
-            <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Intermediate</span>
-              <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">
-                36+
-              </span>
-            </label>
-
-            <label className="flex items-center gap-2">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Expert</span>
-               <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F] ">
-                36+
-              </span>
-            </label>
+            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 text-[#333]">Skill Level</h3>
+            <div className="space-y-4">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                <span className="text-[16px] font-normal text-[#333]">Beginner</span>
+                <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F]">372+</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                <span className="text-[16px] font-normal text-[#333]">Intermediate</span>
+                <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F]">36+</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                <span className="text-[16px] font-normal text-[#333]">Expert</span>
+                <span className="text-[14px] font-normal ml-auto w-[46px] h-[31px] text-center p-[5px] rounded-md bg-red-100 text-[#FF4D4F]">36+</span>
+              </label>
+            </div>
           </div>
-     </div>
 
           {/* Budget */}
           <div>
-            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 leading-150% text-[#333]">Project Budget:</h3>
-
+            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 text-[#333]">Project Budget</h3>
             <div className="flex justify-between text-sm">
               <span>$5</span>
               <span>$35</span>
             </div>
-
-            <input type="range" min="5" max="35" className="w-full mt-2 " />
+            <input type="range" min="5" max="35" className="w-full mt-2" />
           </div>
 
           {/* Deadline */}
           <div>
             <h3 className="font-semibold mb-3">Deadline</h3>
-
-           <div className="space-y-4">
-             <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-             <span className="text-[16px] font-normal text-[#333] leading-150%">Express 24H</span>
-            </label>
-
-            <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Up to 3 days</span>
-            </label>
-
-            <label className="flex items-center gap-2 ">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Up to 7 days</span>
-            </label>
-
-            <label className="flex items-center gap-2">
-              <input type="checkbox" />
-              <span className="text-[16px] font-normal text-[#333] leading-150%">Anytime</span>
-            </label>
-           </div>
+            <div className="space-y-4">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                <span className="text-[16px] font-normal text-[#333]">Express 24H</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                <span className="text-[16px] font-normal text-[#333]">Up to 3 days</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                <span className="text-[16px] font-normal text-[#333]">Up to 7 days</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                <span className="text-[16px] font-normal text-[#333]">Anytime</span>
+              </label>
+            </div>
           </div>
 
           {/* Button */}
@@ -198,67 +178,35 @@ export default function FindEditorsPage() {
         </div>
 
         {/* RIGHT SIDE: EDITOR LIST */}
-        <div className="w-3/4 space-y-6">
+        <div className="lg:w-3/4 w-full space-y-6 ">
           {editors.map((editor) => (
-            <div
-              key={editor.id}
-              className="bg-white rounded-xl p-5 shadow-sm flex justify-between "
-            >
+            <div key={editor.id} className="bg-white rounded-xl p-5 shadow-sm  gap-6">
               {/* Left: Image + Basic Info */}
-              <div className="flex gap-4">
-                <div className=" overflow-hidden">
-                  <Image
-                    src={editor.image}
-                    alt={editor.name}
-                    width={251}
-                    height={184}
-                    className="object-cover rounded-lg  "
-                  />
-                </div>
-
-                <div>
-                  <h2 className="text-[20px] md:text-[24px] font-medium leading-150% text-[#333] pb-2.5">{editor.name}</h2>
-
-                  {/* Rating */}
-                  <p className="text-[16px] font-normal text-[#333] flex items-center gap-1">
-                    <TiStarFullOutline className="text-[#FAAD14] " /> {editor.rating} ({editor.reviews} Review)
-                  </p>
-
-                  <div className="flex gap-3 mt-2 text-xs text-gray-600 py-4">
-
-                    <span className="px-3 py-1 text-[14px] bg-[#F2F3F3] text-[#333] rounded-full">
-                      {editor.skills} Skill+
-                    </span>
-
-                    <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
-                      ⏳ {editor.experience}
-                    </span>
-
-                    <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
-                      🌍 {editor.country}
-                    </span>
-                  </div>
-                   <div className="flex gap-3 mt-3 ">
-                  <Link href="/client/hire-vedio-editor">
-                  <button className="px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full">
-                    Hire Editor
-                  </button>
-                  </Link>
-                  <button className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full">
-                    Message
-                  </button>
-                </div>
-                </div>
+              <div className="flex flex-col lg:flex-row gap-6">
+                <div className="flex gap-4">
+                <Image
+                  src={editor.image}
+                  alt={editor.name}
+                  width={251}
+                  height={184}
+                  className="object-cover rounded-lg"
+                />
               </div>
 
-              {/* Right Section */}
-              <div className="text-right">
-
-                {/* Match Score */}
+                <div className=" w-full">
+               
+                   <div className="flex justify-between">
+                    <div>
+                       <h2 className="text-[20px] md:text-[24px] font-medium text-[#333] pb-2.5">{editor.name}</h2>
+                  <p className="text-[16px] font-normal text-[#333] flex items-center gap-1">
+                    <TiStarFullOutline className="text-[#FAAD14]" /> {editor.rating} ({editor.reviews} Review)
+                  </p>
+                    </div>
+                    <div>
+                         <div className=" ">
                 <span
-                  className={`px-3.5 text-[14px] py-1.5  rounded-full font-semibold
-                    ${
-                      editor.match >= 70
+                  className={`p-2 lg:px-3.5 lg:text-[12px] text-[10px] py-1.5 rounded-full font-semibold
+                    ${editor.match >= 70
                         ? "bg-[#EEFAE9] text-[#52C41A]"
                         : editor.match <= 40
                         ? "bg-[#FEE9EA] text-[#F5222D]"
@@ -268,14 +216,42 @@ export default function FindEditorsPage() {
                 >
                   {editor.match}% Match
                 </span>
-
-                    
-
               </div>
+                    </div>
+                   </div>
+
+                  <div className="flex gap-2 mt-2 text-xs text-gray-600 py-4">
+                    <span className="px-3 py-1 text-[14px] bg-[#F2F3F3] text-[#333] rounded-full">
+                      {editor.skills} Skill+
+                    </span>
+                    <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
+                      ⏳ {editor.experience}
+                    </span>
+                    <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
+                      🌍 {editor.country}
+                    </span>
+                  </div>
+
+                  <div className="flex gap-3 mt-3">
+                    <Link href="/client/hire-vedio-editor">
+                      <button className="px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full">
+                        Hire Editor
+                      </button>
+                    </Link>
+                    <button className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full">
+                      Message
+                    </button>
+                  </div>
+                 
+                
+                </div>
+              </div>
+
+              {/* Right Section */}
+             
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );

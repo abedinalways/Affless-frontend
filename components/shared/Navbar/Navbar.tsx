@@ -48,11 +48,18 @@ export default function Navbar() {
           </div>
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
-          <Link href="/login" className="hidden md:flex">
+        <div className="flex gap-5">
+            <Link href="/login" className="hidden md:flex">
             <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
               <DubbleUser /> Sign In
             </button>
           </Link>
+           <Link href="/singup" className="hidden md:flex">
+            <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
+              <DubbleUser /> Sign Up
+            </button>
+          </Link>
+        </div>
 
           {/* ---------- HAMBURGER (MOBILE) ---------- */}
           <button className="md:hidden text-3xl" onClick={() => setMobileMenu(true)}>
@@ -89,7 +96,8 @@ export default function Navbar() {
           <li><Link href="/pricing" onClick={() => setMobileMenu(false)}>Pricing</Link></li>
 
           <li>
-            <Link
+           <div className="flex gap-4">
+             <Link
               href="/login"
               onClick={() => setMobileMenu(false)}
               className="inline-block bg-[#FF4D4F] text-white px-5 py-2 rounded-xl mt-4"
@@ -98,6 +106,16 @@ export default function Navbar() {
                 <DubbleUser /> Sign In
               </div>
             </Link>
+             <Link
+              href="/singup"
+              onClick={() => setMobileMenu(false)}
+              className="inline-block bg-[#FF4D4F] text-white px-5 py-2 rounded-xl mt-4"
+            >
+              <div className="flex items-center gap-2">
+                <DubbleUser /> Sign Up
+              </div>
+            </Link>
+           </div>
           </li>
         </ul>
       </div>

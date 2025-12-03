@@ -175,7 +175,7 @@ export default function ClientDashboard() {
               {orders.map((order) => (
                 <div
                   key={order.id}
-                  className="flex items-center justify-between gap-4 rounded-xl px-2 py-3 hover:bg-gray-50"
+                  className="flex flex-col md:flex-row items-center justify-between gap-4 rounded-xl px-2 py-3 hover:bg-gray-50"
                 >
                   {/* Left: image + title */}
                   <div className="flex flex- items-center gap-4">
@@ -194,13 +194,15 @@ export default function ClientDashboard() {
                   </div>
 
                   {/* Middle: price + days */}
-                  <div className="flex items-center gap-8 text-[18px] font-normal text-[#4A4C56]">
-                    <span>${order.price}</span>
-                    <span>{order.days} Days</span>
+                 <div className="flex gap-[190px] md:gap-7 justify-between">
+                   <div className="flex items-center gap-8 text-[18px] font-normal text-[#4A4C56]">
+                    <p>${order.price}</p>
+                    <p className="hidden md:block">{order.days} Days</p>
                   </div>
 
                   {/* Right: status button */}
-                  {order.status === "pending" ? (
+                 <div>
+                   {order.status === "pending" ? (
                     <button className="rounded-lg bg-[#EEFAE9] px-5 py-2 text-[16px] font-medium text-[#52C41A]">
                       Pending
                     </button>
@@ -209,6 +211,8 @@ export default function ClientDashboard() {
                       Accept
                     </button>
                   )}
+                 </div>
+                 </div>
 
                
                 </div>

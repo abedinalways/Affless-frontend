@@ -215,7 +215,7 @@ export default function HireVideoEditorForm() {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between mt-8 gap-6">
+      <div className="flex flex-col md:flex-row justify-between mt-8 gap-6">
        
         <div className="w-full bg-gray-200 rounded-xl cursor-pointer">
            <Link href="/client/find-editor-match">

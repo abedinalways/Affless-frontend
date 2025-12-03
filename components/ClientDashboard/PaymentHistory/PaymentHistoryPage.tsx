@@ -2,14 +2,24 @@
 
 import Image from "next/image";
 
+// Define the type for the payment data
+interface Payment {
+  id: number;
+  img: string;
+  title: string;
+  price: string;
+  day: string;
+  status: "Revision" | "Cancel"; // Limiting the status to specific values
+}
+
 export default function PaymentHistoryPage() {
-  const payments = [
-    { id: 1, status: "Revision" },
-    { id: 2, status: "Cancel" },
-    { id: 3, status: "Cancel" },
-    { id: 4, status: "Revision" },
-    { id: 5, status: "Revision" },
-    { id: 6, status: "Revision" },
+  const payments: Payment[] = [
+    { id: 1, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "$55", day: "5 Days", status: "Revision" },
+    { id: 2, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "$75", day: "3 Days", status: "Cancel" },
+    { id: 3, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "$150", day: "10 Days", status: "Revision" },
+      { id: 3, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "$55", day: "5 Days", status: "Revision" },
+    { id: 4, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "$75", day: "3 Days", status: "Cancel" },
+    { id: 5, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "$150", day: "10 Days", status: "Revision" },
   ];
 
   return (
@@ -28,55 +38,55 @@ export default function PaymentHistoryPage() {
 
         {/* Right Card */}
         <div className="bg-white rounded-xl p-6 shadow-sm">
-          <p className="text-gray-600 text-sm mb-2">Payments Held by Admin</p>
-          <p className="text-xl font-semibold mb-4">US$0.00</p>
+          <p className="text-gray-600 text-lg mb-2 text-center  lg:text-start">Payments Held by Admin</p>
+          <p className="text-[32px] font-semibold mb-4 text-center lg:text-start">US$0.00</p>
 
-          <div className="w-full h-[1px] bg-gray-200 mb-4"></div>
-
-          <p className="text-gray-600 text-sm mb-2">Delivery Payment</p>
-          <p className="text-xl font-semibold">US$0.00</p>
+          <p className="text-gray-600 text-[18px] mb-2 text-center pt-14 lg:pt-0 lg:text-start">Delivery Payment</p>
+          <p className="text-[32px] font-semibold text-center  lg:text-start">US$0.00</p>
         </div>
 
       </div>
 
       {/* ---------- PAYMENT ROWS (Figma Style) ---------- */}
+      <div className="flex justify-between pb-8">
+        <p className="font-medium text-[24px] leading-150%">Job</p>
+        <p className="text-sm font-normal leading-150%">See More</p>
+      </div>
       <div className="space-y-3">
-        {payments.map((p) => (
+        {payments.map((payment) => (
           <div
-            key={p.id}
+            key={payment.id}
             className="bg-white rounded-xl flex items-center justify-between shadow-sm py-4 px-4"
           >
             {/* Left: Image + Title */}
             <div className="flex items-center gap-3">
               <Image
-                src="/service.jpg"
-                width={45}
-                height={45}
-                alt="service"
-                className="rounded-md"
+                src={payment.img}
+                alt="Payment"
+                height={40}
+                width={40}
               />
-
-              <p className="text-sm font-medium max-w-[260px]">
-                I will craft quality backlinks for your website's SEO.
-              </p>
+              <p className="text-sm font-medium max-w-[260px]">{payment.title}</p>
             </div>
 
             {/* Amount */}
-            <p className="font-semibold">$55</p>
+            <p className="font-semibold hidden md:block">{payment.price}</p>
 
             {/* Days */}
-            <p className="text-gray-500">5 Days</p>
+            <p className="text-gray-500  hidden md:block">{payment.day}</p>
 
             {/* Status */}
-            {p.status === "Revision" ? (
-              <span className="px-4 py-1 rounded-lg bg-yellow-100 text-yellow-600 text-sm font-medium">
-                Revision
-              </span>
-            ) : (
-              <span className="px-4 py-1 rounded-lg bg-red-100 text-red-500 text-sm font-medium">
-                Cancel
-              </span>
-            )}
+            <div className="hidden md:block">
+              {payment.status === "Revision" ? (
+                <span className="px-4 py-1 rounded-lg bg-yellow-100 text-yellow-600 text-sm font-medium">
+                  Revision
+                </span>
+              ) : (
+                <span className="px-4 py-1 rounded-lg bg-red-100 text-red-500 text-sm font-medium">
+                  Cancel
+                </span>
+              )}
+            </div>
           </div>
         ))}
       </div>

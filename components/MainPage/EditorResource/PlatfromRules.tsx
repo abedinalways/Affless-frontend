@@ -24,7 +24,7 @@ export default function PlatfromRules() {
      <AccordionItem value="item-1 " className='border-none'>
   
         <div className='bg-[#FFDBDC] px-6 py-5 flex gap-3 '>
-            <div className='bg-white w-12 h-12 rounded-full mt-3 md:mt-0'>
+            <div className='bg-white w-14 lg:w-12 h-12 rounded-full mt-3 md:mt-0'>
               <QualityIcon className='mt-4 flex justify-center items-center mx-auto '/>
             </div>
             <AccordionTrigger className='text-[16px] lg:text-[18px] font-normal leading-120%'style={{color: 'red'}}> Quality Standards for Video & Audio Editing</AccordionTrigger>
@@ -37,7 +37,7 @@ export default function PlatfromRules() {
    <AccordionItem value="item-2 " className='border-none'>
   
         <div className='bg-[#FFDBDC] px-6 py-5 flex gap-3'>
-            <div className='bg-white w-12 h-12 rounded-full mt-2 md:mt-0'>
+            <div className='bg-white w-14 lg:w-12 h-12 rounded-full mt-2 md:mt-0'>
               <DocumentIcon className='mt-3 text-[#FFDBDC] flex justify-center items-center mx-auto'/>
             </div>
             <AccordionTrigger className=' text-[16px] lg:text-[18px] font-normal leading-120%' style={{color: 'red'}}> File Delivery Format Guidelines</AccordionTrigger>
@@ -50,7 +50,7 @@ export default function PlatfromRules() {
    <AccordionItem value="item-3 " className='border-none'>
   
         <div className='bg-[#FFDBDC] px-6 py-5 flex gap-3'>
-            <div className='bg-white w-12 h-12 rounded-full mt-3 md:mt-0'>
+            <div className='bg-white w-14 lg:w-12 h-12 rounded-full mt-3 md:mt-0'>
               <QualityIcon className='mt-4 flex justify-center items-center mx-auto'/>
             </div>
             <AccordionTrigger className='text-[16px] lg:text-[18px]  font-normal leading-120%' style={{color: 'red'}}>Quality Standards for Video & Audio Editing</AccordionTrigger>
@@ -60,10 +60,10 @@ export default function PlatfromRules() {
     </AccordionContent>
   
   </AccordionItem>
-   <AccordionItem value="item-4 " className='border-none'>
+   {/* <AccordionItem value="item-4 " className='border-none'>
   
         <div className='bg-[#FFDBDC] px-6 py-5 flex gap-3'>
-            <div className='bg-white w-12 h-12 rounded-full mt-3 md:mt-0'>
+            <div className='bg-white w-14 lg:w-12 h-12 rounded-full mt-3 md:mt-0'>
               <QualityIcon className='mt-4 flex justify-center items-center mx-auto'/>
             </div>
             <AccordionTrigger className=' text-[16px] lg:text-[18px] font-normal leading-120%' style={{color: 'red'}}> Quality Standards for Video & Audio Editing</AccordionTrigger>
@@ -72,7 +72,7 @@ export default function PlatfromRules() {
       All delivered content must meet minimum technical specifications: Video resolution of 1080p or higher, frame rate of 24fps minimum, audio at -16 LUFS for social media or -23 LUFS for broadcast. Ensure proper color correction, no visual artifacts, and clean audio with no clipping or distortion. Maintain consistent quality across all deliverables.
     </AccordionContent>
   
-  </AccordionItem>
+  </AccordionItem> */}
  </div>
 </Accordion>
 

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import PageBanner from "@/components/reusable/Bgbanner";
+import SinglePaymentIcon from "@/components/Icons/SinglePaymentIcon";
+import MilestoneIcon from "@/components/Icons/MilestoneIcon";
 
 type FormValues = {
   jobTitle: string;
@@ -208,7 +210,7 @@ export default function PostJobForm() {
             )}
             onClick={() => setPaymentType("single")}
           >
-            <p className="font-semibold text-red-600">Single Payment</p>
+            <p className="font-semibold text-red-600 flex gap-3"><SinglePaymentIcon/>Single Payment</p>
             <p className="text-sm text-gray-600">
               Receive full payment once the project is completed.
             </p>
@@ -223,7 +225,7 @@ export default function PostJobForm() {
             )}
             onClick={() => setPaymentType("milestone")}
           >
-            <p className="font-semibold">Milestone Payments</p>
+            <p className="font-semibold flex gap-3"><MilestoneIcon/> Milestone Payments</p>
             <p className="text-sm text-gray-600">
               Divide the project into stages for partial payments.
             </p>

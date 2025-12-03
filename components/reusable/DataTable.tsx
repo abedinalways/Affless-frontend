@@ -20,15 +20,14 @@ import Pagination from "./pagination";
 
 interface DataTableProps<TData, TValue> {
   children?: React.ReactNode;
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  page?: number;
-  pageSize?: number;
-  total?: number;
-  onPageChange?: (page: number) => void;
+  columns: ColumnDef<TData, TValue>[]; // Define the columns type
+  data: TData[]; // Table data
+  page?: number; // Current page
+  pageSize?: number; // Items per page
+  total?: number; // Total data count
+  onPageChange?: (page: number) => void; // Page change handler
 
-  // ✅ No Row<TData>, just plain data
-  onRowClick?: (row: TData) => void;
+  onRowClick?: (row: TData) => void; // Row click handler
 }
 
 export function DataTable<TData, TValue>({
@@ -55,10 +54,10 @@ export function DataTable<TData, TValue>({
 
       <div className="overflow-x-auto">
 
-        <Table className="border-separate border-spacing-y-4">
+        <Table className="border-separate border-spacing-y-4 w-full">
 
           {/* HEADER */}
-          <TableHeader className="bg-white rounded-md border-2 border-red-500">
+          <TableHeader className="bg-white rounded-md border-2 border-red-500 ">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="p-9">
                 {headerGroup.headers.map((header) => (
@@ -77,17 +76,10 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   onClick={() => onRowClick?.(row.original)}   
-                  className="
-                    cursor-pointer
-                    bg-white
-                    border-2 border-red-500
-                    rounded-xl
-                    hover:bg-red-100
-                    transition
-                  "
+                  className="cursor-pointer bg-white border-2 border-red-500 rounded-xl hover:bg-red-100 transition"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="p-2.5">
+                    <TableCell key={cell.id} className="p-2.5 text-sm">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -108,6 +100,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
+      {/* Pagination */}
       {onPageChange && (
         <div className="py-4">
           <Pagination

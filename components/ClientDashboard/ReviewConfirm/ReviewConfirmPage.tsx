@@ -6,6 +6,7 @@ import { RxDashboard } from "react-icons/rx";
 import ProjectTitleIcon from "@/components/Icons/ProjectTitle";
 import { LuClock } from "react-icons/lu";
 import { CreditCard } from "lucide-react";
+import Link from "next/link";
 
 export default function ReviewConfirmPage() {
   // ---- All data stored inside component ----
@@ -36,12 +37,12 @@ export default function ReviewConfirmPage() {
       </p>
 
       {/* Editor Info */}
-     <div className="py-6">
-       <div className="p-8 bg-[#F6E5E5] text-white rounded-lg border border-[#FF4D4F]">
-        <h2 className="text-xl text-[#333] font-medium">Jerome Bell</h2>
-        <p className="text-sm pt-[18px] text-[#4A4C56]">Professional Video Editor</p>
+      <div className="py-6">
+        <div className="p-8 bg-[#F6E5E5] text-white rounded-lg border border-[#FF4D4F]">
+          <h2 className="text-xl text-[#333] font-medium">Jerome Bell</h2>
+          <p className="text-sm pt-[18px] text-[#4A4C56]">Professional Video Editor</p>
+        </div>
       </div>
-     </div>
 
       {/* Project Details */}
       <div className="bg-white p-6 rounded-xl shadow-sm mb-8">
@@ -49,7 +50,7 @@ export default function ReviewConfirmPage() {
 
         <div className="space-y-6 text-sm">
           <div>
-            <p className="text-[#777980] flex gap-2 text-sm pb-3"><ProjectTitleIcon/> Project Title</p>
+            <p className="text-[#777980] flex gap-2 text-sm pb-3"><ProjectTitleIcon /> Project Title</p>
             <p className="font-medium">{data.projectTitle}</p>
           </div>
 
@@ -103,7 +104,7 @@ export default function ReviewConfirmPage() {
             type="button"
             className="mt-3 text-sm text-left leading-150% text-[#4A4C56] flex gap-3"
           >
-          <CreditCard />  Payment Method: Credit Card
+            <CreditCard />  Payment Method: Credit Card
           </button>
         </div>
       </div>
@@ -115,7 +116,7 @@ export default function ReviewConfirmPage() {
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between gap-5">
+      <div className="flex flex-col md:flex-row justify-between gap-5">
         <button
           type="button"
           onClick={() => window.history.back()}
@@ -123,13 +124,13 @@ export default function ReviewConfirmPage() {
         >
           Back
         </button>
-
-        <button
-          type="button"
+        <button type="button"
           onClick={() => setShowPayment(true)}
-          className="flex-1 py-3 rounded-xl bg-[#FF4D4F] text-white"
+          className="flex-1 py-3 rounded-xl bg-[#FF4D4F] text-white cupointer"
         >
-          Confirm & Send Request
+       
+            Confirm & Send Request
+        
         </button>
       </div>
     </div>

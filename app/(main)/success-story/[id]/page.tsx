@@ -26,11 +26,11 @@ export default async function StoryDetails({
   if (!story) return notFound();
 
   return (
-    <div className="containers mx-auto pt-16 space-y-6">
+    <div className="containers mx-auto pt-8 lg:pt-16 space-y-6">
 
       {/* PROFILE CARD */}
       <div className="bg-[#FFFFFF] shadow-md p-5 rounded-2xl ">
-        <div className="flex items-center gap-8">
+        <div className="flex flex-col md:flex-row items-center gap-8">
         <div className="">
             <Image
             src={story.image}

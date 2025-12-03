@@ -18,9 +18,9 @@ export default function GraphicsDesignerPage() {
         ]}
         />
               </div>
-     <div className='containers pt-20'>
+     <div className='containers lg:pt-20'>
          <div className="flex flex-col gap-8 md:flex-row">
-        <div className="w-full md:w-3/4">
+        <div className="w-full md:w-3/4 order-1 md:order-0">
             <JobDetailsPage/>
         </div>
         <div className="w-full md:w-1/4">

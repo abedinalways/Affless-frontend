@@ -50,7 +50,7 @@ export default function PaymentMethodPage() {
       </div>
 
       {/* Choose Payment Method */}
-      <div className="bg-white p-8 rounded-xl shadow-sm mb-8">
+      <div className="bg-white p-4 lg:p-8 rounded-xl shadow-sm mb-8">
         <h2 className="text-lg font-semibold mb-4">Choose Your Payment Method</h2>
 
         {/* Credit Card Selection */}
@@ -198,7 +198,7 @@ export default function PaymentMethodPage() {
       </label>
 
       {/* Bottom Buttons */}
-      <div className="flex justify-between items-center mt-6 gap-6">
+      <div className="flex flex-col md:flex-row justify-between items-center mt-6 gap-6">
        <div className="bg-gray-300 w-full rounded-lg">
           <Link href="/review-confirm"> 
         <div

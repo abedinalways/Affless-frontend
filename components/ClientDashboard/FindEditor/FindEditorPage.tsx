@@ -78,17 +78,17 @@ const allEditors: Editor[] = [
 export default function FindEditorPage() {
   // Pagination setup
   const [page, setPage] = useState(1);
-  const pageSize = 2; // how many cards per page
+  const pageSize = 5; // how many cards per page
 
   const startIndex = (page - 1) * pageSize;
   const visibleEditors = allEditors.slice(startIndex, startIndex + pageSize);
 
   return (
-    <div className="min-h-screen bg-white py-10">
+    <div className="min-h-screen  py-10">
       <div className="containers mx-auto flex gap-8">
 
         {/* LEFT FILTER SIDEBAR */}
-        <aside className="w-1/4 bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
+        <aside className="w-4/4 lg:w-1/4 hidden md:block  bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
 
           {/* Job Category */}
           <div>
@@ -129,7 +129,7 @@ export default function FindEditorPage() {
               ].map(([name, count], i) => (
                 <label key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <input type="checkbox"  />
+                    <input type="checkbox" />
                     <span className="text-[16px]">{name}</span>
                   </div>
                   <span className="bg-red-100 text-[#FF4D4F] px-3 py-1 rounded-md">
@@ -164,7 +164,7 @@ export default function FindEditorPage() {
                 "Anytime",
               ].map((label, i) => (
                 <label key={i} className="flex items-center gap-2">
-                  <input type="checkbox"  />
+                  <input type="checkbox" />
                   <span className="text-[16px]">{label}</span>
                 </label>
               ))}
@@ -173,23 +173,23 @@ export default function FindEditorPage() {
         </aside>
 
         {/* RIGHT SIDE: EDITOR LIST */}
-        <div className="w-3/4 space-y-6">
+        <div className="w-full lg:w-3/4 space-y-6 ">
 
           {visibleEditors.map((editor) => (
             <div
               key={editor.id}
-              className="bg-white rounded-xl p-5 shadow-sm flex justify-between"
+              className="bg-white rounded-xl p-5  shadow-sm flex w-full justify-between"
             >
-              <div className="flex gap-4">
+              <div className="flex flex-col lg:flex-row w-full justify-between gap-4 md:gap-5 lg:gap-6">
                 <Image
                   src={editor.image}
                   alt={editor.name}
                   width={200}
                   height={160}
-                  className="rounded-lg object-cover"
+                  className="rounded-lg object-cover w-full lg:w-[200px] "
                 />
 
-                <div>
+                <div className="flex flex-col w-full">
                   <h2 className="text-[22px] font-medium">{editor.name}</h2>
 
                   <p className="text-[15px] text-gray-700 flex items-center gap-1">
@@ -198,15 +198,12 @@ export default function FindEditorPage() {
                   </p>
 
                   <div className="flex gap-3 mt-3 text-sm text-gray-700">
-
                     <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
                       Link Building
                     </span>
-
                     <span className="bg-green-100 text-green-600 px-3 py-1 rounded-full">
                       {editor.experience}
                     </span>
-
                     <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
                       {editor.country}
                     </span>
@@ -222,9 +219,8 @@ export default function FindEditorPage() {
                   </div>
                 </div>
               </div>
-
-             
             </div>
+
           ))}
 
           {/* PAGINATION */}

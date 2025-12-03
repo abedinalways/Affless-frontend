@@ -41,7 +41,7 @@ export default function ClientGuidePage() {
       </div>
 
       {/* ---------- MAIN CONTENT ---------- */}
-      <div className=" w-full bg-white p-8 rounded-xl shadow space-y-8">
+      <div className=" w-full bg-white p-4 lg:p-8 rounded-xl shadow space-y-8">
 
         {/* PAGE TITLE */}
         <div>
