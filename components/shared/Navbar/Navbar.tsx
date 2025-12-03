@@ -49,7 +49,7 @@ export default function Navbar() {
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <Link href="/login" className="hidden md:flex">
-            <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base">
+            <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
               <DubbleUser /> Sign In
             </button>
           </Link>

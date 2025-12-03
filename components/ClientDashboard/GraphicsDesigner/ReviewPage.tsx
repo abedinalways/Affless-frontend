@@ -17,7 +17,7 @@ const reviewData: Review[] = [
   {
     id: 1,
     name: "Devon Lane",
-    avatar: "/user1.jpg", // your image
+    avatar: "/images/devon.png", // your image
     rating: 4.9,
     reviews: 338,
     timeAgo: "4 years ago",
@@ -26,7 +26,7 @@ const reviewData: Review[] = [
   {
     id: 2,
     name: "Jerome Bell",
-    avatar: "/user2.jpg",
+    avatar: "/images/jerome.png",
     rating: 4.9,
     reviews: 338,
     timeAgo: "4 years ago",
@@ -35,7 +35,7 @@ const reviewData: Review[] = [
   {
     id: 3,
     name: "Floyd Miles",
-    avatar: "/user3.jpg",
+    avatar: "/images/floyd.png",
     rating: 4.9,
     reviews: 338,
     timeAgo: "4 years ago",
@@ -47,7 +47,7 @@ export default function ReviewPage() {
   return (
     <div className="max-w-4xl  mt-10 space-y-8">
 
-      <h2 className="text-2xl font-bold">Review</h2>
+      <h2 className="text-xl lg:text-3xl font-bold font-roboto leading-150%">Review</h2>
 
       <div className="space-y-10">
         {reviewData.map((review) => (
@@ -65,8 +65,8 @@ function ReviewItem({ review }: { review: Review }) {
       <Image
         src={review.avatar}
         alt={review.name}
-        width={60}
-        height={60}
+        width={70}
+        height={70}
         className="rounded-full object-cover"
       />
 
@@ -80,9 +80,17 @@ function ReviewItem({ review }: { review: Review }) {
 
         {/* Rating + count */}
         <div className="flex items-center    gap-2">
-          <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-          <span className="font-semibold">{review.rating}</span>
-          <span className="text-gray-500 text-sm">({review.reviews} reviews)</span>
+          <div className="flex py-2.5">
+            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+            <Star className="w-5 h-5 text-gray-400 fill-gray-400" />
+          </div>
+          <div className="text-[#333]">
+            <span className="">{review.rating}</span>
+          <span className=" text-sm">({review.reviews} reviews)</span>
+          </div>
         </div>
 
         {/* Review text */}

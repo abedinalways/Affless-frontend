@@ -157,7 +157,7 @@ export default function ProfilePage() {
               </div>
 
               {/* PROPERTY LIST */}
-              <div className="flex justify-between text-sm text-gray-700">
+              <div className="flex flex-col lg:flex-row justify-between text-sm text-gray-700">
                 <div className="p-6 flex gap-6">
                   <div>
                     <p className="text-[#4A4C56] text-[14px]">Price range</p>
