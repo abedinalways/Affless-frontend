@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
+import { useRouter } from "next/navigation";
+import JobProposalCard from "@/components/reusable/TableCard"; // Reusable card component
+import { SlidersHorizontal } from "lucide-react"; // Icon for mobile filters
 import Link from "next/link";
-
-type JobStatus = "IN_PROGRESS" | "IN_REVISION";
 
 interface JobRow {
   id: number;
@@ -13,8 +14,10 @@ interface JobRow {
   thumbnail: string;
   total: string;
   dueOn: string;
-  status: JobStatus;
+  status: "Accept" | "In Progress" | "In Revision";
 }
+
+const PAGE_SIZE = 8;
 
 const ALL_JOBS: JobRow[] = [
   {
@@ -23,7 +26,7 @@ const ALL_JOBS: JobRow[] = [
     thumbnail: "/images/mnagejob1.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_PROGRESS",
+    status: "In Progress",
   },
   {
     id: 2,
@@ -31,7 +34,7 @@ const ALL_JOBS: JobRow[] = [
     thumbnail: "/images/mnagejob2.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_PROGRESS",
+    status: "In Progress",
   },
   {
     id: 3,
@@ -39,15 +42,15 @@ const ALL_JOBS: JobRow[] = [
     thumbnail: "/images/mnagejob3.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_REVISION",
+    status: "In Revision",
   },
-  {
+   {
     id: 1,
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_PROGRESS",
+    status: "In Progress",
   },
   {
     id: 2,
@@ -55,7 +58,7 @@ const ALL_JOBS: JobRow[] = [
     thumbnail: "/images/mnagejob2.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_PROGRESS",
+    status: "In Progress",
   },
   {
     id: 3,
@@ -63,15 +66,15 @@ const ALL_JOBS: JobRow[] = [
     thumbnail: "/images/mnagejob3.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_REVISION",
+    status: "In Revision",
   },
-  {
+   {
     id: 1,
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_PROGRESS",
+    status: "In Progress",
   },
   {
     id: 2,
@@ -79,7 +82,7 @@ const ALL_JOBS: JobRow[] = [
     thumbnail: "/images/mnagejob2.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_PROGRESS",
+    status: "In Progress",
   },
   {
     id: 3,
@@ -87,47 +90,32 @@ const ALL_JOBS: JobRow[] = [
     thumbnail: "/images/mnagejob3.jpg",
     total: "$654",
     dueOn: "Jun 21",
-    status: "IN_REVISION",
+    status: "In Revision",
   },
-  {
-    id: 1,
-    service: "I will do SEO backlinks with building",
-    thumbnail: "/images/mnagejob1.jpg",
-    total: "$654",
-    dueOn: "Jun 21",
-    status: "IN_PROGRESS",
-  },
-  {
-    id: 2,
-    service: "I will create backlinks to improve your SEO rankings.",
-    thumbnail: "/images/mnagejob2.jpg",
-    total: "$654",
-    dueOn: "Jun 21",
-    status: "IN_PROGRESS",
-  },
-  {
-    id: 3,
-    service: "I will craft quality backlinks for your website's SEO.",
-    thumbnail: "/images/mnagejob3.jpg",
-    total: "$654",
-    dueOn: "Jun 21",
-    status: "IN_REVISION",
-  },
-
+  // Add more proposals as needed
 ];
 
-const PAGE_SIZE = 8;
-
 export default function ManageJobsPage() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
-  const total = ALL_JOBS.length;
   const [activeTab, setActiveTab] = useState("Active");
-
 
   const pageData = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
     return ALL_JOBS.slice(start, start + PAGE_SIZE);
   }, [page]);
+
+  const handleAccept = (id: number) => {
+    console.log(`Proposal ${id} accepted`);
+  };
+
+  const handleInProgress = (id: number) => {
+    console.log(`Proposal ${id} is in progress`);
+  };
+
+  const handleRevision = (id: number) => {
+    console.log(`Proposal ${id} is in revision`);
+  };
 
   const columns: ColumnDef<JobRow>[] = [
     {
@@ -144,9 +132,7 @@ export default function ManageJobsPage() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <span className="text-sm font-medium text-gray-800">
-              {data.service}
-            </span>
+            <span className="text-sm font-medium text-gray-800">{data.service}</span>
           </div>
         );
       },
@@ -170,56 +156,40 @@ export default function ManageJobsPage() {
       header: "STATUS",
       cell: ({ row }) => {
         const data = row.original;
-
-        const isRevision = data.status === "IN_REVISION";
-
-        // create dynamic URL
-        const route =
-          data.status === "IN_PROGRESS"
-            ? `/inprogress?id=${data.id}&title=${encodeURIComponent(data.service)}`
-            : `/inrevision?id=${data.id}&title=${encodeURIComponent(data.service)}`;
+        const isInProgress = data.status === "In Progress";
+        const isRevision = data.status === "In Revision";
 
         return (
-          <Link href="/client/inprogress">
-            <div className="cursor-pointer">
-              <span
-                className={`px-4 py-1 rounded-md text-xs font-semibold uppercase text-white
-            ${isRevision ? "bg-red-500" : "bg-sky-700"}`}
-              >
-                {isRevision ? "IN REVISION" : "IN PROGRESS"}
-              </span>
-            </div>
-          </Link>
+          <span
+            className={`px-4 py-1 rounded-md text-[16px] font-medium uppercase text-white ${
+              isRevision ? "bg-red-500" : isInProgress ? "bg-[#00648A]" : "bg-green-600"
+            }`}
+          >
+            {data.status}
+          </span>
         );
       },
-    }
-
-
-
+    },
   ];
 
   return (
     <div className="containers py-8">
-
-      {/* Tabs */}
-      <div className="flex justify-between">
-        <div className="mb-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center gap-3 md:gap-6 text-sm font-medium">
-
+   <div className="hidden md:block">
+       {/* Tabs */}
+      <div className="flex justify-between mb-6 ">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center gap-3 md:gap-6 text-sm font-medium">
           {["Active", "Late", "Delivered", "Completed", "Cancelled"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`
-        px-3 py-2 rounded-md transition
-        ${activeTab === tab ? "text-black font-semibold" : "text-gray-500"}
-      `}
+              className={`px-3 py-2 rounded-md transition ${
+                activeTab === tab ? "text-black font-semibold" : "text-gray-500"
+              }`}
             >
               {tab}
             </button>
           ))}
-
         </div>
-
 
         <Link href="/client/post-job">
           <div className="bg-[#FF4D4F] py-3 px-4 h-fit top-5 text-white rounded-lg cursor-pointer">
@@ -245,9 +215,40 @@ export default function ManageJobsPage() {
         data={pageData}
         page={page}
         pageSize={PAGE_SIZE}
-        total={total}
+        total={ALL_JOBS.length}
         onPageChange={setPage}
       />
+   </div>
+
+      {/* Mobile View */}
+      <div className="block md:hidden">
+        <div className="space-y-3">
+          <div className="flex justify-between">
+            <p>Manage Job</p>
+            <button className="border border-gray-300 p-3 rounded-lg flex gap-3">
+              Proposals <SlidersHorizontal />
+            </button>
+          </div>
+
+          {pageData.map((proposal) => (
+            <JobProposalCard
+              key={proposal.id}
+              image={proposal.thumbnail}
+              title={proposal.service}
+              total={proposal.total}
+              status={proposal.status}
+              onAction={
+                proposal.status === "Accept"
+                  ? handleAccept
+                  : proposal.status === "In Progress"
+                  ? handleInProgress
+                  : handleRevision
+              }
+              id={proposal.id}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
