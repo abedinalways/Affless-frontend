@@ -1,8 +1,10 @@
+import AddsIcon from '@/components/Icons/Adds';
 import MailIcon from '@/components/Icons/MailIcon'
 import VideoIcon from '@/components/Icons/VideoIcon';
 import Youtube from '@/components/Icons/Youtube';
 import { YoutubeIcon } from 'lucide-react';
 import React from 'react'
+import { BsBadgeCc } from 'react-icons/bs';
 import { FiMusic } from 'react-icons/fi';
 import { GrMicrophone } from 'react-icons/gr';
 import { LuCalendarDays } from 'react-icons/lu';
@@ -32,7 +34,7 @@ const data = [
   },
   {
     id: 4,
-    icon: <LuCalendarDays className='' />,
+    icon: <AddsIcon className='' />,
     bg: "bg-[#E3FCEC] border border-[#BBF7D0]",
     title: "Ads/UGC",
     desc: "Commercial & user content"
@@ -60,7 +62,7 @@ const data = [
   },
   {
     id: 8,
-    icon: <MailIcon />,
+    icon: <BsBadgeCc className='text-[#4F46E5]' />,
     bg: "bg-[#E4EAFF] border border-[#C7D2FE]",
     title: "Captions/Subtitles",
     desc: "Accessibility & engagement"

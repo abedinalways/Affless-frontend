@@ -34,15 +34,20 @@ export default function GetTouchPage() {
         />
       </div>
     <div className="containers">
-        <div className="mx-auto -mt-[44px] bg-[#F7F7F7] rounded-3xl p-10 lg:p-16 shadow-md">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
+        <div className="mx-auto -mt-11  bg-[#F7F7F7] rounded-3xl shadow-md mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 pt-8">
           {/* LEFT SIDE */}
-          <div>
-            <h2 className="text-[#333] font-poppins text-[56px] font-medium leading-[120%]">
+          <div> 
+            <div className="block md:hidden">
+              <div className="font-medium text-[#333] leading-130% text-[32px] mb-3.5 text-center">Contact Us</div>
+              <p className="font-normal leading-130% text-[16px] text-center">Your security is our priority</p>
+            </div>
+       <div className="  p-10 lg:p-16 ">
+             <h2 className="text-[#333] font-poppins text-[24px] lg:text-[56px] font-medium leading-[120%]">
               Get in touch
             </h2>
 
-            <p className="text-[#4A4C56] font-poppins text-[24px] leading-[150%] mt-4">
+            <p className="text-[#4A4C56] font-poppins textsm lg:text-[24px] leading-[150%] mt-4">
               Expert support, fast responses, and personalized guidance for all
               your editing needs.
             </p>
@@ -99,6 +104,7 @@ export default function GetTouchPage() {
                 </div>
               </div>
             </div>
+       </div>
           </div>
 
           {/* RIGHT SIDE FORM */}
@@ -185,7 +191,7 @@ export default function GetTouchPage() {
                   <option value="podcast">Podcast Editing</option>
                 </select>
 
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                {/* <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" /> */}
               </div>
               {errors.service && (
                 <p className="text-red-500 text-sm">{errors.service.message}</p>

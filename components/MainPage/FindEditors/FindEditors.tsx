@@ -42,7 +42,7 @@ export default function FindEditors() {
 
 
       {/* Main Section */}
-      <div className="containers mx-auto flex gap-8 mt-[160px]">
+      <div className="containers mx-auto flex flex-col md:flex-row gap-8 mt-9 lg:mt-[160px]">
 
         {/* Sidebar */}
         <FilterSidebar />

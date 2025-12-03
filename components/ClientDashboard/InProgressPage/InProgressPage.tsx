@@ -44,8 +44,8 @@ export default function InProgressPage({
           ]}
         />
               </div>
-   <div className='flex containers gap-6 py-20'>
-      <div className=" ">
+   <div className='flex flex-col lg:flex-row  containers gap-6 py-20'>
+      <div className=" order-1 lg:order-0 lg:w-2/3 w-full">
         <JobDetailsPage/>
      </div>
      <div className=''>
@@ -54,7 +54,7 @@ export default function InProgressPage({
 
       <div className="flex gap-4 items-start">
         <Image
-          src="/images/job-thumb.png" // replace with your image
+          src="/images/vedio.png.jpg" // replace with your image
           width={80}
           height={80}
           className="rounded-lg"
@@ -62,7 +62,7 @@ export default function InProgressPage({
         />
 
         <div className="flex-1">
-          <p className="text-sm text-gray-700">{title}</p>
+          <p className="text-[16px] text-[#333]">{title}</p>
 
           <span
             className={`text-xs px-3 py-1 rounded-full mt-2 inline-block ${
@@ -129,22 +129,22 @@ export default function InProgressPage({
       <div className="space-y-2 text-sm">
         <div className="flex justify-between">
           <span className="text-gray-500">Order by</span>
-          <span className="font-medium">{customer}</span>
+          <span className='text-[16px] font-medium leading-150%'>{customer}</span>
         </div>
 
         <div className="flex justify-between">
           <span className="text-gray-500">Delivery date:</span>
-          <span>{deliveryDate}</span>
+          <span className='text-[16px] font-medium leading-150%'>{deliveryDate}</span>
         </div>
 
         <div className="flex justify-between">
           <span className="text-gray-500">Total Price</span>
-          <span>${price}</span>
+          <span className='text-[16px] font-medium leading-150%'>${price}</span>
         </div>
 
         <div className="flex justify-between">
           <span className="text-gray-500">Order Number</span>
-          <span>{orderId}</span>
+          <span className='text-[16px] font-medium leading-150%'>{orderId}</span>
         </div>
       </div>
     </div>

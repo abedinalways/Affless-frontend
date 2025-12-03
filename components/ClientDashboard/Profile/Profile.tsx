@@ -55,7 +55,7 @@ export default function ProfilePage() {
       <div className="bg-white rounded-xl px-5 py-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
 
         {/* LEFT */}
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col md:flex-row items-center gap-5">
           <Image
             src="/images/sarah.png"
             alt="User"
@@ -119,7 +119,8 @@ export default function ProfilePage() {
             <div className="flex-1">
 
               {/* USER INFO ROW */}
-              <div className="flex items-center gap-3 mb-2">
+             <div className="flex justify-between">
+               <div className="flex items-center gap-3 mb-2">
                 <Image
                   src="/images/saramc.png"
                   width={40}
@@ -135,9 +136,17 @@ export default function ProfilePage() {
                   </p>
                 </div>
               </div>
+               <div>
+                 <p className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
+                View Job
+              </p>
+            </div>
+             </div>
 
               {/* TITLE */}
-              <h2 className="text-lg font-medium mb-2 leading-120% py-6">{job.title}</h2>
+            <div className="flex flex-col lg:flex-row gap-6">
+              <div className="w-full lg:w-3/4">
+                  <h2 className="text-lg font-medium mb-2 leading-120% py-6">{job.title}</h2>
 
               {/* DESCRIPTION */}
               <p className="text-gray-600 text-sm leading-relaxed mb-3">
@@ -155,25 +164,23 @@ export default function ProfilePage() {
                   </span>
                 ))}
               </div>
-
-              {/* PROPERTY LIST */}
-              <div className="flex flex-col lg:flex-row justify-between text-sm text-gray-700">
+                 <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">
                 <div className="p-6 flex gap-6">
                   <div>
                     <p className="text-[#4A4C56] text-[14px]">Price range</p>
                   <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.priceRange}</p>
                   </div>
-                  <div className="border border-r-gray-300 mx-6">
+                  <div className="border hidden md:block border-r-gray-300 mx-6">
 
                   </div>
                 </div>
 
-                   <div className="p-6 flex gap-6">
+                   <div className="p-6 flex  gap-6">
                   <div>
                     <p className="text-[#4A4C56] text-[14px]">Software</p>
                   <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.software}</p>
                   </div>
-                  <div className="border border-r-gray-300 mx-6">
+                  <div className="border hidden md:block border-r-gray-300 mx-6">
 
                   </div>
                 </div>
@@ -183,30 +190,27 @@ export default function ProfilePage() {
                     <p className="text-[#4A4C56] text-[14px]">Project duration</p>
                   <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
                   </div>
-                  <div className="border border-r-gray-300 mx-6">
+                  <div className="border hidden md:block border-r-gray-300 mx-6">
 
                   </div>
                 </div>
               </div>
+              </div>
+              <div className="flex justify-center items-center">
+              <Image
+                src={job.thumbnail}
+              
+                alt="Job Thumbnail" width={200} height={200} className="rounded-lg"/>
+              </div>
+            </div>
+
+              {/* PROPERTY LIST */}
+           
             </div>
 
             {/* RIGHT THUMBNAIL */}
-            <div className="flex flex-col  justify-center items-center mx-auto">
-              <Image
-                src={job.thumbnail}
-                width={147}
-                height={147}
-                alt="thumbnail"
-                className="rounded-lg object-cover"
-              />
-
-             
-            </div>
-            <div>
-                 <p className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
-                View Job
-              </p>
-            </div>
+           
+           
           </div>
         ))}
       </div>

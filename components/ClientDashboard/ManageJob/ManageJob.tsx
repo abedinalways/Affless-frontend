@@ -41,7 +41,7 @@ const ALL_JOBS: JobRow[] = [
     dueOn: "Jun 21",
     status: "IN_REVISION",
   },
-   {
+  {
     id: 1,
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
@@ -65,7 +65,7 @@ const ALL_JOBS: JobRow[] = [
     dueOn: "Jun 21",
     status: "IN_REVISION",
   },
-   {
+  {
     id: 1,
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
@@ -89,7 +89,7 @@ const ALL_JOBS: JobRow[] = [
     dueOn: "Jun 21",
     status: "IN_REVISION",
   },
-   {
+  {
     id: 1,
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
@@ -165,34 +165,34 @@ export default function ManageJobsPage() {
         <span className="text-gray-700">{row.original.dueOn}</span>
       ),
     },
-{
-  accessorKey: "status",
-  header: "STATUS",
-  cell: ({ row }) => {
-    const data = row.original;
+    {
+      accessorKey: "status",
+      header: "STATUS",
+      cell: ({ row }) => {
+        const data = row.original;
 
-    const isRevision = data.status === "IN_REVISION";
+        const isRevision = data.status === "IN_REVISION";
 
-    // create dynamic URL
-    const route =
-      data.status === "IN_PROGRESS"
-        ? `/inprogress?id=${data.id}&title=${encodeURIComponent(data.service)}`
-        : `/inrevision?id=${data.id}&title=${encodeURIComponent(data.service)}`;
+        // create dynamic URL
+        const route =
+          data.status === "IN_PROGRESS"
+            ? `/inprogress?id=${data.id}&title=${encodeURIComponent(data.service)}`
+            : `/inrevision?id=${data.id}&title=${encodeURIComponent(data.service)}`;
 
-    return (
-      <Link href="/client/inprogress">
-        <div className="cursor-pointer">
-          <span
-            className={`px-4 py-1 rounded-md text-xs font-semibold uppercase text-white
+        return (
+          <Link href="/client/inprogress">
+            <div className="cursor-pointer">
+              <span
+                className={`px-4 py-1 rounded-md text-xs font-semibold uppercase text-white
             ${isRevision ? "bg-red-500" : "bg-sky-700"}`}
-          >
-            {isRevision ? "IN REVISION" : "IN PROGRESS"}
-          </span>
-        </div>
-      </Link>
-    );
-  },
-}
+              >
+                {isRevision ? "IN REVISION" : "IN PROGRESS"}
+              </span>
+            </div>
+          </Link>
+        );
+      },
+    }
 
 
 
@@ -203,28 +203,28 @@ export default function ManageJobsPage() {
 
       {/* Tabs */}
       <div className="flex justify-between">
-       <div className="mb-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center gap-3 md:gap-6 text-sm font-medium">
+        <div className="mb-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center gap-3 md:gap-6 text-sm font-medium">
 
-  {["Active", "Late", "Delivered", "Completed", "Cancelled"].map((tab) => (
-    <button
-      key={tab}
-      onClick={() => setActiveTab(tab)}
-      className={`
+          {["Active", "Late", "Delivered", "Completed", "Cancelled"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`
         px-3 py-2 rounded-md transition
         ${activeTab === tab ? "text-black font-semibold" : "text-gray-500"}
       `}
-    >
-      {tab}
-    </button>
-  ))}
+            >
+              {tab}
+            </button>
+          ))}
 
-</div>
+        </div>
 
 
         <Link href="/client/post-job">
-        <div className="bg-[#FF4D4F] py-3 px-4 h-fit top-5 text-white rounded-lg cursor-pointer">
-          Create a new Job
-        </div>
+          <div className="bg-[#FF4D4F] py-3 px-4 h-fit top-5 text-white rounded-lg cursor-pointer">
+            Create a new Job
+          </div>
         </Link>
       </div>
 

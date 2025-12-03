@@ -1,4 +1,5 @@
 "use client";
+import PaypalSvg from "@/components/Icons/PaypalIcon";
 import { useState } from "react";
 
 export default function ConfirmDepositPage() {
@@ -6,10 +7,10 @@ export default function ConfirmDepositPage() {
 
   return (
     <div className="containers  p-6">
-      <div className="flex flex-col md:flex-row gap-8 w-full max-w-5xl">
+      <div className="flex flex-col md:flex-row gap-8 w-full ">
 
         {/* LEFT CARD */}
-        <div className="w-2/3 bg-white p-6 rounded-xl shadow">
+        <div className="w-full lg:w-2/3 bg-white p-6 rounded-xl shadow">
           <p className="text-gray-700 leading-relaxed mb-6">
             A secure deposit is required for your project. The deposit will be safely 
             held in escrow until the work is completed. If the editor fails to deliver 
@@ -18,13 +19,13 @@ export default function ConfirmDepositPage() {
           </p>
 
           {/* Payment Methods */}
-          <div className="flex flex-col gap-5">
+          <div className=" flex flex-col gap-5">
             {/* PayPal */}
             <label className="flex justify-between items-center cursor-pointer">
               <div className="flex items-center gap-3">
-                <img src="/paypal.png" alt="PayPal" className="w-6 h-6" />
+                <PaypalSvg/>
                 <div>
-                  <p className="font-medium">PayPal</p>
+                  <p className="font-medium "> PayPal</p>
                   <p className="text-sm text-gray-500">
                     For quick and secure online payments.
                   </p>
@@ -36,7 +37,7 @@ export default function ConfirmDepositPage() {
                 name="payment"
                 value="paypal"
                 checked={method === "paypal"}
-                onChange={() => setMethod("paypal")}
+                // onChange={() => setMethod("paypal")}
                 className="w-5 h-5"
               />
             </label>
@@ -73,7 +74,7 @@ export default function ConfirmDepositPage() {
         </div>
 
         {/* RIGHT CARD (PRICE SUMMARY) */}
-        <div className="w-1/3 bg-white p-6 rounded-xl shadow h-fit">
+        <div className="w-full lg:w-1/3 bg-white p-6 rounded-xl shadow h-fit">
           <div className="flex justify-between text-gray-700 mb-4">
             <span>Initial Budget</span>
             <span>$350.00</span>

@@ -17,7 +17,7 @@ export default function TermsConditionPage() {
 />
 
       </div>
-     <div className="bg-[#F7F7F7] min-h-screen py-16 containers ">
+     <div className="bg-[#F7F7F7] min-h-screen lg:py-16 containers ">
       <div className="mx-auto bg-white p-4 md:p-8 rounded-xl shadow-sm leading-relaxed text-[#333]">
 
         {/* ---------------- 1. Introduction ---------------- */}

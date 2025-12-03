@@ -51,7 +51,7 @@ export default function EditorResourcePage() {
       </div>
 
       <div className=''>
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-20 containers">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8 lg:py-20 containers">
   {data.map((item) => (
     <div
       key={item.id}

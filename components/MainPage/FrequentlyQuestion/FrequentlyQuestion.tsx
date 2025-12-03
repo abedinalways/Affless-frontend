@@ -71,13 +71,13 @@ export default function Frequently() {
       category: "Special Promotions",
       items: [
         { question: "What’s the YouTube subscription reward?", answer: "Clients who subscribe to our official YouTube channel may be eligible for limited promotional rewards, discounts, or platform perks when available. All reward availability is subject to change and may vary over time." },
-        { question: "What happens if rules are violated?", answer: "Rule violations—such as off-platform payments, abuse, fraud, or harassment—may result in warnings, penalties, reduced visibility, temporary suspension, or permanent removal depending on severity." },
+       
       ],
     },
 
     {
-        icon:<BellRing />,
-      category: "Notifications",
+        icon:<HiOutlineLightBulb />,
+      category: "Technical",
       items: [
         { question: "Do I need to install software?", answer: "No. Editor Marketplace works entirely online. Clients and editors can manage everything from their browser without installing any software." },
         { question: "What if I find a bug?", answer: "If you encounter a bug, please report it using the support form. Include screenshots and details so our team can resolve the issue quickly." },
@@ -89,17 +89,18 @@ export default function Frequently() {
       items: [
         { question: "Can I work with clients/editors outside the platform?", answer: "No. For safety and payment protection, all communication and payments must remain on the platform. Off-platform payments violate policy and may result in penalties." },
         { question: "What happens if someone violates the rules?", answer: "Consequences may include warnings, temporary restrictions, removal of boosts, reduced visibility, or permanent suspension depending on the severity of the violation." },
+         { question: "What happens if rules are violated?", answer: "Rule violations—such as off-platform payments, abuse, fraud, or harassment—may result in warnings, penalties, reduced visibility, temporary suspension, or permanent removal depending on severity." },
       ],
     },
 
-    {
-        icon:<HiOutlineLightBulb />,
-      category: "Technical",
-      items: [
-        { question: "Do I need to install software to use the platform?", answer: "No, it works in your browser." },
-        { question: "What if I encounter a bug or technical issue?", answer: "Report it to support." },
-      ],
-    },
+    // {
+    //     icon:<HiOutlineLightBulb />,
+    //   category: "Technical",
+    //   items: [
+    //     { question: "Do I need to install software to use the platform?", answer: "No, it works in your browser." },
+    //     { question: "What if I encounter a bug or technical issue?", answer: "Report it to support." },
+    //   ],
+    // },
   ];
 
   return (
@@ -116,7 +117,7 @@ export default function Frequently() {
         
               </div>
 
-        <div className="containers mx-auto py-10 space-y-6">
+        <div className="containers mx-auto py-8 lg:py-10 space-y-6">
 
       {faqData.map((section, idx) => (
         <div key={idx} className="border rounded-lg overflow-hidden">

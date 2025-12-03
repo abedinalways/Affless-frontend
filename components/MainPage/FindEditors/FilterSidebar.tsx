@@ -67,7 +67,7 @@ export default function FilterSidebar() {
   const [range, setRange] = React.useState([5, 35]);
 
   return (
-    <div className="w-[320px] border p-6 rounded-[20px] bg-white shadow-sm h-fit sticky top-5">
+    <div className="w-[400px] md:w-[320px] border p-6 rounded-[20px] bg-white shadow-sm ">
       
       {/* Job Category */}
       <h2 className="text-[#333] font-semibold text-xl mb-4">Job Category</h2>

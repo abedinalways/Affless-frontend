@@ -46,37 +46,36 @@ export default function ClientDashboardHeader() {
               </div>
             </Link>
 
-            {/* DESKTOP MENU */}
-            <ul className="hidden md:flex items-center gap-8 text-[#333] font-poppins text-base relative">
+            {/* DESKTOP MENU (Visible on lg and larger) */}
+            <ul className="hidden lg:flex items-center gap-8 text-[#333] font-poppins text-base relative">
               <li>
                 <Link href="/client/dashboard">Dashboard</Link>
               </li>
 
               {/* My Business Dropdown */}
-             <li className="relative">
-  <div ref={dropdownRef}>
-    <button
-      onClick={() => setOpen(!open)}
-      className="flex items-center gap-1 cursor-pointer select-none"
-    >
-      My Business
-      <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
-        <MdKeyboardArrowDown />
-      </span>
-    </button>
+              <li className="relative">
+                <div ref={dropdownRef}>
+                  <button
+                    onClick={() => setOpen(!open)}
+                    className="flex items-center gap-1 cursor-pointer select-none"
+                  >
+                    My Business
+                    <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
+                      <MdKeyboardArrowDown />
+                    </span>
+                  </button>
 
-    {open && (
-      <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-        <Link href="/client/manage-job" className="block px-4 py-2 hover:bg-gray-100">Manage Job</Link>
-        <Link href="/client/find-editor" className="block px-4 py-2 hover:bg-gray-100">Find Editor</Link>
-        <Link href="/client/job-proposal" className="block px-4 py-2 hover:bg-gray-100">Job Proposal</Link>
-        <Link href="/client/payment-history" className="block px-4 py-2 hover:bg-gray-100">Payment History</Link>
-        <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
-      </div>
-    )}
-  </div>
-</li>
-
+                  {open && (
+                    <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
+                      <Link href="/client/manage-job" className="block px-4 py-2 hover:bg-gray-100">Manage Job</Link>
+                      <Link href="/client/find-editor" className="block px-4 py-2 hover:bg-gray-100">Find Editor</Link>
+                      <Link href="/client/job-proposal" className="block px-4 py-2 hover:bg-gray-100">Job Proposal</Link>
+                      <Link href="/client/payment-history" className="block px-4 py-2 hover:bg-gray-100">Payment History</Link>
+                      <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
+                    </div>
+                  )}
+                </div>
+              </li>
 
               <li>
                 <Link href="/pricing">Pricing</Link>
@@ -85,7 +84,7 @@ export default function ClientDashboardHeader() {
           </div>
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
-          <div className="hidden md:flex gap-8 items-center">
+          <div className="hidden lg:flex gap-8 items-center">
             <Link href="#" className="">Become an Editor</Link>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
             <MdMailOutline className="w-7 h-7 cursor-pointer" />
@@ -96,7 +95,7 @@ export default function ClientDashboardHeader() {
 
           {/* ---------- MOBILE HAMBURGER ---------- */}
           <button
-            className="md:hidden text-3xl"
+            className="lg:hidden text-3xl"
             onClick={() => setMobileMenu(true)}
           >
             <HiOutlineMenu />

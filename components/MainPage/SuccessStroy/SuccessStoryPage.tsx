@@ -56,10 +56,10 @@ const pageStories = filteredStories.slice(
 <div className="flex flex-col gap-4 lg:flex-row lg:items-center bg-white p-5 rounded-xl">
   <p className="text-gray-700 font-medium ">Filter by:</p>
 
-  <div className="flex flex-col gap-4 w-full lg:grid lg:grid-cols-3 lg:gap-6">
+  <div className="flex flex-col gap-4 w-full lg:w-6/8 lg:grid md:grid-cols-3 lg:gap-6 text-[16px]">
     {/* Story Type */}
-    <div className="flex items-center  gap-3 lg:flex-row ">
-      <p className="text-gray-700 font-medium text-sm">Story Type</p>
+    <div className="flex items-center justify-between gap-3 lg:flex-row ">
+      <p className="text-gray-700 font-medium ">Story Type</p>
       <FilterSelect
         value={storyType}
         setValue={setStoryType}
@@ -69,7 +69,7 @@ const pageStories = filteredStories.slice(
 
     {/* Category */}
     <div className="flex items-center justify-between gap-3 ">
-      <p className="text-gray-700 font-medium text-sm">Category</p>
+      <p className="text-gray-700 font-medium ">Category</p>
       <FilterSelect
         value={category}
         setValue={setCategory}
@@ -79,7 +79,7 @@ const pageStories = filteredStories.slice(
 
     {/* Country */}
     <div className="flex items-center justify-between gap-3 ">
-      <p className="text-gray-700 font-medium text-sm">Country</p>
+      <p className="text-gray-700 font-medium ">Country</p>
       <FilterSelect
         value={country}
         setValue={setCountry}

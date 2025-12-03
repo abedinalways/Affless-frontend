@@ -102,7 +102,7 @@ export default function JobDetailsPage() {
       </div>
 
       {/* Title */}
-      <h1 className="tex-lg lg:text-[32px] font-medium text-[#333]">The Ultimate Guide To Start</h1>
+      <h1 className="text-[28px] lg:text-[32px] font-medium text-[#333]">The Ultimate Guide To Start</h1>
 
       {/* Description */}
       <p className="text-gray-700 leading-relaxed">

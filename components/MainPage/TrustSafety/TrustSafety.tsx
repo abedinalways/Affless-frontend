@@ -38,11 +38,11 @@ const items = [
 
 export default function TrustSafety() {
   return (
-    <div className="containers mx-auto py-20">
+    <div className="containers mx-auto py-8 lg:py-20">
       {/* Heading */}
-      <h2 className="text-[#333] text-center font-[Poppins] text-[28px] md:text-[40px] lg:text-[64px] font-normal leading-[124%] [text-stroke-width:1px] [text-stroke-color:#333]"
+      <h2 className="text-[#333] text-center f text-[32px] md:text-[40px] lg:text-[64px] font-medium leading-[124%] "
 >Trust & Safety</h2>
-      <p className="text-[#4A4C56] text-center font-[Poppins] text-[18px] font-normal leading-[150%] mt-[18px]"
+      <p className="text-[#4A4C56] text-center f text-[18px] font-normal leading-[150%] mt-[18px]"
 >
         Your security is our priority
       </p>
@@ -62,9 +62,9 @@ export default function TrustSafety() {
             </div>
 
             {/* Text */}
-            <h3 className="text-[#333] font-[Poppins] text-[24px] font-medium leading-[150%] mb-[24px]"
+            <h3 className="text-[#333] f text-[24px] font-medium leading-[150%] mb-[24px]"
 >{item.title}</h3>
-            <p className="text-[#4A4C56] font-[Poppins] text-[16px] font-normal leading-[150%]"
+            <p className="text-[#4A4C56] f text-[16px] font-normal leading-[150%]"
 >{item.desc}</p>
           </div>
         ))}
