@@ -8,16 +8,15 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-  
-      
-        <div>
-          <div className="">
-            <Navbar />
-          </div>
-          {children}
-          <ContactUs />
-          <Footer />
-        </div>
-     
+
+
+    <div>
+      <div className="">
+        <Navbar />
+      </div>
+      {children}
+      <ContactUs />
+      <Footer />
+    </div>
   );
 }
