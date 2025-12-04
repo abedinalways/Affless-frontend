@@ -43,17 +43,18 @@ export default function OtpForm() {
   };
 
   return (
-    <div
-  className="
-    grid grid-cols-1 lg:grid-cols-2
-   gap-5 md:gap-7 xl:gap-[73px] 
-   containers mx-auto
-    items-stretch
-  "
->
-
-  {/* Left Image */}
-  <div className="flex items-center justify-center bg-white rounded-2xl h-full">
+  <div className=" sm:px-[50px] 
+      md:px-[50px] 
+      lg:px-[100px] 
+      xl:px-[150px]
+      2xl:px-[300px]">
+      <div
+      className="
+        grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
+        lg:gap-[100px] space-y-8
+      "
+    >
+    <div className="flex items-center justify-center bg-white rounded-2xl h-full">
     <Image
       src="/svgIcons/otp.svg"
       alt="verify email"
@@ -126,6 +127,7 @@ export default function OtpForm() {
 
     </div>
   </div>
+</div>
 </div>
 
   );

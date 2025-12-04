@@ -33,7 +33,7 @@ export default function SignInForm() {
     setTimeout(() => {
       setLoading(false);
       localStorage.setItem("isLogin", "true");
-      router.push("/");
+      router.push("/client");
     }, 2000);
   };
 

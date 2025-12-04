@@ -6,11 +6,14 @@ import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdKeyboardArrowDown, MdMailOutline } from "react-icons/md";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
+import { useRouter } from "next/navigation";
 
 export default function ClientDashboardHeader() {
   const [open, setOpen] = useState(false); // Desktop dropdown
   const [mobileMenu, setMobileMenu] = useState(false); // Mobile menu
   const [mobileDropdown, setMobileDropdown] = useState(false); // Mobile dropdown
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -24,6 +27,22 @@ export default function ClientDashboardHeader() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Ensure that this logic runs only once
+  // useEffect(() => {
+  //   setLoading(true);
+  //   // Simulate an async operation like form submission
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //     localStorage.setItem("isLogin", "true");
+  //     router.push("/editor-dashboard");
+  //   }, 2000);
+  // }, []); // The empty dependency array ensures it runs only once after the first render
+
+  const handleBecomeEditorClick = () => {
+    // Redirect to the editor dashboard
+    router.push("/editor-dashboard");
+  };
 
   return (
     <div className="containers">
@@ -85,7 +104,9 @@ export default function ClientDashboardHeader() {
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <div className="hidden lg:flex gap-8 items-center">
-            <Link href="#" className="">Become an Editor</Link>
+            <button onClick={handleBecomeEditorClick} className="cursor-pointer">
+              Become an Editor
+            </button>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
             <MdMailOutline className="w-7 h-7 cursor-pointer" />
             <Link href="/client/profile" className="flex">
@@ -158,10 +179,10 @@ export default function ClientDashboardHeader() {
             </Link>
           </li>
 
-          <li>
-            <Link href="#" onClick={() => setMobileMenu(false)}>
+          <li >
+            <button onClick={handleBecomeEditorClick} className="cursor-pointer">
               Become an Editor
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
