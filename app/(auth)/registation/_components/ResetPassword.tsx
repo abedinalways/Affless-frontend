@@ -23,8 +23,17 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    <div className="containers mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
+    <div className=" sm:px-[50px] 
+      md:px-[50px] 
+      lg:px-[100px] 
+      xl:px-[150px]
+      2xl:px-[300px]">
+      <div
+      className="
+        grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
+        lg:gap-[100px] space-y-8
+      "
+    >
 
         {/* Left Image */}
         <div className="flex justify-center items-center mb-10 lg:mb-0">

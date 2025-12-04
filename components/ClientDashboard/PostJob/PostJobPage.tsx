@@ -148,7 +148,10 @@ export default function PostJobForm() {
             <div className="space-y-5 pb-3">
               <div>
               <label className="mb-2">Style Reference </label>
-              <input  className="w-full border rounded-lg relative p-3 mt-1.5 mb-2 focus:outline-none flex justify-between  focus:border-gray-400"  type="file"  placeholder=""/>
+              <input  
+              className="w-full border rounded-lg relative p-3 mt-1.5 mb-2 focus:outline-none flex justify-between  focus:border-gray-400"  type="file"  
+              placeholder=""
+              />
               <span  className="" onChange={handleStyleReferenceChange}></span>
             </div>
 
