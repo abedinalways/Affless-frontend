@@ -28,17 +28,17 @@ export default function Navbar() {
             <Link href="/">
               <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
                 <Image
-                  src="/fdf.png"
-                  alt="logo"
-                  height={500}
-                  width={500}
-                  className="w-full object-cover"
-                />
+                                src="/images/footerLogo.png"
+                                width={100}
+                                height={100}
+                                alt="Logo"
+                                className=" object-cover justify-start"
+                              />
               </div>
             </Link>
 
-            {/* DESKTOP MENU */}
-            <ul className="hidden md:flex items-center gap-8 text-[#333] font-poppins text-base">
+            {/* DESKTOP MENU (hidden on small and medium devices) */}
+            <ul className="hidden xl:flex items-center gap-8 text-[#333] font-poppins text-base">
               <li><Link href="/">Home</Link></li>
               <li><Link href="/service">Service</Link></li>
               <li><Link href="/jobs">Browse Jobs</Link></li>
@@ -48,21 +48,21 @@ export default function Navbar() {
           </div>
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
-        <div className="flex gap-5">
-            <Link href="/login" className="hidden md:flex">
-            <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
-              <DubbleUser /> Sign In
-            </button>
-          </Link>
-           <Link href="/singup" className="hidden md:flex">
-            <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
-              <DubbleUser /> Sign Up
-            </button>
-          </Link>
-        </div>
+          <div className="flex gap-5">
+            <Link href="/login" className="hidden xl:flex">
+              <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
+                <DubbleUser /> Sign In
+              </button>
+            </Link>
+            <Link href="/singup" className="hidden xl:flex">
+              <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
+                <DubbleUser /> Sign Up
+              </button>
+            </Link>
+          </div>
 
           {/* ---------- HAMBURGER (MOBILE) ---------- */}
-          <button className="md:hidden text-3xl" onClick={() => setMobileMenu(true)}>
+          <button className="xl:hidden text-3xl" onClick={() => setMobileMenu(true)}>
             <HiOutlineMenu />
           </button>
         </div>
@@ -96,26 +96,26 @@ export default function Navbar() {
           <li><Link href="/pricing" onClick={() => setMobileMenu(false)}>Pricing</Link></li>
 
           <li>
-           <div className="flex gap-4">
-             <Link
-              href="/login"
-              onClick={() => setMobileMenu(false)}
-              className="inline-block bg-[#FF4D4F] text-white px-5 py-2 rounded-xl mt-4"
-            >
-              <div className="flex items-center gap-2">
-                <DubbleUser /> Sign In
-              </div>
-            </Link>
-             <Link
-              href="/singup"
-              onClick={() => setMobileMenu(false)}
-              className="inline-block bg-[#FF4D4F] text-white px-5 py-2 rounded-xl mt-4"
-            >
-              <div className="flex items-center gap-2">
-                <DubbleUser /> Sign Up
-              </div>
-            </Link>
-           </div>
+            <div className="flex gap-4">
+              <Link
+                href="/login"
+                onClick={() => setMobileMenu(false)}
+                className="inline-block bg-[#FF4D4F] text-white px-5 py-2 rounded-xl mt-4"
+              >
+                <div className="flex items-center gap-2">
+                  <DubbleUser /> Sign In
+                </div>
+              </Link>
+              <Link
+                href="/singup"
+                onClick={() => setMobileMenu(false)}
+                className="inline-block bg-[#FF4D4F] text-white px-5 py-2 rounded-xl mt-4"
+              >
+                <div className="flex items-center gap-2">
+                  <DubbleUser /> Sign Up
+                </div>
+              </Link>
+            </div>
           </li>
         </ul>
       </div>

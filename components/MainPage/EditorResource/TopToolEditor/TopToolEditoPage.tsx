@@ -53,7 +53,7 @@ export default function TopToolEditorPage() {
         <div className="containers py-20">
 
           {/* Header */}
-          <h3 className="text-[40px] font-medium leading-120% md:text-[45px] text-center lg:text-[56px] text-[#333]">
+          <h3 className="text-[24px] font-medium leading-120% md:text-[45px] text-center lg:text-[56px] text-[#333]">
             Top Tools for Editors
           </h3>
           <p className="text-[#4A4C56] text-[18px] font-normal leading-[150%] text-center pt-[18px] pb-10 md:pb-[56px]">
@@ -74,17 +74,17 @@ export default function TopToolEditorPage() {
                 </div>
 
                 {/* Title */}
-                <p className="flex items-center justify-center text-[#333] text-center md:text-[24px] text-[18px] font-medium leading-[120%]">
+                <p className="flex items-center justify-center text-[#333] text-center md:text-[24px] text-[20px] font-medium leading-[120%]">
                   {item.title}
                 </p>
 
                 {/* Description */}
-                <p className="flex items-center justify-center text-[#4A4C56] text-center text-[14px] font-normal leading-[150%]">
+                <p className="flex items-center justify-center text-[#4A4C56] text-center text-[16px] font-normal leading-[150%]">
                   {item.desc}
                 </p>
 
                 {/* Button */}
-                <button className="flex items-center justify-center border-2 border-red-400 w-full rounded-full px-4 py-2.5 gap-2 text-red-500 hover:bg-red-50 transition">
+                <button className="flex items-center justify-center border-2 text-[18px] border-red-400 w-full rounded-full px-4 py-2.5 gap-2  hover:bg-red-50 transition">
                   <span>Read more</span>
                   <ArrowRight size={18} />
                 </button>

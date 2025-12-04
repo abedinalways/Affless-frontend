@@ -8,9 +8,9 @@ export default function NotFound() {
     <div>
       <Navbar />
 
-      <div className="containers flex flex-col md:flex-row gap-[100px] justify-center items-center h-screen gap-10">
+      <div className="containers flex flex-col md:flex-row  justify-center items-center h-screen gap-10 pt-8">
         {/* Left Content */}
-        <div className="space-y-4 max-w-lg">
+        <div className="space-y-4 max-w-lg order-1 md:order-0">
           <h3 className="text-black font-medium text-[48px] leading-[120%] font-poppins">
             Oops....
           </h3>

@@ -16,7 +16,7 @@ const data = [
     id:2,
     icon:<DepositeIcon className='text-red-500'/>,
     title:"Deposit Payment",
-    desc:"Securely deposit your payment into the system before the working. This prevents confusion and keeps each step accurate."
+    desc:"Securely deposit your payment into the system before the work begins. This prevents confusion and keeps each step accurate."
 },
 { 
     id:3,
@@ -33,9 +33,9 @@ const data = [
 ]
 export default function HowPayments() {
   return (
-    <div className='containers'>
+    <div className='containers pt-10 lg:pt-20'>
         <div>
-            <h3 className='text-[40px] font-medium leading-120% md:text-[45px] text-center lg:text-[56px] text-[#333]'>How Payment Protection Works</h3>
+            <h3 className='text-[32px] font-medium leading-120% md:text-[45px] text-center lg:text-[56px] text-[#333]'>How Payment Protection Works</h3>
             <p className='text-[#4A4C56] text-[18px] font-normal leading-[150%] text-center pt-[18px] pb-10 md:pb-[56px]'>Our secure escrow system ensures your money is safe until you're completely satisfied with the work.</p>
         </div>
 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 '>
@@ -53,7 +53,7 @@ export default function HowPayments() {
         </p>
         </div>
 
-        <p className="flex items-center justify-center pb-4 pt-6 text-[#333] text-center text-[18px] font-medium leading-[120%]">
+        <p className="flex items-center justify-center pb-4 pt-6 text-[#333] text-center text-[16px] md:text-[18px] font-medium leading-[120%]">
           {item.title}
         </p>
 

@@ -13,7 +13,7 @@ export default function PlatfromRules() {
   return (
     <div className='containers '>
       <div>
-        <h3 className='text-[40px] font-medium leading-120% md:text-[45px]  lg:text-[56px] text-[#333]'>
+        <h3 className='text-[32px] font-medium leading-120% md:text-[45px]  lg:text-[56px] text-[#333] text-center lg:text-start'>
             Platform Rules & Best Practices
         </h3>
         <p className='text-[#4A4C56] text-[16px] lg:text-[18px] font-normal leading-[150%] pt-[18px] pb-10 md:pb-[60px]'>Essential guidelines to ensure quality and compliance.</p>

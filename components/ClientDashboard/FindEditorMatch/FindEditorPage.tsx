@@ -1,7 +1,9 @@
 "use client";
 
+import { Slider } from "@/components/ui/slider";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import { TiStarFullOutline } from "react-icons/ti";
 
 interface Editor {
@@ -75,6 +77,7 @@ const editors: Editor[] = [
 ];
 
 export default function FindEditorsPage() {
+  const [range, setRange] = React.useState([5, 35]);
   return (
     <div className="min-h-screen bg-[#f6f6f6] py-10">
       <div className="containers mx-auto flex flex-col lg:flex-row gap-8">
@@ -139,14 +142,27 @@ export default function FindEditorsPage() {
           </div>
 
           {/* Budget */}
-          <div>
-            <h3 className="font-medium text-[18px] md:text-[24px] mb-3 text-[#333]">Project Budget</h3>
-            <div className="flex justify-between text-sm">
-              <span>$5</span>
-              <span>$35</span>
-            </div>
-            <input type="range" min="5" max="35" className="w-full mt-2" />
-          </div>
+         <div>
+                     <h3 className="font-bold text-[20px] mb-3">Project Budget:</h3>
+         
+                      <div className="w-full flex flex-col items-center gap-3 mb-8">
+                 <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
+                   <span>${range[0]}</span>
+                   <span>${range[1]}</span>
+                 </div>
+         
+                 <Slider
+                   defaultValue={[5, 35]}
+                   max={100}
+                   min={0}
+                   step={1}
+                   value={range}
+                   onValueChange={setRange}
+                   className="w-full"
+                 />
+               </div>
+         
+                   </div>
 
           {/* Deadline */}
           <div>
@@ -189,7 +205,7 @@ export default function FindEditorsPage() {
                   alt={editor.name}
                   width={251}
                   height={184}
-                  className="object-cover rounded-lg"
+                  className="object-cover rounded-lg w-full"
                 />
               </div>
 
@@ -232,9 +248,9 @@ export default function FindEditorsPage() {
                     </span>
                   </div>
 
-                  <div className="flex gap-3 mt-3">
+                  <div className="flex flex-col md:flex-row gap-3 mt-3">
                     <Link href="/client/hire-vedio-editor">
-                      <button className="px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full">
+                      <button className="px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full w-full">
                         Hire Editor
                       </button>
                     </Link>
