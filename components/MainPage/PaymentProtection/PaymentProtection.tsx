@@ -30,18 +30,18 @@ export default function PaymentProtectionPage() {
         <div className="containers relative z-10 h-full flex flex-col md:flex-row justify-between items-center py-20">
 
           {/* LEFT TEXT BLOCK */}
-          <div className="max-w-lg text-white space-y-4 order-1 md:order-0 flex flex-col md:flex-row justify-center md:justify-start items-center md:items-start">
+          <div className=" text-white space-y-4  relative order-1 md:order-0 flex pt-5  ">
             {/* Badge */}
-            <div className="">
-              <button className="bg-[#534E45] px-4 py-2 rounded-md text-[14px] font-medium flex items-center gap-2">
+            <div className=" flex flex-col lg:block justify-center items-center space-y-4 ">
+              <button className="bg-[#534E45] px-4 py-2 rounded-md text-[14px] font-medium flex items-center  gap-2">
                 <LuShieldCheck className="w-4 h-4" /> 100% Secure
               </button>
 
-              <p className="text-[28px] font-semibold leading-[130%]">
+              <p className="text-[14px] font-semibold leading-[130%]">
                 Pay Safely. Hire Confidently.
               </p>
 
-              <p className="text-[16px] leading-[150%] text-white/90">
+              <p className="text-[18px] text-center leading-[150%] text-white/90 ">
                 Your payments are protected until your project is completed to your satisfaction.
               </p>
 

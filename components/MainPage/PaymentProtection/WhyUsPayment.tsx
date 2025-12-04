@@ -43,7 +43,7 @@ export default function WhyUsPamymet() {
       <div className='bg-[#FFEDED]' >
      <div className='containers py-20'>
         <div>
-            <h3 className='text-[40px] font-medium leading-120% md:text-[45px] text-center lg:text-[56px] text-[#333]'>Why Use Payment Protection?</h3>
+            <h3 className='text-[32px] font-medium leading-120% md:text-[45px] text-center lg:text-[56px] text-[#333]'>Why Use Payment Protection?</h3>
             <p className='text-[#4A4C56] text-[18px] font-normal leading-[150%] text-center pt-[18px] pb-10 md:pb-14'>Hire editors with complete peace of mind knowing your investment is protected.</p>
         </div>
 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 '>

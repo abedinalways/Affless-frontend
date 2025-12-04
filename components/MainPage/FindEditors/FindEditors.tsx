@@ -28,6 +28,7 @@ export default function FindEditors() {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
+  
   return (
     <div>
       {/* Banner */}
@@ -41,15 +42,15 @@ export default function FindEditors() {
       />
 
       {/* Main Section */}
-      <div className="containers mx-auto flex flex-col md:flex-row gap-8 mt-9 lg:mt-[160px]">
+      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 mt-9 lg:mt-[160px]">
 
         {/* Sidebar - hidden on small screens */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <FilterSidebar />
         </div>
 
         {/* Mobile Filter Section (Visible only on small screens) */}
-        <div className="md:hidden flex  gap-4 mb-4">
+        <div className="lg:hidden grid grid-cols-2  gap-4 mb-4">
           <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
             <option>Job Category</option>
             <option>SEO</option>

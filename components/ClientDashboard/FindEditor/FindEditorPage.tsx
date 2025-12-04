@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TiStarFullOutline } from "react-icons/ti";
 import Pagination from "@/components/reusable/pagination";
+import { Slider } from "@/components/ui/slider";
 interface Editor {
   id: number;
   name: string;
@@ -83,6 +84,8 @@ export default function FindEditorPage() {
   const startIndex = (page - 1) * pageSize;
   const visibleEditors = allEditors.slice(startIndex, startIndex + pageSize);
 
+
+  const [range, setRange] = React.useState([5, 35]);
   return (
     <div className="min-h-screen  py-10">
       <div className="containers mx-auto flex gap-8">
@@ -144,12 +147,23 @@ export default function FindEditorPage() {
           <div>
             <h3 className="font-bold text-[20px] mb-3">Budget</h3>
 
-            <div className="flex justify-between text-sm text-gray-500">
-              <span>$5</span>
-              <span>$35</span>
-            </div>
+             <div className="w-full flex flex-col items-center gap-3 mb-8">
+        <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
+          <span>${range[0]}</span>
+          <span>${range[1]}</span>
+        </div>
 
-            <input type="range" min="5" max="35" className="w-full mt-2" />
+        <Slider
+          defaultValue={[5, 35]}
+          max={100}
+          min={0}
+          step={1}
+          value={range}
+          onValueChange={setRange}
+          className="w-full"
+        />
+      </div>
+
           </div>
 
           {/* Project Duration */}

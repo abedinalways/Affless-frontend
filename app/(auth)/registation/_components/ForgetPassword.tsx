@@ -52,7 +52,7 @@ export default function ForgotPasswordForm() {
               <Link href="/signin">
                 <span className="text-[#333] text-2xl cursor-pointer"><ArrowLeftIcon color="black" /></span>
               </Link>
-              <h2 className="text-[#333] text-center font-poppins text-[40px] font-medium leading-[130%]">
+              <h2 className="text-[#333] text-center font-poppins text-[24px]  lg:text-[40px] font-medium leading-[130%]">
                 Forgot Password
               </h2>
             </div>
@@ -92,10 +92,10 @@ export default function ForgotPasswordForm() {
               {/* Submit */}
               <button
                 type="submit"
-                className="text-white font-poppins text-[24px] font-medium leading-[150%] bg-[#FF4D4F] w-full py-3 px-4 rounded-lg"
+                className="text-white font-poppins text text-[16px] lg:text-[24px] font-medium leading-[150%] bg-[#FF4D4F] w-full py-3 px-4 rounded-lg"
 
               >
-                Send OTP
+                Send Reset Code
               </button>
             </form>
 

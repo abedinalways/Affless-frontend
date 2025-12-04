@@ -1,4 +1,5 @@
 "use client";
+import DebitCardIcon from "@/components/Icons/DebitCard";
 import PaypalSvg from "@/components/Icons/PaypalIcon";
 import { useState } from "react";
 
@@ -37,7 +38,7 @@ export default function ConfirmDepositPage() {
                 name="payment"
                 value="paypal"
                 checked={method === "paypal"}
-                // onChange={() => setMethod("paypal")}
+                onChange={() => setMethod("paypal")}
                 className="w-5 h-5"
               />
             </label>
@@ -45,7 +46,7 @@ export default function ConfirmDepositPage() {
             {/* Credit / Debit */}
             <label className="flex justify-between items-center cursor-pointer">
               <div className="flex items-center gap-3">
-                <img src="/card.png" alt="Card" className="w-6 h-6" />
+                <DebitCardIcon/>
                 <div>
                   <p className="font-medium">Add Credit/Debit Card</p>
                   <p className="text-sm text-gray-500">

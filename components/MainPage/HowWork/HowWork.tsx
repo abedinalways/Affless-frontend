@@ -75,7 +75,7 @@ export default function HowWork() {
     <div className="bg-[#F9FAFB]">
       <div className="containers mx-auto py-8 lg:py-20">
         <div>
-          <h3 className="text-[#333] text-center font-[Poppins] text-[50px] md:text-[55px] lg:text-[64px] font-normal leading-[124%] [text-stroke-width:1px] [text-stroke-color:#333]">
+          <h3 className="text-[#333] text-center font-[Poppins]  text-[28px] md:text-[40px] lg:text-[64px] font-normal leading-[124%] ">
             How It Works
           </h3>
 
@@ -83,10 +83,10 @@ export default function HowWork() {
             A simple, secure, and efficient process for both clients and editors
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 lg:gap-[34px] ">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-[20px] lg:gap-[34px] ">
             {/* LEFT CARD */}
             <div className="mt-10 bg-white shadow-lg w-full py-[30px] px-8 rounded-lg">
-              <p className="text-[#333] text-center font-[Poppins] text-[32px] pb-8 font-medium leading-[130%]">
+              <p className="text-[#333] text-center font-[Poppins] text-[28px] lg:text-[32px] pb-8 font-medium leading-[130%]">
                 For Client
               </p>
 
@@ -109,7 +109,7 @@ export default function HowWork() {
 
             {/* RIGHT CARD */}
             <div className="mt-10 bg-white shadow-lg w-full py-[30px] px-8 rounded-lg ">
-              <p className="text-[#333] text-center font-[Poppins] text-[32px] font-medium leading-[130%] pb-8">
+              <p className="text-[#333] text-center font-[Poppins] text-[28px] lg:text-[32px] font-medium leading-[130%] pb-8">
                 For Editors
               </p>
 

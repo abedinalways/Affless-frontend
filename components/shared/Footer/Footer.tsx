@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="bg-[#0F1623] text-white pt-16 pb-10 mt-10">
       <div className="containers overflow-hidden ">
         <div className="
-          grid grid-cols-1 
+          grid grid-cols-2 
           sm:grid-cols-2
           md:grid-cols-3
           lg:grid-cols-5
@@ -21,22 +21,23 @@ export default function Footer() {
           <div className="">
             <div className="">
               <Image
-                src="/logo (2).png"
+                src="/images/footerLogo.png"
                 width={100}
-                height={50}
+                height={100}
                 alt="Logo"
-                className="w-40 h-12 object-cover justify-start"
+                className=" object-cover justify-start"
               />
         
             </div>
 
-            <p className="text-[#D7D7D7] font-poppins text-sm mt-4 max-w-xs leading-[150%]">
+            <p className="text-[#D2D2D5] font-poppins text-sm mt-4 max-w-xs leading-[150%]">
               The most trusted platform connecting clients and video editors 
               worldwide. Secure payments, verified talent, transparent pricing.
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-2 mt-6">
+            <div className="hidden md:block">
+              <div className="flex items-center gap-2 mt-6 ">
             <div className="border-2 border-white p-3 rounded-full">  <BsDiscord width={40} height={35} className=""/></div>
               <div className="border-2 border-white p-2 rounded-full">
                 <Facebook width={23} height={25} />
@@ -49,12 +50,13 @@ export default function Footer() {
                 <Linkedin width={23} height={25} />
               </div>
             </div>
+            </div>
           </div>
 
           {/* PLATFORM */}
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">Platform</h3>
-            <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
+            <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href="/howWork">How It Works</Link></li>
               <li><Link href="/pricing">Pricing</Link></li>
               <li><Link href="/trustSeftey">Trust & Safety</Link></li>
@@ -66,7 +68,7 @@ export default function Footer() {
           {/* CLIENTS */}
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">For Clients</h3>
-            <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
+            <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href="#">Post a Job</Link></li>
               <li><Link href="/find-editors">Find Editors</Link></li>
               <li><Link href="/payment-protection">Payment Protection</Link></li>
@@ -77,7 +79,7 @@ export default function Footer() {
           {/* EDITORS */}
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">For Editors</h3>
-            <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
+            <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href="#">Create Profile</Link></li>
               <li><Link href="#">Browse Jobs</Link></li>
               <li><Link href="/editor-resource">Editor Resources</Link></li>
@@ -88,7 +90,7 @@ export default function Footer() {
           {/* SUPPORT */}
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">Support</h3>
-            <ul className="space-y-3 text-[#D7D7D7] font-poppins text-sm">
+            <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href="/help-center">Help Center</Link></li>
               <li><Link href="/contactUs">Contact Us</Link></li>
               <li><Link href="/dispute-resoulation">Dispute Resolution</Link></li>
@@ -99,8 +101,23 @@ export default function Footer() {
           </div>
         </div>
 
+       <div className="block md:hidden">
+              <div className="flex items-center gap-2 mt-6 ">
+            <div className="border-2 border-white p-3 rounded-full">  <BsDiscord width={40} height={35} className=""/></div>
+              <div className="border-2 border-white p-2 rounded-full">
+                <Facebook width={23} height={25} />
+              </div>
+                 <div className="border-2 border-white p-2 rounded-full">
+                <Instagram width={23} height={25} />
+              </div>
+             
+               <div className="border-2 border-white p-2 rounded-full">
+                <Linkedin width={23} height={25} />
+              </div>
+            </div>
+            </div>
         {/* COPYRIGHT */}
-        <div className="border-t border-[#253045] mt-14 pt-6 text-center text-[#D7D7D7] font-poppins text-sm "></div>
+        <div className="border-t border-[#253045] mt-14 pt-6 text-center text-[#D2D2D5] font-poppins text-sm "></div>
     <div className="w-[696px] flex items-center mx-auto ">
        <div className="flex justify-between w-[400px]  md:w-[696px]">
          <p className="">© Copyright</p>

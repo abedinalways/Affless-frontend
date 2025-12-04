@@ -80,7 +80,7 @@ export default function OtpForm() {
         <Link href="/forgotpassword">
           <span className="text-[#333] text-2xl cursor-pointer">&#8592;</span>
         </Link>
-        <h2 className="text-[#333] font-poppins text-[40px] font-medium leading-[130%]"
+        <h2 className="text-[#333] font-poppins text-[24px] lg:text-[40px] font-medium leading-[130%]"
 >
           Verify Email
         </h2>
@@ -118,7 +118,7 @@ export default function OtpForm() {
 
 
         <div className="px-4">
-          <Button className="w-full py-3  bg-[#FF4D4F] text-white text-xl font-poppins rounded-xl">
+          <Button className="w-full py-3  bg-[#FF4D4F] text-white text-[16px] lg:text-[24px] font-poppins rounded-xl">
           Verify
         </Button>
         </div>

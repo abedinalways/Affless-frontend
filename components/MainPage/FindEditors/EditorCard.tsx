@@ -101,7 +101,7 @@ export default function EditorCard({
       <p className="text-[#777980] text-[14px] font-normal mt-3 ">{description}</p>
 
       {/* Skills */}
-      <div className="flex items-center mt-5 gap-2 md:gap-4 lg:gap-[100px]">
+      <div className="flex items-center mt-5 gap-2 md:gap-4 justify-between">
         <ChevronLeft className="cursor-pointer" />
         {skills.map((skill, idx) => (
           <span

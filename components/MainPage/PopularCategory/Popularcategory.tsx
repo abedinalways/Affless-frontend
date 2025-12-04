@@ -71,26 +71,26 @@ const data = [
 
 export default function Popularcategory() {
   return (
-    <div className="containers mx-auto lg:py-20">
-      <h2 className="text-[#333] text-center font-[Poppins] text-[28px] md:text-[64px] font-medium leading-[124%] [text-stroke-width:1px] "
+    <div className="containers mx-auto lg:py-20 py-10">
+      <h2 className="text-[#333] text-center font-[Poppins] text-[36px] md:text-[64px] font-medium leading-[124%] [text-stroke-width:1px] "
 >Popular Categories</h2>
       <p className="text-[#4A4C56] text-center font-[Poppins] text-[18px] font-normal leading-[150%] mt-4"
 >
         Find the perfect editor for any project
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4  gap-6 justify-center pt-[50px]">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4  gap-6 justify-center pt-[50px]">
 
         {data.map((item) => (
           <div
             key={item.id}
-            className={`p-6 rounded-xl shadow-sm ${item.bg} transition hover:shadow-md`}
+            className={`p-3 md:p-6 rounded-xl shadow-sm ${item.bg} transition hover:shadow-md`}
           >
             <div className="text-2xl mb-4">{item.icon}</div>
 
-            <p className="text-[#333] font-[Poppins] text-[24px] font-medium leading-[150%]"
+            <p className="text-[#333] font-[Poppins] text-[16px] lg:text-[24px] font-medium leading-[150%]"
 >{item.title}</p>
-            <p className="text-[#4A4C56] font-[Poppins] text-[16px] font-normal leading-[150%] mt-2"
+            <p className="text-[#4A4C56] font-[Poppins] text-[14px] lg:text-[16px] font-normal leading-[150%] mt-2"
 >{item.desc}</p>
           </div>
         ))}

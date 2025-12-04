@@ -67,21 +67,21 @@ export default function FilterSidebar() {
   const [range, setRange] = React.useState([5, 35]);
 
   return (
-    <div className="w-[400px] md:w-[320px] border p-6 rounded-[20px] bg-white shadow-sm ">
+    <div className="w-[400px] md:w-[320px] lg:w-full border p-6 rounded-[20px] bg-white shadow-sm ">
       
       {/* Job Category */}
       <h2 className="text-[#333] font-semibold text-xl mb-4">Job Category</h2>
       <div className="flex flex-col gap-4 mb-8">
         {jobCategories.map((item, idx) => (
-          <CheckboxRow key={idx} {...item} defaultChecked={idx === 0} />
+          <CheckboxRow key={idx} {...item}  />
         ))}
       </div>
-
+{/* defaultChecked={idx === 0} */}
       {/* Platform */}
       <h2 className="text-[#333] font-semibold text-xl mb-4">Platform</h2>
       <div className="flex flex-col gap-4 mb-8">
         {platforms.map((item, idx) => (
-          <CheckboxRow key={idx} {...item} defaultChecked={idx === 0} />
+          <CheckboxRow key={idx} {...item}  />
         ))}
       </div>
 
@@ -107,7 +107,7 @@ export default function FilterSidebar() {
       <h2 className="text-[#333] font-semibold text-xl mb-4">Delivery Time</h2>
       <div className="flex flex-col gap-4">
         {deliveryTimes.map((d, idx) => (
-          <CheckboxRow key={idx} label={d} defaultChecked={idx === 0} />
+          <CheckboxRow key={idx} label={d}  />
         ))}
       </div>
     </div>

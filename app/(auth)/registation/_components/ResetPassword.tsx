@@ -23,8 +23,8 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+    <div className="containers mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
 
         {/* Left Image */}
         <div className="flex justify-center items-center mb-10 lg:mb-0">
@@ -53,7 +53,7 @@ export default function ResetPasswordForm() {
               <Link href="/otp">
                 <span className="text-[#333] text-2xl cursor-pointer">&#8592;</span>
               </Link>
-              <h2 className="text-[#333] font-poppins text-2xl font-medium leading-[150%]">
+              <h2 className="text-[#333] font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%]">
                 Reset Password
               </h2>
             </div>
@@ -116,7 +116,7 @@ export default function ResetPasswordForm() {
               {/* Confirm Button */}
               <button
                 type="submit"
-                className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-xl font-medium rounded-xl mt-2"
+                className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl mt-2"
               >
                 Confirm
               </button>

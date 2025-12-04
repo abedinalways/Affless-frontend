@@ -78,11 +78,11 @@ export default function PaymentHistoryPage() {
             {/* Status */}
             <div className="hidden md:block">
               {payment.status === "Revision" ? (
-                <span className="px-4 py-1 rounded-lg bg-yellow-100 text-yellow-600 text-sm font-medium">
+                <span className="px-4 py-1 rounded-lg bg-[#FFF7E8] text-[#FAAD14] text-[16px] font-medium">
                   Revision
                 </span>
               ) : (
-                <span className="px-4 py-1 rounded-lg bg-red-100 text-red-500 text-sm font-medium">
+                <span className="px-5 py-1 rounded-lg bg-[#FFEEEE] text-red-500 text-[16px] font-medium">
                   Cancel
                 </span>
               )}

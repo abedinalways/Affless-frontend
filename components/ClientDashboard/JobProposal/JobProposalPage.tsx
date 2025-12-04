@@ -185,6 +185,7 @@ export default function JobProposalPage() {
 
       {/* MOBILE VIEW */}
       <div className="block md:hidden">
+        
         <div className="space-y-3">
           <div className="flex justify-between">
             <p>Job Proposals</p>

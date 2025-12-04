@@ -32,22 +32,22 @@ export default function SingUpForm() {
 
   return (
     <div className="containers">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center ">
 
         {/* Left Image */}
-        <div className="flex ">
+        <div className="flex w-full">
           <Image
             src="/svgIcons/singUpImage.svg"
             alt="signup"
             height={457}
             width={545}
-            className=" "
+            className="w-full "
           />
         </div>
 
         {/* Right Form */}
-        <div className="w-full max-w-lg bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto mb-8">
-          <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-6 ">
+        <div className="w-full  bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto mb-8">
+          <h2 className="text-[#333] text-center font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%] pb-6 ">
             Sign Up 
           </h2>
 
@@ -145,7 +145,7 @@ export default function SingUpForm() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-2xl font-medium rounded-xl"
+              className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl"
             >
               Sign Up
             </button>
