@@ -1,3 +1,4 @@
+import EditorDashboardHeader from "@/components/shared/EditorDashboardHeader/EditorDashboardHeader";
 
 export default function Layout({
   children,
@@ -6,6 +7,7 @@ export default function Layout({
 }>) {
   return (
     <div>
+      <EditorDashboardHeader/>
  {children}
      
     </div>
