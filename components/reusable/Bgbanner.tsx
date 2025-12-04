@@ -8,7 +8,7 @@ type PageBannerProps = {
   links: { label: string; href?: string }[];
 };
 
-export default function PageBanner({ title, bgImage, links }: PageBannerProps) {
+export default function PageBanner({ title, bgImage, links, }: PageBannerProps) {
   return (
   <div className="hidden md:block">
       <div
@@ -16,7 +16,8 @@ export default function PageBanner({ title, bgImage, links }: PageBannerProps) {
       style={{ backgroundImage: `url('${bgImage}')` }}
     >
       <div className="containers justify-center items-start ">
-        <h1 className="text-white text-[40px] md:text-[50px] lg:text-[64px] font-medium">{title}</h1>
+        <h1 className="text-white text-[40px] md:text-[50px] lg:text-[56px] font-medium">{title}</h1>
+
         <BreadCrumb links={links} />
       </div>
     </div>

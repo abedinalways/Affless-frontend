@@ -6,6 +6,7 @@ import Link from "next/link";
 import { TiStarFullOutline } from "react-icons/ti";
 import Pagination from "@/components/reusable/pagination";
 import { Slider } from "@/components/ui/slider";
+import PageBanner from "@/components/reusable/Bgbanner";
 interface Editor {
   id: number;
   name: string;
@@ -88,7 +89,17 @@ export default function FindEditorPage() {
   const [range, setRange] = React.useState([5, 35]);
   return (
     <div className="min-h-screen  py-10">
-      <div className="containers mx-auto flex gap-8">
+      <div>
+              <PageBanner
+        title="Find Editors"
+        bgImage="/findEditor.jpg"
+        links={[
+          { label: "Home", href: "/" },
+          { label: "Find Editors" }
+        ]}
+      />
+            </div>
+      <div className="containers mx-auto flex gap-8 pt-10 lg:pt-20">
 
         {/* LEFT FILTER SIDEBAR */}
         <aside className="w-4/4 lg:w-1/4 hidden md:block  bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">

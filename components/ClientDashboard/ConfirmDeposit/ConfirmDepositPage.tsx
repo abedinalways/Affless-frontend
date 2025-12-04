@@ -1,13 +1,25 @@
 "use client";
 import DebitCardIcon from "@/components/Icons/DebitCard";
 import PaypalSvg from "@/components/Icons/PaypalIcon";
+import PageBanner from "@/components/reusable/Bgbanner";
 import { useState } from "react";
 
 export default function ConfirmDepositPage() {
   const [method, setMethod] = useState<string>("");
 
   return (
-    <div className="containers  p-6">
+  <div className="">
+    <div>
+        <PageBanner
+  title="Confirm Deposit"
+  bgImage="/findEditor.jpg"
+  links={[
+    { label: "Home", href: "/" },
+    { label: "Confirm Deposit" }
+  ]}
+/>
+      </div>
+      <div className="containers pt-10 lg:pt-20">
       <div className="flex flex-col md:flex-row gap-8 w-full ">
 
         {/* LEFT CARD */}
@@ -95,5 +107,6 @@ export default function ConfirmDepositPage() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
