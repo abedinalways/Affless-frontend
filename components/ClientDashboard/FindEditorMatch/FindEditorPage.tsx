@@ -83,7 +83,7 @@ export default function FindEditorsPage() {
       <div className="containers mx-auto flex flex-col lg:flex-row gap-8">
 
         {/* LEFT FILTER SIDEBAR */}
-        <div className="w-full lg:w-1/4 hidden md:block bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
+        <div className="w-full lg:w-1/4 hidden lg:block bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
           {/* Project Types */}
           <div>
             <h3 className="font-medium text-[18px] md:text-[24px] mb-3 text-[#333]">Project Types</h3>
@@ -192,6 +192,7 @@ export default function FindEditorsPage() {
             Find Another Match
           </button>
         </div>
+
 
         {/* RIGHT SIDE: EDITOR LIST */}
         <div className="lg:w-3/4 w-full space-y-6 ">

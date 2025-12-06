@@ -99,10 +99,10 @@ export default function FindEditorPage() {
         ]}
       />
             </div>
-      <div className="containers mx-auto flex gap-8 pt-10 lg:pt-20">
+      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 pt-10 lg:pt-20">
 
         {/* LEFT FILTER SIDEBAR */}
-        <aside className="w-4/4 lg:w-1/4 hidden md:block  bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
+        <aside className="w-[330px] xl:w-1/4 hidden lg:block  bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
 
           {/* Job Category */}
           <div>
@@ -195,8 +195,40 @@ export default function FindEditorPage() {
               ))}
             </div>
           </div>
-        </aside>
 
+        
+        </aside>
+  <div className=" lg:hidden grid grid-cols-2  gap-4 mb-4">
+          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
+            <option>Job Category</option>
+            <option>SEO</option>
+            <option>Video Editing</option>
+            <option>Web Development</option>
+            {/* Add more options here */}
+          </select>
+          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
+            <option>Platform</option>
+            <option>Upwork</option>
+            <option>Fiverr</option>
+            <option>Freelancer</option>
+            {/* Add more options here */}
+          </select>
+          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
+            <option>Budget</option>
+            <option>$10 - $50</option>
+            <option>$50 - $100</option>
+            <option>$100+</option>
+            {/* Add more options here */}
+          </select>
+          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
+            <option>Duration</option>
+            <option>3 Days</option>
+            <option>5 Days</option>
+            <option>7 Days</option>
+            {/* Add more options here */}
+          </select>
+        </div>
+ 
         {/* RIGHT SIDE: EDITOR LIST */}
         <div className="w-full lg:w-3/4 space-y-6 ">
 
@@ -222,14 +254,14 @@ export default function FindEditorPage() {
                     {editor.rating} ({editor.reviews} Review)
                   </p>
 
-                  <div className="flex gap-3 mt-3 text-sm text-gray-700">
-                    <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
+                  <div className="grid grid-cols-3 lg:grid-cols-2 2xl:grid-cols-4 gap-3 mt-3 text-sm text-gray-700">
+                    <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full flex justify-center">
                       Link Building
                     </span>
-                    <span className="bg-green-100 text-green-600 px-3 py-1 rounded-full">
+                    <span className="bg-green-100 text-green-600 px-3 py-1 rounded-full flex justify-center">
                       {editor.experience}
                     </span>
-                    <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
+                    <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full flex justify-center">
                       {editor.country}
                     </span>
                   </div>

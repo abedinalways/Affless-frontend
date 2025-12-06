@@ -7,10 +7,25 @@ interface JobProposalCardProps {
   image: string;
   title: string;
   total: string;
-  status: "Accept" | "In Progress" | "In Revision"; // Type the status explicitly
-  onAction: (id: number) => void; // Expecting a function that accepts an id
+  status:
+    | "Accept"
+    | "In Progress"
+    | "In Revision"
+    | "Decline"
+    | "Pending"
+    | "Cancellation";
+  onAction: (id: number) => void;
   id: number;
 }
+
+const statusColors: Record<JobProposalCardProps["status"], string> = {
+  Accept: "bg-green-500 text-white",
+  "In Progress": "bg-[#EEFAE9] text-[#52C41A]",
+  "In Revision": "bg-yellow-400 text-black",
+  Decline: "bg-[#FDD3D5] text-[#F5222D] w-[600px]",
+  Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
+  Pending: "bg-[#FFF7E8] text-[#FAAD14]",
+};
 
 const JobProposalCard: React.FC<JobProposalCardProps> = ({
   image,
@@ -37,9 +52,10 @@ const JobProposalCard: React.FC<JobProposalCardProps> = ({
 
       <div className="flex justify-between pt-7">
         <p className="text-sm text-gray-500">Total: {total}</p>
+
         <button
-          onClick={() => onAction(id)} // Pass the id when the button is clicked
-          className="bg-green-500 text-white px-4 py-2 rounded-lg text-sm"
+          onClick={() => onAction(id)}
+          className={`px-4 py-2  rounded-lg text-sm font-medium ${statusColors[status]}`}
         >
           {status}
         </button>

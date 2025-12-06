@@ -41,7 +41,7 @@ export default function ClientDashboardHeader() {
 
   const handleBecomeEditorClick = () => {
     // Redirect to the editor dashboard
-    router.push("/editor-dashboard");
+    router.push("/editor");
   };
 
   return (
@@ -55,13 +55,13 @@ export default function ClientDashboardHeader() {
             {/* Logo */}
             <Link href="/">
               <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
-               <Image
-                               src="/images/footerLogo.png"
-                               width={100}
-                               height={100}
-                               alt="Logo"
-                               className=" object-cover justify-start"
-                             />
+                <Image
+                  src="/images/footerLogo.png"
+                  width={100}
+                  height={100}
+                  alt="Logo"
+                  className=" object-cover justify-start"
+                />
               </div>
             </Link>
 
@@ -132,9 +132,8 @@ export default function ClientDashboardHeader() {
 
       {/* ========== MOBILE MENU SLIDE ========== */}
       <div
-        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${
-          mobileMenu ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Close Button */}
         <button className="text-3xl mb-5" onClick={() => setMobileMenu(false)}>

@@ -55,20 +55,20 @@ export default function EditorDashboardHeader() {
             {/* Logo */}
             <Link href="/">
               <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
-               <Image
-                               src="/images/footerLogo.png"
-                               width={100}
-                               height={100}
-                               alt="Logo"
-                               className=" object-cover justify-start"
-                             />
+                <Image
+                  src="/images/footerLogo.png"
+                  width={100}
+                  height={100}
+                  alt="Logo"
+                  className=" object-cover justify-start"
+                />
               </div>
             </Link>
 
             {/* DESKTOP MENU (Visible on lg and larger) */}
             <ul className="hidden lg:flex items-center gap-8 text-[#333] font-poppins text-base relative">
               <li>
-                <Link href="/client/dashboard">Dashboard</Link>
+                <Link href="/editor">Dashboard</Link>
               </li>
 
               {/* My Business Dropdown */}
@@ -86,9 +86,9 @@ export default function EditorDashboardHeader() {
 
                   {open && (
                     <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                      <Link href="/client/manage-job" className="block px-4 py-2 hover:bg-gray-100">My Job</Link>
-                      <Link href="/client/find-editor" className="block px-4 py-2 hover:bg-gray-100">My Proposals</Link>
-                      <Link href="/client/job-proposal" className="block px-4 py-2 hover:bg-gray-100">Find Job</Link>
+                      <Link href="/editor/my-job" className="block px-4 py-2 hover:bg-gray-100">My Job</Link>
+                      <Link href="/editor/myproposal" className="block px-4 py-2 hover:bg-gray-100">My Proposals</Link>
+                      <Link href="/editor/browse-job" className="block px-4 py-2 hover:bg-gray-100">Find Job</Link>
                       <Link href="/client/payment-history" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
                       <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100">Earning</Link>
                     </div>
@@ -131,11 +131,10 @@ export default function EditorDashboardHeader() {
       )}
 
       {/* ========== MOBILE MENU SLIDE ========== */}
-    <div
-  className={`fixed top-0 left-0 w-full h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${
-    mobileMenu ? "translate-x-0" : "translate-x-[-100%]"
-  }`}
->
+      <div
+        className={`fixed top-0 left-0 w-full h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-[-100%]"
+          }`}
+      >
 
         {/* Close Button */}
         <button className="text-3xl mb-5" onClick={() => setMobileMenu(false)}>
@@ -157,7 +156,7 @@ export default function EditorDashboardHeader() {
               className="flex items-center justify-between w-full"
               onClick={() => setMobileDropdown(!mobileDropdown)}
             >
-             Job
+              Job
               <MdKeyboardArrowDown
                 className={`transition-transform ${mobileDropdown ? "rotate-180" : ""}`}
               />
