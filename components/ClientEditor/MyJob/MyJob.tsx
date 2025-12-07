@@ -11,11 +11,11 @@ interface ProposalRow {
   amount: string;
   time: string;
   status:
-  | "Accept"
+  
   | "In Progress"
-  | "Decline"
+
   | "Pending"
-  | "In Revision"
+
   | "Cancellation";
   thumbnail: string;
 }
@@ -29,7 +29,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
     time: "5 Days",
-    status: "Accept",
+    status: "In Progress",
   },
   {
     id: 2,
@@ -45,7 +45,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$60",
     time: "5 Days",
-    status: "Decline",
+    status: "Pending",
   },
   {
     id: 4,
@@ -61,7 +61,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$80",
     time: "5 Days",
-    status: "In Revision",
+    status: "In Progress",
   },
   {
     id: 6,
@@ -77,7 +77,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks to improve your rankings.",
     amount: "$55",
     time: "3 Days",
-    status: "Accept",
+    status: "Pending",
   },
   {
     id: 8,
@@ -90,11 +90,9 @@ const Proposal: ProposalRow[] = [
 ];
 
 const statusBadgeClasses: Record<ProposalRow["status"], string> = {
-  Accept: "bg-green-500 text-white",
+
   "In Progress": "bg-[#EEFAE9] text-[#52C41A]",
-  "In Revision": "bg-yellow-400 text-black",
-  Decline: "bg-[#FDD3D5] text-[#F5222D]",
-  Cancellation: "bg-[#FEE9EA] text-[#F5222D] w-[600px]",
+  Cancellation: "bg-[#FEE9EA] text-[#F5222D] ",
   Pending: "bg-[#FFF7E8] text-[#FAAD14]",
 };
 
@@ -158,24 +156,18 @@ export default function MyJob() {
 
   const handleCardAction = (status: ProposalRow["status"], id: number) => {
     switch (status) {
-      case "Accept":
-        handleAccept(id);
-        break;
+     
       case "In Progress":
         handleInProgress(id);
         break;
-      case "In Revision":
-        handleRevision(id);
-        break;
+   
       case "Pending":
         handlePending(id);
         break;
       case "Cancellation":
         handleCancellation(id);
         break;
-      case "Decline":
-        handleDecline(id);
-        break;
+    
       default:
         break;
     }

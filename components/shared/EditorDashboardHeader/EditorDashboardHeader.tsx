@@ -89,8 +89,8 @@ export default function EditorDashboardHeader() {
                       <Link href="/editor/my-job" className="block px-4 py-2 hover:bg-gray-100">My Job</Link>
                       <Link href="/editor/myproposal" className="block px-4 py-2 hover:bg-gray-100">My Proposals</Link>
                       <Link href="/editor/browse-job" className="block px-4 py-2 hover:bg-gray-100">Find Job</Link>
-                      <Link href="/client/payment-history" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
-                      <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100">Earning</Link>
+                      <Link href="/editor/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
+                      <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100">Earning</Link>
                     </div>
                   )}
                 </div>
@@ -168,7 +168,7 @@ export default function EditorDashboardHeader() {
                 <li><Link href="/client/my-proposal" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
                 <li><Link href="/client/find-job" onClick={() => setMobileMenu(false)}>Find Job</Link></li>
                 <li><Link href="#" onClick={() => setMobileMenu(false)}>Profile</Link></li>
-                <li><Link href="#" onClick={() => setMobileMenu(false)}>Earning</Link></li>
+                <li><Link href="/editor/earning" onClick={() => setMobileMenu(false)}>Earning</Link></li>
               </ul>
             )}
           </li>

@@ -4,6 +4,7 @@ import { DataTable } from "@/components/reusable/DataTable"; // Assuming you've 
 import { useRouter } from "next/navigation";
 import JobProposalCard from "@/components/reusable/TableCard"; // Reusable card component
 import { SlidersHorizontal } from "lucide-react"; // Icon for mobile filters
+import Link from "next/link"; // Link component for navigation
 
 interface ProposalRow {
   id: number;
@@ -33,8 +34,8 @@ const Proposal: ProposalRow[] = [
     time: "3 Days",
     status: "Accept",
   },
-    {
-    id: 1,
+  {
+    id: 3,
     thumbnail: "/images/mnagejob2.jpg",
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
@@ -42,15 +43,15 @@ const Proposal: ProposalRow[] = [
     status: "Accept",
   },
   {
-    id: 2,
+    id: 4,
     thumbnail: "/images/mnagejob2.jpg",
     service: "I will create backlinks to improve your rankings.",
     amount: "$55",
     time: "3 Days",
     status: "Accept",
   },
-    {
-    id: 1,
+  {
+    id: 5,
     thumbnail: "/images/mnagejob2.jpg",
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
@@ -58,15 +59,13 @@ const Proposal: ProposalRow[] = [
     status: "Accept",
   },
   {
-    id: 2,
+    id: 6,
     thumbnail: "/images/mnagejob2.jpg",
     service: "I will create backlinks to improve your rankings.",
     amount: "$55",
     time: "3 Days",
     status: "Accept",
   },
-  
-  // Add more proposals as needed
 ];
 
 export default function JobProposalPage() {
@@ -102,6 +101,7 @@ export default function JobProposalPage() {
 
   return (
     <div className="containers py-8">
+      {/* DESKTOP VIEW */}
       <div className="hidden md:block">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Job Proposals</h2>
 
@@ -135,16 +135,18 @@ export default function JobProposalPage() {
               accessorKey: "service",
               header: "Service",
               cell: ({ row }: any) => (
-                <div className="flex items-center gap-4 cursor-pointer">
-                  <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
-                    <img
-                      src={row.original.thumbnail}
-                      alt={row.original.service}
-                      className="h-full w-full object-cover"
-                    />
+                <Link href={`/client/job-details/${row.original.id}`}>
+                  <div className="flex items-center gap-4 cursor-pointer">
+                    <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
+                      <img
+                        src={row.original.thumbnail}
+                        alt={row.original.service}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">{row.original.service}</span>
                   </div>
-                  <span className="text-sm font-medium text-gray-800">{row.original.service}</span>
-                </div>
+                </Link>
               ),
             },
             {
@@ -161,17 +163,19 @@ export default function JobProposalPage() {
               accessorKey: "status",
               header: "STATUS",
               cell: ({ row }: any) => (
-                <span
-                  className={`px-4 py-1 rounded-md text-[18px] font-normal uppercase text-white ${
-                    row.original.status === "Accept"
-                      ? "bg-green-600"
-                      : row.original.status === "In Progress"
-                      ? "bg-yellow-500"
-                      : "bg-red-500"
-                  }`}
-                >
-                  {row.original.status}
-                </span>
+                <Link href={`/client/job-details/${row.original.id}`}>
+                  <span
+                    className={`px-4 py-1 rounded-md text-[18px] font-normal uppercase text-white ${
+                      row.original.status === "Accept"
+                        ? "bg-green-600"
+                        : row.original.status === "In Progress"
+                        ? "bg-yellow-500"
+                        : "bg-red-500"
+                    }`}
+                  >
+                    {row.original.status}
+                  </span>
+                </Link>
               ),
             },
           ]}
@@ -185,7 +189,6 @@ export default function JobProposalPage() {
 
       {/* MOBILE VIEW */}
       <div className="block md:hidden">
-        
         <div className="space-y-3">
           <div className="flex justify-between">
             <p>Job Proposals</p>
