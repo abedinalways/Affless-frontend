@@ -45,7 +45,7 @@ export default function ClientDashboardHeader() {
   };
 
   return (
-    <div className="containers">
+    <div className="containers sticky top-10 z-50">
       <nav>
         <div className="flex justify-between items-center py-3">
 

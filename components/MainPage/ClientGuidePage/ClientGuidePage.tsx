@@ -215,7 +215,7 @@ export default function ClientGuidePage() {
               </span>
               <h3 className="text-[20px] md:text-2xl text-[#333] font-medium ">Approve & Release Payment</h3>
             </div>
-<h3 className="pt-3 pb-6 text-[#4A4C56]">When you're completely satisfied with the final video, approve the deliverable and release the payment from escrow. The editor will receive their funds, and you can leave a review to help future clients.</h3>
+<h3 className="pt-3 pb-6 text-[#4A4C56]">When you're completely satisfied with the final files, approve the deliverable and release the payment from escrow. The editor will receive their funds, and you can leave a review to help future clients.</h3>
            <div className="bg-[#FEFCE8] rounded-lg p-4">
              <div className="flex items-center gap-2">
               <h4 className="text-[18px] pb-3.5">After Project Completion</h4>
