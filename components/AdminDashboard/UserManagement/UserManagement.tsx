@@ -1,6 +1,6 @@
 "use client";
 
-import ClientPage from "@/app/(admin-dashboard)/admin/(admin)/dashboard/usermanagement/clientPage";
+import ClientPage from "@/app/(admin-dashboard)/admin/(admin)/dashboard/usermanagement/client/page";
 import { Pagination } from "@/components/reusable/DashboardPagination";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,7 +33,7 @@ export default function UserManagement() {
       <div className="flex justify-between items-center mb-6">
 
         {/* TABS */}
-        <div className="flex gap-3 bg-gray-100 p-1 rounded-lg">
+        {/* <div className="flex gap-3 bg-gray-100 p-1 rounded-lg">
           <button
             onClick={() => { setActiveTab("editor"); setPage(1); }}
             className={`px-4 py-2 rounded-lg ${
@@ -49,7 +49,7 @@ export default function UserManagement() {
             }`}>
             Client
           </button>
-        </div>
+        </div> */}
 
         <div className="flex gap-4">
           <input className="border rounded-lg px-4 py-2 w-64" placeholder="Search here..." />

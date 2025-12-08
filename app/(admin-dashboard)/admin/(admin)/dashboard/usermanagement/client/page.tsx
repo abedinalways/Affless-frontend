@@ -55,7 +55,7 @@ export default function ClientPage() {
 
             {/* View Profile Button */}
             <Link
-              href={`/admin/usermanagement/${user.id}`}
+              href={`/admin/dashboard/usermanagement/client/${user.id}`}
               className="w-full mt-4"
             >
               <button className="w-full border rounded-lg py-2 hover:bg-gray-100 text-sm">
