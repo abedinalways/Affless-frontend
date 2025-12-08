@@ -6,6 +6,7 @@ import Link from "next/link";
 import { TiStarFullOutline } from "react-icons/ti";
 import Pagination from "@/components/reusable/pagination";
 import { Slider } from "@/components/ui/slider";
+import PageBanner from "@/components/reusable/Bgbanner";
 interface Editor {
   id: number;
   name: string;
@@ -88,10 +89,20 @@ export default function FindEditorPage() {
   const [range, setRange] = React.useState([5, 35]);
   return (
     <div className="min-h-screen  py-10">
-      <div className="containers mx-auto flex gap-8">
+      <div>
+        <PageBanner
+          title="Find Editors"
+          bgImage="/findEditor.jpg"
+          links={[
+            { label: "Home", href: "/" },
+            { label: "Find Editors" }
+          ]}
+        />
+      </div>
+      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 pt-10 lg:pt-20">
 
         {/* LEFT FILTER SIDEBAR */}
-        <aside className="w-4/4 lg:w-1/4 hidden md:block  bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
+        <aside className="w-[330px] xl:w-1/4 hidden lg:block  bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
 
           {/* Job Category */}
           <div>
@@ -147,22 +158,22 @@ export default function FindEditorPage() {
           <div>
             <h3 className="font-bold text-[20px] mb-3">Budget</h3>
 
-             <div className="w-full flex flex-col items-center gap-3 mb-8">
-        <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
-          <span>${range[0]}</span>
-          <span>${range[1]}</span>
-        </div>
+            <div className="w-full flex flex-col items-center gap-3 mb-8">
+              <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
+                <span>${range[0]}</span>
+                <span>${range[1]}</span>
+              </div>
 
-        <Slider
-          defaultValue={[5, 35]}
-          max={100}
-          min={0}
-          step={1}
-          value={range}
-          onValueChange={setRange}
-          className="w-full"
-        />
-      </div>
+              <Slider
+                defaultValue={[5, 35]}
+                max={100}
+                min={0}
+                step={1}
+                value={range}
+                onValueChange={setRange}
+                className="w-full"
+              />
+            </div>
 
           </div>
 
@@ -184,7 +195,39 @@ export default function FindEditorPage() {
               ))}
             </div>
           </div>
+
+
         </aside>
+        <div className=" lg:hidden grid grid-cols-2  gap-4 mb-4">
+          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
+            <option>Job Category</option>
+            <option>SEO</option>
+            <option>Video Editing</option>
+            <option>Web Development</option>
+            {/* Add more options here */}
+          </select>
+          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
+            <option>Platform</option>
+            <option>Upwork</option>
+            <option>Fiverr</option>
+            <option>Freelancer</option>
+            {/* Add more options here */}
+          </select>
+          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
+            <option>Budget</option>
+            <option>$10 - $50</option>
+            <option>$50 - $100</option>
+            <option>$100+</option>
+            {/* Add more options here */}
+          </select>
+          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
+            <option>Duration</option>
+            <option>3 Days</option>
+            <option>5 Days</option>
+            <option>7 Days</option>
+            {/* Add more options here */}
+          </select>
+        </div>
 
         {/* RIGHT SIDE: EDITOR LIST */}
         <div className="w-full lg:w-3/4 space-y-6 ">
@@ -210,23 +253,24 @@ export default function FindEditorPage() {
                     <TiStarFullOutline className="text-[#FAAD14]" />
                     {editor.rating} ({editor.reviews} Review)
                   </p>
-
-                  <div className="flex gap-3 mt-3 text-sm text-gray-700">
-                    <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
+                  <p className="text-[12px] font-normal leading-150% text-[#777980]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+                  {/* <div className="grid grid-cols-3 lg:grid-cols-2 2xl:grid-cols-4 gap-3 mt-3 text-sm text-gray-700">
+                    <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full flex justify-center">
                       Link Building
                     </span>
-                    <span className="bg-green-100 text-green-600 px-3 py-1 rounded-full">
+                    <span className="bg-green-100 text-green-600 px-3 py-1 rounded-full flex justify-center">
                       {editor.experience}
                     </span>
-                    <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
+                    <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full flex justify-center">
                       {editor.country}
                     </span>
-                  </div>
+                  </div> */}
 
                   <div className="flex gap-3 mt-4">
+                  <Link href="/client/hire-vedio-editor">
                     <button className="px-4 py-2 bg-red-500 text-white rounded-full text-sm">
                       Hire Editor
-                    </button>
+                    </button></Link>
                     <button className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm">
                       Message
                     </button>

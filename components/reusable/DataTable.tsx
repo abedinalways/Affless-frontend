@@ -54,10 +54,10 @@ export function DataTable<TData, TValue>({
 
       <div className="overflow-x-auto">
 
-        <Table className="border-separate border-spacing-y-4 w-full">
+        <Table className="border-separate border-spacing-y-4  w-full">
 
           {/* HEADER */}
-          <TableHeader className="bg-white rounded-md border-2 border-red-500 ">
+          <TableHeader className="bg-white rounded-full  ">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="p-9">
                 {headerGroup.headers.map((header) => (
@@ -70,16 +70,16 @@ export function DataTable<TData, TValue>({
           </TableHeader>
 
           {/* BODY */}
-          <TableBody>
+          <TableBody  className="">
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   onClick={() => onRowClick?.(row.original)}   
-                  className="cursor-pointer bg-white border-2 border-red-500 rounded-xl hover:bg-red-100 transition"
+                  className="cursor-pointer bg-white  rounded-lg hover:bg-red-100 transition"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="p-2.5 text-sm">
+                    <TableCell key={cell.id} className="p-2.5 text-lg ">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}

@@ -201,22 +201,35 @@ export default function PostJobForm() {
 
           {/* RIGHT SUMMARY */}
           <div className="w-full md:w-1/3 bg-white p-6 rounded-xl shadow h-fit">
+          <h3 className="text-[20px] font-medium leading-150% pb-6">Budget & Payment</h3>
             <div className="flex justify-between text-gray-700 mb-4">
-              <span>Initial Budget</span>
-              <span>$350.00</span>
+              <span>Project Budget</span>
+              <span>$20</span>
+            </div>
+              <div className="flex justify-between text-gray-700 mb-4">
+              <span>Taxes & Other Frees</span>
+              <span>$6</span>
+            </div>
+              <div className="flex justify-between text-gray-700 mb-4">
+              <span>Platfrom Free 20%</span>
+              <span>20%</span>
+            </div>
+            <div className="flex justify-between text-gray-700 mb-4">
+              <span>Project Duration</span>
+              <span>5 Days</span>
+            </div>
+<hr className="my-4" />
+            <div className="flex justify-between text-gray-700 mb-4">
+              <span>Total Payment</span>
+              <span>$40</span>
             </div>
 
-            <div className="flex justify-between text-gray-700 mb-4">
-              <span>Platform Fee (20%)</span>
-              <span>$70.00</span>
-            </div>
+            
 
-            <hr className="my-4" />
-
-            <div className="flex justify-between font-semibold text-gray-900">
+            {/* <div className="flex justify-between font-semibold text-gray-900">
               <span>Total Payment</span>
               <span>$654.00</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </form>

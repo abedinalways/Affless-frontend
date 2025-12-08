@@ -88,8 +88,8 @@ export default function Frequently() {
       category: "Policies & Rules",
       items: [
         { question: "Can I work with clients/editors outside the platform?", answer: "No. For safety and payment protection, all communication and payments must remain on the platform. Off-platform payments violate policy and may result in penalties." },
-        { question: "What happens if someone violates the rules?", answer: "Consequences may include warnings, temporary restrictions, removal of boosts, reduced visibility, or permanent suspension depending on the severity of the violation." },
-         { question: "What happens if rules are violated?", answer: "Rule violations—such as off-platform payments, abuse, fraud, or harassment—may result in warnings, penalties, reduced visibility, temporary suspension, or permanent removal depending on severity." },
+        { question: "What happens if someone violates the rules?", answer: "Rule violations—such as off-platform payments, abuse, fraud, harassment, or any attempt to bypass platform policies—may result in warnings, penalties, reduced visibility, removal of boosts, temporary restrictions or suspension, or permanent account removal. The exact consequences depend on the severity and frequency of the violation." },
+        
       ],
     },
 
@@ -142,7 +142,7 @@ export default function Frequently() {
                   {faq.question}
                 </AccordionTrigger>
 
-                <AccordionContent className="px-4 pb-4 text-gray-600 text-[14px] leading-[150%]">
+                <AccordionContent className="px-6 pb-4 text-gray-600 text-[14px] leading-[150%]">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

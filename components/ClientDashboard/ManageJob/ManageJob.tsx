@@ -4,45 +4,63 @@ import React, { useState, useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
 import { useRouter } from "next/navigation";
-import JobProposalCard from "@/components/reusable/TableCard"; // Reusable card component
-import { SlidersHorizontal } from "lucide-react"; // Icon for mobile filters
+import JobProposalCard from "@/components/reusable/TableCard";
+import { SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
 
-interface JobRow {
+export interface JobRow {
   id: number;
   service: string;
   thumbnail: string;
   total: string;
   dueOn: string;
   status: "Accept" | "In Progress" | "In Revision";
+
+  customer: string;
+  deliveryDate: string;
+  price: number;
+  orderId: string;
+ 
 }
 
-const PAGE_SIZE = 8;
+export const ALL_JOBS: JobRow[] = [
+  {
+    id: 1,
+    service: "I will do SEO backlinks with building",
+    thumbnail: "/images/mnagejob1.jpg",
+    total: "$654",
+    dueOn: "Jun 21",
+    status: "In Progress",
+    customer: "Bessie Cooper",
+    deliveryDate: "NOV 6, 7:24 AM",
+    price: 654,
+    orderId: "#EM78373A0",
+    
+  },
+  {
+    id: 2,
+    service: "I will create backlinks to improve your SEO rankings.",
+    thumbnail: "/images/mnagejob2.jpg",
+    total: "$743",
+    dueOn: "Jun 21",
+    status: "In Progress",
+    customer: "Cameron Williamson",
+    deliveryDate: "NOV 9, 3:30 PM",
+    price: 743,
+    orderId: "#EM78373A1",
 
-const ALL_JOBS: JobRow[] = [
-  {
-    id: 1,
-    service: "I will do SEO backlinks with building",
-    thumbnail: "/images/mnagejob1.jpg",
-    total: "$654",
-    dueOn: "Jun 21",
-    status: "In Progress",
-  },
-  {
-    id: 2,
-    service: "I will create backlinks to improve your SEO rankings.",
-    thumbnail: "/images/mnagejob2.jpg",
-    total: "$654",
-    dueOn: "Jun 21",
-    status: "In Progress",
   },
   {
     id: 3,
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
-    total: "$654",
+    total: "$512",
     dueOn: "Jun 21",
     status: "In Revision",
+    customer: "Devon Lane",
+    deliveryDate: "NOV 4, 9:15 AM",
+    price: 512,
+    orderId: "#EM78373A2",
   },
    {
     id: 1,
@@ -51,22 +69,34 @@ const ALL_JOBS: JobRow[] = [
     total: "$654",
     dueOn: "Jun 21",
     status: "In Progress",
+    customer: "Bessie Cooper",
+    deliveryDate: "NOV 6, 7:24 AM",
+    price: 654,
+    orderId: "#EM78373A0",
   },
   {
     id: 2,
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
-    total: "$654",
+    total: "$743",
     dueOn: "Jun 21",
     status: "In Progress",
+    customer: "Cameron Williamson",
+    deliveryDate: "NOV 9, 3:30 PM",
+    price: 743,
+    orderId: "#EM78373A1",
   },
   {
     id: 3,
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
-    total: "$654",
+    total: "$512",
     dueOn: "Jun 21",
     status: "In Revision",
+    customer: "Devon Lane",
+    deliveryDate: "NOV 4, 9:15 AM",
+    price: 512,
+    orderId: "#EM78373A2",
   },
    {
     id: 1,
@@ -75,25 +105,38 @@ const ALL_JOBS: JobRow[] = [
     total: "$654",
     dueOn: "Jun 21",
     status: "In Progress",
+    customer: "Bessie Cooper",
+    deliveryDate: "NOV 6, 7:24 AM",
+    price: 654,
+    orderId: "#EM78373A0",
   },
   {
     id: 2,
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
-    total: "$654",
+    total: "$743",
     dueOn: "Jun 21",
     status: "In Progress",
+    customer: "Cameron Williamson",
+    deliveryDate: "NOV 9, 3:30 PM",
+    price: 743,
+    orderId: "#EM78373A1",
   },
   {
     id: 3,
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
-    total: "$654",
+    total: "$512",
     dueOn: "Jun 21",
     status: "In Revision",
+    customer: "Devon Lane",
+    deliveryDate: "NOV 4, 9:15 AM",
+    price: 512,
+    orderId: "#EM78373A2",
   },
-  // Add more proposals as needed
 ];
+
+const PAGE_SIZE = 8;
 
 export default function ManageJobsPage() {
   const router = useRouter();
@@ -105,17 +148,7 @@ export default function ManageJobsPage() {
     return ALL_JOBS.slice(start, start + PAGE_SIZE);
   }, [page]);
 
-  const handleAccept = (id: number) => {
-    console.log(`Proposal ${id} accepted`);
-  };
-
-  const handleInProgress = (id: number) => {
-    console.log(`Proposal ${id} is in progress`);
-  };
-
-  const handleRevision = (id: number) => {
-    console.log(`Proposal ${id} is in revision`);
-  };
+  const goToDetail = (id: number) => router.push(`/client/manage-job/${id}`);
 
   const columns: ColumnDef<JobRow>[] = [
     {
@@ -124,7 +157,10 @@ export default function ManageJobsPage() {
       cell: ({ row }) => {
         const data = row.original;
         return (
-          <div className="flex items-center gap-4">
+          <div
+            onClick={() => goToDetail(data.id)}
+            className="flex items-center gap-4 cursor-pointer  p-2 rounded-md"
+          >
             <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
               <img
                 src={data.thumbnail}
@@ -132,41 +168,69 @@ export default function ManageJobsPage() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <span className="text-sm font-medium text-gray-800">{data.service}</span>
+            <span className="text-sm font-medium text-gray-800">
+              {data.service}
+            </span>
           </div>
         );
       },
     },
+
     {
       accessorKey: "total",
       header: "TOTAL",
-      cell: ({ row }) => (
-        <span className="text-gray-700">{row.original.total}</span>
-      ),
+      cell: ({ row }) => {
+        const d = row.original;
+        return (
+          <div
+            onClick={() => goToDetail(d.id)}
+            className="cursor-pointer p-2 rounded-md"
+          >
+            {d.total}
+          </div>
+        );
+      },
     },
+
     {
       accessorKey: "dueOn",
       header: "DUE ON",
-      cell: ({ row }) => (
-        <span className="text-gray-700">{row.original.dueOn}</span>
-      ),
+      cell: ({ row }) => {
+        const d = row.original;
+        return (
+          <div
+            onClick={() => goToDetail(d.id)}
+            className="cursor-pointer  p-2 rounded-md"
+          >
+            {d.dueOn}
+          </div>
+        );
+      },
     },
+   
+
     {
       accessorKey: "status",
       header: "STATUS",
       cell: ({ row }) => {
-        const data = row.original;
-        const isInProgress = data.status === "In Progress";
-        const isRevision = data.status === "In Revision";
-
+        const d = row.original;
         return (
-          <span
-            className={`px-4 py-1 rounded-md text-[16px] font-medium uppercase text-white ${
-              isRevision ? "bg-red-500" : isInProgress ? "bg-[#00648A]" : "bg-green-600"
-            }`}
+          <div
+            onClick={() => goToDetail(d.id)}
+            className="cursor-pointer  p-2 rounded-md"
           >
-            {data.status}
-          </span>
+            <span
+              className={`px-3 text-[16px] w-full py-1.5 text-white rounded-md ${
+                d.status === "In Revision"
+                  ? "bg-[#FF4D4F]"
+                  : d.status === "In Progress"
+                  ? "bg-[#00648A]"
+                  : "bg-[#FF4D4F]"
+              }`}
+            >
+              {d.status}
+            </span>
+          </div>
         );
       },
     },
@@ -174,80 +238,77 @@ export default function ManageJobsPage() {
 
   return (
     <div className="containers py-8">
-   <div className="hidden md:block">
-       {/* Tabs */}
-      <div className="flex justify-between mb-6 ">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center gap-3 md:gap-6 text-sm font-medium">
-          {["Active", "Late", "Delivered", "Completed", "Cancelled"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-3 py-2 rounded-md transition ${
-                activeTab === tab ? "text-black font-semibold" : "text-gray-500"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
 
-        <Link href="/client/post-job">
-          <div className="bg-[#FF4D4F] py-3 px-4 h-fit top-5 text-white rounded-lg cursor-pointer">
+      {/* DESKTOP VIEW */}
+      <div className="hidden md:block">
+
+        {/* TABS */}
+        <div className="flex justify-between mb-6">
+          <div className="grid grid-cols-5 gap-4 text-sm font-medium">
+            {["Active", "Late", "Delivered", "Completed", "Cancelled"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-3 py-2 rounded-md ${
+                  activeTab === tab ? "text-black font-semibold" : "text-gray-500"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          <Link
+            href="/client/post-job"
+            className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg"
+          >
             Create a new Job
-          </div>
-        </Link>
-      </div>
-
-      {/* Title */}
-      <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg">
-        <h2 className="text-lg font-semibold text-gray-800">Active Orders</h2>
-
-        <select className="rounded-lg p-2.5 border border-gray-300 text-sm">
-          <option>20 DAYS</option>
-          <option>25 DAYS</option>
-          <option>28 DAYS</option>
-        </select>
-      </div>
-
-      {/* Table */}
-      <DataTable<JobRow, any>
-        columns={columns}
-        data={pageData}
-        page={page}
-        pageSize={PAGE_SIZE}
-        total={ALL_JOBS.length}
-        onPageChange={setPage}
-      />
-   </div>
-
-      {/* Mobile View */}
-      <div className="block md:hidden">
-        <div className="space-y-3">
-          <div className="flex justify-between">
-            <p>Manage Job</p>
-            <button className="border border-gray-300 p-3 rounded-lg flex gap-3">
-              Proposals <SlidersHorizontal />
-            </button>
-          </div>
-
-          {pageData.map((proposal) => (
-            <JobProposalCard
-              key={proposal.id}
-              image={proposal.thumbnail}
-              title={proposal.service}
-              total={proposal.total}
-              status={proposal.status}
-              onAction={
-                proposal.status === "Accept"
-                  ? handleAccept
-                  : proposal.status === "In Progress"
-                  ? handleInProgress
-                  : handleRevision
-              }
-              id={proposal.id}
-            />
-          ))}
+          </Link>
         </div>
+
+        {/* HEADER */}
+       <div className="">
+         <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg">
+          <h2 className="text-lg font-semibold">Active Orders</h2>
+
+          <select className="rounded-lg p-2 border border-gray-300 text-sm">
+            <option>20 DAYS</option>
+            <option>25 DAYS</option>
+          </select>
+        </div>
+
+        {/* TABLE */}
+        <DataTable<JobRow, any>
+          columns={columns}
+          data={pageData}
+          page={page}
+          pageSize={PAGE_SIZE}
+          total={ALL_JOBS.length}
+          onPageChange={setPage}
+        />
+       </div>
+      </div>
+
+      {/* MOBILE VIEW */}
+      <div className="md:hidden space-y-4">
+        <div className="flex justify-between">
+          <h3 className="font-semibold">Manage Job</h3>
+          <button className="border border-gray-300 p-3 rounded-lg flex gap-2 items-center">
+            Proposals <SlidersHorizontal size={18} />
+          </button>
+        </div>
+
+        {pageData.map((job) => (
+          <JobProposalCard
+            key={job.id}
+            image={job.thumbnail}
+            title={job.service}
+            total={job.total}
+            status={job.status}
+            id={job.id}
+            onAction={() => goToDetail(job.id)}
+          />
+        ))}
       </div>
     </div>
   );

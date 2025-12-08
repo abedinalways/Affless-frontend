@@ -9,6 +9,7 @@ import { FiCalendar } from "react-icons/fi";
 import { PiToolboxDuotone } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 import UsaFlag from "@/components/Icons/UsaFlag";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const jobs = [
@@ -71,9 +72,10 @@ export default function ProfilePage() {
             <p className="text-gray-600 flex gap-2.5"><WorldIcon/> PST (UTC-8)</p>
             <p className="text-gray-600 flex gap-2.5"><FiCalendar /> Member since Jan 2023</p>
 
+           <Link href="/client/post-job">
             <button className="mt-3 p-3 bg-red-500 text-white rounded-lg text-sm">
               + Post New Job
-            </button>
+            </button></Link>
           </div>
         </div>
 
@@ -107,7 +109,7 @@ export default function ProfilePage() {
       </div>
 
       {/* JOB POSTINGS */}
-      <h2 className="text-[25px] md:text-[32px] font-medium py-8">Job Postings</h2>
+      <h2 className="text-[25px] md:text-[32px] font-medium py-8">Job </h2>
 
       <div className="space-y-6">
         {jobs.map((job) => (

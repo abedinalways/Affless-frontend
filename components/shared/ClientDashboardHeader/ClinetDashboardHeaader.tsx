@@ -41,11 +41,11 @@ export default function ClientDashboardHeader() {
 
   const handleBecomeEditorClick = () => {
     // Redirect to the editor dashboard
-    router.push("/editor-dashboard");
+    router.push("/editor");
   };
 
   return (
-    <div className="containers">
+    <div className="containers sticky top-10 z-50">
       <nav>
         <div className="flex justify-between items-center py-3">
 
@@ -55,13 +55,13 @@ export default function ClientDashboardHeader() {
             {/* Logo */}
             <Link href="/">
               <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
-               <Image
-                               src="/images/footerLogo.png"
-                               width={100}
-                               height={100}
-                               alt="Logo"
-                               className=" object-cover justify-start"
-                             />
+                <Image
+                  src="/images/footerLogo.png"
+                  width={100}
+                  height={100}
+                  alt="Logo"
+                  className=" object-cover justify-start"
+                />
               </div>
             </Link>
 
@@ -105,7 +105,7 @@ export default function ClientDashboardHeader() {
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <div className="hidden lg:flex gap-8 items-center">
             <button onClick={handleBecomeEditorClick} className="cursor-pointer">
-              Become an Editor
+              Become a Editor
             </button>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
             <MdMailOutline className="w-7 h-7 cursor-pointer" />
@@ -132,9 +132,8 @@ export default function ClientDashboardHeader() {
 
       {/* ========== MOBILE MENU SLIDE ========== */}
       <div
-        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${
-          mobileMenu ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Close Button */}
         <button className="text-3xl mb-5" onClick={() => setMobileMenu(false)}>

@@ -20,7 +20,7 @@ export default function Navbar() {
   return (
     <div className="containers">
       <nav>
-        <div className="flex justify-between items-center py-3">
+        <div className="flex justify-between items-center py-3 sticky top-10 z-50">
 
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">

@@ -17,6 +17,8 @@ export default function ReviewConfirmPage() {
     software: ["After Effects"],
     notes: "",
     budget: 50,
+    taxes:"$6",
+    platfrom:"20%",
     duration: "3 Days",
     payment: "card",
   };
@@ -87,7 +89,14 @@ export default function ReviewConfirmPage() {
             <p className="text-[#333] text-[16px] font-normal leading-150%">Project Budget</p>
             <p className="font-medium">${data.budget}</p>
           </div>
-
+ <div className="flex justify-between">
+            <p className="text-[#333] text-[16px] font-normal leading-150%">Taxes & Other Frees</p>
+            <p className="font-medium">${data.taxes}</p>
+          </div>
+           <div className="flex justify-between">
+            <p className="text-[#333] text-[16px] font-normal leading-150%">Platfrom Free 20%</p>
+            <p className="font-medium">${data.platfrom}</p>
+          </div>
           <div className="flex justify-between">
             <p className="text-[#333] text-[16px] font-normal leading-150%">Project Duration</p>
             <p className="font-medium">{data.duration}</p>

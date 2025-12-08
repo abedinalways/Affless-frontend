@@ -2,14 +2,10 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { FaCcVisa, FaCcMastercard } from "react-icons/fa";
-import { RiBankCardLine } from "react-icons/ri";
 import Link from "next/link";
-import PaymentFaqIcon from "@/components/Icons/PaymentFaq";
-import { CreditCard } from "lucide-react";
-import PaypalIcon from "@/components/Icons/PaypalIcon";
 import PaymentModal from "@/components/reusable/Modal";
+import PaypalIcon from "@/components/Icons/PaypalIcon";
+import {  ArrowRight, CreditCard } from "lucide-react";
 
 type FormValues = {
   paymentMethod: "card" | "paypal";
@@ -23,26 +19,15 @@ type FormValues = {
 
 export default function PaymentMethodPage() {
   const { register, handleSubmit, watch } = useForm<FormValues>({
-    defaultValues: {
-      paymentMethod: "card",
-    },
+    defaultValues: { paymentMethod: "card" },
   });
 
-  // State to manage modal visibility
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Selected payment method
   const selectedMethod = watch("paymentMethod");
 
-  // On submit function
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log("Payment submitted:", data);
-    setIsModalOpen(true); // Open the modal when the payment is submitted
-  };
-
-  // Close the modal
-  const closeModal = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(true);
   };
 
   return (
@@ -51,20 +36,24 @@ export default function PaymentMethodPage() {
         onSubmit={handleSubmit(onSubmit)}
         className="containers mx-auto py-10 px-6 bg-[#f6f6f6]"
       >
-        <h1 className="text-3xl font-semibold mb-3">Choose Your Payment Method</h1>
+        <h1 className="text-3xl font-semibold mb-3">
+          Choose Your Payment Method
+        </h1>
 
         <div className="p-8 bg-[#E5F1E0] border border-green-300 rounded-xl text-[#52C41A] mb-8 text-xl leading-150% font-normal">
-          Your hire request has been created. Complete your payment to send it to the editor.
+          Your hire request has been created. Complete your payment to send it
+          to the editor.
           <p className="pt-4.5 opacity-80 text-[#4A4C56] text-sm">
-            Your payment will only be released once the editor accepts the project.
+            Your payment will only be released once the editor accepts the
+            project.
           </p>
         </div>
 
-        {/* Choose Payment Method */}
+        {/* Choose payment method */}
         <div className="bg-white p-4 lg:p-8 rounded-xl shadow-sm mb-8">
           <h2 className="text-lg font-semibold mb-4">Choose Your Payment Method</h2>
 
-          {/* Credit Card Selection */}
+          {/* Card */}
           <label
             className={`border rounded-xl p-4 flex items-center justify-between cursor-pointer mb-3 transition ${
               selectedMethod === "card"
@@ -75,7 +64,9 @@ export default function PaymentMethodPage() {
             <div className="flex items-center gap-3">
               <CreditCard className="text-red-500 text-2xl" />
               <div>
-                <p className="font-medium text-[#FF4D4F] text-[18px] leading-150%">Credit / Debit Card</p>
+                <p className="font-medium text-[#FF4D4F] text-[18px] leading-150%">
+                  Credit / Debit Card
+                </p>
                 <p className="text-xs text-[#FF4D4F] mt-3">Visa, Mastercard, Amex</p>
               </div>
             </div>
@@ -87,7 +78,7 @@ export default function PaymentMethodPage() {
             />
           </label>
 
-          {/* PayPal */}
+          {/* Paypal */}
           <label
             className={`border rounded-xl p-4 flex items-center justify-between cursor-pointer transition ${
               selectedMethod === "paypal"
@@ -104,6 +95,7 @@ export default function PaymentMethodPage() {
                 </p>
               </div>
             </div>
+
             <input
               type="radio"
               value="paypal"
@@ -113,7 +105,7 @@ export default function PaymentMethodPage() {
           </label>
         </div>
 
-        {/* Card Details (Show Only If Card Selected) */}
+        {/* Card details */}
         {selectedMethod === "card" && (
           <div className="bg-white p-8 rounded-xl shadow-sm mb-6">
             <h2 className="text-xl font-medium mb-6 leading-150%">Card Details</h2>
@@ -131,7 +123,9 @@ export default function PaymentMethodPage() {
             </div>
 
             <div className="mb-5">
-              <label className="block mb-1 font-medium text-[16px] leading-150% pb-3">Card Number*</label>
+              <label className="block mb-1 font-medium text-[16px] leading-150% pb-3">
+                Card Number*
+              </label>
               <input
                 {...register("cardNumber")}
                 type="text"
@@ -154,7 +148,9 @@ export default function PaymentMethodPage() {
               </div>
 
               <div>
-                <label className="block mb-1 font-medium text-[16px] leading-150% pb-3">CVV*</label>
+                <label className="block mb-1 font-medium text-[16px] leading-150% pb-3">
+                  CVV*
+                </label>
                 <input
                   {...register("cvv")}
                   type="text"
@@ -171,7 +167,7 @@ export default function PaymentMethodPage() {
           </div>
         )}
 
-        {/* Warning Box */}
+        {/* Warning */}
         <div className="bg-[#FEF2F2] border border-red-300 text-[#AB0712] p-4 rounded-xl text-[16px] font-normal mb-8">
           ⚠ All payments must be processed through Editor Marketplace
           <p className="mt-2 text-xs leading-relaxed">
@@ -179,13 +175,13 @@ export default function PaymentMethodPage() {
             bank transfer, crypto, or any external method.
           </p>
 
-          <div className=" text-[14px]">
+          <div className="text-[14px]">
             <p className="py-3.5">
-              <strong className=" text-[16px]">Consequences:</strong>
+              <strong className="text-[16px]">Consequences:</strong>
             </p>
             <ul className="list-disc list-inside space-y-1">
               <li>
-                1st violation: <strong> $25 penalty + 21-day warning</strong>
+                1st violation: <strong>$25 penalty + 21-day warning</strong>
               </li>
               <li>
                 2nd violation: <strong>Permanent account ban + funds withheld</strong>
@@ -194,31 +190,40 @@ export default function PaymentMethodPage() {
           </div>
 
           <Link href="#" className="text-[#AB0712] underline text-xs mt-2 inline-block">
-            <strong> Read full Off-Platform Policy →</strong>
+            <strong className="flex">Read full Off-Platform Policy <ArrowRight/></strong>
           </Link>
+         <div>
+           <Link href="#" className="text-[#AB0712] underline text-xs mt-2 inline-block">
+            <p className="flex text-[16px]">Payment Rules <ArrowRight/></p>
+          </Link>
+         </div>
         </div>
 
-        {/* Terms Checkbox */}
-        <label className=" items-center gap-2 mb-8 text-sm">
-          <input type="checkbox" {...register("agree")} />
+        {/* Agree */}
+        <label className=" items-center flex gap-2 mb-8 text-sm">
+          <div>
+            <input type="checkbox" {...register("agree")} />
           I agree to the{" "}
-          <span className="text-red-500 text-[16px] font-normal leading-150%">Terms of Service</span>,{" "}
-          <span className="text-red-500 text-[16px] font-normal leading-150%">Privacy Policy</span> and{" "}
-          <span className="text-red-500 text-[16px] font-normal leading-150%">Off-Platform Payment Policy</span>.
+          </div>
+          <span className="text-red-500">Terms of Service</span>,{" "}
+          <span className="text-red-500">Privacy Policy</span> and{" "}
+          <span className="text-red-500">Off-Platform Payment Policy</span>.
         </label>
 
-        {/* Bottom Buttons */}
+        {/* Buttons */}
         <div className="flex flex-col md:flex-row justify-between items-center mt-6 gap-6">
           <div className="bg-gray-300 w-full rounded-lg">
             <Link href="/review-confirm">
-              <div className="px-8 py-3 rounded-xl flex justify-center items-center mx-auto ">Back</div>
+              <div className="px-8 py-3 rounded-xl flex justify-center items-center mx-auto">
+                Back
+              </div>
             </Link>
           </div>
 
-          <div className="w-full bg-[#FF4D4F] rounded-lg">
+          <div className="w-full bg-[#FF4D4F] rounded-lg cursor-pointer">
             <button
               type="submit"
-              className="px-10 py-3 rounded-xl flex justify-center items-center mx-auto text-white font-medium"
+              className="px-10 py-3 rounded-xl flex justify-center items-center mx-auto text-white font-medium cursor-pointer"
             >
               Pay $105.00
             </button>
@@ -226,8 +231,8 @@ export default function PaymentMethodPage() {
         </div>
       </form>
 
-      {/* Payment Confirmation Modal */}
-      <PaymentModal isOpen={isModalOpen} onClose={closeModal} />
+      {/* Modal */}
+      <PaymentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }
