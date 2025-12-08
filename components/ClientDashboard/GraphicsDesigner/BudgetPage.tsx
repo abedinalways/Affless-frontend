@@ -19,12 +19,12 @@ export default function BudgetPage() {
 
         {/* Wishlist Button */}
         <button className="w-full border border-red-300 text-red-500 py-4 rounded-full text-lg font-normal text-[16px] bg-red-50 hover:bg-red-100 transition">
-          Wishlist Project
+          Reject
         </button>
 
         {/* Project Info */}
         <div className="bg-gray-50  text- rounded-2xl p-4 mt-4">
-          <InfoRow  label="Project Duration:" value="1–5 Days"/>
+          {/* <InfoRow  label="Project Duration:" value="1–5 Days"/> */}
           <InfoRow label="Project Level:" value="Expensive" />
           <InfoRow label="Languages:" value="French" />
           <InfoRow label="English Level:" value="Native" />

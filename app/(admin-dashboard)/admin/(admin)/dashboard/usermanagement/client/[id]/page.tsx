@@ -1,9 +1,9 @@
 "use client";
 
 import EarningTab from "@/components/AdminDashboard/UserManagement/EarningTab";
-import UserProfile from "@/components/AdminDashboard/UserManagement/UserDetailsTab";
-import UserDetails from "@/components/AdminDashboard/UserManagement/UserDetailsTab";
-import JobPage from "@/components/AdminDashboard/UserManagement/UserDetailsTab";
+import UserProfile from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
+import UserDetails from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
+import JobPage from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
 import Image from "next/image";
 import { useState } from "react";
 

@@ -111,14 +111,19 @@ export default function HireVideoEditorForm() {
             
         <label className="block mb-2 font-medium pb-[18px]">Software Preference</label>
 
-<div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+<div className="grid grid-cols-2 md:grid-cols-2 gap-3 text-sm">
   {[
     "Final Cut Pro",
     "Adobe Premiere Pro",
     "DaVinci Resolve",
-    "After Effects",
+    "Sony Vegas",
+    "Any Software",
+    "Adobe Premiere Pro",
     "Filmora",
-    "Sony Vegas"
+
+    "CapCut",
+
+
   ].map((software) => (
     <label key={software} className="flex items-center gap-2">
       <input
@@ -133,7 +138,7 @@ export default function HireVideoEditorForm() {
 
 
           <div className="mt-3 py-6 px-4 bg-blue-50 border border-[#0070FF] rounded-lg text-sm text-gray-700">
-            <span className="text-[#1F6FD5]">Note:</span>  Editors can use any software they need to complete the project, regardless of software preference. They may still use any software they choose and will receive full payment as long as their work meets quality standards.
+            <span className="text-[#1F6FD5]">Note:</span>   Editors can use any software they need to complete the project, regardless of software preference. They may still use any software they choose and will receive full payment as long as their work meets quality standards.
           </div>
         </div>
 

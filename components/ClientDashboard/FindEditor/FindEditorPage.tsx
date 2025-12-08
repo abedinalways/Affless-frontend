@@ -90,15 +90,15 @@ export default function FindEditorPage() {
   return (
     <div className="min-h-screen  py-10">
       <div>
-              <PageBanner
-        title="Find Editors"
-        bgImage="/findEditor.jpg"
-        links={[
-          { label: "Home", href: "/" },
-          { label: "Find Editors" }
-        ]}
-      />
-            </div>
+        <PageBanner
+          title="Find Editors"
+          bgImage="/findEditor.jpg"
+          links={[
+            { label: "Home", href: "/" },
+            { label: "Find Editors" }
+          ]}
+        />
+      </div>
       <div className="containers mx-auto flex flex-col lg:flex-row gap-8 pt-10 lg:pt-20">
 
         {/* LEFT FILTER SIDEBAR */}
@@ -158,22 +158,22 @@ export default function FindEditorPage() {
           <div>
             <h3 className="font-bold text-[20px] mb-3">Budget</h3>
 
-             <div className="w-full flex flex-col items-center gap-3 mb-8">
-        <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
-          <span>${range[0]}</span>
-          <span>${range[1]}</span>
-        </div>
+            <div className="w-full flex flex-col items-center gap-3 mb-8">
+              <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
+                <span>${range[0]}</span>
+                <span>${range[1]}</span>
+              </div>
 
-        <Slider
-          defaultValue={[5, 35]}
-          max={100}
-          min={0}
-          step={1}
-          value={range}
-          onValueChange={setRange}
-          className="w-full"
-        />
-      </div>
+              <Slider
+                defaultValue={[5, 35]}
+                max={100}
+                min={0}
+                step={1}
+                value={range}
+                onValueChange={setRange}
+                className="w-full"
+              />
+            </div>
 
           </div>
 
@@ -196,9 +196,9 @@ export default function FindEditorPage() {
             </div>
           </div>
 
-        
+
         </aside>
-  <div className=" lg:hidden grid grid-cols-2  gap-4 mb-4">
+        <div className=" lg:hidden grid grid-cols-2  gap-4 mb-4">
           <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
             <option>Job Category</option>
             <option>SEO</option>
@@ -228,7 +228,7 @@ export default function FindEditorPage() {
             {/* Add more options here */}
           </select>
         </div>
- 
+
         {/* RIGHT SIDE: EDITOR LIST */}
         <div className="w-full lg:w-3/4 space-y-6 ">
 
@@ -253,8 +253,8 @@ export default function FindEditorPage() {
                     <TiStarFullOutline className="text-[#FAAD14]" />
                     {editor.rating} ({editor.reviews} Review)
                   </p>
-
-                  <div className="grid grid-cols-3 lg:grid-cols-2 2xl:grid-cols-4 gap-3 mt-3 text-sm text-gray-700">
+                  <p className="text-[12px] font-normal leading-150% text-[#777980]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
+                  {/* <div className="grid grid-cols-3 lg:grid-cols-2 2xl:grid-cols-4 gap-3 mt-3 text-sm text-gray-700">
                     <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full flex justify-center">
                       Link Building
                     </span>
@@ -264,12 +264,13 @@ export default function FindEditorPage() {
                     <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full flex justify-center">
                       {editor.country}
                     </span>
-                  </div>
+                  </div> */}
 
                   <div className="flex gap-3 mt-4">
+                  <Link href="/client/hire-vedio-editor">
                     <button className="px-4 py-2 bg-red-500 text-white rounded-full text-sm">
                       Hire Editor
-                    </button>
+                    </button></Link>
                     <button className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm">
                       Message
                     </button>

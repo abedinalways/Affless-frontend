@@ -109,7 +109,7 @@ export default function ProfilePage() {
       </div>
 
       {/* JOB POSTINGS */}
-      <h2 className="text-[25px] md:text-[32px] font-medium py-8">Job Postings</h2>
+      <h2 className="text-[25px] md:text-[32px] font-medium py-8">Job </h2>
 
       <div className="space-y-6">
         {jobs.map((job) => (

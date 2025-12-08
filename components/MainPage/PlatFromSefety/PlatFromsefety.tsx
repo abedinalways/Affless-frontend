@@ -33,21 +33,21 @@ export default function PlatformSefetyPage() {
             <MdBlockFlipped className="text-red-500"/>
             Off-Platform Communication & Payment Policy
           </h2>
-          <p className="text-[20px] lg:text-[24px]  text-[#4A4C56] ">
-            Finding and evaluating the right editor for your needs
+          <p className="text-[18px] lg:text-[24px]  text-[#4A4C56] ">
+            Staying safe and compliant as a client or editor.
           </p>
         </div>
 
         {/* Section Title */}
     <div className="py-6 lg:py-8">
             <h3 className="text-[20px] lg:text-[24px]  text-[#4A4C56]  mb-3">How It Works</h3>
-        <p className=" font-normal text-[16px] text-[#333] flex items-center">Our platform makes it simple to hire talented video editors. Follow these six steps to complete your project successfully.</p>
+        <p className=" font-normal text-[16px] text-[#333] flex items-center">Editor Marketplace makes it simple for clients and editors to work together safely and professionally. Follow these rules to keep every project fair, secure, and on-platform.</p>
     </div>
 
     <div className="space-y-8">
             {/* 1. Strict Rule */}
         <div className=" ">
-          <h4 className="text-lg font-semibold flex items-center gap-2">
+          <h4 className="text-lg lg:text-[24px] font-medium text-[#333] flex items-center gap-2">
             <span className="w-12 h-12 flex items-center justify-center bg-red-100 rounded-full text-[20px] lg:text-[24px]  text-[#FF4D4F]  ">
               1
             </span>
@@ -69,7 +69,7 @@ export default function PlatformSefetyPage() {
 
         {/* 2. Why Rule Exists */}
         <div className="bg-white rounded-xl  mb-8">
-          <h4 className="text-lg font-semibold flex items-center gap-2 text-[20px] lg:text-[24px]  text-[#4A4C56] ">
+          <h4 className=" font-medium flex items-center gap-2 text-[18px] lg:text-[24px]  text-[#333] ">
             <span className="w-12 h-12 flex items-center justify-center bg-red-100 rounded-full text-[20px] lg:text-[24px]  text-[#FF4D4F]">
               2
             </span>
@@ -104,8 +104,8 @@ export default function PlatformSefetyPage() {
 
         {/* 3. Violations */}
         <div className="bg-white  rounded-xl mb-6">
-          <h4 className="text-lg font-semibold flex items-center gap-2 text-[20px] lg:text-[24px]  text-[#4A4C56] ">
-            <span className="w-12 h-12 flex items-center justify-center bg-red-100 rounded-full text-[20px] lg:text-[24px]  text-[#FF4D4F] ">
+          <h4 className="text-lg font-semibold flex items-center gap-2 text-[20px] lg:text-[24px]  text-[#333] ">
+            <span className="w-12 h-12 flex items-center justify-center bg-red-100 rounded-full text-[18px] lg:text-[24px]  text-[#FF4D4F] ">
               3
             </span>
             Violations & Consequences
@@ -137,9 +137,9 @@ export default function PlatformSefetyPage() {
 
             <ul className="list-disc ml-6 space-y-2.5 text-sm text-[16px] font-normal leading-150% text-[#333] ">
               <li>Permanent account deactivation effective immediately</li>
-              <li>Complete loss of access to funds or project history</li>
-              <li>Account flagged as “Terminated for Policy Breach”</li>
-              <li>No ability to create new accounts on the platform</li>
+              <li>Remove access to funds and project history</li>
+              <li>Flag the account as "Terminated for Policy Breach"</li>
+              <li>Block the user from creating new accounts on the platform</li>
             </ul>
           </div>
         </div>

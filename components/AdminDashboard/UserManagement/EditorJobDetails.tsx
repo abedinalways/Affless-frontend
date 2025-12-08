@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-export default function UserDetails() {
+export default function EditorJobDetails() {
   const [tab, setTab] = useState<"details" | "job" | "earning">("details");
 
   const jobs = [

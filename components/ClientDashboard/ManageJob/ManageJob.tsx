@@ -20,6 +20,7 @@ export interface JobRow {
   deliveryDate: string;
   price: number;
   orderId: string;
+ 
 }
 
 export const ALL_JOBS: JobRow[] = [
@@ -34,6 +35,7 @@ export const ALL_JOBS: JobRow[] = [
     deliveryDate: "NOV 6, 7:24 AM",
     price: 654,
     orderId: "#EM78373A0",
+    
   },
   {
     id: 2,
@@ -46,6 +48,7 @@ export const ALL_JOBS: JobRow[] = [
     deliveryDate: "NOV 9, 3:30 PM",
     price: 743,
     orderId: "#EM78373A1",
+
   },
   {
     id: 3,
@@ -204,6 +207,7 @@ export default function ManageJobsPage() {
         );
       },
     },
+   
 
     {
       accessorKey: "status",
@@ -263,7 +267,8 @@ export default function ManageJobsPage() {
         </div>
 
         {/* HEADER */}
-        <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg">
+       <div className="">
+         <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg">
           <h2 className="text-lg font-semibold">Active Orders</h2>
 
           <select className="rounded-lg p-2 border border-gray-300 text-sm">
@@ -281,6 +286,7 @@ export default function ManageJobsPage() {
           total={ALL_JOBS.length}
           onPageChange={setPage}
         />
+       </div>
       </div>
 
       {/* MOBILE VIEW */}

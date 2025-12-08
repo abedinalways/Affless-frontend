@@ -105,7 +105,7 @@ export default function ClientDashboardHeader() {
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <div className="hidden lg:flex gap-8 items-center">
             <button onClick={handleBecomeEditorClick} className="cursor-pointer">
-              Become an Editor
+              Become a Editor
             </button>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
             <MdMailOutline className="w-7 h-7 cursor-pointer" />

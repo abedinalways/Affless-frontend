@@ -135,7 +135,7 @@ export default function JobProposalPage() {
               accessorKey: "service",
               header: "Service",
               cell: ({ row }: any) => (
-                <Link href={`/client/job-details/${row.original.id}`}>
+                <Link href={`/client/job-proposal/${row.original.id}`}>
                   <div className="flex items-center gap-4 cursor-pointer">
                     <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
                       <img

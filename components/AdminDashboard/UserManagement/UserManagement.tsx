@@ -1,11 +1,12 @@
 "use client";
 
 import ClientPage from "@/app/(admin-dashboard)/admin/(admin)/dashboard/usermanagement/client/page";
-import { Pagination } from "@/components/reusable/DashboardPagination";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { PaginationDashboard } from "@/components/reusable/DashboardPagination";
+import Pagination from "@/components/reusable/pagination";
 const editorUsers = [
   { id: 1, name: "Darrell Steward", jobs: "5 Job Complete", rating: "4.7", img: "/images/profile.png" },
   { id: 2, name: "Leslie Alexander", jobs: "3 Job Complete", rating: "4.8", img: "/images/profile.png" },
@@ -27,10 +28,10 @@ export default function UserManagement() {
   const currentData = editorUsers.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
   return (
-    <div className="p-6">
+    <div className="">
 
       {/* TOP BAR */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="">
 
         {/* TABS */}
         {/* <div className="flex gap-3 bg-gray-100 p-1 rounded-lg">
@@ -41,7 +42,7 @@ export default function UserManagement() {
             }`}>
             Editor
           </button>
-//dfsdf
+
           <button
             onClick={() => { setActiveTab("client"); }}
             className={`px-4 py-2 rounded-lg ${
@@ -51,22 +52,40 @@ export default function UserManagement() {
           </button>
         </div> */}
 
-        <div className="flex gap-4">
-          <input className="border rounded-lg px-4 py-2 w-64" placeholder="Search here..." />
-          <select className="border rounded-lg px-4 py-2">
-            <option>All status (06)</option>
-          </select>
-        </div>
+        <Tabs defaultValue="editor" className="w-full">
+          <div className="flex justify-between items-center mb-6 border border-[#DCDDDD] rounded-lg p-3">
+            <div>
+              <TabsList className="flex gap-9">
+                <TabsTrigger value="editor">Editor</TabsTrigger>
+                <TabsTrigger value="client">Client</TabsTrigger>
+              </TabsList>
+            </div>
+            <div className="flex gap-4">
+              <input className="border rounded-lg px-4 py-2 w-64" placeholder="Search here..." />
+              <select className="border rounded-lg px-4 py-2">
+                <option>All status (06)</option>
+              </select>
+            </div>
+          </div>
+
+          <TabsContent value="editor">
+
+          </TabsContent>
+          <TabsContent value="client">
+            <ClientPage />
+          </TabsContent>
+        </Tabs>
+
+
       </div>
 
-      {/* CONDITIONAL VIEW */}
+
       {activeTab === "client" ? (
         <ClientPage />
       ) : (
         <>
-          {/* EDITOR GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-            
+
             {currentData.map((user) => (
               <div key={user.id} className="bg-white border rounded-xl shadow-sm p-5 flex flex-col items-center text-center">
 
@@ -80,7 +99,7 @@ export default function UserManagement() {
                   <span className="text-gray-500">(950+)</span>
                 </div>
 
-                {/* Dynamic Profile Button */}
+
                 <Link href={`/admin/dashboard/usermanagement/${user.id}`} className="w-full">
                   <button className="mt-4 border rounded-lg px-4 py-2 w-full hover:bg-gray-100">
                     View profile
@@ -93,11 +112,16 @@ export default function UserManagement() {
           </div>
 
           <div className="mt-8 flex justify-center">
-            <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+            <Pagination
+  page={page}
+  pageSize={ITEMS_PER_PAGE}
+  total={editorUsers.length}
+  onPageChange={setPage}
+/>
+
           </div>
         </>
       )}
-
     </div>
   );
 }

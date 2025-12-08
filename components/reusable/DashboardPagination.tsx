@@ -8,7 +8,7 @@ interface PaginationProps {
     onPageChange: (page: number) => void;
 }
 
-export const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+export const PaginationDashboard: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
     
     const getPageNumbers = () => {
         const pages = [];

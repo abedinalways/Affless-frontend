@@ -104,7 +104,7 @@ export default function ForgotPasswordForm() {
                 className="text-white font-poppins text text-[16px] lg:text-[24px] font-medium leading-[150%] bg-[#FF4D4F] w-full py-3 px-4 rounded-lg"
 
               >
-                Send Reset Code
+                Send OTP
               </button>
             </form>
 

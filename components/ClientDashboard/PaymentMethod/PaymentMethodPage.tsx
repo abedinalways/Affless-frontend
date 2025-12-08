@@ -5,7 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import PaymentModal from "@/components/reusable/Modal";
 import PaypalIcon from "@/components/Icons/PaypalIcon";
-import { CreditCard } from "lucide-react";
+import {  ArrowRight, CreditCard } from "lucide-react";
 
 type FormValues = {
   paymentMethod: "card" | "paypal";
@@ -190,14 +190,21 @@ export default function PaymentMethodPage() {
           </div>
 
           <Link href="#" className="text-[#AB0712] underline text-xs mt-2 inline-block">
-            <strong>Read full Off-Platform Policy →</strong>
+            <strong className="flex">Read full Off-Platform Policy <ArrowRight/></strong>
           </Link>
+         <div>
+           <Link href="#" className="text-[#AB0712] underline text-xs mt-2 inline-block">
+            <p className="flex text-[16px]">Payment Rules <ArrowRight/></p>
+          </Link>
+         </div>
         </div>
 
         {/* Agree */}
-        <label className=" items-center gap-2 mb-8 text-sm">
-          <input type="checkbox" {...register("agree")} />
+        <label className=" items-center flex gap-2 mb-8 text-sm">
+          <div>
+            <input type="checkbox" {...register("agree")} />
           I agree to the{" "}
+          </div>
           <span className="text-red-500">Terms of Service</span>,{" "}
           <span className="text-red-500">Privacy Policy</span> and{" "}
           <span className="text-red-500">Off-Platform Payment Policy</span>.
