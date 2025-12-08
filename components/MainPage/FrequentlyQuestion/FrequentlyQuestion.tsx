@@ -142,7 +142,7 @@ export default function Frequently() {
                   {faq.question}
                 </AccordionTrigger>
 
-                <AccordionContent className="px-4 pb-4 text-gray-600 text-[14px] leading-[150%]">
+                <AccordionContent className="px-6 pb-4 text-gray-600 text-[14px] leading-[150%]">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
