@@ -1,4 +1,6 @@
-import { LayoutDashboard, LogOut, PackageSearch, Settings } from "lucide-react";
+import Earning from "@/components/Icons/Earning";
+import { BriefcaseBusiness, LayoutDashboard, LogOut, PackageSearch, Settings, User } from "lucide-react";
+import { FaRegUser } from "react-icons/fa6";
 
 export interface SidebarDataType {
   id: number;
@@ -18,24 +20,24 @@ export const SidebarData: SidebarDataType[] = [
     id: 2,
     name: "User Management",
     href: "/admin/dashboard/usermanagement",
-    icon: PackageSearch,
+    icon: FaRegUser,
   },
   {
     id: 3,
     name: "Earning",
     href: "/admin/dashboard/earning",
-    icon: Settings,
+    icon: Earning,
   },
     {
     id: 4,
     name: "Analytics",
     href: "/admin/dashboard/analytics",
-    icon: LogOut,
+    icon: BriefcaseBusiness ,
   },
     {
     id: 5,
     name: "Setting",
-    href: "/logout",
+    href: "/admin/dashboard/setting",
     icon: Settings,
   },
 ];

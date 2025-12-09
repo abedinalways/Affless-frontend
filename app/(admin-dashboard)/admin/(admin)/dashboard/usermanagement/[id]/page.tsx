@@ -5,6 +5,9 @@ import Earning from "../../earning/page";
 import EditorDetails from "@/components/AdminDashboard/UserManagement/EditorDetails";
 import EditorJobDetails from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
 import { data } from "@/components/ClientEditor/BrowseJob/BrowseJob";
+import EarningPage from "@/app/(editor-dashboard)/editor/earning/page";
+import EarningsPage from "@/components/AdminDashboard/UserManagement/EditorEarningTab";
+import JobHistoryPage from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
 
 export default function UserProfilePage({ params }: { params: { id: string } }) {
   const userId = params.id;
@@ -50,10 +53,10 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
 <EditorDetails/>
           </TabsContent>
           <TabsContent value="client">
-            <EditorJobDetails />
+            <JobHistoryPage />
           </TabsContent>
           <TabsContent value="earning">
-            <Earning />
+            <EarningsPage />
           </TabsContent>
         </Tabs>
 

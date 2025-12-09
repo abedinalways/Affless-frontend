@@ -1,0 +1,56 @@
+"use client";
+
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
+import { useState } from "react";
+import ChangePasswordModal from "./change-password/page";
+
+export default function SettingsPage() {
+  const [openModal, setOpenModal] = useState(false);
+
+  const items = [
+    { title: "Personal Information", href: "/settings/personal-info" },
+    { title: "Change Password", modal: true }, // modal trigger
+    { title: "Terms & Condition", href: "/settings/terms" },
+    { title: "Privacy Policy", href: "/settings/privacy" },
+    { title: "About Us", href: "/settings/about" },
+  ];
+
+  return (
+    <>
+      <div className="bg-[#FAF4E5] p-6 rounded-2xl border border-[#E5D7B8]">
+        <h1 className="text-[32px] font-semibold text-[#FF4D4F]">Settings</h1>
+        <hr className="my-4 border-[#E5D7B8]" />
+
+        <div className="space-y-4 flex flex-col">
+          {items.map((item) =>
+            item.modal ? (
+              <div
+                key={item.title}
+                onClick={() => setOpenModal(true)}
+                className="bg-white border border-[#F5C6C6] rounded-xl p-4 flex items-center justify-between hover:bg-[#FFF5F5] transition cursor-pointer"
+              >
+                <span className="text-[#161A1E] text-base font-medium">
+                  {item.title}
+                </span>
+                <ChevronRight className="text-[#444]" size={20} />
+              </div>
+            ) : (
+              <Link href={item.href!} key={item.title}>
+                <div className="bg-white border border-[#F5C6C6] rounded-xl p-4 flex items-center justify-between hover:bg-[#FFF5F5] transition cursor-pointer">
+                  <span className="text-[#161A1E] text-base font-medium">
+                    {item.title}
+                  </span>
+                  <ChevronRight className="text-[#444]" size={20} />
+                </div>
+              </Link>
+            )
+          )}
+        </div>
+      </div>
+
+      {/* Modal Component */}
+      <ChangePasswordModal open={openModal} onClose={setOpenModal} />
+    </>
+  );
+}
