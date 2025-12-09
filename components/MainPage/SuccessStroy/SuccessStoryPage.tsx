@@ -56,6 +56,10 @@ const pageStories = filteredStories.slice(
 <div className="flex flex-col gap-4 lg:flex-row lg:items-center bg-white p-5 rounded-xl">
   <p className="text-gray-700 font-medium ">Filter by:</p>
 
+
+
+
+
   <div className="flex flex-col gap-4 w-full lg:w-6/8 lg:grid md:grid-cols-3 lg:gap-6 text-[16px]">
     {/* Story Type */}
     <div className="flex items-center justify-between gap-3 lg:flex-row ">
@@ -63,7 +67,7 @@ const pageStories = filteredStories.slice(
       <FilterSelect
         value={storyType}
         setValue={setStoryType}
-        options={["All", "Success", "Team Growth", "Client Story", "Income"]}
+        options={["All", "Editor Success", "Client Success", "Income Growth", "Career Iransformatlon","Platform Experience"]}
       />
     </div>
 
@@ -73,17 +77,19 @@ const pageStories = filteredStories.slice(
       <FilterSelect
         value={category}
         setValue={setCategory}
-        options={["All", "Editing", "Management", "Business"]}
+        
+        options={["All", " YouTube Long-form", "Shorts/Reels/TikTok", "Thumbnails", "Ad s/UGC", "Podcasts", "Weddings/Events", "Color & Audio" , "Captions/Subtitles"]}
       />
     </div>
 
     {/* Country */}
     <div className="flex items-center justify-between gap-3 ">
       <p className="text-gray-700 font-medium ">Country</p>
+      All
       <FilterSelect
         value={country}
         setValue={setCountry}
-        options={["All", "USA", "Canada", "Mexico"]}
+        options={["All", "USA", "Canada", "Mexico", "United Kingdom", "Australia", "Germany", "France", "India", "Philippines", "Nigeria", "Brazil", "South Africa", "Indonesia", "Pakistan", "Bangladesh"]}
       />
     </div>
   </div>

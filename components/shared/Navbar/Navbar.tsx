@@ -18,21 +18,21 @@ export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   return (
-    <div className="containers">
-      <nav>
-        <div className="flex justify-between items-center py-3 sticky top-10 z-50">
+    <div className="containers  sticky top-10 z-50">
+      <nav className="sticky  top-10 z-50 ">
+        <div className="flex justify-between items-center py-3">
 
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/">
-              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
+              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
-                                src="/images/footerLogo.png"
-                                width={100}
-                                height={100}
+                                src="/images/logoUpdate.png"
+                                width={128}
+                                height={42}
                                 alt="Logo"
-                                className=" object-cover justify-start"
+                                className=" object-cover justify-start "
                               />
               </div>
             </Link>

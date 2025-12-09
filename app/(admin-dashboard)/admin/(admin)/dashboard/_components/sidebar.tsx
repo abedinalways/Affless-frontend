@@ -27,7 +27,12 @@ const Sidebar = () => {
                   : ""
               }`}
             >
-              <Icon />
+             <Icon
+  className={`w-5 h-5 ${
+    pathName === data.href ? "text-white" : "text-[#161A1E]"
+  }`}
+/>
+
               <span className="hidden md:inline">{data?.name}</span>
             </Link>
           </div>

@@ -5,13 +5,13 @@ export default function AuthHeader() {
   return (
 <div className=''>
      <div className='containers pb-8 lg:pb-[88px] pt-4'>
-     <div className=" w-[100px] h-[50px] ">
+     <div className=" w-32 h-[50px] ">
               <Image
-                              src="/images/footerLogo.png"
-                              width={167}
+                              src="/images/logoUpdate.png"
+                              width={128}
                               height={55}
                               alt="Logo"
-                              className=" object-cover justify-start w-[167px]"
+                              className=" object-cover justify-start w-32"
                             />
            
            </div>

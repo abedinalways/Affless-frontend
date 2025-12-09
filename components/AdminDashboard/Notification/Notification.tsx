@@ -20,7 +20,7 @@ export default function Notification() {
   const [selectedId, setSelectedId] = useState<number | null>(1); // default first selected
 
   return (
-    <div className="bg-[#FAF3E0] min-h-screen p-5 rounded-3xl border">
+    <div className="bg-[#FAF3E0]  p-5 rounded-3xl border">
       <h1 className="text-3xl font-semibold text-red-500 mb-6">Notifications</h1>
       <hr className="border-red-200 mb-6" />
 

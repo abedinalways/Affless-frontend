@@ -22,7 +22,7 @@ export default function Footer() {
             <div className="">
               <Image
                 src="/images/footerLogo.png"
-                width={100}
+                width={128}
                 height={100}
                 alt="Logo"
                 className=" object-cover justify-start"

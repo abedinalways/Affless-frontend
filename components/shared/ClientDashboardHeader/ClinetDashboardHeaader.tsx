@@ -54,11 +54,11 @@ export default function ClientDashboardHeader() {
 
             {/* Logo */}
             <Link href="/">
-              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
+              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
-                  src="/images/footerLogo.png"
-                  width={100}
-                  height={100}
+                  src="/images/logoUpdate.png"
+                  width={120}
+                  height={42}
                   alt="Logo"
                   className=" object-cover justify-start"
                 />

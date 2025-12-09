@@ -27,7 +27,7 @@ const users: User[] = [
 
 export default function ClientPage() {
   return (
-    <div className="p-6">
+    <div className="">
       {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {users.map((user) => (
