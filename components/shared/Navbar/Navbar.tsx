@@ -28,7 +28,7 @@ export default function Navbar() {
             <Link href="/">
               <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
-                                src="/images/footerLogo.png"
+                                src="/images/logoUpdate.png"
                                 width={128}
                                 height={42}
                                 alt="Logo"

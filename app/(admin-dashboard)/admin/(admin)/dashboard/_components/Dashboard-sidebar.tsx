@@ -13,7 +13,7 @@ export const SidebarData: SidebarDataType[] = [
   {
     id: 1,
     name: "Dashboard",
-    href: "dashboard",
+    href: "/admin/dashboard",
     icon: LayoutDashboard,
   },
   {

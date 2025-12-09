@@ -56,7 +56,7 @@ export default function ClientDashboardHeader() {
             <Link href="/">
               <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
-                  src="/images/footerLogo.png"
+                  src="/images/logoUpdate.png"
                   width={120}
                   height={42}
                   alt="Logo"

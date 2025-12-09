@@ -17,7 +17,7 @@ export default function ForgotPasswordModal({
       <DialogContent className="max-w-md bg-white rounded-2xl p-6">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold flex items-center gap-2">
-          <Link href={"admin/dashboard/setting/change-password"}>
+          <Link href={"setting/change-password"}>
           <ArrowLeft/></Link> Forgot Password
           </DialogTitle>
         </DialogHeader>

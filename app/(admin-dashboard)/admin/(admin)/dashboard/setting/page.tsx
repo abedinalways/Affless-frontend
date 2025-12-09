@@ -3,14 +3,13 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
-import ChangePasswordModal from "./change-password/page";
-
+import PasswordModal from "@/components/AdminDashboard/PassordModal/page";
 export default function SettingsPage() {
   const [openModal, setOpenModal] = useState(false);
 
   const items = [
-    { title: "Personal Information", href: "/settings/personal-info" },
-    { title: "Change Password", modal: true }, // modal trigger
+    { title: "Personal Information", href: "/admin/dashboard/setting/personal-information" },
+    { title: "Change Password", modal: true }, // 👉 modal trigger
     { title: "Terms & Condition", href: "/settings/terms" },
     { title: "Privacy Policy", href: "/settings/privacy" },
     { title: "About Us", href: "/settings/about" },
@@ -49,8 +48,11 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      {/* Modal Component */}
-      <ChangePasswordModal open={openModal} onClose={setOpenModal} />
+      {/* 🔥 PASSWORD MODAL TRIGGERED FROM HERE */}
+      <PasswordModal 
+        open={openModal} 
+        onClose={(v) => setOpenModal(v)} 
+      />
     </>
   );
 }
