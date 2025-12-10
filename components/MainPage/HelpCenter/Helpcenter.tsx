@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import { Search } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import PageBanner from "@/components/reusable/Bgbanner";
 
 import UserIcon from "@/components/Icons/userIcon";
@@ -12,9 +17,10 @@ import MassageIcon from "@/components/Icons/massageIcon";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
 export default function HelpCenterPage() {
-  
   // NEW — active category state
-  const [activeTab, setActiveTab] = useState<"account" | "payment" | "support">("support");
+  const [activeTab, setActiveTab] = useState<"account" | "payment" | "support">(
+    "support"
+  );
 
   return (
     <div>
@@ -26,8 +32,9 @@ export default function HelpCenterPage() {
 
       <div className="bg-[#F7F7F7] min-h-screen lg:py-20">
         <div className="containers mx-auto px-4">
-
-          <h1 className="text-[36px] font-semibold text-[#333] mb-6">Help Center</h1>
+          <h1 className="text-[36px] font-semibold text-[#333] mb-6">
+            Help Center
+          </h1>
 
           {/* Search */}
           <div className="relative">
@@ -41,12 +48,15 @@ export default function HelpCenterPage() {
 
           {/* CATEGORY TABS */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-14">
-
             {/* Account */}
             <div
               onClick={() => setActiveTab("account")}
               className={`bg-white p-6 rounded-lg text-center cursor-pointer transition shadow 
-                ${activeTab === "account" ? "border border-red-300 shadow-lg" : "hover:border-red-200 border-transparent"}`}
+                ${
+                  activeTab === "account"
+                    ? "border border-red-300 shadow-lg"
+                    : "hover:border-red-200 border-transparent"
+                }`}
             >
               <UserIcon className="mx-auto text-red-500 mb-3" />
               <p className="font-medium text-[#333]">Account & Profile</p>
@@ -56,7 +66,11 @@ export default function HelpCenterPage() {
             <div
               onClick={() => setActiveTab("payment")}
               className={`bg-white p-6 rounded-lg text-center cursor-pointer transition shadow 
-                ${activeTab === "payment" ? "border border-red-300 shadow-lg" : "hover:border-red-200 border-transparent"}`}
+                ${
+                  activeTab === "payment"
+                    ? "border border-red-300 shadow-lg"
+                    : "hover:border-red-200 border-transparent"
+                }`}
             >
               <PaymentIcon className="mx-auto text-red-500 mb-3" />
               <p className="font-medium text-[#333]">Payments & Billing</p>
@@ -66,22 +80,26 @@ export default function HelpCenterPage() {
             <div
               onClick={() => setActiveTab("support")}
               className={`bg-white p-6 rounded-lg text-center cursor-pointer transition shadow 
-                ${activeTab === "support" ? "border border-red-300 shadow-lg" : "hover:border-red-200 border-transparent"}`}
+                ${
+                  activeTab === "support"
+                    ? "border border-red-300 shadow-lg"
+                    : "hover:border-red-200 border-transparent"
+                }`}
             >
               <SupportIcon className="mx-auto text-red-500 mb-3" />
               <p className="font-medium text-[#333]">Support & Contact</p>
             </div>
-
           </div>
 
           {/* FAQ SECTION — ONLY SHOW IF SUPPORT ACTIVE */}
           {activeTab === "support" && (
             <>
-              <h2 className="text-[18px] font-medium text-[#000] mb-4">Support & Contact</h2>
+              <h2 className="text-[18px] font-medium text-[#000] mb-4">
+                Support & Contact
+              </h2>
 
               <div className="bg-white rounded-xl shadow p-4">
                 <Accordion type="single" collapsible>
-
                   <AccordionItem value="item-1">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
                       <div className="flex gap-3">
@@ -90,7 +108,12 @@ export default function HelpCenterPage() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 ">
-                      You can reach our customer support team 24/7 through live chat or email. We are ready to assist you with account issues, order-related questions, technical problems, and general support. You can expect a quick response, as our team is committed to providing fast and effective assistance.
+                      You can reach our customer support team 24/7 through live
+                      chat or email. We are ready to assist you with account
+                      issues, order-related questions, technical problems, and
+                      general support. You can expect a quick response, as our
+                      team is committed to providing fast and effective
+                      assistance.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -102,7 +125,11 @@ export default function HelpCenterPage() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Submit any technical issues through our support form or live chat.
+                      If you encounter any technical issues or bugs, please
+                      report them through our support form or live chat. Provide
+                      as much detail as possible, including screenshots if
+                      available, so our team can diagnose and resolve the
+                      problem quickly.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -114,32 +141,43 @@ export default function HelpCenterPage() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Our team reviews disputes within 48 hours.
+                      If there is a disagreement between a client and an editor,
+                      you may open a dispute through the Resolution Center. Our
+                      team Will review the case within 48 hours, gather relevant
+                      information, and work toward a fair and transparent
+                      outcorne for both sides.
                     </AccordionContent>
                   </AccordionItem>
-                  <AccordionItem value="item-3">
+                  <AccordionItem value="item-4">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>Dispute resolution process</p>
+                        <p>Community guidelines and code of conduct</p>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Our team reviews disputes within 48 hours.
+                      We ask all users to follow our community guidelines to
+                      maintain a professional, safe, and supportive environment.
+                      Respectful communication, honest collaboration, and
+                      compliance With platform rules ensure a positive
+                      experience for everyone.
                     </AccordionContent>
                   </AccordionItem>
-                  <AccordionItem value="item-3">
+                  <AccordionItem value="item-5">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>Dispute resolution process</p>
+                        <p>providing feedback and feature requests</p>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Our team reviews disputes within 48 hours.
+                      We welcome your feedback and suggestions. You can submit
+                      new feature requests or share ideas for improvement
+                      through our support form. Your input helps us refine the
+                      platform and deliver a better experience for the entire
+                      community.
                     </AccordionContent>
                   </AccordionItem>
-
                 </Accordion>
               </div>
             </>
@@ -149,56 +187,61 @@ export default function HelpCenterPage() {
           <div className="bg-white shadow rounded-xl mt-12 p-10 text-center">
             <SupportIcon className="text-red-400 bg-[#FFEEEE] mx-auto mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
 
-            <h3 className="text-[20px] font-semibold text-[#333] mb-2">Need More Help?</h3>
+            <h3 className="text-[20px] font-semibold text-[#333] mb-2">
+              Need More Help?
+            </h3>
             <p className="text-gray-500 mb-8">
-              Can’t find what you’re looking for? Our support team is ready to assist you.
+              Can’t find what you’re looking for? Our support team is ready to
+              assist you.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
               {/* Live Chat */}
-               <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
-   <div className="flex items-start gap-4">
-     <MassageIcon  className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
+              <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
+                <div className="flex items-start gap-4">
+                  <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
 
-  <div className="text-left">
-    <p className="font-medium text-[18px] text-[#333]">Live Chat</p>
-      <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">Average response: 2 min</p>
-    </div>
-  </div>
+                  <div className="text-left">
+                    <p className="font-medium text-[18px] text-[#333]">
+                      Live Chat
+                    </p>
+                    <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">
+                      Average response: 2 min
+                    </p>
+                  </div>
+                </div>
 
-  <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
-    Submit a Request
-  </button>
-</div>
+                <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
+                 Email Support
+                </button>
+              </div>
 
               {/* Email Support */}
-             <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
-   <div className="flex items-start gap-4">
-     <MassageIcon  className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
+              <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
+                <div className="flex items-start gap-4">
+                  <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
 
-  <div className="text-left">
-    <p className="font-medium text-[18px] text-[#333]">Email Support</p>
-      <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">Average response: 24 hrs</p>
-    </div>
-  </div>
+                  <div className="text-left">
+                    <p className="font-medium text-[18px] text-[#333]">
+                      Email Support
+                    </p>
+                    <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">
+                      Average response: 24 hrs
+                    </p>
+                  </div>
+                </div>
 
-  <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
-    Submit a Request
-  </button>
-</div>
-
-          </div>
-
+                <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
+                  Submit a Request
+                </button>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
-    
+    </div>
   );
 }
-
 
 // "use client";
 
@@ -215,7 +258,7 @@ export default function HelpCenterPage() {
 // import { FcDocument } from "react-icons/fc";
 // export default function HelpCenterPage() {
 //   return (
-//     <div> 
+//     <div>
 //           <div>
 //         <PageBanner
 //   title="Help Center"
@@ -265,14 +308,14 @@ export default function HelpCenterPage() {
 //         <div className="bg-white rounded-xl shadow p-4">
 
 //           <Accordion type="single" collapsible>
-            
+
 //             {/* Item 1 */}
 //             <AccordionItem value="item-1" className="border-none">
 //               <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%  ">
-     
+
 //                <div className="flex gap-3">
 //                 <IoDocumentTextOutline  className="w-6 h-6"/>
-//                  <p>How to contact customer support</p> 
+//                  <p>How to contact customer support</p>
 //                </div>
 //               </AccordionTrigger>
 //               <AccordionContent className="text-gray-600 pb-4">
@@ -285,7 +328,7 @@ export default function HelpCenterPage() {
 //               <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% ">
 //                 <div className="flex gap-3">
 //                 <IoDocumentTextOutline  className="w-6 h-6"/>
-//                  <p>Reporting technical issues or bugs</p> 
+//                  <p>Reporting technical issues or bugs</p>
 //                </div>
 //               </AccordionTrigger>
 //               <AccordionContent className="text-gray-600 pb-4">
@@ -298,7 +341,7 @@ export default function HelpCenterPage() {
 //               <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% ">
 //                  <div className="flex gap-3">
 //                 <IoDocumentTextOutline  className="w-6 h-6"/>
-//                  <p>Dispute resolution process</p> 
+//                  <p>Dispute resolution process</p>
 //                </div>
 //               </AccordionTrigger>
 //               <AccordionContent className="text-gray-600 pb-4">
@@ -311,7 +354,7 @@ export default function HelpCenterPage() {
 //               <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% ">
 //                  <div className="flex gap-3">
 //                 <IoDocumentTextOutline  className="w-6 h-6"/>
-//                  <p>Community guidelines and code of conduct</p> 
+//                  <p>Community guidelines and code of conduct</p>
 //                </div>
 //               </AccordionTrigger>
 //               <AccordionContent className="text-gray-600 pb-4">
@@ -324,7 +367,7 @@ export default function HelpCenterPage() {
 //               <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% ">
 //              <div className="flex gap-3">
 //                 <IoDocumentTextOutline  className="w-6 h-6"/>
-//                  <p>Providing feedback and feature requests</p> 
+//                  <p>Providing feedback and feature requests</p>
 //                </div>
 //               </AccordionTrigger>
 //               <AccordionContent className="text-gray-600 pb-4">
@@ -335,7 +378,6 @@ export default function HelpCenterPage() {
 //           </Accordion>
 
 //         </div>
-
 
 //         <div className="bg-white shadow rounded-xl mt-12 p-10 text-center">
 
@@ -363,7 +405,6 @@ export default function HelpCenterPage() {
 //     Email Support
 //   </button>
 // </div>
-
 
 //             {/* Email Support */}
 //         <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">

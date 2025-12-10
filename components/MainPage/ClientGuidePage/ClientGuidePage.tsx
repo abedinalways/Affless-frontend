@@ -29,13 +29,13 @@ export default function ClientGuidePage() {
       <div className="w-full lg:w-64 bg-white shadow p-6 rounded-xl h-fit lg:sticky top-10 mr-8 ">
         <h2 className="font-semibold text-[#333] mb-4">Quick links</h2>
         <ul className="space-y-3 text-[#333] text-sm">
-          <li className="hover:text-orange-500 cursor-pointer">Getting Started</li>
-          <li className="hover:text-orange-500 cursor-pointer">How it Works</li>
-          <li className="hover:text-orange-500 cursor-pointer">Post Your Project</li>
-          <li className="hover:text-orange-500 cursor-pointer">Review Proposals</li>
-          <li className="hover:text-orange-500 cursor-pointer">Communicate & Award</li>
-          <li className="hover:text-orange-500 cursor-pointer">Fund the Project</li>
-          <li className="hover:text-orange-500 cursor-pointer">Review Work & Revisions</li>
+          <li className="hover:text-orange-500 cursor-pointer"><a href="#getting">Getting Started</a></li>
+          <li className="hover:text-orange-500 cursor-pointer"><a href="#howWork">How it Works</a></li>
+          <li className="hover:text-orange-500 cursor-pointer"><a href="#post" >Post Your Project</a></li>
+          <li className="hover:text-orange-500 cursor-pointer"><a href="#proposal">Review Proposals</a></li>
+          <li className="hover:text-orange-500 cursor-pointer"><a href="#comunication">Communicate & Award</a></li>
+          <li className="hover:text-orange-500 cursor-pointer"><a href="#found">Fund the Project</a></li>
+          <li className="hover:text-orange-500 cursor-pointer"><a href="#reviewWork">Review Work & Revisions</a></li>
           <li className="hover:text-orange-500 cursor-pointer">Approve & Release Payment</li>
         </ul>
       </div>
@@ -53,7 +53,7 @@ export default function ClientGuidePage() {
 
         {/* GETTING STARTED */}
         <div>
-          <h2 className="text-[20px] md:text-2xl text-[#333] font-medium mb-3">Getting Started</h2>
+          <h2 id="getting" className="text-[20px] md:text-2xl text-[#333] font-medium mb-3">Getting Started</h2>
           <p className="text-[#333] mt-3.5 font-normal leading-150% mb-4">
             This guide will walk you through the entire process of hiring a video editor.
           </p>
@@ -76,7 +76,7 @@ export default function ClientGuidePage() {
         {/* HOW IT WORKS */}
     <div>
     <div  className="space-y-8">
-          <h2 className="text-[20px] md:text-2xl text-[#333] font-medium ">How It Works</h2>
+          <h2 id="howWork" className="text-[20px] md:text-2xl text-[#333] font-medium ">How It Works</h2>
           <p className="text-[#333] mb-4">
             Our platform makes it simple to hire talented video editors.
           </p>
@@ -87,7 +87,7 @@ export default function ClientGuidePage() {
               <span className="bg-[#FFEEEE] text-red-500 w-14 h-14 flex items-center justify-center rounded-full text-sm font-bold">
                 <IoDocumentTextOutline className="w-9 h-9"/>
               </span>
-              <h3 className="text-[20px] md:text-2xl text-[#333] font-medium ">1 .Post Your Project</h3>
+              <h3 id="post" className="text-[20px] md:text-2xl text-[#333] font-medium ">1 .Post Your Project</h3>
             </div>
             <p className="text-[18px] text-[#4A4C56] font-normal pt-3 pb-5">Start by creating a detailed project brief. Include information about your video type (YouTube, corporate, social media, etc.), desired editing style, budget range, and deadline. The more details you provide, the better proposals you'll receive.</p>
           <div className="pl-5 bg-[#F7F6F6] rounded-lg p-4 ">
@@ -111,7 +111,7 @@ export default function ClientGuidePage() {
               <span className="bg-[#FFEDD4] text-white w-12 h-12 flex items-center justify-center rounded-full text-sm font-bold">
               <CiSearch className="text-yellow-600 w-6 h-6" />
               </span>
-              <h3 className="text-[20px] md:text-2xl text-[#333] font-medium ">2. Review Proposals</h3>
+              <h3 id="proposal" className="text-[20px] md:text-2xl text-[#333] font-medium ">2. Review Proposals</h3>
             </div>
 
             <p className="text-[#4A4C56] text-[18px] leading-150% pt-3 pb-5">
@@ -140,7 +140,7 @@ export default function ClientGuidePage() {
                <MessageSquare className="text-blue-500" />
               </span>
         
-              <h3 className="text-[20px] md:text-2xl text-[#333] font-medium ">3. Communicate & Award</h3>
+              <h3 id="comunication" className="text-[20px] md:text-2xl text-[#333] font-medium ">3. Communicate & Award</h3>
             </div>
       <h3 className="pt-3 pb-6 text-[#4A4C56]">Before awarding the project, message your top candidates to clarify details and ensure they understand your requirements. Once you've chosen the right editor, award them the project and finalize the terms.</h3>
            <div className="bg-[#F7F6F6] p-4 rounded-lg">
@@ -164,7 +164,7 @@ export default function ClientGuidePage() {
               <span className="bg-[#DBFCE7] text-white w-12 h-12 flex items-center justify-center rounded-full text-sm font-bold">
                 <LuShieldCheck className="text-green-500 h-8 w-7"/>
               </span>
-              <h3 className="text-[20px] md:text-2xl text-[#333] font-medium ">4. Fund the Project (Escrow)</h3>
+              <h3 id="found" className="text-[20px] md:text-2xl text-[#333] font-medium ">4. Fund the Project (Escrow)</h3>
             </div>
             <h3 className="pt-3 pb-6 text-[#4A4C56]">After awarding the project, deposit the payment into our secure escrow system. Your funds are protected and won't be released to the editor until you approve the completed work. This protects both you and the freelancer.</h3>
 
@@ -188,7 +188,7 @@ export default function ClientGuidePage() {
               <span className="bg-[#F3E8FF] text-white w-12 h-12 flex items-center justify-center rounded-full text-sm font-bold">
             <LikeIcon/>
               </span>
-              <h3 className="text-[20px] md:text-2xl text-[#333] font-medium ">Review Work & Request Revisions</h3>
+              <h3 id="reviewWork" className="text-[20px] md:text-2xl text-[#333] font-medium ">Review Work & Request Revisions</h3>
             </div>
             <h3 className="pt-3 pb-6 text-[#4A4C56]">Once the editor delivers the first draft, review it carefully. If changes are needed, provide clear, specific feedback through our messaging system. Most projects include 2-3 revision rounds, so don't hesitate to ask for adjustments.</h3>
 

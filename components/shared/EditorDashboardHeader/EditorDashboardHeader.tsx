@@ -86,7 +86,7 @@ export default function EditorDashboardHeader() {
 
                   {open && (
                     <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                      <Link href="/editor/my-job" className="block px-4 py-2 hover:bg-gray-100">My Job</Link>
+                      <Link href="/editor/hire-request" className="block px-4 py-2 hover:bg-gray-100">My Job</Link>
                       <Link href="/editor/myproposal" className="block px-4 py-2 hover:bg-gray-100">My Proposals</Link>
                       <Link href="/editor/browse-job" className="block px-4 py-2 hover:bg-gray-100">Find Job</Link>
                       <Link href="/editor/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
@@ -164,7 +164,7 @@ export default function EditorDashboardHeader() {
 
             {mobileDropdown && (
               <ul className="mt-2 ml-3 space-y-3 text-base">
-                <li><Link href="/client/my-job" onClick={() => setMobileMenu(false)}>My Job</Link></li>
+                <li><Link href="/client/hire-request" onClick={() => setMobileMenu(false)}>My Job</Link></li>
                 <li><Link href="/client/my-proposal" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
                 <li><Link href="/client/find-job" onClick={() => setMobileMenu(false)}>Find Job</Link></li>
                 <li><Link href="#" onClick={() => setMobileMenu(false)}>Profile</Link></li>

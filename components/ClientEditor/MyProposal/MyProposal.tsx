@@ -1,16 +1,16 @@
 "use client";
+
 import React, { useState, useMemo } from "react";
-import { DataTable } from "@/components/reusable/DataTable"; // Assuming you've implemented a DataTable component
-import { useRouter } from "next/navigation";
-import JobProposalCard from "@/components/reusable/TableCard"; // Reusable card component
-import { SlidersHorizontal } from "lucide-react"; // Icon for mobile filters
+import { DataTable } from "@/components/reusable/DataTable";
+import JobProposalCard from "@/components/reusable/TableCard";
+import { SlidersHorizontal } from "lucide-react";
 
 interface ProposalRow {
   id: number;
   service: string;
   amount: string;
   time: string;
-  status: "Accept" | "In Progress" | "Decline"; // Restricted status type
+  status: "Progress" | "Pending" | "Cancellation";
   thumbnail: string;
 }
 
@@ -20,75 +20,93 @@ const Proposal: ProposalRow[] = [
   {
     id: 1,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks for your website's SEO.",
+    service: "I will craft quality backlinks.",
     amount: "$55",
     time: "5 Days",
-    status: "Accept",
+    status: "Progress",
   },
   {
     id: 2,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
+    service: "I will create backlinks.",
     amount: "$55",
     time: "3 Days",
-    status: "Accept",
+    status: "Pending",
   },
-    {
+  {
     id: 3,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks for your website's SEO.",
-    amount: "$55",
+    service: "I will craft backlinks.",
+    amount: "$60",
     time: "5 Days",
-    status: "Decline",
+    status: "Pending",
   },
   {
     id: 4,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Accept",
+    service: "I will create backlinks.",
+    amount: "$70",
+    time: "7 Days",
+    status: "Progress",
   },
-    {
+  {
     id: 5,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks for your website's SEO.",
-    amount: "$55",
+    service: "I will craft backlinks.",
+    amount: "$80",
     time: "5 Days",
-    status: "Accept",
+    status: "Progress",
   },
   {
     id: 6,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
+    service: "I will create backlinks.",
     amount: "$55",
     time: "3 Days",
-    status: "Decline",
-    
+    status: "Cancellation",
   },
-   {
-    id: 6,
+  {
+    id: 7,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
+    service: "I will create backlinks.",
     amount: "$55",
     time: "3 Days",
-    status: "Accept",
-    
+    status: "Pending",
   },
-  
-  // Add more proposals as needed
+  {
+    id: 8,
+    thumbnail: "/images/mnagejob2.jpg",
+    service: "I will create backlinks.",
+    amount: "$90",
+    time: "7 Days",
+    status: "Pending",
+  },
 ];
 
-export default function MYProposal() {
-  const router = useRouter();
-  const [page, setPage] = useState(1);
-  const [timeFilter, setTimeFilter] = useState<"ALL" | "5 Days" | "7 Days" | "3 Days">("ALL");
+const statusBadgeClasses: Record<ProposalRow["status"], string> = {
+  Progress: "bg-[#E8FFDA] text-[#52C41A]",
+  Pending: "bg-[#FFF7E8] text-[#FAAD14]",
+  Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
+};
 
-  // Filtered proposals based on the time filter
+// 🎨 FILTER BUTTON STYLES (same as status badge but clickable)
+const filterButtonClasses: Record<ProposalRow["status"], string> = {
+  Progress: " ",
+  Pending: " ",
+  Cancellation: " ",
+};
+
+export default function MyProposal() {
+  const [page, setPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState<
+    "ALL" | ProposalRow["status"]
+  >("ALL");
+
   const filteredData = useMemo(() => {
-    if (timeFilter === "ALL") return Proposal;
-    return Proposal.filter((p) => p.time === timeFilter);
-  }, [timeFilter]);
+    return Proposal.filter((p) => {
+      return statusFilter === "ALL" || p.status === statusFilter;
+    });
+  }, [statusFilter]);
 
   const total = filteredData.length;
 
@@ -97,45 +115,47 @@ export default function MYProposal() {
     return filteredData.slice(start, start + PAGE_SIZE);
   }, [page, filteredData]);
 
-  // Handlers for the different proposal actions
-  const handleAccept = (id: number) => {
-    console.log(`Proposal ${id} accepted`);
-  };
-
-  const handleInProgress = (id: number) => {
-    console.log(`Proposal ${id} is in progress`);
-  };
-
-  const handleRevision = (id: number) => {
-    console.log(`Proposal ${id} is in revision`);
-  };
-
   return (
     <div className="containers py-8">
+      {/* DESKTOP VIEW */}
       <div className="hidden md:block">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Job Proposals</h2>
+        <h2 className="text-xl font-semibold mb-4">Job Proposals</h2>
 
-        {/* Filter and Buttons */}
-        <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
-          <div className="flex gap-4">
-            <button className="p-2.5   hover:text-black hover:bg-[#FFFFFF]  rounded-md text-[#1D1F2C]">
-              Accept
-            </button>
-            <button className="p-2.5 hover:text-black hover:bg-[#FFFFFF]  rounded-md text-[#1D1F2C]">
-              Declined
-            </button>
-          </div>
-
-          <select
-            className="rounded-lg p-2.5 border border-gray-300 text-sm"
-            value={timeFilter}
-            onChange={(e) => setTimeFilter(e.target.value as "ALL" | "5 Days" | "7 Days" | "3 Days")}
+        {/* ⭐ FILTER BUTTONS (LOOK EXACTLY LIKE YOUR PROVIDED UI) */}
+        <div className="flex gap-4 mb-6">
+          {/* Pending */}
+          {/* Pending */}
+          <button
+            onClick={() => setStatusFilter("Pending")}
+            className={`
+    w-[150px] py-2 rounded-lg text-center font-medium
+    ${statusFilter === "Pending" ? "bg-white shadow-md" : "bg-transparent"}
+  `}
           >
-            <option value="ALL">ALL</option>
-            <option value="5 Days">5 Days</option>
-            <option value="7 Days">7 Days</option>
-            <option value="3 Days">3 Days</option>
-          </select>
+            Pending
+          </button>
+
+          {/* Progress */}
+          <button
+            onClick={() => setStatusFilter("Progress")}
+            className={`
+    w-[150px] py-2 rounded-lg text-center font-medium
+    ${statusFilter === "Progress" ? "bg-white shadow-md" : "bg-transparent"}
+  `}
+          >
+            In Progress
+          </button>
+
+          {/* Cancellation */}
+          <button
+            onClick={() => setStatusFilter("Cancellation")}
+            className={`
+    w-[150px] py-2 rounded-lg text-center font-medium
+    ${statusFilter === "Cancellation" ? "bg-white shadow-md" : "bg-transparent"}
+  `}
+          >
+            Cancellation
+          </button>
         </div>
 
         {/* TABLE */}
@@ -145,44 +165,43 @@ export default function MYProposal() {
               accessorKey: "service",
               header: "Service",
               cell: ({ row }: any) => (
-                <div className="flex items-center gap-4 cursor-pointer">
-                  <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
-                    <img
-                      src={row.original.thumbnail}
-                      alt={row.original.service}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <span className="text-sm font-medium text-gray-800">{row.original.service}</span>
+                <div className="flex items-center gap-4">
+                  <img
+                    src={row.original.thumbnail}
+                    className="h-12 w-16 rounded-md object-cover"
+                  />
+                  <span className="text-sm font-medium">
+                    {row.original.service}
+                  </span>
                 </div>
               ),
             },
             {
               accessorKey: "amount",
               header: "AMOUNT",
-              cell: ({ row }: any) => <span className="text-gray-700">{row.original.amount}</span>,
+              cell: ({ row }: any) => <span>{row.original.amount}</span>,
             },
             {
               accessorKey: "time",
               header: "DELIVERY TIME",
-              cell: ({ row }: any) => <span className="text-gray-700">{row.original.time}</span>,
+              cell: ({ row }: any) => <span>{row.original.time}</span>,
             },
             {
               accessorKey: "status",
               header: "STATUS",
-              cell: ({ row }: any) => (
-                <span
-                  className={`px-4 py-1 rounded-md text-[16px] font-medium   ${
-                    row.original.status === "Accept"
-                      ? "bg-[#FF4D4F] text-white text-[16px] font-medium leading-150%"
-                      : row.original.status === "Decline"
-                      ? "bg-[#FDD3D5] text-[#FF4D4F]"
-                      : "bg-red-500"
-                  }`}
-                >
-                  {row.original.status}
-                </span>
-              ),
+              cell: ({ row }: any) => {
+                const status = row.original.status as ProposalRow["status"];
+                return (
+                  <span
+                    className={`
+                      inline-block w-[160px] px-4 py-1 rounded-md text-[14px] font-medium text-center
+                      ${statusBadgeClasses[status]}
+                    `}
+                  >
+                    {status}
+                  </span>
+                );
+              },
             },
           ]}
           data={paginatedData}
@@ -195,33 +214,13 @@ export default function MYProposal() {
 
       {/* MOBILE VIEW */}
       <div className="block md:hidden">
-        
         <div className="space-y-3">
           <div className="flex justify-between">
-            <p>Job Proposals</p>
-            <button className="border border-gray-300 p-3 rounded-lg flex gap-3">
-              Proposals <SlidersHorizontal />
+            <p className="text-[16px] font-semibold">Job Proposals</p>
+            <button className="border p-3 rounded-lg flex gap-3 items-center text-sm">
+              Proposals <SlidersHorizontal size={16} />
             </button>
           </div>
-
-          {/* Display Job Proposals as Cards on Mobile */}
-          {paginatedData.map((proposal) => (
-            <JobProposalCard
-              key={proposal.id}
-              image={proposal.thumbnail}
-              title={proposal.service}
-              total={proposal.amount}
-              status={proposal.status}
-              onAction={
-                proposal.status === "Accept"
-                  ? handleAccept
-                  : proposal.status === "Decline"
-                  ? handleInProgress
-                  : handleRevision
-              }
-              id={proposal.id}
-            />
-          ))}
         </div>
       </div>
     </div>

@@ -10,8 +10,8 @@ export default function SettingsPage() {
   const items = [
     { title: "Personal Information", href: "/admin/dashboard/setting/personal-information" },
     { title: "Change Password", modal: true }, // 👉 modal trigger
-    { title: "Terms & Condition", href: "/settings/terms" },
-    { title: "Privacy Policy", href: "/settings/privacy" },
+    { title: "Terms & Condition", href: "/admin/dashboard/setting/term-conditions" },
+    { title: "Privacy Policy", href: "/admin/dashboard/setting/privacy-policy" },
     { title: "About Us", href: "/settings/about" },
   ];
 

@@ -22,15 +22,15 @@ export default function TermsConditionPage() {
       <div className="mx-auto bg-white p-4 md:p-8 rounded-xl shadow-sm leading-relaxed text-[#333]">
         <div>
         <h3 className="text-[14px] font-normal  leading-150%">Last Updated: December 9, 2025</h3>
-        <p className="text-[14px] font-normal  leading-150% pt-4 pb-3">Editor Marketplace provides an online platform that enables clients to submit projects and editors to offer professional editing services. These Terms apply to all users of the platform, including editors and clients. By using our platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.</p>
+        <p className="text-[14px] font-normal  leading-150% pt-4 pb-3"> Welcome to Editor Marketplace. These Terms & Conditions govern your use of our platform,
+          where editors and clients connect to complete projects efficiently and professionally.
+          By accessing or using our services, you agree to comply with these terms.</p>
       </div>
 
         {/* ---------------- 1. Introduction ---------------- */}
         <h2 className="text-[20px] md:text-[24px] font-medium pb-3 leading-150% text-[#333]">1. Introduction</h2>
         <p className="mb-6 text-4 lg:text-[18px] font-normal leading-[26px]">
-          Welcome to Editor Marketplace. These Terms & Conditions govern your use of our platform,
-          where editors and clients connect to complete projects efficiently and professionally.
-          By accessing or using our services, you agree to comply with these terms.
+         Editor Marketplace provides an online platform that enables clients to submit projects and editors to offer professional editing services. These Terms apply to all users of the platform, including editors and clients. By using our platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.
         </p>
 
         {/* ---------------- 2. Personal Information We Collect ---------------- */}
