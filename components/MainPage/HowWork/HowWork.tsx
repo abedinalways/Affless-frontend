@@ -83,11 +83,11 @@ export default function HowWork() {
             A simple, secure, and efficient process for both clients and editors
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-[20px] lg:gap-[34px] ">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5 lg:gap-[34px] ">
             {/* LEFT CARD */}
             <div className="mt-10 bg-white shadow-lg w-full py-[30px] px-8 rounded-lg">
               <p className="text-[#333] text-center font-[Poppins] text-[28px] lg:text-[32px] pb-8 font-medium leading-[130%]">
-                For Client
+                For Clients
               </p>
 
               <div className="space-y-4 lg:space-y-[60px]">

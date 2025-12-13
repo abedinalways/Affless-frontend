@@ -77,7 +77,7 @@ export default function HelpCenterPage() {
           {/* FAQ SECTION — ONLY SHOW IF SUPPORT ACTIVE */}
           {activeTab === "support" && (
             <>
-              <h2 className="text-[18px] font-medium text-[#000] mb-4">Support & Contact</h2>
+              <h2 className="text-[18px] font-medium text-black mb-4">Support & Contact</h2>
 
               <div className="bg-white rounded-xl shadow p-4">
                 <Accordion type="single" collapsible>
@@ -102,7 +102,7 @@ export default function HelpCenterPage() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Submit any technical issues through our support form or live chat.
+                      Submit any technical issues through our support form or live chat. Our team will review the issue and work to resolve it as quickly as possible.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -114,29 +114,29 @@ export default function HelpCenterPage() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Our team reviews disputes within 48 hours.
+                      Our team will review dispute submitted within 48 hours and follow up with you regarding the next steps.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>Dispute resolution process</p>
+                        <p>Community guidelines and code of conduct</p>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Our team reviews disputes within 48 hours.
+                      Please follow our guidelines to keep the platform positive, supportive, and safe for all users.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>Dispute resolution process</p>
+                        <p>Providing feedback and feature requests</p>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Our team reviews disputes within 48 hours.
+                      You can submit any feedback or suggestions through the request form. We appreciate your input as it helps us improve the platform.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -158,19 +158,19 @@ export default function HelpCenterPage() {
 
               {/* Live Chat */}
                <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
-   <div className="flex items-start gap-4">
-     <MassageIcon  className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
+    <div className="flex items-start gap-4">
+      <MassageIcon  className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
 
-  <div className="text-left">
-    <p className="font-medium text-[18px] text-[#333]">Live Chat</p>
-      <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">Average response: 2 min</p>
+    <div className="text-left">
+      <p className="font-medium text-[18px] text-[#333]">Live Chat</p>
+        <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">Average response: 2 min</p>
+      </div>
     </div>
-  </div>
 
-  <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
-    Submit a Request
-  </button>
-</div>
+    <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
+      Chat With Support
+    </button>
+  </div>
 
               {/* Email Support */}
              <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">

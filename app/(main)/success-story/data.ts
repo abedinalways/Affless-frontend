@@ -2,7 +2,7 @@ export const stories = [
   {
     id: 20,
     name: "Sarah Mitchell",
-    role: "Video Editor",
+    role: "Editor",
     type: "Success",
     category: "Editing",
     country: "USA",
@@ -12,7 +12,7 @@ export const stories = [
   {
     id: 2,
     name: "Marcus Chen",
-    role: "Creator",
+    role: "Client",
     type: "Team Growth",
     category: "Management",
     country: "Canada",
@@ -22,7 +22,7 @@ export const stories = [
   {
     id: 3,
     name: "Emma Rodriguez",
-    role: "Video Editor",
+    role: "Editor",
     type: "Income",
     category: "Editing",
     country: "Mexico",
@@ -42,7 +42,7 @@ export const stories = [
     {
     id: 5,
     name: "Emma Rodriguez",
-    role: "Video Editor",
+    role: "Editor",
     type: "Income",
     category: "Editing",
     country: "Mexico",
