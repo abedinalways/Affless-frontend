@@ -51,7 +51,7 @@ function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
       </div>
 
       {count && (
-        <span className="w-[40px] text-center py-1 rounded-md bg-red-100 text-red-500 text-sm font-medium">
+        <span className="w-10 text-center py-1 rounded-md bg-red-100 text-red-500 text-sm font-medium">
           {count}
         </span>
       )}
