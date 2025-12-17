@@ -16,7 +16,7 @@ interface Order {
   price: number;
   days: number;
   status: OrderStatus;
-  img:string;
+  img: string;
 }
 
 interface InboxItem {
@@ -24,13 +24,13 @@ interface InboxItem {
   name: string;
   message: string;
   time: string;
-  img:string;
+  img: string;
 }
 
 const orders: Order[] = [
   {
     id: 1,
-    img:"/images/product.png",
+    img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
@@ -38,7 +38,7 @@ const orders: Order[] = [
   },
   {
     id: 2,
-     img:"/images/product.png",
+    img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
@@ -46,7 +46,7 @@ const orders: Order[] = [
   },
   {
     id: 3,
-     img:"/images/product.png",
+    img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
@@ -54,20 +54,20 @@ const orders: Order[] = [
   },
   {
     id: 4,
-     img:"/images/product.png",
+    img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
     status: "accept",
   },
-  
+
 ];
 
 const inboxItems: InboxItem[] = [
-  { id: 1, name: "Farhan", message: "Lorem Ipsum is text", time: "1 month",img:"/images/inbox1.png" },
-  { id: 2, name: "Arlene", message: "Lorem Ipsum is text", time: "1 month",img:"/images/inbox2.png" },
-  { id: 3, name: "Ralph", message: "Lorem Ipsum is text", time: "1 month",img:"/images/inbox3.png" },
-  { id: 4, name: "Jenny", message: "Lorem Ipsum is text", time: "1 month",img:"/images/inbox4.png" },
+  { id: 1, name: "Farhan", message: "Lorem Ipsum is text", time: "1 month", img: "/images/inbox1.png" },
+  { id: 2, name: "Arlene", message: "Lorem Ipsum is text", time: "1 month", img: "/images/inbox2.png" },
+  { id: 3, name: "Ralph", message: "Lorem Ipsum is text", time: "1 month", img: "/images/inbox3.png" },
+  { id: 4, name: "Jenny", message: "Lorem Ipsum is text", time: "1 month", img: "/images/inbox4.png" },
 ];
 
 export default function EditorDashboard() {
@@ -95,59 +95,59 @@ export default function EditorDashboard() {
               <div className="text-center">
                 <p className="text-lg font-semibold underline">Zeeshan</p>
                 <div className="pt-3 text-sm text-gray-500 flex">
-                  <p className="flex gap-2"><LocationIcon/> Pakistan  <WorldIcon/> English</p>
+                  <p className="flex gap-2"><LocationIcon /> Pakistan  <WorldIcon /> English</p>
                 </div>
               </div>
-            <Link href="/editor/quick-match-result" className="w-full">
-              <button className="mt-6 w-full cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white">
-                Match Me with a Client Quickly
-              </button>
-              </Link> 
+              <Link href="/editor/quick-match-result" className="w-full">
+                <button className="mt-6 w-full cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white">
+                  Match Me with a Client Quickly
+                </button>
+              </Link>
               <Link href="#" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
-              <button className="flex gap-2 text-[#FF4D4F]  text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] ">
-             <LockIcon/> Platform Safety Rules  <IoArrowForwardSharp className="mt-1 text-red-500"/></button></Link>
+                <button className="flex gap-2 text-[#FF4D4F]  text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] ">
+                  <LockIcon /> Platform Safety Rules  <IoArrowForwardSharp className="mt-1 text-red-500" /></button></Link>
             </div>
 
-              
+
           </div>
           <div className="bg-[#FFFFFF] p-6 border  rounded-lg shadow-md mx-auto">
-      <h3 className="text-[18px] font-medium mb-8 text-[#333]">Level overview</h3>
-     <div className="">
-         <div className="flex justify-between mb-2.5">
-        <span className="font-normal text-[14px] leading-150% text-[#777980]">My level</span>
-        <span className="text-[#777980] text-[14px]">New seller</span>
-      </div>
-      <div className="flex justify-between mb-2.5">
-        <span className="font-normal text-[14px] leading-150% text-[#777980]">Success score</span>
-        <span className="text-gray-500">-</span>
-      </div>
-      <div className="flex justify-between mb-2.5">
-        <span className="font-normal text-[14px] leading-150% text-[#777980]">Rating</span>
-        <span className="text-gray-500">-</span>
-      </div>
-      <div className="flex justify-between mb-5">
-        <span className="font-normal text-[14px] leading-150% text-[#777980]">Response rate</span>
-        <span className="text-gray-500">-</span>
-      </div>
-     </div>
-      <div className="flex justify-center items-center">
-        <button className="w-[178px]  py-2 rounded-lg border border-[#D9D9D9] px-4">
-        View progress
-      </button>
-      </div>
-    </div>
+            <h3 className="text-[18px] font-medium mb-8 text-[#333]">Level overview</h3>
+            <div className="">
+              <div className="flex justify-between mb-2.5">
+                <span className="font-normal text-[14px] leading-150% text-[#777980]">My level</span>
+                <span className="text-[#777980] text-[14px]">New seller</span>
+              </div>
+              <div className="flex justify-between mb-2.5">
+                <span className="font-normal text-[14px] leading-150% text-[#777980]">Success score</span>
+                <span className="text-gray-500">-</span>
+              </div>
+              <div className="flex justify-between mb-2.5">
+                <span className="font-normal text-[14px] leading-150% text-[#777980]">Rating</span>
+                <span className="text-gray-500">-</span>
+              </div>
+              <div className="flex justify-between mb-5">
+                <span className="font-normal text-[14px] leading-150% text-[#777980]">Response rate</span>
+                <span className="text-gray-500">-</span>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <button className="w-[178px]  py-2 rounded-lg border border-[#D9D9D9] px-4">
+                View progress
+              </button>
+            </div>
+          </div>
 
-     <div className="bg-[#FFFFFF] p-6 border  rounded-lg shadow-md mx-auto">
-      <h3 className="text-[18px] font-medium mb-8 text-[#333]">Availability</h3>
-      <h3 className="text-center font-normal leading-150% text-[#777980] py-8">While unavailable, your Gigs are hidden and you will not receive new orders.</h3>
-     <div className="">
-         <div className="flex justify-center items-center ">
-        <button className="  py-2 rounded-lg border border-[#D9D9D9] px-4">
-        Set your avallablllty
-      </button>
-      </div>
-      </div>
-    </div>
+          <div className="bg-[#FFFFFF] p-6 border  rounded-lg shadow-md mx-auto">
+            <h3 className="text-[18px] font-medium mb-8 text-[#333]">Availability</h3>
+            <h3 className="text-center font-normal leading-150% text-[#777980] py-8">While unavailable, your Gigs are hidden and you will not receive new orders.</h3>
+            <div className="">
+              <div className="flex justify-center items-center ">
+                <button className="  py-2 rounded-lg border border-[#D9D9D9] px-4">
+                  Set your avallablllty
+                </button>
+              </div>
+            </div>
+          </div>
 
           {/* Payment Overview */}
           <div className="rounded-2xl bg-white p-6 shadow-sm">
@@ -156,9 +156,9 @@ export default function EditorDashboard() {
             </h3>
             <p className="text-2xl font-medium leading-150%  text-[#333] text-center py-8">US$0</p>
             <div className="flex justify-center ">
-                <button className="w-[178px] rounded-lg border border-[#D9D9D9] py-2.5 px-4 text-[16px] font-medium  text-[#333] cursor-pointer">
-              Payment
-            </button>
+              <button className="w-[178px] rounded-lg border border-[#D9D9D9] py-2.5 px-4 text-[16px] font-medium  text-[#333] cursor-pointer">
+                Payment
+              </button>
             </div>
           </div>
 
@@ -240,27 +240,27 @@ export default function EditorDashboard() {
                   </div>
 
                   {/* Middle: price + days */}
-                 <div className="flex gap-[190px] md:gap-7 justify-between">
-                   <div className="flex items-center gap-8 text-[18px] font-normal text-[#4A4C56]">
-                    <p>${order.price}</p>
-                    <p className="hidden md:block">{order.days} Days</p>
+                  <div className="flex gap-[190px] md:gap-7 justify-between">
+                    <div className="flex items-center gap-8 text-[18px] font-normal text-[#4A4C56]">
+                      <p>${order.price}</p>
+                      <p className="hidden md:block">{order.days} Days</p>
+                    </div>
+
+                    {/* Right: status button */}
+                    <div>
+                      {order.status === "pending" ? (
+                        <button className="rounded-lg bg-[#EEFAE9] px-5 py-2 text-[16px] font-medium text-[#52C41A]">
+                          Pending
+                        </button>
+                      ) : (
+                        <button className="rounded-lg bg-[#FF4D4F] px-5 py-2 text-[16px] font-medium text-white">
+                          Accept
+                        </button>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Right: status button */}
-                 <div>
-                   {order.status === "pending" ? (
-                    <button className="rounded-lg bg-[#EEFAE9] px-5 py-2 text-[16px] font-medium text-[#52C41A]">
-                      Pending
-                    </button>
-                  ) : (
-                    <button className="rounded-lg bg-[#FF4D4F] px-5 py-2 text-[16px] font-medium text-white">
-                      Accept
-                    </button>
-                  )}
-                 </div>
-                 </div>
 
-               
                 </div>
               ))}
             </div>
