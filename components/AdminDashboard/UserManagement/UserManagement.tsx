@@ -1,6 +1,6 @@
 "use client";
 
-import ClientPage from "@/app/(admin-dashboard)/admin/(admin)/dashboard/usermanagement/client/page";
+import ClientPage from "@/app/(admin-dashboard)/admin/usermanagement/client/page";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -53,7 +53,7 @@ export default function UserManagement() {
         </div> */}
 
         <Tabs defaultValue="editor" className="w-full">
-          <div className="flex justify-between items-center mb-6 border border-[#DCDDDD] rounded-lg p-3">
+          <div className="flex justify-between items-center mb-6 border border-[#DCDDDD] rounded-lg p-3 gap-4">
             <div>
               <TabsList className="flex gap-9">
                 <TabsTrigger value="editor">Editor</TabsTrigger>
@@ -61,8 +61,11 @@ export default function UserManagement() {
               </TabsList>
             </div>
             <div className="flex gap-4">
-              <input className="border rounded-lg px-4 py-2 w-64" placeholder="Search here..." />
-              <select className="border rounded-lg px-4 py-2">
+              <div>
+                <input className="border rounded-lg px-4 py-2 w-full" placeholder="Search here..." />
+
+              </div>
+              <select className="border rounded-lg px-4 py-2 w-full max-w-40">
                 <option>All status (06)</option>
               </select>
             </div>
@@ -100,7 +103,7 @@ export default function UserManagement() {
                 </div>
 
 
-                <Link href={`/admin/dashboard/usermanagement/${user.id}`} className="w-full">
+                <Link href={`/admin/usermanagement/${user.id}`} className="w-full">
                   <button className="mt-4 border rounded-lg px-4 py-2 w-full hover:bg-gray-100">
                     View profile
                   </button>
@@ -113,11 +116,11 @@ export default function UserManagement() {
 
           <div className="mt-8 flex justify-center">
             <Pagination
-  page={page}
-  pageSize={ITEMS_PER_PAGE}
-  total={editorUsers.length}
-  onPageChange={setPage}
-/>
+              page={page}
+              pageSize={ITEMS_PER_PAGE}
+              total={editorUsers.length}
+              onPageChange={setPage}
+            />
 
           </div>
         </>
