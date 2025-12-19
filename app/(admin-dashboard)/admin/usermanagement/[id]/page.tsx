@@ -15,7 +15,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
   const [activeTab, setActiveTab] = useState<"details" | "job" | "earning">("details");
 
   return (
-    <div className="">
+    <div className="space-y-6">
 
       {/* TOP CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -34,34 +34,26 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
           <p className="text-gray-500">Average rating</p>
         </div>
       </div>
-
-
-      <Tabs defaultValue="editor" className="w-full">
-          <div className=" mb-6 border border-[#DCDDDD] rounded-lg p-3 mt-6">
-            <div>
-              <TabsList className="flex gap-9">
-                <TabsTrigger value="editor">Details</TabsTrigger>
-                <TabsTrigger value="client">Job</TabsTrigger>
-                <TabsTrigger value="earning">Earning</TabsTrigger>
-
-              </TabsList>
-            </div>
-          
+      <Tabs defaultValue="editor" className="w-full space-y-6">
+        <div className=" mb-6 border border-[#DCDDDD] rounded-lg p-3">
+          <div>
+            <TabsList className="flex gap-9">
+              <TabsTrigger value="editor">Details</TabsTrigger>
+              <TabsTrigger value="client">Job</TabsTrigger>
+              <TabsTrigger value="earning">Earning</TabsTrigger>
+            </TabsList>
           </div>
-
-          <TabsContent value="editor">
-<EditorDetails/>
-          </TabsContent>
-          <TabsContent value="client">
-            <JobHistoryPage />
-          </TabsContent>
-          <TabsContent value="earning">
-            <EarningsPage />
-          </TabsContent>
-        </Tabs>
-
-    
-
+        </div>
+        <TabsContent value="editor">
+          <EditorDetails />
+        </TabsContent>
+        <TabsContent value="client">
+          <JobHistoryPage />
+        </TabsContent>
+        <TabsContent value="earning">
+          <EarningsPage />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

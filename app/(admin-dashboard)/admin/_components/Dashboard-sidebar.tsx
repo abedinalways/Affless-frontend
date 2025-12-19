@@ -13,31 +13,31 @@ export const SidebarData: SidebarDataType[] = [
   {
     id: 1,
     name: "Dashboard",
-    href: "/admin/dashboard",
+    href: "/admin",
     icon: LayoutDashboard,
   },
   {
     id: 2,
     name: "User Management",
-    href: "/admin/dashboard/usermanagement",
+    href: "/admin/usermanagement",
     icon: FaRegUser,
   },
   {
     id: 3,
     name: "Earning",
-    href: "/admin/dashboard/earning",
+    href: "/admin/earning",
     icon: Earning,
   },
     {
     id: 4,
     name: "Analytics",
-    href: "/admin/dashboard/analytics",
+    href: "/admin/analytics",
     icon: BriefcaseBusiness ,
   },
     {
     id: 5,
     name: "Setting",
-    href: "/admin/dashboard/setting",
+    href: "/admin/setting",
     icon: Settings,
   },
 ];
