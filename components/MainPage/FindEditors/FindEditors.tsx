@@ -28,7 +28,7 @@ export default function FindEditors() {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
-  
+
   return (
     <div>
       {/* Banner */}
@@ -42,7 +42,7 @@ export default function FindEditors() {
       />
 
       {/* Main Section */}
-      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 mt-9 lg:mt-[160px]">
+      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 mt-9 lg:mt-40">
 
         {/* Sidebar - hidden on small screens */}
         <div className="hidden lg:block">

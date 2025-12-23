@@ -36,7 +36,7 @@ export default function Banner() {
           <p
             className="
               text-white font-[Poppins] text-[16px]
-              font-normal leading-[150%] mt-6
+              font-normal leading-[150%] mt-6 max-w-2xl
             "
           >
             Editor Marketplace connects clients and editors across YouTube,
@@ -45,11 +45,11 @@ export default function Banner() {
           </p>
 
           <div className="flex items-center gap-5 md:gap-[42px] mt-8 cursor-pointer">
-            <button className="bg-[#FF4D4F] text-white px-3 md:px-6 py-4 md:py-4 rounded-xl font-poppins text-base sm:text-lg cursor-pointer">
+            <button className="bg-[#FF4D4F] text-white px-3 md:px-6.5 py-4 md:py-4.5 rounded-xl font-poppins text-base sm:text-lg cursor-pointer">
               Post a Job Free
             </button>
 
-            <button className="text-white px-3 md:px-6 py-4 md:py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F] cursor-pointer">
+            <button className="text-white px-3 md:px-6.5 py-4.5 md:py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F] cursor-pointer">
               Become an Editor
             </button>
           </div>
