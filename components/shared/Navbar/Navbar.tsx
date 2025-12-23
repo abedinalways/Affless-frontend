@@ -26,14 +26,14 @@ export default function Navbar() {
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/">
-              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
+              <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
-                                src="/images/logoUpdate.png"
-                                width={128}
-                                height={42}
-                                alt="Logo"
-                                className=" object-cover justify-start "
-                              />
+                  src="/images/logoUpdate.png"
+                  width={128}
+                  height={42}
+                  alt="Logo"
+                  className=" object-cover justify-start "
+                />
               </div>
             </Link>
 
@@ -62,7 +62,7 @@ export default function Navbar() {
           </div>
 
           {/* ---------- HAMBURGER (MOBILE) ---------- */}
-          <button className="xl:hidden text-3xl" onClick={() => setMobileMenu(true)}>
+          <button className="xl:hidden text-3xl cursor-pointer" onClick={() => setMobileMenu(true)}>
             <HiOutlineMenu />
           </button>
         </div>
@@ -83,7 +83,7 @@ export default function Navbar() {
         ${mobileMenu ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Close Button */}
-        <button className="text-3xl mb-6" onClick={() => setMobileMenu(false)}>
+        <button className="text-3xl mb-6 cursor-pointer" onClick={() => setMobileMenu(false)}>
           <HiX />
         </button>
 

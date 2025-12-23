@@ -9,28 +9,28 @@ const items = [
   {
     id: 1,
     iconBg: "bg-[#DBEAFE]",
-    iconSrc: <SecureIcon/>, // replace with your actual icon if needed
+    iconSrc: <SecureIcon />, // replace with your actual icon if needed
     title: "Secure Payments",
     desc: "All payments processed through Stripe and PayPal for maximum security."
   },
   {
     id: 2,
     iconBg: "bg-[#DCFCE7]",
-    iconSrc: <KycIcon/>, // replace with your actual icon
+    iconSrc: <KycIcon />, // replace with your actual icon
     title: "KYC Verification",
     desc: "We confirm user identity to keep the platform safe and compliant."
   },
   {
     id: 3,
     iconBg: "bg-[#FFEDD5]",
-    iconSrc: <DisputeIcon/>, // replace with your actual icon
+    iconSrc: <DisputeIcon />, // replace with your actual icon
     title: "Dispute Resolution",
     desc: "Fair process for revisions, refunds, and resolving conflicts."
   },
   {
     id: 4,
     iconBg: "bg-[#F3E8FF]",
-    iconSrc: <AdminIcon/>, // replace with your actual icon
+    iconSrc: <AdminIcon />, // replace with your actual icon
     title: "Admin Support",
     desc: "Our team can intervene when needed to ensure fair outcomes."
   }
@@ -41,9 +41,9 @@ export default function TrustSafety() {
     <div className="containers mx-auto py-8 lg:py-20">
       {/* Heading */}
       <h2 className="text-[#333] text-center f text-[32px] md:text-[40px] lg:text-[64px] font-medium leading-[124%] "
->Trust & Safety</h2>
+      >Trust & Safety</h2>
       <p className="text-[#4A4C56] text-center f text-[18px] font-normal leading-[150%] mt-[18px]"
->
+      >
         Your security is our priority
       </p>
 
@@ -62,10 +62,10 @@ export default function TrustSafety() {
             </div>
 
             {/* Text */}
-            <h3 className="text-[#333] f text-[24px] font-medium leading-[150%] mb-[24px]"
->{item.title}</h3>
+            <h3 className="text-[#333] f text-[24px] font-medium leading-[150%] mb-6"
+            >{item.title}</h3>
             <p className="text-[#4A4C56] f text-[16px] font-normal leading-[150%]"
->{item.desc}</p>
+            >{item.desc}</p>
           </div>
         ))}
       </div>
