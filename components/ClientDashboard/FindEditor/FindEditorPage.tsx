@@ -100,20 +100,21 @@ export default function FindEditorPage() {
         />
       </div>
       <div className="containers mx-auto flex flex-col lg:flex-row gap-8 pt-10 lg:pt-20">
-
         {/* LEFT FILTER SIDEBAR */}
         <aside className="w-[330px] xl:w-1/4 hidden lg:block  bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
-
           {/* Job Category */}
           <div>
             <h3 className="font-bold text-[20px] mb-3">Job Category</h3>
-
             <div className="space-y-4">
               {[
-                ["Long-Form Video", "54"],
+                ["YouTube Long-form", "54"],
                 ["Shorts/Reels/TikToks", "9+"],
-                ["Photo", "36+"],
-                ["Audio", "28+"],
+                ["Thumbnails", "36+"],
+                ["Ads/UGC", "28+"],
+                ["Podcasts", "28+"],
+                ["Weddings/Events", "28+"],
+                ["Captions/Subtitles", "28+"],
+                ["Color & Audio", "28+"],
               ].map(([label, count], i) => (
                 <label key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -127,11 +128,9 @@ export default function FindEditorPage() {
               ))}
             </div>
           </div>
-
           {/* Platform */}
           <div>
             <h3 className="font-bold text-[20px] mb-3">Platform</h3>
-
             <div className="space-y-4">
               {[
                 ["YouTube", "372+"],
@@ -153,17 +152,14 @@ export default function FindEditorPage() {
               ))}
             </div>
           </div>
-
           {/* Budget */}
           <div>
             <h3 className="font-bold text-[20px] mb-3">Budget</h3>
-
             <div className="w-full flex flex-col items-center gap-3 mb-8">
               <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
                 <span>${range[0]}</span>
                 <span>${range[1]}</span>
               </div>
-
               <Slider
                 defaultValue={[5, 35]}
                 max={100}
@@ -174,9 +170,7 @@ export default function FindEditorPage() {
                 className="w-full"
               />
             </div>
-
           </div>
-
           {/* Project Duration */}
           <div>
             <h3 className="font-bold text-[20px] mb-3">Project Duration</h3>
@@ -267,20 +261,17 @@ export default function FindEditorPage() {
                   </div> */}
 
                   <div className="flex gap-3 mt-4">
-                  <Link href="/client/hire-vedio-editor">
-                    <button className="px-4 py-2 bg-red-500 text-white rounded-full text-sm">
+                    <Link href="/client/hire-vedio-editor" className="px-4 py-2 opacity-80 hover:opacity-100 duration-300 bg-red-500 text-white rounded-full text-sm">
                       Hire Editor
-                    </button></Link>
-                    <button className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm">
+                    </Link>
+                    <Link href="/client/message" className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm opacity-80 hover:opacity-100 duration-300">
                       Message
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
-
           ))}
-
           {/* PAGINATION */}
           <Pagination
             page={page}

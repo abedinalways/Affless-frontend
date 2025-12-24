@@ -10,6 +10,7 @@ import PaymentIcon from "@/components/Icons/payments";
 import SupportIcon from "@/components/Icons/supportIcon";
 import MassageIcon from "@/components/Icons/massageIcon";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import Link from "next/link";
 
 export default function HelpCenterPage() {
   
@@ -167,9 +168,9 @@ export default function HelpCenterPage() {
       </div>
     </div>
 
-    <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
+    <Link href="/client/message" className="bg-red-500 hover:bg-red-600 text-white w-full block text-center py-2 rounded-lg">
       Chat With Support
-    </button>
+    </Link>
   </div>
 
               {/* Email Support */}

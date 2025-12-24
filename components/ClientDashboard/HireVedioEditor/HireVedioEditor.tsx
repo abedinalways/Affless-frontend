@@ -195,7 +195,7 @@ export default function HireVideoEditorForm() {
 
       {/* File Upload */}
       <div className="bg-white p-6 rounded-xl mb-8 shadow-sm">
-        <h2 className="text-[18px] md:text-[20px] font-normal mb-5.5 text-[#000]">File Upload (Optional)</h2>
+        <h2 className="text-[18px] md:text-[20px] font-normal mb-5.5 text-black">File Upload (Optional)</h2>
         <p className="text-[16px] pb-3">Upload reference clips, raw footage, or style examples</p>
 
         <div

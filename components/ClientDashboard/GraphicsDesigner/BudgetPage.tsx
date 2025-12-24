@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function BudgetPage() {
   return (
@@ -69,9 +70,9 @@ export default function BudgetPage() {
       </div>
 
       {/* Chat Button */}
-      <button className="w-full bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition">
+      <Link href="/client/message" className="w-full block text-center bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition">
         Chat with Editor
-      </button>
+      </Link>
     </div>
   );
 }

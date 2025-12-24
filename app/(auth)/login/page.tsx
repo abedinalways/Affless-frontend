@@ -156,7 +156,7 @@ export default function SignInForm() {
               className={`w-full py-3 bg-[#FF4D4F] ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} text-[#FDFDFD] font-poppins text-2xl font-medium leading-[150%] rounded-xl`}
               disabled={loading}
             >
-              {loading ? "Sign Inning In..." : "Sign In"}
+              {loading ? "Signing in..." : "Sign In"}
             </button>
 
             {/* Sign Up */}
