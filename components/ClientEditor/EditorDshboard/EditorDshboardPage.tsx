@@ -206,7 +206,7 @@ export default function EditorDashboard() {
             <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>
             <p className="mt-1 text-sm text-gray-500">
               Find important messages, tips, and links to helpful resources here:
-            </p>import LockIcon from './../../Icons/LockIcon';
+            </p>
 
           </div>
 
