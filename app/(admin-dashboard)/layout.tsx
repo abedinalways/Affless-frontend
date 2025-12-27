@@ -1,16 +1,25 @@
-
-export default function Layout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+import React from "react";
+import Sidebar from "./admin/_components/sidebar";
+import DashboardHeader from "./admin/_components/dashboard-header";
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
- {children}
-     
-    </div>
-      
 
-       
+      <div className="w-full grid grid-cols-[auto_1fr]">
+        <div className="">
+          <Sidebar />
+        </div>
+        <div className="w-full px-8 py-10 h-screen overflow-y-auto space-y-8">
+          <div className="w-full">
+            <DashboardHeader />
+          </div>
+          <div className="">
+            <main>{children}</main>
+          </div>
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default DashboardLayout;

@@ -10,16 +10,16 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-  
-      
-        <div>
-          <div className="">
-            <ClientDashboardHeader/>
-          </div>
-          {children}
-          <ContactUs />
-          <Footer />
-        </div>
-     
+
+
+    <div>
+      <div className="">
+        <ClientDashboardHeader />
+      </div>
+      {children}
+      <ContactUs />
+      <Footer />
+    </div>
+
   );
 }

@@ -54,7 +54,7 @@ export default function ClientDashboardHeader() {
 
             {/* Logo */}
             <Link href="/">
-              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
+              <div className="w-32 h-10.5 flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
                   width={120}
@@ -108,7 +108,9 @@ export default function ClientDashboardHeader() {
               Become a Editor
             </button>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
-            <MdMailOutline className="w-7 h-7 cursor-pointer" />
+            <Link href="/client/message">
+                  <MdMailOutline className="w-7 h-7 cursor-pointer" />
+            </Link>
             <Link href="/client/profile" className="flex">
               <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
             </Link>

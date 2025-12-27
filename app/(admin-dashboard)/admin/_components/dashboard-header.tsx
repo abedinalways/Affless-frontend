@@ -16,7 +16,7 @@ const DashboardHeader = () => {
             </div>
             <div className='flex  gap-2.5 justify-center items-center'>
                 <div className='flex gap-8'>
-                  <Link href="/admin/dashboard/notification">
+                  <Link href="/admin/notification">
                     <MdOutlineNotificationsActive className='flex justify-center items-center mt-4 w-6 h-6'/></Link>
                 <Image src="/images/profile.png" alt='profile' height={53} width={53}></Image>
                 </div>

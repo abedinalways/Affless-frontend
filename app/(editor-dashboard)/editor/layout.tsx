@@ -7,12 +7,9 @@ export default function Layout({
 }>) {
   return (
     <div>
-      <EditorDashboardHeader/>
- {children}
-     
-    </div>
-      
+      <EditorDashboardHeader />
+      {children}
 
-       
+    </div>
   );
 }

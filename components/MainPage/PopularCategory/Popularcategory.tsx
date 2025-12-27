@@ -22,7 +22,7 @@ const data = [
     id: 2,
     icon: <VideoIcon />,
     bg: "bg-[#FCEAF4] border border-[#FBCFE8]",
-    title: "Shorts/Reels/TikTok",
+    title: "Shorts/ Reels/ TikToks",
     desc: "Viral short-form content"
   },
   {

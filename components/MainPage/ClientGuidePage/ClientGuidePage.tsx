@@ -89,7 +89,7 @@ export default function ClientGuidePage() {
               </span>
               <h3 id="post" className="text-[20px] md:text-2xl text-[#333] font-medium ">1 .Post Your Project</h3>
             </div>
-            <p className="text-[18px] text-[#4A4C56] font-normal pt-3 pb-5">Start by creating a detailed project brief. Include information about your video type (YouTube, corporate, social media, etc.), desired editing style, budget range, and deadline. The more details you provide, the better proposals you'll receive.</p>
+            <p className="text-[18px] text-[#4A4C56] font-normal pt-3 pb-5">Start by creating a detailed project brief. Include brief information about you project type (Youtube Long-form, Shorts/Reels/TikToks, Thumbnails, Ads/UGC, Podcasts, Weddings/Events, Captions/Subtitles, Color & Audio), along with your desired editing style, budget range, and deadline. The more clear you describe your needs, the better and more relevant the proposals you'll receive.</p>
           <div className="pl-5 bg-[#F7F6F6] rounded-lg p-4 ">
               <p className="text-[#333] text-sm text-[18px]">
               What to Include:
@@ -97,10 +97,9 @@ export default function ClientGuidePage() {
 
             <div className="list-disc  text-[#333] text-sm space-y-3.5 pt-3.5">
                
-              <div className="flex gap-2"> <FiCheckCircle  className="text-red-500"/> Project title and description</div>
-              <div className="flex gap-2"> <FiCheckCircle  className="text-red-500"/> Video length and format requirements</div>
-              <div className="flex gap-2"> <FiCheckCircle  className="text-red-500"/> Budget and timeline expectations</div>
-              <div className="flex gap-2"> <FiCheckCircle  className="text-red-500"/> Reference videos or style examples</div>
+              <div className="flex gap-2"> <FiCheckCircle  className="text-red-500"/> Matches our real platform categories</div>
+              <div className="flex gap-2"> <FiCheckCircle  className="text-red-500"/> Sounds more professional and consistent</div>
+              <div className="flex gap-2"> <FiCheckCircle  className="text-red-500"/> Helps clients understand exactly what to include</div>
             </div>
           </div>
           </div>
@@ -168,7 +167,7 @@ export default function ClientGuidePage() {
             </div>
             <h3 className="pt-3 pb-6 text-[#4A4C56]">After awarding the project, deposit the payment into our secure escrow system. Your funds are protected and won't be released to the editor until you approve the completed work. This protects both you and the freelancer.</h3>
 
-          <div className="bg-[#F0FDF4] p-4 rounded-lg border-1 border-green-300">
+          <div className="bg-[#F0FDF4] p-4 rounded-lg border border-green-300">
               <div className="flex items-center gap-2">
             
               <h4 className="text-[18px] pb-3.5">Payment Protection Benefits</h4>

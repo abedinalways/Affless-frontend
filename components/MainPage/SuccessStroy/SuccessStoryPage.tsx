@@ -15,127 +15,120 @@ export default function SuccessStroyPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 6;
 
-// FILTER LOGIC
+  // FILTER LOGIC
 
-const filteredStories = useMemo(() => {
-  return stories.filter((story) => {
-    return (
-      (storyType === "All" || story.type === storyType) &&
-      (category === "All" || story.category === category) &&
-      (country === "All" || story.country === country)
-    );
-  });
-}, [storyType, category, country]);
+  const filteredStories = useMemo(() => {
+    return stories.filter((story) => {
+      return (
+        (storyType === "All" || story.type === storyType) &&
+        (category === "All" || story.category === category) &&
+        (country === "All" || story.country === country)
+      );
+    });
+  }, [storyType, category, country]);
 
 
 
-const totalPages = Math.ceil(filteredStories.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredStories.length / ITEMS_PER_PAGE);
 
-const pageStories = filteredStories.slice(
-  (currentPage - 1) * ITEMS_PER_PAGE,
-  currentPage * ITEMS_PER_PAGE
-);
+  const pageStories = filteredStories.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
-  <div className="">
-      
-     <div>
+    <div className="">
+
+      <div>
         <PageBanner
-  title="Success Stories"
-  bgImage="/findEditor.jpg"
-  links={[
-    { label: "Home", href: "/" },
-    { label: "Success Stories" }
-  ]}
-/>
+          title="Success Stories"
+          bgImage="/findEditor.jpg"
+          links={[
+            { label: "Home", href: "/" },
+            { label: "Success Stories" }
+          ]}
+        />
 
       </div>
       <div className="containers mx-auto py-16">
-      {/* FILTERS */}
-      {/* FILTERS */}
-<div className="flex flex-col gap-4 lg:flex-row lg:items-center bg-white p-5 rounded-xl">
-  <p className="text-gray-700 font-medium ">Filter by:</p>
+        {/* FILTERS */}
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center bg-white p-5 rounded-xl">
+          <p className="text-gray-700 font-medium ">Filter by:</p>
+          <div className="flex flex-col gap-4 w-full lg:w-6/8 lg:grid md:grid-cols-3 lg:gap-6 text-[16px]">
+            {/* Story Type */}
+            <div className="flex items-center justify-between gap-3 lg:flex-row ">
+              <p className="text-gray-700 font-medium whitespace-nowrap">Story Type</p>
+              <FilterSelect
+                value={storyType}
+                setValue={setStoryType}
+                options={["All", "Editor Success", "Client Success", "Income Growth", "Career Transformation", "Platform Experience"]}
+              />
+            </div>
 
+            {/* Category */}
+            <div className="flex items-center justify-between gap-3 ">
+              <p className="text-gray-700 font-medium ">Category</p>
+              <FilterSelect
+                value={category}
+                setValue={setCategory}
 
+                options={["All", " YouTube Long-form", "Shorts/Reels/TikTok", "Thumbnails", "Ads/UGC", "Podcasts", "Weddings/Events", "Color & Audio", "Captions/Subtitles"]}
+              />
+            </div>
 
-
-
-  <div className="flex flex-col gap-4 w-full lg:w-6/8 lg:grid md:grid-cols-3 lg:gap-6 text-[16px]">
-    {/* Story Type */}
-    <div className="flex items-center justify-between gap-3 lg:flex-row ">
-      <p className="text-gray-700 font-medium ">Story Type</p>
-      <FilterSelect
-        value={storyType}
-        setValue={setStoryType}
-        options={["All", "Editor Success", "Client Success", "Income Growth", "Career Iransformatlon","Platform Experience"]}
-      />
-    </div>
-
-    {/* Category */}
-    <div className="flex items-center justify-between gap-3 ">
-      <p className="text-gray-700 font-medium ">Category</p>
-      <FilterSelect
-        value={category}
-        setValue={setCategory}
-        
-        options={["All", " YouTube Long-form", "Shorts/Reels/TikTok", "Thumbnails", "Ad s/UGC", "Podcasts", "Weddings/Events", "Color & Audio" , "Captions/Subtitles"]}
-      />
-    </div>
-
-    {/* Country */}
-    <div className="flex items-center justify-between gap-3 ">
-      <p className="text-gray-700 font-medium ">Country</p>
-      All
-      <FilterSelect
-        value={country}
-        setValue={setCountry}
-        options={["All", "USA", "Canada", "Mexico", "United Kingdom", "Australia", "Germany", "France", "India", "Philippines", "Nigeria", "Brazil", "South Africa", "Indonesia", "Pakistan", "Bangladesh"]}
-      />
-    </div>
-  </div>
-</div>
-
-
-      {/* STORY CARDS GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-14">
-        {pageStories.map((story) => (
-          <div
-            key={story.id}
-            className="bg-[#FFFFFF] shadow-2xl rounded-2xl p-6"
-          >
-            <Image
-              src={story.image}
-              alt={story.name}
-              width={500}
-              height={500}
-              className="rounded-xl w-full h-[209px] object-cover "
-            />
-
-           <div className="flex justify-between pt-4">
-             <h3 className="text-[#333] font-poppins text-[18px] font-medium leading-[120%]">{story.name}</h3>
-            <p className="text-[#777980] text-right font-poppins text-[12px] font-normal leading-[150%]">{story.role}</p>
-           </div>
-
-            <p className="text-[#4A4C56] font-poppins text-[14px] font-normal leading-[150%] py-4">{story.description}</p>
-
-           <Link href={`/success-story/${story.id}`}>
-  <button className="flex items-center gap-1 text-[#FF4D4F] font-poppins text-[14px] font-medium leading-[150%]">
-    Read Story <ArrowRight size={16} />
-  </button>
-</Link>
-
+            {/* Country */}
+            <div className="flex items-center justify-between gap-3 ">
+              <p className="text-gray-700 font-medium ">Country</p>
+              All
+              <FilterSelect
+                value={country}
+                setValue={setCountry}
+                options={["All", "USA", "Canada", "Mexico", "United Kingdom", "Australia", "Germany", "France", "India", "Philippines", "Nigeria", "Brazil", "South Africa", "Indonesia", "Pakistan", "Bangladesh"]}
+              />
+            </div>
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* PAGINATION */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setPage={setCurrentPage}
-      />
+        {/* STORY CARDS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-14">
+          {pageStories.map((story) => (
+            <div
+              key={story.id}
+              className="bg-[#FFFFFF] shadow-2xl rounded-2xl p-6"
+            >
+              <Image
+                src={story.image}
+                alt={story.name}
+                width={500}
+                height={500}
+                className="rounded-xl w-full h-[209px] object-cover "
+              />
+
+              <div className="flex justify-between pt-4">
+                <h3 className="text-[#333] font-poppins text-[18px] font-medium leading-[120%]">{story.name}</h3>
+                <p className="text-[#777980] text-right font-poppins text-[12px] font-normal leading-[150%]">{story.role}</p>
+              </div>
+
+              <p className="text-[#4A4C56] font-poppins text-[14px] font-normal leading-[150%] py-4">{story.description}</p>
+
+              <Link href={`/success-story/${story.id}`}>
+                <button className="flex items-center gap-1 text-[#FF4D4F] font-poppins text-[14px] font-medium leading-[150%]">
+                  Read Story <ArrowRight size={16} />
+                </button>
+              </Link>
+
+            </div>
+          ))}
+        </div>
+
+        {/* PAGINATION */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setPage={setCurrentPage}
+        />
+      </div>
     </div>
-  </div>
   );
 }
 

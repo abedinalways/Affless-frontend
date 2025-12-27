@@ -26,7 +26,7 @@ export default function Subscribe() {
       </p>
 
       {/* Button */}
-      <button className="text-[#FF4D4F] font-[Poppins] text-[16px] font-normal leading-[150%] bg-[#FFFFFF] py-[18px] px-[26px] rounded-lg mt-5"
+      <button className="text-[#FF4D4F] font-[Poppins] text-[16px] font-normal leading-[150%] bg-[#FFFFFF] py-[18px] px-[26px] rounded-lg mt-5 cursor-pointer"
 >
         Subscribe Now
       </button>

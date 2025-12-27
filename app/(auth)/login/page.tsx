@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { RxRotateCounterClockwise } from "react-icons/rx";
+import toast,{Toaster} from "react-hot-toast";
 
 type FormValues = {
   email: string;
@@ -33,7 +34,15 @@ export default function SignInForm() {
     setTimeout(() => {
       setLoading(false);
       localStorage.setItem("isLogin", "true");
-      router.push("/client");
+      if(data?.email === "client@gmail.com" && data?.password === "12345678"){
+        router.push("/client");
+      } else if(data?.email === "editor@gmail.com" && data?.password === "12345678"){
+        router.push("/editor");
+      } else if(data?.email === "admin@gmail.com" && data?.password === "12345678"){
+        router.push("/admin");
+      } else {
+        toast.error("Invalid email or password");
+      }
     }, 2000);
   };
 
@@ -44,6 +53,7 @@ export default function SignInForm() {
       lg:px-[100px] 
       xl:px-[150px]
       2xl:px-[300px]">
+        <Toaster position="top-right" />
       <div
         className="
         grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
@@ -146,7 +156,7 @@ export default function SignInForm() {
               className={`w-full py-3 bg-[#FF4D4F] ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} text-[#FDFDFD] font-poppins text-2xl font-medium leading-[150%] rounded-xl`}
               disabled={loading}
             >
-              {loading ? "Sign Inning In..." : "Sign In"}
+              {loading ? "Signing in..." : "Sign In"}
             </button>
 
             {/* Sign Up */}

@@ -15,6 +15,7 @@ import PaymentIcon from "@/components/Icons/payments";
 import SupportIcon from "@/components/Icons/supportIcon";
 import MassageIcon from "@/components/Icons/massageIcon";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import Link from "next/link";
 
 export default function HelpCenterPage() {
   // NEW — active category state
@@ -94,9 +95,7 @@ export default function HelpCenterPage() {
           {/* FAQ SECTION — ONLY SHOW IF SUPPORT ACTIVE */}
           {activeTab === "support" && (
             <>
-              <h2 className="text-[18px] font-medium text-[#000] mb-4">
-                Support & Contact
-              </h2>
+              <h2 className="text-[18px] font-medium text-black mb-4">Support & Contact</h2>
 
               <div className="bg-white rounded-xl shadow p-4">
                 <Accordion type="single" collapsible>
@@ -125,11 +124,7 @@ export default function HelpCenterPage() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      If you encounter any technical issues or bugs, please
-                      report them through our support form or live chat. Provide
-                      as much detail as possible, including screenshots if
-                      available, so our team can diagnose and resolve the
-                      problem quickly.
+                      Submit any technical issues through our support form or live chat. Our team will review the issue and work to resolve it as quickly as possible.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -141,11 +136,7 @@ export default function HelpCenterPage() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      If there is a disagreement between a client and an editor,
-                      you may open a dispute through the Resolution Center. Our
-                      team Will review the case within 48 hours, gather relevant
-                      information, and work toward a fair and transparent
-                      outcorne for both sides.
+                      Our team will review dispute submitted within 48 hours and follow up with you regarding the next steps.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
@@ -156,26 +147,18 @@ export default function HelpCenterPage() {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      We ask all users to follow our community guidelines to
-                      maintain a professional, safe, and supportive environment.
-                      Respectful communication, honest collaboration, and
-                      compliance With platform rules ensure a positive
-                      experience for everyone.
+                      Please follow our guidelines to keep the platform positive, supportive, and safe for all users.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-5">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>providing feedback and feature requests</p>
+                        <p>Providing feedback and feature requests</p>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      We welcome your feedback and suggestions. You can submit
-                      new feature requests or share ideas for improvement
-                      through our support form. Your input helps us refine the
-                      platform and deliver a better experience for the entire
-                      community.
+                      You can submit any feedback or suggestions through the request form. We appreciate your input as it helps us improve the platform.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -197,24 +180,20 @@ export default function HelpCenterPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Live Chat */}
-              <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
-                <div className="flex items-start gap-4">
-                  <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
+               <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
+    <div className="flex items-start gap-4">
+      <MassageIcon  className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
 
-                  <div className="text-left">
-                    <p className="font-medium text-[18px] text-[#333]">
-                      Live Chat
-                    </p>
-                    <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">
-                      Average response: 2 min
-                    </p>
-                  </div>
-                </div>
+    <div className="text-left">
+      <p className="font-medium text-[18px] text-[#333]">Live Chat</p>
+        <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">Average response: 2 min</p>
+      </div>
+    </div>
 
-                <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
-                 Email Support
-                </button>
-              </div>
+    <Link href="/client/message" className="bg-red-500 hover:bg-red-600 text-white w-full block text-center py-2 rounded-lg">
+      Chat With Support
+    </Link>
+  </div>
 
               {/* Email Support */}
               <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">

@@ -24,7 +24,7 @@ type PostPageProps = {
   }>;
 };
 
-export default function JobDetails({ params }: PostPageProps ) {
+export default function JobDetails({ params }: PostPageProps) {
   const parameters = use(params);
   const { id } = parameters;
 
@@ -46,15 +46,15 @@ export default function JobDetails({ params }: PostPageProps ) {
 
   return (
     <div className=" containers ">
-        <div className="py-10 flex gap-9 ">
-          <BrowseDetails/>
+      <div className="py-10 flex gap-9 ">
+        <BrowseDetails />
         <div>
-          <BudgetPage/>
+          <BudgetPage />
         </div>
-        </div>
-<div>
-  <ReviewPage/>
-</div>
+      </div>
+      <div>
+        <ReviewPage />
+      </div>
     </div>
 
   );

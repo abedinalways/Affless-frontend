@@ -6,15 +6,13 @@ import { useState } from "react";
 import PasswordModal from "@/components/AdminDashboard/PassordModal/page";
 export default function SettingsPage() {
   const [openModal, setOpenModal] = useState(false);
-
   const items = [
-    { title: "Personal Information", href: "/admin/dashboard/setting/personal-information" },
+    { title: "Personal Information", href: "/admin/setting/personal-information" },
     { title: "Change Password", modal: true }, // 👉 modal trigger
     { title: "Terms & Condition", href: "/admin/dashboard/setting/term-conditions" },
     { title: "Privacy Policy", href: "/admin/dashboard/setting/privacy-policy" },
-    { title: "About Us", href: "/settings/about" },
+    { title: "About Us", href: "/admin/dashboard/setting/about-us" },
   ];
-
   return (
     <>
       <div className="bg-[#FAF4E5] p-6 rounded-2xl border border-[#E5D7B8]">
@@ -43,15 +41,12 @@ export default function SettingsPage() {
                   <ChevronRight className="text-[#444]" size={20} />
                 </div>
               </Link>
-            )
-          )}
+            ))}
         </div>
       </div>
-
-      {/* 🔥 PASSWORD MODAL TRIGGERED FROM HERE */}
       <PasswordModal 
         open={openModal} 
-        onClose={(v) => setOpenModal(v)} 
+        onClose={(v) => setOpenModal(v)}
       />
     </>
   );

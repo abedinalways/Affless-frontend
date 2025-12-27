@@ -132,7 +132,7 @@ export default function EditorDashboardHeader() {
 
       {/* ========== MOBILE MENU SLIDE ========== */}
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-[-100%]"
+        className={`fixed top-0 left-0 w-full h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "-translate-x-full"
           }`}
       >
 
@@ -145,7 +145,7 @@ export default function EditorDashboardHeader() {
         <ul className="space-y-4 text-lg">
 
           <li>
-            <Link href="/client/dashboard" onClick={() => setMobileMenu(false)}>
+            <Link href="/editor/dashboard" onClick={() => setMobileMenu(false)}>
               Dashboard
             </Link>
           </li>
@@ -164,9 +164,9 @@ export default function EditorDashboardHeader() {
 
             {mobileDropdown && (
               <ul className="mt-2 ml-3 space-y-3 text-base">
-                <li><Link href="/client/hire-request" onClick={() => setMobileMenu(false)}>My Job</Link></li>
-                <li><Link href="/client/my-proposal" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
-                <li><Link href="/client/find-job" onClick={() => setMobileMenu(false)}>Find Job</Link></li>
+                <li><Link href="/editor/my-job" onClick={() => setMobileMenu(false)}>My Job</Link></li>
+                <li><Link href="/editor/my-proposal" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
+                <li><Link href="/editor/find-job" onClick={() => setMobileMenu(false)}>Find Job</Link></li>
                 <li><Link href="#" onClick={() => setMobileMenu(false)}>Profile</Link></li>
                 <li><Link href="/editor/earning" onClick={() => setMobileMenu(false)}>Earning</Link></li>
               </ul>

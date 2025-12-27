@@ -176,32 +176,61 @@ export default function EditorDashboard() {
                   className="h-full w-full object-cover"
                 />
               </div>
-
-              <p className="text-lg font-semibold underline">Zeeshan</p>
-
-              <p className="pt-3 text-sm text-gray-500 flex gap-2">
-                <LocationIcon /> Pakistan <WorldIcon /> English
-              </p>
-
+              <div className="text-center">
+                <p className="text-lg font-semibold underline">Zeeshan</p>
+                <div className="pt-3 text-sm text-gray-500 flex">
+                  <p className="flex gap-2"><LocationIcon /> Pakistan  <WorldIcon /> English</p>
+                </div>
+              </div>
               <Link href="/editor/quick-match-result" className="w-full">
-                <button className="mt-6 w-full rounded-lg bg-[#ff4b4b] py-2.5 text-white text-[16px]">
+                <button className="mt-6 w-full cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white">
                   Match Me with a Client Quickly
                 </button>
               </Link>
-
               <Link href="#" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
-                <button className="flex gap-2 text-[#FF4D4F] items-center mx-auto py-2.5 text-[14px]">
-                  <LockIcon /> Platform Safety Rules{" "}
-                  <IoArrowForwardSharp className="mt-1 text-red-500" />
-                </button>
-              </Link>
+                <button className="flex gap-2 text-[#FF4D4F]  text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] ">
+                  <LockIcon /> Platform Safety Rules  <IoArrowForwardSharp className="mt-1 text-red-500" /></button></Link>
+            </div>
+
+
+          </div>
+          <div className="bg-[#FFFFFF] p-6 border  rounded-lg shadow-md mx-auto">
+            <h3 className="text-[18px] font-medium mb-8 text-[#333]">Level overview</h3>
+            <div className="">
+              <div className="flex justify-between mb-2.5">
+                <span className="font-normal text-[14px] leading-150% text-[#777980]">My level</span>
+                <span className="text-[#777980] text-[14px]">New seller</span>
+              </div>
+              <div className="flex justify-between mb-2.5">
+                <span className="font-normal text-[14px] leading-150% text-[#777980]">Success score</span>
+                <span className="text-gray-500">-</span>
+              </div>
+              <div className="flex justify-between mb-2.5">
+                <span className="font-normal text-[14px] leading-150% text-[#777980]">Rating</span>
+                <span className="text-gray-500">-</span>
+              </div>
+              <div className="flex justify-between mb-5">
+                <span className="font-normal text-[14px] leading-150% text-[#777980]">Response rate</span>
+                <span className="text-gray-500">-</span>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <button className="w-[178px]  py-2 rounded-lg border border-[#D9D9D9] px-4">
+                View progress
+              </button>
             </div>
           </div>
 
-          {/* Level Overview */}
-          <div className="bg-white p-6 border rounded-lg shadow-md">
-            <h3 className="text-[18px] font-medium mb-8 text-[#333]">Level overview</h3>
-            {/* same as your code */}
+          <div className="bg-[#FFFFFF] p-6 border  rounded-lg shadow-md mx-auto">
+            <h3 className="text-[18px] font-medium mb-8 text-[#333]">Availability</h3>
+            <h3 className="text-center font-normal leading-150% text-[#777980] py-8">While unavailable, your Gigs are hidden and you will not receive new orders.</h3>
+            <div className="">
+              <div className="flex justify-center items-center ">
+                <button className="  py-2 rounded-lg border border-[#D9D9D9] px-4">
+                  Set your avallablllty
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Payment Overview */}
@@ -270,7 +299,53 @@ export default function EditorDashboard() {
           </div>
 
           <div className="rounded-2xl bg-white p-6 shadow-sm">
-            <DataTable columns={columns} data={orders} />
+            <div className="space-y-4">
+              {orders.map((order) => (
+                <div
+                  key={order.id}
+                  className="flex flex-col md:flex-row items-center justify-between gap-4 rounded-xl px-2 py-3 hover:bg-gray-50"
+                >
+                  {/* Left: image + title */}
+                  <div className="flex flex- items-center gap-4">
+                    <div className="h-14 w-14 overflow-hidden rounded-md">
+                      <Image
+                        src={order.img} // add some thumbnail
+                        alt="Order"
+                        width={64}
+                        height={64}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <p className="text-sm font-normal text-[#333] text-[16px] leading-150% ">
+                      {order.title}
+                    </p>
+                  </div>
+
+                  {/* Middle: price + days */}
+                  <div className="flex gap-[190px] md:gap-7 justify-between">
+                    <div className="flex items-center gap-8 text-[18px] font-normal text-[#4A4C56]">
+                      <p>${order.price}</p>
+                      <p className="hidden md:block">{order.days} Days</p>
+                    </div>
+
+                    {/* Right: status button */}
+                    <div>
+                      {order.status === "pending" ? (
+                        <button className="rounded-lg bg-[#EEFAE9] px-5 py-2 text-[16px] font-medium text-[#52C41A]">
+                          Pending
+                        </button>
+                      ) : (
+                        <button className="rounded-lg bg-[#FF4D4F] px-5 py-2 text-[16px] font-medium text-white">
+                          Accept
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
