@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
+import { LuDownload } from "react-icons/lu";
 
 interface BillingRow {
   date: string;
@@ -49,7 +50,7 @@ export default function BillingHistoryPage() {
       accessorKey: "invoice",
       header: "Invoice",
       cell: ({ row }) => (
-        <span className="font-semibold text-blue-600">
+        <span className="font-semibold text-[#2E3135]">
           {row.original.invoice}
         </span>
       ),
@@ -76,7 +77,7 @@ export default function BillingHistoryPage() {
       header: "Details",
       cell: () => (
         <button className="flex items-center gap-1 text-gray-600">
-          <span className="text-lg">⬇️</span> PDF
+          <span className="text-lg"><LuDownload /></span> PDF
         </button>
       ),
     },
@@ -120,10 +121,11 @@ export default function BillingHistoryPage() {
       {/* Profile Image */}
       <div className="relative mx-auto w-24 h-24 mb-4">
         <Image
-          src="/images/profile.png"
+          src="/images/musicArt.png"
           alt="profile"
           fill
-          className="rounded-full object-cover"
+          className="rounded-full object-cover fill w-full h-full "
+         
         />
         <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></span>
       </div>

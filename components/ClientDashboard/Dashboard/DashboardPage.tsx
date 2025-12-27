@@ -57,11 +57,11 @@ export default function ClientDashboard() {
   return (
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
       <div className="mx-auto containers space-y-6">
-        <div className="grid justify-end">
+        {/* <div className="grid justify-end">
           <Link href="/client/post-job" className="mt-3 p-3 bg-red-500 text-white rounded-lg text-sm opacity-80 hover:opacity-100 duration-300">
             + Post New Job
           </Link>
-        </div>
+        </div> */}
         {/* LEFT COLUMN */}
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="w-full space-y-6 lg:w-1/3 ">

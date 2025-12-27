@@ -13,6 +13,8 @@ import StarIcon from "@/components/Icons/StarIcon";
 import { TiStarFullOutline } from "react-icons/ti";
 import Review from "./Review";
 import ReviewPage from "@/components/ClientDashboard/GraphicsDesigner/ReviewPage";
+import ReviewBreakdown from "@/components/reusable/reviews";
+import ReviewList, { ReviewType } from "@/components/reusable/Review";
 
 export default function ClientJob() {
   const jobs = [
@@ -44,13 +46,48 @@ export default function ClientJob() {
     },
   ];
 
-  const reviews = [
-    { stars: 5, count: 1006 },
-    { stars: 4, count: 323 },
-    { stars: 3, count: 143 },
-    { stars: 2, count: 42 },
-    { stars: 1, count: 56 },
-  ];
+const reviewBreakdownData = [
+  { stars: 5, count: 1006 },
+  { stars: 4, count: 323 },
+  { stars: 3, count: 143 },
+  { stars: 2, count: 42 },
+  { stars: 1, count: 56 },
+];
+
+
+const reviews: ReviewType[] = [
+  {
+    id: 1,
+    name: "Devon Lane",
+    img: "/images/devon.png",
+    rating: 5,
+    totalReviews: 338,
+    comment:
+      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
+    timeAgo: "4 years ago",
+  },
+  {
+    id: 2,
+    name: "Jerome Bell",
+    img: "/images/jerome.png",
+    rating: 5,
+    totalReviews: 338,
+    comment:
+      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
+    timeAgo: "4 years ago",
+  },
+  {
+    id: 3,
+    name: "Floyd Miles",
+    img: "/images/floyd.png",
+    rating: 5,
+    totalReviews: 338,
+    comment:
+      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline.",
+    timeAgo: "4 years ago",
+  },
+];
+
 
   return (
     <div className=" min-h-screen ">
@@ -159,30 +196,15 @@ export default function ClientJob() {
       </div>
       <div className="bg-white rounded-2xl">
         <div className=" rounded-xl  p-6 mt-10 mx-w-md lg:max-w-lg">
-          <h2 className="text-xl font-medium text-[18px] lg:text-[24px] pb-6">1,058 Reviews</h2>
+        
+         <ReviewBreakdown reviewe={reviewBreakdownData} />
 
-          <div className="space-y-4">
-            {reviews.map((r) => (
-              <div key={r.stars} className="flex items-center gap-4">
-                <span className="w-16">{r.stars} Stars</span>
 
-                <div className="flex-1 bg-gray-200 h-2 rounded-full">
-                  <div
-                    className="h-full bg-red-400 rounded-full"
-                    style={{ width: `${(r.count / 1058) * 100}%` }}
-                  ></div>
-                </div>
-
-                <span className="text-gray-600 text-sm">{r.count}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
-
-     <div>
-      <ReviewPage/>
-     </div>
+    <div className="container mx-auto py-10">
+      <ReviewList reviews={reviews} />
+    </div>
     </div>
   );
 }
