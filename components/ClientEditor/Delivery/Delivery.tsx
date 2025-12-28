@@ -1,122 +1,102 @@
 "use client";
 
-import Link from "next/link";
+import React, { useState } from "react";
+import { CloudUpload } from "lucide-react";
+import JobDetailsCard from "@/components/reusable/JobDetails";
+import PageBanner from "@/components/reusable/Bgbanner";
 
-export default function Delivery() {
+type UploadKey = "video" | "audio" | "thumb1" | "thumb2";
+
+const uploadItems = [
+  { key: "video", label: "Upload video", accept: "video/*" },
+  { key: "audio", label: "Upload audio", accept: "audio/*" },
+  { key: "thumb1", label: "Upload thumbnail", accept: "image/*" },
+  { key: "thumb2", label: "Upload thumbnail", accept: "image/*" },
+] as const;
+
+export default function DeliveryMessage() {
+  const [files, setFiles] = useState<Record<UploadKey, File | null>>({
+    video: null,
+    audio: null,
+    thumb1: null,
+    thumb2: null,
+  });
+
+  const handlePick = (key: UploadKey, file: File | null) => {
+    setFiles((prev) => ({ ...prev, [key]: file }));
+  };
+
+  const handleDeliver = () => {
+    console.log(files);
+    alert("Delivered! (check console)");
+  };
+
   return (
-    <div className="containers mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div className="">
+   <PageBanner
+        title="Delivery"
+        bgImage="/findEditor.jpg"
+        links={[{ label: "Home", href: "/" },
+         { label: "Active order", },
+        { label: "Delivery" }]}
+      />
 
-      {/* LEFT SIDE – Delivery Message */}
-      <div className="border rounded-2xl p-6 space-y-6">
-        <h2 className="text-2xl font-semibold">Delivery Message</h2>
+     <div className="containers">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10 ">
+       <div className="w-full max-w-3xl bg-white rounded-2xl p-6">
+      <h1 className="text-2xl font-semibold">Delivery Message</h1>
+      <p className="text-sm font-medium mt-6 mb-3">Upload Final Files</p>
 
-        <div>
-          <p className="text-sm mb-2">Write your request here.</p>
-          <textarea
-            className="w-full border rounded-xl p-4 h-36 bg-gray-50"
-            placeholder="Write a message to your client about this delivery..."
-          />
-          <p className="text-xs text-gray-400 mt-1">0/1000 characters</p>
-        </div>
+      <div className="space-y-4">
+        {uploadItems.map((item) => (
+          <label
+            key={item.key}
+            className="flex items-center justify-between border rounded-xl p-5 cursor-pointer bg-white"
+          >
+            <div>
+              <p className="text-[18px] font-semibold text-[#111]">
+                {files[item.key]?.name || item.label}
+              </p>
+              <p className="text-sm text-gray-500">Click to browse</p>
+            </div>
 
-        {/* Attachments */}
-        <div>
-          <p className="text-sm mb-2">Attachments (Optional)</p>
+            <div className="flex items-center gap-2 text-red-500 font-medium">
+              <CloudUpload size={18} />
+              <span>Browse</span>
+            </div>
 
-          <div className="border-2 border-dashed rounded-xl p-10 text-center text-gray-500 cursor-pointer">
-            <div className="text-2xl mb-2">⬆️</div>
-            Click to upload or drag and drop
-            <p className="text-xs mt-1">PDF, DOC, or images (Max 10MB)</p>
-          </div>
-        </div>
-
-        <Link href="/editor/offer">
-        <button className="w-full bg-red-500 text-white py-3 rounded-xl">
-          Deliver Work
-        </button>
-        </Link>
+            <input
+              type="file"
+              className="hidden"
+              accept={item.accept}
+              onChange={(e) => handlePick(item.key, e.target.files?.[0] ?? null)}
+            />
+          </label>
+        ))}
       </div>
 
-      {/* RIGHT SIDE – Job Details */}
-      <div className="border rounded-2xl p-6 space-y-6">
-        <h2 className="text-2xl font-semibold">Job Details</h2>
-
-        {/* Header */}
-        <div className="flex items-start gap-4">
-          <img
-            src="https://via.placeholder.com/80"
-            className="w-20 h-16 rounded object-cover"
-            alt="job"
-          />
-
-          <div>
-            <p className="text-sm">
-              I will craft quality backlinks for your website's SEO.
-            </p>
-            <span className="text-xs px-3 py-1 bg-green-100 text-green-600 rounded-full inline-block mt-2">
-              In Progress
-            </span>
-          </div>
-        </div>
-
-        <hr />
-
-        {/* Countdown */}
-        <div>
-          <p className="text-sm font-medium mb-4">Time left To Deliver</p>
-
-          <div className="grid grid-cols-4 text-center">
-            <div>
-              <p className="text-xl font-bold">01</p>
-              <p className="text-xs text-gray-500">Days</p>
-            </div>
-            <div>
-              <p className="text-xl font-bold">12</p>
-              <p className="text-xs text-gray-500">Hours</p>
-            </div>
-            <div>
-              <p className="text-xl font-bold">35</p>
-              <p className="text-xs text-gray-500">Minutes</p>
-            </div>
-            <div>
-              <p className="text-xl font-bold">34</p>
-              <p className="text-xs text-gray-500">Second</p>
-            </div>
-          </div>
-
-          <p className="text-center text-xs text-gray-500 mt-2">
-            Extend delivery date
-          </p>
-        </div>
-
-        {/* Message Button */}
-        <button className="w-full py-3 rounded-full border border-red-300 text-red-500 bg-red-50">
-          Message
-        </button>
-
-        {/* Order Info */}
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span className="text-gray-500">Order by</span>
-            <span className="font-medium">Bessie Cooper</span>
-          </div>
-
-          <div className="flex justify-between">
-            <span className="text-gray-500">Delivery date:</span>
-            <span className="font-medium">NOV 6, 7:24 AM</span>
-          </div>
-
-          <div className="flex justify-between">
-            <span className="text-gray-500">Total Price</span>
-            <span className="font-medium">$743</span>
-          </div>
-
-          <div className="flex justify-between">
-            <span className="text-gray-500">Order Number</span>
-            <span className="font-medium">#EM78373A0</span>
-          </div>
-        </div>
-      </div>
+      <button
+        onClick={handleDeliver}
+        className="w-full mt-8 bg-red-500 text-white py-4 rounded-xl font-semibold cursor-pointer"
+      >
+        Deliver Work
+      </button>
     </div>
+    <div className="">
+       <JobDetailsCard
+  title="I will craft quality backlinks for your website's SEO."
+  image="/images/job.png"
+  status="Progress"
+  timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
+  orderBy="Bessie"
+  deliveryDate="NOV 6"
+  totalPrice={743}
+  orderNumber="#123"
+  onMessage={() => console.log("Message clicked")}
+/>
+    </div>
+    </div>
+   </div>
+</div>
   );
 }

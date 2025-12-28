@@ -2,8 +2,8 @@
 
 import React, { useState, useMemo } from "react";
 import { DataTable } from "@/components/reusable/DataTable";
-import JobProposalCard from "@/components/reusable/TableCard";
 import { SlidersHorizontal } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface ProposalRow {
   id: number;
@@ -89,23 +89,21 @@ const statusBadgeClasses: Record<ProposalRow["status"], string> = {
   Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
 };
 
-// 🎨 FILTER BUTTON STYLES (same as status badge but clickable)
-const filterButtonClasses: Record<ProposalRow["status"], string> = {
-  Progress: " ",
-  Pending: " ",
-  Cancellation: " ",
-};
-
 export default function MyProposal() {
+  const router = useRouter();
+
   const [page, setPage] = useState(1);
-  const [statusFilter, setStatusFilter] = useState<
-    "ALL" | ProposalRow["status"]
-  >("ALL");
+  const [statusFilter, setStatusFilter] = useState<"ALL" | ProposalRow["status"]>(
+    "ALL"
+  );
+
+  const handleFilterClick = (status: ProposalRow["status"]) => {
+    setPage(1);
+    setStatusFilter((prev) => (prev === status ? "ALL" : status));
+  };
 
   const filteredData = useMemo(() => {
-    return Proposal.filter((p) => {
-      return statusFilter === "ALL" || p.status === statusFilter;
-    });
+    return Proposal.filter((p) => statusFilter === "ALL" || p.status === statusFilter);
   }, [statusFilter]);
 
   const total = filteredData.length;
@@ -121,38 +119,34 @@ export default function MyProposal() {
       <div className="hidden md:block">
         <h2 className="text-xl font-semibold mb-4">Job Proposals</h2>
 
-        {/* ⭐ FILTER BUTTONS (LOOK EXACTLY LIKE YOUR PROVIDED UI) */}
+        {/* FILTER BUTTONS */}
         <div className="flex gap-4 mb-6">
-          {/* Pending */}
-          {/* Pending */}
           <button
-            onClick={() => setStatusFilter("Pending")}
+            onClick={() => handleFilterClick("Pending")}
             className={`
-    w-[150px] py-2 rounded-lg text-center font-medium
-    ${statusFilter === "Pending" ? "bg-white shadow-md" : "bg-transparent"}
-  `}
+              w-[150px] py-2 rounded-lg text-center font-medium
+              ${statusFilter === "Pending" ? "bg-white shadow-md" : "bg-transparent"}
+            `}
           >
             Pending
           </button>
 
-          {/* Progress */}
           <button
-            onClick={() => setStatusFilter("Progress")}
+            onClick={() => handleFilterClick("Progress")}
             className={`
-    w-[150px] py-2 rounded-lg text-center font-medium
-    ${statusFilter === "Progress" ? "bg-white shadow-md" : "bg-transparent"}
-  `}
+              w-[150px] py-2 rounded-lg text-center font-medium
+              ${statusFilter === "Progress" ? "bg-white shadow-md" : "bg-transparent"}
+            `}
           >
             In Progress
           </button>
 
-          {/* Cancellation */}
           <button
-            onClick={() => setStatusFilter("Cancellation")}
+            onClick={() => handleFilterClick("Cancellation")}
             className={`
-    w-[150px] py-2 rounded-lg text-center font-medium
-    ${statusFilter === "Cancellation" ? "bg-white shadow-md" : "bg-transparent"}
-  `}
+              w-[150px] py-2 rounded-lg text-center font-medium
+              ${statusFilter === "Cancellation" ? "bg-white shadow-md" : "bg-transparent"}
+            `}
           >
             Cancellation
           </button>
@@ -169,23 +163,14 @@ export default function MyProposal() {
                   <img
                     src={row.original.thumbnail}
                     className="h-12 w-16 rounded-md object-cover"
+                    alt="thumb"
                   />
-                  <span className="text-sm font-medium">
-                    {row.original.service}
-                  </span>
+                  <span className="text-sm font-medium">{row.original.service}</span>
                 </div>
               ),
             },
-            {
-              accessorKey: "amount",
-              header: "AMOUNT",
-              cell: ({ row }: any) => <span>{row.original.amount}</span>,
-            },
-            {
-              accessorKey: "time",
-              header: "DELIVERY TIME",
-              cell: ({ row }: any) => <span>{row.original.time}</span>,
-            },
+            { accessorKey: "amount", header: "AMOUNT" },
+            { accessorKey: "time", header: "DELIVERY TIME" },
             {
               accessorKey: "status",
               header: "STATUS",
@@ -194,7 +179,8 @@ export default function MyProposal() {
                 return (
                   <span
                     className={`
-                      inline-block w-[160px] px-4 py-1 rounded-md text-[14px] font-medium text-center
+                      inline-block w-[160px] px-4 py-1 rounded-md
+                      text-[14px] font-medium text-center
                       ${statusBadgeClasses[status]}
                     `}
                   >
@@ -209,6 +195,13 @@ export default function MyProposal() {
           pageSize={PAGE_SIZE}
           total={total}
           onPageChange={setPage}
+         onRowClick={(row: any) => {
+  const id = row?.original?.id ?? row?.id;
+  if (!id) return;
+  router.push(`/editor/myproposal/${id}`);
+}}
+
+
         />
       </div>
 
