@@ -7,6 +7,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdKeyboardArrowDown, MdMailOutline } from "react-icons/md";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import { useRouter } from "next/navigation";
+import Inbox from "@/components/ClientEditor/Inbox/Inbox";
 
 export default function EditorDashboardHeader() {
   const [open, setOpen] = useState(false); // Desktop dropdown
@@ -45,9 +46,10 @@ export default function EditorDashboardHeader() {
   };
 
   return (
-    <div className="containers">
+   <div className="bg-white">
+ <div className="containers">
       <nav>
-        <div className="flex justify-between items-center py-3">
+        <div className="flex justify-between items-center py-3 ">
 
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
@@ -108,8 +110,26 @@ export default function EditorDashboardHeader() {
               Become an Editor
             </button>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
-            <MdMailOutline className="w-7 h-7 cursor-pointer" />
-            <Link href="/client/profile" className="flex">
+          
+          <div className="relative group">
+  {/* Icon */}
+  <MdMailOutline className="w-7 h-7 cursor-pointer" />
+
+  {/* Dropdown */}
+  <div
+    className="
+      absolute right-0 mt-3 w-[412px]
+      rounded-xl border bg-white shadow-lg
+      opacity-0 invisible translate-y-2
+      group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
+      transition-all duration-200 z-50
+    "
+  >
+    <Inbox/>
+  </div>
+  
+</div>
+  <Link href="/editor/editor-profile" className="flex">
               <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
             </Link>
           </div>
@@ -187,5 +207,6 @@ export default function EditorDashboardHeader() {
         </ul>
       </div>
     </div>
+   </div>
   );
 }

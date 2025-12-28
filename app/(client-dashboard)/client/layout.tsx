@@ -13,7 +13,7 @@ export default function Layout({
 
 
     <div>
-      <div className="">
+      <div className="sticky top-0 z-50 bg-white">
         <ClientDashboardHeader />
       </div>
       {children}

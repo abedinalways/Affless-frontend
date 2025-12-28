@@ -22,14 +22,15 @@ export default function PersonalInformationEdit() {
 
     return (
         <div>
-            <h1 className="text-[26px] font-semibold text-[#FF4D4F] mb-6">
-                Personal Information
-            </h1>
-
+          
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-[#FAF3E0] p-10 rounded-xl">
+  <h1 className="text-[26px] font-semibold text-[#FF4D4F] mb-6">
+                Personal Information 
+            </h1>
 
                 {/* LEFT SECTION */}
                 <div className="border border-[#F5C6C6] rounded-xl p-6 bg-white flex flex-col items-center">
+                    
                     <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-[#FF4D4F]">
                         <Image
                             src="/profile.jpg"

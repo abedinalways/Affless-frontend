@@ -68,18 +68,22 @@ export default function BrowseJob() {
           <div className="w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
               {paginatedData.map((item) => (
-                <Link key={item.id} href={`/editor/browse-job/${item.id}`}>
+               
                   <div className="bg-white p-6 rounded-lg">
                     <div className="flex flex-row lg:flex-col gap-1.5">
+                       <Link key={item.id} href={`/editor/browse-job/${item.id}`}>
                       <Image src={item.img} alt="editor" width={100} height={100} className="w-full object-cover rounded-lg" />
-                      <p className="pt-0 lg:pt-5 font-semibold text-[16px] lg:text-[18px]">{item.title}</p>
+                      <p className="pt-0 lg:pt-5 font-semibold text-[16px] lg:text-[18px]">{item.title}</p></Link>
                     </div>
 
                     <div className="flex justify-between py-4">
-                      <div className="flex gap-2">
+                      
+                       <Link href="/editor/job-posting-editor">
+                       <div className="flex gap-2">
                         <Image src={item.profileImage} alt="profile" width={20} height={20} />
                         <h3>{item.name}</h3>
-                      </div>
+                        </div></Link>
+                     
                       <div>{item.review}</div>
                     </div>
 
@@ -91,7 +95,7 @@ export default function BrowseJob() {
 
                     <div>{item.delevery}</div>
                   </div>
-                </Link>
+               
               ))}
             </div>
 

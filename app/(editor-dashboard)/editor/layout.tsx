@@ -1,4 +1,5 @@
 import EditorDashboardHeader from "@/components/shared/EditorDashboardHeader/EditorDashboardHeader";
+import Footer from "@/components/shared/Footer/Footer";
 
 export default function Layout({
   children,
@@ -7,9 +8,11 @@ export default function Layout({
 }>) {
   return (
     <div>
-      <EditorDashboardHeader />
+     <div className="sticky top-0 z-50">
+       <EditorDashboardHeader />
+     </div>
       {children}
-
+<Footer/>
     </div>
   );
 }

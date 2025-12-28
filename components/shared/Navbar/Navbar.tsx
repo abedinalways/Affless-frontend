@@ -18,8 +18,8 @@ export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   return (
-    <div className="containers  sticky top-10 z-50">
-      <nav className="sticky  top-10 z-50 ">
+    <div className="containers ">
+      <nav className="">
         <div className="flex justify-between items-center py-3">
 
           {/* ---------- LEFT SECTION ---------- */}

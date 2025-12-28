@@ -28,89 +28,109 @@ export default function PersonalInformation({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // IMAGE CHANGE HANDLER (NEW)
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const imageUrl = URL.createObjectURL(file);
+
+    setFormData((prev) => ({
+      ...prev,
+      image: imageUrl,
+    }));
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-[#FAF3E0] p-10">
+    <div className="bg-[#FAF3E0] p-10 rounded-2xl">
+      <h1 className="text-[26px] font-semibold text-[#FF4D4F] mb-6">
+        Personal Information
+      </h1>
+      <hr  className="border-[#A5A5AB] w-full pb-12"/>
 
-      {/* LEFT */}
-      <div className="border border-[#F5C6C6] rounded-xl p-6 bg-white flex flex-col items-center">
-        <div className="w-40 h-40 rounded-full overflow-hidden border border-[#FF4D4F] relative">
-          <Image
-            src={formData.image}
-            alt="profile"
-            fill
-            className="object-cover"
-          />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-        {isEditing && (
-          <input
-            type="file"
-            className="mt-4 text-sm"
-          />
-        )}
+        {/* LEFT */}
+        <div className="border border-[#F5C6C6] rounded-xl p-6 bg-white flex flex-col items-center">
+          <div className="w-40 h-40 rounded-full overflow-hidden border border-[#FF4D4F] relative">
+            <Image
+              src={formData.image}
+              alt="profile"
+              fill
+              className="object-cover"
+            />
+          </div>
 
-        <p className="mt-8 text-[#181414] text-lg">Profile</p>
-        <h2 className="text-[24px] pb-3 font-normal">{formData.name}</h2>
-      </div>
-
-      {/* RIGHT */}
-      <div className="md:col-span-2 space-y-6">
-
-        {/* BUTTON */}
-        <div className="flex justify-end">
-          <button
-            onClick={() => setIsEditing(!isEditing)}
-            className="bg-[#FF4D4F] text-white px-6 py-2 rounded-full"
-          >
-            {isEditing ? "Save" : "Edit Profile"}
-          </button>
-        </div>
-
-        {/* NAME */}
-        <div>
-          <label className="font-medium">Name</label>
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            disabled={!isEditing}
-            className="w-full p-3 rounded-lg bg-white border border-[#FF4D4F]"
-          />
-        </div>
-
-        {/* EMAIL */}
-        <div>
-          <label className="font-medium">E-mail</label>
-          <input
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            disabled={!isEditing}
-            className="w-full p-3 rounded-lg bg-white border border-[#FF4D4F]"
-          />
-        </div>
-
-        {/* PHONE */}
-        <div>
-          <label className="font-medium">Phone Number</label>
-          <div className="flex gap-3">
-            <div className="flex items-center gap-4 w-[160px] px-2.5 rounded-lg border border-[#FF4D4F] bg-white">
-              <Image
-                src="/images/flag america.png"
-                width={47}
-                height={25}
-                alt="flag"
-              />
-              <span className="text-[16px] font-normal">+1242</span>
-            </div>
-
+          {isEditing && (
             <input
-              name="phone"
-              value={formData.phone}
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="mt-4 text-sm"
+            />
+          )}
+
+          <p className="mt-8 text-[#181414] text-lg">Profile</p>
+          <h2 className="text-[24px] pb-3 font-normal">
+            {formData.name}
+          </h2>
+        </div>
+
+        {/* RIGHT */}
+        <div className="md:col-span-2 space-y-6">
+
+          <div className="flex justify-end">
+            <button
+              onClick={() => setIsEditing(!isEditing)}
+              className="bg-[#FF4D4F] text-white px-6 py-2 rounded-full"
+            >
+              {isEditing ? "Save" : "Edit Profile"}
+            </button>
+          </div>
+
+          <div>
+            <label className="font-medium">Name</label>
+            <input
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               disabled={!isEditing}
               className="w-full p-3 rounded-lg bg-white border border-[#FF4D4F]"
             />
+          </div>
+
+          <div>
+            <label className="font-medium">E-mail</label>
+            <input
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              disabled={!isEditing}
+              className="w-full p-3 rounded-lg bg-white border border-[#FF4D4F]"
+            />
+          </div>
+
+          <div>
+            <label className="font-medium">Phone Number</label>
+            <div className="flex gap-3">
+              <div className="flex items-center gap-4 w-[145px] px-2.5 rounded-lg border border-[#FF4D4F] bg-white">
+                <Image
+                  src="/images/flag america.png"
+                  width={47}
+                  height={25}
+                  alt="flag"
+                />
+                <span className="text-[16px] font-normal">+1242</span>
+              </div>
+
+              <input
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                disabled={!isEditing}
+                className="w-full p-3 rounded-lg bg-white border border-[#FF4D4F]"
+              />
+            </div>
           </div>
         </div>
       </div>

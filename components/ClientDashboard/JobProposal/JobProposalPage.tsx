@@ -191,7 +191,7 @@ export default function JobProposalPage() {
       <div className="block md:hidden">
         <div className="space-y-3">
           <div className="flex justify-between">
-            <p>Job Proposals</p>
+            <p>Job Proposals=</p>
             <button className="border border-gray-300 p-3 rounded-lg flex gap-3">
               Proposals <SlidersHorizontal />
             </button>
