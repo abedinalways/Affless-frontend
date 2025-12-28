@@ -330,9 +330,9 @@ export default function EditorDashboard() {
 
                     {/* Right: status button */}
                     <div>
-                      {order.status === "pending" ? (
+                      {order?.status === "In progress" ? (
                         <button className="rounded-lg bg-[#EEFAE9] px-5 py-2 text-[16px] font-medium text-[#52C41A]">
-                          Pending
+                          In Progress
                         </button>
                       ) : (
                         <button className="rounded-lg bg-[#FF4D4F] px-5 py-2 text-[16px] font-medium text-white">
