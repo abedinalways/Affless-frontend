@@ -1,5 +1,6 @@
 "use client";
 
+import BidCard from "@/components/reusable/Bids";
 import { File, FileText } from "lucide-react";
 import React, { useState } from "react";
 
@@ -10,6 +11,34 @@ interface UploadedFile {
 }
 
 export default function HireDetails({ params }: { params: { id: string } }) {
+
+  const bids = [
+  {
+    id: 1,
+    name: "Sarah Johnson",
+    avatar: "/images/devon.png",
+    time: "2 hours ago",
+    description:
+      "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
+  },
+  {
+    id: 2,
+    name: "John Doe",
+    avatar: "/images/jerome.png",
+    time: "1 day ago",
+    description:
+      "I will handle your project professionally. You will get unlimited revisions and fast response.",
+  },
+   {
+    id: 3,
+    name: "John Doe",
+    avatar: "/images/jerome.png",
+    time: "1 day ago",
+    description:
+      "I will handle your project professionally. You will get unlimited revisions and fast response.",
+  },
+];
+
   const [files, setFiles] = useState<UploadedFile[]>([]);
 
   // File Upload Handler
@@ -110,6 +139,16 @@ export default function HireDetails({ params }: { params: { id: string } }) {
             )}
           </div>
         </div>
+        {bids.map((bid) => (
+                <BidCard
+                  key={bid.id}
+                  id={bid.id}
+                  name={bid.name}
+                  avatar={bid.avatar}
+                  time={bid.time}
+                  description={bid.description}
+                />
+              ))}
       </div>
 
       {/* RIGHT SIDEBAR */}
@@ -120,11 +159,11 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           <h3 className="text-gray-500 font-medium">Budget</h3>
           <p className="text-[34px] font-bold">$350.00</p>
 
-          <button className="w-full py-3 rounded-lg bg-[#52C41A] text-white font-medium">
+          <button className="w-full py-3 rounded-lg bg-[#FF4D4F] text-white font-medium">
             Accept
           </button>
 
-          <button className="w-full py-3 rounded-lg bg-[#FF4D4F] text-white font-medium">
+          <button className="w-full py-3 rounded-lg bg-[#F9E9EA] text-[#FF4D4F] font-medium">
             Reject
           </button>
 
@@ -141,7 +180,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
 
           <div className="flex items-center gap-4">
             <img
-              src="/images/user1.png"
+              src="/images/headset.svg"
               className="h-14 w-14 rounded-full object-cover"
             />
 
@@ -152,9 +191,9 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           </div>
 
           <div className="mt-4 text-sm space-y-1">
-            <p><strong>Gender:</strong> Male</p>
-            <p><strong>Languages:</strong> Arabic, English</p>
-            <p><strong>English Level:</strong> Fluent</p>
+            <p className="flex  justify-between"><strong>Gender:</strong> Male</p>
+            <p className="flex  justify-between"><strong>Languages:</strong> Arabic, English</p>
+            <p className="flex  justify-between"><strong>English Level:</strong> Fluent</p>
           </div>
 
           <button className="w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium">

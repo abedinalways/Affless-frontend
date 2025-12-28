@@ -1,0 +1,75 @@
+"use client";
+
+import React, { useState } from "react";
+import Modal from "@/components/reusable/ProfileEditModal";
+
+export default function AddEducationModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  const [school, setSchool] = useState("");
+  const [subject, setSubject] = useState("");
+  const [year, setYear] = useState("");
+
+  const save = () => {
+    console.log({ school, subject, year });
+    onClose();
+  };
+
+  return (
+    <Modal open={open} onClose={onClose} title="Education">
+      <div className="space-y-4">
+        <div>
+          <p className="text-sm font-semibold mb-2">Project Title</p>
+          <input
+            value={school}
+            onChange={(e) => setSchool(e.target.value)}
+            placeholder="School / University"
+            className="w-full border rounded-lg p-3 outline-none"
+          />
+        </div>
+
+        <div>
+          <p className="text-sm font-semibold mb-2">Major / Subject</p>
+          <input
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            placeholder="Subject..."
+            className="w-full border rounded-lg p-3 outline-none"
+          />
+        </div>
+
+        <div>
+          <p className="text-sm font-semibold mb-2">Year of Graduation</p>
+          <input
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            placeholder="2024"
+            className="w-full border rounded-lg p-3 outline-none"
+          />
+        </div>
+
+        <div className="flex gap-3 pt-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full rounded-lg bg-gray-100 py-3 font-semibold text-gray-700 cursor-pointer"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            onClick={save}
+            className="w-full rounded-lg bg-[#ED4C4C] py-3 font-semibold text-white cursor-pointer"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+}

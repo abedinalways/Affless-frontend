@@ -135,9 +135,9 @@ export default function HireDetails({ params }: { params: { id: string } }) {
         />
       </div>
      <div className="containers pt-10 lg:pt-20 ">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-between">
+      <div className="flex flex-col lg:flex-row gap-8 justify-between">
        
-        <div className="">
+        <div className="w-2/3">
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               <div className="p-4 rounded-xl border bg-[#E1E7FF]">
@@ -327,9 +327,10 @@ export default function HireDetails({ params }: { params: { id: string } }) {
         </div>
 
         {/* RIGHT */}
-         <JobDetailsCard
-  title="..."
-  image="/images/job.png"
+       <div className="w-1/3">
+          <JobDetailsCard
+  title="I will craft quality backlinks for your website's SEO."
+  image="/images/vedio.png.jpg"
   status="Pending"
   timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
   orderBy="Bessie"
@@ -340,6 +341,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
   onMessage={() => console.log("Message clicked")}
   onExtendDelivery={() => router.push("/editor/extend-delivery")} // ✅ link
 />
+       </div>
 
       </div>
     </div>

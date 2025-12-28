@@ -85,7 +85,7 @@ export default function DeliveryMessage() {
     <div className="">
        <JobDetailsCard
   title="I will craft quality backlinks for your website's SEO."
-  image="/images/job.png"
+  image="/images/vedio.png.jpg"
   status="Progress"
   timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
   orderBy="Bessie"

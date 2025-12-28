@@ -18,15 +18,16 @@ export default function BidCard({
   description,
 }: BidCardProps) {
   return (
-    <div className="flex items-start justify-between bg-white p-4 rounded-xl shadow-sm border border-[#EFEFEF]">
+   <div className="space-y-6 mb-6">
+     <div className="flex items-start justify-between bg-white p-4 rounded-xl shadow-sm border border-[#EFEFEF] ">
       {/* LEFT SIDE */}
-      <div className="flex gap-4">
+      <div className="flex gap-4 ">
         <Image
           src={avatar}
           alt={name}
-          width={50}
-          height={50}
-          className="rounded-full object-cover"
+          width={70}
+          height={70}
+          className="rounded-full object-cover w-[70px] h-[70px]"
         />
 
         <div>
@@ -47,6 +48,7 @@ export default function BidCard({
         View
       </Link>
     </div>
+   </div>
   );
 }
 

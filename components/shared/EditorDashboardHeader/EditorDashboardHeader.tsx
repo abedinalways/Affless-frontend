@@ -46,9 +46,10 @@ export default function EditorDashboardHeader() {
   };
 
   return (
-    <div className="containers">
+   <div className="bg-white">
+ <div className="containers">
       <nav>
-        <div className="flex justify-between items-center py-3">
+        <div className="flex justify-between items-center py-3 ">
 
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
@@ -126,8 +127,11 @@ export default function EditorDashboardHeader() {
   >
     <Inbox/>
   </div>
+  
 </div>
-
+  <Link href="/editor/editor-profile" className="flex">
+              <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
+            </Link>
           </div>
 
           {/* ---------- MOBILE HAMBURGER ---------- */}
@@ -203,5 +207,6 @@ export default function EditorDashboardHeader() {
         </ul>
       </div>
     </div>
+   </div>
   );
 }

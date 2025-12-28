@@ -8,7 +8,9 @@ export default function Layout({
 }>) {
   return (
     <div>
-      <EditorDashboardHeader />
+     <div className="sticky top-0 z-50">
+       <EditorDashboardHeader />
+     </div>
       {children}
 <Footer/>
     </div>

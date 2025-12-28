@@ -1,5 +1,6 @@
 "use client";
 
+import PageBanner from "@/components/reusable/Bgbanner";
 import JobDetailsCard from "@/components/reusable/JobDetails";
 import React, { useState } from "react";
 
@@ -14,7 +15,19 @@ export default function ExtendDelivery() {
   };
 
   return (
-    <div className="containers py-10">
+    <div className="">
+            <div>
+        <PageBanner
+
+          title="Extend Delivery Date"
+          bgImage="/findEditor.jpg"
+          links={[
+            { label: "Home", href: "/" },
+            { label: "Extend Delivery Date" }
+          ]}
+        />
+      </div>
+      <div className="containers py-10">
       {/* ✅ Desktop এ 3 col, mobile এ 1 col */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 py-10">
         
@@ -76,7 +89,7 @@ export default function ExtendDelivery() {
         <div className="lg:col-span-1">
         <JobDetailsCard
   title="I will craft quality backlinks for your website's SEO."
-  image="/images/job.png"
+  image="/images/vedio.png.jpg"
   status="Progress"
   timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
   orderBy="Bessie"
@@ -88,6 +101,7 @@ export default function ExtendDelivery() {
 
         </div>
       </div>
+    </div>
     </div>
   );
 }
