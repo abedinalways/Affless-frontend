@@ -199,9 +199,9 @@ export default function EditorDashboard() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
-      <div className="mx-auto containers flex flex-col gap-8 lg:flex-row">
+      <div className="mx-auto containers grid lg:grid-cols-[auto_1fr] gap-8">
         {/* LEFT SIDE */}
-        <div className="w-full space-y-6 lg:w-2/5">
+        <div className="w-full min-w-[260px] lg:max-w-[260px] space-y-6">
           {/* Profile Card */}
           <div className="rounded-2xl bg-white px-6 pt-6 pb-8 shadow-sm">
             <div className="flex flex-col items-center gap-3">
@@ -334,41 +334,31 @@ export default function EditorDashboard() {
                   <p className="text-[12px] text-gray-400 whitespace-nowrap">{item.time}</p>
                 </div>
               ))}
-            </div>
-          </div> */}
+            </div>*/}
+        </div>
 
-          {/* <p className="text-[12px] text-gray-400 whitespace-nowrap">
-                    {item.time}
-                  </p>
-                </div>
-              ))}
-            </div>
+        {/* RIGHT SIDE */}
+        <div className="w-full grid">
+          <h1 className="text-2xl font-semibold">Welcome, Jane Cooper</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            Find important messages, tips, and links to helpful resources here:
+          </p>
+
+          {/* Summary */}
+          <div className="my-5 rounded-xl bg-[#ffe1e1] px-6 py-6 text-[18px] font-medium text-[#FF4D4F]">
+            Active orders {totalActiveOrders} (${totalAmount})
           </div>
-        </div> */}
 
-          {/* RIGHT SIDE */}
-          <div className="w-full lg:w-6/5">
-            <h1 className="text-2xl font-semibold">Welcome, Jane Cooper</h1>
-            <p className="text-sm text-gray-500 mt-1">
-              Find important messages, tips, and links to helpful resources here:
-            </p>
-
-            {/* Summary */}
-            <div className="my-5 rounded-xl bg-[#ffe1e1] px-6 py-6 text-[18px] font-medium text-[#FF4D4F]">
-              Active orders {totalActiveOrders} (${totalAmount})
-            </div>
-
-            {/* ✅ Orders Table */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <DataTable
-                columns={columns}
-                data={orders}
-                page={1}
-                pageSize={5}
-                total={orders.length}
-                onPageChange={() => { }}
-              />
-            </div>
+          {/* ✅ Orders Table */}
+          <div className="rounded-2xl bg-white p-6 shadow-sm w-full grid">
+            <DataTable
+              columns={columns}
+              data={orders}
+              page={1}
+              pageSize={5}
+              total={orders.length}
+              onPageChange={() => { }}
+            />
           </div>
         </div>
       </div>
