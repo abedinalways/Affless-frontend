@@ -3,7 +3,7 @@ import OtpForm from '../registation/_components/otp'
 
 export default function Otp() {
   return (
-    <div>
+    <div className='h-full grid items-center'>
       <OtpForm/>
     </div>
   )

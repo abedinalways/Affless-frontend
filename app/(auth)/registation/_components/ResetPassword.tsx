@@ -1,9 +1,14 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import KeyIcon from "@/components/Icons/KeyIcon";
+import { GoArrowLeft } from "react-icons/go";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import toast,{Toaster} from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
   password: string;
@@ -11,6 +16,10 @@ type FormValues = {
 };
 
 export default function ResetPasswordForm() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading,setLoading]=useState(false);
+  const router=useRouter();
   const {
     register,
     handleSubmit,
@@ -19,7 +28,13 @@ export default function ResetPasswordForm() {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    setLoading(true);
+    toast.success("Password reset successfully!");
     console.log("Reset password data:", data);
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/login");
+    }, 1000);
   };
 
   return (
@@ -27,11 +42,11 @@ export default function ResetPasswordForm() {
       md:px-[50px] 
       lg:px-[100px] 
       xl:px-[150px]
-      2xl:px-[300px]">
+      2xl:px-[300px] grid items-center">
       <div
       className="
-        grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
-        lg:gap-[100px] space-y-8
+        grid grid-cols-1 md:grid-cols-2 
+        lg:gap-[100px] gap-8
       "
     >
 
@@ -55,12 +70,14 @@ export default function ResetPasswordForm() {
 
         {/* Right Panel */}
         <div className="flex items-center justify-center bg-[#FFDBDC] rounded-2xl mb-8">
-          <div className="w-full max-w-lg text-center py-10 px-4 sm:px-8">
+          <div className="w-full max-w-lg py-10 px-4 sm:px-8">
 
             {/* Back + Title */}
-            <div className="flex items-center gap-3 justify-center pb-3">
+            <div className="flex items-center gap-3 pb-3">
               <Link href="/otp">
-                <span className="text-[#333] text-2xl cursor-pointer">&#8592;</span>
+                <div className="text-[#333] text-2xl cursor-pointer">
+                  <GoArrowLeft />
+                </div>
               </Link>
               <h2 className="text-[#333] font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%]">
                 Reset Password
@@ -90,10 +107,22 @@ export default function ResetPasswordForm() {
                       message: "Password must be at most 10 characters",
                     },
                   })}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter Password"
-                  className="w-full px-6 py-3 pl-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
+                  className="w-full px-6 py-3 pl-12 pr-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
                 />
+                <button
+                  type="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#333] cursor-pointer"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {!showPassword ? (
+                    <AiOutlineEyeInvisible className="w-5 h-5" />
+                  ) : (
+                    <AiOutlineEye className="w-5 h-5" />
+                  )}
+                </button>
               </div>
               {errors.password && (
                 <p className="text-red-500 text-sm font-poppins text-left">
@@ -111,10 +140,22 @@ export default function ResetPasswordForm() {
                       value === getValues("password") ||
                       "Passwords do not match",
                   })}
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Re-enter Password"
-                  className="w-full px-6 py-3 pl-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
+                  className="w-full px-6 py-3 pl-12 pr-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
                 />
+                <button
+                  type="button"
+                  aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#333] cursor-pointer"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                >
+                  {!showConfirmPassword ? (
+                    <AiOutlineEyeInvisible className="w-5 h-5" />
+                  ) : (
+                    <AiOutlineEye className="w-5 h-5" />
+                  )}
+                </button>
               </div>
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm font-poppins text-left">
@@ -125,9 +166,10 @@ export default function ResetPasswordForm() {
               {/* Confirm Button */}
               <button
                 type="submit"
-                className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl mt-2"
+                disabled={loading}
+                className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl mt-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#e04345] transition-colors"
               >
-                Confirm
+                {loading ? "Saving..." : "Save"}
               </button>
             </form>
           </div>
