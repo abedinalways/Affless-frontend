@@ -64,7 +64,7 @@ const orders: Order[] = [
     days: 5,
     status: "pending",
   },
-    {
+  {
     id: 1,
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
@@ -96,7 +96,7 @@ const orders: Order[] = [
     days: 5,
     status: "pending",
   },
-  
+
 ];
 
 const inboxItems: InboxItem[] = [
@@ -169,28 +169,28 @@ const columns: ColumnDef<Order>[] = [
       <p className="text-[16px] text-[#4A4C56]">{row.original.days} Days</p>
     ),
   },
- {
-  accessorKey: "status",
-  header: "Status",
-  cell: ({ row }) => {
-    const status = row.original.status;
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.original.status;
 
-    const statusStyles: Record<OrderStatus, string> = {
-      pending: "bg-[#EEFAE9] text-[#52C41A]",
-      "In progress": "bg-[#E8FFDA] text-[#52C41A]",
-      Cencel: "bg-[#FFECEC] text-[#FF4D4F]",
-      Delivered: "bg-[#FF4D4F] text-white",
-    };
+      const statusStyles: Record<OrderStatus, string> = {
+        pending: "bg-[#EEFAE9] text-[#52C41A]",
+        "In progress": "bg-[#E8FFDA] text-[#52C41A]",
+        Cencel: "bg-[#FFECEC] text-[#FF4D4F]",
+        Delivered: "bg-[#FF4D4F] text-white",
+      };
 
-    return (
-      <button
-        className={`w-[130px] text-center justify-center inline-flex items-center rounded-lg px-4 py-2 text-[14px] font-medium ${statusStyles[status]}`}
-      >
-        {status}
-      </button>
-    );
-  },
-
+      return (
+        <button
+          className={`w-[130px] text-center justify-center inline-flex items-center rounded-lg px-4 py-2 text-[14px] font-medium ${statusStyles[status]}`}
+        >
+          {status}
+        </button>
+      );
+    },
+  }
 ];
 
 export default function EditorDashboard() {
@@ -337,37 +337,38 @@ export default function EditorDashboard() {
             </div>
           </div> */}
 
-                  <p className="text-[12px] text-gray-400 whitespace-nowrap">
+          {/* <p className="text-[12px] text-gray-400 whitespace-nowrap">
                     {item.time}
                   </p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
-        {/* RIGHT SIDE */}
-        <div className="w-full lg:w-6/5">
-          <h1 className="text-2xl font-semibold">Welcome, Jane Cooper</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Find important messages, tips, and links to helpful resources here:
-          </p>
+          {/* RIGHT SIDE */}
+          <div className="w-full lg:w-6/5">
+            <h1 className="text-2xl font-semibold">Welcome, Jane Cooper</h1>
+            <p className="text-sm text-gray-500 mt-1">
+              Find important messages, tips, and links to helpful resources here:
+            </p>
 
-          {/* Summary */}
-          <div className="my-5 rounded-xl bg-[#ffe1e1] px-6 py-6 text-[18px] font-medium text-[#FF4D4F]">
-            Active orders {totalActiveOrders} (${totalAmount})
-          </div>
+            {/* Summary */}
+            <div className="my-5 rounded-xl bg-[#ffe1e1] px-6 py-6 text-[18px] font-medium text-[#FF4D4F]">
+              Active orders {totalActiveOrders} (${totalAmount})
+            </div>
 
-          {/* ✅ Orders Table */}
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
-            <DataTable
-              columns={columns}
-              data={orders}
-              page={1}
-              pageSize={5}
-              total={orders.length}
-              onPageChange={() => {}}
-            />
+            {/* ✅ Orders Table */}
+            <div className="rounded-2xl bg-white p-6 shadow-sm">
+              <DataTable
+                columns={columns}
+                data={orders}
+                page={1}
+                pageSize={5}
+                total={orders.length}
+                onPageChange={() => { }}
+              />
+            </div>
           </div>
         </div>
       </div>
