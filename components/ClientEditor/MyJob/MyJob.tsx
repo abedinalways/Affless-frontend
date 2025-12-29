@@ -112,7 +112,7 @@ export default function MyProposal() {
   return (
     <div className="containers py-8">
       {/* DESKTOP */}
-      <div className="hidden md:block">
+      <div className="">
         <h2 className="text-xl font-semibold mb-4">Hire Request</h2>
 
         {/* FILTER BUTTONS */}
@@ -205,7 +205,7 @@ export default function MyProposal() {
       </div>
 
       {/* MOBILE */}
-      <div className="block md:hidden">
+      <div className="hidden">
         <div className="space-y-3">
           <div className="flex justify-between">
             <p className="text-[16px] font-semibold">Hire Request</p>

@@ -184,9 +184,9 @@ export default function EditorDashboardHeader() {
 
             {mobileDropdown && (
               <ul className="mt-2 ml-3 space-y-3 text-base">
-                <li><Link href="/editor/my-job" onClick={() => setMobileMenu(false)}>My Job</Link></li>
-                <li><Link href="/editor/my-proposal" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
-                <li><Link href="/editor/find-job" onClick={() => setMobileMenu(false)}>Find Job</Link></li>
+                <li><Link href="/editor/hire-request" onClick={() => setMobileMenu(false)}>My Job</Link></li>
+                <li><Link href="/editor/myproposal" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
+                <li><Link href="/editor/browse-job" onClick={() => setMobileMenu(false)}>Find Job</Link></li>
                 <li><Link href="/editor/editor-profile" onClick={() => setMobileMenu(false)}>Profile</Link></li>
                 <li><Link href="/editor/earning" onClick={() => setMobileMenu(false)}>Earning</Link></li>
               </ul>
