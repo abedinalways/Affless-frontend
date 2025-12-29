@@ -12,7 +12,7 @@ export default function PortfolioSection() {
     <div className="w-full rounded-2xl border border-gray-200 bg-white p-6">
       {/* ✅ Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-[22px] font-semibold text-[#222]">
+        <h3 className="text-[24px] font-medium text-[#333] leading-150%">
           Portfolio of past projects
         </h3>
 

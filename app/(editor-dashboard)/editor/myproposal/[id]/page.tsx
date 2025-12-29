@@ -127,8 +127,8 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           title="Graphic Designer for ongoing job"
           bgImage="/findEditor.jpg"
           links={[
-            { label: "Home", href: "/" },
-            { label: "My Job" },
+            { label: "Home", href: "/editor" },
+            { label: "My Job",href:"/editor/myproposal"}, 
             { label: "In Progress" }
 
           ]}

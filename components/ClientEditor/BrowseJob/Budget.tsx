@@ -14,12 +14,12 @@ export default function BudgetPage() {
         <p className="text-[30px] log:text-[40px] font-bold text-gray-900">$350.00</p>
 
         {/* Accept Button */}
-        <button className="w-full bg-green-600 text-white py-4 rounded-full text-lg font-medium hover:bg-green-700 transition">
-          Accept
+        <button className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition">
+          Submit a Proposal
         </button>
 
         {/* Wishlist Button */}
-        <button className="w-full border border-red-300 text-red-500 py-4 rounded-full text-lg font-normal text-[16px] bg-red-50 hover:bg-red-100 transition">
+        <button className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition">
           Wishlist Project
         </button>
 

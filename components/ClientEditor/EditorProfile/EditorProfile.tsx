@@ -14,8 +14,18 @@ import AddSkillsModal from "./AddSkill";
 
 import Image from "next/image";
 import PortfolioSection from "./PortfolioSection";
+import ReviewBreakdown from "@/components/reusable/reviews";
+import ReviewProfile from "./ReviewProfile";
 
 export default function ProfilePage() {
+  const reviewData = [
+        { stars: 5, count: 638 },
+        { stars: 4, count: 243 },
+        { stars: 3, count: 121 },
+        { stars: 2, count: 43 },
+        { stars: 1, count: 12 },
+    ];
+
   const [profile, setProfile] = useState<ProfileState>({
     name: "Zeeshan",
     rating: 4.9,
@@ -46,8 +56,8 @@ export default function ProfilePage() {
   const [openSkills, setOpenSkills] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7]">
-      <div className="containers py-10 space-y-6">
+    <div className="min-h-screen containers  bg-[#F7F7F7]">
+      <div className="py-10 space-y-6">
         <ProfileHeaderCard
           profile={profile}
           onEdit={() => setOpenEditProfile(true)}
@@ -79,7 +89,7 @@ export default function ProfilePage() {
             {skills.map((skill, idx) => (
               <span
                 key={idx}
-                className="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700"
+                className="px-4 py-2 bg-gray-100 rounded-lg text-sm text-gray-700"
               >
                 {skill}
               </span>
@@ -121,6 +131,12 @@ export default function ProfilePage() {
           setSkills((prev) => [...new Set([...prev, ...newSkills])])
         }
       />
+      <div className="py-10">
+                <ReviewBreakdown reviewe={reviewData} title="Reviews" />
+            </div>
+            <div className="">
+              <ReviewProfile/>
+            </div>
     </div>
   );
 }

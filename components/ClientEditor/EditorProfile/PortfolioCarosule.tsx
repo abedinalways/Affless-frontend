@@ -16,21 +16,13 @@ const portfolioItems = [
     image: "/images/protfolio.png",
     title: "Antec Biogas - Empowering renewable energy",
     role: "Video Editor",
-    desc: `I had the pleasure of working with Antec, a company that provides turnkey solutions for biomass owners to convert waste into energy. Their primary goal was to create a website that effectively communicates their expertise in building and operating high-performing biogas plants, as well as producing biogas, biomethane, and biofertilizer.
-    
-One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec's capabilities and successful projects.
-
-The result is a professional, informative, and visually appealing website that helps Antec showcase their expertise and attract potential clients interested in sustainable energy solutions.`,
+    desc: `I had the pleasure of working with Antec, a company that provides turnkey solutions for biomass owners to convert waste into energy. Their primary goal was to create a website that effectively communicates their expertise in building and operating high-performing biogas plants, as well as producing biogas, biomethane, and biofertilizer.One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec's capabilities and successful projects.The result is a professional, informative, and visually appealing website that helps Antec showcase their expertise and attract potential clients interested in sustainable energy solutions.`,
   },
    {
     image: "/images/protfolio.png",
     title: "Antec Biogas - Empowering renewable energy",
     role: "Video Editor",
-    desc: `I had the pleasure of working with Antec, a company that provides turnkey solutions for biomass owners to convert waste into energy. Their primary goal was to create a website that effectively communicates their expertise in building and operating high-performing biogas plants, as well as producing biogas, biomethane, and biofertilizer.
-    
-One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec's capabilities and successful projects.
-
-The result is a professional, informative, and visually appealing website that helps Antec showcase their expertise and attract potential clients interested in sustainable energy solutions.`,
+    desc: `I had the pleasure of working with Antec, a company that provides turnkey solutions for biomass owners to convert waste into energy. Their primary goal was to create a website that effectively communicates their expertise in building and operating high-performing biogas plants, as well as producing biogas, biomethane, and biofertilizer.One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec's capabilities and successful projects.The result is a professional, informative, and visually appealing website that helps Antec showcase their expertise and attract potential clients interested in sustainable energy solutions.`,
   },
 ];
 
@@ -53,11 +45,11 @@ export default function PortfolioCarousel() {
 
               {/* ✅ Right Content */}
               <div className="space-y-4">
-                <h3 className="text-[28px] font-semibold text-[#222] leading-snug">
+                <h3 className="text-[24px] font-medium text-[#333] leading-150%">
                   {item.title}
                 </h3>
 
-                <p className="text-sm font-medium text-gray-600">
+                <p className="text-[16px] font-medium text-[#333] leading-150%">
                   {item.role}
                 </p>
 

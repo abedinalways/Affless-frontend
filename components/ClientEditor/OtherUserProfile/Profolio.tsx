@@ -35,7 +35,7 @@ const portfolioItems = [
 export default function Portfolio() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-gray-900">Portfolio</h3>
+      <h3 className="text-2xl font-medium text-[#333] leading-150% pt-8">Portfolio</h3>
 
       {/* ✅ Carousel wraps full card */}
       <Carousel className="relative w-full" opts={{ loop: true }}>
@@ -56,7 +56,7 @@ export default function Portfolio() {
 
                   {/* ✅ RIGHT CONTENT */}
                   <div className="space-y-3 py-10">
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-2xl font-medium text-[#333] leading-150%">
                       {item.title}
                     </h3>
 

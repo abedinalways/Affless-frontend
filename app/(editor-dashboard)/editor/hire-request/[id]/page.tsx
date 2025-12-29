@@ -1,5 +1,6 @@
 "use client";
 
+import PageBanner from "@/components/reusable/Bgbanner";
 import BidCard from "@/components/reusable/Bids";
 import { File, FileText } from "lucide-react";
 import React, { useState } from "react";
@@ -61,7 +62,19 @@ export default function HireDetails({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div className="containers py-10 flex flex-col lg:flex-row gap-10">
+    <div className="">
+        <div>
+        <PageBanner
+
+          title="Hire Request Details"
+          bgImage="/findEditor.jpg"
+          links={[
+            { label: "Home", href: "/editor" },
+            { label: "Hire Request Details" }
+          ]}
+        />
+      </div>
+      <div className="containers py-10 flex flex-col lg:flex-row gap-10">
 
       {/* LEFT SIDE */}
       <div className="lg:w-2/3 space-y-10">
@@ -159,13 +172,14 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           <h3 className="text-gray-500 font-medium">Budget</h3>
           <p className="text-[34px] font-bold">$350.00</p>
 
-          <button className="w-full py-3 rounded-lg bg-[#FF4D4F] text-white font-medium">
-            Accept
-          </button>
+          <button className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition">
+          Accept
+        </button>
 
-          <button className="w-full py-3 rounded-lg bg-[#F9E9EA] text-[#FF4D4F] font-medium">
-            Reject
-          </button>
+        {/* Wishlist Button */}
+        <button className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition">
+          Reject
+        </button>
 
           <div className="pt-2 space-y-1 text-sm">
             <p className="flex justify-between"><span>Project Level:</span><span>Expensive</span></p>
@@ -201,6 +215,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 }

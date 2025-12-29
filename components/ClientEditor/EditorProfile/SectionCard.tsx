@@ -25,9 +25,9 @@ export default function SectionCard({
     <div className="w-full rounded-xl border border-gray-200 bg-white p-6">
       <div className="flex items-start justify-between gap-6">
         <div className="flex-1 space-y-2">
-          <h3 className="text-[18px] font-semibold text-[#222]">{title}</h3>
+          <h3 className="text-[24px] font-medium text-[#333] leading-150%">{title}</h3>
 
-          {desc && <p className="text-sm font-medium text-gray-700">{desc}</p>}
+          {desc && <p className="text-[18px] font-medium text-[#1D1F2C]">{desc}</p>}
           {institute && (
             <p className="text-sm leading-relaxed text-gray-600">{institute}</p>
           )}
