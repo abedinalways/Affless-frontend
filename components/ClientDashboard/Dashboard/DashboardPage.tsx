@@ -85,17 +85,17 @@ export default function ClientDashboard() {
 
             {/* Payment Overview */}
             <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <h3 className="text-[18px] font-medium text-[#333] leading-130%">Payment Overview</h3>
+              <h3 className="text-[18px] font-medium text-[#333] leading-130%">Balance</h3>
               <p className="text-2xl font-medium leading-150% text-[#333] text-center py-4">US$0</p>
               <div className="flex justify-center">
-                <button className="rounded-lg border border-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-[#ff4b4b]">
-                  View Details
+                <button className="rounded-lg border border-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-[#ff4b4b] cursor-pointer">
+                  Add Funds
                 </button>
               </div>
             </div>
 
             {/* Inbox */}
-            <div className="rounded-2xl bg-white p-4 shadow-sm">
+            {/* <div className="rounded-2xl bg-white p-4 shadow-sm">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-medium text-[18px] text-[#333]">Inbox</h3>
                 <button className="text-[14px] font-normal text-[#FF4D4F]">View All</button>
@@ -117,7 +117,7 @@ export default function ClientDashboard() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* RIGHT COLUMN */}

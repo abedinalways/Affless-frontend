@@ -19,6 +19,13 @@ export default function EditProfileModal({
   const [temp, setTemp] = useState<ProfileState>(value);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
+  const truncatedFileName = useMemo(() => {
+    if (!avatarFile?.name) return "No file selected";
+    return avatarFile.name.length > 10
+      ? `${avatarFile.name.slice(0, 10)}...`
+      : avatarFile.name;
+  }, [avatarFile]);
+
   useEffect(() => setTemp(value), [value]);
 
   const avatarPreview = useMemo(() => {
@@ -55,9 +62,17 @@ export default function EditProfileModal({
 
             <input
               type="file"
+              id="profile"
               accept="image/*"
               onChange={(e) => setAvatarFile(e.target.files?.[0] ?? null)}
+              className="hidden"
             />
+            <div className="flex items-center gap-3">
+              <label htmlFor="profile" className="cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                Choose File
+              </label>
+              <span className="text-sm text-gray-600 truncate capitalize">{truncatedFileName}</span>
+            </div>
           </div>
         </div>
 

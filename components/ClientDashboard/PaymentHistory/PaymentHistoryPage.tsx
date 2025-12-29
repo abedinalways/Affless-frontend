@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 // Define the type for the payment data
 interface Payment {
@@ -17,7 +18,7 @@ export default function PaymentHistoryPage() {
     { id: 1, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "$55", day: "5 Days", status: "Revision" },
     { id: 2, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "$75", day: "3 Days", status: "Cancel" },
     { id: 3, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "$150", day: "10 Days", status: "Revision" },
-      { id: 3, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "$55", day: "5 Days", status: "Revision" },
+    { id: 3, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "$55", day: "5 Days", status: "Revision" },
     { id: 4, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "$75", day: "3 Days", status: "Cancel" },
     { id: 5, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "$150", day: "10 Days", status: "Revision" },
   ];
@@ -30,9 +31,9 @@ export default function PaymentHistoryPage() {
 
       {/* ---------- TOP CARDS ---------- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-        
+
         {/* Left Card */}
-        <div className="bg-white rounded-xl h-[220px] flex items-center justify-center shadow-sm">
+        <div className="bg-white rounded-xl min-h-[200px] h-full flex items-center justify-center shadow-sm">
           <p className="text-3xl font-semibold">US$323.00</p>
         </div>
 
@@ -50,7 +51,7 @@ export default function PaymentHistoryPage() {
       {/* ---------- PAYMENT ROWS (Figma Style) ---------- */}
       <div className="flex justify-between pb-8">
         <p className="font-medium text-[24px] leading-150%">Job</p>
-        <p className="text-sm font-normal leading-150%">See More</p>
+        <Link href="/client/find-editor" className="text-sm font-normal leading-150% text-gray-700 bg-gray-100 px-4 py-2 rounded-lg hover:bg-[#ff4b4b] hover:text-white duration-300 transition-all">See More</Link>
       </div>
       <div className="space-y-3">
         {payments.map((payment) => (

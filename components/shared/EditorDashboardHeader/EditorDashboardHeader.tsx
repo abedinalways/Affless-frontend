@@ -7,22 +7,30 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdKeyboardArrowDown, MdMailOutline } from "react-icons/md";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 import Inbox from "@/components/ClientEditor/Inbox/Inbox";
+import { FiLogOut } from "react-icons/fi";
 
 export default function EditorDashboardHeader() {
   const [open, setOpen] = useState(false); // Desktop dropdown
   const [mobileMenu, setMobileMenu] = useState(false); // Mobile menu
   const [mobileDropdown, setMobileDropdown] = useState(false); // Mobile dropdown
+  const [profileDropdown, setProfileDropdown] = useState(false); // Profile dropdown
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { setUser } = useUser();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const profileDropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Close desktop dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setOpen(false);
+      }
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(e.target as Node)) {
+        setProfileDropdown(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -42,7 +50,15 @@ export default function EditorDashboardHeader() {
 
   const handleBecomeEditorClick = () => {
     // Redirect to the editor dashboard
-    router.push("/editor-dashboard");
+    setMobileMenu(false);
+    router.push("/client");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('userType');
+    localStorage.removeItem('isLogin');
+    setUser('');
+    router.push('/');
   };
 
   return (
@@ -88,11 +104,11 @@ export default function EditorDashboardHeader() {
 
                     {open && (
                       <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                        <Link href="/editor/hire-request" className="block px-4 py-2 hover:bg-gray-100">My Job</Link>
+                        <Link href="/editor/hire-request" className="block px-4 py-2 hover:bg-gray-100">My Jobs</Link>
                         <Link href="/editor/myproposal" className="block px-4 py-2 hover:bg-gray-100">My Proposals</Link>
-                        <Link href="/editor/browse-job" className="block px-4 py-2 hover:bg-gray-100">Find Job</Link>
-                        <Link href="/editor/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
-                        <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100">Earning</Link>
+                        <Link href="/editor/browse-job" className="block px-4 py-2 hover:bg-gray-100">Find Jobs</Link>
+                        <Link href="/editor/editor-profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
+                        <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100">Earnings</Link>
                       </div>
                     )}
                   </div>
@@ -129,14 +145,27 @@ export default function EditorDashboardHeader() {
                 </div>
 
               </div>
-              <Link href="/editor/editor-profile" className="flex">
-                <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
-              </Link>
+              
+              {/* Profile Dropdown */}
+              <div className="relative" ref={profileDropdownRef}>
+                <button onClick={() => setProfileDropdown(!profileDropdown)} className="flex">
+                  <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
+                </button>
+                
+                {profileDropdown && (
+                  <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
+                    <Link href="/editor/editor-profile" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Profile</Link>
+                    <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Earning</Link>
+                    <hr className="my-2" />
+                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">Logout</button>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* ---------- MOBILE HAMBURGER ---------- */}
             <button
-              className="lg:hidden text-3xl"
+              className="lg:hidden text-3xl cursor-pointer"
               onClick={() => setMobileMenu(true)}
             >
               <HiOutlineMenu />
@@ -147,25 +176,25 @@ export default function EditorDashboardHeader() {
 
         {/* ========== MOBILE MENU OVERLAY ========== */}
         {mobileMenu && (
-          <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setMobileMenu(false)} />
+          <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-xs" onClick={() => setMobileMenu(false)} />
         )}
 
         {/* ========== MOBILE MENU SLIDE ========== */}
         <div
-          className={`fixed top-0 left-0 w-full h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "-translate-x-full"
+          className={`fixed top-0 left-0 w-fit min-w-[250px] h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "-translate-x-full"
             }`}
         >
 
           {/* Close Button */}
-          <button className="text-3xl mb-5" onClick={() => setMobileMenu(false)}>
+          <button className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 right-1 duration-300" onClick={() => setMobileMenu(false)}>
             <HiX />
           </button>
 
           {/* Mobile Items */}
-          <ul className="space-y-4 text-lg">
+          <ul className="text-lg pt-4">
 
             <li>
-              <Link href="/editor/dashboard" onClick={() => setMobileMenu(false)}>
+              <Link href="/editor" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>
                 Dashboard
               </Link>
             </li>
@@ -173,7 +202,7 @@ export default function EditorDashboardHeader() {
             {/* Mobile dropdown */}
             <li>
               <button
-                className="flex items-center justify-between w-full"
+                className="flex items-center justify-between w-full px-3 py-2 hover:bg-gray-100 duration-300 cursor-pointer"
                 onClick={() => setMobileDropdown(!mobileDropdown)}
               >
                 Job
@@ -183,25 +212,34 @@ export default function EditorDashboardHeader() {
               </button>
 
               {mobileDropdown && (
-                <ul className="mt-2 ml-3 space-y-3 text-base">
-                  <li><Link href="/editor/my-job" onClick={() => setMobileMenu(false)}>My Job</Link></li>
-                  <li><Link href="/editor/my-proposal" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
-                  <li><Link href="/editor/find-job" onClick={() => setMobileMenu(false)}>Find Job</Link></li>
-                  <li><Link href="#" onClick={() => setMobileMenu(false)}>Profile</Link></li>
-                  <li><Link href="/editor/earning" onClick={() => setMobileMenu(false)}>Earning</Link></li>
+                <ul className="mt-2 ml-3 text-base">
+                  <li><Link href="/editor/hire-request" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>My Jobs</Link></li>
+                  <li><Link href="/editor/myproposal" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
+                  <li><Link href="/editor/browse-job" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Find Jobs</Link></li>
+                  <li><Link href="/editor/editor-profile" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Profile</Link></li>
+                  <li><Link href="/editor/earning" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Earnings</Link></li>
                 </ul>
               )}
             </li>
 
             <li>
-              <Link href="/pricing" onClick={() => setMobileMenu(false)}>
+              <Link href="/pricing" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>
                 Pricing
               </Link>
             </li>
 
-            <li >
-              <button onClick={handleBecomeEditorClick} className="cursor-pointer">
-                Become an Editor
+            <li>
+              <button onClick={handleBecomeEditorClick} className="cursor-pointer px-3 py-2 hover:bg-gray-100 duration-300 w-full text-left">
+                Become an client
+              </button>
+            </li>
+
+            <li className="pt-4 border-t mt-4 flex justify-center">
+              <button onClick={handleLogout} className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer">
+                <FiLogOut />
+                <span>
+                  Logout
+                </span>
               </button>
             </li>
           </ul>

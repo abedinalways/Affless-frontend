@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Link from "next/link";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -40,11 +41,9 @@ export default function ContactUs() {
                   </p>
 
                   <div className="flex flex-wrap items-center gap-[42px] mt-8">
-                    <button className="bg-[#FF4D4F] text-white p-2.5 rounded-xl text-[16px] font-normal leading-[150%]">
+                    <Link href="/help-center" className="bg-[#FF4D4F] text-white p-2.5 rounded-xl text-[16px] font-normal leading-[150%]">
                       Contact Support
-                    </button>
-
-
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -29,7 +29,7 @@ export default function EditAboutModal({
         <textarea
           value={temp}
           onChange={(e) => setTemp(e.target.value)}
-          className="w-full min-h-[180px] border rounded-lg p-4 outline-none"
+          className="w-full min-h-[180px] border rounded-lg p-4 outline-none resize-none"
           placeholder="Write about you..."
         />
 
@@ -37,7 +37,7 @@ export default function EditAboutModal({
           <button
             type="button"
             onClick={onClose}
-            className="w-full rounded-lg border border-gray-200 py-3 font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer"
+            className="w-full rounded-lg border border-gray-200 py-3 font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer "
           >
             Cancel
           </button>
