@@ -4,6 +4,7 @@ import PayoutSettingsModal from "@/components/reusable/PaymentSettingModal";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 // ---------- Job row type ----------
 type JobRow = {
@@ -30,6 +31,7 @@ export default function Earnings() {
 
   return (
     <div className="containers py-10">
+      <Toaster />
       <h1 className="text-3xl font-semibold mb-6">Earnings</h1>
 
       {/* ------- Top Section ------- */}

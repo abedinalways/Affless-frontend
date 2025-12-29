@@ -7,21 +7,29 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdKeyboardArrowDown, MdMailOutline } from "react-icons/md";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
+import { FiLogOut } from "react-icons/fi";
 
 export default function ClientDashboardHeader() {
   const [open, setOpen] = useState(false); // Desktop dropdown
   const [mobileMenu, setMobileMenu] = useState(false); // Mobile menu
   const [mobileDropdown, setMobileDropdown] = useState(false); // Mobile dropdown
+  const [profileDropdown, setProfileDropdown] = useState(false); // Profile dropdown
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { setUser } = useUser();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const profileDropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Close desktop dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setOpen(false);
+      }
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(e.target as Node)) {
+        setProfileDropdown(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -41,11 +49,19 @@ export default function ClientDashboardHeader() {
 
   const handleBecomeEditorClick = () => {
     // Redirect to the editor dashboard
+    setMobileMenu(false);
     router.push("/editor");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('userType');
+    localStorage.removeItem('isLogin');
+    setUser('');
+    router.push('/');
+  };
+
   return (
-    <div className="containers sticky top-10 ">
+    <div className="containers bg-white">
       <nav>
         <div className="flex justify-between items-center py-3">
 
@@ -54,11 +70,11 @@ export default function ClientDashboardHeader() {
 
             {/* Logo */}
             <Link href="/">
-              <div className="w-32 h-10.5 flex justify-center items-center overflow-hidden">
+              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
-                  width={120}
-                  height={42}
+                  width={100}
+                  height={100}
                   alt="Logo"
                   className=" object-cover justify-start"
                 />
@@ -109,16 +125,28 @@ export default function ClientDashboardHeader() {
             </button>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
             <Link href="/client/message">
-                  <MdMailOutline className="w-7 h-7 cursor-pointer" />
+              <MdMailOutline className="w-7 h-7 cursor-pointer" />
             </Link>
-            <Link href="/client/profile" className="flex">
-              <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
-            </Link>
+
+            {/* Profile Dropdown */}
+            <div className="relative" ref={profileDropdownRef}>
+              <button onClick={() => setProfileDropdown(!profileDropdown)} className="flex">
+                <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
+              </button>
+
+              {profileDropdown && (
+                <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
+                  <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Profile</Link>
+                  <hr className="my-2" />
+                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">Logout</button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* ---------- MOBILE HAMBURGER ---------- */}
           <button
-            className="lg:hidden text-3xl"
+            className="lg:hidden text-3xl cursor-pointer"
             onClick={() => setMobileMenu(true)}
           >
             <HiOutlineMenu />
@@ -129,24 +157,24 @@ export default function ClientDashboardHeader() {
 
       {/* ========== MOBILE MENU OVERLAY ========== */}
       {mobileMenu && (
-        <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setMobileMenu(false)} />
+        <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-xs" onClick={() => setMobileMenu(false)} />
       )}
 
       {/* ========== MOBILE MENU SLIDE ========== */}
       <div
-        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 py-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-full"
           }`}
       >
         {/* Close Button */}
-        <button className="text-3xl mb-5" onClick={() => setMobileMenu(false)}>
+        <button className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 left-1 duration-300" title="Close menu" onClick={() => setMobileMenu(false)}>
           <HiX />
         </button>
 
         {/* Mobile Items */}
-        <ul className="space-y-4 text-lg">
+        <ul className="text-lg pt-3">
 
           <li>
-            <Link href="/client/dashboard" onClick={() => setMobileMenu(false)}>
+            <Link href="/client/dashboard" onClick={() => setMobileMenu(false)} className="block px-4 py-2 hover:bg-gray-100 duration-300">
               Dashboard
             </Link>
           </li>
@@ -154,8 +182,8 @@ export default function ClientDashboardHeader() {
           {/* Mobile dropdown */}
           <li>
             <button
-              className="flex items-center justify-between w-full"
-              onClick={() => setMobileDropdown(!mobileDropdown)}
+              className={`flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 duration-300 cursor-pointer`}
+              onClick={() => setMobileDropdown(prev => !prev)}
             >
               My Business
               <MdKeyboardArrowDown
@@ -164,25 +192,34 @@ export default function ClientDashboardHeader() {
             </button>
 
             {mobileDropdown && (
-              <ul className="mt-2 ml-3 space-y-3 text-base">
-                <li><Link href="/client/manage-job" onClick={() => setMobileMenu(false)}>Manage Job</Link></li>
-                <li><Link href="/client/find-editor" onClick={() => setMobileMenu(false)}>Find Editor</Link></li>
-                <li><Link href="/client/job-proposal" onClick={() => setMobileMenu(false)}>Job Proposal</Link></li>
-                <li><Link href="/client/payment-history" onClick={() => setMobileMenu(false)}>Payment History</Link></li>
-                <li><Link href="/client/profile" onClick={() => setMobileMenu(false)}>Profile</Link></li>
+              <ul className="mt-2 ml-3 text-base">
+                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/manage-job" onClick={() => setMobileMenu(false)}>Manage Job</Link></li>
+                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/find-editor" onClick={() => setMobileMenu(false)}>Find Editor</Link></li>
+                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/job-proposal" onClick={() => setMobileMenu(false)}>Job Proposal</Link></li>
+                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/payment-history" onClick={() => setMobileMenu(false)}>Payment History</Link></li>
+                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/profile" onClick={() => setMobileMenu(false)}>Profile</Link></li>
               </ul>
             )}
           </li>
 
           <li>
-            <Link href="/pricing" onClick={() => setMobileMenu(false)}>
+            <Link href="/pricing" onClick={() => setMobileMenu(false)}  className="block px-4 py-2 hover:bg-gray-100 duration-300">
               Pricing
             </Link>
           </li>
 
-          <li >
-            <button onClick={handleBecomeEditorClick} className="cursor-pointer">
+          <li className="mb-4">
+            <button onClick={handleBecomeEditorClick} className="cursor-pointer px-4 py-2 hover:bg-gray-100 duration-300 w-full text-left">
               Become an Editor
+            </button>
+          </li>
+
+          <li className="pt-4 border-t flex justify-center">
+            <button onClick={handleLogout} className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer">
+              <FiLogOut />
+              <span>
+                Logout
+              </span>
             </button>
           </li>
         </ul>

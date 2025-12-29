@@ -10,7 +10,7 @@ interface ProposalRow {
   service: string;
   amount: string;
   time: string;
-  status: "Progress" | "Pending" | "Cancellation";
+  status: "ALL" | "Progress" | "Pending" | "Cancellation";
   thumbnail: string;
 }
 
@@ -84,6 +84,7 @@ const Proposal: ProposalRow[] = [
 ];
 
 const statusBadgeClasses: Record<ProposalRow["status"], string> = {
+  ALL: "",
   Progress: "bg-[#E8FFDA] text-[#52C41A]",
   Pending: "bg-[#FFF7E8] text-[#FAAD14]",
   Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
@@ -122,10 +123,20 @@ export default function MyProposal() {
         {/* FILTER BUTTONS */}
         <div className="flex gap-4 mb-6">
           <button
+            onClick={() => handleFilterClick("ALL")}
+            className={`
+              w-[150px] py-2 rounded-lg text-center font-medium bg-white cursor-pointer
+              ${statusFilter === "ALL" ? "shadow-md" : ""}
+            `}
+          >
+            ALL
+          </button>
+
+          <button
             onClick={() => handleFilterClick("Pending")}
             className={`
-              w-[150px] py-2 rounded-lg text-center font-medium
-              ${statusFilter === "Pending" ? "bg-white shadow-md" : "bg-transparent"}
+              w-[150px] py-2 rounded-lg text-center font-medium bg-white cursor-pointer
+              ${statusFilter === "Pending" ? "shadow-md" : ""}
             `}
           >
             Pending
@@ -134,8 +145,8 @@ export default function MyProposal() {
           <button
             onClick={() => handleFilterClick("Progress")}
             className={`
-              w-[150px] py-2 rounded-lg text-center font-medium
-              ${statusFilter === "Progress" ? "bg-white shadow-md" : "bg-transparent"}
+              w-[150px] py-2 rounded-lg text-center font-medium bg-white cursor-pointer
+              ${statusFilter === "Progress" ? "shadow-md" : ""}
             `}
           >
             In Progress
@@ -144,8 +155,8 @@ export default function MyProposal() {
           <button
             onClick={() => handleFilterClick("Cancellation")}
             className={`
-              w-[150px] py-2 rounded-lg text-center font-medium
-              ${statusFilter === "Cancellation" ? "bg-white shadow-md" : "bg-transparent"}
+              w-[150px] py-2 rounded-lg text-center font-medium bg-white cursor-pointer
+              ${statusFilter === "Cancellation" ? "shadow-md" : ""}
             `}
           >
             Cancellation
@@ -179,7 +190,7 @@ export default function MyProposal() {
                 return (
                   <span
                     className={`
-                      inline-block w-[160px] px-4 py-1 rounded-md
+                      inline-block w-40 px-4 py-1 rounded-md
                       text-[14px] font-medium text-center
                       ${statusBadgeClasses[status]}
                     `}

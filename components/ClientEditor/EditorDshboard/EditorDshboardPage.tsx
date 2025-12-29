@@ -115,38 +115,38 @@ const columns: ColumnDef<Order>[] = [
     ),
   },
 
-{
-  accessorKey: "status",
-  header: "Status",
-  cell: ({ row }) => {
-    const status = row.original.status;
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.original.status;
 
-    const statusConfig: Record<OrderStatus, { text: string; classes: string }> = {
-      "In progress": {
-        text: "In Progress",
-        classes: "bg-[#E8FFDA] text-[#52C41A]",  // Light green
-      },
-      Cencel: {
-        text: "Cancel",
-        classes: "bg-[#FFECEC] text-[#FF4D4F]", // Light red
-      },
-      Delivered: {
-        text: "Delivered",
-        classes: "bg-[#FF4D4F] text-white", // Solid red
-      },
-    };
+      const statusConfig: Record<OrderStatus, { text: string; classes: string }> = {
+        "In progress": {
+          text: "In Progress",
+          classes: "bg-[#E8FFDA] text-[#52C41A]",  // Light green
+        },
+        Cencel: {
+          text: "Cancel",
+          classes: "bg-[#FFECEC] text-[#FF4D4F]", // Light red
+        },
+        Delivered: {
+          text: "Delivered",
+          classes: "bg-[#FF4D4F] text-white", // Solid red
+        },
+      };
 
-    const current = statusConfig[status];
+      const current = statusConfig[status];
 
-    return (
-      <button
-        className={`rounded-lg px-5 py-2 text-[16px] font-medium ${current.classes}`}
-      >
-        {current.text}
-      </button>
-    );
+      return (
+        <button
+          className={`rounded-lg px-5 py-2 text-[16px] font-medium ${current.classes}`}
+        >
+          {current.text}
+        </button>
+      );
+    },
   },
-},
 
 
 
@@ -160,7 +160,6 @@ export default function EditorDashboard() {
   return (
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
       <div className="mx-auto containers flex flex-col gap-8 lg:flex-row">
-
         {/* LEFT SIDE — SAME AS YOUR CODE */}
         {/* -------------------------------------- */}
         <div className="w-full space-y-6 lg:w-2/5">
@@ -187,12 +186,12 @@ export default function EditorDashboard() {
                   Match Me with a Client Quickly
                 </button>
               </Link>
-              <Link href="#" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
-                <button className="flex gap-2 text-[#FF4D4F]  text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] ">
-                  <LockIcon /> Platform Safety Rules  <IoArrowForwardSharp className="mt-1 text-red-500" /></button></Link>
+              <Link href="platform-safety" className="w-full bg-[#FFEEEE] rounded-lg mt-5 cursor-pointer">
+                <button className="flex gap-2 text-[#FF4D4F]  text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] cursor-pointer">
+                  <LockIcon /> Platform Safety Rules  <IoArrowForwardSharp className="mt-1 text-red-500" />
+                </button>
+              </Link>
             </div>
-
-
           </div>
           <div className="bg-[#FFFFFF] p-6 border  rounded-lg shadow-md mx-auto">
             <h3 className="text-[18px] font-medium mb-8 text-[#333]">Level overview</h3>
@@ -215,9 +214,9 @@ export default function EditorDashboard() {
               </div>
             </div>
             <div className="flex justify-center items-center">
-              <button className="w-[178px]  py-2 rounded-lg border border-[#D9D9D9] px-4">
+              <Link href="/editor/editor-profile" className="w-[178px]  py-2 rounded-lg border border-[#D9D9D9] hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300 px-4 text-center">
                 View progress
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -226,7 +225,7 @@ export default function EditorDashboard() {
             <h3 className="text-center font-normal leading-150% text-[#777980] py-8">While unavailable, your Gigs are hidden and you will not receive new orders.</h3>
             <div className="">
               <div className="flex justify-center items-center ">
-                <button className="  py-2 rounded-lg border border-[#D9D9D9] px-4">
+                <button className="  py-2 rounded-lg border border-[#D9D9D9] px-4 hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300">
                   Set your avallablllty
                 </button>
               </div>
@@ -237,50 +236,47 @@ export default function EditorDashboard() {
           <div className="rounded-2xl bg-white p-6 shadow-sm">
             <h3 className="text-[18px] font-medium text-[#333]">Earned in September</h3>
             <p className="text-2xl font-medium text-center py-8">US$0</p>
-            <button className="w-[178px] mx-auto block border rounded-lg py-2.5">
-              Payment
-            </button>
+            <Link href="/editor/withdrow-balance" className="w-[178px] text-center mx-auto block border rounded-lg py-2.5 hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300">
+              Withdraw Balance
+            </Link>
           </div>
 
           {/* Inbox */}
-        <div className="rounded-2xl bg-white p-5 shadow-sm">
-  {/* Header */}
-  <div className="flex items-center justify-between mb-4">
-    <h3 className="text-[18px] font-semibold text-[#333]">Inbox</h3>
-    <button className="text-[14px] text-[#FF4D4F] font-medium">View All</button>
-  </div>
+          {/* <div className="rounded-2xl bg-white p-5 shadow-sm">
 
-  {/* Inbox List */}
-  <div className="space-y-4">
-    {inboxItems.map((item, index) => (
-      <div
-        key={item.id}
-        className={`flex items-start justify-between pb-4 ${
-          index !== inboxItems.length - 1 ? "border-b border-[#EDEDED]" : ""
-        }`}
-      >
-        {/* Left: Image + Name + Message */}
-        <div className="flex items-start gap-3">
-          <Image
-            src={item.img}
-            alt={item.name}
-            width={40}
-            height={40}
-            className="rounded-full object-cover"
-          />
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-[18px] font-semibold text-[#333]">Inbox</h3>
+              <Link href="/editor/inbox" className="text-[14px] text-[#FF4D4F] font-medium cursor-pointer hover:underline">View All</Link>
+            </div>
 
-          <div className="space-y-0.5">
-            <p className="text-[16px] font-semibold text-[#333]">{item.name}</p>
-            <p className="text-[14px] text-[#777980]">{item.message}</p>
-          </div>
-        </div>
+            <div className="space-y-4">
+              {inboxItems.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={`flex items-start justify-between cursor-pointer pb-4 ${index !== inboxItems.length - 1 ? "border-b border-[#EDEDED]" : ""
+                    }`}
+                >
 
-        {/* Right: Time */}
-        <p className="text-[12px] text-gray-400 whitespace-nowrap">{item.time}</p>
-      </div>
-    ))}
-  </div>
-</div>
+                  <div className="flex items-start gap-3">
+                    <Image
+                      src={item.img}
+                      alt={item.name}
+                      width={40}
+                      height={40}
+                      className="rounded-full object-cover"
+                    />
+
+                    <div className="space-y-0.5">
+                      <p className="text-[16px] font-semibold text-[#333]">{item.name}</p>
+                      <p className="text-[14px] text-[#777980]">{item.message}</p>
+                    </div>
+                  </div>
+
+                  <p className="text-[12px] text-gray-400 whitespace-nowrap">{item.time}</p>
+                </div>
+              ))}
+            </div>
+          </div> */}
 
         </div>
 
@@ -335,14 +331,12 @@ export default function EditorDashboard() {
                           In Progress
                         </button>
                       ) : (
-                        <button className="rounded-lg bg-[#FF4D4F] px-5 py-2 text-[16px] font-medium text-white">
+                        <button className="rounded-lg bg-[#FF4D4F] px-5 py-2 text-[16px] font-medium text-white cursor-pointer">
                           Accept
                         </button>
                       )}
                     </div>
                   </div>
-
-
                 </div>
               ))}
             </div>

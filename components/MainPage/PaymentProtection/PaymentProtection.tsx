@@ -4,6 +4,7 @@ import TikmarkIcon from "@/components/Icons/TikmarkIcon";
 import HowPayments from "./HowPayments";
 import WhyUsPamymet from "./WhyUsPayment";
 import { LuShieldCheck } from "react-icons/lu";
+import Link from "next/link";
 
 export default function PaymentProtectionPage() {
   return (
@@ -45,9 +46,9 @@ export default function PaymentProtectionPage() {
                 Your payments are protected until your project is completed to your satisfaction.
               </p>
 
-              <button className="py-3 px-6 bg-[#FF4D4F] rounded-md text-[16px] font-medium">
+              <Link href="#how-it-works" className="py-3 px-6 bg-[#FF4D4F] rounded-md text-[16px] font-medium">
                 Learn How It Works
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -55,7 +56,7 @@ export default function PaymentProtectionPage() {
           <div className="flex justify-center items-center mt-10 md:mt-20">
             <div className="w-[150px] h-[150px] rounded-full bg-white/30 backdrop-blur flex items-center justify-center">
               <div className="w-[70px] h-[70px] rounded-full bg-white flex items-center justify-center">
-                <TikmarkIcon className="w-[32px] h-[32px] text-black" />
+                <TikmarkIcon className="w-8 h-8 text-black" />
               </div>
             </div>
           </div>
@@ -63,7 +64,7 @@ export default function PaymentProtectionPage() {
         </div>
 
       </div>
-      <div>
+      <div id="how-it-works">
         <HowPayments />
       </div>
 
