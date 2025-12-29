@@ -137,15 +137,15 @@ export default function ClientDashboard() {
             </div>
 
             {/* Orders List */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <div className="space-y-4">
+            <div className="rounded-2xl bg-white p-6 shadow-sm grid">
+              <div className="space-y-4 grid overflow-x-auto">
                 {paginatedOrders.map((order) => (
                   <div key={order.id} className="flex flex-col md:flex-row items-center justify-between gap-4 rounded-xl px-2 py-3 hover:bg-gray-50">
 
                     {/* Left */}
-                    <div className="flex items-center gap-4">
-                      <div className="h-14 w-14 overflow-hidden rounded-md">
-                        <Image src={order.img} alt="Order" width={64} height={64} className="h-full w-full object-cover" />
+                    <div className="grid grid-cols-[auto_1fr] min-w-[300px] gap-4">
+                      <div className="h-14 w-14 rounded-md">
+                        <Image src={order.img} alt="Order" width={500} height={500} className="h-full w-full object-cover rounded-md" />
                       </div>
                       <p className="text-sm font-normal text-[#333] text-[16px] leading-150%">
                         {order.title}
@@ -159,7 +159,6 @@ export default function ClientDashboard() {
                         <p className="whitespace-nowrap">{order.bids}</p>
                         <p className="hidden md:block whitespace-nowrap">{order.days} Days</p>
                       </div>
-
                       <div>
                         {order.status === "pending" ? (
                           <button className="rounded-lg bg-[#EEFAE9] px-5 py-2 text-[16px] font-medium text-[#52C41A]">Pending</button>
