@@ -11,6 +11,10 @@ import EditAboutModal from "./EditAboutModal";
 import AddPortfolioModal from "./AddPortfolioModal";
 import AddEducationModal from "./AddEducaton";
 import AddSkillsModal from "./AddSkill";
+
+import Image from "next/image";
+import PortfolioSection from "./PortfolioSection";
+
 export default function ProfilePage() {
   const [profile, setProfile] = useState<ProfileState>({
     name: "Zeeshan",
@@ -25,6 +29,13 @@ export default function ProfilePage() {
   const [about, setAbout] = useState(
     `We are PixelStudio, A full-service design and developing web agency...`
   );
+
+  // ✅ Skills state
+  const [skills, setSkills] = useState<string[]>([
+    "Adobe Premiere Pro",
+    "Adobe After Effects",
+    "Avid Media Composer",
+  ]);
 
   // ✅ Modal States
   const [openEditProfile, setOpenEditProfile] = useState(false);
@@ -44,26 +55,37 @@ export default function ProfilePage() {
 
         <AboutCard about={about} onEdit={() => setOpenEditAbout(true)} />
 
-        <SectionCard
-          title="Portfolio of past projects"
-          desc="Attract and impress potential clients by displaying your best work."
-          btnText="Start portfolio"
-          onClick={() => setOpenPortfolio(true)}
-        />
+        {/* ✅ Portfolio */}
+      <PortfolioSection />
 
+        {/* ✅ Education */}
         <SectionCard
+          desc="Other - CSE"
           title="Education"
-          desc="Back up your skills by adding any educational degrees or programs."
+          institute="Dhaka Polytechnic Institute"
+          country="Bangladesh, 2023"
           btnText="Add education"
           onClick={() => setOpenEducation(true)}
         />
 
+        {/* ✅ Skills */}
         <SectionCard
           title="Skills and expertise"
-          desc="Let your buyers know your skills..."
           btnText="Add Skills and expertise"
           onClick={() => setOpenSkills(true)}
-        />
+          buttonAlign="default"
+        >
+          <div className="flex flex-wrap gap-3">
+            {skills.map((skill, idx) => (
+              <span
+                key={idx}
+                className="px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </SectionCard>
       </div>
 
       {/* ✅ Modals */}
@@ -91,7 +113,14 @@ export default function ProfilePage() {
         onClose={() => setOpenEducation(false)}
       />
 
-      <AddSkillsModal open={openSkills} onClose={() => setOpenSkills(false)} />
+      {/* ✅ Skills Modal - Now saves into state */}
+      <AddSkillsModal
+        open={openSkills}
+        onClose={() => setOpenSkills(false)}
+        onSave={(newSkills) =>
+          setSkills((prev) => [...new Set([...prev, ...newSkills])])
+        }
+      />
     </div>
   );
 }

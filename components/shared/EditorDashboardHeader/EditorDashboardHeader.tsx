@@ -42,7 +42,7 @@ export default function EditorDashboardHeader() {
 
   const handleBecomeEditorClick = () => {
     // Redirect to the editor dashboard
-    router.push("/editor-dashboard");
+    router.push("/client");
   };
 
   return (
@@ -99,7 +99,7 @@ export default function EditorDashboardHeader() {
               </li>
 
               <li>
-                <Link href="/pricing">Pricing</Link>
+                <Link href="#">Pricing</Link>
               </li>
             </ul>
           </div>
@@ -107,7 +107,7 @@ export default function EditorDashboardHeader() {
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <div className="hidden lg:flex gap-8 items-center">
             <button onClick={handleBecomeEditorClick} className="cursor-pointer">
-              Become an Editor
+              Become a Client
             </button>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
           
@@ -194,7 +194,7 @@ export default function EditorDashboardHeader() {
           </li>
 
           <li>
-            <Link href="/pricing" onClick={() => setMobileMenu(false)}>
+            <Link href="#" onClick={() => setMobileMenu(false)}>
               Pricing
             </Link>
           </li>

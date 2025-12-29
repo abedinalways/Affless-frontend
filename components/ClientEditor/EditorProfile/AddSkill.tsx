@@ -6,14 +6,22 @@ import Modal from "@/components/reusable/ProfileEditModal";
 export default function AddSkillsModal({
   open,
   onClose,
+  onSave,
 }: {
   open: boolean;
   onClose: () => void;
+  onSave: (skills: string[]) => void; // ✅ NEW
 }) {
-  const [skills, setSkills] = useState("");
+  const [input, setInput] = useState("");
 
   const save = () => {
-    console.log("Skills:", skills);
+    const newSkills = input
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    onSave(newSkills);
+    setInput("");
     onClose();
   };
 
@@ -23,13 +31,13 @@ export default function AddSkillsModal({
         <div>
           <p className="text-sm font-semibold mb-2">Add Skills</p>
           <input
-            value={skills}
-            onChange={(e) => setSkills(e.target.value)}
-            placeholder="Example: React, Next.js, Photoshop..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Adobe Premiere Pro:..."
             className="w-full border rounded-lg p-3 outline-none"
           />
-          <p className="text-xs text-gray-500 mt-1">
-         
+          <p className="text-xs text-gray-500 mt-2">
+            Separate skills using comma ( , )
           </p>
         </div>
 

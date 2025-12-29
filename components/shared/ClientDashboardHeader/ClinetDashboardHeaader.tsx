@@ -97,7 +97,7 @@ export default function ClientDashboardHeader() {
               </li>
 
               <li>
-                <Link href="/pricing">Pricing</Link>
+                <Link href="#">Pricing</Link>
               </li>
             </ul>
           </div>
@@ -175,7 +175,7 @@ export default function ClientDashboardHeader() {
           </li>
 
           <li>
-            <Link href="/pricing" onClick={() => setMobileMenu(false)}>
+            <Link href="#" onClick={() => setMobileMenu(false)}>
               Pricing
             </Link>
           </li>

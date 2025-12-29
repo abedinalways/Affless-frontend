@@ -23,31 +23,31 @@ export default function AddEducationModal({
     <Modal open={open} onClose={onClose} title="Education">
       <div className="space-y-4">
         <div>
-          <p className="text-sm font-semibold mb-2">Project Title</p>
+          <p className="text-sm font-semibold mb-2">Course name</p>
           <input
             value={school}
             onChange={(e) => setSchool(e.target.value)}
-            placeholder="School / University"
+            placeholder="B.Sc"
             className="w-full border rounded-lg p-3 outline-none"
           />
         </div>
 
         <div>
-          <p className="text-sm font-semibold mb-2">Major / Subject</p>
+          <p className="text-sm font-semibold mb-2">Subject</p>
           <input
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
-            placeholder="Subject..."
+            placeholder="CSE"
             className="w-full border rounded-lg p-3 outline-none"
           />
         </div>
 
         <div>
-          <p className="text-sm font-semibold mb-2">Year of Graduation</p>
+          <p className="text-sm font-semibold mb-2">Passing Year</p>
           <input
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            placeholder="2024"
+            placeholder="2020"
             className="w-full border rounded-lg p-3 outline-none"
           />
         </div>

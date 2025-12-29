@@ -283,7 +283,7 @@ export default function EditorDashboard() {
         {/* RIGHT SIDE */}
         {/* -------------------------------------- */}
         <div className="w-full lg:w-6/5">
-          <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>
+          <h1 className="text-2xl font-semibold">Welcome, Jane Cooper</h1>
           <p className="text-sm text-gray-500 mt-1">
             Find important messages, tips, and links to helpful resources here:
           </p>
