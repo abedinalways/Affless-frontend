@@ -48,7 +48,7 @@ export default function AddPortfolioModal({
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
             placeholder="Description..."
-            className="w-full border rounded-lg p-3 min-h-[90px] outline-none"
+            className="w-full border rounded-lg p-3 min-h-[150px] outline-none resize-none"
           />
         </div>
 

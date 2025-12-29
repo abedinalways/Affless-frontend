@@ -9,6 +9,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { RxRotateCounterClockwise } from "react-icons/rx";
 import toast,{Toaster} from "react-hot-toast";
+import { useUser } from "@/context/UserContext";
 
 type FormValues = {
   email: string;
@@ -26,6 +27,7 @@ export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { setUser } = useUser();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     // console.log("Form Submitted:", data);
@@ -36,8 +38,12 @@ export default function SignInForm() {
       localStorage.setItem("isLogin", "true");
       if(data?.email === "client@gmail.com" && data?.password === "12345678"){
         router.push("/client");
+        localStorage.setItem("userType", "client");
+        setUser("client");
       } else if(data?.email === "editor@gmail.com" && data?.password === "12345678"){
         router.push("/editor");
+        localStorage.setItem("userType", "editor");
+        setUser("editor");
       } else if(data?.email === "admin@gmail.com" && data?.password === "12345678"){
         router.push("/admin");
       } else {

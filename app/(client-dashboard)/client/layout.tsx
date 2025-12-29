@@ -2,7 +2,7 @@
 import ContactUs from "@/components/MainPage/Contact-Us/Contact-Us";
 import ClientDashboardHeader from "@/components/shared/ClientDashboardHeader/ClinetDashboardHeaader";
 import Footer from "@/components/shared/Footer/Footer";
-import Navbar from "@/components/shared/Navbar/Navbar";
+import Navbar from "@/components/shared/Navbar/NavbarWithoutLogin";
 
 export default function Layout({
   children,
@@ -12,10 +12,7 @@ export default function Layout({
   return (
 
 
-    <div>
-      <div className="sticky top-0 z-50 bg-white">
-        <ClientDashboardHeader />
-      </div>
+    <div className="pt-18">
       {children}
       <ContactUs />
       <Footer />

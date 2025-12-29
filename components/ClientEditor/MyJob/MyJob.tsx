@@ -93,7 +93,7 @@ export default function MyProposal() {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<"ALL" | ProposalRow["status"]>(
-    "ALL"
+    "Progress"
   );
 
   const filteredData = useMemo(() => {
@@ -118,21 +118,26 @@ export default function MyProposal() {
         {/* FILTER BUTTONS */}
         <div className="flex gap-4 mb-6">
           <button
+            onClick={() => setStatusFilter("ALL")}
+            className={`w-[120px] py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "ALL" ? "shadow-md" : ""
+              }`}
+          >
+            All
+          </button>
+          <button
             onClick={() => setStatusFilter("Progress")}
-            className={`w-[120px] py-2 rounded-lg text-center font-medium ${
-              statusFilter === "Progress" ? "bg-white shadow-md" : "bg-transparent"
-            }`}
+            className={`w-[120px] py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "Progress" ? "shadow-md" : ""
+              }`}
           >
             Accept
           </button>
 
           <button
             onClick={() => setStatusFilter("Cancellation")}
-            className={`w-[120px] py-2 rounded-lg text-center font-medium ${
-              statusFilter === "Cancellation"
-                ? "bg-white shadow-md"
-                : "bg-transparent"
-            }`}
+            className={`w-[120px] py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "Cancellation"
+                ? "shadow-md"
+                : ""
+              }`}
           >
             Decline
           </button>
@@ -195,9 +200,9 @@ export default function MyProposal() {
           total={total}
           onPageChange={setPage}
           // ⭐ FULL ROW CLICK
- onRowClick={(row: ProposalRow) =>
-  router.push(`/editor/hire-request/${row.id}?status=${row.status}`)
-}
+          onRowClick={(row: ProposalRow) =>
+            router.push(`/editor/hire-request/${row.id}?status=${row.status}`)
+          }
 
 
 

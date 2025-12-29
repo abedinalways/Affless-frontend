@@ -1,13 +1,11 @@
 import ArrowLeftIcon from '@/components/Icons/arrowleftIcon'
-import Navbar from '@/components/shared/Navbar/Navbar'
+import Navbar from '@/components/shared/Navbar/NavbarWithoutLogin'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 export default function NotFound() {
   return (
     <div>
-      <Navbar />
-
       <div className="containers flex flex-col md:flex-row  justify-center items-center h-screen gap-10 pt-8">
         {/* Left Content */}
         <div className="space-y-4 max-w-lg order-1 md:order-0">
@@ -24,7 +22,7 @@ export default function NotFound() {
           </p>
 
           <Link href="/">
-          <button className="text-white font-normal text-[16px] leading-[150%] font-poppins bg-[#FF4D4F] px-4 py-[10px] rounded-lg mt-[54px] flex items-center gap-[6px]">
+          <button className="text-white font-normal text-[16px] leading-[150%] font-poppins bg-[#FF4D4F] px-4 py-2.5 rounded-lg mt-[54px] flex items-center gap-1.5">
             <ArrowLeftIcon />
             Back to home
           </button></Link>

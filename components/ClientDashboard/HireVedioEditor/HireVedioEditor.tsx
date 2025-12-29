@@ -44,7 +44,7 @@ export default function HireVideoEditorForm() {
   if (showReview && formData) {
     return (
       <ReviewConfirm
-        
+
       />
     );
   }
@@ -108,33 +108,33 @@ export default function HireVideoEditorForm() {
 
         {/* Software Preference */}
         <div className="mb-4">
-            
-        <label className="block mb-2 font-medium pb-[18px]">Software Preference</label>
 
-<div className="grid grid-cols-2 md:grid-cols-2 gap-3 text-sm">
-  {[
-    "Final Cut Pro",
-    "Adobe Premiere Pro",
-    "DaVinci Resolve",
-    "Sony Vegas",
-    "Any Software",
-    "Adobe Premiere Pro",
-    "Filmora",
+          <label className="block mb-2 font-medium pb-[18px]">Software Preference</label>
 
-    "CapCut",
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-3 text-sm">
+            {[
+              "Final Cut Pro",
+              "Adobe Premiere Pro",
+              "DaVinci Resolve",
+              "Sony Vegas",
+              "Any Software",
+              "Adobe Premiere Pro",
+              "Filmora",
+
+              "CapCut",
 
 
-  ].map((software) => (
-    <label key={software} className="flex items-center gap-2">
-      <input
-        type="checkbox"
-        value={software}
-        {...register("software")}
-      />
-      <span>{software}</span>
-    </label>
-  ))}
-</div>
+            ].map((software) => (
+              <label key={software} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  value={software}
+                  {...register("software")}
+                />
+                <span>{software}</span>
+              </label>
+            ))}
+          </div>
 
 
           <div className="mt-3 py-6 px-4 bg-blue-50 border border-[#0070FF] rounded-lg text-sm text-gray-700">
@@ -221,24 +221,24 @@ export default function HireVideoEditorForm() {
 
       {/* Buttons */}
       <div className="flex flex-col md:flex-row justify-between mt-8 gap-6">
-       
+
         <div className="w-full bg-gray-200 rounded-xl cursor-pointer">
-           <Link href="/client/find-editor-match">
-          <button type="button" className="px-8 py-3 flex text-center items-center mx-auto">
-          Back
-        </button>
-      </Link>
+          <Link href="/client/find-editor">
+            <button type="button" className="px-8 py-3 flex text-center items-center mx-auto">
+              Back
+            </button>
+          </Link>
 
         </div>
-      
+
 
         <div className="w-full bg-[#FF4D4F] rounded-lg cursor-pointer">
           <button
-          type="submit"
-          className="px-8 py-3  text-white flex text-center items-center mx-auto cursor-pointer "
-        >
-          Continue to Review
-        </button>
+            type="submit"
+            className="px-8 py-3  text-white flex text-center items-center mx-auto cursor-pointer "
+          >
+            Continue to Review
+          </button>
         </div>
       </div>
     </form>

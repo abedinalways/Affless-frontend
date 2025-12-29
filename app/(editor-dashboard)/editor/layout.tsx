@@ -7,12 +7,9 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-     <div className="sticky top-0 z-50">
-       <EditorDashboardHeader />
-     </div>
+    <div className="pt-18">
       {children}
-<Footer/>
+      <Footer />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "./PaymentModal";
+import toast from "react-hot-toast";
 type VerifyMethod = "sms" | "email" | null;
 
 type BankForm = {
@@ -40,7 +41,7 @@ export default function PayoutSettingsModal({
 
   const onSubmitBank = (data: BankForm) => {
     console.log("BANK FORM:", data);
-    alert("Submitted! (check console)");
+    toast.success("Bank details added successfully!");
     closeAll();
   };
 

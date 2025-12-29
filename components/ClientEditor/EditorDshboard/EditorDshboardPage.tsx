@@ -190,7 +190,6 @@ const columns: ColumnDef<Order>[] = [
       </button>
     );
   },
-},
 
 ];
 
@@ -265,11 +264,10 @@ export default function EditorDashboard() {
                 <span className="text-gray-500">-</span>
               </div>
             </div>
-
-            <div className="flex justify-center mt-6">
-              <button className="w-[178px] py-2 rounded-lg border border-[#D9D9D9] px-4 cursor-pointer">
+            <div className="flex justify-center items-center">
+              <Link href="/editor/editor-profile" className="w-[178px]  py-2 rounded-lg border border-[#D9D9D9] hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300 px-4 text-center">
                 View progress
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -297,30 +295,27 @@ export default function EditorDashboard() {
               Earned in September
             </h3>
             <p className="text-2xl font-medium text-center py-8">US$0</p>
-            <button className="w-[178px] mx-auto block border rounded-lg py-2.5 cursor-pointer">
-              Payment
-            </button>
+            <Link href="/editor/withdrow-balance" className="w-[178px] text-center mx-auto block border rounded-lg py-2.5 hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300">
+              Withdraw Balance
+            </Link>
           </div>
 
           {/* Inbox */}
-          <div className="rounded-2xl bg-white p-5 shadow-sm">
+          {/* <div className="rounded-2xl bg-white p-5 shadow-sm">
+
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-[18px] font-semibold text-[#333]">Inbox</h3>
-              <button className="text-[14px] text-[#FF4D4F] font-medium cursor-pointer">
-                View All
-              </button>
+              <Link href="/editor/inbox" className="text-[14px] text-[#FF4D4F] font-medium cursor-pointer hover:underline">View All</Link>
             </div>
 
             <div className="space-y-4">
               {inboxItems.map((item, index) => (
                 <div
                   key={item.id}
-                  className={`flex items-start justify-between pb-4 ${
-                    index !== inboxItems.length - 1
-                      ? "border-b border-[#EDEDED]"
-                      : ""
-                  }`}
+                  className={`flex items-start justify-between cursor-pointer pb-4 ${index !== inboxItems.length - 1 ? "border-b border-[#EDEDED]" : ""
+                    }`}
                 >
+
                   <div className="flex items-start gap-3">
                     <Image
                       src={item.img}
@@ -331,14 +326,16 @@ export default function EditorDashboard() {
                     />
 
                     <div className="space-y-0.5">
-                      <p className="text-[16px] font-semibold text-[#333]">
-                        {item.name}
-                      </p>
-                      <p className="text-[14px] text-[#777980]">
-                        {item.message}
-                      </p>
+                      <p className="text-[16px] font-semibold text-[#333]">{item.name}</p>
+                      <p className="text-[14px] text-[#777980]">{item.message}</p>
                     </div>
                   </div>
+
+                  <p className="text-[12px] text-gray-400 whitespace-nowrap">{item.time}</p>
+                </div>
+              ))}
+            </div>
+          </div> */}
 
                   <p className="text-[12px] text-gray-400 whitespace-nowrap">
                     {item.time}
