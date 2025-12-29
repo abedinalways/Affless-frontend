@@ -2,6 +2,7 @@
 import ReviewPage from "@/components/ClientDashboard/GraphicsDesigner/ReviewPage";
 import BrowseDetails from "@/components/ClientEditor/BrowseJob/BrowseDetails";
 import BudgetPage from "@/components/ClientEditor/BrowseJob/Budget";
+import PageBanner from "@/components/reusable/Bgbanner";
 import BidCard from "@/components/reusable/Bids";
 import { useRouter } from "next/navigation";
 import React, { use, useState, useEffect } from "react";
@@ -67,7 +68,20 @@ export default function JobDetails({ params }: PostPageProps) {
   }
 
   return (
-    <div className=" containers ">
+  <div className="">
+      <div>
+        <PageBanner
+
+          title="Graphic Designer for ongoing job"
+          bgImage="/findEditor.jpg"
+          links={[
+            { label: "Home", href: "/editor" },
+            { label: "Browse Jobs", href: "/editor/browse-job" },
+            { label: "Graphic Designer for ongoing job" }
+          ]}
+        />
+      </div>
+        <div className=" containers ">
       <div className="py-10 flex gap-9 flex-col lg:flex-row ">
        <div className="w-5/4">
          <BrowseDetails />
@@ -92,6 +106,7 @@ export default function JobDetails({ params }: PostPageProps) {
       </div>
       
     </div>
+  </div>
 
   );
 }

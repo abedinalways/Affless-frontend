@@ -27,28 +27,28 @@ export default function ProfileHeaderCard({
   return (
     <div className="w-full rounded-xl border border-gray-200 bg-white p-6">
       <div className="flex items-start gap-6">
-        <div className="h-[70px] w-[70px] rounded-full overflow-hidden border border-gray-200">
+        <div className="h-[150px] w-[150px] rounded-full overflow-hidden border border-gray-200">
           <Image
             src={profile.avatar}
             alt="profile"
-            width={70}
-            height={70}
+            width={150}
+            height={150}
             className="h-full w-full object-cover"
           />
         </div>
 
-        <div className="flex-1">
-          <p className="text-[18px] font-semibold text-[#222]">{profile.name}</p>
+        <div className="flex-1 space-y-2.5">
+          <p className="text-[18px] font-medium text-[#333] leading-120%">{profile.name}</p>
 
-          <div className="mt-1 flex items-center gap-2 text-gray-600 text-[13px]">
+          <div className="mt-1 flex items-center gap-2 text-[#333] text-[12px] font-normal">
             <MdStar className="text-yellow-500" />
-            <span className="font-semibold text-[#222]">{profile.rating}</span>
+            <span className=" text-[#333]">{profile.rating}</span>
             <span>({profile.reviews} reviews)</span>
           </div>
 
-          <p className="mt-2 text-[13px] text-gray-600">{profile.tagline}</p>
+          <p className="mt-2 text-[12px] text-[#333]">{profile.tagline}</p>
 
-          <div className="mt-2 flex flex-wrap items-center gap-4 text-[12px] text-gray-600">
+          <div className="mt-2 flex flex-wrap items-center gap-4 text-[14px] text-[#333]">
             <span className="inline-flex items-center gap-2">
               <HiOutlineLocationMarker />
               {profile.country}

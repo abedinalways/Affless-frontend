@@ -113,7 +113,7 @@ export default function ClientDashboardHeader() {
               </li>
 
               <li>
-                <Link href="/pricing">Pricing</Link>
+                <Link href="#">Pricing</Link>
               </li>
             </ul>
           </div>

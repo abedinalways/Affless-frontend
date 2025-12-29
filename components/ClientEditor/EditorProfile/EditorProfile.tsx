@@ -11,7 +11,21 @@ import EditAboutModal from "./EditAboutModal";
 import AddPortfolioModal from "./AddPortfolioModal";
 import AddEducationModal from "./AddEducaton";
 import AddSkillsModal from "./AddSkill";
+
+import Image from "next/image";
+import PortfolioSection from "./PortfolioSection";
+import ReviewBreakdown from "@/components/reusable/reviews";
+import ReviewProfile from "./ReviewProfile";
+
 export default function ProfilePage() {
+  const reviewData = [
+        { stars: 5, count: 638 },
+        { stars: 4, count: 243 },
+        { stars: 3, count: 121 },
+        { stars: 2, count: 43 },
+        { stars: 1, count: 12 },
+    ];
+
   const [profile, setProfile] = useState<ProfileState>({
     name: "Zeeshan",
     rating: 4.9,
@@ -26,6 +40,13 @@ export default function ProfilePage() {
     `We are PixelStudio, A full-service design and developing web agency...`
   );
 
+  // ✅ Skills state
+  const [skills, setSkills] = useState<string[]>([
+    "Adobe Premiere Pro",
+    "Adobe After Effects",
+    "Avid Media Composer",
+  ]);
+
   // ✅ Modal States
   const [openEditProfile, setOpenEditProfile] = useState(false);
   const [openEditAbout, setOpenEditAbout] = useState(false);
@@ -35,8 +56,8 @@ export default function ProfilePage() {
   const [openSkills, setOpenSkills] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7]">
-      <div className="containers py-10 space-y-6">
+    <div className="min-h-screen containers  bg-[#F7F7F7]">
+      <div className="py-10 space-y-6">
         <ProfileHeaderCard
           profile={profile}
           onEdit={() => setOpenEditProfile(true)}
@@ -44,26 +65,37 @@ export default function ProfilePage() {
 
         <AboutCard about={about} onEdit={() => setOpenEditAbout(true)} />
 
-        <SectionCard
-          title="Portfolio of past projects"
-          desc="Attract and impress potential clients by displaying your best work."
-          btnText="Start portfolio"
-          onClick={() => setOpenPortfolio(true)}
-        />
+        {/* ✅ Portfolio */}
+      <PortfolioSection />
 
+        {/* ✅ Education */}
         <SectionCard
+          desc="Other - CSE"
           title="Education"
-          desc="Back up your skills by adding any educational degrees or programs."
+          institute="Dhaka Polytechnic Institute"
+          country="Bangladesh, 2023"
           btnText="Add education"
           onClick={() => setOpenEducation(true)}
         />
 
+        {/* ✅ Skills */}
         <SectionCard
           title="Skills and expertise"
-          desc="Let your buyers know your skills..."
           btnText="Add Skills and expertise"
           onClick={() => setOpenSkills(true)}
-        />
+          buttonAlign="default"
+        >
+          <div className="flex flex-wrap gap-3">
+            {skills.map((skill, idx) => (
+              <span
+                key={idx}
+                className="px-4 py-2 bg-gray-100 rounded-lg text-sm text-gray-700"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </SectionCard>
       </div>
 
       {/* ✅ Modals */}
@@ -91,7 +123,20 @@ export default function ProfilePage() {
         onClose={() => setOpenEducation(false)}
       />
 
-      <AddSkillsModal open={openSkills} onClose={() => setOpenSkills(false)} />
+      {/* ✅ Skills Modal - Now saves into state */}
+      <AddSkillsModal
+        open={openSkills}
+        onClose={() => setOpenSkills(false)}
+        onSave={(newSkills) =>
+          setSkills((prev) => [...new Set([...prev, ...newSkills])])
+        }
+      />
+      <div className="py-10">
+                <ReviewBreakdown reviewe={reviewData} title="Reviews" />
+            </div>
+            <div className="">
+              <ReviewProfile/>
+            </div>
     </div>
   );
 }

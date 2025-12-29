@@ -18,9 +18,9 @@ export default function JobPostingEditor() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint ",
       tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-      priceRange: "$400–$600",
-      software: "Adobe Premiere Pro",
-      duration: "7–30 days",
+      // priceRange: "$400–$600",
+      // software: "Adobe Premiere Pro",
+      // duration: "7–30 days",
       thumbnail: "/images/vedio.png.jpg",
     },
     {
@@ -31,9 +31,9 @@ export default function JobPostingEditor() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-      priceRange: "$400–$600",
-      software: "Adobe Premiere Pro",
-      duration: "7–30 days",
+      // priceRange: "$400–$600",
+      // software: "Adobe Premiere Pro",
+      // duration: "7–30 days",
       thumbnail: "/images/vedio.png.jpg",
     },
   ];
@@ -155,7 +155,7 @@ export default function JobPostingEditor() {
                                 ))}
                               </div>
                               <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">
-                                <div className="p-6 flex gap-6">
+                                {/* <div className="p-6 flex gap-6">
                                   <div>
                                     <p className="text-[#4A4C56] text-[14px]">Price range</p>
                                     <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.priceRange}</p>
@@ -163,9 +163,9 @@ export default function JobPostingEditor() {
                                   <div className="border hidden md:block border-r-gray-300 mx-6">
             
                                   </div>
-                                </div>
+                                </div> */}
             
-                                <div className="p-6 flex  gap-6">
+                                {/* <div className="p-6 flex  gap-6">
                                   <div>
                                     <p className="text-[#4A4C56] text-[14px]">Software</p>
                                     <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.software}</p>
@@ -173,9 +173,9 @@ export default function JobPostingEditor() {
                                   <div className="border hidden md:block border-r-gray-300 mx-6">
             
                                   </div>
-                                </div>
+                                </div> */}
             
-                                <div className="p-6 flex gap-6">
+                                {/* <div className="p-6 flex gap-6">
                                   <div>
                                     <p className="text-[#4A4C56] text-[14px]">Project duration</p>
                                     <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
@@ -183,7 +183,7 @@ export default function JobPostingEditor() {
                                   <div className="border hidden md:block border-r-gray-300 mx-6">
             
                                   </div>
-                                </div>
+                                </div> */}
                               </div>
                             </div>
                             <div className="flex justify-center items-center">

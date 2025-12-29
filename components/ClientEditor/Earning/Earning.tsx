@@ -40,7 +40,7 @@ export default function Earnings() {
           <h2 className="text-xl font-semibold mb-4">Available funds</h2>
           <div className="text-4xl font-bold mb-4">$ 154.00</div>
 
-          <Link href="/editor/withdrow-blance">
+          {/* <Link href="/editor/withdrow-blance">
           <button className="bg-red-500 text-white rounded-lg px-5 py-2 mb-3 cursor-pointer">
             Withdraw Balance
           </button></Link>
@@ -50,7 +50,7 @@ export default function Earnings() {
             className="bg-red-100 text-red-500 rounded-lg px-5 py-2 block cursor-pointer"
           >
             Payout Settings
-          </button>
+          </button> */}
         </div>
 
         <div className="p-6 bg-white rounded-xl shadow border">
