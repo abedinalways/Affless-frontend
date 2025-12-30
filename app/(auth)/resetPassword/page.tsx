@@ -3,7 +3,7 @@ import ResetPasswordForm from '../registation/_components/ResetPassword'
 
 export default function ResetPassword() {
   return (
-    <div>
+    <div className='h-full grid items-center'>
       <ResetPasswordForm/>
     </div>
   )

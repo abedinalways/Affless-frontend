@@ -114,8 +114,8 @@ export default function Pricing() {
               {/* Button */}
               <button
                 className="
-                w-full mt-8 p-[14px] rounded-xl font-medium border border-red-400 text-black 
-                hover:bg-red-500  hover:text-white transition-all duration-300
+                w-full mt-8 p-2.5 rounded-xl font-medium border border-red-400 text-black 
+                hover:bg-red-500  hover:text-white transition-all duration-300 cursor-pointer
               "
               >
                 {plan.buttonLabel}

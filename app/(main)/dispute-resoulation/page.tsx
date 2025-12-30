@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function DisputeResulation() {
   return (
-    <div>
+    <div className=''>
       <DisputeResolutionPage/>
     </div>
   )

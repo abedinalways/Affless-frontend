@@ -112,7 +112,7 @@ export default function SuccessStroyPage() {
               <p className="text-[#4A4C56] font-poppins text-[14px] font-normal leading-[150%] py-4">{story.description}</p>
 
               <Link href={`/success-story/${story.id}`}>
-                <button className="flex items-center gap-1 text-[#FF4D4F] font-poppins text-[14px] font-medium leading-[150%]">
+                <button className="flex items-center gap-1 text-[#FF4D4F] font-poppins text-[14px] font-medium leading-[150%] cursor-pointer px-2 py-0.5 rounded-sm hover:bg-[#FF4D4F] hover:text-white duration-300 leading-0">
                   Read Story <ArrowRight size={16} />
                 </button>
               </Link>

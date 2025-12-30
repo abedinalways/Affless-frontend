@@ -47,10 +47,10 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-md">
+    <div className="w-full rounded-md grid">
       {children && <div className="px-4 pt-4">{children}</div>}
 
-      <div className="overflow-x-auto">
+      <div className="w-full overflow-x-auto">
 
         <Table className="w-full border-separate border-spacing-y-4">
           {/* HEADER */}

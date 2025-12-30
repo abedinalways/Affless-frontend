@@ -7,12 +7,9 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    
-      <div>
-  <AuthHeader/>
+      <div className="w-screen h-screen grid grid-rows-[auto_1fr] overflow-x-hidden">
+        <AuthHeader/>
         {children}
-    
       </div>
-      
   );
 }

@@ -100,7 +100,7 @@ export default function HelpCenterPage() {
               <div className="bg-white rounded-xl shadow p-4">
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
                         <p>How to contact customer support</p>
@@ -117,7 +117,7 @@ export default function HelpCenterPage() {
                   </AccordionItem>
 
                   <AccordionItem value="item-2">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
                         <p>Reporting technical issues or bugs</p>
@@ -129,7 +129,7 @@ export default function HelpCenterPage() {
                   </AccordionItem>
 
                   <AccordionItem value="item-3">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
                         <p>Dispute resolution process</p>
@@ -140,7 +140,7 @@ export default function HelpCenterPage() {
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
                         <p>Community guidelines and code of conduct</p>
@@ -151,7 +151,7 @@ export default function HelpCenterPage() {
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-5">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150%">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
                         <p>Providing feedback and feature requests</p>

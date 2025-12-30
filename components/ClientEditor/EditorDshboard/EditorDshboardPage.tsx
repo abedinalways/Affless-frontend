@@ -64,7 +64,7 @@ const orders: Order[] = [
     days: 5,
     status: "pending",
   },
-    {
+  {
     id: 1,
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
@@ -96,7 +96,7 @@ const orders: Order[] = [
     days: 5,
     status: "pending",
   },
-  
+
 ];
 
 const inboxItems: InboxItem[] = [
@@ -169,29 +169,28 @@ const columns: ColumnDef<Order>[] = [
       <p className="text-[16px] text-[#4A4C56]">{row.original.days} Days</p>
     ),
   },
- {
-  accessorKey: "status",
-  header: "Status",
-  cell: ({ row }) => {
-    const status = row.original.status;
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.original.status;
 
-    const statusStyles: Record<OrderStatus, string> = {
-      pending: "bg-[#EEFAE9] text-[#52C41A]",
-      "In progress": "bg-[#E8FFDA] text-[#52C41A]",
-      Cencel: "bg-[#FFECEC] text-[#FF4D4F]",
-      Delivered: "bg-[#FF4D4F] text-white",
-    };
+      const statusStyles: Record<OrderStatus, string> = {
+        pending: "bg-[#EEFAE9] text-[#52C41A]",
+        "In progress": "bg-[#E8FFDA] text-[#52C41A]",
+        Cencel: "bg-[#FFECEC] text-[#FF4D4F]",
+        Delivered: "bg-[#FF4D4F] text-white",
+      };
 
-    return (
-      <button
-        className={`w-[130px] text-center justify-center inline-flex items-center rounded-lg px-4 py-2 text-[14px] font-medium ${statusStyles[status]}`}
-      >
-        {status}
-      </button>
-    );
-  },
-},
-
+      return (
+        <button
+          className={`w-[130px] text-center justify-center inline-flex items-center rounded-lg px-4 py-2 text-[14px] font-medium ${statusStyles[status]}`}
+        >
+          {status}
+        </button>
+      );
+    },
+  }
 ];
 
 export default function EditorDashboard() {
@@ -200,9 +199,9 @@ export default function EditorDashboard() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
-      <div className="mx-auto containers flex flex-col gap-8 lg:flex-row">
+      <div className="mx-auto containers grid lg:grid-cols-[auto_1fr] gap-8">
         {/* LEFT SIDE */}
-        <div className="w-full space-y-6 lg:w-2/5">
+        <div className="w-full min-w-[260px] lg:max-w-[260px] space-y-6">
           {/* Profile Card */}
           <div className="rounded-2xl bg-white px-6 pt-6 pb-8 shadow-sm">
             <div className="flex flex-col items-center gap-3">
@@ -265,11 +264,10 @@ export default function EditorDashboard() {
                 <span className="text-gray-500">-</span>
               </div>
             </div>
-
-            <div className="flex justify-center mt-6">
-              <button className="w-[178px] py-2 rounded-lg border border-[#D9D9D9] px-4 cursor-pointer">
+            <div className="flex justify-center items-center">
+              <Link href="/editor/editor-profile" className="w-[178px]  py-2 rounded-lg border border-[#D9D9D9] hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300 px-4 text-center">
                 View progress
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -297,30 +295,27 @@ export default function EditorDashboard() {
               Earned in September
             </h3>
             <p className="text-2xl font-medium text-center py-8">US$0</p>
-            <button className="w-[178px] mx-auto block border rounded-lg py-2.5 cursor-pointer">
-              Payment
-            </button>
+            <Link href="/editor/withdrow-balance" className="w-[178px] text-center mx-auto block border rounded-lg py-2.5 hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300">
+              Withdraw Balance
+            </Link>
           </div>
 
           {/* Inbox */}
-          <div className="rounded-2xl bg-white p-5 shadow-sm">
+          {/* <div className="rounded-2xl bg-white p-5 shadow-sm">
+
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-[18px] font-semibold text-[#333]">Inbox</h3>
-              <button className="text-[14px] text-[#FF4D4F] font-medium cursor-pointer">
-                View All
-              </button>
+              <Link href="/editor/inbox" className="text-[14px] text-[#FF4D4F] font-medium cursor-pointer hover:underline">View All</Link>
             </div>
 
             <div className="space-y-4">
               {inboxItems.map((item, index) => (
                 <div
                   key={item.id}
-                  className={`flex items-start justify-between pb-4 ${
-                    index !== inboxItems.length - 1
-                      ? "border-b border-[#EDEDED]"
-                      : ""
-                  }`}
+                  className={`flex items-start justify-between cursor-pointer pb-4 ${index !== inboxItems.length - 1 ? "border-b border-[#EDEDED]" : ""
+                    }`}
                 >
+
                   <div className="flex items-start gap-3">
                     <Image
                       src={item.img}
@@ -331,26 +326,19 @@ export default function EditorDashboard() {
                     />
 
                     <div className="space-y-0.5">
-                      <p className="text-[16px] font-semibold text-[#333]">
-                        {item.name}
-                      </p>
-                      <p className="text-[14px] text-[#777980]">
-                        {item.message}
-                      </p>
+                      <p className="text-[16px] font-semibold text-[#333]">{item.name}</p>
+                      <p className="text-[14px] text-[#777980]">{item.message}</p>
                     </div>
                   </div>
 
-                  <p className="text-[12px] text-gray-400 whitespace-nowrap">
-                    {item.time}
-                  </p>
+                  <p className="text-[12px] text-gray-400 whitespace-nowrap">{item.time}</p>
                 </div>
               ))}
-            </div>
-          </div>
+            </div>*/}
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="w-full lg:w-6/5">
+        <div className="w-full grid">
           <h1 className="text-2xl font-semibold">Welcome, Jane Cooper</h1>
           <p className="text-sm text-gray-500 mt-1">
             Find important messages, tips, and links to helpful resources here:
@@ -362,14 +350,14 @@ export default function EditorDashboard() {
           </div>
 
           {/* ✅ Orders Table */}
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
+          <div className="rounded-2xl bg-white p-6 shadow-sm w-full grid">
             <DataTable
               columns={columns}
               data={orders}
               page={1}
               pageSize={5}
               total={orders.length}
-              onPageChange={() => {}}
+              onPageChange={() => { }}
             />
           </div>
         </div>

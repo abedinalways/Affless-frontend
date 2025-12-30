@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Banner() {
@@ -45,13 +46,13 @@ export default function Banner() {
           </p>
 
           <div className="flex items-center gap-5 md:gap-[42px] mt-8 cursor-pointer">
-            <button className="bg-[#FF4D4F] text-white px-3 md:px-6.5 py-4 md:py-4.5 rounded-xl font-poppins text-base sm:text-lg cursor-pointer">
+            <Link href="/client/post-job" className="bg-[#FF4D4F] text-white px-3 md:px-6.5 py-4 md:py-4.5 rounded-xl font-poppins text-base sm:text-lg cursor-pointer">
               Post a Job Free
-            </button>
+            </Link>
 
-            <button className="text-white px-3 md:px-6.5 py-4.5 md:py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F] cursor-pointer">
+            <Link href="/editor" className="text-white px-3 md:px-6.5 py-4.5 md:py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F] cursor-pointer">
               Become an Editor
-            </button>
+            </Link>
           </div>
 
         </div>

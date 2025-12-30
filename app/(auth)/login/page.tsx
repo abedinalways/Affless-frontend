@@ -8,7 +8,8 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { RxRotateCounterClockwise } from "react-icons/rx";
-import toast,{Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { useUser } from "@/context/UserContext";
 
 type FormValues = {
   email: string;
@@ -26,6 +27,7 @@ export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { setUser } = useUser();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     // console.log("Form Submitted:", data);
@@ -34,11 +36,15 @@ export default function SignInForm() {
     setTimeout(() => {
       setLoading(false);
       localStorage.setItem("isLogin", "true");
-      if(data?.email === "client@gmail.com" && data?.password === "12345678"){
+      if (data?.email === "client@gmail.com" && data?.password === "12345678") {
         router.push("/client");
-      } else if(data?.email === "editor@gmail.com" && data?.password === "12345678"){
+        localStorage.setItem("userType", "client");
+        setUser("client");
+      } else if (data?.email === "editor@gmail.com" && data?.password === "12345678") {
         router.push("/editor");
-      } else if(data?.email === "admin@gmail.com" && data?.password === "12345678"){
+        localStorage.setItem("userType", "editor");
+        setUser("editor");
+      } else if (data?.email === "admin@gmail.com" && data?.password === "12345678") {
         router.push("/admin");
       } else {
         toast.error("Invalid email or password");
@@ -47,13 +53,8 @@ export default function SignInForm() {
   };
 
   return (
-    <div className="
-      sm:px-[50px] 
-      md:px-[50px] 
-      lg:px-[100px] 
-      xl:px-[150px]
-      2xl:px-[300px]">
-        <Toaster position="top-right" />
+    <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
+      <Toaster position="top-right" />
       <div
         className="
         grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
@@ -135,15 +136,17 @@ export default function SignInForm() {
             </div>
             {/* Remember + Forgot */}
             <div className="flex justify-between items-center text-sm">
-              <label className="flex items-center gap-2 text-[#333] font-poppins text-base leading-[150%]">
-                <input type="checkbox" {...register("remember")} />
-                Remember me
-              </label>
+              <div className="flex items-center gap-2">
+                <input id="rememberme" type="checkbox" {...register("remember")} />
+                <label htmlFor="rememberme" className="flex items-center gap-2 text-[#333] font-poppins text-base leading-[150%] cursor-pointer">
+                  Remember me
+                </label>
+              </div>
 
               <Link href="/forgetpassword">
                 <button
                   type="button"
-                  className="text-[#333] text-right font-poppins text-sm leading-[150%]"
+                  className="text-[#333] text-right font-poppins text-sm leading-[150%] cursor-pointer"
                 >
                   Forgot password?
                 </button>

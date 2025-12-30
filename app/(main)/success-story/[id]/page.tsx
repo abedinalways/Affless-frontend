@@ -12,6 +12,7 @@ import ClangeIcon from "@/components/Icons/ChlangeIcon";
 import ActionTokenIcon from "@/components/Icons/ActonTokenIcon";
 import ResultIcon from "@/components/Icons/ResultIcon";
 import ClockIcon from "@/components/Icons/ClockIcon";
+import { FaArrowLeft } from "react-icons/fa6";
 
 export default async function StoryDetails({
   params,
@@ -148,7 +149,8 @@ export default async function StoryDetails({
       {/* Back Button */}
       <div className="mt-10">
         <Link href="/success-story">
-          <button className="px-4 py-2 border rounded-md bg-[#EBECEC] hover:bg-gray-100 text-[#333] text-center text-[18px] font-normal leading-[150%]">
+          <button className="px-4 py-2 border rounded-md bg-[#EBECEC] hover:bg-gray-100 text-[#333] text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
+            <FaArrowLeft />
             Back to Success Stories
           </button>
         </Link>

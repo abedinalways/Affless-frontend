@@ -7,6 +7,7 @@ import JobDetailsCard from "@/components/reusable/JobDetails";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { GoDeviceCameraVideo, GoImage } from "react-icons/go";
 import { CheckCircle } from "lucide-react";
+import toast,{Toaster} from "react-hot-toast";
 
 type UploadKey = "video" | "audio" | "thumb1" | "thumb2";
 
@@ -66,24 +67,22 @@ export default function DeliveryMessage() {
 
   const handleDeliver = () => {
     console.log(files);
-    alert("Delivered! (check console)");
+    toast.success("Your work is in delivery process!");
   };
 
   return (
-    <div>
+    <div className="">
+      <Toaster />
       <PageBanner
         title="Delivery"
         bgImage="/findEditor.jpg"
-        links={[
-          { label: "Home", href: "/" },
-          { label: "Active order" },
-          { label: "Delivery" },
-        ]}
+        links={[{ label: "Home", href: "/" },
+        { label: "Active order", },
+        { label: "Delivery" }]}
       />
 
       <div className="containers">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10">
-          {/* LEFT SIDE */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10 ">
           <div className="w-full max-w-3xl bg-white rounded-2xl p-6">
             <h1 className="text-2xl font-semibold">Delivery Message</h1>
             <p className="text-sm font-medium mt-6 mb-3">Upload Final Files</p>
