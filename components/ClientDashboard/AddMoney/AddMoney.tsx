@@ -31,7 +31,7 @@ export default function AddMoney() {
     holder.trim().length >= 2;
 
   return (
-    <div className="min-h-screen bg-[#F8F8F8] py-10">
+    <div className=" bg-[#F8F8F8] py-10">
       <div className="mx-auto w-full max-w-[860px] space-y-8 px-4">
         
         {/* STEP: BALANCE */}
