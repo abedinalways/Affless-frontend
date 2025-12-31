@@ -201,7 +201,7 @@ export default function EditorDashboard() {
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
       <div className="mx-auto containers grid lg:grid-cols-[auto_1fr] gap-8">
         {/* LEFT SIDE */}
-        <div className="w-full min-w-[260px] lg:max-w-[260px] space-y-6">
+        <div className="w-full min-w-[260px] lg:max-w-[348px] space-y-6">
           {/* Profile Card */}
           <div className="rounded-2xl bg-white px-6 pt-6 pb-8 shadow-sm">
             <div className="flex flex-col items-center gap-3">
@@ -229,7 +229,7 @@ export default function EditorDashboard() {
                 </button>
               </Link>
 
-              <Link href="#" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
+              <Link href="/platform-safety" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
                 <button className="flex gap-2 text-[#FF4D4F] text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] cursor-pointer">
                   <LockIcon /> Platform Safety Rules{" "}
                   <IoArrowForwardSharp className="mt-1 text-red-500" />
