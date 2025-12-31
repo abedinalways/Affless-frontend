@@ -1,10 +1,11 @@
-import ReviewForm from '@/components/ClientDashboard/Review/Review'
+
+import ReviewClient from '@/components/ClientDashboard/ReviewClient/ReviewClient'
 import React from 'react'
 
 export default function ReviewPage() {
   return (
     <div>
-        <ReviewForm/>
+        <ReviewClient/>
     </div>
   )
 }

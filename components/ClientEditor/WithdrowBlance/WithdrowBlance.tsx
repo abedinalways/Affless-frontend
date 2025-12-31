@@ -25,7 +25,7 @@ export default function WithdrawBalance() {
   return (
     <div className="containers">
       <Toaster />
-      <div className=" flex items-center justify-center bg-white px-4 rounded-2xl">
+      <div className=" flex items-center justify-center bg-white  rounded-2xl">
         <div className="w-full max-w-4xl rounded-2xl  bg-white p-8 sm:p-12">
           <h1 className="text-3xl sm:text-4xl font-semibold text-center">
             Withdraw Balance
@@ -44,7 +44,7 @@ export default function WithdrawBalance() {
 
                 <div className="h-6 w-6 relative">
                   <Image
-                    src="/images/payoneer.png"
+                    src="/images/paynear.webp"
                     alt="payoneer"
                     fill
                     className="object-contain"
@@ -68,17 +68,17 @@ export default function WithdrawBalance() {
           </p>
 
           {/* Buttons */}
-          <div className="mt-12 flex items-center justify-center gap-4">
+          <div className="mt-12 flex flex-col  lg:flex-row items-center justify-center gap-4 space-y-3">
             <button
               onClick={handleCancel}
-              className="px-10 py-3 rounded-xl bg-red-100 text-red-500 font-semibold cursor-pointer"
+              className="px-10 py-3 rounded-xl bg-red-100 text-red-500 font-semibold cursor-pointer w-full"
             >
               Cancel
             </button>
 
             <button
               onClick={handleConfirm}
-              className="px-10 py-3 rounded-xl bg-red-500 text-white font-semibold cursor-pointer"
+              className="px-10 py-3 rounded-xl bg-red-500 text-white font-semibold cursor-pointer w-full"
             >
               Confirm and withdraw
             </button>

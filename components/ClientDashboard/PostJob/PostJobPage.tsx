@@ -135,7 +135,7 @@ export default function PostJobForm() {
             <input
               {...register("budget", { required: true })}
               type="text"
-              placeholder="$354"
+              placeholder="$5"
               className="w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400"
             />
             {errors.budget && <p className="text-red-500 text-sm mb-4">Budget is required.</p>}
@@ -151,8 +151,8 @@ export default function PostJobForm() {
                 <br />
                 • 2nd violation: Permanent ban + funds withheld
               </p>
-              <Link href="/platfrom-sefety" className="text-red-600 underline text-sm mt-2 inline-block">
-                Read Full Off-Platform Policy →
+              <Link href="/platform-safety" className="text-red-600 underline text-sm mt-2 inline-block">
+                Read Full Off-Platform Policy 
               </Link>
             </div>
 
@@ -171,7 +171,7 @@ export default function PostJobForm() {
             <input
               {...register("duration", { required: true })}
               type="text"
-              placeholder="$354"
+              placeholder="2 days"
               className="w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400"
             />
             {errors.duration && <p className="text-red-500 text-sm mb-4">Duration is required.</p>}

@@ -9,6 +9,8 @@ import JobDetailsCard from "@/components/reusable/JobDetails";
 import { Clapperboard, Clock4, File as FileIcon, FileText } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import BidCard from "@/components/reusable/Bids";
+import ReviewList, { ReviewType } from "@/components/reusable/Review";
 interface UploadedFile {
   name: string;
   size: number;
@@ -88,6 +90,29 @@ const Proposal: ProposalRow[] = [
     amount: "$90",
     time: "7 Days",
     status: "Pending",
+  },
+];
+
+const reviews: ReviewType[] = [
+  {
+    id: 1,
+    name: "Michael Brown",
+    img: "/images/devon.png",
+    rating: 5,
+    totalReviews: 32,
+    comment:
+      "Outstanding work. Communication was clear and delivery was faster than expected.",
+    timeAgo: "2 days ago",
+  },
+  {
+    id: 2,
+    name: "Ayesha Rahman",
+    img: "/images/headset.svg",
+    rating: 4,
+    totalReviews: 18,
+    comment:
+      "Very professional and responsive. Minor revisions needed but handled well.",
+    timeAgo: "1 week ago",
   },
 ];
 
@@ -341,9 +366,9 @@ export default function HireDetails({ params }: { params: { id: string } }) {
               onExtendDelivery={() => router.push("/editor/extend-delivery")} // ✅ link
             />
           </div>
-
         </div>
       </div>
+      
     </div>
   );
 }
