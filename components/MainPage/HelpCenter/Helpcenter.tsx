@@ -15,18 +15,17 @@ import PaymentIcon from "@/components/Icons/payments";
 import SupportIcon from "@/components/Icons/supportIcon";
 import MassageIcon from "@/components/Icons/massageIcon";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import Link from "next/link";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import SupportChatDialog from "./ChatModal";
+
 import SimpleChatModal from "./ChatModal";
+import EmailChat from "./EmailChat";
 
 export default function HelpCenterPage() {
-  // NEW — active category state
   const [activeTab, setActiveTab] = useState<"account" | "payment" | "support">(
     "support"
   );
-const [open, setOpen] = useState(false);
 
+  const [liveChatOpen, setLiveChatOpen] = useState(false);
+  const [emailChatOpen, setEmailChatOpen] = useState(false);
 
   return (
     <div>
@@ -100,7 +99,9 @@ const [open, setOpen] = useState(false);
           {/* FAQ SECTION — ONLY SHOW IF SUPPORT ACTIVE */}
           {activeTab === "support" && (
             <>
-              <h2 className="text-[18px] font-medium text-black mb-4">Support & Contact</h2>
+              <h2 className="text-[18px] font-medium text-black mb-4">
+                Support & Contact
+              </h2>
 
               <div className="bg-white rounded-xl shadow p-4">
                 <Accordion type="single" collapsible>
@@ -111,13 +112,11 @@ const [open, setOpen] = useState(false);
                         <p>How to contact customer support</p>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 pb-4 ">
+                    <AccordionContent className="text-gray-600 pb-4">
                       You can reach our customer support team 24/7 through live
                       chat or email. We are ready to assist you with account
                       issues, order-related questions, technical problems, and
-                      general support. You can expect a quick response, as our
-                      team is committed to providing fast and effective
-                      assistance.
+                      general support.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -129,7 +128,9 @@ const [open, setOpen] = useState(false);
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Submit any technical issues through our support form or live chat. Our team will review the issue and work to resolve it as quickly as possible.
+                      Submit any technical issues through our support form or
+                      live chat. Our team will review the issue and work to
+                      resolve it as quickly as possible.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -141,9 +142,11 @@ const [open, setOpen] = useState(false);
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Our team will review dispute submitted within 48 hours and follow up with you regarding the next steps.
+                      Our team will review dispute submitted within 48 hours and
+                      follow up with you regarding the next steps.
                     </AccordionContent>
                   </AccordionItem>
+
                   <AccordionItem value="item-4">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
@@ -152,9 +155,11 @@ const [open, setOpen] = useState(false);
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Please follow our guidelines to keep the platform positive, supportive, and safe for all users.
+                      Please follow our guidelines to keep the platform
+                      positive, supportive, and safe for all users.
                     </AccordionContent>
                   </AccordionItem>
+
                   <AccordionItem value="item-5">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
@@ -163,7 +168,9 @@ const [open, setOpen] = useState(false);
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      You can submit any feedback or suggestions through the request form. We appreciate your input as it helps us improve the platform.
+                      You can submit any feedback or suggestions through the
+                      request form. We appreciate your input as it helps us
+                      improve the platform.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -171,7 +178,7 @@ const [open, setOpen] = useState(false);
             </>
           )}
 
-          {/* Bottom Support Boxes (Always Visible) */}
+          {/* Bottom Support Boxes */}
           <div className="bg-white shadow rounded-xl mt-12 p-10 text-center">
             <SupportIcon className="text-red-400 bg-[#FFEEEE] mx-auto mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
 
@@ -185,43 +192,60 @@ const [open, setOpen] = useState(false);
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Live Chat */}
-               <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
-    <div className="flex items-start gap-4">
-      <MassageIcon  className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
-
-    <div className="text-left">
-      <p className="font-medium text-[18px] text-[#333]">Live Chat</p>
-        <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">Average response: 2 min</p>
-      </div>
-    </div>
-
-  <button onClick={() => setOpen(true)} className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg">Email Support</button>
-<SimpleChatModal open={open} setOpen={setOpen} />
-
-  </div>
-
-              {/* Email Support */}
-              <div className="shadow-0  lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
+              <div className="shadow-0 lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
                 <div className="flex items-start gap-4">
                   <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
+                  <div className="text-left">
+                    <p className="font-medium text-[18px] text-[#333]">
+                      Live Chat
+                    </p>
+                    <p className="font-normal text-normal mb-4 text-[#777980] pt-3">
+                      Average response: 2 min
+                    </p>
+                  </div>
+                </div>
 
+                <button
+                  type="button"
+                  onClick={() => setLiveChatOpen(true)}
+                  className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg cursor-pointer"
+                >
+                  Start Live Chat
+                </button>
+
+                <SimpleChatModal open={liveChatOpen} setOpen={setLiveChatOpen} />
+              </div>
+
+              {/* Email Support */}
+              <div className="shadow-0 lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
+                <div className="flex items-start gap-4">
+                  <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
                   <div className="text-left">
                     <p className="font-medium text-[18px] text-[#333]">
                       Email Support
                     </p>
-                    <p className=" font-normal text-normal mb-4 text-[#777980] pt-3">
+                    <p className="font-normal text-normal mb-4 text-[#777980] pt-3">
                       Average response: 24 hrs
                     </p>
                   </div>
                 </div>
 
-                <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg">
+                <button
+                  type="button"
+                  onClick={() => setEmailChatOpen(true)}
+                  className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg cursor-pointer"
+                >
                   Submit a Request
                 </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* ✅ Floating Email Chat (bottom-right) */}
+      <div className="fixed bottom-6 right-6 z-[9999] w-[680px] max-w-[92vw]">
+        <EmailChat open={emailChatOpen} setOpen={setEmailChatOpen} />
       </div>
     </div>
   );
