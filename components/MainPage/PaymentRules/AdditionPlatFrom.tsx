@@ -5,7 +5,7 @@ import { Image as ImageIcon, Headphones, BadgeCheck, AlertTriangle } from "lucid
 export default function AdditionalPlatform() {
   return (
     <div className="w-full">
-      <h3 className="text-[18px] font-medium text-[#111827] mb-4">
+      <h3 className="text-[18px] font-medium text-[#111827] mb-4 p-6">
         Additional Platform Rules
       </h3>
 
