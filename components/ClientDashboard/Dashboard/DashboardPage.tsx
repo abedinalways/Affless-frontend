@@ -88,9 +88,10 @@ export default function ClientDashboard() {
               <h3 className="text-[18px] font-medium text-[#333] leading-130%">Balance</h3>
               <p className="text-2xl font-medium leading-150% text-[#333] text-center py-4">US$0</p>
               <div className="flex justify-center">
+               <Link href="/client/add-money">
                 <button className="rounded-lg border border-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-[#ff4b4b] cursor-pointer">
                   Add Funds
-                </button>
+                </button></Link>
               </div>
             </div>
 

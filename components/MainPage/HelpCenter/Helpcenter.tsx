@@ -16,12 +16,17 @@ import SupportIcon from "@/components/Icons/supportIcon";
 import MassageIcon from "@/components/Icons/massageIcon";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import Link from "next/link";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import SupportChatDialog from "./ChatModal";
+import SimpleChatModal from "./ChatModal";
 
 export default function HelpCenterPage() {
   // NEW — active category state
   const [activeTab, setActiveTab] = useState<"account" | "payment" | "support">(
     "support"
   );
+const [open, setOpen] = useState(false);
+
 
   return (
     <div>
@@ -190,9 +195,9 @@ export default function HelpCenterPage() {
       </div>
     </div>
 
-    <Link href="/client/message" className="bg-red-500 hover:bg-red-600 text-white w-full block text-center py-2 rounded-lg">
-      Chat With Support
-    </Link>
+  <button onClick={() => setOpen(true)} className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg">Email Support</button>
+<SimpleChatModal open={open} setOpen={setOpen} />
+
   </div>
 
               {/* Email Support */}
@@ -210,7 +215,7 @@ export default function HelpCenterPage() {
                   </div>
                 </div>
 
-                <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2 rounded-lg">
+                <button className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg">
                   Submit a Request
                 </button>
               </div>

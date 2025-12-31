@@ -75,6 +75,8 @@ export default function Footer() {
               <li><Link href="/find-editors">Find Editors</Link></li>
               <li><Link href="/payment-protection">Payment Protection</Link></li>
               <li><Link href="/client-guide">Client Guide</Link></li>
+              <li><Link href="/payment-rules">Payment Rules</Link></li>
+
             </ul>
           </div>
 
