@@ -122,12 +122,19 @@ export default function ClientDashboard() {
 
           {/* RIGHT COLUMN */}
           <div className="w-full lg:w-2/3 space-y-4">
-            <div className="flex items-center justify-between gap-8">
-              <div className="">
-                <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>
+            <div className=" gap-8">
+              <div className="flex justify-between">
+               <div className="">
+                 <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>
                 <p className="mt-1 text-sm text-gray-500">
                   Find important messages, tips, and links to helpful resources here:
                 </p>
+               </div>
+               <div className="">
+                 <Link href="/client/post-job" className="mt-3 p-3 bg-red-500 text-white rounded-lg text-sm">
+              + Post New Job
+            </Link>
+               </div>
               </div>
             </div>
 

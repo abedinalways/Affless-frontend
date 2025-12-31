@@ -100,20 +100,55 @@ export default function ClientDashboardHeader() {
                     </span>
                   </button>
 
-                  {open && (
-                    <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                      <Link href="/client/manage-job" className="block px-4 py-2 hover:bg-gray-100">Manage Job</Link>
-                      <Link href="/client/find-editor" className="block px-4 py-2 hover:bg-gray-100">Find Editor</Link>
-                      <Link href="/client/job-proposal" className="block px-4 py-2 hover:bg-gray-100">Job Proposal</Link>
-                      <Link href="/client/payment-history" className="block px-4 py-2 hover:bg-gray-100">Payment History</Link>
-                      <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
-                    </div>
-                  )}
+                {open && (
+  <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
+    <Link
+      href="/client/manage-job"
+      className="block px-4 py-2 hover:bg-gray-100"
+      onClick={() => setOpen(false)}
+    >
+      Manage Job
+    </Link>
+
+    <Link
+      href="/client/find-editor"
+      className="block px-4 py-2 hover:bg-gray-100"
+      onClick={() => setOpen(false)}
+    >
+      Find Editor
+    </Link>
+
+    <Link
+      href="/client/job-proposal"
+      className="block px-4 py-2 hover:bg-gray-100"
+      onClick={() => setOpen(false)}
+    >
+      Job Proposal
+    </Link>
+
+    <Link
+      href="/client/payment-history"
+      className="block px-4 py-2 hover:bg-gray-100"
+      onClick={() => setOpen(false)}
+    >
+      Payment History
+    </Link>
+
+    <Link
+      href="/client/profile"
+      className="block px-4 py-2 hover:bg-gray-100"
+      onClick={() => setOpen(false)}
+    >
+      Profile
+    </Link>
+  </div>
+)}
+
                 </div>
               </li>
 
               <li>
-                <Link href="#">Pricing</Link>
+                <Link href="/pricing">Pricing</Link>
               </li>
             </ul>
           </div>
