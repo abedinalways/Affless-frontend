@@ -24,7 +24,7 @@ export default function GraphicsDesignerPage() {
             <JobDetailsPage/>
         </div>
         <div className="w-full md:w-1/4">
-            <BudgetPage/>
+            <BudgetPage status={null}/>
         </div>
       </div>
       <div>
