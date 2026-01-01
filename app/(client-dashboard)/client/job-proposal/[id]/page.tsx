@@ -84,7 +84,7 @@ export default function JobDetails({ params }: { params: { id: string } }) {
             </p>
 
             <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Mauris sed venenatis libero, Pellentesque elementum ante massa, ac
+              Mauris sed venenatis libero, Pellentesque elementum ante massa,ac
               ornare augue molestie ut. Suspendisse lacinia tortor sem, at
               condimentum nulla auctor in. Sed vulputate euismod risus, eget
               auctor nulla aliquet sed.
