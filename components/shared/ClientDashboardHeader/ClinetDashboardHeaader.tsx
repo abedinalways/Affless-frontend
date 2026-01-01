@@ -158,21 +158,21 @@ export default function ClientDashboardHeader() {
           <div className="hidden lg:flex gap-8 items-center">
             <Link href="/editor" onClick={handleBecomeEditorClick} className="cursor-pointer">
               Become a Editor
-            </button>
-              <div className="relative group">
-               <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
-                <div
-                  className="
+            </Link>
+            <div className="relative group">
+              <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
+              <div
+                className="
       absolute right-0 mt-3 w-[412px]
       rounded-xl border bg-white shadow-lg
       opacity-0 invisible translate-y-2
       group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
       transition-all duration-200 z-50
     "
-                >
-                  <Notification />
-             </div>
-                </div>
+              >
+                <Notification />
+              </div>
+            </div>
             <Link href="/client/message">
               <MdMailOutline className="w-7 h-7 cursor-pointer" />
             </Link>

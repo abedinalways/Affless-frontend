@@ -108,8 +108,8 @@ export default function JobProposalPage() {
     "ALL" | "5 Days" | "7 Days" | "3 Days"
   >("ALL");
 const [statusFilter, setstatusFilter] = useState<
-    "Accept" | "Declined" 
-  >("Accept");
+    "Accepted" | "Declined" 
+  >("Accepted");
   // ✅ Filtered proposals
  const filteredData = useMemo(() => {
   let data = Proposal;
@@ -159,9 +159,9 @@ useEffect(() => {
         <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
           <div className="flex gap-4">
            <button
-  onClick={() => setstatusFilter("Accept")}
+  onClick={() => setstatusFilter("Accepted")}
   className={`p-2.5 rounded-md ${
-    statusFilter === "Accept"
+    statusFilter === "Accepted"
       ? "bg-[#FF4D4F] text-white"
       : "bg-[#FFEDED] text-[#FF4D4F]"
   }`}
@@ -276,9 +276,9 @@ useEffect(() => {
               <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
           <div className="flex gap-4">
            <button
-  onClick={() => setstatusFilter("Accept")}
+  onClick={() => setstatusFilter("Accepted")}
   className={`p-2.5 rounded-md ${
-    statusFilter === "Accept"
+    statusFilter === "Accepted"
       ? "bg-[#FF4D4F] text-white"
       : "bg-[#FFEDED] text-[#FF4D4F]"
   }`}
