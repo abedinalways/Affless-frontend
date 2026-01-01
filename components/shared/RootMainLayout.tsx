@@ -14,8 +14,8 @@ const RootMainLayout = ({ children }: { children: React.ReactNode }) => {
 
     if (loading) {
         return (
-            <div>
-                <Loading />
+            <div>      
+                 <Loading />
             </div>
         );
     }

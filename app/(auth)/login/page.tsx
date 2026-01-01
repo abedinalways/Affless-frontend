@@ -73,7 +73,7 @@ export default function SignInForm() {
         </div>
 
         {/* Right Form */}
-        <div className="w-full  mb-9 bg-[#FFDBDC] sm:rounded-3xl shadow-md p-8 sm:p-14 mx-auto">
+        <div className="w-full  bg-[#FFDBDC] sm:rounded-3xl shadow-md p-8 sm:p-14 mx-auto">
           <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-[42px]">
             Sign In
           </h2>

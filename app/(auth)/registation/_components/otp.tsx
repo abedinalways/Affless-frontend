@@ -75,7 +75,7 @@ export default function OtpForm() {
         </div>
 
         {/* Right Content */}
-        <div className="h-full flex flex-col justify-center bg-[#FFDBDC] rounded-2xl mb-8">
+        <div className="h-full flex flex-col justify-center bg-[#FFDBDC] rounded-2xl ">
           <div className="w-full max-w-lg mx-auto p-10  ">
 
             {/* Back + Title */}

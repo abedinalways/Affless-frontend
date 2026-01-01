@@ -15,6 +15,7 @@ type FormValues = {
   email: string;
   password: string;
   terms: boolean;
+   accountType: string;
 };
 
 export default function SingUpForm() {
@@ -55,12 +56,43 @@ export default function SingUpForm() {
         </div>
 
         {/* Right Form */}
-        <div className="w-full  bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto mb-8">
+        <div className="w-full  bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto ">
           <h2 className="text-[#333] text-center font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%] pb-6 ">
             Sign Up 
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+<p className="text-[18px] font-normal text-[#1D1F2C] mb-3">
+  Select Account Type:
+</p>
+
+<div className="flex items-center gap-6">
+  {/* Editor */}
+  <div className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg">
+    <input
+      type="radio"
+      value="editor"
+      {...register("accountType", { required: "Account type is required" })}
+      className="h-5 w-5 accent-red-500 cursor-pointer"
+    />
+    <p className="text-[#333] font-poppins text-base select-none">Editor</p>
+  </div>
+
+  {/* Client */}
+  <div className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg">
+    <input
+      type="radio"
+      value="client"
+      {...register("accountType", { required: "Account type is required" })}
+      className="h-5 w-5 accent-red-500 cursor-pointer"
+    />
+    <p className="text-[#333] font-poppins text-base select-none">Client</p>
+  </div>
+</div>
+
+{errors.accountType && (
+  <p className="text-red-500 text-sm mt-2">{errors.accountType.message}</p>
+)}
 
             {/* Name */}
             <div className="relative">

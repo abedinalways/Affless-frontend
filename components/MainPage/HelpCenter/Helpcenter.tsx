@@ -16,8 +16,11 @@ import SupportIcon from "@/components/Icons/supportIcon";
 import MassageIcon from "@/components/Icons/massageIcon";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
-import SimpleChatModal from "./ChatModal";
+// ✅ Live chat messenger style modal=
+
+// ✅ Email composer (your EmailChat component)
 import EmailChat from "./EmailChat";
+import LiveChatModal from "./ChatModal";
 
 export default function HelpCenterPage() {
   const [activeTab, setActiveTab] = useState<"account" | "payment" | "support">(
@@ -210,10 +213,8 @@ export default function HelpCenterPage() {
                   onClick={() => setLiveChatOpen(true)}
                   className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg cursor-pointer"
                 >
-                  Start Live Chat
+                  Live Chat
                 </button>
-
-                <SimpleChatModal open={liveChatOpen} setOpen={setLiveChatOpen} />
               </div>
 
               {/* Email Support */}
@@ -243,7 +244,10 @@ export default function HelpCenterPage() {
         </div>
       </div>
 
-      {/* ✅ Floating Email Chat (bottom-right) */}
+      {/* ✅ Live Chat (messenger style) */}
+      <LiveChatModal open={liveChatOpen} setOpen={setLiveChatOpen} />
+
+      {/* ✅ Email Support (your EmailChat) */}
       <div className="fixed bottom-6 right-6 z-[9999] w-[680px] max-w-[92vw]">
         <EmailChat open={emailChatOpen} setOpen={setEmailChatOpen} />
       </div>

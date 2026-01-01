@@ -3,9 +3,38 @@ import BudgetPage from "@/components/ClientDashboard/GraphicsDesigner/BudgetPage
 import JobDetailsPage from "@/components/ClientDashboard/GraphicsDesigner/JobDetailsPa";
 import PdfIcon from "@/components/Icons/PdfIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
+import BidCard from "@/components/reusable/Bids";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 export default function JobDetails({ params }: { params: { id: string } }) {
+  const bids = [
+  {
+    id: 1,
+    name: "Sarah Johnson",
+    avatar: "/images/devon.png",
+    time: "2 hours ago",
+    description:
+      "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
+  },
+  {
+    id: 2,
+    name: "John Doe",
+    avatar: "/images/jerome.png",
+    time: "1 day ago",
+    description:
+      "I will handle your project professionally. You will get unlimited revisions and fast response.",
+  },
+   {
+    id: 3,
+    name: "John Doe",
+    avatar: "/images/jerome.png",
+    time: "1 day ago",
+    description:
+      "I will handle your project professionally. You will get unlimited revisions and fast response.",
+  },
+];
 
         const [pdfFile, setPdfFile] = useState<File | null>(null);
     const [textFile, setTextFile] = useState<File | null>(null);
@@ -21,6 +50,8 @@ export default function JobDetails({ params }: { params: { id: string } }) {
         setTextFile(e.target.files[0]);
       }
     };
+    const searchParams = useSearchParams();
+const status = searchParams.get("status");
   return (
  <div>
     <div>
@@ -35,9 +66,9 @@ export default function JobDetails({ params }: { params: { id: string } }) {
           />
         </div>
      <div className="containers py-10 lg:py-20 ">
-       <div className="flex gap-9">
+       <div className="flex flex-col lg:flex-row gap-9">
         
-         <div className="space-y-5 w-3/4">
+         <div className="space-y-5 w-full lg:w-3/4 order-2 lg:order-1">
 
   
 
@@ -122,11 +153,33 @@ export default function JobDetails({ params }: { params: { id: string } }) {
       </label>
 
     </div>
+    <div className="">
+      <p className="text-[24px] lg:text-[32px] font-semibold pt-8 pb-6 text-[#333] ">Bids</p>
+      {bids.map((bid) => (
+  <Link
+    key={bid.id}
+    href="/client/bids-details"
+    className="block"
+  >
+    <BidCard
+      id={bid.id}
+      name={bid.name}
+      avatar={bid.avatar}
+      time={bid.time}
+      description={bid.description}
+    />
+  </Link>
+))}
+
+    </div>
       </div>
     </div>
-        <div className="w-1/4">
-          <BudgetPage/>
+        <div className="w-full lg:w-1/4 order-1 lg:order-2">
+         <BudgetPage status={status} />
+
         </div>
+
+      
         </div> 
      
     </div>
