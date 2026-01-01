@@ -2,6 +2,7 @@
 
 import UsaFlag from "@/components/Icons/UsaFlag";
 import Image from "next/image";
+import Link from "next/link";
 import { MdStar } from "react-icons/md";
 
 const reviews = [
@@ -56,9 +57,9 @@ export default function ReviewsSection() {
             <div className="flex-1">
               {/* Name + Country */}
               <div className="space-y-1">
-                <p className="text-[16px] font-semibold text-[#333] leading-none">
+                <Link href="/client/profile" className="text-[16px] font-semibold text-[#333] leading-none">
                   {review.name}
-                </p>
+                </Link>
 
                 <div className="flex items-center gap-2 text-[13px] text-gray-500">
                  <UsaFlag />

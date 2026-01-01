@@ -56,7 +56,7 @@ export default function ProfilePage() {
       <div className="bg-white rounded-xl px-5 py-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
 
         {/* LEFT */}
-        <div className="flex flex-col md:flex-row items-center gap-5">
+        <div className="flex md:flex-col lg:flex-row items-center gap-5">
           <Image
             src="/images/sarah.png"
             alt="User"
@@ -79,7 +79,7 @@ export default function ProfilePage() {
         </div>
 
         {/* RIGHT */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center w-full md:w-xl">
+        <div className="grid sm:grid-cols-2 gap-4 text-center w-full md:w-xl">
 
           <div className="bg-[#FFC8C8] rounded-lg p-4">
             <p className="text-gray-600 text-sm">Jobs Posted</p>
@@ -138,9 +138,9 @@ export default function ProfilePage() {
                   </div>
                 </div>
                 <div>
-                  <p className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
+                  <Link href="/jobs/1" className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
                     View Job
-                  </p>
+                  </Link>
                 </div>
               </div>
 

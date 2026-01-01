@@ -7,6 +7,7 @@ import { TiStarFullOutline } from "react-icons/ti";
 import Pagination from "@/components/reusable/pagination";
 import { Slider } from "@/components/ui/slider";
 import PageBanner from "@/components/reusable/Bgbanner";
+import { FaSitemap } from "react-icons/fa";
 interface Editor {
   id: number;
   name: string;
@@ -80,6 +81,7 @@ const allEditors: Editor[] = [
 export default function FindEditorPage() {
   // Pagination setup
   const [page, setPage] = useState(1);
+  const [mobileMenu, setMobileMenu] = useState(false);
   const pageSize = 5; // how many cards per page
 
   const startIndex = (page - 1) * pageSize;
@@ -99,7 +101,7 @@ export default function FindEditorPage() {
           ]}
         />
       </div>
-      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 pt-10 lg:pt-20">
+      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 lg:pt-20">
         {/* LEFT FILTER SIDEBAR */}
         <aside className="w-[330px] xl:w-1/4 hidden lg:block  bg-white p-6 rounded-xl shadow-sm h-fit sticky top-6 space-y-6">
           {/* Job Category */}
@@ -189,38 +191,13 @@ export default function FindEditorPage() {
               ))}
             </div>
           </div>
-
-
         </aside>
-        <div className=" lg:hidden grid grid-cols-2  gap-4 mb-4">
-          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
-            <option>Job Category</option>
-            <option>SEO</option>
-            <option>Video Editing</option>
-            <option>Web Development</option>
-            {/* Add more options here */}
-          </select>
-          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
-            <option>Platform</option>
-            <option>Upwork</option>
-            <option>Fiverr</option>
-            <option>Freelancer</option>
-            {/* Add more options here */}
-          </select>
-          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
-            <option>Budget</option>
-            <option>$10 - $50</option>
-            <option>$50 - $100</option>
-            <option>$100+</option>
-            {/* Add more options here */}
-          </select>
-          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
-            <option>Duration</option>
-            <option>3 Days</option>
-            <option>5 Days</option>
-            <option>7 Days</option>
-            {/* Add more options here */}
-          </select>
+
+        <div className='grid items-center justify-end lg:hidden'>
+          <button type="button" onClick={() => setMobileMenu(true)} className='flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300'>
+            <FaSitemap />
+            <span>Filters</span>
+          </button>
         </div>
 
         {/* RIGHT SIDE: EDITOR LIST */}
@@ -235,7 +212,7 @@ export default function FindEditorPage() {
                 <Image
                   src={editor.image}
                   alt={editor.name}
-                  width={200}
+                  width={500}
                   height={160}
                   className="rounded-lg object-cover w-full lg:w-[200px] "
                 />

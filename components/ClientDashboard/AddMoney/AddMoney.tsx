@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Calendar, Plus } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 type Step = "BALANCE" | "ADD_MONEY" | "PAYMENT";
 
@@ -32,8 +33,9 @@ export default function AddMoney() {
 
   return (
     <div className=" bg-[#F8F8F8] py-10">
+      <Toaster />
       <div className="mx-auto w-full max-w-[860px] space-y-8 px-4">
-        
+
         {/* STEP: BALANCE */}
         {step === "BALANCE" && (
           <>
@@ -85,7 +87,15 @@ export default function AddMoney() {
                 canPay={canPay}
                 onBack={() => setStep("ADD_MONEY")}
                 onPay={() => {
-               
+                  toast.success(`Paid $${amount.toFixed(2)} successfully!`);
+                  setTimeout(() => {
+                    setStep("BALANCE");
+                    setAmount(0);
+                    setCardNumber("");
+                    setExpiry("");
+                    setCvc("");
+                    setHolder("");
+                  }, 500);
                 }}
               />
             </Panel>
@@ -132,7 +142,7 @@ function BalanceStep({
       <button
         type="button"
         onClick={onAddMoney}
-        className="mt-10 w-full h-[56px] rounded-xl bg-[#FF4B4B] text-white font-semibold text-[16px]
+        className="mt-10 w-full h-14 rounded-xl bg-[#FF4B4B] text-white font-semibold text-[16px]
                    cursor-pointer hover:opacity-90 transition flex items-center justify-center gap-2"
       >
         <Plus size={18} />
@@ -182,11 +192,10 @@ function AddMoneyStep({
                 key={q}
                 type="button"
                 onClick={() => setAmount(q)}
-                className={`min-w-[88px] h-[44px] rounded-lg px-4 font-medium transition
-                  ${
-                    active
-                      ? "bg-[#1BB7C5] text-white cursor-not-allowed"
-                      : "bg-[#E9F7FA] text-gray-900 hover:opacity-90 cursor-pointer"
+                className={`min-w-[88px] h-11 rounded-lg px-4 font-medium transition
+                  ${active
+                    ? "bg-[#1BB7C5] text-white cursor-not-allowed"
+                    : "bg-[#E9F7FA] text-gray-900 hover:opacity-90 cursor-pointer"
                   }`}
               >
                 ${q}
@@ -201,12 +210,11 @@ function AddMoneyStep({
           type="button"
           disabled={!canGoPayment}
           onClick={onNext}
-          className={`w-full h-[56px] rounded-xl font-semibold text-[16px] transition
+          className={`w-full h-14 rounded-xl font-semibold text-[16px] transition
             flex items-center justify-center gap-2
-            ${
-              !canGoPayment
-                ? "bg-[#FF4B4B]/50 text-white cursor-not-allowed"
-                : "bg-[#FF4B4B] text-white cursor-pointer hover:opacity-90"
+            ${!canGoPayment
+              ? "bg-[#FF4B4B]/50 text-white cursor-not-allowed"
+              : "bg-[#FF4B4B] text-white cursor-pointer hover:opacity-90"
             }`}
         >
           <Plus size={18} />
@@ -260,7 +268,7 @@ function PaymentMethodStep({
           value={cardNumber}
           onChange={(e) => setCardNumber(e.target.value)}
           placeholder="1234 5678 9012 3456"
-          className="w-full h-[48px] rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
+          className="w-full h-12 rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
         />
       </Field>
 
@@ -270,7 +278,7 @@ function PaymentMethodStep({
             value={expiry}
             onChange={(e) => setExpiry(e.target.value)}
             placeholder="MM / YY"
-            className="w-full h-[48px] rounded-lg border border-gray-300 px-4 pr-12 outline-none focus:border-gray-400"
+            className="w-full h-12 rounded-lg border border-gray-300 px-4 pr-12 outline-none focus:border-gray-400"
           />
           <Calendar
             size={18}
@@ -284,7 +292,7 @@ function PaymentMethodStep({
           value={cvc}
           onChange={(e) => setCvc(e.target.value)}
           placeholder="123"
-          className="w-full h-[48px] rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
+          className="w-full h-12 rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
         />
       </Field>
 
@@ -293,7 +301,7 @@ function PaymentMethodStep({
           value={holder}
           onChange={(e) => setHolder(e.target.value)}
           placeholder="John Doe"
-          className="w-full h-[48px] rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
+          className="w-full h-12 rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
         />
       </Field>
 
@@ -301,11 +309,10 @@ function PaymentMethodStep({
         type="button"
         disabled={!canPay}
         onClick={onPay}
-        className={`w-full h-[56px] rounded-xl font-semibold text-[16px] transition
-          ${
-            !canPay
-              ? "bg-[#FF4B4B]/50 text-white cursor-not-allowed"
-              : "bg-[#FF4B4B] text-white cursor-pointer hover:opacity-90"
+        className={`w-full h-14 rounded-xl font-semibold text-[16px] transition
+          ${!canPay
+            ? "bg-[#FF4B4B]/50 text-white cursor-not-allowed"
+            : "bg-[#FF4B4B] text-white cursor-pointer hover:opacity-90"
           }`}
       >
         Pay ${amount || 0}

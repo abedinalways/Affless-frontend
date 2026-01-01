@@ -12,12 +12,14 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import RequestRevisionModal from "./RequestModal";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function DeliveryClient() {
   const [openRevision, setOpenRevision] = useState(false);
 
   return (
     <div className="">
+      <Toaster />
       <div>
         <PageBanner
           title="Delivery Page"
@@ -105,8 +107,8 @@ export default function DeliveryClient() {
             </div>
 
             <button className="flex items-center gap-2 text-[#ff4b4b] font-medium hover:opacity-80 transition cursor-pointer">
-              <Eye size={18} />
-              <span className="text-[14px]">Preview</span>
+              <Download size={18} />
+              <span className="text-[14px]">Download</span>
             </button>
           </div>
 
@@ -129,8 +131,10 @@ export default function DeliveryClient() {
                 </div>
               </div>
             </div>
-
-            <div />
+            <button className="flex items-center gap-2 text-[#ff4b4b] font-medium hover:opacity-80 transition cursor-pointer">
+              <Download size={18} />
+              <span className="text-[14px]">Download</span>
+            </button>
           </div>
         </div>
 
@@ -147,12 +151,12 @@ export default function DeliveryClient() {
         </div>
 
         {/* Note */}
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <textarea
             placeholder="Note..."
             className="w-full min-h-[140px] rounded-2xl border border-gray-200 bg-white p-4 text-[15px] text-gray-700 outline-none focus:border-gray-300 resize-none"
           />
-        </div>
+        </div> */}
 
         {/* Actions */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5 pb-10">
@@ -169,13 +173,16 @@ export default function DeliveryClient() {
           <button
             type="button"
             onClick={() => setOpenRevision(true)}
-            className="h-[56px] rounded-xl border border-[#ff4b4b] bg-[#ff4b4b]/10 text-[#ff4b4b] hover:bg-[#FF4D4F] hover:text-white font-semibold text-[16px] cursor-pointer transition"
+            className="h-14 rounded-xl border border-[#ff4b4b] bg-[#ff4b4b]/10 text-[#ff4b4b] hover:bg-[#FF4D4F] hover:text-white font-semibold text-[16px] cursor-pointer transition"
           >
             Request Revision
           </button>
         </div>
 
-        <RequestRevisionModal open={openRevision} setOpen={setOpenRevision} />
+        <RequestRevisionModal open={openRevision} setOpen={setOpenRevision} handleSubmit={()=>{
+          toast.success("Revision requested successfully!")
+          setOpenRevision(false);
+        }}/>
       </div>
     </div>
   );

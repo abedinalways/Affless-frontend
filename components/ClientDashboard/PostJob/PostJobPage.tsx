@@ -7,6 +7,7 @@ import PageBanner from "@/components/reusable/Bgbanner";
 import SinglePaymentIcon from "@/components/Icons/SinglePaymentIcon";
 import MilestoneIcon from "@/components/Icons/MilestoneIcon";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
   jobTitle: string;
@@ -18,11 +19,13 @@ type FormValues = {
   experience: string;
   pdfFile?: FileList;
   textFile?: FileList;
+  styleReference?: FileList;
 };
 
 
 export default function PostJobForm() {
   const [paymentType, setPaymentType] = useState<"single" | "milestone">("single");
+  const router = useRouter();
   const [jobCategory, setJobCategory] = useState<{ key: string, label: string }[]>([
     {
       key: "youtube_long_form",
@@ -71,6 +74,7 @@ export default function PostJobForm() {
   const [styleReference, setStyleReference] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [textDocument, setTextDocument] = useState<File | null>(null);
+  const [loading,setLoading] = useState(false);
 
   // Handle file uploads
   const handleStyleReferenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,7 +97,12 @@ export default function PostJobForm() {
 
   // Submit handler
   const onSubmit = (data: FormValues) => {
+    setLoading(true);
     console.log("Form Submitted:", data, "Payment Type:", paymentType);
+    setTimeout(() => {
+      setLoading(false);
+      router?.push('/client/confirm-deposit')
+    }, 500);
   };
 
   return (
@@ -152,7 +161,7 @@ export default function PostJobForm() {
                 • 2nd violation: Permanent ban + funds withheld
               </p>
               <Link href="/platform-safety" className="text-red-600 underline text-sm mt-2 inline-block">
-                Read Full Off-Platform Policy 
+                Read Full Off-Platform Policy
               </Link>
             </div>
 
@@ -197,7 +206,13 @@ export default function PostJobForm() {
             <div className="space-y-5 pb-3">
               <div>
                 <label className="mb-2 block">Style Reference <span className="text-red-500">*</span></label>
-                <input id="style-reference-upload" required className="hidden" type="file" onChange={handleStyleReferenceChange} />
+                <input 
+                  {...register("styleReference", { required: "Style reference is required" })}
+                  id="style-reference-upload" 
+                  className="hidden" 
+                  type="file" 
+                  onChange={handleStyleReferenceChange} 
+                />
                 <div className="flex items-center gap-3">
                   <label htmlFor="style-reference-upload" className="cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
                     Choose File
@@ -206,11 +221,18 @@ export default function PostJobForm() {
                     {styleReference?.name || "No file selected"}
                   </span>
                 </div>
+                {errors.styleReference && <p className="text-red-500 text-sm mt-1">{errors.styleReference.message}</p>}
               </div>
 
               <div>
                 <label className="mb-2 block">PDF File:</label>
-                <input id="pdf-file-upload" className="hidden" type="file" onChange={handlePdfFileChange} />
+                <input 
+                  {...register("pdfFile")}
+                  id="pdf-file-upload" 
+                  className="hidden" 
+                  type="file" 
+                  onChange={handlePdfFileChange} 
+                />
                 <div className="flex items-center gap-3">
                   <label htmlFor="pdf-file-upload" className="cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
                     Choose File
@@ -221,7 +243,13 @@ export default function PostJobForm() {
 
               <div>
                 <label className="block">Text Document:</label>
-                <input id="text-document-upload" className="hidden" type="file" onChange={handleTextDocumentChange} />
+                <input 
+                  {...register("textFile")}
+                  id="text-document-upload" 
+                  className="hidden" 
+                  type="file" 
+                  onChange={handleTextDocumentChange} 
+                />
                 <div className="flex items-center gap-3">
                   <label htmlFor="text-document-upload" className="cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
                     Choose File
@@ -258,10 +286,9 @@ export default function PostJobForm() {
               <p className="text-sm text-gray-600">Divide the project into stages for partial payments.</p>
             </div>
 
-            <Link href="/client/confirm-deposit">
-              <button type="submit" className="w-full bg-red-500 text-white py-3 rounded-lg mt-8 hover:bg-red-600">
-                Next
-              </button></Link>
+            <button type="submit" disabled={loading} className="w-full bg-red-500 text-white py-3 rounded-lg mt-8 hover:bg-red-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              Next
+            </button>
           </div>
 
           {/* RIGHT SUMMARY */}

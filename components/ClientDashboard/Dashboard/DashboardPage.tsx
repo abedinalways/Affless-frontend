@@ -79,7 +79,7 @@ export default function ClientDashboard() {
       },
       {
         id: "action",
-        header: "Action",
+        header: "Status",
         cell: ({ row }) => {
           const s = row.original.status;
           return (
@@ -117,7 +117,7 @@ export default function ClientDashboard() {
                 </div>
 
                 <div className="text-center">
-                  <p className="text-lg font-semibold underline">Zeeshan</p>
+                  <Link href="/client/profile" className="text-lg font-semibold underline">Zeeshan</Link>
                   <div className="pt-3 text-sm text-gray-500 flex">
                     <p className="flex gap-2">
                       <LocationIcon /> Pakistan <WorldIcon /> English

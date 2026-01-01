@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Star } from "lucide-react";
+import Link from "next/link";
 
 interface Review {
   id: number;
@@ -73,7 +74,7 @@ function ReviewItem({ review }: { review: Review }) {
       <div className="flex-1 space-y-1">
         {/* Name + Rating Row */}
         <div className="flex justify-between items-start">
-          <p className="font-semibold text-lg">{review.name}</p>
+          <Link href="/editor/editor-profile" className="font-semibold text-lg">{review.name}</Link>
 
           <p className="text-gray-500 text-sm">{review.timeAgo}</p>
         </div>

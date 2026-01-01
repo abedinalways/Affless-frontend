@@ -51,7 +51,7 @@ export default function PaymentHistoryPage() {
       {/* ---------- PAYMENT ROWS (Figma Style) ---------- */}
       <div className="flex justify-between pb-8">
         <p className="font-medium text-[24px] leading-150%">Job</p>
-        <Link href="/client/find-editor" className="text-sm font-normal leading-150% text-gray-700 bg-gray-100 px-4 py-2 rounded-lg hover:bg-[#ff4b4b] hover:text-white duration-300 transition-all">See More</Link>
+        {/* <Link href="/client/find-editor" className="text-sm font-normal leading-150% text-gray-700 bg-gray-100 px-4 py-2 rounded-lg hover:bg-[#ff4b4b] hover:text-white duration-300 transition-all">See More</Link> */}
       </div>
       <div className="space-y-3">
         {payments.map((payment) => (

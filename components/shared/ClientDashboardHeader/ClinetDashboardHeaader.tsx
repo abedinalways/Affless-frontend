@@ -100,49 +100,49 @@ export default function ClientDashboardHeader() {
                     </span>
                   </button>
 
-                {open && (
-  <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-    <Link
-      href="/client/manage-job"
-      className="block px-4 py-2 hover:bg-gray-100"
-      onClick={() => setOpen(false)}
-    >
-      Manage Job
-    </Link>
+                  {open && (
+                    <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
+                      <Link
+                        href="/client/manage-job"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                        onClick={() => setOpen(false)}
+                      >
+                        Manage Job
+                      </Link>
 
-    <Link
-      href="/client/find-editor"
-      className="block px-4 py-2 hover:bg-gray-100"
-      onClick={() => setOpen(false)}
-    >
-      Find Editor
-    </Link>
+                      <Link
+                        href="/client/find-editor"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                        onClick={() => setOpen(false)}
+                      >
+                        Find Editor
+                      </Link>
 
-    <Link
-      href="/client/job-proposal"
-      className="block px-4 py-2 hover:bg-gray-100"
-      onClick={() => setOpen(false)}
-    >
-      Job Proposal
-    </Link>
+                      <Link
+                        href="/client/job-proposal"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                        onClick={() => setOpen(false)}
+                      >
+                        Job Proposal
+                      </Link>
 
-    <Link
-      href="/client/payment-history"
-      className="block px-4 py-2 hover:bg-gray-100"
-      onClick={() => setOpen(false)}
-    >
-      Payment History
-    </Link>
+                      <Link
+                        href="/client/payment-history"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                        onClick={() => setOpen(false)}
+                      >
+                        Payment History
+                      </Link>
 
-    <Link
-      href="/client/profile"
-      className="block px-4 py-2 hover:bg-gray-100"
-      onClick={() => setOpen(false)}
-    >
-      Profile
-    </Link>
-  </div>
-)}
+                      <Link
+                        href="/client/profile"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                        onClick={() => setOpen(false)}
+                      >
+                        Profile
+                      </Link>
+                    </div>
+                  )}
 
                 </div>
               </li>
@@ -155,9 +155,9 @@ export default function ClientDashboardHeader() {
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <div className="hidden lg:flex gap-8 items-center">
-            <button onClick={handleBecomeEditorClick} className="cursor-pointer">
+            <Link href="/editor" onClick={handleBecomeEditorClick} className="cursor-pointer">
               Become a Editor
-            </button>
+            </Link>
             <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
             <Link href="/client/message">
               <MdMailOutline className="w-7 h-7 cursor-pointer" />
@@ -165,7 +165,7 @@ export default function ClientDashboardHeader() {
 
             {/* Profile Dropdown */}
             <div className="relative" ref={profileDropdownRef}>
-              <button onClick={() => setProfileDropdown(!profileDropdown)} className="flex">
+              <button onClick={() => setProfileDropdown(!profileDropdown)} className="flex cursor-pointer">
                 <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
               </button>
 
@@ -173,7 +173,7 @@ export default function ClientDashboardHeader() {
                 <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
                   <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Profile</Link>
                   <hr className="my-2" />
-                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">Logout</button>
+                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer">Logout</button>
                 </div>
               )}
             </div>
@@ -238,7 +238,7 @@ export default function ClientDashboardHeader() {
           </li>
 
           <li>
-            <Link href="/pricing" onClick={() => setMobileMenu(false)}  className="block px-4 py-2 hover:bg-gray-100 duration-300">
+            <Link href="/pricing" onClick={() => setMobileMenu(false)} className="block px-4 py-2 hover:bg-gray-100 duration-300">
               Pricing
             </Link>
           </li>

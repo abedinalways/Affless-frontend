@@ -6,11 +6,13 @@ import FilterSidebar from "./FilterSidebar";  // Keep this as the desktop filter
 import EditorCard, { editors } from "./EditorCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageBanner from "@/components/reusable/Bgbanner";
+import { FaSitemap } from "react-icons/fa";
 
 export default function FindEditors() {
 
   // Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
+  const [mobileMenu, setMobileMenu] = useState(false);
   const itemsPerPage = 3; // HOW MANY EDITORS PER PAGE
 
   const totalPages = Math.ceil(editors.length / itemsPerPage);
@@ -42,7 +44,7 @@ export default function FindEditors() {
       />
 
       {/* Main Section */}
-      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 mt-9 lg:mt-40">
+      <div className="containers mx-auto grid gap-8 lg:mt-40">
 
         {/* Sidebar - hidden on small screens */}
         <div className="hidden lg:block">
@@ -50,35 +52,15 @@ export default function FindEditors() {
         </div>
 
         {/* Mobile Filter Section (Visible only on small screens) */}
-        <div className="lg:hidden grid grid-cols-2  gap-4 mb-4">
-          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
-            <option>Job Category</option>
-            <option>SEO</option>
-            <option>Video Editing</option>
-            <option>Web Development</option>
-            {/* Add more options here */}
-          </select>
-          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
-            <option>Platform</option>
-            <option>Upwork</option>
-            <option>Fiverr</option>
-            <option>Freelancer</option>
-            {/* Add more options here */}
-          </select>
-          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
-            <option>Delivery Time</option>
-            <option>3 Days</option>
-            <option>5 Days</option>
-            <option>7 Days</option>
-            {/* Add more options here */}
-          </select>
-          <select className="p-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md">
-            <option>Budget</option>
-            <option>$10 - $50</option>
-            <option>$50 - $100</option>
-            <option>$100+</option>
-            {/* Add more options here */}
-          </select>
+        <div className={`fixed inset-0 lg:hidden h-full bg-[#0003] z-999 ${mobileMenu ? "w-full translate-x-0" : "w-fit -translate-x-full"} duration-300`} onClick={() => setMobileMenu(false)}>
+          <FilterSidebar isMobile={true} handleMenu={()=>setMobileMenu(false)}/>
+        </div>
+
+        <div className='grid items-center justify-end lg:hidden'>
+          <button type="button" onClick={() => setMobileMenu(true)} className='flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300'>
+            <FaSitemap />
+            <span>Filters</span>
+          </button>
         </div>
 
         {/* Editors List */}
@@ -102,30 +84,16 @@ export default function FindEditors() {
             {/* Page Numbers */}
             <ul className="flex items-center gap-4">
 
-              {[1, 2, 3].map((page) => (
+              {[1].map((page) => (
                 <li
                   key={page}
                   onClick={() => setCurrentPage(page)}
                   className={`w-11 h-11 flex items-center justify-center rounded-full font-medium cursor-pointer
-                    ${currentPage === page ? "bg-white text-white" : "bg-white text-[#FF5151]"}`}
+                    ${currentPage === page ? "bg-[#FF5151] text-white" : "bg-white text-[#FF5151]"}`}
                 >
                   {page}
                 </li>
               ))}
-
-              {/* Dots */}
-              <li className="w-11 h-11 flex items-center justify-center rounded-full bg-white text-[#FF7B7B]">
-                ...
-              </li>
-
-              {/* Last Page */}
-              <li
-                onClick={() => setCurrentPage(totalPages)}
-                className={`w-11 h-11 flex items-center justify-center rounded-full cursor-pointer font-medium
-                  ${currentPage === totalPages ? "bg-white text-white" : "bg-white text-[#FF5151]"}`}
-              >
-                {totalPages}
-              </li>
 
             </ul>
 

@@ -22,11 +22,7 @@ export default function HireVideoEditorForm() {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
   const [files, setFiles] = useState<FileList | null>(null);
-
-
   const [showReview, setShowReview] = useState(false);
-
-
   const [formData, setFormData] = useState<FormValues | null>(null);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
