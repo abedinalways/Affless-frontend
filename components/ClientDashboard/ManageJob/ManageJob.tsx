@@ -14,7 +14,7 @@ export interface JobRow {
   thumbnail: string;
   total: string;
   dueOn: string;
-  status: "Accept" | "In Progress" | "In Revision";
+  status: "Accepted" | "In Progress" | "In Revision";
 
   customer: string;
   deliveryDate: string;
