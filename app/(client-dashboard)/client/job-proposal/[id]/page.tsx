@@ -5,6 +5,7 @@ import PdfIcon from "@/components/Icons/PdfIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
 import BidCard from "@/components/reusable/Bids";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 export default function JobDetails({ params }: { params: { id: string } }) {
@@ -49,6 +50,8 @@ export default function JobDetails({ params }: { params: { id: string } }) {
         setTextFile(e.target.files[0]);
       }
     };
+    const searchParams = useSearchParams();
+const status = searchParams.get("status");
   return (
  <div>
     <div>
@@ -63,9 +66,9 @@ export default function JobDetails({ params }: { params: { id: string } }) {
           />
         </div>
      <div className="containers py-10 lg:py-20 ">
-       <div className="flex gap-9">
+       <div className="flex flex-col lg:flex-row gap-9">
         
-         <div className="space-y-5 w-3/4">
+         <div className="space-y-5 w-full lg:w-3/4 order-2 lg:order-1">
 
   
 
@@ -171,8 +174,9 @@ export default function JobDetails({ params }: { params: { id: string } }) {
     </div>
       </div>
     </div>
-        <div className="w-1/4">
-          <BudgetPage/>
+        <div className="w-full lg:w-1/4 order-1 lg:order-2">
+         <BudgetPage status={status} />
+
         </div>
 
       

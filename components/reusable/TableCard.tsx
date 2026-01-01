@@ -11,7 +11,7 @@ interface JobProposalCardProps {
     | "Accept"
     | "In Progress"
     | "In Revision"
-    | "Decline"
+    | "Declined"
     | "Pending"
     | "Cancellation";
   onAction: (id: number) => void;
@@ -21,8 +21,8 @@ interface JobProposalCardProps {
 const statusColors: Record<JobProposalCardProps["status"], string> = {
   Accept: "bg-green-500 text-white",
   "In Progress": "bg-[#EEFAE9] text-[#52C41A]",
-  "In Revision": "bg-yellow-400 text-black",
-  Decline: "bg-[#FDD3D5] text-[#F5222D] ",
+  "In Revision": "bg-red-500 text-white",
+  Declined: "bg-[#FDD3D5] text-[#F5222D] ",
   Cancellation: "bg-[#FEE9EA] text-[#F5222D] ",
   Pending: "bg-[#FFF7E8] text-[#FAAD14]",
 };

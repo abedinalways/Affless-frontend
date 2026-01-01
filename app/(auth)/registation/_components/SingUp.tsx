@@ -62,39 +62,37 @@ export default function SingUpForm() {
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-<p className="text-[16px] font-medium text-[#333] mb-3">
+<p className="text-[18px] font-normal text-[#1D1F2C] mb-3">
   Select Account Type:
 </p>
 
 <div className="flex items-center gap-6">
-  <label className="flex items-center gap-2 text-[#333] font-poppins text-base cursor-pointer bg-white w-full px-3 py-2.5 rounded-lg">
+  {/* Editor */}
+  <div className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg">
     <input
       type="radio"
       value="editor"
       {...register("accountType", { required: "Account type is required" })}
+      className="h-5 w-5 accent-red-500 cursor-pointer"
     />
-    Editor
-  </label>
+    <p className="text-[#333] font-poppins text-base select-none">Editor</p>
+  </div>
 
-  <label className="flex items-center gap-2 text-[#333] font-poppins text-base cursor-pointer bg-white w-full px-3 py-2.5 rounded-lg">
+  {/* Client */}
+  <div className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg">
     <input
       type="radio"
       value="client"
-      className=""
       {...register("accountType", { required: "Account type is required" })}
+      className="h-5 w-5 accent-red-500 cursor-pointer"
     />
-    Client
-  </label>
+    <p className="text-[#333] font-poppins text-base select-none">Client</p>
+  </div>
 </div>
 
 {errors.accountType && (
   <p className="text-red-500 text-sm mt-2">{errors.accountType.message}</p>
 )}
-
-
-      {errors.accountType && (
-        <p className="text-red-500 text-sm mt-2">{errors.accountType.message}</p>
-      )}
 
             {/* Name */}
             <div className="relative">

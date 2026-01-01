@@ -142,6 +142,8 @@ export default function ManageJobsPage() {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [activeTab, setActiveTab] = useState("Active");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
   const pageData = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
@@ -290,26 +292,79 @@ export default function ManageJobsPage() {
       </div>
 
       {/* MOBILE VIEW */}
-      <div className="md:hidden space-y-4">
-        <div className="flex justify-between">
-          <h3 className="font-semibold">Manage Job</h3>
-          <button className="border border-gray-300 p-3 rounded-lg flex gap-2 items-center">
-            Proposals <SlidersHorizontal size={18} />
-          </button>
-        </div>
+    <div className="">
+       <div className="md:hidden space-y-4">
+  <div className="flex justify-between items-center">
+    <h3 className="font-semibold text-[18px]">Manage Job</h3>
 
-        {pageData.map((job) => (
-          <JobProposalCard
-            key={job.id}
-            image={job.thumbnail}
-            title={job.service}
-            total={job.total}
-            status={job.status}
-            id={job.id}
-            onAction={() => goToDetail(job.id)}
-          />
+    <button
+      onClick={() => setMobileMenuOpen((v) => !v)}
+      className="border border-gray-300 px-4 py-3 rounded-lg flex gap-2 items-center text-sm"
+    >
+      {activeTab} orders <SlidersHorizontal size={18} />
+    </button>
+  </div>
+
+  {/* Dropdown */}
+  {mobileMenuOpen && (
+    <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4 space-y-3">
+      <div className="grid grid-cols-2 gap-3 text-sm font-medium">
+        {["Active", "Late", "Delivered", "Completed", "Cancelled"].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => {
+              setActiveTab(tab);
+              setMobileMenuOpen(false);
+            }}
+            className={`px-4 py-3 rounded-lg border transition
+              ${
+                activeTab === tab
+                  ? "bg-[#FF4D4F] text-white border-[#FF4D4F]"
+                  : "bg-white text-gray-700 border-gray-200"
+              }`}
+          >
+            {tab}
+          </button>
         ))}
       </div>
+
+   
+    </div>
+    
+  )}
+<div className="flex justify-between gap-3">
+  <div className="w-full">
+    <Link
+        href="/client/post-job"
+        className="block text-center bg-[#FF4D4F] text-white py-3 rounded-lg font-medium"
+      >
+        Create a new Job
+      </Link>
+</div>
+  <div className="w-full">
+    <select className="rounded-lg p-2 border border-gray-300 text-sm w-full h-full">
+            <option>20 DAYS</option>
+            <option>25 DAYS</option>
+          </select>
+  </div>
+</div>
+  {/* Cards */}
+  {pageData.map((job) => (
+    <JobProposalCard
+      key={job.id}
+      image={job.thumbnail}
+      title={job.service}
+      total={job.total}
+      status={job.status}
+      id={job.id}
+      onAction={() => goToDetail(job.id)}
+    />
+  ))}
+</div>
+
+
+    </div>
+ 
     </div>
   );
 }

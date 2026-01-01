@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function BudgetPage() {
+export default function BudgetPage({ status }: { status: string | null }) {
+
   return (
     <div className=" mx-auto  space-y-6 ]">
 
@@ -14,14 +15,28 @@ export default function BudgetPage() {
         <p className="text-[30px] log:text-[40px] font-bold text-gray-900">$350.00</p>
 
         {/* Accept Button */}
-        <button className="w-full bg-green-600 text-white py-4 rounded-full text-lg font-medium hover:bg-green-700 transition">
-          Accept
-        </button>
+      <button
+  className={`w-full py-4 rounded-full text-lg font-medium transition  ${
+    status === "Accept"
+      ? "bg-green-600 text-white hover:bg-green-700"
+      : "bg-gray-200 text-gray-500 cursor-not-allowed"
+  }`}
+>
+  Accept
+</button>
+
 
         {/* Wishlist Button */}
-        <button className="w-full border border-red-300 text-red-500 py-4 rounded-full text-lg font-normal text-[16px] bg-red-50 hover:bg-red-100 transition">
-          Reject
-        </button>
+       <button
+  className={`w-full py-4 rounded-full text-lg font-normal text-[16px] transition cursor-pointer ${
+    status === "Declined"
+      ? "bg-red-600 text-white hover:bg-red-700"
+      : "bg-red-50 text-red-400 border border-red-300"
+  }`}
+>
+  Reject
+</button>
+
 
         {/* Project Info */}
         <div className="bg-gray-50  text- rounded-2xl p-4 mt-4">

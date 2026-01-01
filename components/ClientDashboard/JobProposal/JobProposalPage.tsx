@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { DataTable } from "@/components/reusable/DataTable";
 import { useRouter } from "next/navigation";
 import JobProposalCard from "@/components/reusable/TableCard";
@@ -11,7 +11,7 @@ interface ProposalRow {
   service: string;
   amount: string;
   time: string;
-  status: "Accept" | "In Progress" | "In Revision";
+  status: "Accept" | "Declined" | "In Revision";
   thumbnail: string;
 }
 
@@ -88,7 +88,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
     time: "5 Days",
-    status: "Accept",
+    status: "Declined",
   },
   {
     id: 4,
@@ -106,12 +106,26 @@ export default function JobProposalPage() {
   const [timeFilter, setTimeFilter] = useState<
     "ALL" | "5 Days" | "7 Days" | "3 Days"
   >("ALL");
-
+const [statusFilter, setstatusFilter] = useState<
+    "Accept" | "Declined" 
+  >("Accept");
   // ✅ Filtered proposals
-  const filteredData = useMemo(() => {
-    if (timeFilter === "ALL") return Proposal;
-    return Proposal.filter((p) => p.time === timeFilter);
-  }, [timeFilter]);
+ const filteredData = useMemo(() => {
+  let data = Proposal;
+
+  // ✅ Status filter
+  data = data.filter((p) => p.status === statusFilter);
+const goToDetail = (id: number, status: string) =>
+  router.push(`/client/job-proposal/${id}?status=${status}`);
+
+  // ✅ Time filter
+  if (timeFilter !== "ALL") {
+    data = data.filter((p) => p.time === timeFilter);
+  }
+
+  return data;
+}, [timeFilter, statusFilter]);
+
 
   const total = filteredData.length;
 
@@ -119,6 +133,8 @@ export default function JobProposalPage() {
     const start = (page - 1) * PAGE_SIZE;
     return filteredData.slice(start, start + PAGE_SIZE);
   }, [page, filteredData]);
+  const goToDetail = (id: number) => router.push(`/client/job-proposal/${id}`);
+
 
   // ✅ Mobile action handlers
   const handleAccept = (id: number) => console.log(`Proposal ${id} accepted`);
@@ -126,6 +142,9 @@ export default function JobProposalPage() {
     console.log(`Proposal ${id} in progress`);
   const handleRevision = (id: number) =>
     console.log(`Proposal ${id} in revision`);
+useEffect(() => {
+  setPage(1);
+}, [timeFilter, statusFilter]);
 
   return (
     <div className="containers py-8">
@@ -138,12 +157,28 @@ export default function JobProposalPage() {
         {/* Filter */}
         <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
           <div className="flex gap-4">
-            <button className="p-2.5 hover:bg-[#FF4D4F] hover:text-white bg-[#FFEDED] rounded-md text-[#FF4D4F]">
-              Proposals
-            </button>
-            <button className="p-2.5 hover:text-white hover:bg-[#FF4D4F] bg-[#FFEDED] rounded-md text-[#FF4D4F]">
-              Declined
-            </button>
+           <button
+  onClick={() => setstatusFilter("Accept")}
+  className={`p-2.5 rounded-md ${
+    statusFilter === "Accept"
+      ? "bg-[#FF4D4F] text-white"
+      : "bg-[#FFEDED] text-[#FF4D4F]"
+  }`}
+>
+  Accept
+</button>
+
+          <button
+  onClick={() => setstatusFilter("Declined")}
+  className={`p-2.5 rounded-md ${
+    statusFilter === "Declined"
+      ? "bg-[#FF4D4F] text-white"
+      : "bg-[#FFEDED] text-[#FF4D4F]"
+  }`}
+>
+  Declined
+</button>
+
           </div>
 
           <select
@@ -220,20 +255,64 @@ export default function JobProposalPage() {
           pageSize={PAGE_SIZE}
           total={total}
           onPageChange={setPage}
-          onRowClick={(row: any) =>
-            router.push(`/client/job-proposal/${row.id}`)
-          }
+        onRowClick={(row: any) =>
+  router.push(`/client/job-proposal/${row.id}`)
+}
+
         />
       </div>
 
       {/* MOBILE VIEW */}
       <div className="block md:hidden">
         <div className="space-y-3">
-          <div className="flex justify-between">
-            <p>Job Proposals</p>
+          <div className=" ">
+           <div className="flex justify-between py-4">
+             <p>Job Proposals</p>
             <button className="border border-gray-300 p-3 rounded-lg flex gap-3">
               Proposals <SlidersHorizontal />
             </button>
+           </div>
+              <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
+          <div className="flex gap-4">
+           <button
+  onClick={() => setstatusFilter("Accept")}
+  className={`p-2.5 rounded-md ${
+    statusFilter === "Accept"
+      ? "bg-[#FF4D4F] text-white"
+      : "bg-[#FFEDED] text-[#FF4D4F]"
+  }`}
+>
+  Accept
+</button>
+
+          <button
+  onClick={() => setstatusFilter("Declined")}
+  className={`p-2.5 rounded-md ${
+    statusFilter === "Declined"
+      ? "bg-[#FF4D4F] text-white"
+      : "bg-[#FFEDED] text-[#FF4D4F]"
+  }`}
+>
+  Declined
+</button>
+
+          </div>
+
+          <select
+            className="rounded-lg p-2.5 border border-gray-300 text-sm"
+            value={timeFilter}
+            onChange={(e) =>
+              setTimeFilter(
+                e.target.value as "ALL" | "5 Days" | "7 Days" | "3 Days"
+              )
+            }
+          >
+            <option value="ALL">ALL</option>
+            <option value="5 Days">5 Days</option>
+            <option value="7 Days">7 Days</option>
+            <option value="3 Days">3 Days</option>
+          </select>
+        </div>
           </div>
 
           {paginatedData.map((proposal) => (
@@ -243,14 +322,8 @@ export default function JobProposalPage() {
               title={proposal.service}
               total={proposal.amount}
               status={proposal.status}
-              onAction={
-                proposal.status === "Accept"
-                  ? handleAccept
-                  : proposal.status === "In Progress"
-                  ? handleInProgress
-                  : handleRevision
-              }
-              id={proposal.id}
+      id={proposal.id}
+              onAction={() => goToDetail(proposal.id)}
             />
           ))}
         </div>
