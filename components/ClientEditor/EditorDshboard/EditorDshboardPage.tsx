@@ -8,9 +8,13 @@ import WorldIcon from "@/components/Icons/WorldIcon";
 import Image from "next/image";
 import Link from "next/link";
 import { IoArrowForwardSharp } from "react-icons/io5";
+import { useState } from "react";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
+import SetAvailabilityModal, {
+  AvailabilityData,
+} from "./SetAvailabilityModal";
 
 type OrderStatus = "pending" | "In progress" | "Cencel" | "Delivered";
 
@@ -194,6 +198,15 @@ const columns: ColumnDef<Order>[] = [
 ];
 
 export default function EditorDashboard() {
+  const [showAvailabilityModal, setShowAvailabilityModal] = useState(false);
+  const [editorAvailability, setEditorAvailability] = useState<AvailabilityData>({
+    isAvailable: true,
+  });
+
+  const handleAvailabilitySave = (availability: AvailabilityData) => {
+    setEditorAvailability(availability);
+  };
+
   const totalActiveOrders = orders.length;
   const totalAmount = orders.reduce((sum, o) => sum + o.price, 0);
 
@@ -283,7 +296,10 @@ export default function EditorDashboard() {
             </p>
 
             <div className="flex justify-center">
-              <button className="py-2 rounded-lg border border-[#D9D9D9] px-4 cursor-pointer">
+              <button
+                onClick={() => setShowAvailabilityModal(true)}
+                className="py-2 rounded-lg border border-[#D9D9D9] px-4 cursor-pointer hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white duration-300"
+              >
                 Set your availability
               </button>
             </div>
@@ -292,7 +308,7 @@ export default function EditorDashboard() {
           {/* Payment Overview */}
           <div className="rounded-2xl bg-white p-6 shadow-sm">
             <h3 className="text-[18px] font-medium text-[#333]">
-              Earned in September
+              Earning
             </h3>
             <p className="text-2xl font-medium text-center py-8">US$0</p>
             <Link href="/editor/withdrow-balance" className="w-[178px] text-center mx-auto block border rounded-lg py-2.5 hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300">
@@ -362,6 +378,13 @@ export default function EditorDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Set Availability Modal */}
+      <SetAvailabilityModal
+        open={showAvailabilityModal}
+        onClose={() => setShowAvailabilityModal(false)}
+        onSave={handleAvailabilitySave}
+      />
     </div>
   );
 }

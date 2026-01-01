@@ -3,12 +3,29 @@ import DebitCardIcon from "@/components/Icons/DebitCard";
 import PaypalSvg from "@/components/Icons/PaypalIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function ConfirmDepositPage() {
   const [method, setMethod] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    // Submit logic here
+    setTimeout(() => {
+      toast.success("Deposit confirmed successfully!");
+    }, 200);
+    setTimeout(() => {
+      router.push("/client/manage-job");
+      setLoading(false);
+    }, 500);
+  }
 
   return (
     <div className="">
+      <Toaster />
       <div>
         <PageBanner
           title="Confirm Deposit"
@@ -152,7 +169,10 @@ export default function ConfirmDepositPage() {
             </div>
 
             <button
-              className="w-full bg-red-500 text-white py-3 rounded-lg mt-8 hover:bg-red-600 transition"
+              type="button"
+              disabled={loading || !method}
+              onClick={handleSubmit}
+              className="w-full bg-red-500 text-white py-3 rounded-lg mt-8 hover:bg-red-600 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Confirm Deposit
             </button>

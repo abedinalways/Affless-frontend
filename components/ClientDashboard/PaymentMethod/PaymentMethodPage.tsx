@@ -5,7 +5,9 @@ import { useState } from "react";
 import Link from "next/link";
 import PaymentModal from "@/components/reusable/Modal";
 import PaypalIcon from "@/components/Icons/PaypalIcon";
-import {  ArrowRight, CreditCard } from "lucide-react";
+import { ArrowRight, CreditCard } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
   paymentMethod: "card" | "paypal";
@@ -24,14 +26,23 @@ export default function PaymentMethodPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectedMethod = watch("paymentMethod");
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log("Payment submitted:", data);
     setIsModalOpen(true);
+    setTimeout(() => {
+      toast.success("Payment Successful!");
+      setIsModalOpen(false);
+    }, 1000);
+    setTimeout(() => {
+      router.push("/client/manage-job");
+    }, 1200);
   };
 
   return (
     <>
+      <Toaster />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="containers mx-auto py-10 px-6 bg-[#f6f6f6]"
@@ -55,11 +66,10 @@ export default function PaymentMethodPage() {
 
           {/* Card */}
           <label
-            className={`border rounded-xl p-4 flex items-center justify-between cursor-pointer mb-3 transition ${
-              selectedMethod === "card"
+            className={`border rounded-xl p-4 flex items-center justify-between cursor-pointer mb-3 transition ${selectedMethod === "card"
                 ? "border-[#FF4D4F] bg-red-50"
                 : "border-gray-300"
-            }`}
+              }`}
           >
             <div className="flex items-center gap-3">
               <CreditCard className="text-red-500 text-2xl" />
@@ -80,11 +90,10 @@ export default function PaymentMethodPage() {
 
           {/* Paypal */}
           <label
-            className={`border rounded-xl p-4 flex items-center justify-between cursor-pointer transition ${
-              selectedMethod === "paypal"
+            className={`border rounded-xl p-4 flex items-center justify-between cursor-pointer transition ${selectedMethod === "paypal"
                 ? "border-blue-400 bg-blue-50"
                 : "border-gray-300"
-            }`}
+              }`}
           >
             <div className="flex items-center gap-3">
               <PaypalIcon />
@@ -190,20 +199,20 @@ export default function PaymentMethodPage() {
           </div>
 
           <Link href="#" className="text-[#AB0712] underline text-xs mt-2 inline-block">
-            <strong className="flex">Read full Off-Platform Policy <ArrowRight/></strong>
+            <strong className="flex">Read full Off-Platform Policy <ArrowRight /></strong>
           </Link>
-         <div>
-           <Link href="#" className="text-[#AB0712] underline text-xs mt-2 inline-block">
-            <p className="flex text-[16px]">Payment Rules <ArrowRight/></p>
-          </Link>
-         </div>
+          <div>
+            <Link href="#" className="text-[#AB0712] underline text-xs mt-2 inline-block">
+              <p className="flex text-[16px]">Payment Rules <ArrowRight /></p>
+            </Link>
+          </div>
         </div>
 
         {/* Agree */}
         <label className=" items-center flex gap-2 mb-8 text-sm">
           <div>
             <input type="checkbox" {...register("agree")} />
-          I agree to the{" "}
+            I agree to the{" "}
           </div>
           <span className="text-red-500">Terms of Service</span>,{" "}
           <span className="text-red-500">Privacy Policy</span> and{" "}

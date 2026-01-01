@@ -10,13 +10,10 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-
-
     <div className="pt-18">
       {children}
       <ContactUs />
       <Footer />
     </div>
-
   );
 }

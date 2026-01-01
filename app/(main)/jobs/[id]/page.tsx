@@ -31,7 +31,7 @@ const bids = [
     description:
       "I will handle your project professionally. You will get unlimited revisions and fast response.",
   },
-   {
+  {
     id: 3,
     name: "John Doe",
     avatar: "/images/jerome.png",
@@ -53,7 +53,6 @@ export default function JobDetails({ params }: PostPageProps) {
 
   const router = useRouter();
 
-
   const [job, setJob] = useState<any>(null);
 
   useEffect(() => {
@@ -68,30 +67,30 @@ export default function JobDetails({ params }: PostPageProps) {
   }
 
   return (
-    <div className=" containers ">
-      <div className="py-10 flex gap-9 flex-col lg:flex-row ">
-       <div className="w-5/4">
-         <BrowseDetails />
-         <div className="">
-      <h1 className="text-2xl font-semibold py-8">Bids</h1>
+    <div className="containers grid">
+      <div className="py-10 flex flex-col lg:flex-row gap-9 w-full">
+        <div className="w-full lg:w-5/4">
+          <BrowseDetails />
+          <div className="">
+            <h1 className="text-2xl font-semibold py-8">Bids</h1>
 
-      {bids.map((bid) => (
-        <BidCard
-          key={bid.id}
-          id={bid.id}
-          name={bid.name}
-          avatar={bid.avatar}
-          time={bid.time}
-          description={bid.description}
-        />
-      ))}
-    </div>
-       </div>
-        <div className="w-3/4">
+            {bids.map((bid) => (
+              <BidCard
+                key={bid.id}
+                id={bid.id}
+                name={bid.name}
+                avatar={bid.avatar}
+                time={bid.time}
+                description={bid.description}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="w-full lg:w-3/4">
           <BudgetPage />
         </div>
       </div>
-      
+
     </div>
 
   );

@@ -10,6 +10,7 @@ import { ALL_JOBS, JobRow } from "@/components/ClientDashboard/ManageJob/ManageJ
 import ExtendDelivery from "@/components/ClientEditor/ExtendDelivery/ExtendDelivery";
 import ExtendDeliveryCard from "@/components/ClientDashboard/GraphicsDesigner/ExtendDeliveryCard";
 import Link from "next/link";
+import Loading from "@/components/shared/Loading";
 
 
 export default function JobInProgressPage() {
@@ -17,11 +18,24 @@ export default function JobInProgressPage() {
   const [job, setJob] = useState<JobRow | null>(null);
 
   useEffect(() => {
+    // Scroll to top immediately
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    
     const selected = ALL_JOBS.find((item) => item.id === Number(id));
     setJob(selected || null);
   }, [id]);
 
-  if (!job) return <div className="containers py-20">Loading...</div>;
+  // Additional scroll to top after render
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [job]);
+
+  if (!job) return <div className="containers py-20">
+    <Loading />
+  </div>;
 
   return (
     <div>
@@ -58,13 +72,12 @@ export default function JobInProgressPage() {
                 <p>{job.service}</p>
 
                 <span
-                  className={`text-xs px-3 py-1 rounded-full mt-2 inline-block ${
-                    job.status === "In Progress"
+                  className={`text-xs px-3 py-1 rounded-full mt-2 inline-block ${job.status === "In Progress"
                       ? "bg-green-100 text-green-700"
                       : job.status === "In Revision"
-                      ? "bg-red-100 text-red-700"
-                      : "bg-blue-100 text-blue-700"
-                  }`}
+                        ? "bg-red-100 text-red-700"
+                        : "bg-blue-100 text-blue-700"
+                    }`}
                 >
                   {job.status}
                 </span>
@@ -72,57 +85,56 @@ export default function JobInProgressPage() {
             </div>
 
             <hr />
-             <div className="w-full max-w-[520px] bg-white">
-      <h3 className="text-[18px] font-semibold text-black mb-4">
-        Time left To Deliver
-      </h3>
+            <div className="w-full max-w-[520px] bg-white">
+              <h3 className="text-[18px] font-semibold text-black mb-4">
+                Time left To Deliver
+              </h3>
 
-      {/* Time Row */}
-      <div className="flex items-stretch justify-between">
-        <div className="flex-1 text-center py-2">
-          <div className="text-[20px] font-semibold text-gray-700">07</div>
-          <div className="text-[13px] text-gray-500">Days</div>
-        </div>
+              {/* Time Row */}
+              <div className="flex items-stretch justify-between">
+                <div className="flex-1 text-center py-2">
+                  <div className="text-[20px] font-semibold text-gray-700">07</div>
+                  <div className="text-[13px] text-gray-500">Days</div>
+                </div>
 
-        <div className="flex-1 text-center py-2 border-l border-gray-200">
-          <div className="text-[20px] font-semibold text-gray-700">12</div>
-          <div className="text-[13px] text-gray-500">Hours</div>
-        </div>
+                <div className="flex-1 text-center py-2 border-l border-gray-200">
+                  <div className="text-[20px] font-semibold text-gray-700">12</div>
+                  <div className="text-[13px] text-gray-500">Hours</div>
+                </div>
 
-        <div className="flex-1 text-center py-2 border-l border-gray-200">
-          <div className="text-[20px] font-semibold text-gray-700">35</div>
-          <div className="text-[13px] text-gray-500">Minutes</div>
-        </div>
+                <div className="flex-1 text-center py-2 border-l border-gray-200">
+                  <div className="text-[20px] font-semibold text-gray-700">35</div>
+                  <div className="text-[13px] text-gray-500">Minutes</div>
+                </div>
 
-        <div className="flex-1 text-center py-2 border-l border-gray-200">
-          <div className="text-[20px] font-semibold text-gray-700">34</div>
-          <div className="text-[13px] text-gray-500">Second</div>
-        </div>
-      </div>
+                <div className="flex-1 text-center py-2 border-l border-gray-200">
+                  <div className="text-[20px] font-semibold text-gray-700">34</div>
+                  <div className="text-[13px] text-gray-500">Second</div>
+                </div>
+              </div>
 
-      {/* Buttons */}
-      <div className="mt-6 space-y-4">
-    <div className="">
-        <Link href="/client/delivery">
-        <button
-          className="w-full py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F] font-semibold hover:opacity-90 transition cursor-pointer"
-          type="button"
-        >
-          Delivary View
-        </button></Link>
-    </div>
+              {/* Buttons */}
+              <div className="mt-6 space-y-4">
+                <div className="">
+                  <Link href="/client/delivery">
+                    <button
+                      className="w-full py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F] font-semibold hover:opacity-90 transition cursor-pointer"
+                      type="button"
+                    >
+                      Delivary View
+                    </button></Link>
+                </div>
 
-          <div className="">
-       
-        <button
-          className="w-full py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F]  font-semibold hover:opacity-90 transition cursor-pointer"
-          type="button"
-        >
-          Message
-        </button>
-    </div>
-      </div>
-    </div>
+                <div className="w-full">
+                  <Link href="/client/message"
+                    className="w-full block text-center py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F]  font-semibold hover:opacity-90 transition cursor-pointer"
+                    type="button"
+                  >
+                    Message
+                  </Link>
+                </div>
+              </div>
+            </div>
 
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
@@ -145,7 +157,7 @@ export default function JobInProgressPage() {
                 <span>{job.orderId}</span>
               </div>
             </div>
-            <ExtendDeliveryCard/>
+            <ExtendDeliveryCard />
 
           </div>
         </div>

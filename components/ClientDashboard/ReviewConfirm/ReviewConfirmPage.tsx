@@ -135,7 +135,7 @@ export default function ReviewConfirmPage() {
         </button>
         <button type="button"
           onClick={() => setShowPayment(true)}
-          className="flex-1 py-3 rounded-xl bg-[#FF4D4F] text-white cupointer"
+          className="flex-1 py-3 rounded-xl bg-[#FF4D4F] text-white cupointer cursor-pointer"
         >
        
             Confirm & Send Request

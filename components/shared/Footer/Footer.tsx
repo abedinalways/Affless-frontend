@@ -87,7 +87,7 @@ export default function Footer() {
               <li><Link href="/editor/editor-profile">Create Profile</Link></li>
               <li><Link href="/editor/browse-job">Browse Jobs</Link></li>
               <li><Link href="/editor-resource">Editor Resources</Link></li>
-              {/* <li><Link href="#">Getting Started</Link></li> */}
+              <li><Link href="#">Getting Started</Link></li>
             </ul>
           </div>
 
@@ -97,8 +97,9 @@ export default function Footer() {
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href="/help-center">Help Center</Link></li>
               <li><Link href="/contactUs">Contact Us</Link></li>
+              {/* <li><Link href="/stats-page">Status Page</Link></li> */}
               <li><Link href="/dispute-resoulation">Dispute Resolution</Link></li>
-              {/* <li><Link href="#">Status Page</Link></li> */}
+              <li><Link href="#">Status Page</Link></li>
               <li><Link href="/terms-condition">Terms & Conditions Page</Link></li>
               <li><Link href="/platform-safety">Platform Safety Rules</Link></li>
             </ul>

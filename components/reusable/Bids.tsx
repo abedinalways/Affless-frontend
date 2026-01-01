@@ -18,37 +18,37 @@ export default function BidCard({
   description,
 }: BidCardProps) {
   return (
-   <div className="space-y-6 mb-6">
-     <div className="flex items-start justify-between bg-white p-4 rounded-xl shadow-sm border border-[#EFEFEF] ">
-      {/* LEFT SIDE */}
-      <div className="flex gap-4 ">
-        <Image
-          src={avatar}
-          alt={name}
-          width={70}
-          height={70}
-          className="rounded-full object-cover w-[70px] h-[70px]"
-        />
+    <div className="space-y-6 mb-6">
+      <div className="flex items-start justify-between bg-white p-4 rounded-xl shadow-sm border border-[#EFEFEF] ">
+        {/* LEFT SIDE */}
+        <div className="flex gap-4 ">
+          <Image
+            src={avatar}
+            alt={name}
+            width={70}
+            height={70}
+            className="rounded-full object-cover w-[70px] h-[70px]"
+          />
 
-        <div>
-          <h3 className="text-[16px] font-semibold text-[#1D1F2C]">{name}</h3>
-          <p className="text-[12px] text-gray-500 mb-2">{time}</p>
+          <div>
+            <Link href="/editor/editor-profile" className="text-[16px] font-semibold text-[#1D1F2C]">{name}</Link>
+            <p className="text-[12px] text-gray-500 mb-2">{time}</p>
 
-          <p className="text-[14px] text-gray-600 leading-6 line-clamp-2 max-w-[600px]">
-            {description}
-          </p>
+            <p className="text-[14px] text-gray-600 leading-6 line-clamp-2 max-w-[600px]">
+              {description}
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* RIGHT SIDE BUTTON */}
-      <Link
-        href={`/editor/hire-request/bids/${id}`}
-        className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
-      >
-        View
-      </Link>
+        {/* RIGHT SIDE BUTTON */}
+        <Link
+          href={`/editor/hire-request/bids/${id}`}
+          className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
+        >
+          View
+        </Link>
+      </div>
     </div>
-   </div>
   );
 }
 
