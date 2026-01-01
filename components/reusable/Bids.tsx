@@ -41,12 +41,10 @@ export default function BidCard({
       </div>
 
       {/* RIGHT SIDE BUTTON */}
-      <Link
-        href={`/editor/hire-request/bids/${id}`}
-        className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
-      >
-        View
-      </Link>
+    <button className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]">
+  View
+</button>
+
     </div>
    </div>
   );

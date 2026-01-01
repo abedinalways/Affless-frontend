@@ -33,7 +33,7 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <div className="px-4 sm:px-[50px] 
+    <div className=" 
       md:px-[50px] 
       lg:px-[100px] 
       xl:px-[150px]
@@ -66,7 +66,7 @@ export default function ForgotPasswordForm() {
 
         {/* Right Section */}
         <div className="grid items-center">
-          <div className="h-full flex items-center justify-center rounded-2xl bg-[#FFDBDC] mb-8 p-10">
+          <div className="h-full flex items-center justify-center rounded-2xl bg-[#FFDBDC]  p-10">
             <div className="w-full max-w-lg text-center">
 
               {/* Back + Title */}

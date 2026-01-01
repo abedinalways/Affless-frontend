@@ -51,7 +51,7 @@ export default function ResetPasswordForm() {
     >
 
         {/* Left Image */}
-        <div className="flex justify-center items-center mb-10 lg:mb-0">
+        <div className="flex justify-center items-center ">
           <Image
             src="/svgIcons/resetImage.svg"
             alt="reset password illustration"
