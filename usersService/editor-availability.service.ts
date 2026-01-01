@@ -29,7 +29,7 @@ export const EditorAvailabilityService = {
     availability: AvailabilityData
   ): Promise<AvailabilityResponse> => {
     try {
-      const response = await Fetch.post<AvailabilityResponse>(
+      const response = await Fetch.post(
         "/api/editor/availability",
         availability,
         config
@@ -47,7 +47,7 @@ export const EditorAvailabilityService = {
    */
   getAvailability: async (): Promise<AvailabilityResponse> => {
     try {
-      const response = await Fetch.get<AvailabilityResponse>(
+      const response = await Fetch.get(
         "/api/editor/availability",
         config
       );
