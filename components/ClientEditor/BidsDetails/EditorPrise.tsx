@@ -24,7 +24,7 @@ export default function EditorPrise() {
           <div className="grid grid-cols-4 text-center rounded-xl overflow-hidden">
             <div className="py-3">
               <p className="text-[16px] font-semibold text-[#333] ">06</p>
-              <p className="text-[12px] text-gray-500">Days</p>
+              <p className="text-[12px] text-[#777980]">Days</p>
             </div>
 
             <div className="py-3 border-l">
@@ -78,7 +78,7 @@ export default function EditorPrise() {
 
       {/* About Editor */}
       <div className="bg-[#F8F8F8] p-6">
-        <h3 className="text-center text-[20px] font-semibold text-[#333] mb-6">
+        <h3 className="text-center text-[24px] font-semibold text-[#333] mb-4">
           About Editor
         </h3>
 
@@ -94,7 +94,7 @@ export default function EditorPrise() {
             />
           </div>
 
-          <p className="mt-4 text-[16px] font-semibold text-[#333]">
+          <p className="pt-4 text-[16px] font-medium text-[#333]">
             Bessie Cooper
           </p>
         </div>
@@ -102,18 +102,18 @@ export default function EditorPrise() {
         {/* Info */}
         <div className="mt-6 bg-white rounded-xl p-4 space-y-3">
           <div className="flex justify-between text-[14px]">
-            <span className="text-gray-500">Gender:</span>
-            <span className="text-[#333] font-medium">Male</span>
+            <span className="text-[#777980] font-normal leading-150%">Gender:</span>
+            <span className="text-[#4A6375] text-[16px] font-medium">Male</span>
           </div>
 
           <div className="flex justify-between text-[14px]">
-            <span className="text-gray-500">Location:</span>
-            <span className="text-[#333] font-medium">Australia</span>
+            <span className="text-[#777980] font-normal leading-150%">Location:</span>
+            <span className="text-[#4A6375] text-[16px] font-medium">Australia</span>
           </div>
 
           <div className="flex justify-between text-[14px]">
-            <span className="text-gray-500">Languages:</span>
-            <span className="text-[#333] font-medium">Arabic</span>
+            <span className="text-[#777980] font-normal leading-150%">Languages:</span>
+            <span className="text-[#4A6375] text-[16px] font-medium">Arabic</span>
           </div>
         </div>
 

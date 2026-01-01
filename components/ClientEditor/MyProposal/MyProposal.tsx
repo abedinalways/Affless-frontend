@@ -117,11 +117,11 @@ export default function MyProposal() {
   return (
     <div className="containers py-8">
       {/* DESKTOP VIEW */}
-      <div className="hidden md:block">
+      <div className="">
         <h2 className="text-xl font-semibold mb-4">Job Proposals</h2>
 
         {/* FILTER BUTTONS */}
-        <div className="flex gap-4 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <button
             onClick={() => handleFilterClick("ALL")}
             className={`
@@ -217,7 +217,7 @@ export default function MyProposal() {
       </div>
 
       {/* MOBILE VIEW */}
-      <div className="block md:hidden">
+      {/* <div className="block md:hidden">
         <div className="space-y-3">
           <div className="flex justify-between">
             <p className="text-[16px] font-semibold">Job Proposals</p>
@@ -226,7 +226,7 @@ export default function MyProposal() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
