@@ -8,7 +8,7 @@ interface JobProposalCardProps {
   title: string;
   total: string;
   status:
-    | "Accept"
+    | "Accepted"
     | "In Progress"
     | "In Revision"
     | "Declined"
@@ -19,7 +19,7 @@ interface JobProposalCardProps {
 }
 
 const statusColors: Record<JobProposalCardProps["status"], string> = {
-  Accept: "bg-green-500 text-white",
+  Accepted: "bg-green-500 text-white",
   "In Progress": "bg-[#EEFAE9] text-[#52C41A]",
   "In Revision": "bg-red-500 text-white",
   Declined: "bg-[#FDD3D5] text-[#F5222D] ",
@@ -43,7 +43,7 @@ const JobProposalCard: React.FC<JobProposalCardProps> = ({
           alt="Job Proposal"
           width={100}
           height={100}
-          className="rounded-lg object-cover w-[100px] h-[80px]"
+          className="rounded-lg object-cover w-[100px] h-20"
         />
         <div>
           <p className="text-[16px] font-medium text-[#333]">{title}</p>

@@ -11,7 +11,7 @@ interface ProposalRow {
   service: string;
   amount: string;
   time: string;
-  status: "Accept" | "Declined" | "In Revision";
+  status: "Accepted" | "In Progress" | "In Revision";
   thumbnail: string;
 }
 
@@ -24,7 +24,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
     time: "5 Days",
-    status: "Accept",
+    status: "Accepted",
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks to improve your rankings.",
     amount: "$55",
     time: "3 Days",
-    status: "Accept",
+    status: "Accepted",
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
     time: "5 Days",
-    status: "Accept",
+    status: "Accepted",
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks to improve your rankings.",
     amount: "$55",
     time: "3 Days",
-    status: "Accept",
+    status: "Accepted",
   },
    {
     id: 1,
@@ -56,7 +56,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
     time: "5 Days",
-    status: "Accept",
+    status: "Accepted",
   },
   {
     id: 2,
@@ -64,7 +64,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks to improve your rankings.",
     amount: "$55",
     time: "3 Days",
-    status: "Accept",
+    status: "Accepted",
   },
   {
     id: 3,
@@ -72,7 +72,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
     time: "5 Days",
-    status: "Accept",
+    status: "Accepted",
   },
   {
     id: 4,
@@ -80,7 +80,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks to improve your rankings.",
     amount: "$55",
     time: "3 Days",
-    status: "Accept",
+    status: "Accepted",
   },
     {
     id: 3,
@@ -88,7 +88,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     amount: "$55",
     time: "5 Days",
-    status: "Declined",
+    status: "Accepted",
   },
   {
     id: 4,
@@ -96,13 +96,14 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks to improve your rankings.",
     amount: "$55",
     time: "3 Days",
-    status: "Accept",
+    status: "Accepted",
   },
 ];
 
 export default function JobProposalPage() {
   const router = useRouter();
   const [page, setPage] = useState(1);
+  const [selectedFilter,setSelectedFilter] = useState('Proposals');
   const [timeFilter, setTimeFilter] = useState<
     "ALL" | "5 Days" | "7 Days" | "3 Days"
   >("ALL");
@@ -181,7 +182,7 @@ useEffect(() => {
 
           </div>
 
-          <select
+          {/* <select
             className="rounded-lg p-2.5 border border-gray-300 text-sm"
             value={timeFilter}
             onChange={(e) =>
@@ -194,7 +195,7 @@ useEffect(() => {
             <option value="5 Days">5 Days</option>
             <option value="7 Days">7 Days</option>
             <option value="3 Days">3 Days</option>
-          </select>
+          </select> */}
         </div>
 
         {/* ✅ TABLE with FULL ROW CLICK */}
@@ -322,8 +323,14 @@ useEffect(() => {
               title={proposal.service}
               total={proposal.amount}
               status={proposal.status}
-      id={proposal.id}
-              onAction={() => goToDetail(proposal.id)}
+              onAction={
+                proposal.status === "Accepted"
+                  ? handleAccept
+                  : proposal.status === "In Progress"
+                  ? handleInProgress
+                  : handleRevision
+              }
+              id={proposal.id}
             />
           ))}
         </div>

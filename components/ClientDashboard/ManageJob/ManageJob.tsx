@@ -14,7 +14,7 @@ export interface JobRow {
   thumbnail: string;
   total: string;
   dueOn: string;
-  status: "Accept" | "In Progress" | "In Revision";
+  status: "Accepted" | "In Progress" | "In Revision";
 
   customer: string;
   deliveryDate: string;
@@ -251,8 +251,8 @@ export default function ManageJobsPage() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-3 py-2 rounded-md ${
-                  activeTab === tab ? "text-black font-semibold" : "text-gray-500"
+                className={`px-3 py-2 rounded-md cursor-pointer bg-white ${
+                  activeTab === tab ? "text-black font-semibold shadow" : "text-gray-500"
                 }`}
               >
                 {tab}
@@ -262,9 +262,9 @@ export default function ManageJobsPage() {
 
           <Link
             href="/client/post-job"
-            className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg"
+            className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300"
           >
-            Create a new Job
+            + Create a new Job
           </Link>
         </div>
 
@@ -273,9 +273,10 @@ export default function ManageJobsPage() {
          <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg">
           <h2 className="text-lg font-semibold">Active Orders</h2>
 
-          <select className="rounded-lg p-2 border border-gray-300 text-sm">
-            <option>20 DAYS</option>
-            <option>25 DAYS</option>
+          <select className="rounded-lg p-2 border border-gray-300 text-sm cursor-pointer">
+            <option className="cursor-pointer">Today</option>
+            <option className="cursor-pointer">This week</option>
+            <option className="cursor-pointer">This month</option>
           </select>
         </div>
 

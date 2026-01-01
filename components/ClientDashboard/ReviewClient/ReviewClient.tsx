@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { FaStar } from "react-icons/fa6";
 import { MdOutlineFileUpload } from "react-icons/md";
+import toast,{Toaster} from "react-hot-toast";
 
 function StarRating({
   value,
@@ -61,11 +62,12 @@ export default function ReviewClient() {
       experience,
       files,
     });
-    alert("Submitted! (check console)");
+    toast.success("Thank you for your review!");
   };
 
   return (
     <div className="containers py-8 space-y-6">
+      <Toaster />
       {/* TOP SELLER CARD */}
       <div className="bg-white rounded-2xl border p-5 flex items-center gap-4">
         <Image
@@ -154,14 +156,14 @@ export default function ReviewClient() {
         <div
           onClick={() => fileRef.current?.click()}
           className="mt-5 border border-dashed rounded-2xl p-12 text-center cursor-pointer flex justify-center items-center mx-auto"
-        > 
-       <div className="">
-         <MdOutlineFileUpload  className="flex justify-center items-center mx-auto"/>
-          <p className="text-gray-800 py-2">Click to upload or drag and drop</p>
-          <p className="text-sm text-gray-500 mt-2">
-            PDF, DOC, or images (Max 10MB)
-          </p>
-       </div>
+        >
+          <div className="">
+            <MdOutlineFileUpload className="flex justify-center items-center mx-auto" />
+            <p className="text-gray-800 py-2">Click to upload or drag and drop</p>
+            <p className="text-sm text-gray-500 mt-2">
+              PDF, DOC, or images (Max 10MB)
+            </p>
+          </div>
 
           <input
             ref={fileRef}

@@ -1,7 +1,10 @@
+'use client'
+
 import CheckCircelIcon from '@/components/Icons/CheckCircelIcon';
 import PageBanner from '@/components/reusable/Bgbanner'
 import { CheckCircle } from 'lucide-react';
-import React from 'react'
+import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const pricingPlans = [
   {
@@ -55,6 +58,17 @@ const pricingPlans = [
 
 
 export default function Pricing() {
+  const isLogin = localStorage.getItem("isLogin");
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (!isLogin) {
+      router.push('/login');
+    }else{
+      router.push('/client');
+    }
+  };
+
   return (
     <div>
       <div>
@@ -113,6 +127,8 @@ export default function Pricing() {
 
               {/* Button */}
               <button
+              type='button'
+              onClick={handleClick}
                 className="
                 w-full mt-8 p-2.5 rounded-xl font-medium border border-red-400 text-black 
                 hover:bg-red-500  hover:text-white transition-all duration-300 cursor-pointer

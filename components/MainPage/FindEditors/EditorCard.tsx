@@ -2,6 +2,7 @@
 
 import Image, { StaticImageData } from "next/image";
 import { Star, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 
 export const editors = [
@@ -72,9 +73,8 @@ export default function EditorCard({
           height={70}
           className="rounded-full object-cover "
         />
-
         <div>
-          <h2 className="text-[20px] md:text-[24px] font-medium leading-150% text-[#333]">{name}</h2>
+          <Link href="/editor/editor-profile" className="text-[20px] md:text-[24px] font-medium leading-150% text-[#333]">{name}</Link>
 
           <div className="flex items-center gap-1 text-[14px] leading-150% font-normal text-[#777980]">
             <MapPin size={15} />
@@ -82,13 +82,11 @@ export default function EditorCard({
           </div>
         </div>
       </div>
-
       {/* Budget + Rating */}
       <div className="mt-4 flex items-center gap-5">
         <p className="text-[16px] text-[#777980]  font-medium">
           Project Budget: <span className="">{budget}</span>
         </p>
-
         <div className="flex items-center gap-1 text-[16px] text-[#777980]">
           <Star size={18} className="text-yellow-500 fill-yellow-500" />
           <span>
@@ -96,13 +94,11 @@ export default function EditorCard({
           </span>
         </div>
       </div>
-
       {/* Description */}
       <p className="text-[#777980] text-[14px] font-normal mt-3 ">{description}</p>
-
       {/* Skills */}
       <div className="flex items-center mt-5 gap-2 md:gap-4 justify-between">
-        <ChevronLeft className="cursor-pointer" />
+        <ChevronLeft className="opacity-50 cursor-not-allowed" />
         {skills.map((skill, idx) => (
           <span
             key={idx}
@@ -111,14 +107,12 @@ export default function EditorCard({
             {skill}
           </span>
         ))}
-        <ChevronRight className="cursor-pointer" />
+        <ChevronRight className="cursor-not-allowed opacity-50" />
       </div>
-
       {/* Hire Button */}
-      <button className="w-full bg-red-500 text-white mt-6  p-3 rounded-lg font-medium">
+      <Link href="/client/hire-vedio-editor" className="w-full bg-red-500 text-white mt-6  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 cursor-pointer">
         Hire Editor
-      </button>
-      
+      </Link>
     </div>
   );
 }

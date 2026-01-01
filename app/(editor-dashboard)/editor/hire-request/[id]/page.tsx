@@ -1,8 +1,10 @@
 "use client";
 
+import PdfIcon from "@/components/Icons/PdfIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
 import BidCard from "@/components/reusable/Bids";
 import { File, FileText } from "lucide-react";
+import Link from "next/link";
 import React, { useState } from "react";
 
 interface UploadedFile {
@@ -110,47 +112,14 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           <h3 className="text-lg font-semibold mb-3">Attachments</h3>
 
           {/* Upload Button */}
-          <label className="cursor-pointer inline-block mb-4">
-            <div className="px-5 py-2 bg-[#4A90E2] text-white rounded-lg font-medium hover:bg-[#3277C7]">
-              Upload File
+          <Link href="" target="_blank" className="flex items-center gap-4 py-4 px-6 border rounded-xl cursor-pointer">
+            <PdfIcon className="w-10 h-10" />
+            <div>
+              <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
+                PDF File
+              </p>
             </div>
-            <input
-              type="file"
-              multiple
-              onChange={handleFileUpload}
-              className="hidden"
-            />
-          </label>
-
-          <div className="flex flex-col md:flex-row gap-4 flex-wrap">
-
-            {/* Uploaded Files */}
-            {files.map((file, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-4 p-4 border rounded-xl bg-white shadow-sm w-full md:w-[260px]"
-              >
-                <div className="p-3 bg-[#F8F8F8] rounded-lg border">
-                  {file.type.includes("pdf") ? (
-                    <File size={26} className="text-[#FF4D4F]" />
-                  ) : (
-                    <FileText size={26} className="text-[#4A4A4A]" />
-                  )}
-                </div>
-                <div>
-                  <p className="font-medium truncate w-[140px]">{file.name}</p>
-                  <p className="text-xs text-gray-500">
-                    File size: {formatSize(file.size)}
-                  </p>
-                </div>
-              </div>
-            ))}
-
-            {/* No file message */}
-            {files.length === 0 && (
-              <p className="text-sm text-gray-500">No files uploaded yet.</p>
-            )}
-          </div>
+          </Link>
         </div>
         {bids.map((bid) => (
                 <BidCard
@@ -210,7 +179,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
             <p className="flex  justify-between"><strong>English Level:</strong> Fluent</p>
           </div>
 
-          <button className="w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium">
+          <button className="w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium cursor-pointer hover:bg-red-600 transition">
             Contact Buyer
           </button>
         </div>

@@ -25,12 +25,12 @@ export default function EditorDashboardHeader() {
   const profileDropdownRef = useRef<HTMLDivElement | null>(null);
   const closeDesktopJobDropdown = () => setOpen(false);
 
-const closeMobileAll = () => {
-  setMobileDropdown(false);
-  setMobileMenu(false);
-};
+  const closeMobileAll = () => {
+    setMobileDropdown(false);
+    setMobileMenu(false);
+  };
 
-const closeProfile = () => setProfileDropdown(false);
+  const closeProfile = () => setProfileDropdown(false);
 
 
   // Close desktop dropdown on outside click
@@ -112,29 +112,29 @@ const closeProfile = () => setProfileDropdown(false);
                       </span>
                     </button>
 
-                   {open && (
-  <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-    <Link href="/editor/hire-request" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
-      My Jobs
-    </Link>
+                    {open && (
+                      <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
+                        <Link href="/editor/hire-request" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                          My Jobs
+                        </Link>
 
-    <Link href="/editor/myproposal" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
-      My Proposals
-    </Link>
+                        <Link href="/editor/myproposal" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                          My Proposals
+                        </Link>
 
-    <Link href="/editor/browse-job" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
-      Find Jobs
-    </Link>
+                        <Link href="/editor/browse-job" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                          Find Jobs
+                        </Link>
 
-    <Link href="/editor/editor-profile" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
-      Profile
-    </Link>
+                        <Link href="/editor/editor-profile" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                          Profile
+                        </Link>
 
-    <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
-      Earnings
-    </Link>
-  </div>
-)}
+                        <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                          Earnings
+                        </Link>
+                      </div>
+                    )}
 
                   </div>
                 </li>
@@ -183,19 +183,19 @@ const closeProfile = () => setProfileDropdown(false);
                 </div>
 
               </div>
-              
+
               {/* Profile Dropdown */}
               <div className="relative" ref={profileDropdownRef}>
-                <button onClick={() => setProfileDropdown(!profileDropdown)} className="flex">
+                <button onClick={() => setProfileDropdown(!profileDropdown)} className="flex cursor-pointer">
                   <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
                 </button>
-                
+
                 {profileDropdown && (
                   <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
                     <Link href="/editor/editor-profile" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Profile</Link>
                     <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Earning</Link>
                     <hr className="my-2" />
-                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">Logout</button>
+                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer">Logout</button>
                   </div>
                 )}
               </div>
