@@ -222,7 +222,7 @@ export default function SingUpForm() {
             </div>
 
             {/* Terms Checkbox */}
-            <label className="flex items-start gap-3 text-[#333] font-poppins text-base">
+            <label className="flex items-start gap-3 text-[#333] font-poppins text-base cursor-pointer">
               <input
                 type="checkbox"
                 {...register("terms", {

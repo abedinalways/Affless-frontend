@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -58,11 +58,7 @@ export default function OtpForm() {
   };
 
   return (
-    <div className="px-4 sm:px-[50px] 
-      md:px-[50px] 
-      lg:px-[100px] 
-      xl:px-[150px]
-      2xl:px-[300px] grid items-center">
+    <div className="px-4 sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px] grid items-center">
       <Toaster />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-[100px] gap-8">
         <div className="flex items-center justify-center bg-white rounded-2xl h-full">
@@ -71,13 +67,13 @@ export default function OtpForm() {
             alt="verify email"
             width={500}
             height={450}
-            className="w-[260px] sm:w-[340px] md:w-[420px] lg:w-[480px] xl:w-[520px] h-auto object-contain"/>
+            className="w-[260px] sm:w-[340px] md:w-[420px] lg:w-[480px] xl:w-[520px] h-auto object-contain"
+          />
         </div>
 
         {/* Right Content */}
         <div className="h-full flex flex-col justify-center bg-[#FFDBDC] rounded-2xl ">
-          <div className="w-full max-w-lg mx-auto p-10  ">
-
+          <div className="w-full max-w-lg mx-auto p-10">
             {/* Back + Title */}
             <div className="flex items-center gap-3 pb-4">
               <Link href="/forgetpassword">
@@ -85,7 +81,8 @@ export default function OtpForm() {
                   <GoArrowLeft />
                 </div>
               </Link>
-              <h2 className="text-[#333] font-poppins text-[24px] lg:text-[40px] font-medium leading-[130%]"
+              <h2
+                className="text-[#333] font-poppins text-[24px] lg:text-[40px] font-medium leading-[130%]"
               >
                 Verify Email
               </h2>
@@ -111,14 +108,17 @@ export default function OtpForm() {
                     onKeyDown={(e) => {
                       if (e.key === "Backspace") handleBackspace(index);
                     }}
-                    className="w-12 h-12 text-center text-xl rounded-full border border-gray-300focus:border-[#FF4D4F] focus:ring-0 font-poppins bg-white"
+                    className="w-12 h-12 text-center text-xl rounded-full border border-gray-300 focus:border-[#FF4D4F] focus:ring-0 font-poppins bg-white"
                   />
                 ))}
               </div>
 
-
               <div className="">
-                <button disabled={loading} type="submit" className="w-full py-3  bg-[#FF4D4F] text-white text-[16px] lg:text-[24px] font-poppins rounded-xl cursor-pointer hover:bg-[#e04344] transition disabled:opacity-50 disabled:cursor-not-allowed">
+                <button
+                  disabled={loading}
+                  type="submit"
+                  className="w-full py-3 bg-[#FF4D4F] text-white text-[16px] lg:text-[24px] font-poppins rounded-xl cursor-pointer hover:bg-[#e04344] transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   {loading ? "Verifying..." : "Verify"}
                 </button>
               </div>
@@ -127,6 +127,5 @@ export default function OtpForm() {
         </div>
       </div>
     </div>
-
   );
 }
