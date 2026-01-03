@@ -37,6 +37,9 @@ export default function SingUpForm() {
       lg:px-[100px] 
       xl:px-[150px]
       2xl:px-[300px]">
+      <Link href="/login" className="pb-3">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg ">
+          Back
+        </button></Link>
       <div
         className="
         grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
@@ -103,7 +106,7 @@ export default function SingUpForm() {
               <input
                 {...register("name", { required: "Name is required" })}
                 type="text"
-                placeholder="Enter Your Name"
+                placeholder="Enter Username"
                 className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />
             </div>
@@ -137,12 +140,23 @@ export default function SingUpForm() {
 
               <input
                 {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 4,
-                    message: "Password must be at least 4 characters",
-                  },
-                })}
+  required: "Password is required",
+  minLength: {
+    value: 8,
+    message: "Password must be at least 8 characters",
+  },
+  maxLength: {
+    value: 64,
+    message: "Password must not exceed 64 characters",
+  },
+  pattern: {
+    value:
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
+    message:
+      "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
+  },
+})}
+
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
                 className="w-full px-6 py-4 pl-12 pr-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
@@ -151,7 +165,7 @@ export default function SingUpForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-4 top-1/2 -translate-y-1/2"
+                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
               >
                 {showPassword ? (
                   <EyeOff className="w-6 h-6 text-gray-600" />
@@ -167,10 +181,7 @@ export default function SingUpForm() {
 
             {/* Terms Text */}
             <div className="bg-[#FFECEC] p-4 rounded-xl text-[#333] text-sm font-poppins">
-              By signing up, you agree to our Terms of Service and Privacy Policy.
-              You'll join a community of professional writers and editors, and gain
-              access to collaboration tools, project management features, and
-              marketplace opportunities.
+            “By signing up, you agree to our Terms of Service and Privacy Policy.  You’ll join a community of video editors and clients, and gain access to collaboration tools, project features, secure payments, and marketplace opportunities.”
             </div>
 
             {/* Terms Checkbox */}
@@ -178,7 +189,7 @@ export default function SingUpForm() {
               <input
                 type="checkbox"
                 {...register("terms", { required: "You must accept the terms" })}
-                className="mt-1"
+                className="mt-1 cursor-pointer "
               />
               I agree to the Terms of Service and Privacy Policy
             </label>
@@ -189,7 +200,7 @@ export default function SingUpForm() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl"
+              className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl cursor-pointer"
             >
               Sign Up
             </button>

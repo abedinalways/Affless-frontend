@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function EditorPrise() {
@@ -118,9 +119,10 @@ export default function EditorPrise() {
         </div>
 
         {/* Contact */}
+        <Link href="/editor/message">
         <button className="mt-6 w-full py-3 rounded-xl bg-[#FF4D4F] text-white font-medium text-[16px] cursor-pointer hover:opacity-90 transition">
           Contact Editor
-        </button>
+        </button></Link>
       </div>
     </div>
   );

@@ -14,12 +14,11 @@ export default function BudgetPage({ status = "Accept" }: Props) {
       <div className="bg-[#FFFFFF] rounded-2xl p-6 text-center space-y-4">
         <h2 className="text-lg font-bold text-[#4A4C56]">Budget</h2>
 
-        <p className="text-[30px] log:text-[40px] font-bold text-gray-900">
+        <p className="text-[30px] log:text-[40px] font-bold text-[#333]">
           $350.00
         </p>
 
-        {/* ✅ Accept Button */}
-        <button
+        {/* <button
           className={`w-full py-4 rounded-full text-lg font-medium transition ${
             status === "Accept"
               ? "bg-green-600 text-white hover:bg-green-700"
@@ -29,7 +28,6 @@ export default function BudgetPage({ status = "Accept" }: Props) {
           Accept
         </button>
 
-        {/* ✅ Reject Button */}
         <button
           className={`w-full py-4 rounded-full text-lg font-normal text-[16px] transition ${
             status === "Declined"
@@ -38,16 +36,23 @@ export default function BudgetPage({ status = "Accept" }: Props) {
           }`}
         >
           Reject
-        </button>
+        </button> */}
 
         {/* Info */}
-        <div className="bg-gray-50 rounded-2xl p-4 mt-4">
+        {/* <div className="bg-gray-50 rounded-2xl p-4 mt-4">
           <InfoRow label="Project Level:" value="Expensive" />
           <InfoRow label="Languages:" value="French" />
           <InfoRow label="English Level:" value="Native" />
-        </div>
+        </div> */}
+      
       </div>
+  <div className="bg-white text-center p-6 rounded-2xl">
+           <h2 className="text-[#4A4C56]">Time</h2>
 
+        <p className=" text-[#333] font-medium text-[24px] leading-150%">
+          5 Days
+        </p>
+        </div>
       {/* About Buyer */}
       <div className="bg-white rounded-2xl shadow p-6 border">
         <h2 className="text-xl font-semibold text-center mb-4 text-gray-900">

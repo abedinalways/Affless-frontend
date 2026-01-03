@@ -200,7 +200,7 @@ export default function JobDetails({ params }: { params: { id: string } }) {
                   <Link
                     key={bid.id}
                     href="/client/bids-details"
-                    className="block"
+                    className=""
                   >
                     <BidCard
                       id={bid.id}

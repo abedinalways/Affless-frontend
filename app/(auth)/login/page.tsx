@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { RxRotateCounterClockwise } from "react-icons/rx";
 import toast, { Toaster } from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
+import { EyeIcon, EyeOff } from "lucide-react";
 
 type FormValues = {
   email: string;
@@ -36,15 +37,15 @@ export default function SignInForm() {
     setTimeout(() => {
       setLoading(false);
       localStorage.setItem("isLogin", "true");
-      if (data?.email === "client@gmail.com" && data?.password === "12345678") {
+      if (data?.email === "client@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/client");
         localStorage.setItem("userType", "client");
         setUser("client");
-      } else if (data?.email === "editor@gmail.com" && data?.password === "12345678") {
+      } else if (data?.email === "editor@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/editor");
         localStorage.setItem("userType", "editor");
         setUser("editor");
-      } else if (data?.email === "admin@gmail.com" && data?.password === "12345678") {
+      } else if (data?.email === "admin@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/admin");
       } else {
         toast.error("Invalid email or password");
@@ -55,12 +56,16 @@ export default function SignInForm() {
   return (
     <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
       <Toaster position="top-right" />
+      <Link href="/singup" className="">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg mb-9" >
+          Back
+        </button></Link>
       <div
         className="
         grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
         lg:gap-[100px] space-y-8
       "
       >
+         
         {/* Left Image */}
         <div className="">
           <Image
@@ -68,14 +73,15 @@ export default function SignInForm() {
             alt="login"
             height={434}
             width={432}
-            className=" w-full"
+            className=" w-full h-[470px]"
           />
         </div>
 
         {/* Right Form */}
-        <div className="w-full  bg-[#FFDBDC] sm:rounded-3xl shadow-md p-8 sm:p-14 mx-auto">
+        <div className="">
+          <div className="w-full  bg-[#FFDBDC] sm:rounded-3xl shadow-md p-8 sm:p-14 mx-auto ">
           <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-[42px]">
-            Sign In
+           Log In
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -103,41 +109,51 @@ export default function SignInForm() {
             <div className="relative">
               <KeyIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
               <input
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 4,
-                    message: "Password must be at least 4 characters",
-                  },
-                })}
+              {...register("password", {
+  required: "Password is required",
+  minLength: {
+    value: 8,
+    message: "Password must be at least 8 characters",
+  },
+  maxLength: {
+    value: 64,
+    message: "Password must not exceed 64 characters",
+  },
+  pattern: {
+    value:
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
+    message:
+      "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
+  },
+})}
+
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
                 className="w-full px-6 py-4 pl-12 pr-12 rounded-xl focus:outline-none bg-white text-[#333] font-poppins text-base leading-[150%]"
               />
 
-              <button
+             <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
               >
-                <Image
-                  src="/svgIcons/eyeImage.svg"
-                  alt="eye"
-                  width={19}
-                  height={18}
-                />
+                {showPassword ? (
+                  <EyeOff className="w-6 h-6 text-gray-600" />
+                ) : (
+                  <EyeIcon className="w-6 h-6 text-gray-600" />
+                )}
               </button>
             </div>
             {errors.password && (
               <p className="text-red-500 text-sm font-poppins">{errors.password.message}</p>
             )}
-            <div className=" bg-[#FFEAEA] rounded-2xl p-4">
+            {/* <div className=" bg-[#FFEAEA] rounded-2xl p-4">
               <p className="text-[14px] font-normal leading-150% text-[#4A4C56]">By signing up, you agree to our Terms of Service and Privacy Policy. You’ll join a community of video editors and clients, and gain access to collaboration tools, project features, secure payments, and marketplace opportunities.</p>
-            </div>
+            </div> */}
             {/* Remember + Forgot */}
             <div className="flex justify-between items-center text-sm">
-              <div className="flex items-center gap-2">
-                <input id="rememberme" type="checkbox" {...register("remember")} />
+              <div className="flex items-center gap-2 cursor-pointer">
+                <input id="rememberme" type="checkbox" {...register("remember")} className="cursor-pointer"/>
                 <label htmlFor="rememberme" className="flex items-center gap-2 text-[#333] font-poppins text-base leading-[150%] cursor-pointer">
                   Remember me
                 </label>
@@ -159,7 +175,7 @@ export default function SignInForm() {
               className={`w-full py-3 bg-[#FF4D4F] ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} text-[#FDFDFD] font-poppins text-2xl font-medium leading-[150%] rounded-xl`}
               disabled={loading}
             >
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? "Signing in..." : "Log In"}
             </button>
 
             {/* Sign Up */}
@@ -170,6 +186,7 @@ export default function SignInForm() {
               </Link>
             </p>
           </form>
+        </div>
         </div>
       </div>
     </div>

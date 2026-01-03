@@ -34,7 +34,7 @@ export default function OtpForm() {
       setLoading(false);
       return;
     }
-    toast.success(`OTP Validation successful!`);
+    toast.success(`Reset Code Validation Successful.`);
     setTimeout(() => {
       router.push('/resetPassword');
       setLoading(false);
@@ -93,7 +93,7 @@ export default function OtpForm() {
 
             {/* Subtitle */}
             <p className="text-[#333] font-poppins text-base leading-[150%] pb-6">
-              Please enter the otp we have sent you in your email.
+              Please enter the Reset Code we have sent to your email address
             </p>
 
             {/* OTP Form */}
