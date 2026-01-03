@@ -9,6 +9,7 @@ import { GoArrowLeft } from "react-icons/go";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import toast,{Toaster} from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { EyeIcon, EyeOff } from "lucide-react";
 
 type FormValues = {
   password: string;
@@ -97,16 +98,22 @@ export default function ResetPasswordForm() {
                 <KeyIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#FF4D4F]" />
                 <input
                   {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 8,
-                      message: "Password must be at least 8 characters",
-                    },
-                    maxLength: {
-                      value: 10,
-                      message: "Password must be at most 10 characters",
-                    },
-                  })}
+                  required: "Password is required",
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters",
+                  },
+                  maxLength: {
+                    value: 64,
+                    message: "Password must not exceed 64 characters",
+                  },
+                  pattern: {
+                    value:
+                      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
+                    message:
+                      "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
+                  },
+                })}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter Password"
                   className="w-full px-6 py-3 pl-12 pr-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
@@ -117,29 +124,40 @@ export default function ResetPasswordForm() {
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-[#333] cursor-pointer"
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
-                  {!showPassword ? (
-                    <AiOutlineEyeInvisible className="w-5 h-5" />
-                  ) : (
-                    <AiOutlineEye className="w-5 h-5" />
-                  )}
+                   {showPassword ? (
+                  <EyeIcon className="w-5 h-5 text-gray-600" />
+                ) : (
+                  <EyeOff className="w-6 h-6 text-gray-600" />
+                )}
                 </button>
               </div>
               {errors.password && (
-                <p className="text-red-500 text-sm font-poppins text-left">
-                  {errors.password.message}
-                </p>
-              )}
+              <p className="text-red-500 text-sm font-poppins">
+                {errors.password.message}
+              </p>
+            )}
 
               {/* Confirm Password */}
               <div className="relative">
                 <KeyIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#FF4D4F]" />
                 <input
-                  {...register("confirmPassword", {
-                    required: "Please re-enter your password",
-                    validate: (value) =>
-                      value === getValues("password") ||
-                      "Passwords do not match",
-                  })}
+                  {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters",
+                  },
+                  maxLength: {
+                    value: 64,
+                    message: "Password must not exceed 64 characters",
+                  },
+                  pattern: {
+                    value:
+                      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
+                    message:
+                      "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
+                  },
+                })}
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Re-enter Password"
                   className="w-full px-6 py-3 pl-12 pr-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
@@ -150,18 +168,28 @@ export default function ResetPasswordForm() {
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-[#333] cursor-pointer"
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
                 >
-                  {!showConfirmPassword ? (
-                    <AiOutlineEyeInvisible className="w-5 h-5" />
-                  ) : (
-                    <AiOutlineEye className="w-5 h-5" />
-                  )}
+                    {showPassword ? (
+                  <EyeIcon className="w-6 h-6 text-gray-600" />
+                ) : (
+                  <EyeOff className="w-6 h-6 text-gray-600" />
+                )}
                 </button>
               </div>
-              {errors.confirmPassword && (
-                <p className="text-red-500 text-sm font-poppins text-left">
-                  {errors.confirmPassword.message}
-                </p>
-              )}
+              {errors.password && (
+              <p className="text-red-500 text-sm font-poppins">
+                {errors.password.message}
+              </p>
+            )}
+
+<div className="text-sm text-[#333] space-y-1">
+  <p>Password must contain:</p>
+  <ul className="list-disc ml-5">
+    <li>8–64 characters</li>
+    <li>At least 1 uppercase letter</li>
+    <li>At least 1 number</li>
+    <li>At least 1 symbol</li>
+  </ul>
+</div>
 
               {/* Confirm Button */}
               <button
