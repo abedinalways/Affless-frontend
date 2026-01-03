@@ -45,7 +45,7 @@ export default function SignInForm() {
         router.push("/editor");
         localStorage.setItem("userType", "editor");
         setUser("editor");
-      } else if (data?.email === "admin@gmail.com" && data?.password === "12345678") {
+      } else if (data?.email === "admin@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/admin");
       } else {
         toast.error("Invalid email or password");
