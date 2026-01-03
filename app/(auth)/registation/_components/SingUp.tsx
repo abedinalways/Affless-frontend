@@ -15,7 +15,7 @@ type FormValues = {
   email: string;
   password: string;
   terms: boolean;
-   accountType: string;
+  accountType: string;
 };
 
 export default function SingUpForm() {
@@ -38,11 +38,11 @@ export default function SingUpForm() {
       xl:px-[150px]
       2xl:px-[300px]">
       <div
-      className="
+        className="
         grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
         lg:gap-[100px] space-y-8
       "
-    >
+      >
 
         {/* Left Image */}
         <div className="flex w-full">
@@ -58,41 +58,44 @@ export default function SingUpForm() {
         {/* Right Form */}
         <div className="w-full  bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto ">
           <h2 className="text-[#333] text-center font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%] pb-6 ">
-            Sign Up 
+            Sign Up
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-<p className="text-[18px] font-normal text-[#1D1F2C] mb-3">
-  Select Account Type:
-</p>
+            <p className="text-[18px] font-normal text-[#1D1F2C] mb-3">
+              Select Account Type:
+            </p>
 
-<div className="flex items-center gap-6">
-  {/* Editor */}
-  <div className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg">
-    <input
-      type="radio"
-      value="editor"
-      {...register("accountType", { required: "Account type is required" })}
-      className="h-5 w-5 accent-red-500 cursor-pointer"
-    />
-    <p className="text-[#333] font-poppins text-base select-none">Editor</p>
-  </div>
+            <div className="flex items-center gap-6">
+              {/* Client */}
+              <label htmlFor="client" className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg cursor-pointer">
+                <input
+                  type="radio"
+                  value="client"
+                  {...register("accountType", { required: "Account type is required" })}
+                  className="h-5 w-5 accent-red-500 cursor-pointer"
+                  id="client"
+                />
+                <p className="text-[#333] font-poppins text-base select-none">Client</p>
+              </label>
+              
+              {/* Editor */}
+              <label htmlFor="editor" className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg cursor-pointer">
+                <input
+                  type="radio"
+                  value="editor"
+                  id="editor"
+                  {...register("accountType", { required: "Account type is required" })}
+                  className="h-5 w-5 accent-red-500 cursor-pointer"
+                />
+                <p className="text-[#333] font-poppins text-base select-none">Editor</p>
+              </label>
 
-  {/* Client */}
-  <div className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg">
-    <input
-      type="radio"
-      value="client"
-      {...register("accountType", { required: "Account type is required" })}
-      className="h-5 w-5 accent-red-500 cursor-pointer"
-    />
-    <p className="text-[#333] font-poppins text-base select-none">Client</p>
-  </div>
-</div>
+            </div>
 
-{errors.accountType && (
-  <p className="text-red-500 text-sm mt-2">{errors.accountType.message}</p>
-)}
+            {errors.accountType && (
+              <p className="text-red-500 text-sm mt-2">{errors.accountType.message}</p>
+            )}
 
             {/* Name */}
             <div className="relative">
@@ -145,17 +148,17 @@ export default function SingUpForm() {
                 className="w-full px-6 py-4 pl-12 pr-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />
 
-<button
-  type="button"
-  onClick={() => setShowPassword((prev) => !prev)}
-  className="absolute right-4 top-1/2 -translate-y-1/2"
->
-  {showPassword ? (
-    <EyeOff className="w-6 h-6 text-gray-600" />
-  ) : (
-    <EyeIcon className="w-6 h-6 text-gray-600" />
-  )}
-</button>
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-4 top-1/2 -translate-y-1/2"
+              >
+                {showPassword ? (
+                  <EyeOff className="w-6 h-6 text-gray-600" />
+                ) : (
+                  <EyeIcon className="w-6 h-6 text-gray-600" />
+                )}
+              </button>
 
             </div>
             {errors.password && (
