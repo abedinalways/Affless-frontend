@@ -187,7 +187,7 @@ export default function ResetPasswordForm() {
     <li>8–64 characters</li>
     <li>At least 1 uppercase letter</li>
     <li>At least 1 number</li>
-  
+    <li>At least 1 symbol</li>
   </ul>
 </div>
 
