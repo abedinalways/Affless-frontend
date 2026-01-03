@@ -248,7 +248,7 @@ export default function HelpCenterPage() {
       <LiveChatModal open={liveChatOpen} setOpen={setLiveChatOpen} />
 
       {/* ✅ Email Support (your EmailChat) */}
-      <div className="fixed bottom-6 right-6 z-[9999] w-[680px] max-w-[92vw]">
+      <div className="fixed bottom-6 right-6 z-9999 w-[680px] max-w-[92vw]">
         <EmailChat open={emailChatOpen} setOpen={setEmailChatOpen} />
       </div>
     </div>

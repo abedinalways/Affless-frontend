@@ -25,7 +25,7 @@ export default function ForgotPasswordForm() {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     setLoading(true);
-    toast.success("OTP sent to your email");
+    toast.success("Reset code sent to your email address");
     setTimeout(() => {
       router?.push("/otp");
       setLoading(false);
@@ -83,7 +83,7 @@ export default function ForgotPasswordForm() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="block text-left">Enter your registered email address</label>
+                  <label htmlFor="email" className="block text-left">Enter the email address you registered with to create your account.</label>
 
                   {/* Email */}
                   <div className="relative w-full">
@@ -99,7 +99,7 @@ export default function ForgotPasswordForm() {
                         },
                       })}
                       type="email"
-                      placeholder="E mail"
+                      placeholder="Email"
                       className="w-full px-6 py-[18px] pl-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
                     />
                   </div>
@@ -116,7 +116,7 @@ export default function ForgotPasswordForm() {
                   className="text-white font-poppins text text-[16px] lg:text-[24px] font-medium leading-[150%] bg-[#FF4D4F] w-full py-3 px-4 rounded-lg cursor-pointer hover:bg-[#e04345] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
 
                 >
-                  {loading ? "Sending..." : "Send OTP"}
+                  {loading ? "Sending..." : "Send Reset Code"}
                 </button>
               </form>
 

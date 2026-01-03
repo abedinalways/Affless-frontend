@@ -36,7 +36,7 @@ const JobProposalCard: React.FC<JobProposalCardProps> = ({
   id,
 }) => {
   return (
-    <div className="bg-white rounded-xl p-5 shadow-sm justify-between">
+    <div className="bg-white rounded-xl p-5 shadow-sm justify-between cursor-pointer" onClick={() => onAction(id)}>
       <div className="flex items-center gap-3">
         <Image
           src={image}

@@ -15,7 +15,7 @@ type FormValues = {
   email: string;
   password: string;
   terms: boolean;
-   accountType: string;
+  accountType: string;
 };
 
 export default function SingUpForm() {
@@ -37,12 +37,15 @@ export default function SingUpForm() {
       lg:px-[100px] 
       xl:px-[150px]
       2xl:px-[300px]">
+      <Link href="/login" className="pb-3">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg ">
+          Back
+        </button></Link>
       <div
-      className="
+        className="
         grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
         lg:gap-[100px] space-y-8
       "
-    >
+      >
 
         {/* Left Image */}
         <div className="flex w-full">
@@ -58,41 +61,44 @@ export default function SingUpForm() {
         {/* Right Form */}
         <div className="w-full  bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto ">
           <h2 className="text-[#333] text-center font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%] pb-6 ">
-            Sign Up 
+            Sign Up
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-<p className="text-[18px] font-normal text-[#1D1F2C] mb-3">
-  Select Account Type:
-</p>
+            <p className="text-[18px] font-normal text-[#1D1F2C] mb-3">
+              Select Account Type:
+            </p>
 
-<div className="flex items-center gap-6">
-  {/* Editor */}
-  <div className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg">
-    <input
-      type="radio"
-      value="editor"
-      {...register("accountType", { required: "Account type is required" })}
-      className="h-5 w-5 accent-red-500 cursor-pointer"
-    />
-    <p className="text-[#333] font-poppins text-base select-none">Editor</p>
-  </div>
+            <div className="flex items-center gap-6">
+              {/* Client */}
+              <label htmlFor="client" className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg cursor-pointer">
+                <input
+                  type="radio"
+                  value="client"
+                  {...register("accountType", { required: "Account type is required" })}
+                  className="h-5 w-5 accent-red-500 cursor-pointer"
+                  id="client"
+                />
+                <p className="text-[#333] font-poppins text-base select-none">Client</p>
+              </label>
+              
+              {/* Editor */}
+              <label htmlFor="editor" className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg cursor-pointer">
+                <input
+                  type="radio"
+                  value="editor"
+                  id="editor"
+                  {...register("accountType", { required: "Account type is required" })}
+                  className="h-5 w-5 accent-red-500 cursor-pointer"
+                />
+                <p className="text-[#333] font-poppins text-base select-none">Editor</p>
+              </label>
 
-  {/* Client */}
-  <div className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg">
-    <input
-      type="radio"
-      value="client"
-      {...register("accountType", { required: "Account type is required" })}
-      className="h-5 w-5 accent-red-500 cursor-pointer"
-    />
-    <p className="text-[#333] font-poppins text-base select-none">Client</p>
-  </div>
-</div>
+            </div>
 
-{errors.accountType && (
-  <p className="text-red-500 text-sm mt-2">{errors.accountType.message}</p>
-)}
+            {errors.accountType && (
+              <p className="text-red-500 text-sm mt-2">{errors.accountType.message}</p>
+            )}
 
             {/* Name */}
             <div className="relative">
@@ -100,7 +106,7 @@ export default function SingUpForm() {
               <input
                 {...register("name", { required: "Name is required" })}
                 type="text"
-                placeholder="Enter Your Name"
+                placeholder="Enter Username"
                 className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />
             </div>
@@ -134,28 +140,39 @@ export default function SingUpForm() {
 
               <input
                 {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 4,
-                    message: "Password must be at least 4 characters",
-                  },
-                })}
+  required: "Password is required",
+  minLength: {
+    value: 8,
+    message: "Password must be at least 8 characters",
+  },
+  maxLength: {
+    value: 64,
+    message: "Password must not exceed 64 characters",
+  },
+  pattern: {
+    value:
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
+    message:
+      "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
+  },
+})}
+
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
                 className="w-full px-6 py-4 pl-12 pr-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />
 
-<button
-  type="button"
-  onClick={() => setShowPassword((prev) => !prev)}
-  className="absolute right-4 top-1/2 -translate-y-1/2"
->
-  {showPassword ? (
-    <EyeOff className="w-6 h-6 text-gray-600" />
-  ) : (
-    <EyeIcon className="w-6 h-6 text-gray-600" />
-  )}
-</button>
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
+              >
+                {showPassword ? (
+                  <EyeOff className="w-6 h-6 text-gray-600" />
+                ) : (
+                  <EyeIcon className="w-6 h-6 text-gray-600" />
+                )}
+              </button>
 
             </div>
             {errors.password && (
@@ -164,10 +181,7 @@ export default function SingUpForm() {
 
             {/* Terms Text */}
             <div className="bg-[#FFECEC] p-4 rounded-xl text-[#333] text-sm font-poppins">
-              By signing up, you agree to our Terms of Service and Privacy Policy.
-              You'll join a community of professional writers and editors, and gain
-              access to collaboration tools, project management features, and
-              marketplace opportunities.
+            “By signing up, you agree to our Terms of Service and Privacy Policy.  You’ll join a community of video editors and clients, and gain access to collaboration tools, project features, secure payments, and marketplace opportunities.”
             </div>
 
             {/* Terms Checkbox */}
@@ -175,7 +189,7 @@ export default function SingUpForm() {
               <input
                 type="checkbox"
                 {...register("terms", { required: "You must accept the terms" })}
-                className="mt-1"
+                className="mt-1 cursor-pointer "
               />
               I agree to the Terms of Service and Privacy Policy
             </label>
@@ -186,7 +200,7 @@ export default function SingUpForm() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl"
+              className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl cursor-pointer"
             >
               Sign Up
             </button>
