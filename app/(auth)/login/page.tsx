@@ -11,6 +11,7 @@ import { RxRotateCounterClockwise } from "react-icons/rx";
 import toast, { Toaster } from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
 import { EyeIcon, EyeOff } from "lucide-react";
+import { FaArrowLeft } from "react-icons/fa6";
 
 type FormValues = {
   email: string;
@@ -56,7 +57,8 @@ export default function SignInForm() {
   return (
     <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
       <Toaster position="top-right" />
-      <Link href="/singup" className="">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg mb-9" >
+      <Link href="/login" className="pb-3">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
+        <FaArrowLeft className="mt-1"/>
           Back
         </button></Link>
       <div
@@ -76,6 +78,7 @@ export default function SignInForm() {
             className=" w-full h-[470px]"
           />
         </div>
+   
 
         {/* Right Form */}
         <div className="">
@@ -138,9 +141,10 @@ export default function SignInForm() {
                 className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
               >
                 {showPassword ? (
-                  <EyeOff className="w-6 h-6 text-gray-600" />
-                ) : (
                   <EyeIcon className="w-6 h-6 text-gray-600" />
+                 
+                ) : (
+                   <EyeOff className="w-6 h-6 text-gray-600" />
                 )}
               </button>
             </div>

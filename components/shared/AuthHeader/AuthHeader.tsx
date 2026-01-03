@@ -5,7 +5,7 @@ import React from 'react'
 export default function AuthHeader() {
   return (
 <div className=''>
-     <div className='containers pb-8 lg:pb-[88px] pt-4'>
+     <div className='containers pb-8 lg:pb-[30px] pt-4'>
 <Link href="/">     <div className=" w-32 h-[50px] ">
               <Image
                               src="/images/logoUpdate.png"
