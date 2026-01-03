@@ -184,10 +184,7 @@ export default function ResetPasswordForm() {
 <div className="text-sm text-[#333] space-y-1">
   <p>Password must contain:</p>
   <ul className="list-disc ml-5">
-    <li>8–64 characters</li>
-    <li>At least 1 uppercase letter</li>
-    <li>At least 1 number</li>
-    <li>At least 1 symbol</li>
+ 
   </ul>
 </div>
 
