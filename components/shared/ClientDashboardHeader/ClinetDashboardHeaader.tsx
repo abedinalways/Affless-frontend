@@ -158,7 +158,7 @@ export default function ClientDashboardHeader() {
           <div className="hidden lg:flex gap-8 items-center">
             <Link href="/editor" onClick={handleBecomeEditorClick} className="cursor-pointer">
               Become a Editor
-            </button>
+            </Link>
               <div className="relative group">
                <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
                 <div
