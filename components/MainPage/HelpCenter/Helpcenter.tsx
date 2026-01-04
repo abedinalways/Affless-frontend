@@ -83,7 +83,7 @@ export default function HelpCenterPage() {
               <h2 className="text-[18px] font-medium text-black mb-4">Support & Contact</h2>
 
               <div className="bg-white rounded-xl shadow p-4">
-                <Accordion type="single" collapsible>
+                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">

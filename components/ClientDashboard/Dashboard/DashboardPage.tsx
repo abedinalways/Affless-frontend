@@ -184,8 +184,8 @@ export default function ClientDashboard() {
   href="/client/post-job"
   className="p-3 bg-red-500 text-white rounded-lg text-sm inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
 >
-                + Post New Job
-              </Link>
+  + Post New Job
+</Link>
 
             </div>
 
