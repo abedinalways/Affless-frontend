@@ -85,18 +85,73 @@ export default function HelpCenterPage() {
               <div className="bg-white rounded-xl shadow p-4">
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 cursor-pointer">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
                         <IoDocumentTextOutline className="w-6 h-6" />
                         <p>How to contact customer support</p>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-4">
-                      You can reach our customer support team 24/7 through live chat or email.
+                      You can reach our customer support team 24/7 through live
+                      chat or email. We are ready to assist you with account
+                      issues, order-related questions, technical problems, and
+                      general support.
                     </AccordionContent>
                   </AccordionItem>
 
-                  {/* ... rest items ... */}
+                  <AccordionItem value="item-2">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
+                      <div className="flex gap-3">
+                        <IoDocumentTextOutline className="w-6 h-6" />
+                        <p>Reporting technical issues or bugs</p>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-600 pb-4 pl-9">
+                      Submit any technical issues through our support form or
+                      live chat. Our team will review the issue and work to
+                      resolve it as quickly as possible.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-3">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
+                      <div className="flex gap-3">
+                        <IoDocumentTextOutline className="w-6 h-6" />
+                        <p>Dispute resolution process</p>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-600 pb-4 pl-9">
+                      Our team will review dispute submitted within 48 hours and
+                      follow up with you regarding the next steps.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-4">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
+                      <div className="flex gap-3">
+                        <IoDocumentTextOutline className="w-6 h-6" />
+                        <p>Community guidelines and code of conduct</p>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-600 pb-4 pl-9">
+                      Please follow our guidelines to keep the platform
+                      positive, supportive, and safe for all users.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="item-5">
+                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
+                      <div className="flex gap-3">
+                        <IoDocumentTextOutline className="w-6 h-6" />
+                        <p>Providing feedback and feature requests</p>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-600 pb-4 pl-9">
+                      You can submit any feedback or suggestions through the
+                      request form. We appreciate your input as it helps us
+                      improve the platform.
+                    </AccordionContent>
+                  </AccordionItem>
                 </Accordion>
               </div>
             </>

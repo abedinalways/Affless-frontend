@@ -180,9 +180,13 @@ export default function ClientDashboard() {
                 </p>
               </div>
 
-              <Link href="/client/post-job" className="p-3 bg-red-500 text-white rounded-lg text-sm">
+              <Link
+  href="/client/post-job"
+  className="p-3 bg-red-500 text-white rounded-lg text-sm inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
+>
                 + Post New Job
               </Link>
+
             </div>
 
             <div className="rounded-2xl bg-white p-6 shadow-sm">
