@@ -35,9 +35,9 @@ const BidsDetails = () => {
 
       {/* Page Content */}
       <div className="containers py-10 lg:py-20 ">
-        <div className="flex flex-col lg:flex-row gap-9">
-            <div className="flex gap-9">
-          <div className="space-y-5 w-2/3">
+        <div className="gap-9">
+            <div className=" flex flex-col lg:flex-row  gap-9">
+          <div className="space-y-5 w-full lg:w-2/3 order-2 lg:order-1">
             {/* Title */}
             <h1 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% text-[#333]">
               Proposal Details
@@ -176,7 +176,7 @@ const BidsDetails = () => {
               </div>
             </div>
           </div>
-          <div className="w-1/3">
+          <div className="w-full lg:w-1/3 order-1 lg:order-2">
             <EditorPrise/>
         </div>
         </div>

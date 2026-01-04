@@ -14,16 +14,22 @@ interface JobProposalCardProps {
     | "Declined"
     | "Pending"
     | "Cancellation";
-  onAction: (id: number) => void;
+
   id: number;
+
+  // ✅ old behavior (keep)
+  onAction: (id: number) => void;
+
+  // ✅ new (optional) - only use where you need navigation
+  onOpen?: (id: number) => void;
 }
 
 const statusColors: Record<JobProposalCardProps["status"], string> = {
   Accepted: "bg-green-500 text-white",
   "In Progress": "bg-[#EEFAE9] text-[#52C41A]",
   "In Revision": "bg-red-500 text-white",
-  Declined: "bg-[#FDD3D5] text-[#F5222D] ",
-  Cancellation: "bg-[#FEE9EA] text-[#F5222D] ",
+  Declined: "bg-[#FDD3D5] text-[#F5222D]",
+  Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
   Pending: "bg-[#FFF7E8] text-[#FAAD14]",
 };
 
@@ -33,10 +39,25 @@ const JobProposalCard: React.FC<JobProposalCardProps> = ({
   total,
   status,
   onAction,
+  onOpen,
   id,
 }) => {
+  // ✅ Card click: if onOpen exists -> navigate, else fallback to old onAction
+  const handleCardClick = () => {
+    if (onOpen) return onOpen(id);
+    return onAction(id);
+  };
+
   return (
-    <div className="bg-white rounded-xl p-5 shadow-sm justify-between cursor-pointer" onClick={() => onAction(id)}>
+    <div
+      className="bg-white rounded-xl p-5 shadow-sm justify-between cursor-pointer"
+      onClick={handleCardClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") handleCardClick();
+      }}
+    >
       <div className="flex items-center gap-3">
         <Image
           src={image}
@@ -53,9 +74,14 @@ const JobProposalCard: React.FC<JobProposalCardProps> = ({
       <div className="flex justify-between pt-7">
         <p className="text-sm text-gray-500">Total: {total}</p>
 
+        {/* ✅ Button click: must NOT trigger card click */}
         <button
-          onClick={() => onAction(id)}
-          className={`px-4 py-2  rounded-lg text-sm font-medium ${statusColors[status]}`}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation(); // ✅ fixes double-call bug everywhere
+            onAction(id);
+          }}
+          className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${statusColors[status]}`}
         >
           {status}
         </button>
