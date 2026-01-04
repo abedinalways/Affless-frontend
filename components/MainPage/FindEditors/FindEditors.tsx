@@ -44,7 +44,7 @@ export default function FindEditors() {
       />
 
       {/* Main Section */}
-      <div className="containers mx-auto grid gap-8 lg:mt-40">
+      <div className="containers mx-auto flex gap-8 lg:mt-40">
 
         {/* Sidebar - hidden on small screens */}
         <div className="hidden lg:block">
@@ -56,15 +56,16 @@ export default function FindEditors() {
           <FilterSidebar isMobile={true} handleMenu={()=>setMobileMenu(false)}/>
         </div>
 
+
+        {/* Editors List */}
+        <div className="flex-1 space-y-6">
+          
         <div className='grid items-center justify-end lg:hidden'>
           <button type="button" onClick={() => setMobileMenu(true)} className='flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300'>
             <FaSitemap />
             <span>Filters</span>
           </button>
         </div>
-
-        {/* Editors List */}
-        <div className="flex-1 space-y-6">
           {/* Only Show Editors For This Page */}
           {displayedEditors.map((editor, idx) => (
             <EditorCard key={idx} {...editor} />

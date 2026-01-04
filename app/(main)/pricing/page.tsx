@@ -3,8 +3,10 @@
 import CheckCircelIcon from '@/components/Icons/CheckCircelIcon';
 import PageBanner from '@/components/reusable/Bgbanner'
 import { CheckCircle } from 'lucide-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
+import { SidebarDataType } from '@/app/(admin-dashboard)/admin/_components/Dashboard-sidebar';
 
 const pricingPlans = [
   {
@@ -58,8 +60,10 @@ const pricingPlans = [
 
 
 export default function Pricing() {
+
   const isLogin = localStorage.getItem("isLogin");
   const router = useRouter();
+
 
   const handleClick = () => {
     if (!isLogin) {
@@ -86,6 +90,7 @@ export default function Pricing() {
       <div className="containers mx-auto py-8 lg:py-20">
 
         <div className='text-center mb-10'>
+          <Toaster position="bottom-left" />
           <h3 className="text-[#333] text-center font-poppins text-[40px] md:text-[45px] lg:text-[56px] font-medium leading-[120%]">Pricing Plans</h3>
           <p className="text-[#4A4C56] text-center font-poppins text-[24px] font-normal leading-[150%] mt-6">Choose the plan that fits your needs and increase your visibility in the <br /> marketplace</p>
         </div>
