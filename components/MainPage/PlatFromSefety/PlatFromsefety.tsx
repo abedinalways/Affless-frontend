@@ -25,7 +25,7 @@ export default function PlatformSefetyPage() {
               </div>
               <div className=" min-h-screen lg:py-20 containers ">
      <div className=" bg-white ">
-         <div className="  px-8 md:p-8 text-[#333]p-9">
+         <div className="  px-4 md:p-8 text-[#333]p-9">
 
         {/* Header Box */}
         <div className="bg-[#FFF6EE] border-1 border-[#FF8C8B]  rounded-xl shadow-sm p-4 ">

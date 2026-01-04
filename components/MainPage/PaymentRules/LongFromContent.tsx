@@ -17,7 +17,7 @@ export default function LongFormContent() {
   ];
 
   return (
-    <div className="w-full rounded-2xl bg-white p-8">
+    <div className="w-full rounded-2xl bg-white p-3 lg:p-8">
       {/* Header */}
       <div className="flex items-start gap-4">
         <div className="h-11 w-11 rounded-full bg-[#FFEDED] flex items-center justify-center">

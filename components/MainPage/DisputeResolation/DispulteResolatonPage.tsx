@@ -5,10 +5,10 @@ import Link from "next/link";
 export default function DisputeResolutionPage() {
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
-      <div className="containers mx-auto px-4 md:px-0 grid grid-cols-1 md:grid-cols-[280px_1fr] lg:gap-10.5 md:gap-6" id="resolution-center-intro">
+      <div className="containers mx-auto px-4 md:px-0 grid grid-cols-1 md:grid-cols-[280px_1fr] lg:gap-10 md:gap-6 space-y-4" id="resolution-center-intro">
 
         {/* ---------------- Sidebar ---------------- */}
-        <div className="bg-white shadow-sm rounded-xl p-6 h-fit sticky top-26">
+        <div className="bg-white shadow-sm rounded-xl p-6 h-fit sticky-none  lg:sticky top-0 lg:top-26">
           <h3 className="text-[24px] font-medium text-[#333] mb-6">Quick links</h3>
           <ul className="space-y-4 text-[#333] text-[16px] font-normal leading-150%">
             <li>
@@ -35,7 +35,7 @@ export default function DisputeResolutionPage() {
         </div>
 
         {/* ---------------- Content Section ---------------- */}
-        <section className="bg-white shadow-sm rounded-xl p-10 leading-relaxed text-[#333]">
+        <section className="bg-white shadow-sm rounded-xl p-5 lg:p-10 leading-relaxed text-[#333]">
           <div>
             <h2 className="text-[24px] font-medium leading-150%  mb-4 ">How to use the Resolution Center</h2>
 

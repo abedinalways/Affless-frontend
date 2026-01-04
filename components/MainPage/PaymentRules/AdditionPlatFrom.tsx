@@ -5,14 +5,14 @@ import { Image as ImageIcon, Headphones, BadgeCheck, AlertTriangle } from "lucid
 export default function AdditionalPlatform() {
   return (
     <div className="w-full">
-      <h3 className="text-[18px] font-medium text-[#111827] mb-4 p-6">
+      <h3 className="text-[18px] font-medium text-[#111827] mb-4 p-3 lg:p-6">
         Additional Platform Rules
       </h3>
 
       {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Photo Editing */}
-        <div className="rounded-xl border border-gray-200 bg-white p-6">
+        <div className="rounded-xl border border-gray-200 bg-white p-3 lg:p-8">
           <div className="flex items-start gap-3">
             <div className="h-8 w-8 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center">
               <ImageIcon className="h-4 w-4 text-green-600" />
@@ -35,7 +35,7 @@ export default function AdditionalPlatform() {
         </div>
 
         {/* Audio Editing */}
-        <div className="rounded-xl border border-gray-200 bg-white p-6">
+        <div className="rounded-xl border border-gray-200 bg-white p-3 lg:p-8">
           <div className="flex items-start gap-3">
             <div className="h-8 w-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center">
               <Headphones className="h-4 w-4 text-[#49B4D6]" />
@@ -58,7 +58,7 @@ export default function AdditionalPlatform() {
         </div>
 
         {/* Thumbnail Editing */}
-        <div className="rounded-xl border border-gray-200 bg-white p-6">
+        <div className="rounded-xl border border-gray-200 bg-white p-3 lg:p-8">
           <div className="flex items-start gap-3">
             <div className="h-8 w-8 rounded-lg bg-red-50 border border-red-200 flex items-center justify-center">
               <BadgeCheck className="h-4 w-4 text-red-500" />

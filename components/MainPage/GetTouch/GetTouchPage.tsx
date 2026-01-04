@@ -34,15 +34,16 @@ export default function GetTouchPage() {
         />
       </div>
       <div className="containers">
-        <div className="mx-auto -mt-11  bg-[#F7F7F7] rounded-3xl shadow-md mb-20 p-10">
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-14 pt-8">
-            {/* LEFT SIDE */}
-            <div>
-              <div className="block md:hidden">
+         <div className="block md:hidden">
                 <div className="font-medium text-[#333] leading-130% text-[32px] mb-3.5 text-center">Contact Us</div>
                 <p className="font-normal leading-130% text-[16px] text-center">Your security is our priority</p>
               </div>
-              <div className="  p-10 lg:p-16 ">
+        <div className="mx-auto mt-0 lg:-mt-11  bg-[#F7F7F7] rounded-3xl shadow-md mb-20 p-5">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-14 pt-8">
+            {/* LEFT SIDE */}
+            <div>
+             
+              <div className="  p-3 lg:p-16 ">
                 <h2 className="text-[#333] font-poppins text-[24px] lg:text-[56px] font-medium leading-[120%] whitespace-nowrap">
                   Get in touch
                 </h2>
