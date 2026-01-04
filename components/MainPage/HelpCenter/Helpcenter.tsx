@@ -158,13 +158,13 @@ export default function HelpCenterPage() {
       {/* Only one can be true at a time */}
       <LiveChatModal
         open={activeChat === "live"}
-        setOpen={() => setActiveChat("live")}
+        setOpen={(v: boolean) => setActiveChat(v ? "live" : null)}
       />
 
       <div className="fixed bottom-6 right-6 z-[9999] w-[680px] max-w-[92vw]">
         <EmailChat
           open={activeChat === "email"}
-          setOpen={() => setActiveChat("email")}
+          setOpen={(v: boolean) => setActiveChat(v ? "email" : null)}
         />
       </div>
     </div>
