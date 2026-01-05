@@ -85,7 +85,7 @@ export default function HowWork() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5 lg:gap-[34px] ">
             {/* LEFT CARD */}
-            <div className="mt-10 bg-white shadow-lg w-full py-[30px] px-8 rounded-lg">
+            <div className="mt-10 bg-white shadow-lg w-full py-[30px] px-4 lg:px-8 rounded-lg">
               <p className="text-[#333] text-center font-[Poppins] text-[28px] lg:text-[32px] pb-8 font-medium leading-[130%]">
                 For Clients
               </p>
@@ -108,7 +108,7 @@ export default function HowWork() {
             </div>
 
             {/* RIGHT CARD */}
-            <div className="mt-10 bg-white shadow-lg w-full py-[30px] px-8 rounded-lg ">
+            <div className="mt-10 bg-white shadow-lg w-full py-[30px] px-4 lg:px-8 rounded-lg ">
               <p className="text-[#333] text-center font-[Poppins] text-[28px] lg:text-[32px] font-medium leading-[130%] pb-8">
                 For Editors
               </p>
