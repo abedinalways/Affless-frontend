@@ -16,19 +16,17 @@ import SupportIcon from "@/components/Icons/supportIcon";
 import MassageIcon from "@/components/Icons/massageIcon";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
-// ✅ Live chat messenger style modal=
-
-// ✅ Email composer (your EmailChat component)
 import EmailChat from "./EmailChat";
 import LiveChatModal from "./ChatModal";
 
-export default function HelpCenterPage() {
-  const [activeTab, setActiveTab] = useState<"account" | "payment" | "support">(
-    "support"
-  );
+type ChatType = "live" | "email" | null;
 
-  const [liveChatOpen, setLiveChatOpen] = useState(false);
-  const [emailChatOpen, setEmailChatOpen] = useState(false);
+export default function HelpCenterPage() {
+  const [activeTab, setActiveTab] = useState<"account" | "payment" | "support">("support");
+  const [activeChat, setActiveChat] = useState<ChatType>(null);
+
+  const openLiveChat = () => setActiveChat("live");
+  const openEmailChat = () => setActiveChat("email");
 
   return (
     <div>
@@ -40,11 +38,8 @@ export default function HelpCenterPage() {
 
       <div className="bg-[#F7F7F7] min-h-screen lg:py-20">
         <div className="containers mx-auto px-4">
-          <h1 className="text-[36px] font-semibold text-[#333] mb-6">
-            Help Center
-          </h1>
+          <h1 className="text-[36px] font-semibold text-[#333] mb-6">Help Center</h1>
 
-          {/* Search */}
           <div className="relative">
             <Search className="absolute left-4 top-3 text-gray-400" size={20} />
             <input
@@ -54,60 +49,41 @@ export default function HelpCenterPage() {
             />
           </div>
 
-          {/* CATEGORY TABS */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-14">
-            {/* Account */}
             <div
               onClick={() => setActiveTab("account")}
               className={`bg-white p-6 rounded-lg text-center cursor-pointer transition shadow 
-                ${
-                  activeTab === "account"
-                    ? "border border-red-300 shadow-lg"
-                    : "hover:border-red-200 border-transparent"
-                }`}
+                ${activeTab === "account" ? "border border-red-300 shadow-lg" : "hover:border-red-200 border-transparent"}`}
             >
               <UserIcon className="mx-auto text-red-500 mb-3" />
               <p className="font-medium text-[#333]">Account & Profile</p>
             </div>
 
-            {/* Payments */}
             <div
               onClick={() => setActiveTab("payment")}
               className={`bg-white p-6 rounded-lg text-center cursor-pointer transition shadow 
-                ${
-                  activeTab === "payment"
-                    ? "border border-red-300 shadow-lg"
-                    : "hover:border-red-200 border-transparent"
-                }`}
+                ${activeTab === "payment" ? "border border-red-300 shadow-lg" : "hover:border-red-200 border-transparent"}`}
             >
               <PaymentIcon className="mx-auto text-red-500 mb-3" />
               <p className="font-medium text-[#333]">Payments & Billing</p>
             </div>
 
-            {/* Support */}
             <div
               onClick={() => setActiveTab("support")}
               className={`bg-white p-6 rounded-lg text-center cursor-pointer transition shadow 
-                ${
-                  activeTab === "support"
-                    ? "border border-red-300 shadow-lg"
-                    : "hover:border-red-200 border-transparent"
-                }`}
+                ${activeTab === "support" ? "border border-red-300 shadow-lg" : "hover:border-red-200 border-transparent"}`}
             >
               <SupportIcon className="mx-auto text-red-500 mb-3" />
               <p className="font-medium text-[#333]">Support & Contact</p>
             </div>
           </div>
 
-          {/* FAQ SECTION — ONLY SHOW IF SUPPORT ACTIVE */}
           {activeTab === "support" && (
             <>
-              <h2 className="text-[18px] font-medium text-black mb-4">
-                Support & Contact
-              </h2>
+              <h2 className="text-[18px] font-medium text-black mb-4">Support & Contact</h2>
 
               <div className="bg-white rounded-xl shadow p-4">
-                <Accordion type="single" collapsible>
+                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
                     <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                       <div className="flex gap-3">
@@ -181,27 +157,20 @@ export default function HelpCenterPage() {
             </>
           )}
 
-          {/* Bottom Support Boxes */}
           <div className="bg-white shadow rounded-xl mt-12 p-10 text-center">
             <SupportIcon className="text-red-400 bg-[#FFEEEE] mx-auto mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
 
-            <h3 className="text-[20px] font-semibold text-[#333] mb-2">
-              Need More Help?
-            </h3>
+            <h3 className="text-[20px] font-semibold text-[#333] mb-2">Need More Help?</h3>
             <p className="text-gray-500 mb-8">
-              Can’t find what you’re looking for? Our support team is ready to
-              assist you.
+              Can’t find what you’re looking for? Our support team is ready to assist you.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Live Chat */}
               <div className="shadow-0 lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
                 <div className="flex items-start gap-4">
                   <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
                   <div className="text-left">
-                    <p className="font-medium text-[18px] text-[#333]">
-                      Live Chat
-                    </p>
+                    <p className="font-medium text-[18px] text-[#333]">Live Chat</p>
                     <p className="font-normal text-normal mb-4 text-[#777980] pt-3">
                       Average response: 2 min
                     </p>
@@ -210,21 +179,18 @@ export default function HelpCenterPage() {
 
                 <button
                   type="button"
-                  onClick={() => setLiveChatOpen(true)}
+                  onClick={openLiveChat}
                   className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg cursor-pointer"
                 >
                   Live Chat
                 </button>
               </div>
 
-              {/* Email Support */}
               <div className="shadow-0 lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
                 <div className="flex items-start gap-4">
                   <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
                   <div className="text-left">
-                    <p className="font-medium text-[18px] text-[#333]">
-                      Email Support
-                    </p>
+                    <p className="font-medium text-[18px] text-[#333]">Email Support</p>
                     <p className="font-normal text-normal mb-4 text-[#777980] pt-3">
                       Average response: 24 hrs
                     </p>
@@ -233,7 +199,7 @@ export default function HelpCenterPage() {
 
                 <button
                   type="button"
-                  onClick={() => setEmailChatOpen(true)}
+                  onClick={openEmailChat}
                   className="bg-red-500 hover:bg-red-600 text-white w-full py-2.5 rounded-lg cursor-pointer"
                 >
                   Submit a Request
@@ -244,12 +210,17 @@ export default function HelpCenterPage() {
         </div>
       </div>
 
-      {/* ✅ Live Chat (messenger style) */}
-      <LiveChatModal open={liveChatOpen} setOpen={setLiveChatOpen} />
+      {/* Only one can be true at a time */}
+      <LiveChatModal
+        open={activeChat === "live"}
+        setOpen={(v: boolean) => setActiveChat(v ? "live" : null)}
+      />
 
-      {/* ✅ Email Support (your EmailChat) */}
-      <div className="fixed bottom-6 right-6 z-9999 w-[680px] max-w-[92vw]">
-        <EmailChat open={emailChatOpen} setOpen={setEmailChatOpen} />
+      <div className="fixed bottom-6 right-6 z-[9999] w-[680px] max-w-[92vw]">
+        <EmailChat
+          open={activeChat === "email"}
+          setOpen={(v: boolean) => setActiveChat(v ? "email" : null)}
+        />
       </div>
     </div>
   );

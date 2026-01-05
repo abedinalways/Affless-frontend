@@ -98,16 +98,16 @@ export default function OtpForm() {
               <div className="flex justify-center gap-2">
                 {[0, 1, 2, 3, 4, 5].map((index) => (
                   <Input
-                    key={index}
-                    maxLength={1}
-                    {...register(`otp.${index}` as const)}
-                    ref={(el) => {
-                      inputRefs.current[index] = el;
-                    }}
-                    onChange={(e) => handleOtpChange(e.target.value, index)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Backspace") handleBackspace(index);
-                    }}
+                  key={index}
+                  maxLength={1}
+                  {...register(`otp.${index}` as const)}
+                  ref={(el) => {
+                    inputRefs.current[index] = el;
+                  }}
+                  onChange={(e) => handleOtpChange(e.target.value, index)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Backspace") handleBackspace(index);
+                  }}
                     className="w-12 h-12 text-center text-xl rounded-full border border-gray-300 focus:border-[#FF4D4F] focus:ring-0 font-poppins bg-white"
                   />
                 ))}

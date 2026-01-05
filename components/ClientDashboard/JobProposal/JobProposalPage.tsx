@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
-import { DataTable } from "@/components/reusable/DataTable";
 import { useRouter } from "next/navigation";
+import { DataTable } from "@/components/reusable/DataTable";
 import JobProposalCard from "@/components/reusable/TableCard";
 import { SlidersHorizontal } from "lucide-react";
 
@@ -10,116 +10,45 @@ interface ProposalRow {
   id: number;
   service: string;
   amount: string;
-  time: string;
-  status: "Accepted" | "In Progress" | "In Revision";
+  time: "3 Days" | "5 Days" | "7 Days";
+  status: "Accepted" | "Declined" | "In Progress" | "In Revision";
   thumbnail: string;
 }
 
 const PAGE_SIZE = 8;
 
+// ✅ IMPORTANT: unique IDs (ডুপ্লিকেট id দিলে React key collision হয়)
 const Proposal: ProposalRow[] = [
-  {
-    id: 1,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks for your website's SEO.",
-    amount: "$55",
-    time: "5 Days",
-    status: "Accepted",
-  },
-  {
-    id: 2,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Accepted",
-  },
-  {
-    id: 3,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks for your website's SEO.",
-    amount: "$55",
-    time: "5 Days",
-    status: "Accepted",
-  },
-  {
-    id: 4,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Accepted",
-  },
-  {
-    id: 1,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks for your website's SEO.",
-    amount: "$55",
-    time: "5 Days",
-    status: "Accepted",
-  },
-  {
-    id: 2,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Accepted",
-  },
-  {
-    id: 3,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks for your website's SEO.",
-    amount: "$55",
-    time: "5 Days",
-    status: "Accepted",
-  },
-  {
-    id: 4,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Accepted",
-  },
-  {
-    id: 3,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks for your website's SEO.",
-    amount: "$55",
-    time: "5 Days",
-    status: "Accepted",
-  },
-  {
-    id: 4,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks to improve your rankings.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Accepted",
-  },
+  { id: 1, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "Accepted" },
+  { id: 2, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "Accepted" },
+  { id: 3, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "Declined" },
+  { id: 4, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "Accepted" },
+  { id: 5, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "3 Days", status: "In Progress" },
+  { id: 6, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "7 Days", status: "In Revision" },
+  { id: 7, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "Accepted" },
+  { id: 8, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "Declined" },
+  { id: 9, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "Accepted" },
+  { id: 10, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "Accepted" },
 ];
 
 export default function JobProposalPage() {
   const router = useRouter();
+
   const [page, setPage] = useState(1);
-  const [selectedFilter, setSelectedFilter] = useState('Proposals');
-  const [timeFilter, setTimeFilter] = useState<
-    "ALL" | "5 Days" | "7 Days" | "3 Days"
-  >("ALL");
-  const [statusFilter, setstatusFilter] = useState<
-    "Accepted" | "Declined"
-  >("Accepted");
-  // ✅ Filtered proposals
+
+  const [timeFilter, setTimeFilter] = useState<"ALL" | "5 Days" | "7 Days" | "3 Days">("ALL");
+
+  // ✅ filter toggle only Accepted/Declined for your UI
+  const [statusFilter, setStatusFilter] = useState<"Accepted" | "Declined">("Accepted");
+
+  // ✅ filtered data
   const filteredData = useMemo(() => {
     let data = Proposal;
 
-    // ✅ Status filter
+    // ✅ status filter
     data = data.filter((p) => p.status === statusFilter);
-    const goToDetail = (id: number, status: string) =>
-      router.push(`/client/job-proposal/${id}?status=${status}`);
 
-    // ✅ Time filter
+    // ✅ time filter
     if (timeFilter !== "ALL") {
       data = data.filter((p) => p.time === timeFilter);
     }
@@ -127,76 +56,57 @@ export default function JobProposalPage() {
     return data;
   }, [timeFilter, statusFilter]);
 
-
   const total = filteredData.length;
 
   const paginatedData = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
     return filteredData.slice(start, start + PAGE_SIZE);
   }, [page, filteredData]);
-  const goToDetail = (id: number) => router.push(`/client/job-proposal/${id}`);
 
-
-  // ✅ Mobile action handlers
-  const handleAccept = (id: number) => console.log(`Proposal ${id} accepted`);
-  const handleInProgress = (id: number) =>
-    console.log(`Proposal ${id} in progress`);
-  const handleRevision = (id: number) =>
-    console.log(`Proposal ${id} in revision`);
   useEffect(() => {
     setPage(1);
   }, [timeFilter, statusFilter]);
 
+  // ✅ Mobile action handlers
+  const handleAccept = (id: number) => console.log(`Proposal ${id} accepted`);
+  const handleInProgress = (id: number) => console.log(`Proposal ${id} in progress`);
+  const handleRevision = (id: number) => console.log(`Proposal ${id} in revision`);
+
+  const goToDetail = (id: number, status: string) => {
+    router.push(`/client/job-proposal/${id}?status=${encodeURIComponent(status)}`);
+  };
+
   return (
     <div className="containers py-8">
-      {/* DESKTOP VIEW */}
+      {/* ===================== DESKTOP VIEW ===================== */}
       <div className="hidden md:block">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Job Proposals
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Job Proposals</h2>
 
         {/* Filter */}
         <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
           <div className="flex gap-4">
             <button
-              onClick={() => setstatusFilter("Accepted")}
-              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "Accepted"
-                  ? "bg-[#FF4D4F] text-white"
-                  : "bg-[#FFEDED] text-[#FF4D4F]"
-                }`}
+              onClick={() => setStatusFilter("Accepted")}
+              className={`p-2.5 rounded-md cursor-pointer ${
+                statusFilter === "Accepted" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+              }`}
             >
               Accept
             </button>
 
             <button
-              onClick={() => setstatusFilter("Declined")}
-              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "Declined"
-                  ? "bg-[#FF4D4F] text-white"
-                  : "bg-[#FFEDED] text-[#FF4D4F]"
-                }`}
+              onClick={() => setStatusFilter("Declined")}
+              className={`p-2.5 rounded-md cursor-pointer ${
+                statusFilter === "Declined" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+              }`}
             >
               Declined
             </button>
-
           </div>
 
-          {/* <select
-            className="rounded-lg p-2.5 border border-gray-300 text-sm"
-            value={timeFilter}
-            onChange={(e) =>
-              setTimeFilter(
-                e.target.value as "ALL" | "5 Days" | "7 Days" | "3 Days"
-              )
-            }
-          >
-            <option value="ALL">ALL</option>
-            <option value="5 Days">5 Days</option>
-            <option value="7 Days">7 Days</option>
-            <option value="3 Days">3 Days</option>
-          </select> */}
+          {/* (Optional) desktop time filter add করলে এখানে দেবে */}
         </div>
 
-        {/* ✅ TABLE with FULL ROW CLICK */}
         <DataTable
           columns={[
             {
@@ -211,41 +121,40 @@ export default function JobProposalPage() {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  <span className="text-sm font-medium text-gray-800">
-                    {row.original.service}
-                  </span>
+                  <span className="text-sm font-medium text-gray-800">{row.original.service}</span>
                 </div>
               ),
             },
             {
               accessorKey: "amount",
               header: "AMOUNT",
-              cell: ({ row }: any) => (
-                <span className="text-gray-700">{row.original.amount}</span>
-              ),
+              cell: ({ row }: any) => <span className="text-gray-700">{row.original.amount}</span>,
             },
             {
               accessorKey: "time",
               header: "DELIVERY TIME",
-              cell: ({ row }: any) => (
-                <span className="text-gray-700">{row.original.time}</span>
-              ),
+              cell: ({ row }: any) => <span className="text-gray-700">{row.original.time}</span>,
             },
             {
               accessorKey: "status",
               header: "STATUS",
-              cell: ({ row }: any) => (
-                <span
-                  className={`px-4 py-1 rounded-md text-[18px] font-normal uppercase text-white ${row.original.status === "Accept"
-                      ? "bg-green-600"
-                      : row.original.status === "In Progress"
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                    }`}
-                >
-                  {row.original.status}
-                </span>
-              ),
+              cell: ({ row }: any) => {
+                const s = row.original.status as ProposalRow["status"];
+                const badge =
+                  s === "Accepted"
+                    ? "bg-green-600"
+                    : s === "In Progress"
+                    ? "bg-yellow-500"
+                    : s === "In Revision"
+                    ? "bg-orange-500"
+                    : "bg-red-500";
+
+                return (
+                  <span className={`px-4 py-1 rounded-md text-[14px] font-medium uppercase text-white ${badge}`}>
+                    {s}
+                  </span>
+                );
+              },
             },
           ]}
           data={paginatedData}
@@ -253,55 +162,46 @@ export default function JobProposalPage() {
           pageSize={PAGE_SIZE}
           total={total}
           onPageChange={setPage}
-          onRowClick={(row: any) =>
-            router.push(`/client/job-proposal/${row.id}`)
-          }
-
+          onRowClick={(row: any) => goToDetail(row.id, row.status)}
         />
       </div>
 
-      {/* MOBILE VIEW */}
+      {/* ===================== MOBILE VIEW ===================== */}
       <div className="block md:hidden">
         <div className="space-y-3">
-          <div className=" ">
+          <div>
             <div className="flex justify-between py-4">
-              <p>Job Proposals</p>
-              <button className="border border-gray-300 p-3 rounded-lg flex gap-3">
+              <p className="font-medium">Job Proposals</p>
+              <button type="button" className="border border-gray-300 p-3 rounded-lg flex gap-3 cursor-pointer">
                 Proposals <SlidersHorizontal />
               </button>
             </div>
+
             <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
               <div className="flex gap-4">
                 <button
-                  onClick={() => setstatusFilter("Accepted")}
-                  className={`p-2.5 rounded-md ${statusFilter === "Accepted"
-                      ? "bg-[#FF4D4F] text-white"
-                      : "bg-[#FFEDED] text-[#FF4D4F]"
-                    }`}
+                  onClick={() => setStatusFilter("Accepted")}
+                  className={`p-3.5 rounded-md cursor-pointer ${
+                    statusFilter === "Accepted" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                  }`}
                 >
                   Accept
                 </button>
 
                 <button
-                  onClick={() => setstatusFilter("Declined")}
-                  className={`p-2.5 rounded-md ${statusFilter === "Declined"
-                      ? "bg-[#FF4D4F] text-white"
-                      : "bg-[#FFEDED] text-[#FF4D4F]"
-                    }`}
+                  onClick={() => setStatusFilter("Declined")}
+                  className={`p-3.5 rounded-md cursor-pointer ${
+                    statusFilter === "Declined" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                  }`}
                 >
                   Declined
                 </button>
-
               </div>
 
               <select
                 className="rounded-lg p-2.5 border border-gray-300 text-sm"
                 value={timeFilter}
-                onChange={(e) =>
-                  setTimeFilter(
-                    e.target.value as "ALL" | "5 Days" | "7 Days" | "3 Days"
-                  )
-                }
+                onChange={(e) => setTimeFilter(e.target.value as "ALL" | "5 Days" | "7 Days" | "3 Days")}
               >
                 <option value="ALL">ALL</option>
                 <option value="5 Days">5 Days</option>
@@ -311,23 +211,21 @@ export default function JobProposalPage() {
             </div>
           </div>
 
-          {paginatedData.map((proposal) => (
-            <JobProposalCard
-              key={proposal.id}
-              image={proposal.thumbnail}
-              title={proposal.service}
-              total={proposal.amount}
-              status={proposal.status}
-              onAction={
-                proposal.status === "Accepted"
-                  ? handleAccept
-                  : proposal.status === "In Progress"
-                    ? handleInProgress
-                    : handleRevision
-              }
-              id={proposal.id}
-            />
-          ))}
+          {/* ✅ Mobile: Card click => route push */}
+        {paginatedData.map((proposal) => (
+  <JobProposalCard
+    key={proposal.id}
+    id={proposal.id}
+    image={proposal.thumbnail}
+    title={proposal.service}
+    total={proposal.amount}
+    status={proposal.status}
+    onOpen={(id: number) => goToDetail(id, proposal.status)} // card click
+    onAction={(id: number) => goToDetail(id, proposal.status)}
+  />
+))}
+
+
         </div>
       </div>
     </div>

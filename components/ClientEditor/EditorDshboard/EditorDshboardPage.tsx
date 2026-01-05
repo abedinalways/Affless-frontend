@@ -8,7 +8,7 @@ import WorldIcon from "@/components/Icons/WorldIcon";
 import Image from "next/image";
 import Link from "next/link";
 import { IoArrowForwardSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
@@ -24,14 +24,6 @@ interface Order {
   price: number;
   days: number;
   status: OrderStatus;
-  img: string;
-}
-
-interface InboxItem {
-  id: number;
-  name: string;
-  message: string;
-  time: string;
   img: string;
 }
 
@@ -69,7 +61,7 @@ const orders: Order[] = [
     status: "pending",
   },
   {
-    id: 1,
+    id: 5,
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
@@ -77,7 +69,7 @@ const orders: Order[] = [
     status: "In progress",
   },
   {
-    id: 2,
+    id: 6,
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
@@ -85,7 +77,7 @@ const orders: Order[] = [
     status: "Cencel",
   },
   {
-    id: 3,
+    id: 7,
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
@@ -93,44 +85,12 @@ const orders: Order[] = [
     status: "Delivered",
   },
   {
-    id: 4,
+    id: 8,
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
     status: "pending",
-  },
-
-];
-
-const inboxItems: InboxItem[] = [
-  {
-    id: 1,
-    name: "Farhan",
-    message: "Lorem Ipsum is text",
-    time: "1 month",
-    img: "/images/inbox1.png",
-  },
-  {
-    id: 2,
-    name: "Arlene",
-    message: "Lorem Ipsum is text",
-    time: "1 month",
-    img: "/images/inbox2.png",
-  },
-  {
-    id: 3,
-    name: "Ralph",
-    message: "Lorem Ipsum is text",
-    time: "1 month",
-    img: "/images/inbox3.png",
-  },
-  {
-    id: 4,
-    name: "Jenny",
-    message: "Lorem Ipsum is text",
-    time: "1 month",
-    img: "/images/inbox4.png",
   },
 ];
 
@@ -194,7 +154,7 @@ const columns: ColumnDef<Order>[] = [
         </button>
       );
     },
-  }
+  },
 ];
 
 export default function EditorDashboard() {
@@ -202,6 +162,16 @@ export default function EditorDashboard() {
   const [editorAvailability, setEditorAvailability] = useState<AvailabilityData>({
     isAvailable: true,
   });
+
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 5;
+
+  // Paginated data calculation
+  const pageData = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE;
+    return orders.slice(start, start + PAGE_SIZE);
+  }, [page]);
 
   const handleAvailabilitySave = (availability: AvailabilityData) => {
     setEditorAvailability(availability);
@@ -307,56 +277,21 @@ export default function EditorDashboard() {
 
           {/* Payment Overview */}
           <div className="rounded-2xl bg-white p-6 shadow-sm">
-            <h3 className="text-[18px] font-medium text-[#333]">
-              Earning
-            </h3>
+            <h3 className="text-[18px] font-medium text-[#333]">Earning</h3>
             <p className="text-2xl font-medium text-center py-8">US$0</p>
-            <Link href="/editor/withdrow-balance" className="w-[178px] text-center mx-auto block border rounded-lg py-2.5 hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300">
+            <Link
+              href="/editor/withdrow-balance"
+              className="w-[178px] text-center mx-auto block border rounded-lg py-2.5 hover:border-[#ff4b4b] hover:bg-[#ff4b4b] hover:text-white cursor-pointer duration-300"
+            >
               Withdraw Balance
             </Link>
           </div>
-
-          {/* Inbox */}
-          {/* <div className="rounded-2xl bg-white p-5 shadow-sm">
-
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-[18px] font-semibold text-[#333]">Inbox</h3>
-              <Link href="/editor/inbox" className="text-[14px] text-[#FF4D4F] font-medium cursor-pointer hover:underline">View All</Link>
-            </div>
-
-            <div className="space-y-4">
-              {inboxItems.map((item, index) => (
-                <div
-                  key={item.id}
-                  className={`flex items-start justify-between cursor-pointer pb-4 ${index !== inboxItems.length - 1 ? "border-b border-[#EDEDED]" : ""
-                    }`}
-                >
-
-                  <div className="flex items-start gap-3">
-                    <Image
-                      src={item.img}
-                      alt={item.name}
-                      width={40}
-                      height={40}
-                      className="rounded-full object-cover"
-                    />
-
-                    <div className="space-y-0.5">
-                      <p className="text-[16px] font-semibold text-[#333]">{item.name}</p>
-                      <p className="text-[14px] text-[#777980]">{item.message}</p>
-                    </div>
-                  </div>
-
-                  <p className="text-[12px] text-gray-400 whitespace-nowrap">{item.time}</p>
-                </div>
-              ))}
-            </div>*/}
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="w-full grid">
+        <div className="w-full">
           <h1 className="text-2xl font-semibold">Welcome, Jane Cooper</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-[#333] pt-2.5 pb-8">
             Find important messages, tips, and links to helpful resources here:
           </p>
 
@@ -365,15 +300,15 @@ export default function EditorDashboard() {
             Active orders {totalActiveOrders} (${totalAmount})
           </div>
 
-          {/* ✅ Orders Table */}
+          {/* Orders Table */}
           <div className="rounded-2xl bg-white p-6 shadow-sm w-full grid">
             <DataTable
               columns={columns}
-              data={orders}
-              page={1}
-              pageSize={5}
+              data={pageData}
+              page={page}
+              pageSize={PAGE_SIZE}
               total={orders.length}
-              onPageChange={() => { }}
+              onPageChange={setPage}
             />
           </div>
         </div>

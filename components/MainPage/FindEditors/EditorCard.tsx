@@ -97,22 +97,26 @@ export default function EditorCard({
       {/* Description */}
       <p className="text-[#777980] text-[14px] font-normal mt-3 ">{description}</p>
       {/* Skills */}
-      <div className="flex items-center mt-5 gap-2 md:gap-4 justify-between">
+      <div className="flex py-6 gap-2 md:gap-4  justify-between">
         <ChevronLeft className="opacity-50 cursor-not-allowed" />
-        {skills.map((skill, idx) => (
+       <div className="flex justify-between lg:gap-9  gap-4">
+         {skills.map((skill, idx) => (
           <span
             key={idx}
-            className="bg-gray-100 px-2 md:px-4 py-1 rounded-full text-[12px] md:text-sm "
+            className="bg-gray-100 px-2 md:px-4 py-1 rounded-full text-[12px] md:text-sm text-center"
           >
             {skill}
           </span>
         ))}
+       </div>
         <ChevronRight className="cursor-not-allowed opacity-50" />
       </div>
       {/* Hire Button */}
-      <Link href="/client/hire-vedio-editor" className="w-full bg-red-500 text-white mt-6  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 cursor-pointer">
+   <div className=" text-center bg-red-500 cursor-pointer w-full text-white  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 ">
+       <Link href="/client/hire-vedio-editor" className="cursor-pointer">
         Hire Editor
       </Link>
+   </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ export default function PlatFromWide() {
   ]);
 
   return (
-    <div className="w-full rounded-2xl bg-white p-8">
+    <div className="w-full rounded-2xl bg-white p-3 lg:p-8">
       <h2 className="text-[26px] font-semibold text-[#111827]">
         Platform-Wide Base Rule
       </h2>

@@ -118,7 +118,7 @@ export default function LiveChatModal({ open, setOpen, className = "" }: Props) 
   return (
     <div
       className={[
-        "fixed bottom-6 right-6 w-[420px] rounded-2xl bg-white shadow-2xl overflow-hidden z-[9999]",
+        "fixed bottom-6 right-1 lg:right-6 w-[420px] rounded-2xl bg-white shadow-2xl overflow-hidden z-[9999]",
         className,
       ].join(" ")}
     >
