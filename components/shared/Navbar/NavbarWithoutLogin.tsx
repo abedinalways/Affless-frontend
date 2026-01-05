@@ -150,7 +150,7 @@ export default function NavbarWithoutLogin() {
             <div className="flex flex-col pl-4 gap-2">
               <Link href="/howWork" onClick={closeMobileMenu}>
               
-                How It Workss
+                How It Works
               </Link>
               <Link href="/find-editors" onClick={closeMobileMenu}>
                 Find Editors
