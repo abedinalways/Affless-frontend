@@ -95,7 +95,7 @@ const BidsDetails = () => {
             {/* Skills */}
             <div>
               <h2 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% text-[#333] py-6">
-                 Skills Required
+                Skills Required
               </h2>
 
               <div className="flex flex-wrap gap-3">
