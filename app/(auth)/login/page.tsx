@@ -58,7 +58,7 @@ export default function SignInForm() {
     <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
       <Toaster position="top-right" />
     <div className="ml-2">
-        <Link href="/login" className="pb-3 ">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
+        <Link href="/singup" className="pb-3 ">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
         <FaArrowLeft className="mt-1"/>
           Back
         </button></Link>
