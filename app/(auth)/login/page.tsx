@@ -174,11 +174,12 @@ export default function SignInForm() {
                 </button>
               </Link>
             </div>
+            
 
             {/* Sign In Button */}
             <button
               type="submit"
-              className={`w-full py-3 bg-[#FF4D4F] ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} text-[#FDFDFD] font-poppins text-2xl font-medium leading-[150%] rounded-xl`}
+              className={`w-full py-3 bg-[#FF4D4F] hover:bg-red-500 ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} text-[#FDFDFD] font-poppins text-2xl font-medium bg leading-[150%] rounded-xl`}
               disabled={loading}
             >
               {loading ? "Signing in..." : "Log In"}
@@ -188,8 +189,9 @@ export default function SignInForm() {
             <p className="text-center text-sm text-[#333] font-poppins leading-[150%]">
               Don’t have an account?{" "}
               <Link href="/singup">
-                <span className="text-red-500 cursor-pointer">Sign Up</span>
+                <span className="text-red-500 cursor-pointer ">Sign Up</span>
               </Link>
+              
             </p>
           </form>
         </div>

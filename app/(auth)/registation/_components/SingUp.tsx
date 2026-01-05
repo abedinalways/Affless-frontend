@@ -243,7 +243,7 @@ export default function SingUpForm() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl cursor-pointer"
+              className="w-full py-3 bg-[#FF4D4F] hover:bg-red-500 hover:delay-50 text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl cursor-pointer"
             >
               Sign Up
             </button>

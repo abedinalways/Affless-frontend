@@ -22,8 +22,7 @@ export default function Subscribe() {
         {/* Description */}
         <p className="text-[#E9E9EA] text-center font-[Poppins] text-[18px] font-medium leading-[120%] mt-5"
         >
-          Get editing tips, tutorials, and unlock a one-time discount:
-          5% for clients, 2.5% for editors
+         Get a one-time boost: +25% visibility in search and Quick-Match results for 48 hours.
         </p>
 
         {/* Button */}

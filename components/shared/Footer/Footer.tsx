@@ -123,10 +123,10 @@ export default function Footer() {
         </div>
         {/* COPYRIGHT */}
         <div className="border-t border-[#253045] mt-14 pt-6 text-center text-[#D2D2D5] font-poppins text-sm "></div>
-        <div className="w-[696px] flex items-center mx-auto ">
-          <div className="flex justify-between w-[400px]  md:w-[696px]">
-            <p className="">© Copyright</p>
-            <p className="">All rights reserved. 2026</p>
+        <div className="w-[696px] flex items-center justify-center mx-auto ">
+          <div className="flex gap-1">
+            <p className="">© Copyright and All rights reserved. 2026
+ </p>
           </div>
         </div>
 

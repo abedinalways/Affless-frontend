@@ -30,7 +30,7 @@ export default function OtpForm() {
     setLoading(true);
     const code = data.otp.join("");
     if (code.length < 6) {
-      toast.error("Please enter a valid 6-digit OTP.");
+      toast.error("Please enter a valid 6-digit Reset Code.");
       setLoading(false);
       return;
     }

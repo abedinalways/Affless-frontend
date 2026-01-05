@@ -11,6 +11,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -21,7 +23,6 @@ export default function NavbarWithoutLogin() {
     <div className="containers bg-white">
       <nav className="">
         <div className="flex justify-between items-center py-3">
-
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
             {/* Logo */}
@@ -38,11 +39,49 @@ export default function NavbarWithoutLogin() {
             </Link>
 
             {/* DESKTOP MENU (hidden on small and medium devices) */}
-            <ul className="hidden xl:flex items-center gap-8 text-[#333] font-poppins text-base">
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/jobs">Browse Jobs</Link></li>
-              <li><Link href="/find-editors">Find Editors</Link></li>
-              <li><Link href="/pricing">Pricing</Link></li>
+            <ul className="hidden xl:flex items-center gap-10 text-[#333] font-poppins text-base">
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+          <DropdownMenu>
+  <DropdownMenuTrigger>Service</DropdownMenuTrigger>
+
+  <DropdownMenuContent className="mt-4">
+    <DropdownMenuItem asChild>
+      <Link href="/howWork">How It Works</Link>
+    </DropdownMenuItem>
+
+    <DropdownMenuItem asChild>
+      <Link href="/find-editors">Find Editors</Link>
+    </DropdownMenuItem>
+
+    <DropdownMenuItem asChild>
+      <Link href="/jobs">Browse Jobs</Link>
+    </DropdownMenuItem>
+
+    <DropdownMenuItem asChild>
+      <Link href="/pricing">Pricing</Link>
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+
+              <DropdownMenu>
+  <DropdownMenuTrigger>Contact</DropdownMenuTrigger>
+
+  <DropdownMenuContent className="mt-4">
+    <DropdownMenuItem asChild>
+      <Link href="/success-story">Success Stories</Link>
+    </DropdownMenuItem>
+
+    <DropdownMenuItem asChild>
+      <Link href="/help-center">Help Center</Link>
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+
+
+             
+             
             </ul>
           </div>
 
@@ -50,18 +89,21 @@ export default function NavbarWithoutLogin() {
           <div className="flex gap-5">
             <Link href="/login" className="hidden xl:flex">
               <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
-                <DubbleUser /> Sign In
+                <DubbleUser /> Sing In
               </button>
             </Link>
             <Link href="/singup" className="hidden xl:flex">
               <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
-                <DubbleUser /> Sign Up
+                <DubbleUser /> Sign Up 
               </button>
             </Link>
           </div>
 
           {/* ---------- HAMBURGER (MOBILE) ---------- */}
-          <button className="xl:hidden text-3xl cursor-pointer" onClick={() => setMobileMenu(true)}>
+          <button
+            className="xl:hidden text-3xl cursor-pointer"
+            onClick={() => setMobileMenu(true)}
+          >
             <HiOutlineMenu />
           </button>
         </div>
@@ -82,16 +124,52 @@ export default function NavbarWithoutLogin() {
         ${mobileMenu ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Close Button */}
-        <button className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 right-1 duration-300" title="Close menu" onClick={() => setMobileMenu(false)}>
+        <button
+          className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 right-1 duration-300"
+          title="Close menu"
+          onClick={() => setMobileMenu(false)}
+        >
           <HiX />
         </button>
 
         {/* Mobile Nav Items */}
         <ul className="text-lg font-medium pt-3">
-          <li><Link href="/" className="block px-4 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Home</Link></li>
-          <li><Link href="/jobs" className="block px-4 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Browse Jobs</Link></li>
-          <li><Link href="/find-editors" className="block px-4 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Find Editors</Link></li>
-          <li><Link href="/pricing" className="block px-4 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Pricing</Link></li>
+          <li>
+            <Link
+              href="/"
+              className="block px-4 py-2 hover:bg-gray-100 duration-300"
+              onClick={() => setMobileMenu(false)}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/jobs"
+              className="block px-4 py-2 hover:bg-gray-100 duration-300"
+              onClick={() => setMobileMenu(false)}
+            >
+              Browse Jobs
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/find-editors"
+              className="block px-4 py-2 hover:bg-gray-100 duration-300"
+              onClick={() => setMobileMenu(false)}
+            >
+              Find Editors
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/pricing"
+              className="block px-4 py-2 hover:bg-gray-100 duration-300"
+              onClick={() => setMobileMenu(false)}
+            >
+              Pricing
+            </Link>
+          </li>
 
           <li className="px-4">
             <div className="flex gap-4">

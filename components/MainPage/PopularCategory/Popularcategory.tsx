@@ -15,14 +15,14 @@ const data = [
     id: 1,
     icon: <YoutubeIcon className='text-red-400' />,
     bg: "bg-[#FEE8E8] border border-[#FECACA]",
-    title: "YouTube Long-form",
-    desc: "Educational, vlogs, tutorials"
+    title: "Long-form YouTube",
+    desc: "videos, educational content, vlogs, and tutorials"
   },
   {
     id: 2,
     icon: <VideoIcon />,
     bg: "bg-[#FCEAF4] border border-[#FBCFE8]",
-    title: "Shorts/ Reels/ TikToks",
+    title: "Shorts/Reels/TikToks",
     desc: "Viral short-form content"
   },
   {
@@ -30,7 +30,7 @@ const data = [
     icon: <RxImage className='text-blue-500' />,
     bg: "bg-[#E3EFFE] border border-[#C0DCFE]",
     title: "Thumbnails",
-    desc: "High-conversion thumbnails."
+    desc: "High-conversion thumbnails"
   },
   {
     id: 4,
@@ -79,7 +79,7 @@ export default function Popularcategory() {
         Find the perfect editor for any project
       </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4  gap-6 justify-center pt-[50px]">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-3 lg:gap-6 justify-center pt-[50px]">
 
         {data.map((item) => (
           <div
@@ -88,8 +88,11 @@ export default function Popularcategory() {
           >
             <div className="text-2xl mb-4">{item.icon}</div>
 
-            <p className="text-[#333] font-[Poppins] text-[16px] lg:text-[24px] font-medium leading-[150%]"
->{item.title}</p>
+      <p className="text-[#333] font-[Poppins] text-[16px] lg:text-[24px] font-medium leading-[150%] pb-1.5 whitespace-normal">
+  {item.title}
+</p>
+
+
             <p className="text-[#4A4C56] font-[Poppins] text-[14px] lg:text-[16px] font-normal leading-[150%] mt-2"
 >{item.desc}</p>
           </div>
