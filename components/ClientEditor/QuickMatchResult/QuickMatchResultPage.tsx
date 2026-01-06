@@ -149,7 +149,7 @@ export default function QuickMatchResultPage() {
   }, [page, filteredData]);
 
   return (
-    <div className="min-h-screen bg-[#f6f6f6] py-10">
+    <div className="min-h-screen bg-[#f6f6f6]">
       <PageBanner
         title="Quick Match Results"
         bgImage="/findEditor.jpg"

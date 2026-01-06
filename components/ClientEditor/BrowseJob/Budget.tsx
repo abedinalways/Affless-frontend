@@ -10,7 +10,7 @@ export default function BudgetPage() {
       {/* Budget Box */}
       <div className="bg-[#FFFFFF] rounded-2xl p-6 text-center space-y-4 ">
         <h2 className="text-lg font-bold text-[#4A4C56]">Budget</h2>
-
+        
         <p className="text-[30px] log:text-[40px] font-bold text-gray-900">$350.00</p>
 
         {/* Accept Button */}

@@ -8,7 +8,7 @@ import PdfIcon from "@/components/Icons/PdfIcon";
 import WorldIcon from "@/components/Icons/WorldIcon";
 import { FileText, File, YoutubeIcon, Clapperboard, Clock4 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TbClock } from "react-icons/tb";
 
 export default function BrowseDetails() {
