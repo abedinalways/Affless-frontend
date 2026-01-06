@@ -121,7 +121,7 @@ export default function MyProposal() {
         <h2 className="text-xl font-semibold mb-4">Job Proposals</h2>
 
         {/* FILTER BUTTONS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-8 gap-4 mb-6">
           <button
             onClick={() => handleFilterClick("ALL")}
             className={`
