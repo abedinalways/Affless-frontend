@@ -110,36 +110,37 @@ export default function FindEditorsPage() {
           </div>
 
           {/* ✅ MOBILE DRAWER FILTER */}
-          {showFilters && (
-            <div className="fixed inset-0 z-1000 lg:hidden flex">
-              {/* ✅ Overlay */}
-              <div
-                className="absolute inset-0 bg-black/40"
-                onClick={() => setShowFilters(false)}
-              />
+         {showFilters && (
+  <div className="fixed top-[70px] left-0 right-0 bottom-0 z-[9999] lg:hidden flex">
+    
+    {/* Overlay */}
+    <div
+      className="absolute inset-0 bg-black/40"
+      onClick={() => setShowFilters(false)}
+    />
 
-              {/* ✅ Drawer */}
-              <div className="relative w-[85%] max-w-[340px] h-full bg-white shadow-xl animate-slideInLeft">
-                {/* Header */}
-                <div className="flex items-center justify-between px-4 py-4 border-b">
-                  <h3 className="text-[18px] font-semibold text-[#222]">
-                    Filters
-                  </h3>
-                  <button
-                    onClick={() => setShowFilters(false)}
-                    className="p-2 rounded-md hover:bg-gray-100 transition"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
+    {/* Drawer */}
+    <div className="relative w-[85%] max-w-[340px] h-full bg-white shadow-xl animate-slideInLeft">
+      
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-4 border-b">
+        <h3 className="text-[18px] font-semibold text-[#222]">Filters</h3>
+        <button
+          onClick={() => setShowFilters(false)}
+          className="p-2 rounded-md hover:bg-gray-100 transition"
+        >
+          <X size={20} />
+        </button>
+      </div>
 
-                {/* Sidebar content */}
-                <div className="p-4 overflow-y-auto h-[calc(100%-64px)]">
-                  <FilteringCategory />
-                </div>
-              </div>
-            </div>
-          )}
+      {/* Sidebar content */}
+      <div className="p-4 overflow-y-auto h-[calc(100%-64px)]">
+        <FilteringCategory />
+      </div>
+    </div>
+  </div>
+)}
+
 
           {/* ✅ RIGHT SIDE CONTENT */}
           <div className="lg:w-3/4 w-full space-y-6">
