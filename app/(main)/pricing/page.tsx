@@ -67,9 +67,9 @@ export default function Pricing() {
 
   const handleClick = () => {
     if (!isLogin) {
-      router.push('/login');
-    }else{
       router.push('/client');
+    }else{
+      router.push('/login');
     }
   };
 

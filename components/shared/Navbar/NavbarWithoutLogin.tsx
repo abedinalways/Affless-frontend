@@ -28,14 +28,14 @@ export default function NavbarWithoutLogin() {
   };
 
   return (
-    <div className="containers bg-white">
+    <div className="containers bg-white  ">
       <nav>
-        <div className="flex justify-between items-center py-3">
+        <div className="flex justify-between items-center py-4 ">
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/">
-              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
+              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden cursor-pointer">
                 <Image
                   src="/images/logoUpdate.png"
                   width={100}
@@ -47,39 +47,39 @@ export default function NavbarWithoutLogin() {
             </Link>
 
             {/* ---------- DESKTOP MENU ---------- */}
-            <ul className="hidden xl:flex items-center gap-10 text-[#333] font-poppins text-base">
+            <ul className="hidden xl:flex items-center gap-10 text-[#333] font-poppins text-base ">
               <li>
                 <Link href="/">Home</Link>
               </li>
 
               {/* Service (Desktop) */}
               <DropdownMenu>
-                <DropdownMenuTrigger>Service</DropdownMenuTrigger>
-                <DropdownMenuContent className="mt-4">
+                <DropdownMenuTrigger className="cursor-pointer ">Service</DropdownMenuTrigger>
+                <DropdownMenuContent className="z-1000 relative">
                   <DropdownMenuItem asChild>
-                    <Link href="/howWork">How It Works</Link>
+                    <Link href="/howWork" className="cursor-pointer">How It Works</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/find-editors">Find Editors</Link>
+                    <Link href="/find-editors" className="cursor-pointer">Find Editors</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/jobs">Browse Jobs</Link>
+                    <Link href="/jobs" className="cursor-pointer">Browse Jobs</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/pricing">Pricing</Link>
+                    <Link href="/pricing" className="cursor-pointer">Pricing</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
               {/* Contact (Desktop) */}
               <DropdownMenu>
-                <DropdownMenuTrigger>Contact</DropdownMenuTrigger>
-                <DropdownMenuContent className="mt-4">
+                <DropdownMenuTrigger className="cursor-pointer">Contact</DropdownMenuTrigger>
+                <DropdownMenuContent className="z-1000">
                   <DropdownMenuItem asChild>
-                    <Link href="/success-story">Success Stories</Link>
+                    <Link href="/success-story" className="cursor-pointer">Success Stories</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/help-center">Help Center</Link>
+                    <Link href="/help-center" className="cursor-pointer">Help Center</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -133,14 +133,14 @@ export default function NavbarWithoutLogin() {
         </button>
 
         <ul className="text-lg font-medium pt-6 px-4 flex flex-col gap-3">
-          <Link href="/" onClick={closeMobileMenu}>
+          <Link href="/" onClick={closeMobileMenu} className="cursor-pointer">
             Home
           </Link>
 
           {/* Service (Mobile) */}
           <button
             type="button"
-            className="text-left"
+            className="text-left cursor-pointer"
             onClick={() => setMobileServiceOpen((prev) => !prev)}
           >
             Service
@@ -148,17 +148,17 @@ export default function NavbarWithoutLogin() {
 
           {mobileServiceOpen && (
             <div className="flex flex-col pl-4 gap-2">
-              <Link href="/howWork" onClick={closeMobileMenu}>
+              <Link href="/howWork" onClick={closeMobileMenu} className="cursor-pointer">
               
                 How It Works
               </Link>
-              <Link href="/find-editors" onClick={closeMobileMenu}>
+              <Link href="/find-editors" onClick={closeMobileMenu} className="cursor-pointer">
                 Find Editors
               </Link>
-              <Link href="/jobs" onClick={closeMobileMenu}>
+              <Link href="/jobs" onClick={closeMobileMenu} className="cursor-pointer">
                 Browse Jobs
               </Link>
-              <Link href="/pricing" onClick={closeMobileMenu}>
+              <Link href="/pricing" onClick={closeMobileMenu} className="cursor-pointer">
                 Pricing
               </Link>
             </div>
@@ -167,7 +167,7 @@ export default function NavbarWithoutLogin() {
           {/* Contact (Mobile) */}
           <button
             type="button"
-            className="text-left"
+            className="text-left cursor-pointer"
             onClick={() => setMobileContactOpen((prev) => !prev)}
           >
             Contact
@@ -175,10 +175,10 @@ export default function NavbarWithoutLogin() {
 
           {mobileContactOpen && (
             <div className="flex flex-col pl-4 gap-2">
-              <Link href="/success-story" onClick={closeMobileMenu}>
+              <Link href="/success-story" onClick={closeMobileMenu} className="cursor-pointer">
                 Success Stories
               </Link>
-              <Link href="/help-center" onClick={closeMobileMenu}>
+              <Link href="/help-center" onClick={closeMobileMenu} className="cursor-pointer">
                 Help Center
               </Link>
             </div>

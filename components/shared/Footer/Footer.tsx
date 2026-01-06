@@ -20,13 +20,17 @@ export default function Footer() {
           {/* LEFT COLUMN */}
           <div className="">
             <div className="">
-              <Image
-                src="/images/footerLogo.png"
-                width={128}
-                height={100}
-                alt="Logo"
-                className=" object-cover justify-start"
-              />
+                 <Link href="/">
+              <div className="w-[124px] h-[42px] flex justify-center items-center overflow-hidden">
+                <Image
+                  src="/images/logoUpdate.png"
+                  width={124}
+                  height={42}
+                  alt="Logo"
+                  className="object-cover"
+                />
+              </div>
+            </Link>
 
             </div>
 
@@ -123,9 +127,10 @@ export default function Footer() {
         </div>
         {/* COPYRIGHT */}
         <div className="border-t border-[#253045] mt-14 pt-6 text-center text-[#D2D2D5] font-poppins text-sm "></div>
-        <div className="w-[696px] flex items-center justify-center mx-auto ">
+        <div className=" flex items-center justify-center mx-auto ">
           <div className="flex gap-1">
-            <p className="">© Copyright and All rights reserved. 2026
+            <p className=""> © 2026 Editor Marketplace. All rights reserved.
+
  </p>
           </div>
         </div>
