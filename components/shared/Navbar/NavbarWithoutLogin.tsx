@@ -6,95 +6,96 @@ import Link from "next/link";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import DubbleUser from "@/components/Icons/dubbleuser";
 
-// shadcn
+// shadcn (DESKTOP ONLY)
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 export default function NavbarWithoutLogin() {
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  // ✅ mobile dropdown states
+  const [mobileServiceOpen, setMobileServiceOpen] = useState(false);
+  const [mobileContactOpen, setMobileContactOpen] = useState(false);
+
+  const closeMobileMenu = () => {
+    setMobileMenu(false);
+    setMobileServiceOpen(false);
+    setMobileContactOpen(false);
+  };
+
   return (
-    <div className="containers bg-white">
-      <nav className="">
-        <div className="flex justify-between items-center py-3">
+    <div className="containers bg-white  ">
+      <nav>
+        <div className="flex justify-between items-center py-4 ">
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/">
-              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
+              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden cursor-pointer">
                 <Image
                   src="/images/logoUpdate.png"
                   width={100}
                   height={100}
                   alt="Logo"
-                  className=" object-cover justify-start "
+                  className="object-cover"
                 />
               </div>
             </Link>
 
-            {/* DESKTOP MENU (hidden on small and medium devices) */}
-            <ul className="hidden xl:flex items-center gap-10 text-[#333] font-poppins text-base">
+            {/* ---------- DESKTOP MENU ---------- */}
+            <ul className="hidden xl:flex items-center gap-10 text-[#333] font-poppins text-base ">
               <li>
                 <Link href="/">Home</Link>
               </li>
-          <DropdownMenu>
-  <DropdownMenuTrigger>Service</DropdownMenuTrigger>
 
-  <DropdownMenuContent className="mt-4">
-    <DropdownMenuItem asChild>
-      <Link href="/howWork">How It Works</Link>
-    </DropdownMenuItem>
-
-    <DropdownMenuItem asChild>
-      <Link href="/find-editors">Find Editors</Link>
-    </DropdownMenuItem>
-
-    <DropdownMenuItem asChild>
-      <Link href="/jobs">Browse Jobs</Link>
-    </DropdownMenuItem>
-
-    <DropdownMenuItem asChild>
-      <Link href="/pricing">Pricing</Link>
-    </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
-
+              {/* Service (Desktop) */}
               <DropdownMenu>
-  <DropdownMenuTrigger>Contact</DropdownMenuTrigger>
+                <DropdownMenuTrigger className="cursor-pointer ">Service</DropdownMenuTrigger>
+                <DropdownMenuContent className="z-1000 relative">
+                  <DropdownMenuItem asChild>
+                    <Link href="/howWork" className="cursor-pointer">How It Works</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/find-editors" className="cursor-pointer">Find Editors</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/jobs" className="cursor-pointer">Browse Jobs</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/pricing" className="cursor-pointer">Pricing</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-  <DropdownMenuContent className="mt-4">
-    <DropdownMenuItem asChild>
-      <Link href="/success-story">Success Stories</Link>
-    </DropdownMenuItem>
-
-    <DropdownMenuItem asChild>
-      <Link href="/help-center">Help Center</Link>
-    </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
-
-
-             
-             
+              {/* Contact (Desktop) */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="cursor-pointer">Contact</DropdownMenuTrigger>
+                <DropdownMenuContent className="z-1000">
+                  <DropdownMenuItem asChild>
+                    <Link href="/success-story" className="cursor-pointer">Success Stories</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/help-center" className="cursor-pointer">Help Center</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </ul>
           </div>
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <div className="flex gap-5">
             <Link href="/login" className="hidden xl:flex">
-              <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
-                <DubbleUser /> Sing In
+              <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer">
+                <DubbleUser /> Sign In
               </button>
             </Link>
             <Link href="/singup" className="hidden xl:flex">
-              <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl font-poppins text-base cursor-pointer">
-                <DubbleUser /> Sign Up 
+              <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer">
+                <DubbleUser /> Sign Up
               </button>
             </Link>
           </div>
@@ -109,90 +110,101 @@ export default function NavbarWithoutLogin() {
         </div>
       </nav>
 
-      {/* *********** MOBILE MENU (FULL WIDTH LEFT → RIGHT) *********** */}
-      {/* DARK OVERLAY */}
+      {/* ---------- OVERLAY ---------- */}
       {mobileMenu && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 backdrop-blur-xs"
-          onClick={() => setMobileMenu(false)}
+          className="fixed inset-0 bg-black/50 z-40"
+          onClick={closeMobileMenu}
         />
       )}
 
-      {/* MENU CONTENT */}
+      {/* ---------- MOBILE MENU ---------- */}
       <div
-        className={`fixed top-0 left-0 w-fit h-full bg-white z-50 py-6 transform transition-transform duration-300 
-        ${mobileMenu ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed top-0 left-0 w-fit h-full bg-white z-50 py-6 transform transition-transform duration-300 ${
+          mobileMenu ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        {/* Close Button */}
+        {/* Close */}
         <button
-          className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 right-1 duration-300"
-          title="Close menu"
-          onClick={() => setMobileMenu(false)}
+          className="text-2xl cursor-pointer fixed top-1 right-1"
+          onClick={closeMobileMenu}
         >
           <HiX />
         </button>
 
-        {/* Mobile Nav Items */}
-        <ul className="text-lg font-medium pt-3">
-          <li>
-            <Link
-              href="/"
-              className="block px-4 py-2 hover:bg-gray-100 duration-300"
-              onClick={() => setMobileMenu(false)}
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/jobs"
-              className="block px-4 py-2 hover:bg-gray-100 duration-300"
-              onClick={() => setMobileMenu(false)}
-            >
-              Browse Jobs
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/find-editors"
-              className="block px-4 py-2 hover:bg-gray-100 duration-300"
-              onClick={() => setMobileMenu(false)}
-            >
-              Find Editors
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/pricing"
-              className="block px-4 py-2 hover:bg-gray-100 duration-300"
-              onClick={() => setMobileMenu(false)}
-            >
-              Pricing
-            </Link>
-          </li>
+        <ul className="text-lg font-medium pt-6 px-4 flex flex-col gap-3">
+          <Link href="/" onClick={closeMobileMenu} className="cursor-pointer">
+            Home
+          </Link>
 
-          <li className="px-4">
-            <div className="flex gap-4">
-              <Link
-                href="/login"
-                onClick={() => setMobileMenu(false)}
-                className="inline-block bg-[#FF4D4F] opacity-80 hover:opacity-100 text-white px-5 py-2 rounded-xl mt-4 duration-300"
-              >
-                <div className="flex items-center gap-2">
-                  <DubbleUser /> Sign In
-                </div>
+          {/* Service (Mobile) */}
+          <button
+            type="button"
+            className="text-left cursor-pointer"
+            onClick={() => setMobileServiceOpen((prev) => !prev)}
+          >
+            Service
+          </button>
+
+          {mobileServiceOpen && (
+            <div className="flex flex-col pl-4 gap-2">
+              <Link href="/howWork" onClick={closeMobileMenu} className="cursor-pointer">
+              
+                How It Works
               </Link>
-              <Link
-                href="/singup"
-                onClick={() => setMobileMenu(false)}
-                className="inline-block bg-[#FF4D4F] opacity-80 hover:opacity-100 text-white px-5 py-2 rounded-xl mt-4 duration-300"
-              >
-                <div className="flex items-center gap-2">
-                  <DubbleUser /> Sign Up
-                </div>
+              <Link href="/find-editors" onClick={closeMobileMenu} className="cursor-pointer">
+                Find Editors
+              </Link>
+              <Link href="/jobs" onClick={closeMobileMenu} className="cursor-pointer">
+                Browse Jobs
+              </Link>
+              <Link href="/pricing" onClick={closeMobileMenu} className="cursor-pointer">
+                Pricing
               </Link>
             </div>
-          </li>
+          )}
+
+          {/* Contact (Mobile) */}
+          <button
+            type="button"
+            className="text-left cursor-pointer"
+            onClick={() => setMobileContactOpen((prev) => !prev)}
+          >
+            Contact
+          </button>
+
+          {mobileContactOpen && (
+            <div className="flex flex-col pl-4 gap-2">
+              <Link href="/success-story" onClick={closeMobileMenu} className="cursor-pointer">
+                Success Stories
+              </Link>
+              <Link href="/help-center" onClick={closeMobileMenu} className="cursor-pointer">
+                Help Center
+              </Link>
+            </div>
+          )}
+
+          {/* Auth buttons */}
+          <div className="flex gap-4 pt-4">
+            <Link
+              href="/login"
+              onClick={closeMobileMenu}
+              className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl"
+            >
+              <div className="flex items-center gap-2">
+                <DubbleUser /> Sign In
+              </div>
+            </Link>
+            <Link
+              href="/singup"
+              onClick={closeMobileMenu}
+              className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl"
+            >
+              <div className="flex items-center gap-2">
+                <DubbleUser /> Sign Up
+              </div>
+            </Link>
+          </div>
         </ul>
       </div>
     </div>

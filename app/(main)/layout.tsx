@@ -7,7 +7,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="pt-26">
+    <div >
       {children}
       <ContactUs />
       <Footer />

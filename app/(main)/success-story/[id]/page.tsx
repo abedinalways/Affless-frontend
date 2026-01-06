@@ -139,9 +139,9 @@ export default async function StoryDetails({
             flow of clients made all the difference.”
           </p>
 
-          <p className="text-white/80 text-[14px] pt-[38px]">
-            — Sarah Mitchell, Video Editor
-          </p>
+         <div className="text-[#FFF] text-[14px] pt-[38px] flex justify-center items-center gap-1">
+            <p> - {story.name}</p>, <p>{story.role}</p>
+            </div>
          </div>
         </div>
       </div>

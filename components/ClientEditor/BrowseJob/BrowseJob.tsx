@@ -57,7 +57,7 @@ export default function BrowseJob() {
         links={[{ label: "Home", href: "/" }, { label: "Browse Jobs" }]}
       />
 
-      <div className="containers lg:py-20">
+      <div className="containers lg:py-20 ">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="hidden lg:block">
             <FilterSidebar />
@@ -80,7 +80,7 @@ export default function BrowseJob() {
 
                 <div className="bg-white p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link key={item.id} href={`/jobs/${item.id}`}>
+                    <Link key={item.id} href={`/editor/browse-job/${item.id}`}>
                       <Image src={item.img} alt="editor" width={500} height={500} className="w-full object-cover rounded-lg" />
                       <p className="pt-0 lg:pt-5 font-semibold text-[16px] lg:text-[18px]">{item.title}</p></Link>
                   </div>

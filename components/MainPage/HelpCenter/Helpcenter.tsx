@@ -166,7 +166,7 @@ export default function HelpCenterPage() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="shadow-0 lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
+              <div className="shadow-0 lg:shadow-xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
                 <div className="flex items-start gap-4">
                   <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
                   <div className="text-left">
@@ -186,7 +186,7 @@ export default function HelpCenterPage() {
                 </button>
               </div>
 
-              <div className="shadow-0 lg:shadow-2xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
+              <div className="shadow-0 lg:shadow-xl rounded-xl p-0 md:p-6 bg-white pt-3.5">
                 <div className="flex items-start gap-4">
                   <MassageIcon className="text-red-400 bg-[#FFEEEE] mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
                   <div className="text-left">

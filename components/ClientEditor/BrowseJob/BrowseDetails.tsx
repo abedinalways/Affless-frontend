@@ -29,7 +29,7 @@ export default function BrowseDetails() {
   };
 
   return (
-    <div className="mx-auto space-y-5">
+    <div className="mx-auto space-y-5 ">
       {/* Top Info Boxes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
         <div className="p-4 rounded-xl border bg-[#E1E7FF]">

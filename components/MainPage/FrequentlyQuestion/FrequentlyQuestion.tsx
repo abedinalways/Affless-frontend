@@ -61,8 +61,8 @@ export default function Frequently() {
         icon:<PlaneIcon/>,
       category: "Boosts & Promotions",
       items: [
-        { question: "What are job boosts?", answer: "Boosts allow editors to increase the visibility of their posted services. A boosted listing appears higher in search results, increasing views and potential orders." },
-        { question: "How much do boosts cost?", answer: "Boost prices vary depending on the visibility tier selected. Editors can choose from multiple boost levels based on how much reach they want." },
+        { question: "What are job boosts?", answer: "Boosts allow users to increase visibility across the marketplace. Editors can boost their services, while clients can boost job listings to reach more qualified editors faster." },
+        { question: "How much do boosts cost?", answer: "Boost prices vary depending on the visibility tier selected. Clients or editors can can choose from multiple boost levels on the Pricing Plans page based on how much extra reach they want." },
       ],
     },
 
