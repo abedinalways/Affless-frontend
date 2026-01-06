@@ -134,7 +134,7 @@ export default function NavbarWithoutLogin() {
 
         <ul className="text-lg font-medium pt-6 px-4 flex flex-col gap-3">
           <Link href="/" onClick={closeMobileMenu}>
-            Homefdsafasdfasdf
+            Home
           </Link>
 
           {/* Service (Mobile) */}
