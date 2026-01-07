@@ -137,6 +137,7 @@ export default function ProfilePage() {
             <div className="">
               <ReviewProfile/>
             </div>
+           
     </div>
   );
 }

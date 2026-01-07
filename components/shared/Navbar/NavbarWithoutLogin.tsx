@@ -45,7 +45,7 @@ export default function NavbarWithoutLogin() {
   return (
     <div className="containers bg-white">
       <nav>
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-4.5">
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
             {/* Logo */}
