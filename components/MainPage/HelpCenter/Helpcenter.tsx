@@ -20,13 +20,148 @@ import EmailChat from "./EmailChat";
 import LiveChatModal from "./ChatModal";
 
 type ChatType = "live" | "email" | null;
+type TabType = "account" | "payment" | "support";
+
+type FaqItem = {
+  id: string;
+  title: string;
+  content: string;
+  contentClassName: string;
+};
 
 export default function HelpCenterPage() {
-  const [activeTab, setActiveTab] = useState<"account" | "payment" | "support">("support");
+  const [activeTab, setActiveTab] = useState<TabType>("support");
   const [activeChat, setActiveChat] = useState<ChatType>(null);
+
+  // ✅ search state
+  const [searchTerm, setSearchTerm] = useState("");
 
   const openLiveChat = () => setActiveChat("live");
   const openEmailChat = () => setActiveChat("email");
+
+  // ✅ ALL FAQs (you will change text later)
+  const faqsByTab: Record<TabType, FaqItem[]> = {
+    account: [
+      {
+        id: "acc-1",
+        title: "How do I create or edit my profile?",
+        content: " Users can manage profile details from their dashboard.",
+        contentClassName: "text-gray-600 pb-4",
+      },
+      {
+        id: "acc-2",
+        title: "Can I change my account type (client/editor)?",
+        content: " Account roles are selected during onboarding.  To change your account role, you will need to make a new account.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "acc-3",
+        title: "How do I reset my password?",
+        content: "Password resets are available via the login screen.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "acc-4",
+        title: "How do I delete my account?",
+        content: " Account deletions cannot be done.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "acc-5",
+        title: "Why is my account under review?",
+        content: " Reviews may occur for security, verification, or policy compliance.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+  
+    ],
+
+    payment: [
+      {
+        id: "pay-1",
+        title: "How are payments processed on the platform?",
+        content: " Payments are securely processed through the platform to ensure protection for both clients and editors.",
+        contentClassName: "text-gray-600 pb-4",
+      },
+      {
+        id: "pay-2",
+        title: "When are editors paid?",
+        content: " Editors receive payment after job completion and client approval, according to the payment rules.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "pay-3",
+        title: "What fees does the platform charge?",
+        content: " The platform applies service fees as outlined on the Pricing and Payment Rules pages.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "pay-4",
+        title: "Can clients request refunds?",
+        content: "Refund eligibility depends on job status and dispute resolution outcomes.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "pay-5",
+        title: "What payment methods are supported?",
+        content: " Supported methods will be listed here (placeholder allowed if backend not ready).",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+ 
+    ],
+
+    support: [
+      {
+      id: "item-1",
+      title: "How to contact customer support",
+      content:
+        "You can reach our customer support team 24/7 through live chat or email. We are ready to assist you with account issues, order-related questions, technical problems, and general support.",
+      contentClassName: "text-gray-600 pb-4",
+    },
+    {
+      id: "item-2",
+      title: "Reporting technical issues or bugs",
+      content:
+        "Submit any technical issues through our support form or live chat. Our team will review the issue and work to resolve it as quickly as possible.",
+      contentClassName: "text-gray-600 pb-4 pl-9",
+    },
+    {
+      id: "item-3",
+      title: "Dispute resolution process",
+      content:
+        "Our team will review dispute submitted within 48 hours and follow up with you regarding the next steps.",
+      contentClassName: "text-gray-600 pb-4 pl-9",
+    },
+    {
+      id: "item-4",
+      title: "Community guidelines and code of conduct",
+      content:
+        "Please follow our guidelines to keep the platform positive, supportive, and safe for all users.",
+      contentClassName: "text-gray-600 pb-4 pl-9",
+    },
+    {
+      id: "item-5",
+      title: "Providing feedback and feature requests",
+      content:
+        "You can submit any feedback or suggestions through the request form. We appreciate your input as it helps us improve the platform.",
+      contentClassName: "text-gray-600 pb-4 pl-9",
+    },
+    ],
+  };
+
+  // ✅ filtering (title + content)
+  const q = searchTerm.trim().toLowerCase();
+  const currentFaqs = faqsByTab[activeTab];
+  const filteredFaqs = currentFaqs.filter((item) => {
+    if (!q) return true;
+    return (item.title + " " + item.content).toLowerCase().includes(q);
+  });
+
+  const tabTitle =
+    activeTab === "account"
+      ? "Account & Profile"
+      : activeTab === "payment"
+      ? "Payments & Billing"
+      : "Support & Contact";
 
   return (
     <div>
@@ -46,6 +181,8 @@ export default function HelpCenterPage() {
               type="text"
               placeholder="Search articles, FAQs, or topics..."
               className="w-full py-3 pl-12 pr-4 rounded-lg bg-white border border-gray-200 focus:ring-2 focus:ring-red-300 outline-none"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
@@ -78,85 +215,32 @@ export default function HelpCenterPage() {
             </div>
           </div>
 
-          {activeTab === "support" && (
-            <>
-              <h2 className="text-[18px] font-medium text-black mb-4">Support & Contact</h2>
+          {/* ✅ One accordion for all tabs */}
+          <h2 className="text-[18px] font-medium text-black mb-4">{tabTitle}</h2>
 
-              <div className="bg-white rounded-xl shadow p-4">
-                 <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
-                      <div className="flex gap-3">
-                        <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>How to contact customer support</p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 pb-4">
-                      You can reach our customer support team 24/7 through live
-                      chat or email. We are ready to assist you with account
-                      issues, order-related questions, technical problems, and
-                      general support.
-                    </AccordionContent>
-                  </AccordionItem>
+          <div className="bg-white rounded-xl shadow p-4">
+            <Accordion type="single" collapsible>
+              {filteredFaqs.map((item) => (
+                <AccordionItem key={item.id} value={item.id}>
+                  <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
+                    <div className="flex gap-3">
+                      <IoDocumentTextOutline className="w-6 h-6" />
+                      <p>{item.title}</p>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className={item.contentClassName}>
+                    {item.content}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
 
-                  <AccordionItem value="item-2">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
-                      <div className="flex gap-3">
-                        <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>Reporting technical issues or bugs</p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Submit any technical issues through our support form or
-                      live chat. Our team will review the issue and work to
-                      resolve it as quickly as possible.
-                    </AccordionContent>
-                  </AccordionItem>
+            {filteredFaqs.length === 0 && (
+              <p className="text-gray-500 text-sm py-4 text-center">No results found.</p>
+            )}
+          </div>
 
-                  <AccordionItem value="item-3">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
-                      <div className="flex gap-3">
-                        <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>Dispute resolution process</p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Our team will review dispute submitted within 48 hours and
-                      follow up with you regarding the next steps.
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="item-4">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
-                      <div className="flex gap-3">
-                        <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>Community guidelines and code of conduct</p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      Please follow our guidelines to keep the platform
-                      positive, supportive, and safe for all users.
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="item-5">
-                    <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
-                      <div className="flex gap-3">
-                        <IoDocumentTextOutline className="w-6 h-6" />
-                        <p>Providing feedback and feature requests</p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 pb-4 pl-9">
-                      You can submit any feedback or suggestions through the
-                      request form. We appreciate your input as it helps us
-                      improve the platform.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-            </>
-          )}
-
+          {/* --- rest same --- */}
           <div className="bg-white shadow rounded-xl mt-12 p-10 text-center">
             <SupportIcon className="text-red-400 bg-[#FFEEEE] mx-auto mb-4 h-15.5 w-15.5 p-2.5 rounded-lg" />
 
