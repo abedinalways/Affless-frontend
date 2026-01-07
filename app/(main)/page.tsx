@@ -10,7 +10,7 @@ import React from 'react'
 export default function page() {
   return (
     <div>
-     <Banner/>
+     <Banner />
      <HowWork/>
      <Popularcategory/>
      <Subscribe/>

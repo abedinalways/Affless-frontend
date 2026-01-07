@@ -6,12 +6,14 @@ import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdKeyboardArrowDown, MdMailOutline } from "react-icons/md";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import { FiLogOut } from "react-icons/fi";
 import Notification from "@/components/Notification/Notification";
 
 export default function ClientDashboardHeader() {
+  const pathname = usePathname();
+
   const [open, setOpen] = useState(false); // Desktop dropdown
   const [mobileMenu, setMobileMenu] = useState(false); // Mobile menu
   const [mobileDropdown, setMobileDropdown] = useState(false); // Mobile dropdown
@@ -22,6 +24,22 @@ export default function ClientDashboardHeader() {
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const profileDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // ✅ active style
+  const activeCls = "text-[#FF4D4F] font-semibold";
+  const inactiveCls = "text-[#333] hover:text-[#FF4D4F] transition-colors";
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
+
+  const businessRoutes = [
+    "/client/manage-job",
+    "/client/find-editor",
+    "/client/job-proposal",
+    "/client/payment-history",
+    "/client/profile",
+  ];
+
+  const businessActive = businessRoutes.some((r) => isActive(r));
 
   // Close desktop dropdown on outside click
   useEffect(() => {
@@ -55,20 +73,18 @@ export default function ClientDashboardHeader() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userType');
-    localStorage.removeItem('isLogin');
-    setUser('');
-    router.push('/');
+    localStorage.removeItem("userType");
+    localStorage.removeItem("isLogin");
+    setUser("");
+    router.push("/");
   };
 
   return (
     <div className="containers bg-white">
       <nav>
         <div className="flex justify-between items-center py-3">
-
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
-
             {/* Logo */}
             <Link href="/">
               <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
@@ -85,7 +101,12 @@ export default function ClientDashboardHeader() {
             {/* DESKTOP MENU (Visible on lg and larger) */}
             <ul className="hidden lg:flex items-center gap-8 text-[#333] font-poppins text-base relative">
               <li>
-                <Link href="/client/dashboard">Dashboard</Link>
+                <Link
+                  href="/client/dashboard"
+                  className={isActive("/client/dashboard") ? activeCls : inactiveCls}
+                >
+                  Dashboard
+                </Link>
               </li>
 
               {/* My Business Dropdown */}
@@ -93,7 +114,9 @@ export default function ClientDashboardHeader() {
                 <div ref={dropdownRef}>
                   <button
                     onClick={() => setOpen(!open)}
-                    className="flex items-center gap-1 cursor-pointer select-none"
+                    className={`flex items-center gap-1 cursor-pointer select-none ${
+                      businessActive ? activeCls : inactiveCls
+                    }`}
                   >
                     My Business
                     <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
@@ -105,7 +128,9 @@ export default function ClientDashboardHeader() {
                     <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
                       <Link
                         href="/client/manage-job"
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className={`block px-4 py-2 hover:bg-gray-100 ${
+                          isActive("/client/manage-job") ? activeCls : inactiveCls
+                        }`}
                         onClick={() => setOpen(false)}
                       >
                         Manage Job
@@ -113,7 +138,9 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/find-editor"
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className={`block px-4 py-2 hover:bg-gray-100 ${
+                          isActive("/client/find-editor") ? activeCls : inactiveCls
+                        }`}
                         onClick={() => setOpen(false)}
                       >
                         Find Editor
@@ -121,7 +148,9 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/job-proposal"
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className={`block px-4 py-2 hover:bg-gray-100 ${
+                          isActive("/client/job-proposal") ? activeCls : inactiveCls
+                        }`}
                         onClick={() => setOpen(false)}
                       >
                         Job Proposal
@@ -129,7 +158,9 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/payment-history"
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className={`block px-4 py-2 hover:bg-gray-100 ${
+                          isActive("/client/payment-history") ? activeCls : inactiveCls
+                        }`}
                         onClick={() => setOpen(false)}
                       >
                         Payment History
@@ -137,28 +168,41 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/profile"
-                        className="block px-4 py-2 hover:bg-gray-100"
+                        className={`block px-4 py-2 hover:bg-gray-100 ${
+                          isActive("/client/profile") ? activeCls : inactiveCls
+                        }`}
                         onClick={() => setOpen(false)}
                       >
                         Profile
                       </Link>
                     </div>
                   )}
-
                 </div>
               </li>
 
               <li>
-                <Link href="/pricing">Pricing</Link>
+                <Link
+                  href="/pricing"
+                  className={isActive("/pricing") ? activeCls : inactiveCls}
+                >
+                  Pricing
+                </Link>
               </li>
             </ul>
           </div>
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <div className="hidden lg:flex gap-8 items-center">
-            <Link href="/editor" onClick={handleBecomeEditorClick} className="cursor-pointer">
+            <Link
+              href="/editor"
+              onClick={handleBecomeEditorClick}
+              className={`cursor-pointer ${
+                isActive("/editor") ? activeCls : inactiveCls
+              }`}
+            >
               Become a Editor
             </Link>
+
             <div className="relative group">
               <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
               <div
@@ -173,21 +217,48 @@ export default function ClientDashboardHeader() {
                 <Notification />
               </div>
             </div>
+
             <Link href="/client/message">
-              <MdMailOutline className="w-7 h-7 cursor-pointer" />
+              <MdMailOutline
+                className={`w-7 h-7 cursor-pointer ${
+                  isActive("/client/message") ? "text-[#FF4D4F]" : "text-[#333]"
+                }`}
+              />
             </Link>
 
             {/* Profile Dropdown */}
             <div className="relative" ref={profileDropdownRef}>
-              <button onClick={() => setProfileDropdown(!profileDropdown)} className="flex cursor-pointer">
-                <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
+              <button
+                onClick={() => setProfileDropdown(!profileDropdown)}
+                className="flex cursor-pointer"
+              >
+                <Image
+                  src="/images/profile.png"
+                  alt="profile"
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
               </button>
 
               {profileDropdown && (
                 <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                  <Link href="/client/profile" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Profile</Link>
+                  <Link
+                    href="/client/profile"
+                    className={`block px-4 py-2 hover:bg-gray-100 ${
+                      isActive("/client/profile") ? activeCls : inactiveCls
+                    }`}
+                    onClick={() => setProfileDropdown(false)}
+                  >
+                    Profile
+                  </Link>
                   <hr className="my-2" />
-                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer">Logout</button>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
+                  >
+                    Logout
+                  </button>
                 </div>
               )}
             </div>
@@ -200,30 +271,42 @@ export default function ClientDashboardHeader() {
           >
             <HiOutlineMenu />
           </button>
-
         </div>
       </nav>
 
       {/* ========== MOBILE MENU OVERLAY ========== */}
       {mobileMenu && (
-        <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-xs" onClick={() => setMobileMenu(false)} />
+        <div
+          className="fixed inset-0 bg-black/50 z-50 backdrop-blur-xs"
+          onClick={() => setMobileMenu(false)}
+        />
       )}
 
       {/* ========== MOBILE MENU SLIDE ========== */}
       <div
-        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 py-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 py-5 transform transition-transform duration-300 ${
+          mobileMenu ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         {/* Close Button */}
-        <button className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 left-1 duration-300" title="Close menu" onClick={() => setMobileMenu(false)}>
+        <button
+          className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 left-1 duration-300"
+          title="Close menu"
+          onClick={() => setMobileMenu(false)}
+        >
           <HiX />
         </button>
 
         {/* Mobile Items */}
         <ul className="text-lg pt-3">
-
           <li>
-            <Link href="/client/dashboard" onClick={() => setMobileMenu(false)} className="block px-4 py-2 hover:bg-gray-100 duration-300">
+            <Link
+              href="/client/dashboard"
+              onClick={() => setMobileMenu(false)}
+              className={`block px-4 py-2 hover:bg-gray-100 duration-300 ${
+                isActive("/client/dashboard") ? activeCls : inactiveCls
+              }`}
+            >
               Dashboard
             </Link>
           </li>
@@ -231,8 +314,10 @@ export default function ClientDashboardHeader() {
           {/* Mobile dropdown */}
           <li>
             <button
-              className={`flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 duration-300 cursor-pointer`}
-              onClick={() => setMobileDropdown(prev => !prev)}
+              className={`flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 duration-300 cursor-pointer ${
+                businessActive ? activeCls : inactiveCls
+              }`}
+              onClick={() => setMobileDropdown((prev) => !prev)}
             >
               My Business
               <MdKeyboardArrowDown
@@ -242,33 +327,95 @@ export default function ClientDashboardHeader() {
 
             {mobileDropdown && (
               <ul className="mt-2 ml-3 text-base">
-                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/manage-job" onClick={() => setMobileMenu(false)}>Manage Job</Link></li>
-                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/find-editor" onClick={() => setMobileMenu(false)}>Find Editor</Link></li>
-                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/job-proposal" onClick={() => setMobileMenu(false)}>Job Proposal</Link></li>
-                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/payment-history" onClick={() => setMobileMenu(false)}>Payment History</Link></li>
-                <li><Link className="block px-3 py-2 hover:bg-gray-100 duration-300" href="/client/profile" onClick={() => setMobileMenu(false)}>Profile</Link></li>
+                <li>
+                  <Link
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                      isActive("/client/manage-job") ? activeCls : inactiveCls
+                    }`}
+                    href="/client/manage-job"
+                    onClick={() => setMobileMenu(false)}
+                  >
+                    Manage Job
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                      isActive("/client/find-editor") ? activeCls : inactiveCls
+                    }`}
+                    href="/client/find-editor"
+                    onClick={() => setMobileMenu(false)}
+                  >
+                    Find Editor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                      isActive("/client/job-proposal") ? activeCls : inactiveCls
+                    }`}
+                    href="/client/job-proposal"
+                    onClick={() => setMobileMenu(false)}
+                  >
+                    Job Proposal
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                      isActive("/client/payment-history") ? activeCls : inactiveCls
+                    }`}
+                    href="/client/payment-history"
+                    onClick={() => setMobileMenu(false)}
+                  >
+                    Payment History
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                      isActive("/client/profile") ? activeCls : inactiveCls
+                    }`}
+                    href="/client/profile"
+                    onClick={() => setMobileMenu(false)}
+                  >
+                    Profile
+                  </Link>
+                </li>
               </ul>
             )}
           </li>
 
           <li>
-            <Link href="/pricing" onClick={() => setMobileMenu(false)} className="block px-4 py-2 hover:bg-gray-100 duration-300">
+            <Link
+              href="/pricing"
+              onClick={() => setMobileMenu(false)}
+              className={`block px-4 py-2 hover:bg-gray-100 duration-300 ${
+                isActive("/pricing") ? activeCls : inactiveCls
+              }`}
+            >
               Pricing
             </Link>
           </li>
 
           <li className="mb-4">
-            <button onClick={handleBecomeEditorClick} className="cursor-pointer px-4 py-2 hover:bg-gray-100 duration-300 w-full text-left">
+            <button
+              onClick={handleBecomeEditorClick}
+              className={`cursor-pointer px-4 py-2 hover:bg-gray-100 duration-300 w-full text-left ${
+                isActive("/editor") ? activeCls : inactiveCls
+              }`}
+            >
               Become an Editor
             </button>
           </li>
 
           <li className="pt-4 border-t flex justify-center">
-            <button onClick={handleLogout} className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer">
+            <button
+              onClick={handleLogout}
+              className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer"
+            >
               <FiLogOut />
-              <span>
-                Logout
-              </span>
+              <span>Logout</span>
             </button>
           </li>
         </ul>

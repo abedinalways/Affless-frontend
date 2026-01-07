@@ -6,13 +6,15 @@ import Link from "next/link";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdKeyboardArrowDown, MdMailOutline } from "react-icons/md";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import Inbox from "@/components/ClientEditor/Inbox/Inbox";
 import { FiLogOut } from "react-icons/fi";
 import Notification from "@/components/Notification/Notification";
 
 export default function EditorDashboardHeader() {
+  const pathname = usePathname();
+
   const [open, setOpen] = useState(false); // Desktop dropdown
   const [mobileMenu, setMobileMenu] = useState(false); // Mobile menu
   const [mobileDropdown, setMobileDropdown] = useState(false); // Mobile dropdown
@@ -32,6 +34,21 @@ export default function EditorDashboardHeader() {
 
   const closeProfile = () => setProfileDropdown(false);
 
+  // ✅ active style
+  const activeCls = "text-[#FF4D4F] font-semibold";
+  const inactiveCls = "text-[#333] hover:text-[#FF4D4F] transition-colors";
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
+
+  const jobRoutes = [
+    "/editor/hire-request",
+    "/editor/myproposal",
+    "/editor/browse-job",
+    "/editor/editor-profile",
+    "/editor/earning",
+  ];
+
+  const jobActive = jobRoutes.some((r) => isActive(r));
 
   // Close desktop dropdown on outside click
   useEffect(() => {
@@ -65,10 +82,10 @@ export default function EditorDashboardHeader() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userType');
-    localStorage.removeItem('isLogin');
-    setUser('');
-    router.push('/');
+    localStorage.removeItem("userType");
+    localStorage.removeItem("isLogin");
+    setUser("");
+    router.push("/");
   };
 
   return (
@@ -76,10 +93,8 @@ export default function EditorDashboardHeader() {
       <div className="containers">
         <nav>
           <div className="flex justify-between items-center py-3 ">
-
             {/* ---------- LEFT SECTION ---------- */}
             <div className="flex items-center gap-10">
-
               {/* Logo */}
               <Link href="/">
                 <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
@@ -96,7 +111,12 @@ export default function EditorDashboardHeader() {
               {/* DESKTOP MENU (Visible on lg and larger) */}
               <ul className="hidden lg:flex items-center gap-8 text-[#333] font-poppins text-base relative">
                 <li>
-                  <Link href="/editor">Dashboard</Link>
+                  <Link
+                    href="/editor"
+                    className={isActive("/editor") ? activeCls : inactiveCls}
+                  >
+                    Dashboard
+                  </Link>
                 </li>
 
                 {/* My Business Dropdown */}
@@ -104,7 +124,9 @@ export default function EditorDashboardHeader() {
                   <div ref={dropdownRef}>
                     <button
                       onClick={() => setOpen(!open)}
-                      className="flex items-center gap-1 cursor-pointer select-none"
+                      className={`flex items-center gap-1 cursor-pointer select-none ${
+                        jobActive ? activeCls : inactiveCls
+                      }`}
                     >
                       Job
                       <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
@@ -114,44 +136,82 @@ export default function EditorDashboardHeader() {
 
                     {open && (
                       <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                        <Link href="/editor/hire-request" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                        <Link
+                          href="/editor/hire-request"
+                          className={`block px-4 py-2 hover:bg-gray-100 ${
+                            isActive("/editor/hire-request") ? activeCls : inactiveCls
+                          }`}
+                          onClick={closeDesktopJobDropdown}
+                        >
                           My Jobs
                         </Link>
 
-                        <Link href="/editor/myproposal" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                        <Link
+                          href="/editor/myproposal"
+                          className={`block px-4 py-2 hover:bg-gray-100 ${
+                            isActive("/editor/myproposal") ? activeCls : inactiveCls
+                          }`}
+                          onClick={closeDesktopJobDropdown}
+                        >
                           My Proposals
                         </Link>
 
-                        <Link href="/editor/browse-job" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                        <Link
+                          href="/editor/browse-job"
+                          className={`block px-4 py-2 hover:bg-gray-100 ${
+                            isActive("/editor/browse-job") ? activeCls : inactiveCls
+                          }`}
+                          onClick={closeDesktopJobDropdown}
+                        >
                           Find Jobs
                         </Link>
 
-                        <Link href="/editor/editor-profile" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                        <Link
+                          href="/editor/editor-profile"
+                          className={`block px-4 py-2 hover:bg-gray-100 ${
+                            isActive("/editor/editor-profile") ? activeCls : inactiveCls
+                          }`}
+                          onClick={closeDesktopJobDropdown}
+                        >
                           Profile
                         </Link>
 
-                        <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100" onClick={closeDesktopJobDropdown}>
+                        <Link
+                          href="/editor/earning"
+                          className={`block px-4 py-2 hover:bg-gray-100 ${
+                            isActive("/editor/earning") ? activeCls : inactiveCls
+                          }`}
+                          onClick={closeDesktopJobDropdown}
+                        >
                           Earnings
                         </Link>
                       </div>
                     )}
-
                   </div>
                 </li>
 
                 <li>
-                  <Link href="/pricing">Pricing</Link>
+                  <Link
+                    href="/pricing"
+                    className={isActive("/pricing") ? activeCls : inactiveCls}
+                  >
+                    Pricing
+                  </Link>
                 </li>
               </ul>
             </div>
 
             {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
             <div className="hidden lg:flex gap-8 items-center">
-              <button onClick={handleBecomeEditorClick} className="cursor-pointer">
+              <button
+                onClick={handleBecomeEditorClick}
+                className={`cursor-pointer ${isActive("/client") ? activeCls : inactiveCls}`}
+              >
                 Become an Editor
               </button>
-             <div className="relative group">
-               <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
+
+              <div className="relative group">
+                <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
                 <div
                   className="
       absolute right-0 mt-3 w-[412px]
@@ -162,12 +222,16 @@ export default function EditorDashboardHeader() {
     "
                 >
                   <Notification />
-             </div>
                 </div>
+              </div>
 
               <div className="relative group">
                 {/* Icon */}
-                <MdMailOutline className="w-7 h-7 cursor-pointer" />
+                <MdMailOutline
+                  className={`w-7 h-7 cursor-pointer ${
+                    isActive("/editor/message") ? "text-[#FF4D4F]" : "text-[#333]"
+                  }`}
+                />
 
                 {/* Dropdown */}
                 <div
@@ -181,7 +245,6 @@ export default function EditorDashboardHeader() {
                 >
                   <Inbox />
                 </div>
-
               </div>
 
               {/* Profile Dropdown */}
@@ -192,10 +255,31 @@ export default function EditorDashboardHeader() {
 
                 {profileDropdown && (
                   <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                    <Link href="/editor/editor-profile" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Profile</Link>
-                    <Link href="/editor/earning" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setProfileDropdown(false)}>Earning</Link>
+                    <Link
+                      href="/editor/editor-profile"
+                      className={`block px-4 py-2 hover:bg-gray-100 ${
+                        isActive("/editor/editor-profile") ? activeCls : inactiveCls
+                      }`}
+                      onClick={() => setProfileDropdown(false)}
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      href="/editor/earning"
+                      className={`block px-4 py-2 hover:bg-gray-100 ${
+                        isActive("/editor/earning") ? activeCls : inactiveCls
+                      }`}
+                      onClick={() => setProfileDropdown(false)}
+                    >
+                      Earning
+                    </Link>
                     <hr className="my-2" />
-                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer">Logout</button>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer"
+                    >
+                      Logout
+                    </button>
                   </div>
                 )}
               </div>
@@ -208,7 +292,6 @@ export default function EditorDashboardHeader() {
             >
               <HiOutlineMenu />
             </button>
-
           </div>
         </nav>
 
@@ -219,20 +302,28 @@ export default function EditorDashboardHeader() {
 
         {/* ========== MOBILE MENU SLIDE ========== */}
         <div
-          className={`fixed top-0 left-0 w-fit min-w-[250px] h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "-translate-x-full"
-            }`}
+          className={`fixed top-0 left-0 w-fit min-w-[250px] h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${
+            mobileMenu ? "translate-x-0" : "-translate-x-full"
+          }`}
         >
-
           {/* Close Button */}
-          <button className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 right-1 duration-300" onClick={() => setMobileMenu(false)}>
+          <button
+            className="text-2xl cursor-pointer p-0.5 hover:bg-gray-50 rounded-full fixed top-1 right-1 duration-300"
+            onClick={() => setMobileMenu(false)}
+          >
             <HiX />
           </button>
 
           {/* Mobile Items */}
           <ul className="text-lg pt-4">
-
             <li>
-              <Link href="/editor" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>
+              <Link
+                href="/editor"
+                className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                  isActive("/editor") ? activeCls : inactiveCls
+                }`}
+                onClick={() => setMobileMenu(false)}
+              >
                 Dashboard
               </Link>
             </li>
@@ -240,7 +331,9 @@ export default function EditorDashboardHeader() {
             {/* Mobile dropdown */}
             <li>
               <button
-                className="flex items-center justify-between w-full px-3 py-2 hover:bg-gray-100 duration-300 cursor-pointer"
+                className={`flex items-center justify-between w-full px-3 py-2 hover:bg-gray-100 duration-300 cursor-pointer ${
+                  jobActive ? activeCls : inactiveCls
+                }`}
                 onClick={() => setMobileDropdown(!mobileDropdown)}
               >
                 Job
@@ -251,33 +344,95 @@ export default function EditorDashboardHeader() {
 
               {mobileDropdown && (
                 <ul className="mt-2 ml-3 text-base">
-                  <li><Link href="/editor/hire-request" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>My Jobs</Link></li>
-                  <li><Link href="/editor/myproposal" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>My Proposals</Link></li>
-                  <li><Link href="/editor/browse-job" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Find Jobs</Link></li>
-                  <li><Link href="/editor/editor-profile" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Profile</Link></li>
-                  <li><Link href="/editor/earning" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>Earnings</Link></li>
+                  <li>
+                    <Link
+                      href="/editor/hire-request"
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                        isActive("/editor/hire-request") ? activeCls : inactiveCls
+                      }`}
+                      onClick={() => setMobileMenu(false)}
+                    >
+                      My Jobs
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/editor/myproposal"
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                        isActive("/editor/myproposal") ? activeCls : inactiveCls
+                      }`}
+                      onClick={() => setMobileMenu(false)}
+                    >
+                      My Proposals
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/editor/browse-job"
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                        isActive("/editor/browse-job") ? activeCls : inactiveCls
+                      }`}
+                      onClick={() => setMobileMenu(false)}
+                    >
+                      Find Jobs
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/editor/editor-profile"
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                        isActive("/editor/editor-profile") ? activeCls : inactiveCls
+                      }`}
+                      onClick={() => setMobileMenu(false)}
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/editor/earning"
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                        isActive("/editor/earning") ? activeCls : inactiveCls
+                      }`}
+                      onClick={() => setMobileMenu(false)}
+                    >
+                      Earnings
+                    </Link>
+                  </li>
                 </ul>
               )}
             </li>
 
             <li>
-              <Link href="/pricing" className="block px-3 py-2 hover:bg-gray-100 duration-300" onClick={() => setMobileMenu(false)}>
+              <Link
+                href="/pricing"
+                className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
+                  isActive("/pricing") ? activeCls : inactiveCls
+                }`}
+                onClick={() => setMobileMenu(false)}
+              >
                 Pricing
               </Link>
             </li>
 
             <li>
-              <button onClick={handleBecomeEditorClick} className="cursor-pointer px-3 py-2 hover:bg-gray-100 duration-300 w-full text-left">
+              <button
+                onClick={handleBecomeEditorClick}
+                className={`cursor-pointer px-3 py-2 hover:bg-gray-100 duration-300 w-full text-left ${
+                  isActive("/client") ? activeCls : inactiveCls
+                }`}
+              >
                 Become an client
               </button>
             </li>
 
             <li className="pt-4 border-t mt-4 flex justify-center">
-              <button onClick={handleLogout} className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer">
+              <button
+                onClick={handleLogout}
+                className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer"
+              >
                 <FiLogOut />
-                <span>
-                  Logout
-                </span>
+                <span>Logout</span>
               </button>
             </li>
           </ul>
