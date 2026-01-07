@@ -87,10 +87,10 @@ export default function ClientDashboardHeader() {
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/">
-              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden">
+              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
-                  width={100}
+                  width={128}
                   height={100}
                   alt="Logo"
                   className=" object-cover justify-start"
