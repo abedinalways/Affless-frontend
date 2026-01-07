@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import DubbleUser from "@/components/Icons/dubbleuser";
 
@@ -15,6 +16,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function NavbarWithoutLogin() {
+  const pathname = usePathname();
+
   const [mobileMenu, setMobileMenu] = useState(false);
 
   // ✅ mobile dropdown states
@@ -27,19 +30,31 @@ export default function NavbarWithoutLogin() {
     setMobileContactOpen(false);
   };
 
+  // ✅ active style
+  const activeCls = "text-[#FF4D4F] font-semibold";
+  const inactiveCls = "text-[#333] hover:text-[#FF4D4F] transition-colors";
+
+  const isActive = (href: string) => pathname === href;
+
+  const serviceRoutes = ["/howWork", "/find-editors", "/jobs", "/pricing"];
+  const contactRoutes = ["/success-story", "/help-center"];
+
+  const serviceActive = serviceRoutes.includes(pathname);
+  const contactActive = contactRoutes.includes(pathname);
+
   return (
-    <div className="containers bg-white  ">
+    <div className="containers bg-white">
       <nav>
-        <div className="flex justify-between items-center py-4 ">
+        <div className="flex justify-between items-center py-4.5">
           {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
             {/* Logo */}
-            <Link href="/">
-              <div className="w-[100px] h-[50px] flex justify-center items-center overflow-hidden cursor-pointer">
+            <Link href="/" className="cursor-pointer">
+              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
-                  width={100}
-                  height={100}
+                  width={128}
+                  height={42}
                   alt="Logo"
                   className="object-cover"
                 />
@@ -47,39 +62,83 @@ export default function NavbarWithoutLogin() {
             </Link>
 
             {/* ---------- DESKTOP MENU ---------- */}
-            <ul className="hidden xl:flex items-center gap-10 text-[#333] font-poppins text-base ">
+            <ul className="hidden xl:flex items-center gap-10 font-poppins text-base">
               <li>
-                <Link href="/">Home</Link>
+                <Link
+                  href="/"
+                  className={isActive("/") ? activeCls : inactiveCls}
+                >
+                  Home
+                </Link>
               </li>
 
               {/* Service (Desktop) */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="cursor-pointer ">Service</DropdownMenuTrigger>
-                <DropdownMenuContent className="z-1000 relative">
+                <DropdownMenuTrigger
+                  className={`cursor-pointer ${serviceActive ? activeCls : inactiveCls}`}
+                >
+                  Service
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent className="z-[1000]">
                   <DropdownMenuItem asChild>
-                    <Link href="/howWork" className="cursor-pointer">How It Works</Link>
+                    <Link
+                      href="/howWork"
+                      className={`cursor-pointer ${isActive("/howWork") ? activeCls : inactiveCls}`}
+                    >
+                      How It Works
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/find-editors" className="cursor-pointer">Find Editors</Link>
+                    <Link
+                      href="/find-editors"
+                      className={`cursor-pointer ${isActive("/find-editors") ? activeCls : inactiveCls}`}
+                    >
+                      Find Editors
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/jobs" className="cursor-pointer">Browse Jobs</Link>
+                    <Link
+                      href="/jobs"
+                      className={`cursor-pointer ${isActive("/jobs") ? activeCls : inactiveCls}`}
+                    >
+                      Browse Jobs
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/pricing" className="cursor-pointer">Pricing</Link>
+                    <Link
+                      href="/pricing"
+                      className={`cursor-pointer ${isActive("/pricing") ? activeCls : inactiveCls}`}
+                    >
+                      Pricing
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
               {/* Contact (Desktop) */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="cursor-pointer">Contact</DropdownMenuTrigger>
-                <DropdownMenuContent className="z-1000">
+                <DropdownMenuTrigger
+                  className={`cursor-pointer ${contactActive ? activeCls : inactiveCls}`}
+                >
+                  Contact
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="z-[1000]">
                   <DropdownMenuItem asChild>
-                    <Link href="/success-story" className="cursor-pointer">Success Stories</Link>
+                    <Link
+                      href="/success-story"
+                      className={`cursor-pointer ${isActive("/success-story") ? activeCls : inactiveCls}`}
+                    >
+                      Success Stories
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/help-center" className="cursor-pointer">Help Center</Link>
+                    <Link
+                      href="/help-center"
+                      className={`cursor-pointer ${isActive("/help-center") ? activeCls : inactiveCls}`}
+                    >
+                      Help Center
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -93,6 +152,7 @@ export default function NavbarWithoutLogin() {
                 <DubbleUser /> Sign In
               </button>
             </Link>
+
             <Link href="/singup" className="hidden xl:flex">
               <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer">
                 <DubbleUser /> Sign Up
@@ -133,14 +193,18 @@ export default function NavbarWithoutLogin() {
         </button>
 
         <ul className="text-lg font-medium pt-6 px-4 flex flex-col gap-3">
-          <Link href="/" onClick={closeMobileMenu} className="cursor-pointer">
+          <Link
+            href="/"
+            onClick={closeMobileMenu}
+            className={`${isActive("/") ? activeCls : inactiveCls} cursor-pointer`}
+          >
             Home
           </Link>
 
           {/* Service (Mobile) */}
           <button
             type="button"
-            className="text-left cursor-pointer"
+            className={`text-left cursor-pointer ${serviceActive ? activeCls : inactiveCls}`}
             onClick={() => setMobileServiceOpen((prev) => !prev)}
           >
             Service
@@ -148,17 +212,32 @@ export default function NavbarWithoutLogin() {
 
           {mobileServiceOpen && (
             <div className="flex flex-col pl-4 gap-2">
-              <Link href="/howWork" onClick={closeMobileMenu} className="cursor-pointer">
-              
+              <Link
+                href="/howWork"
+                onClick={closeMobileMenu}
+                className={`${isActive("/howWork") ? activeCls : inactiveCls} cursor-pointer`}
+              >
                 How It Works
               </Link>
-              <Link href="/find-editors" onClick={closeMobileMenu} className="cursor-pointer">
+              <Link
+                href="/find-editors"
+                onClick={closeMobileMenu}
+                className={`${isActive("/find-editors") ? activeCls : inactiveCls} cursor-pointer`}
+              >
                 Find Editors
               </Link>
-              <Link href="/jobs" onClick={closeMobileMenu} className="cursor-pointer">
+              <Link
+                href="/jobs"
+                onClick={closeMobileMenu}
+                className={`${isActive("/jobs") ? activeCls : inactiveCls} cursor-pointer`}
+              >
                 Browse Jobs
               </Link>
-              <Link href="/pricing" onClick={closeMobileMenu} className="cursor-pointer">
+              <Link
+                href="/pricing"
+                onClick={closeMobileMenu}
+                className={`${isActive("/pricing") ? activeCls : inactiveCls} cursor-pointer`}
+              >
                 Pricing
               </Link>
             </div>
@@ -167,7 +246,7 @@ export default function NavbarWithoutLogin() {
           {/* Contact (Mobile) */}
           <button
             type="button"
-            className="text-left cursor-pointer"
+            className={`text-left cursor-pointer ${contactActive ? activeCls : inactiveCls}`}
             onClick={() => setMobileContactOpen((prev) => !prev)}
           >
             Contact
@@ -175,10 +254,18 @@ export default function NavbarWithoutLogin() {
 
           {mobileContactOpen && (
             <div className="flex flex-col pl-4 gap-2">
-              <Link href="/success-story" onClick={closeMobileMenu} className="cursor-pointer">
+              <Link
+                href="/success-story"
+                onClick={closeMobileMenu}
+                className={`${isActive("/success-story") ? activeCls : inactiveCls} cursor-pointer`}
+              >
                 Success Stories
               </Link>
-              <Link href="/help-center" onClick={closeMobileMenu} className="cursor-pointer">
+              <Link
+                href="/help-center"
+                onClick={closeMobileMenu}
+                className={`${isActive("/help-center") ? activeCls : inactiveCls} cursor-pointer`}
+              >
                 Help Center
               </Link>
             </div>
@@ -189,16 +276,17 @@ export default function NavbarWithoutLogin() {
             <Link
               href="/login"
               onClick={closeMobileMenu}
-              className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl"
+              className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <DubbleUser /> Sign In
               </div>
             </Link>
+
             <Link
               href="/singup"
               onClick={closeMobileMenu}
-              className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl"
+              className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <DubbleUser /> Sign Up

@@ -22,7 +22,7 @@ const RootMainLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <div>
-            <div className={`fixed w-full z-999 ${pathname === '/login' || pathname === '/singup' || pathname === '/forgetpassword' || pathname === '/otp' || pathname === '/resetPassword' ? 'hidden' : ''}`}>
+            <div className={`sticky top-0 w-full z-999 ${pathname === '/login' || pathname === '/singup' || pathname === '/forgetpassword' || pathname === '/otp' || pathname === '/resetPassword' ? 'hidden' : ''}`}>
                 {user === "client" ?
                     <ClientDashboardHeader />
                     : user === "editor" ?

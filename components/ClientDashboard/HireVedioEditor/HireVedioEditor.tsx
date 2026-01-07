@@ -57,7 +57,7 @@ export default function HireVideoEditorForm() {
       </p>
 
       {/* Basic Information */}
-      <div className="bg-white p-8 rounded-xl mb-8 shadow-sm">
+      <div className="bg-white px-3 py-6 lg:p-8 rounded-xl mb-8 shadow-sm">
         <h2 className="text-[18px] md:text-[20px] font-semibold mb-5">Basic Information</h2>
 
         {/* Project Title */}
@@ -87,7 +87,7 @@ export default function HireVideoEditorForm() {
       </div>
 
       {/* Project Requirements */}
-      <div className="bg-white p-6 rounded-xl mb-8 shadow-sm">
+      <div className="bg-white px-3 py-6 lg:p-8 rounded-xl mb-8 shadow-sm">
         <h2 className="text-xl font-semibold mb-5">Project Requirements</h2>
 
         {/* Video Duration */}
@@ -150,7 +150,7 @@ export default function HireVideoEditorForm() {
       </div>
 
       {/* Budget & Payment */}
-      <div className="bg-white p-6 rounded-xl mb-8 shadow-sm">
+      <div className="bg-white px-3 py-6 lg:p-8 rounded-xl mb-8 shadow-sm">
         <h2 className="text-xl font-semibold mb-5">Budget & Payment</h2>
 
         {/* Budget */}
@@ -190,7 +190,7 @@ export default function HireVideoEditorForm() {
       </div>
 
       {/* File Upload */}
-      <div className="bg-white p-6 rounded-xl mb-8 shadow-sm">
+      <div className="bg-white px-3 py-6 lg:p-8 rounded-xl mb-8 shadow-sm">
         <h2 className="text-[18px] md:text-[20px] font-normal mb-5.5 text-black">File Upload (Optional)</h2>
         <p className="text-[16px] pb-3">Upload reference clips, raw footage, or style examples</p>
 

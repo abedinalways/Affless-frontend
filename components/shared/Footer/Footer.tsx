@@ -21,10 +21,10 @@ export default function Footer() {
           <div className="">
             <div className="">
                  <Link href="/">
-              <div className="w-[124px] h-[42px] flex justify-center items-center overflow-hidden">
+              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
-                  width={124}
+                  width={128}
                   height={42}
                   alt="Logo"
                   className="object-cover"

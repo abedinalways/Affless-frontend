@@ -38,7 +38,7 @@ export default function ReviewsSection() {
       {reviews.map((review) => (
         <div
           key={review.id}
-          className="w-full rounded-xl border border-gray-200 bg-white px-6 py-5 flex justify-between gap-6"
+          className="w-full rounded-xl border border-gray-200 bg-white px-6 py-5 flex flex-col lg:flex-row justify-between gap-6"
         >
           {/* ✅ LEFT SIDE */}
           <div className="flex gap-4 flex-1">
@@ -91,7 +91,7 @@ export default function ReviewsSection() {
           </div>
 
           {/* ✅ RIGHT SIDE Preview Image */}
-          <div className="w-[170px]  rounded-lg overflow-hidden border border-gray-200 shrink-0">
+          <div className="w-full lg:w-[170px]  rounded-lg overflow-hidden border border-gray-200 shrink-0">
             <Image
               src={review.previewImage}
               alt="preview"
