@@ -44,7 +44,7 @@ export default function FindEditors() {
       />
 
       {/* Main Section */}
-      <div className="containers mx-auto flex gap-8 lg:mt-40">
+      <div className="containers mx-auto flex gap-8 lg:mt-10">
 
         {/* Sidebar - hidden on small screens */}
         <div className="hidden lg:block">

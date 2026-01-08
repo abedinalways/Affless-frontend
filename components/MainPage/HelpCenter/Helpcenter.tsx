@@ -268,6 +268,7 @@ export default function HelpCenterPage() {
                 >
                   Live Chat
                 </button>
+                <p className="text-[#333] py-2">Live chat support coming soon.</p>
               </div>
 
               <div className="shadow-0 lg:shadow-xl rounded-xl p-0 md:p-6 bg-white pt-3.5">

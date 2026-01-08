@@ -18,7 +18,7 @@ export default function PlatformSefetyPage() {
           bgImage="/findEditor.jpg"
           links={[
             { label: "Home", href: "/" },
-            { label: "Client Guide" }
+            { label: "Platform Safety Rules" }
           ]}
         />
         
@@ -136,7 +136,7 @@ export default function PlatformSefetyPage() {
             <p className="text-[14px] font-normal leading-150% text-[#FF4D4F] pb-4">No manual review required. The system will:</p>
 
             <ul className="list-disc ml-6 space-y-2.5 text-sm text-[16px] font-normal leading-150% text-[#333] ">
-              <li>Permanent account deactivation effective immediately</li>
+              <li>Permanently deactivate your account immediately</li>
               <li>Remove access to funds and project history</li>
               <li>Flag the account as "Terminated for Policy Breach"</li>
               <li>Block the user from creating new accounts on the platform</li>

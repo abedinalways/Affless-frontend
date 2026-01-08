@@ -12,22 +12,22 @@ export default function DisputeResolutionPage() {
           <h3 className="text-[24px] font-medium text-[#333] mb-6">Quick links</h3>
           <ul className="space-y-4 text-[#333] text-[16px] font-normal leading-150%">
             <li>
-              <Link href="#resolution-center-intro" className="hover:text-red-500 transition">
+              <Link href="#" className="hover:text-red-500 transition">
                 Accessing the Resolution Center
               </Link>
             </li>
             <li>
-              <Link href="#for-freelancers" className="hover:text-red-500 transition">
+              <Link href="#" className="hover:text-red-500 transition">
                 Editor options
               </Link>
             </li>
             <li>
-              <Link href="#for-clients" className="hover:text-red-500 transition">
+              <Link href="#" className="hover:text-red-500 transition">
                 Client options
               </Link>
             </li>
             <li>
-              <Link href="#cancellations" className="hover:text-red-500 transition">
+              <Link href="#" className="hover:text-red-500 transition">
                 Cancellations
               </Link>
             </li>
@@ -35,7 +35,7 @@ export default function DisputeResolutionPage() {
         </div>
 
         {/* ---------------- Content Section ---------------- */}
-        <section className="bg-white shadow-sm rounded-xl p-5 lg:p-10 leading-relaxed text-[#333]">
+        <section className="bg-white shadow-sm rounded-xl p-5 lg:p-10 leading-relaxed text-[#333] mt-7">
           <div>
             <h2 className="text-[24px] font-medium leading-150%  mb-4 ">How to use the Resolution Center</h2>
 

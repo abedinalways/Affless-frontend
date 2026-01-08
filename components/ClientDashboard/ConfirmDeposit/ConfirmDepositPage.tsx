@@ -133,7 +133,7 @@ export default function ConfirmDepositPage() {
             </div>
           </div>
           <div className="bg-white mt-8 px-6 py-8 rounded-2xl">
-            <p className="text-lg leading-150% font-normal text-[#333] pb-8">A secure deposit is required for your project. The deposit will be safely held in escrow until the work is completed. If the editor fails to deliver or cancels the project, your deposit will be fully refunded. This ensures protection for both partiesand maintains a reliable payment system.</p>
+            <p className="text-lg leading-150% font-normal text-[#333] pb-8">A secure deposit is required for your project. The deposit will be safely held in escrow (a secure third-party holding system that releases funds only after the job is completed) until the work is completed.. If the editor fails to deliver or cancels the project, your deposit will be fully refunded. This ensures protection for both parties and maintains a reliable payment system.</p>
             <div className="space-y-6">
               <div className="flex gap-3">
                 <input
