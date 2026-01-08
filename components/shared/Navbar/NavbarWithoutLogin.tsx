@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import DubbleUser from "@/components/Icons/dubbleuser";
+import { FaAngleDown } from "react-icons/fa";
 
 // shadcn (DESKTOP ONLY)
 import {
@@ -53,7 +54,7 @@ const [desktopContactOpen, setDesktopContactOpen] = useState(false);
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/" className="cursor-pointer">
-              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
+              <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
                   width={128}
@@ -213,9 +214,8 @@ const [desktopContactOpen, setDesktopContactOpen] = useState(false);
 
       {/* ---------- MOBILE MENU ---------- */}
       <div
-        className={`fixed top-0 left-0 w-fit h-full bg-white z-50 py-6 transform transition-transform duration-300 ${
-          mobileMenu ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 w-fit h-full bg-white z-50 py-6 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         {/* Close */}
         <button
