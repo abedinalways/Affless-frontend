@@ -13,7 +13,9 @@ export default function HowWorkPage() {
           bgImage="/findEditor.jpg"
           links={[
             { label: "Home", href: "/" },
-            { label: "How It works" }
+            { label: "Trust & Safety", href:"/trustSeftey" },
+            // { label: "Trust & Safety", href:"/trustSeftey" }
+
           ]}
         />
               

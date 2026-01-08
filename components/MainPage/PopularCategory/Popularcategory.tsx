@@ -88,7 +88,7 @@ export default function Popularcategory() {
           >
             <div className="text-2xl mb-4">{item.icon}</div>
 
-      <p className="text-[#333] font-[Poppins] text-[14px] lg:text-[24px] font-medium leading-[150%] pb-1.5 whitespace-normal">
+      <p className="text-[#333] font-[Poppins] text-[12px] lg:text-[24px] font-medium leading-[150%] pb-1.5 whitespace-normal">
   {item.title}
 </p>
 

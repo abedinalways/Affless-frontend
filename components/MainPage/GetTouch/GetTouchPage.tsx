@@ -3,6 +3,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { MapPin, Phone, Mail, User, ChevronDown } from "lucide-react";
 import PageBanner from "@/components/reusable/Bgbanner";
+import toast, { Toaster } from "react-hot-toast";
 
 type ContactFormValues = {
   name: string;
@@ -16,15 +17,22 @@ export default function GetTouchPage() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ContactFormValues>();
 
-  const onSubmit: SubmitHandler<ContactFormValues> = (data) => {
+  const  onSubmit: SubmitHandler<ContactFormValues> = (data) => {
     console.log("Form Submitted:", data);
+
+     toast.success("Thank you for reaching out. Your request has been submitted successfully. Our team will get back to you soon."); 
+
+    reset();
+  
   };
 
   return (
     <div>
+       <Toaster />
       <div>
         <PageBanner
           title="Contact us
@@ -53,22 +61,7 @@ export default function GetTouchPage() {
                 </p>
                 <div className="mt-10 space-y-10">
                   {/* Address */}
-                  <div className="flex gap-5">
-                    <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
-                      <MapPin className="text-white" />
-                    </div>
-
-                    <div>
-                      <h4 className="font-poppins text-[20px] font-medium text-[#333]">
-                        Address
-                      </h4>
-                      <p className="text-[#4A4C56] leading-[150%]">
-                        Jalan Cempaka Wangi No 22 <br />
-                        Jakarta • Indonesia
-                      </p>
-                    </div>
-                  </div>
-
+                  
                   {/* Call */}
                   <div className="flex gap-5">
                     <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
@@ -77,11 +70,10 @@ export default function GetTouchPage() {
 
                     <div>
                       <h4 className="font-poppins text-[20px] font-medium text-[#333]">
-                        Call us
+                        Phone:
                       </h4>
                       <p className="text-[#4A4C56] leading-[150%]">
-                        Phone : •6221.2002.2012 <br />
-                        Fax : +6221.2002.2013
+                       Support phone number coming soon.
                       </p>
                     </div>
                   </div>
@@ -94,14 +86,28 @@ export default function GetTouchPage() {
 
                     <div>
                       <h4 className="font-poppins text-[20px] font-medium text-[#333]">
-                        E-mail us
+                        Email:
                       </h4>
                       <p className="text-[#4A4C56] leading-[150%]">
-                        support@yourdomain.tld <br />
-                        hello@yourdomain.tld
+                       Support email address coming soon.
                       </p>
                     </div>
                   </div>
+                  <div className="flex gap-5">
+                    <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+                      <MapPin className="text-white" />
+                    </div>
+
+                    <div>
+                      <h4 className="font-poppins text-[20px] font-medium text-[#333]">
+                        Address:
+                      </h4>
+                      <p className="text-[#4A4C56] leading-[150%]">
+                        Physical office location coming soon.
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -111,7 +117,7 @@ export default function GetTouchPage() {
               {/* Name */}
               <div>
                 <label className="block mb-1 text-[#333] font-poppins font-medium">
-                  First name
+                  Name
                 </label>
                 <div className="relative">
                   <User
@@ -169,9 +175,9 @@ export default function GetTouchPage() {
                     className="w-full pl-12 p-3 rounded-xl border border-gray-300 focus:outline-red-500"
                   />
                 </div>
-                {errors.phone && (
+                {/* {errors.phone && (
                   <p className="text-red-500 text-sm">{errors.phone.message}</p>
-                )}
+                )} */}
               </div>
 
               {/* Service */}
@@ -185,9 +191,16 @@ export default function GetTouchPage() {
                     className="w-full p-3 pr-10 rounded-xl border border-gray-300 focus:outline-red-500"
                   >
                     <option value="">Select Service</option>
-                    <option value="editing">Video Editing</option>
-                    <option value="thumbnail">Thumbnail Design</option>
-                    <option value="podcast">Podcast Editing</option>
+                    <option value="editing">YouTube Long-Form</option>
+                    <option value="thumbnail">Shorts/Reels/TikToks</option>
+                    <option value="podcast">Thumbnail Design</option>
+                    <option value="podcast">Podcasts Editing</option>
+                    <option value="podcast">Color Correction & Audio</option>
+                    <option value="podcast">Ads/UGC</option>
+                    <option value="podcast">Captions & Subtitles</option>
+                    <option value="podcast">Weddings/Events</option>
+
+
                   </select>
 
                   {/* <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" /> */}
