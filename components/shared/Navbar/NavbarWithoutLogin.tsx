@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import DubbleUser from "@/components/Icons/dubbleuser";
-import { FaCaretDown } from "react-icons/fa";
+import { FaAngleDown } from "react-icons/fa";
 
 // shadcn (DESKTOP ONLY)
 import {
@@ -80,7 +80,7 @@ export default function NavbarWithoutLogin() {
                 >
                   <div className="flex items-center gap-1">
                     <span>Service</span>
-                    <FaCaretDown className={`${serviceActive?"rotate-180":""}`}/>
+                    <FaAngleDown className={`${serviceActive ? "rotate-180" : ""}`} />
                   </div>
                 </DropdownMenuTrigger>
 
@@ -125,7 +125,10 @@ export default function NavbarWithoutLogin() {
                 <DropdownMenuTrigger
                   className={`cursor-pointer ${contactActive ? activeCls : inactiveCls}`}
                 >
-                  Contact
+                  <div className="flex items-center gap-1">
+                    <span>Contact</span>
+                    <FaAngleDown />
+                  </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="z-1000">
                   <DropdownMenuItem asChild>
@@ -210,7 +213,10 @@ export default function NavbarWithoutLogin() {
             className={`text-left cursor-pointer ${serviceActive ? activeCls : inactiveCls}`}
             onClick={() => setMobileServiceOpen((prev) => !prev)}
           >
-            Service
+            <div className="flex items-center gap-1">
+              <span>Service</span>
+              <FaAngleDown />
+            </div>
           </button>
 
           {mobileServiceOpen && (
@@ -252,7 +258,10 @@ export default function NavbarWithoutLogin() {
             className={`text-left cursor-pointer ${contactActive ? activeCls : inactiveCls}`}
             onClick={() => setMobileContactOpen((prev) => !prev)}
           >
-            Contact
+            <div className="flex items-center gap-1">
+              <span>Contact</span>
+              <FaAngleDown />
+            </div>
           </button>
 
           {mobileContactOpen && (
