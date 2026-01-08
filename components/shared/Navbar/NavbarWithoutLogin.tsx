@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import DubbleUser from "@/components/Icons/dubbleuser";
+import { FaCaretDown } from "react-icons/fa";
 
 // shadcn (DESKTOP ONLY)
 import {
@@ -50,7 +51,7 @@ export default function NavbarWithoutLogin() {
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/" className="cursor-pointer">
-              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
+              <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
                   width={128}
@@ -77,10 +78,13 @@ export default function NavbarWithoutLogin() {
                 <DropdownMenuTrigger
                   className={`cursor-pointer ${serviceActive ? activeCls : inactiveCls}`}
                 >
-                  Service
+                  <div className="flex items-center gap-1">
+                    <span>Service</span>
+                    <FaCaretDown className={`${serviceActive?"rotate-180":""}`}/>
+                  </div>
                 </DropdownMenuTrigger>
 
-                <DropdownMenuContent className="z-[1000]">
+                <DropdownMenuContent className="z-1000">
                   <DropdownMenuItem asChild>
                     <Link
                       href="/howWork"
@@ -123,7 +127,7 @@ export default function NavbarWithoutLogin() {
                 >
                   Contact
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="z-[1000]">
+                <DropdownMenuContent className="z-1000">
                   <DropdownMenuItem asChild>
                     <Link
                       href="/success-story"
@@ -180,9 +184,8 @@ export default function NavbarWithoutLogin() {
 
       {/* ---------- MOBILE MENU ---------- */}
       <div
-        className={`fixed top-0 left-0 w-fit h-full bg-white z-50 py-6 transform transition-transform duration-300 ${
-          mobileMenu ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 w-fit h-full bg-white z-50 py-6 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         {/* Close */}
         <button
