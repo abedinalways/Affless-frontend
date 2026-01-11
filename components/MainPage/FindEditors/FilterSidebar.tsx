@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import { Slider } from "@/components/ui/slider";
@@ -35,7 +37,6 @@ type propType = {
   handleMenu?: () => void;
 };
 
-
 /* ----------------------------------------
    Checkbox Component
 -----------------------------------------*/
@@ -47,18 +48,18 @@ type CheckboxProps = {
 
 function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
   return (
-    <label className="flex items-center justify-between cursor-pointer">
-      <div className="flex items-center gap-3">
+    <label className='flex items-center justify-between cursor-pointer'>
+      <div className='flex items-center gap-3'>
         <input
-          type="checkbox"
+          type='checkbox'
           defaultChecked={defaultChecked}
-          className="w-5 h-5 accent-black cursor-pointer"
+          className='w-5 h-5 accent-black cursor-pointer'
         />
-        <span className="text-[#333] text-[16px]">{label}</span>
+        <span className='text-[#333] text-[16px]'>{label}</span>
       </div>
 
       {count && (
-        <span className="w-10 text-center py-1 rounded-md bg-red-100 text-red-500 text-sm font-medium">
+        <span className='w-10 text-center py-1 rounded-md bg-red-100 text-red-500 text-sm font-medium'>
           {count}
         </span>
       )}
@@ -69,36 +70,48 @@ function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
 /* ----------------------------------------
    FILTER SIDEBAR
 -----------------------------------------*/
-export default function FilterSidebar({isMobile, handleMenu}:propType) {
+export default function FilterSidebar({ isMobile, handleMenu }: propType) {
   // ✅ HOOK MUST BE INSIDE COMPONENT
   const [range, setRange] = React.useState([5, 35]);
 
   return (
-    <div className={`w-[320px] sm:w-[400px] md:w-[320px] lg:w-full border p-6 bg-white shadow-sm ${isMobile ? 'h-full max-h-screen overflow-y-auto':'rounded-[20px] h-fit'}`} onClick={(e)=>e.stopPropagation()}>
+    <div
+      className={`w-[320px] sm:w-[400px] md:w-[320px]  border p-6 bg-white shadow-sm ${
+        isMobile
+          ? "h-full max-h-screen overflow-y-auto"
+          : "rounded-[20px] h-fit"
+      }`}
+      onClick={(e) => e.stopPropagation()}>
       {/* Job Category */}
-      <div className="flex items-start justify-between">
-        <h2 className="text-[#333] font-semibold text-xl mb-4">Job Category</h2>
-        <button type="button" disabled={!isMobile} className={`p-1 text-xl rounded-full hover:bg-red-50 cursor-pointer ${isMobile ? "block" : "hidden"}`} onClick={handleMenu}>
+      <div className='flex items-start justify-between'>
+        <h2 className='text-[#333] font-semibold text-xl mb-4'>Job Category</h2>
+        <button
+          type='button'
+          disabled={!isMobile}
+          className={`p-1 text-xl rounded-full hover:bg-red-50 cursor-pointer ${
+            isMobile ? "block" : "hidden"
+          }`}
+          onClick={handleMenu}>
           <IoClose />
         </button>
       </div>
-      <div className="flex flex-col gap-4 mb-8">
+      <div className='flex flex-col gap-4 mb-8'>
         {jobCategories.map((item, idx) => (
           <CheckboxRow key={idx} {...item} />
         ))}
       </div>
       {/* defaultChecked={idx === 0} */}
       {/* Platform */}
-      <h2 className="text-[#333] font-semibold text-xl mb-4">Platform</h2>
-      <div className="flex flex-col gap-4 mb-8">
+      <h2 className='text-[#333] font-semibold text-xl mb-4'>Platform</h2>
+      <div className='flex flex-col gap-4 mb-8'>
         {platforms.map((item, idx) => (
           <CheckboxRow key={idx} {...item} />
         ))}
       </div>
 
       {/* Price Range */}
-      <div className="w-full flex flex-col items-center gap-3 mb-8">
-        <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
+      <div className='w-full flex flex-col items-center gap-3 mb-8'>
+        <div className='w-full flex justify-between px-2 text-gray-500 text-sm font-medium'>
           <span>${range[0]}</span>
           <span>${range[1]}</span>
         </div>
@@ -110,16 +123,85 @@ export default function FilterSidebar({isMobile, handleMenu}:propType) {
           step={1}
           value={range}
           onValueChange={setRange}
-          className="w-full"
+          className='w-full'
         />
       </div>
 
       {/* Delivery Time */}
-      <h2 className="text-[#333] font-semibold text-xl mb-4">Delivery Time</h2>
-      <div className="flex flex-col gap-4">
-        {deliveryTimes.map((d, idx) => (
+      <div className=''>
+        {/* {deliveryTimes.map((d, idx) => (
           <CheckboxRow key={idx} label={d} />
-        ))}
+        ))} */}
+        {/* Delivery Time Section */}
+        <h2 className='text-[#333] font-semibold text-xl mb-4'>Price</h2>
+
+        {/* Any Delivery Time Checkbox */}
+        <div className='flex items-center gap-3 mb-2'>
+          <input
+            type='checkbox'
+            id='anyDeliveryTime'
+            defaultChecked
+            className='w-5 h-5 accent-black cursor-pointer'
+          />
+          <label
+            htmlFor='anyDeliveryTime'
+            className='text-[#333] text-[16px] cursor-pointer'>
+            Any Delivery Time
+          </label>
+        </div>
+
+        {/* Min Max Inputs */}
+        <div className='flex gap-3 items-center'>
+          <input
+            type='number'
+            placeholder='Min'
+            className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+          />
+          <input
+            type='number'
+            placeholder='Max'
+            className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+          />
+        </div>
+      </div>
+
+      <div className='pt-8'>
+        {/* {deliveryTimes.map((d, idx) => (
+          <CheckboxRow key={idx} label={d} />
+        ))} */}
+        {/* Delivery Time Section */}
+        <h2 className='text-[#333] font-semibold text-xl mb-4'>
+          Delivery Time
+        </h2>
+
+        {/* Any Delivery Time Checkbox */}
+        <div className='flex items-center gap-3 mb-2'>
+          <input
+            type='checkbox'
+            id='anyDeliveryTime'
+            defaultChecked
+            className='w-5 h-5 accent-black cursor-pointer'
+          />
+          <label
+            htmlFor='anyDeliveryTime'
+            className='text-[#333] text-[16px] cursor-pointer'>
+            Any Delivery Time
+          </label>
+        </div>
+
+        {/* Min Max Inputs */}
+        <div className='flex gap-3 items-center'>
+          <input
+            type='number'
+            placeholder='Min'
+            className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+          />
+          <input
+            type='number'
+            placeholder='Max'
+            className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+          />
+        </div>
       </div>
     </div>
   );

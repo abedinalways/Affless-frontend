@@ -5,6 +5,7 @@
 import Image, { StaticImageData } from "next/image";
 import { Star, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export const editors = [
   {
@@ -72,7 +73,12 @@ export const editors = [
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed"],
+    skills: [
+      "YouTube Long-form",
+      "Within 3 Days",
+      "127 Jobs Completed",
+      "127 Jobs Completed",
+    ],
 
     description:
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
@@ -114,6 +120,23 @@ export default function EditorCard({
   skills,
   description,
 }: EditorCardProps) {
+  const [startIndex, setStartIndex] = useState(0);
+  const ITEMS_PER_PAGE = 3;
+
+  const handleNext = () => {
+    if (startIndex + ITEMS_PER_PAGE < skills.length) {
+      setStartIndex(startIndex + ITEMS_PER_PAGE);
+    }
+  };
+
+  const handlePrev = () => {
+    if (startIndex - ITEMS_PER_PAGE >= 0) {
+      setStartIndex(startIndex - ITEMS_PER_PAGE);
+    }
+  };
+
+  const visibleSkills = skills.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
   return (
     <div className='w-full bg-white p-6 rounded-xl shadow-sm border '>
       {/* Header */}
@@ -155,25 +178,48 @@ export default function EditorCard({
         {description}
       </p>
       {/* Skills */}
-      <div className='flex py-6 gap-2 md:gap-4  justify-between'>
-        <ChevronLeft className='opacity-50 cursor-pointer' />
-        <div className='flex justify-between lg:gap-9  gap-4 '>
-          {skills.map((skill, idx) => (
+      {/* Skills */}
+      <div className='flex py-6 gap-2 items-center justify-between'>
+        <ChevronLeft
+          className={`cursor-pointer ${
+            startIndex === 0 ? "opacity-30" : "opacity-70"
+          }`}
+          onClick={handlePrev}
+        />
+        <div className='flex gap-3 flex-1 justify-center'>
+          {visibleSkills.map((skill, idx) => (
             <span
               key={idx}
-              className='bg-gray-100 px-2 md:px-4 py-1 rounded-full text-[12px] md:text-sm text-center flex justify-center items-center mx-auto'>
+              className='bg-gray-100 px-4 py-1 rounded-full text-[12px] md:text-sm text-center'>
               {skill}
             </span>
           ))}
         </div>
-        <ChevronRight className='opacity-50 cursor-pointer' />
+        <ChevronRight
+          className={`cursor-pointer ${
+            startIndex + ITEMS_PER_PAGE >= skills.length
+              ? "opacity-30"
+              : "opacity-70"
+          }`}
+          onClick={handleNext}
+        />
       </div>
+
       {/* Hire Button */}
-      <Link href='/client/hire-vedio-editor' className='cursor-pointer'>
-        <div className=' text-center bg-red-500 cursor-pointer w-full text-white  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 '>
-          Hire Editor
-        </div>
-      </Link>
+      <div className='flex w-full gap-4'>
+        <Link
+          href='/client/hire-vedio-editor'
+          className='cursor-pointer w-full'>
+          <div className=' text-center bg-red-500 cursor-pointer w-full text-white  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 '>
+            Hire Editor
+          </div>
+        </Link>
+        <Link href='/editor/message' className='cursor-pointer w-full'>
+          <div className=' text-center bg-[#FFEDED] cursor-pointer w-full text-[#FF4D4F]  p-3 rounded-lg font-medium hover:bg-red-100 duration-300 '>
+            Message
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }
