@@ -25,11 +25,34 @@ type FormValues = {
   videoDuration: string;
 };
 
+// Mapping of categories to available platforms
+const categoryPlatformMap: { [key: string]: string[] } = {
+  youtube_long_form: ["youtube"],
+  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat"],
+  thumbnails: ["youtube"],
+  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter"],
+  podcasts: ["youtube"],
+  weddings_events: ["youtube", "instagram", "facebook"],
+  captions_subtitles: ["youtube", "tiktok", "instagram"],
+  color_audio: ["youtube", "tiktok", "instagram"],
+};
+
+const allPlatforms = [
+  { key: "youtube", label: "YouTube" },
+  { key: "tiktok", label: "TikTok" },
+  { key: "instagram", label: "Instagram" },
+  { key: "facebook", label: "Facebook" },
+  { key: "x_twitter", label: "X (Twitter)" },
+  { key: "snapchat", label: "Snapchat" },
+];
+
 export default function PostJobForm() {
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
     "single"
   );
   const router = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState<string>("youtube_long_form");
+
   const [jobCategory, setJobCategory] = useState<
     { key: string; label: string }[]
   >([
@@ -37,44 +60,40 @@ export default function PostJobForm() {
       key: "youtube_long_form",
       label: "YouTube Long Form",
     },
-    // {
-    //   key: "shorts_reels_tiktoks",
-    //   label: "Shorts/Reels/TikToks",
-    // },
-    // {
-    //   key: "thumbnails",
-    //   label: "Thumbnails",
-    // },
-    // {
-    //   key: "ads_ugc",
-    //   label: "Ads/UGC",
-    // },
-    // {
-    //   key: "podcasts",
-    //   label: "Podcasts",
-    // },
-    // {
-    //   key: "weddings_events",
-    //   label: "Weddings/Events",
-    // },
-    // {
-    //   key: "captions_subtitles",
-    //   label: "Captions/Subtitles"
-    // },
-    // {
-    //   key: "color_audio",
-    //   label: "Color/Audio"
-    // }
+    {
+      key: "shorts_reels_tiktoks",
+      label: "Shorts/Reels/TikToks",
+    },
+    {
+      key: "thumbnails",
+      label: "Thumbnails",
+    },
+    {
+      key: "ads_ugc",
+      label: "Ads/UGC",
+    },
+    {
+      key: "podcasts",
+      label: "Podcasts",
+    },
+    {
+      key: "weddings_events",
+      label: "Weddings/Events",
+    },
+    {
+      key: "captions_subtitles",
+      label: "Captions/Subtitles"
+    },
+    {
+      key: "color_audio",
+      label: "Color/Audio"
+    }
   ]);
 
-  const [platform, setPlatform] = useState<{ key: string; label: string }[]>([
-    { key: "youtube", label: "YouTube" },
-    { key: "tiktok", label: "TikTok" },
-    { key: "instagram", label: "Instagram" },
-    { key: "facebook", label: "Facebook" },
-    { key: "x_twitter", label: "X (Twitter)" },
-    { key: "snapchat", label: "Snapchat" },
-  ]);
+  // Filter platforms based on selected category
+  const filteredPlatforms = allPlatforms.filter((plat) =>
+    categoryPlatformMap[selectedCategory]?.includes(plat.key)
+  );
 
   // Define state for file inputs
   const [styleReference, setStyleReference] = useState<File | null>(null);
@@ -226,6 +245,7 @@ export default function PostJobForm() {
             </label>
             <select
               {...register("category", { required: true })}
+              onChange={(e) => setSelectedCategory(e.target.value)}
               className='w-full border rounded-lg p-3 mb-6'>
               {jobCategory.map((category) => (
                 <option key={category.key} value={category.key}>
@@ -278,27 +298,28 @@ export default function PostJobForm() {
             </label>
 
             <input
+              type='text'
+              placeholder='30'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
+              disabled={selectedCategory === "thumbnails"}
               {...register("videoDuration", {
-                required: true,
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: "Only numbers are allowed",
+                required: "Video duration is required",
+
+                onChange: (e) => {
+                  // শুধু number allow
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                },
+
+                onBlur: (e) => {
+                  let value = parseInt(e.target.value);
+
+                  if (!value || value < 1) value = 1;
+
+                  // auto format
+                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
+                  e.target.value = `${value} ${unit}`;
                 },
               })}
-              inputMode='numeric'
-              pattern='[0-9]*'
-              onKeyDown={(e) => {
-                if (
-                  !/[0-9]/.test(e.key) &&
-                  e.key !== "Backspace" &&
-                  e.key !== "Delete" &&
-                  e.key !== "Tab"
-                ) {
-                  e.preventDefault();
-                }
-              }}
-              placeholder='Video Duration (Estimate)'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
             />
 
             {errors.videoDuration && (
@@ -314,7 +335,7 @@ export default function PostJobForm() {
             <select
               {...register("platform", { required: true })}
               className='w-full border rounded-lg p-3 mb-6'>
-              {platform.map((plat) => (
+              {filteredPlatforms.map((plat) => (
                 <option key={plat.key} value={plat.key}>
                   {plat.label}
                 </option>
@@ -447,36 +468,40 @@ export default function PostJobForm() {
           </div>
 
           {/* RIGHT SUMMARY */}
-          <div className='w-full md:w-1/3 bg-white p-6 rounded-xl shadow h-fit'>
-            <h3 className='text-[20px] font-medium leading-150% pb-6'>
-              Budget & Payment
-            </h3>
-            <div className='flex justify-between text-gray-700 mb-4'>
-              <span>Project Budget</span>
-              <span>$20</span>
-            </div>
-            <div className='flex justify-between text-gray-700 mb-4'>
-              <span>Taxes & Other Fees</span>
-              <span>$6</span>
-            </div>
-            <div className='flex justify-between text-gray-700 mb-4'>
-              <span>Service Fee</span>
-              <span>$4.00</span>
-            </div>
-            <div className='flex justify-between text-gray-700 mb-4'>
-              <span>Project Duration</span>
-              <span>5 Days</span>
-            </div>
-            <hr className='my-4' />
-            <div className='flex justify-between text-gray-700 mb-4'>
-              <span>Total Payment</span>
-              <span>$40</span>
-            </div>
+          <div className="w-full md:w-1/3 flex flex-col gap-4">
+            <div className='w-full bg-white p-6 rounded-xl shadow h-fit'>
+              <h3 className='text-[20px] font-medium leading-150% pb-6'>
+                Budget & Payment
+              </h3>
+              <div className='flex justify-between text-gray-700 mb-4'>
+                <span>Project Budget</span>
+                <span>$20</span>
+              </div>
+              <div className='flex justify-between text-gray-700 mb-4'>
+                <span>Service Fee</span>
+                <span>$4.00</span>
+              </div>
+              <div className='flex justify-between text-gray-700 mb-4'>
+                <span>Taxes & Other Fees</span>
+                <span>$6</span>
+              </div>
+              <hr className='my-4' />
+              <div className='flex justify-between text-gray-700 mb-4'>
+                <span>Total Payment</span>
+                <span>$40</span>
+              </div>
 
-            {/* <div className="flex justify-between font-semibold text-gray-900">
+              {/* <div className="flex justify-between font-semibold text-gray-900">
               <span>Total Payment</span>
               <span>$654.00</span>
-            </div> */}
+              </div> */}
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow h-fit">
+              <div className='flex justify-between text-gray-700'>
+                <span>Project Duration</span>
+                <span>5 Days</span>
+              </div>
+            </div>
           </div>
         </div>
       </form>

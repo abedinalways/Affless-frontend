@@ -146,7 +146,7 @@ export default function ClientDashboard() {
               </div>
             </div>
           </div>
-           {/* <div className="rounded-2xl bg-white p-4 shadow-sm">
+          {/* <div className="rounded-2xl bg-white p-4 shadow-sm">
 //               <div className="flex items-center justify-between">
 //                 <h3 className="text-sm font-medium text-[18px] text-[#333]">Inbox</h3>
 //                 <button className="text-[14px] font-normal text-[#FF4D4F]">View All</button>
@@ -172,8 +172,8 @@ export default function ClientDashboard() {
 
           {/* RIGHT */}
           <div className="w-full lg:w-2/3 space-y-4">
-            <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-              <div>
+            <div className="w-full flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex-1">
                 <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>
                 <p className="mt-1 text-sm text-gray-500">
                   Find important messages, tips, and links to helpful resources here:
@@ -181,11 +181,11 @@ export default function ClientDashboard() {
               </div>
 
               <Link
-  href="/client/post-job"
-  className="p-3 bg-red-500 text-white rounded-lg text-sm inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
->
-  + Post New Job
-</Link>
+                href="/client/post-job"
+                className="w-fit p-3 bg-red-500 text-white rounded-lg text-sm inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
+              >
+                + Post New Job
+              </Link>
 
             </div>
 

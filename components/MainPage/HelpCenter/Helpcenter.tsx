@@ -72,7 +72,7 @@ export default function HelpCenterPage() {
         content: " Reviews may occur for security, verification, or policy compliance.",
         contentClassName: "text-gray-600 pb-4 pl-9",
       },
-  
+
     ],
 
     payment: [
@@ -106,45 +106,45 @@ export default function HelpCenterPage() {
         content: " Supported methods will be listed here (placeholder allowed if backend not ready).",
         contentClassName: "text-gray-600 pb-4 pl-9",
       },
- 
+
     ],
 
     support: [
       {
-      id: "item-1",
-      title: "How to contact customer support",
-      content:
-        "You can reach our customer support team 24/7 through live chat or email. We are ready to assist you with account issues, order-related questions, technical problems, and general support.",
-      contentClassName: "text-gray-600 pb-4",
-    },
-    {
-      id: "item-2",
-      title: "Reporting technical issues or bugs",
-      content:
-        "Submit any technical issues through our support form or live chat. Our team will review the issue and work to resolve it as quickly as possible.",
-      contentClassName: "text-gray-600 pb-4 pl-9",
-    },
-    {
-      id: "item-3",
-      title: "Dispute resolution process",
-      content:
-        "Our team will review dispute submitted within 48 hours and follow up with you regarding the next steps.",
-      contentClassName: "text-gray-600 pb-4 pl-9",
-    },
-    {
-      id: "item-4",
-      title: "Community guidelines and code of conduct",
-      content:
-        "Please follow our guidelines to keep the platform positive, supportive, and safe for all users.",
-      contentClassName: "text-gray-600 pb-4 pl-9",
-    },
-    {
-      id: "item-5",
-      title: "Providing feedback and feature requests",
-      content:
-        "You can submit any feedback or suggestions through the request form. We appreciate your input as it helps us improve the platform.",
-      contentClassName: "text-gray-600 pb-4 pl-9",
-    },
+        id: "item-1",
+        title: "How to contact customer support",
+        content:
+          "You can reach our customer support team 24/7 through live chat or email. We are ready to assist you with account issues, order-related questions, technical problems, and general support.",
+        contentClassName: "text-gray-600 pb-4",
+      },
+      {
+        id: "item-2",
+        title: "Reporting technical issues or bugs",
+        content:
+          "Submit any technical issues through our support form or live chat. Our team will review the issue and work to resolve it as quickly as possible.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "item-3",
+        title: "Dispute resolution process",
+        content:
+          "Our team will review dispute submitted within 48 hours and follow up with you regarding the next steps.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "item-4",
+        title: "Community guidelines and code of conduct",
+        content:
+          "Please follow our guidelines to keep the platform positive, supportive, and safe for all users.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
+      {
+        id: "item-5",
+        title: "Providing feedback and feature requests",
+        content:
+          "You can submit any feedback or suggestions through the request form. We appreciate your input as it helps us improve the platform.",
+        contentClassName: "text-gray-600 pb-4 pl-9",
+      },
     ],
   };
 
@@ -160,8 +160,8 @@ export default function HelpCenterPage() {
     activeTab === "account"
       ? "Account & Profile"
       : activeTab === "payment"
-      ? "Payments & Billing"
-      : "Support & Contact";
+        ? "Payments & Billing"
+        : "Support & Contact";
 
   return (
     <div>
@@ -289,6 +289,7 @@ export default function HelpCenterPage() {
                 >
                   Submit a Request
                 </button>
+                <p className="text-[#333] py-2">Support requests will be fully enabled soon.</p>
               </div>
             </div>
           </div>
@@ -301,7 +302,7 @@ export default function HelpCenterPage() {
         setOpen={(v: boolean) => setActiveChat(v ? "live" : null)}
       />
 
-      <div className="fixed bottom-6 right-6 z-[9999] w-[680px] max-w-[92vw]">
+      <div className="fixed bottom-6 right-6 z-9999 w-[680px] max-w-[92vw]">
         <EmailChat
           open={activeChat === "email"}
           setOpen={(v: boolean) => setActiveChat(v ? "email" : null)}

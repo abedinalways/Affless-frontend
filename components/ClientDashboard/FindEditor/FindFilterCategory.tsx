@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function FindFilterCategory({ isMobile = false }: Props) {
-  const [range, setRange] = React.useState([5, 35]);
+  const [range, setRange] = React.useState([20, 100]);
 
   return (
     <aside
@@ -79,9 +79,9 @@ export default function FindFilterCategory({ isMobile = false }: Props) {
           </div>
 
           <Slider
-            defaultValue={[5, 35]}
-            max={100}
-            min={0}
+            defaultValue={[20, 100]}
+            max={10000}
+            min={2}
             step={1}
             value={range}
             onValueChange={setRange}
