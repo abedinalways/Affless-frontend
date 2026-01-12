@@ -111,7 +111,7 @@ export default function ConfirmDepositPage() {
                 <span>$20.00</span>
               </div>
               <div className='flex justify-between text-gray-700'>
-                <span>Service Fee 20%</span>
+                <span>Service Fee</span>
                 <span> $4.00</span>
               </div>
               <div className='flex justify-between text-gray-700'>

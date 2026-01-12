@@ -71,7 +71,7 @@ export default function FindEditorPage() {
 
         {/* ✅ Mobile Drawer */}
         {mobileMenu && (
-          <div className="fixed inset-0 z-[9999] lg:hidden flex">
+          <div className="fixed inset-0 z-9999 lg:hidden flex">
             {/* Overlay */}
             <div
               className="absolute inset-0 bg-black/40"
