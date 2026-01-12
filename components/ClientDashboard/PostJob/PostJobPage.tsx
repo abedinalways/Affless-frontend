@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import { useState } from "react";
@@ -115,36 +117,35 @@ export default function PostJobForm() {
     <div>
       <div>
         <PageBanner
-          title="Post a Job"
-          bgImage="/findEditor.jpg"
+          title='Post a Job'
+          bgImage='/findEditor.jpg'
           links={[{ label: "Home", href: "/" }, { label: "Post a Job" }]}
         />
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex p-6 containers"
-      >
-        <div className="flex flex-col md:flex-row gap-8 w-full">
+        className='w-full flex p-6 containers'>
+        <div className='flex flex-col md:flex-row gap-8 w-full'>
           {/* LEFT SIDE */}
-          <div className="w-full md:w-2/3 bg-white p-6 rounded-xl shadow">
+          <div className='w-full md:w-2/3 bg-white p-6 rounded-xl shadow'>
             {/* Job Title */}
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
               Job Title
             </label>
             <input
               {...register("jobTitle", { required: true })}
-              type="text"
-              placeholder="I need..."
-              className="w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400"
+              type='text'
+              placeholder='I need...'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
             />
             {errors.jobTitle && (
-              <p className="text-red-500 text-sm mb-4">
+              <p className='text-red-500 text-sm mb-4'>
                 Job title is required.
               </p>
             )}
 
             {/* Job Description */}
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
               Job Description
             </label>
 
@@ -156,60 +157,76 @@ export default function PostJobForm() {
                   message: "Job description must be at least 50 characters.",
                 },
               })}
-              placeholder="Write Job Description"
-              className="w-full border rounded-lg p-3 mb-2 h-24 focus:outline-none focus:border-gray-400"
+              placeholder='Write Job Description'
+              className='w-full border rounded-lg p-3 mb-2 h-24 focus:outline-none focus:border-gray-400'
             />
 
             {errors.jobDescription && (
-              <p className="text-red-500 text-sm mb-4">
+              <p className='text-red-500 text-sm mb-4'>
                 {errors.jobDescription.message}
               </p>
             )}
 
             {/* Budget */}
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
               Project Budget*
             </label>
+
             <input
-              {...register("budget", { required: true })}
-              type="text"
-              placeholder="$2.00"
-              className="w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400"
+              type='text'
+              placeholder='$2.00'
+              className='w-full border rounded-lg p-3 mb-2'
+              {...register("budget", {
+                required: "Budget is required",
+
+                onChange: (e) => {
+                  // শুধু number allow
+                  e.target.value = e.target.value.replace(/[^0-9.]/g, "");
+                },
+
+                onBlur: (e) => {
+                  let value = parseFloat(e.target.value);
+
+                  if (isNaN(value) || value < 2) value = 2;
+
+                  // auto format
+                  e.target.value = `$${value.toFixed(2)}`;
+                },
+              })}
             />
+
             {errors.budget && (
-              <p className="text-red-500 text-sm mb-4">Budget is required.</p>
+              <p className='text-red-500 text-sm'>{errors.budget.message}</p>
             )}
 
             {/* Warning Box */}
-            <div className="p-4 bg-red-50 border border-red-300 rounded-lg mb-6">
-              <p className="text-red-600 font-semibold mb-2">
+            <div className='p-4 bg-red-50 border border-red-300 rounded-lg mb-6'>
+              <p className='text-red-600 font-semibold mb-2'>
                 All payments must be processed through Editor Marketplace
               </p>
-              <p className="text-red-600 text-sm mb-2">
+              <p className='text-red-600 text-sm mb-2'>
                 DO NOT: Request or accept payment via external methods.
               </p>
-              <p className="text-red-600 text-sm">
+              <p className='text-red-600 text-sm'>
                 <strong>Consequences:</strong>
                 <br />
                 • 1st violation: $25 penalty + warning
                 <br />• 2nd violation: Permanent ban + funds withheld
               </p>
               <Link
-                href="/platform-safety"
-                className="text-red-600 underline text-sm mt-2 inline-block"
-              >
+                href='/platform-safety'
+                className='text-red-600 underline text-sm mt-2 inline-block'>
                 Read Full Off-Platform Policy
               </Link>
             </div>
 
             {/* Category */}
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
               Job Category
             </label>
             <select
               {...register("category", { required: true })}
-              className="w-full border rounded-lg p-3 mb-6"
-            >
+              className='w-full border rounded-lg p-3 mb-6'>
               {jobCategory.map((category) => (
                 <option key={category.key} value={category.key}>
                   {category.label}
@@ -219,39 +236,44 @@ export default function PostJobForm() {
 
             {/* Duration */}
             {/* Project Duration (Days) */}
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
               Project Duration
             </label>
+
             <input
+              type='text'
+              placeholder='5'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               {...register("duration", {
-                required: true,
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: "Only numbers are allowed",
+                required: "Duration is required",
+
+                onChange: (e) => {
+                  // শুধু number allow
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                },
+
+                onBlur: (e) => {
+                  let value = parseInt(e.target.value);
+
+                  if (!value || value < 1) value = 1;
+
+                  // auto format
+                  e.target.value = `${value} day${value > 1 ? "s" : ""}`;
                 },
               })}
-              inputMode="numeric"
-              pattern="[0-9]*"
-              onKeyDown={(e) => {
-                if (
-                  !/[0-9]/.test(e.key) &&
-                  e.key !== "Backspace" &&
-                  e.key !== "Delete" &&
-                  e.key !== "Tab"
-                ) {
-                  e.preventDefault();
-                }
-              }}
-              placeholder="$5"
-              className="w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400"
             />
+
             {errors.duration && (
-              <p className="text-red-500 text-sm mb-4">
+              <p className='text-red-500 text-sm'>{errors.duration.message}</p>
+            )}
+
+            {errors.duration && (
+              <p className='text-red-500 text-sm mb-4'>
                 {errors.duration.message || "Project Duration is required."}
               </p>
             )}
 
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
               Video Duration
             </label>
 
@@ -263,8 +285,8 @@ export default function PostJobForm() {
                   message: "Only numbers are allowed",
                 },
               })}
-              inputMode="numeric"
-              pattern="[0-9]*"
+              inputMode='numeric'
+              pattern='[0-9]*'
               onKeyDown={(e) => {
                 if (
                   !/[0-9]/.test(e.key) &&
@@ -275,24 +297,23 @@ export default function PostJobForm() {
                   e.preventDefault();
                 }
               }}
-              placeholder="Video Duration (Estimate)"
-              className="w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400"
+              placeholder='Video Duration (Estimate)'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
             />
 
             {errors.videoDuration && (
-              <p className="text-red-500 text-sm mb-4">
+              <p className='text-red-500 text-sm mb-4'>
                 {errors.videoDuration.message || "Video Duration is required."}
               </p>
             )}
 
             {/* Platform */}
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
               Platform
             </label>
             <select
               {...register("platform", { required: true })}
-              className="w-full border rounded-lg p-3 mb-6"
-            >
+              className='w-full border rounded-lg p-3 mb-6'>
               {platform.map((plat) => (
                 <option key={plat.key} value={plat.key}>
                   {plat.label}
@@ -308,77 +329,74 @@ export default function PostJobForm() {
             </div> */}
 
             {/* File Inputs */}
-            <div className="space-y-5 pb-3">
+            <div className='space-y-5 pb-3'>
               <div>
-                <label className="mb-2 block">
-                  Style Reference <span className="text-red-500">*</span>
+                <label className='mb-2 block'>
+                  Style Reference <span className='text-red-500'>*</span>
                 </label>
                 <input
                   {...register("styleReference", {
                     required: "Style reference is required",
                   })}
-                  id="style-reference-upload"
-                  className="hidden"
-                  type="file"
+                  id='style-reference-upload'
+                  className='hidden'
+                  type='file'
                   onChange={handleStyleReferenceChange}
                 />
-                <div className="flex items-center gap-3">
+                <div className='flex items-center gap-3'>
                   <label
-                    htmlFor="style-reference-upload"
-                    className="cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                  >
+                    htmlFor='style-reference-upload'
+                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
                     Choose File
                   </label>
-                  <span className="text-sm text-gray-600 truncate capitalize">
+                  <span className='text-sm text-gray-600 truncate capitalize'>
                     {styleReference?.name || "No file selected"}
                   </span>
                 </div>
                 {errors.styleReference && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className='text-red-500 text-sm mt-1'>
                     {errors.styleReference.message}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="mb-2 block">PDF File:</label>
+                <label className='mb-2 block'>PDF File:</label>
                 <input
                   {...register("pdfFile")}
-                  id="pdf-file-upload"
-                  className="hidden"
-                  type="file"
+                  id='pdf-file-upload'
+                  className='hidden'
+                  type='file'
                   onChange={handlePdfFileChange}
                 />
-                <div className="flex items-center gap-3">
+                <div className='flex items-center gap-3'>
                   <label
-                    htmlFor="pdf-file-upload"
-                    className="cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                  >
+                    htmlFor='pdf-file-upload'
+                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
                     Choose File
                   </label>
-                  <span className="text-sm text-gray-600 truncate capitalize">
+                  <span className='text-sm text-gray-600 truncate capitalize'>
                     {pdfFile?.name || "No file selected"}
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className="block">Text Document:</label>
+                <label className='block'>Text Document:</label>
                 <input
                   {...register("textFile")}
-                  id="text-document-upload"
-                  className="hidden"
-                  type="file"
+                  id='text-document-upload'
+                  className='hidden'
+                  type='file'
                   onChange={handleTextDocumentChange}
                 />
-                <div className="flex items-center gap-3">
+                <div className='flex items-center gap-3'>
                   <label
-                    htmlFor="text-document-upload"
-                    className="cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                  >
+                    htmlFor='text-document-upload'
+                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
                     Choose File
                   </label>
-                  <span className="text-sm text-gray-600 truncate capitalize">
+                  <span className='text-sm text-gray-600 truncate capitalize'>
                     {textDocument?.name || "No file selected"}
                   </span>
                 </div>
@@ -393,13 +411,12 @@ export default function PostJobForm() {
                   ? "border-red-300 bg-red-50"
                   : "border-gray-300"
               )}
-              onClick={() => setPaymentType("single")}
-            >
-              <p className="font-semibold text-red-600 flex gap-3">
+              onClick={() => setPaymentType("single")}>
+              <p className='font-semibold text-red-600 flex gap-3'>
                 <SinglePaymentIcon />
                 Single Payment
               </p>
-              <p className="text-sm text-gray-600">
+              <p className='text-sm text-gray-600'>
                 The editor will receive full payment once the project is
                 completed.
               </p>
@@ -412,49 +429,46 @@ export default function PostJobForm() {
                   ? "border-red-300 bg-red-50"
                   : "border-gray-300"
               )}
-              onClick={() => setPaymentType("milestone")}
-            >
-              <p className="font-semibold flex gap-3">
+              onClick={() => setPaymentType("milestone")}>
+              <p className='font-semibold flex gap-3'>
                 <MilestoneIcon /> Milestone Payments
               </p>
-              <p className="text-sm text-gray-600">
+              <p className='text-sm text-gray-600'>
                 Divide the project into stages for partial payments.
               </p>
             </div>
 
             <button
-              type="submit"
+              type='submit'
               disabled={loading}
-              className="w-full bg-red-500 text-white py-3 rounded-lg mt-8 hover:bg-red-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+              className='w-full bg-red-500 text-white py-3 rounded-lg mt-8 hover:bg-red-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'>
               Next
             </button>
           </div>
 
           {/* RIGHT SUMMARY */}
-          <div className="w-full md:w-1/3 bg-white p-6 rounded-xl shadow h-fit">
-            <h3 className="text-[20px] font-medium leading-150% pb-6">
+          <div className='w-full md:w-1/3 bg-white p-6 rounded-xl shadow h-fit'>
+            <h3 className='text-[20px] font-medium leading-150% pb-6'>
               Budget & Payment
             </h3>
-            <div className="flex justify-between text-gray-700 mb-4">
+            <div className='flex justify-between text-gray-700 mb-4'>
               <span>Project Budget</span>
               <span>$20</span>
             </div>
-            <div className="flex justify-between text-gray-700 mb-4">
+            <div className='flex justify-between text-gray-700 mb-4'>
               <span>Taxes & Other Fees</span>
               <span>$6</span>
             </div>
-            <div className="flex justify-between text-gray-700 mb-4">
+            <div className='flex justify-between text-gray-700 mb-4'>
               <span>Service Fee</span>
-              <span>$4.00
-              </span>
+              <span>$4.00</span>
             </div>
-            <div className="flex justify-between text-gray-700 mb-4">
+            <div className='flex justify-between text-gray-700 mb-4'>
               <span>Project Duration</span>
               <span>5 Days</span>
             </div>
-            <hr className="my-4" />
-            <div className="flex justify-between text-gray-700 mb-4">
+            <hr className='my-4' />
+            <div className='flex justify-between text-gray-700 mb-4'>
               <span>Total Payment</span>
               <span>$40</span>
             </div>
