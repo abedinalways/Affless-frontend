@@ -25,8 +25,8 @@ export default function NavbarWithoutLogin() {
   // ✅ mobile dropdown states
   const [mobileServiceOpen, setMobileServiceOpen] = useState(false);
   const [mobileContactOpen, setMobileContactOpen] = useState(false);
-const [desktopServiceOpen, setDesktopServiceOpen] = useState(false);
-const [desktopContactOpen, setDesktopContactOpen] = useState(false);
+  const [desktopServiceOpen, setDesktopServiceOpen] = useState(false);
+  const [desktopContactOpen, setDesktopContactOpen] = useState(false);
 
   const closeMobileMenu = () => {
     setMobileMenu(false);
@@ -77,103 +77,99 @@ const [desktopContactOpen, setDesktopContactOpen] = useState(false);
               </li>
 
               {/* ✅ Service (Desktop) */}
-<DropdownMenu open={desktopServiceOpen} onOpenChange={setDesktopServiceOpen}>
-  <DropdownMenuTrigger
-    className={`cursor-pointer flex items-center gap-1 ${
-      serviceActive ? activeCls : inactiveCls
-    }`}
-  >
-    Service
-    <MdKeyboardArrowDown
-      className={`text-xl transition-transform duration-200 ${
-        desktopServiceOpen ? "rotate-180" : "rotate-0"
-      }`}
-    />
-  </DropdownMenuTrigger>
+              <DropdownMenu open={desktopServiceOpen} onOpenChange={setDesktopServiceOpen}>
+                <DropdownMenuTrigger
+                  className={`cursor-pointer flex items-center gap-1 ${serviceActive ? activeCls : inactiveCls
+                    }`}
+                >
+                  Service
+                  <MdKeyboardArrowDown
+                    className={`text-xl transition-transform duration-200 ${desktopServiceOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                  />
+                </DropdownMenuTrigger>
 
-  <DropdownMenuContent className="z-[1000]">
-    <DropdownMenuItem asChild>
-      <Link
-        href="/howWork"
-        className={`${isActive("/howWork") ? activeCls : inactiveCls} cursor-pointer`}
-        onClick={() => setDesktopServiceOpen(false)}
-      >
-        How It Works
-      </Link>
-    </DropdownMenuItem>
+                <DropdownMenuContent className="z-1000">
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/howWork"
+                      className={`${isActive("/howWork") ? activeCls : inactiveCls} cursor-pointer`}
+                      onClick={() => setDesktopServiceOpen(false)}
+                    >
+                      How It Works
+                    </Link>
+                  </DropdownMenuItem>
 
-    <DropdownMenuItem asChild>
-      <Link
-        href="/find-editors"
-        className={`${isActive("/find-editors") ? activeCls : inactiveCls} cursor-pointer`}
-        onClick={() => setDesktopServiceOpen(false)}
-      >
-        Find Editors
-      </Link>
-    </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/find-editors"
+                      className={`${isActive("/find-editors") ? activeCls : inactiveCls} cursor-pointer`}
+                      onClick={() => setDesktopServiceOpen(false)}
+                    >
+                      Find Editors
+                    </Link>
+                  </DropdownMenuItem>
 
-    <DropdownMenuItem asChild>
-      <Link
-        href="/jobs"
-        className={`${isActive("/jobs") ? activeCls : inactiveCls} cursor-pointer`}
-        onClick={() => setDesktopServiceOpen(false)}
-      >
-        Browse Jobs
-      </Link>
-    </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/jobs"
+                      className={`${isActive("/jobs") ? activeCls : inactiveCls} cursor-pointer`}
+                      onClick={() => setDesktopServiceOpen(false)}
+                    >
+                      Browse Jobs
+                    </Link>
+                  </DropdownMenuItem>
 
-    <DropdownMenuItem asChild>
-      <Link
-        href="/pricing"
-        className={`${isActive("/pricing") ? activeCls : inactiveCls} cursor-pointer`}
-        onClick={() => setDesktopServiceOpen(false)}
-      >
-        Pricing
-      </Link>
-    </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/pricing"
+                      className={`${isActive("/pricing") ? activeCls : inactiveCls} cursor-pointer`}
+                      onClick={() => setDesktopServiceOpen(false)}
+                    >
+                      Pricing
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
 
 
 
               {/* ✅ Contact (Desktop) */}
-          <DropdownMenu open={desktopContactOpen} onOpenChange={setDesktopContactOpen}>
-  <DropdownMenuTrigger
-    className={`cursor-pointer flex items-center gap-1 ${
-      contactActive ? activeCls : inactiveCls
-    }`}
-  >
-    Contact
-    <MdKeyboardArrowDown
-      className={`text-xl transition-transform duration-200 ${
-        desktopContactOpen ? "rotate-180" : "rotate-0"
-      }`}
-    />
-  </DropdownMenuTrigger>
+              <DropdownMenu open={desktopContactOpen} onOpenChange={setDesktopContactOpen}>
+                <DropdownMenuTrigger
+                  className={`cursor-pointer flex items-center gap-1 ${contactActive ? activeCls : inactiveCls
+                    }`}
+                >
+                  Contact
+                  <MdKeyboardArrowDown
+                    className={`text-xl transition-transform duration-200 ${desktopContactOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                  />
+                </DropdownMenuTrigger>
 
-  <DropdownMenuContent className="z-[1000]">
-    <DropdownMenuItem asChild>
-      <Link
-        href="/success-story"
-        className={`${isActive("/success-story") ? activeCls : inactiveCls} cursor-pointer`}
-        onClick={() => setDesktopContactOpen(false)}
-      >
-        Success Stories
-      </Link>
-    </DropdownMenuItem>
+                <DropdownMenuContent className="z-1000">
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/success-story"
+                      className={`${isActive("/success-story") ? activeCls : inactiveCls} cursor-pointer`}
+                      onClick={() => setDesktopContactOpen(false)}
+                    >
+                      Success Stories
+                    </Link>
+                  </DropdownMenuItem>
 
-    <DropdownMenuItem asChild>
-      <Link
-        href="/help-center"
-        className={`${isActive("/help-center") ? activeCls : inactiveCls} cursor-pointer`}
-        onClick={() => setDesktopContactOpen(false)}
-      >
-        Help Center
-      </Link>
-    </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/help-center"
+                      className={`${isActive("/help-center") ? activeCls : inactiveCls} cursor-pointer`}
+                      onClick={() => setDesktopContactOpen(false)}
+                    >
+                      Help Center
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
 
             </ul>
@@ -183,7 +179,7 @@ const [desktopContactOpen, setDesktopContactOpen] = useState(false);
           <div className="flex gap-5">
             <Link href="/login" className="hidden xl:flex">
               <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer">
-                <DubbleUser /> Sign In
+                <DubbleUser /> Log In
               </button>
             </Link>
 
@@ -237,17 +233,15 @@ const [desktopContactOpen, setDesktopContactOpen] = useState(false);
           {/* ✅ Service (Mobile) */}
           <button
             type="button"
-            className={`text-left cursor-pointer ${
-              serviceActive ? activeCls : inactiveCls
-            }`}
+            className={`text-left cursor-pointer ${serviceActive ? activeCls : inactiveCls
+              }`}
             onClick={() => setMobileServiceOpen((prev) => !prev)}
           >
             <div className="flex items-center justify-between w-full">
               Service
               <MdKeyboardArrowDown
-                className={`transition-transform duration-200 ${
-                  mobileServiceOpen ? "rotate-180" : "rotate-0"
-                }`}
+                className={`transition-transform duration-200 ${mobileServiceOpen ? "rotate-180" : "rotate-0"
+                  }`}
               />
             </div>
           </button>
@@ -288,17 +282,15 @@ const [desktopContactOpen, setDesktopContactOpen] = useState(false);
           {/* ✅ Contact (Mobile) */}
           <button
             type="button"
-            className={`text-left cursor-pointer ${
-              contactActive ? activeCls : inactiveCls
-            }`}
+            className={`text-left cursor-pointer ${contactActive ? activeCls : inactiveCls
+              }`}
             onClick={() => setMobileContactOpen((prev) => !prev)}
           >
             <div className="flex items-center justify-between w-full">
               Contact
               <MdKeyboardArrowDown
-                className={`transition-transform duration-200 ${
-                  mobileContactOpen ? "rotate-180" : "rotate-0"
-                }`}
+                className={`transition-transform duration-200 ${mobileContactOpen ? "rotate-180" : "rotate-0"
+                  }`}
               />
             </div>
           </button>
@@ -330,7 +322,7 @@ const [desktopContactOpen, setDesktopContactOpen] = useState(false);
               className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer"
             >
               <div className="flex items-center gap-2">
-                <DubbleUser /> Sign In
+                <DubbleUser /> Log In
               </div>
             </Link>
 
