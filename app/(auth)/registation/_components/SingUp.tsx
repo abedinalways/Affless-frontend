@@ -41,7 +41,7 @@ export default function SingUpForm() {
       2xl:px-[300px]"
     >
       <div className="pb-3 px-2">
-        <Link href="/login" className="pb-9 ">
+        <Link href="/" className="pb-9 ">
         {" "}
         <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
           <FaArrowLeft className="mt-1" />

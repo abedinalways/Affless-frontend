@@ -69,7 +69,7 @@ export default function Pricing() {
     if (isLogin) {
       router.push('/client');
     }else{
-      router.push('/login');
+      router.push('/singup');
     }
   };
 

@@ -140,7 +140,7 @@ export default function SuccessStroyPage() {
               </p>
 
               <Link href={`/success-story/${story.id}`}>
-                <button className="flex items-center gap-1 text-[#FF4D4F] text-[14px] font-medium hover:bg-[#FF4D4F] hover:text-white  py-1 rounded-sm duration-300 cursor-pointer">
+                <button className="flex items-center gap-1 text-[#FF4D4F] text-[14px] font-medium hover:bg-[#FF4D4F] hover:text-white  p-1 rounded-sm duration-300 cursor-pointer">
                   Read Story <ArrowRight size={16} />
                 </button>
               </Link>
@@ -175,7 +175,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="appearance-none bg-white px-4 py-2 border rounded-xl pr-10 w-full"
+        className="appearance-none bg-white px-4 py-2 border rounded-xl pr-10 w-full cursor-pointer"
       >
         {options.map((op) => (
           <option key={op}>{op}</option>

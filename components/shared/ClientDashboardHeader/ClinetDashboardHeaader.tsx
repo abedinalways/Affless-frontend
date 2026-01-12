@@ -87,7 +87,7 @@ export default function ClientDashboardHeader() {
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/">
-              <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
+              <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
                   width={128}
@@ -114,9 +114,8 @@ export default function ClientDashboardHeader() {
                 <div ref={dropdownRef}>
                   <button
                     onClick={() => setOpen(!open)}
-                    className={`flex items-center gap-1 cursor-pointer select-none ${
-                      businessActive ? activeCls : inactiveCls
-                    }`}
+                    className={`flex items-center gap-1 cursor-pointer select-none ${businessActive ? activeCls : inactiveCls
+                      }`}
                   >
                     My Business
                     <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
@@ -128,9 +127,8 @@ export default function ClientDashboardHeader() {
                     <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
                       <Link
                         href="/client/manage-job"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${
-                          isActive("/client/manage-job") ? activeCls : inactiveCls
-                        }`}
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/manage-job") ? activeCls : inactiveCls
+                          }`}
                         onClick={() => setOpen(false)}
                       >
                         Manage Job
@@ -138,9 +136,8 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/find-editor"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${
-                          isActive("/client/find-editor") ? activeCls : inactiveCls
-                        }`}
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/find-editor") ? activeCls : inactiveCls
+                          }`}
                         onClick={() => setOpen(false)}
                       >
                         Find Editor
@@ -148,9 +145,8 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/job-proposal"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${
-                          isActive("/client/job-proposal") ? activeCls : inactiveCls
-                        }`}
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/job-proposal") ? activeCls : inactiveCls
+                          }`}
                         onClick={() => setOpen(false)}
                       >
                         Job Proposal
@@ -158,9 +154,8 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/payment-history"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${
-                          isActive("/client/payment-history") ? activeCls : inactiveCls
-                        }`}
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/payment-history") ? activeCls : inactiveCls
+                          }`}
                         onClick={() => setOpen(false)}
                       >
                         Payment History
@@ -168,9 +163,8 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/profile"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${
-                          isActive("/client/profile") ? activeCls : inactiveCls
-                        }`}
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/profile") ? activeCls : inactiveCls
+                          }`}
                         onClick={() => setOpen(false)}
                       >
                         Profile
@@ -192,13 +186,12 @@ export default function ClientDashboardHeader() {
           </div>
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
-          <div className="hidden lg:flex gap-8 items-center">
+          <div className="flex gap-8 items-center">
             <Link
               href="/editor"
               onClick={handleBecomeEditorClick}
-              className={`cursor-pointer ${
-                isActive("/editor") ? activeCls : inactiveCls
-              }`}
+              className={`hidden lg:block cursor-pointer ${isActive("/editor") ? activeCls : inactiveCls
+                }`}
             >
               Become a Editor
             </Link>
@@ -220,9 +213,8 @@ export default function ClientDashboardHeader() {
 
             <Link href="/client/message">
               <MdMailOutline
-                className={`w-7 h-7 cursor-pointer ${
-                  isActive("/client/message") ? "text-[#FF4D4F]" : "text-[#333]"
-                }`}
+                className={`w-7 h-7 cursor-pointer ${isActive("/client/message") ? "text-[#FF4D4F]" : "text-[#333]"
+                  }`}
               />
             </Link>
 
@@ -245,9 +237,8 @@ export default function ClientDashboardHeader() {
                 <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
                   <Link
                     href="/client/profile"
-                    className={`block px-4 py-2 hover:bg-gray-100 ${
-                      isActive("/client/profile") ? activeCls : inactiveCls
-                    }`}
+                    className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/profile") ? activeCls : inactiveCls
+                      }`}
                     onClick={() => setProfileDropdown(false)}
                   >
                     Profile
@@ -262,15 +253,15 @@ export default function ClientDashboardHeader() {
                 </div>
               )}
             </div>
+            <button
+              className="lg:hidden text-3xl cursor-pointer"
+              onClick={() => setMobileMenu(true)}
+            >
+              <HiOutlineMenu />
+            </button>
           </div>
 
           {/* ---------- MOBILE HAMBURGER ---------- */}
-          <button
-            className="lg:hidden text-3xl cursor-pointer"
-            onClick={() => setMobileMenu(true)}
-          >
-            <HiOutlineMenu />
-          </button>
         </div>
       </nav>
 
@@ -284,9 +275,8 @@ export default function ClientDashboardHeader() {
 
       {/* ========== MOBILE MENU SLIDE ========== */}
       <div
-        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 py-5 transform transition-transform duration-300 ${
-          mobileMenu ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 py-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Close Button */}
         <button
@@ -303,9 +293,8 @@ export default function ClientDashboardHeader() {
             <Link
               href="/client/dashboard"
               onClick={() => setMobileMenu(false)}
-              className={`block px-4 py-2 hover:bg-gray-100 duration-300 ${
-                isActive("/client/dashboard") ? activeCls : inactiveCls
-              }`}
+              className={`block px-4 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/dashboard") ? activeCls : inactiveCls
+                }`}
             >
               Dashboard
             </Link>
@@ -314,9 +303,8 @@ export default function ClientDashboardHeader() {
           {/* Mobile dropdown */}
           <li>
             <button
-              className={`flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 duration-300 cursor-pointer ${
-                businessActive ? activeCls : inactiveCls
-              }`}
+              className={`flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 duration-300 cursor-pointer ${businessActive ? activeCls : inactiveCls
+                }`}
               onClick={() => setMobileDropdown((prev) => !prev)}
             >
               My Business
@@ -329,9 +317,8 @@ export default function ClientDashboardHeader() {
               <ul className="mt-2 ml-3 text-base">
                 <li>
                   <Link
-                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                      isActive("/client/manage-job") ? activeCls : inactiveCls
-                    }`}
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/manage-job") ? activeCls : inactiveCls
+                      }`}
                     href="/client/manage-job"
                     onClick={() => setMobileMenu(false)}
                   >
@@ -340,9 +327,8 @@ export default function ClientDashboardHeader() {
                 </li>
                 <li>
                   <Link
-                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                      isActive("/client/find-editor") ? activeCls : inactiveCls
-                    }`}
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/find-editor") ? activeCls : inactiveCls
+                      }`}
                     href="/client/find-editor"
                     onClick={() => setMobileMenu(false)}
                   >
@@ -351,9 +337,8 @@ export default function ClientDashboardHeader() {
                 </li>
                 <li>
                   <Link
-                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                      isActive("/client/job-proposal") ? activeCls : inactiveCls
-                    }`}
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/job-proposal") ? activeCls : inactiveCls
+                      }`}
                     href="/client/job-proposal"
                     onClick={() => setMobileMenu(false)}
                   >
@@ -362,9 +347,8 @@ export default function ClientDashboardHeader() {
                 </li>
                 <li>
                   <Link
-                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                      isActive("/client/payment-history") ? activeCls : inactiveCls
-                    }`}
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/payment-history") ? activeCls : inactiveCls
+                      }`}
                     href="/client/payment-history"
                     onClick={() => setMobileMenu(false)}
                   >
@@ -373,9 +357,8 @@ export default function ClientDashboardHeader() {
                 </li>
                 <li>
                   <Link
-                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                      isActive("/client/profile") ? activeCls : inactiveCls
-                    }`}
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/profile") ? activeCls : inactiveCls
+                      }`}
                     href="/client/profile"
                     onClick={() => setMobileMenu(false)}
                   >
@@ -390,9 +373,8 @@ export default function ClientDashboardHeader() {
             <Link
               href="/pricing"
               onClick={() => setMobileMenu(false)}
-              className={`block px-4 py-2 hover:bg-gray-100 duration-300 ${
-                isActive("/pricing") ? activeCls : inactiveCls
-              }`}
+              className={`block px-4 py-2 hover:bg-gray-100 duration-300 ${isActive("/pricing") ? activeCls : inactiveCls
+                }`}
             >
               Pricing
             </Link>
@@ -401,15 +383,14 @@ export default function ClientDashboardHeader() {
           <li className="mb-4">
             <button
               onClick={handleBecomeEditorClick}
-              className={`cursor-pointer px-4 py-2 hover:bg-gray-100 duration-300 w-full text-left ${
-                isActive("/editor") ? activeCls : inactiveCls
-              }`}
+              className={`cursor-pointer px-4 py-2 hover:bg-gray-100 duration-300 w-full text-left ${isActive("/editor") ? activeCls : inactiveCls
+                }`}
             >
               Become an Editor
             </button>
           </li>
 
-          <li className="pt-4 border-t flex justify-center">
+          {/* <li className="pt-4 border-t flex justify-center">
             <button
               onClick={handleLogout}
               className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer"
@@ -417,7 +398,7 @@ export default function ClientDashboardHeader() {
               <FiLogOut />
               <span>Logout</span>
             </button>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

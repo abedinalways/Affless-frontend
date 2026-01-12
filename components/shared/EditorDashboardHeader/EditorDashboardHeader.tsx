@@ -97,7 +97,7 @@ export default function EditorDashboardHeader() {
             <div className="flex items-center gap-10">
               {/* Logo */}
               <Link href="/">
-                <div className="w-[128px] h-[42px] flex justify-center items-center overflow-hidden">
+                <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
                   <Image
                     src="/images/footerLogo.png"
                     width={128}
@@ -124,9 +124,8 @@ export default function EditorDashboardHeader() {
                   <div ref={dropdownRef}>
                     <button
                       onClick={() => setOpen(!open)}
-                      className={`flex items-center gap-1 cursor-pointer select-none ${
-                        jobActive ? activeCls : inactiveCls
-                      }`}
+                      className={`flex items-center gap-1 cursor-pointer select-none ${jobActive ? activeCls : inactiveCls
+                        }`}
                     >
                       Job
                       <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
@@ -138,9 +137,8 @@ export default function EditorDashboardHeader() {
                       <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
                         <Link
                           href="/editor/hire-request"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${
-                            isActive("/editor/hire-request") ? activeCls : inactiveCls
-                          }`}
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/hire-request") ? activeCls : inactiveCls
+                            }`}
                           onClick={closeDesktopJobDropdown}
                         >
                           My Jobs
@@ -148,9 +146,8 @@ export default function EditorDashboardHeader() {
 
                         <Link
                           href="/editor/myproposal"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${
-                            isActive("/editor/myproposal") ? activeCls : inactiveCls
-                          }`}
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/myproposal") ? activeCls : inactiveCls
+                            }`}
                           onClick={closeDesktopJobDropdown}
                         >
                           My Proposals
@@ -158,9 +155,8 @@ export default function EditorDashboardHeader() {
 
                         <Link
                           href="/editor/browse-job"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${
-                            isActive("/editor/browse-job") ? activeCls : inactiveCls
-                          }`}
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/browse-job") ? activeCls : inactiveCls
+                            }`}
                           onClick={closeDesktopJobDropdown}
                         >
                           Find Jobs
@@ -168,9 +164,8 @@ export default function EditorDashboardHeader() {
 
                         <Link
                           href="/editor/editor-profile"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${
-                            isActive("/editor/editor-profile") ? activeCls : inactiveCls
-                          }`}
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/editor-profile") ? activeCls : inactiveCls
+                            }`}
                           onClick={closeDesktopJobDropdown}
                         >
                           Profile
@@ -178,9 +173,8 @@ export default function EditorDashboardHeader() {
 
                         <Link
                           href="/editor/earning"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${
-                            isActive("/editor/earning") ? activeCls : inactiveCls
-                          }`}
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/earning") ? activeCls : inactiveCls
+                            }`}
                           onClick={closeDesktopJobDropdown}
                         >
                           Earnings
@@ -202,12 +196,12 @@ export default function EditorDashboardHeader() {
             </div>
 
             {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
-            <div className="hidden lg:flex gap-8 items-center">
+            <div className="flex gap-8 items-center">
               <button
                 onClick={handleBecomeEditorClick}
-                className={`cursor-pointer ${isActive("/client") ? activeCls : inactiveCls}`}
+                className={`hidden lg:block cursor-pointer ${isActive("/client") ? activeCls : inactiveCls}`}
               >
-                Become an Editor
+                Become an Client
               </button>
 
               <div className="relative group">
@@ -225,16 +219,15 @@ export default function EditorDashboardHeader() {
                 </div>
               </div>
 
-              <div className="relative group">
+              <Link href="/editor/message" className="relative group">
                 {/* Icon */}
                 <MdMailOutline
-                  className={`w-7 h-7 cursor-pointer ${
-                    isActive("/editor/message") ? "text-[#FF4D4F]" : "text-[#333]"
-                  }`}
+                  className={`w-7 h-7 cursor-pointer ${isActive("/editor/message") ? "text-[#FF4D4F]" : "text-[#333]"
+                    }`}
                 />
 
                 {/* Dropdown */}
-                <div
+                {/* <div
                   className="
       absolute right-0 mt-3 w-[412px]
       rounded-xl border bg-white shadow-lg
@@ -244,8 +237,8 @@ export default function EditorDashboardHeader() {
     "
                 >
                   <Inbox />
-                </div>
-              </div>
+                </div> */}
+              </Link>
 
               {/* Profile Dropdown */}
               <div className="relative" ref={profileDropdownRef}>
@@ -257,18 +250,16 @@ export default function EditorDashboardHeader() {
                   <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
                     <Link
                       href="/editor/editor-profile"
-                      className={`block px-4 py-2 hover:bg-gray-100 ${
-                        isActive("/editor/editor-profile") ? activeCls : inactiveCls
-                      }`}
+                      className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/editor-profile") ? activeCls : inactiveCls
+                        }`}
                       onClick={() => setProfileDropdown(false)}
                     >
                       Profile
                     </Link>
                     <Link
                       href="/editor/earning"
-                      className={`block px-4 py-2 hover:bg-gray-100 ${
-                        isActive("/editor/earning") ? activeCls : inactiveCls
-                      }`}
+                      className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/earning") ? activeCls : inactiveCls
+                        }`}
                       onClick={() => setProfileDropdown(false)}
                     >
                       Earning
@@ -283,28 +274,27 @@ export default function EditorDashboardHeader() {
                   </div>
                 )}
               </div>
+              {/* ---------- MOBILE HAMBURGER ---------- */}
+              <button
+                className="lg:hidden text-3xl cursor-pointer"
+                onClick={() => setMobileMenu(true)}
+              >
+                <HiOutlineMenu />
+              </button>
             </div>
 
-            {/* ---------- MOBILE HAMBURGER ---------- */}
-            <button
-              className="lg:hidden text-3xl cursor-pointer"
-              onClick={() => setMobileMenu(true)}
-            >
-              <HiOutlineMenu />
-            </button>
           </div>
         </nav>
 
         {/* ========== MOBILE MENU OVERLAY ========== */}
         {mobileMenu && (
-          <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-xs" onClick={() => setMobileMenu(false)} />
+          <div className="fixed inset-0 bg-black/50 z-50 backdrop-blur-xs lg:hidden" onClick={() => setMobileMenu(false)} />
         )}
 
         {/* ========== MOBILE MENU SLIDE ========== */}
         <div
-          className={`fixed top-0 left-0 w-fit min-w-[250px] h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${
-            mobileMenu ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`fixed top-0 left-0 w-fit min-w-[250px] h-full bg-white shadow-lg z-50 p-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0 lg:-translate-x-full" : "-translate-x-full"
+            }`}
         >
           {/* Close Button */}
           <button
@@ -319,9 +309,8 @@ export default function EditorDashboardHeader() {
             <li>
               <Link
                 href="/editor"
-                className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                  isActive("/editor") ? activeCls : inactiveCls
-                }`}
+                className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor") ? activeCls : inactiveCls
+                  }`}
                 onClick={() => setMobileMenu(false)}
               >
                 Dashboard
@@ -331,9 +320,8 @@ export default function EditorDashboardHeader() {
             {/* Mobile dropdown */}
             <li>
               <button
-                className={`flex items-center justify-between w-full px-3 py-2 hover:bg-gray-100 duration-300 cursor-pointer ${
-                  jobActive ? activeCls : inactiveCls
-                }`}
+                className={`flex items-center justify-between w-full px-3 py-2 hover:bg-gray-100 duration-300 cursor-pointer ${jobActive ? activeCls : inactiveCls
+                  }`}
                 onClick={() => setMobileDropdown(!mobileDropdown)}
               >
                 Job
@@ -347,9 +335,8 @@ export default function EditorDashboardHeader() {
                   <li>
                     <Link
                       href="/editor/hire-request"
-                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                        isActive("/editor/hire-request") ? activeCls : inactiveCls
-                      }`}
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/hire-request") ? activeCls : inactiveCls
+                        }`}
                       onClick={() => setMobileMenu(false)}
                     >
                       My Jobs
@@ -358,9 +345,8 @@ export default function EditorDashboardHeader() {
                   <li>
                     <Link
                       href="/editor/myproposal"
-                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                        isActive("/editor/myproposal") ? activeCls : inactiveCls
-                      }`}
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/myproposal") ? activeCls : inactiveCls
+                        }`}
                       onClick={() => setMobileMenu(false)}
                     >
                       My Proposals
@@ -369,9 +355,8 @@ export default function EditorDashboardHeader() {
                   <li>
                     <Link
                       href="/editor/browse-job"
-                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                        isActive("/editor/browse-job") ? activeCls : inactiveCls
-                      }`}
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/browse-job") ? activeCls : inactiveCls
+                        }`}
                       onClick={() => setMobileMenu(false)}
                     >
                       Find Jobs
@@ -380,9 +365,8 @@ export default function EditorDashboardHeader() {
                   <li>
                     <Link
                       href="/editor/editor-profile"
-                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                        isActive("/editor/editor-profile") ? activeCls : inactiveCls
-                      }`}
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/editor-profile") ? activeCls : inactiveCls
+                        }`}
                       onClick={() => setMobileMenu(false)}
                     >
                       Profile
@@ -391,9 +375,8 @@ export default function EditorDashboardHeader() {
                   <li>
                     <Link
                       href="/editor/earning"
-                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                        isActive("/editor/earning") ? activeCls : inactiveCls
-                      }`}
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/earning") ? activeCls : inactiveCls
+                        }`}
                       onClick={() => setMobileMenu(false)}
                     >
                       Earnings
@@ -406,9 +389,8 @@ export default function EditorDashboardHeader() {
             <li>
               <Link
                 href="/pricing"
-                className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${
-                  isActive("/pricing") ? activeCls : inactiveCls
-                }`}
+                className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/pricing") ? activeCls : inactiveCls
+                  }`}
                 onClick={() => setMobileMenu(false)}
               >
                 Pricing
@@ -418,15 +400,14 @@ export default function EditorDashboardHeader() {
             <li>
               <button
                 onClick={handleBecomeEditorClick}
-                className={`cursor-pointer px-3 py-2 hover:bg-gray-100 duration-300 w-full text-left ${
-                  isActive("/client") ? activeCls : inactiveCls
-                }`}
+                className={`cursor-pointer px-3 py-2 hover:bg-gray-100 duration-300 w-full text-left ${isActive("/client") ? activeCls : inactiveCls
+                  }`}
               >
                 Become an client
               </button>
             </li>
 
-            <li className="pt-4 border-t mt-4 flex justify-center">
+            {/* <li className="pt-4 border-t mt-4 flex justify-center">
               <button
                 onClick={handleLogout}
                 className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer"
@@ -434,7 +415,7 @@ export default function EditorDashboardHeader() {
                 <FiLogOut />
                 <span>Logout</span>
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
