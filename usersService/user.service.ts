@@ -252,6 +252,31 @@ export const UserService = {
 
         return await Fetch.get('/invoicePayrollStatus', config);
 
+    },
+
+    reportUser: async (reportData: {
+        reportedUserId: string;
+        reason: string;
+        description: string;
+        timestamp: Date;
+    }) => {
+
+        const userToken = CookieHelper.get({ key: "token" });
+
+        const config = {
+
+            headers: {
+
+                "Content-Type": "application/json",
+
+                Authorization: userToken,
+
+            },
+
+        };
+
+        return await Fetch.post('/report/user', reportData, config);
+
     }
 
 }
