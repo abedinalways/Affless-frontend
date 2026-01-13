@@ -1,18 +1,111 @@
+'use client';
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import Sidebar from "./_components/Sidebar";
 import MessageBody from "./_components/MessageBody";
+import ReportUserModal from "@/components/reusable/ReportUserModal";
+import { UserService } from "@/usersService/user.service";
+import Link from "next/link";
 
 
-export default function page(){
-    return(
-        <div className="p-4 containers bg-[#f9f9f9] grid">
-            <div className="grid grid-cols-[auto_1fr] gap-6 h-full overflow-y-auto" style={{maxHeight: 'calc(100vh - 86px)'}}>
-                <div className="p-4 bg-white sticky top-0 h-full rounded-lg shadow-md overflow-y-auto" style={{height: 'calc(100vh - 100px)'}}>
-                    <Sidebar />
+export default function page() {
+    const [selectedConversationId, setSelectedConversationId] = useState<string>("");
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+    const router = useRouter();
+
+    const handleSelectConversation = (id: string) => {
+        setSelectedConversationId(id);
+    }
+
+    const handleReportUser = async (reportData: any) => {
+        try {
+            const response = await UserService.reportUser(reportData);
+            
+            if (response.status === 201 || response.status === 200) {
+                // Report submitted successfully
+                console.log("Report submitted successfully", response);
+            } else {
+                throw new Error("Failed to submit report");
+            }
+        } catch (error: any) {
+            const errorMessage = error?.response?.data?.message || error.message || "Failed to submit report";
+            throw new Error(errorMessage);
+        }
+    }
+
+    return (
+        <div className="p-4 containers bg-[#f9f9f9] grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 relative overflow-hidden">
+            <div className="grid grid-cols-1 xl:grid-cols-[auto_1fr] gap-6 w-full h-full overflow-y-auto">
+                <div className={`p-4 bg-white w-full h-full rounded-lg overflow-y-auto ${selectedConversationId === "" ? "" : "hidden xl:block"}`} style={{ height: 'calc(100vh - 100px)' }}>
+                    <Sidebar
+                        selectedConversationId={selectedConversationId}
+                        onSelectConversation={handleSelectConversation}
+                    />
                 </div>
-                <div className="h-full">
-                    <MessageBody />
+                <div className={`w-full h-full ${selectedConversationId === "" ? "hidden xl:block" : ""}`} style={{ height: 'calc(100vh - 100px)' }}>
+                    <MessageBody
+                        selectedConversationId={selectedConversationId}
+                        onSelectConversation={handleSelectConversation}
+                    />
                 </div>
             </div>
+            <div className="w-full md:w-[326px] h-fit space-y-4">
+                <div className="p-4 space-y-6 bg-white rounded-lg">
+                    <div className="text-[#333] text-2xl font-medium leading-9">
+                        <span>About </span>
+                        <Link href="#" className="underline">Jane Cooper</Link>
+                    </div>
+                    <div className="space-y-4 text-base text-[#333]">
+                        <div className="flex items-center justify-between">
+                            <span>From</span>
+                            <span>United Kingdom</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <span>Member since</span>
+                            <span>Sep 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="px-4 py-6 space-y-6 bg-[#FFEDED] rounded-lg border border-[#FF4D4F]">
+                    <div className="">
+                        <div className="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="22" viewBox="0 0 19 22" fill="none">
+                                <path d="M9.60859 21.8438H9.35035C9.10955 21.8439 8.8707 21.8007 8.64522 21.7162C6.15638 20.785 4.15653 19.276 2.70118 17.2309C1.55832 15.6249 0.765648 13.7051 0.345226 11.5248C-0.348231 7.9286 0.213308 4.81127 0.237554 4.68034C0.361714 4.00992 0.811421 3.45275 1.44053 3.18993L8.70373 0.155531C8.95075 0.0523243 9.21175 0 9.47946 0C9.74719 0 10.0082 0.0523243 10.2552 0.15552L17.5184 3.18991C18.1475 3.45277 18.5972 4.00992 18.7214 4.68032C18.7456 4.8113 19.3071 7.92897 18.6137 11.5248C18.1933 13.7051 17.4006 15.6249 16.2577 17.2309C14.8024 19.276 12.8025 20.785 10.3137 21.7161C10.0882 21.8007 9.84939 21.8439 9.60859 21.8438ZM9.47946 0.75C9.31238 0.749828 9.14695 0.782995 8.99284 0.847559L1.72964 3.88195C1.335 4.04682 1.0529 4.39634 0.975015 4.81689C0.951824 4.94212 0.41473 7.92418 1.08166 11.3828C1.4816 13.4569 2.23209 15.2782 3.31224 16.796C4.67922 18.7169 6.56191 20.136 8.908 21.0137C9.04945 21.0667 9.19928 21.0938 9.35034 21.0937H9.60858C9.76013 21.0937 9.90896 21.0668 10.0509 21.0137C12.397 20.136 14.2797 18.7169 15.6467 16.796C16.7268 15.2782 17.4773 13.4569 17.8773 11.3828C18.5441 7.92454 18.0071 4.94211 17.9839 4.81685C17.906 4.39634 17.6239 4.04682 17.2293 3.88194L9.96609 0.847547C9.81198 0.782991 9.64654 0.749829 9.47946 0.75Z" fill="#FF4D4F" />
+                                <path d="M9.60849 20.2096H9.35025C9.30538 20.2096 9.26087 20.2016 9.21884 20.1859C7.04162 19.3713 5.29757 18.0588 4.03513 16.2848C3.02916 14.8712 2.32858 13.1665 1.95287 11.2181C1.6207 9.49548 1.60917 7.89559 1.65798 6.85679C1.71103 5.72801 1.84189 5.01167 1.84743 4.98174C1.85878 4.92046 1.88522 4.86298 1.92436 4.81449C1.96349 4.766 2.0141 4.72803 2.0716 4.70401L9.33479 1.66961C9.38058 1.65048 9.42972 1.64062 9.47935 1.64062C9.52898 1.64062 9.57811 1.65048 9.6239 1.66961L16.8871 4.70401C16.9446 4.72803 16.9952 4.766 17.0343 4.81449C17.0735 4.86298 17.0999 4.92047 17.1113 4.98174C17.1168 5.01168 17.2477 5.72802 17.3007 6.85679C17.3495 7.89559 17.338 9.49547 17.0058 11.2181C16.6301 13.1665 15.9296 14.8712 14.9236 16.2848C13.6611 18.0588 11.9171 19.3713 9.73986 20.1859C9.69785 20.2016 9.65335 20.2096 9.60849 20.2096ZM9.4186 19.4596H9.54011C13.2013 18.0676 15.4651 15.2474 16.2694 11.0761C16.7852 8.40126 16.5059 6.00364 16.4052 5.31549L9.47936 2.42204L2.55343 5.31552C2.512 5.59721 2.44045 6.16468 2.40611 6.91469C2.3604 7.91314 2.37316 9.4494 2.69356 11.098C3.5019 15.2574 5.76416 18.0702 9.4186 19.4596Z" fill="#FF4D4F" />
+                                <path d="M11.2874 15.5602H7.67262C6.70187 15.5602 5.91211 14.7704 5.91211 13.7996V10.8622C5.91211 9.89137 6.70187 9.10156 7.67262 9.10156H11.2874C12.2581 9.10156 13.0479 9.89137 13.0479 10.8622V13.7996C13.0479 14.7704 12.2581 15.5602 11.2874 15.5602ZM7.67262 9.85156C7.11543 9.85156 6.66211 10.3049 6.66211 10.8622V13.7996C6.66211 14.3569 7.11543 14.8102 7.67262 14.8102H11.2874C11.8446 14.8102 12.2979 14.3569 12.2979 13.7996V10.8622C12.2979 10.3049 11.8446 9.85156 11.2874 9.85156H7.67262ZM9.48 12.779C8.90711 12.779 8.44102 12.3129 8.44102 11.74C8.44102 11.1671 8.90711 10.7009 9.48 10.7009C10.0529 10.7009 10.519 11.1671 10.519 11.74C10.519 12.3129 10.0529 12.779 9.48 12.779ZM9.48 11.4509C9.32065 11.4509 9.19102 11.5806 9.19102 11.74C9.19102 11.8994 9.32066 12.029 9.48 12.029C9.63934 12.029 9.76899 11.8994 9.76899 11.74C9.76899 11.5806 9.63935 11.4509 9.48 11.4509Z" fill="#FF4D4F" />
+                                <path d="M11.815 9.85887C11.6079 9.85887 11.44 9.69097 11.44 9.48387V8.33525C11.44 7.25436 10.5607 6.375 9.47979 6.375C8.39889 6.375 7.51953 7.25437 7.51953 8.33525V9.48387C7.51953 9.69097 7.35164 9.85887 7.14453 9.85887C6.93743 9.85887 6.76953 9.69097 6.76953 9.48387V8.33525C6.76953 7.61132 7.05145 6.93071 7.56335 6.41882C8.07525 5.90692 8.75585 5.625 9.47979 5.625C10.2037 5.625 10.8843 5.90692 11.3962 6.41882C11.9081 6.93071 12.19 7.61132 12.19 8.33525V9.48387C12.19 9.69097 12.0221 9.85887 11.815 9.85887ZM9.47979 13.9055C9.27268 13.9055 9.10479 13.7376 9.10479 13.5305V12.4113C9.10479 12.2042 9.27268 12.0363 9.47979 12.0363C9.68689 12.0363 9.85479 12.2042 9.85479 12.4113V13.5305C9.85479 13.7376 9.68689 13.9055 9.47979 13.9055Z" fill="#FF4D4F" />
+                            </svg>
+                            <h3 className="text-xl text-[#FF4D4F] font-medium">Platform Safety Reminder</h3>
+                        </div>
+                        <div className="text-[#4A4C56] text-base leading-6">
+                            Keep all communication on Editor Marketplace. Never share personal contact details or move payments off-platform.
+                        </div>
+                    </div>
+                    <button 
+                        type="button" 
+                        onClick={() => setIsReportModalOpen(true)}
+                        className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 21 18" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.55518 0.996177C8.07968 1.65468 1.05818 13.3487 0.454429 14.1827C0.195535 14.5412 0.040694 14.9642 0.00698564 15.4052C-0.0267227 15.8461 0.0620115 16.2878 0.2634 16.6815C0.464789 17.0752 0.771007 17.4056 1.14828 17.6363C1.52555 17.867 1.95921 17.9891 2.40143 17.9889H18.6037C19.0457 17.9885 19.479 17.8662 19.8559 17.6353C20.2329 17.4045 20.5388 17.0742 20.7401 16.6807C20.9414 16.2872 21.0302 15.8458 20.9968 15.405C20.9634 14.9643 20.809 14.5413 20.5507 14.1827C20.3774 13.9449 12.5534 1.14018 12.4499 0.996177C12.2274 0.687804 11.9348 0.436689 11.5962 0.2635C11.2577 0.0903113 10.8828 0 10.5026 0C10.1223 0 9.74742 0.0903113 9.40886 0.2635C9.0703 0.436689 8.77772 0.687804 8.55518 0.996177ZM9.77243 1.87368C9.85579 1.75784 9.96551 1.66349 10.0925 1.59841C10.2195 1.53333 10.3602 1.49939 10.5029 1.49939C10.6456 1.49939 10.7863 1.53333 10.9133 1.59841C11.0403 1.66349 11.1501 1.75784 11.2334 1.87368C11.3354 2.01618 19.1624 14.8224 19.3342 15.0609C19.5314 15.3347 19.5592 15.6977 19.4062 15.9984C19.2517 16.2992 18.9412 16.4897 18.6037 16.4897H2.40143C2.06393 16.4897 1.75343 16.2992 1.59893 15.9992C1.52377 15.8512 1.49074 15.6854 1.50344 15.52C1.51614 15.3545 1.57408 15.1957 1.67093 15.0609C2.27393 14.2262 9.29618 2.53143 9.77243 1.87368Z" fill="#FF4D4F" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.70312 4.57812V12.0781C9.70312 12.277 9.78214 12.4678 9.9228 12.6085C10.0634 12.7491 10.2542 12.8281 10.4531 12.8281C10.652 12.8281 10.8428 12.7491 10.9835 12.6085C11.1241 12.4678 11.2031 12.277 11.2031 12.0781V4.57812C11.2031 4.37921 11.1241 4.18845 10.9835 4.0478C10.8428 3.90714 10.652 3.82812 10.4531 3.82812C10.2542 3.82812 10.0634 3.90714 9.9228 4.0478C9.78214 4.18845 9.70312 4.37921 9.70312 4.57812Z" fill="#FF4D4F" />
+                            <path d="M10.4531 15.0781C10.8673 15.0781 11.2031 14.7423 11.2031 14.3281C11.2031 13.9139 10.8673 13.5781 10.4531 13.5781C10.0389 13.5781 9.70312 13.9139 9.70312 14.3281C9.70312 14.7423 10.0389 15.0781 10.4531 15.0781Z" fill="#FF4D4F" />
+                        </svg>
+                        <span>Report User</span>
+                    </button>
+                </div>
+            </div>
+
+            {/* Report User Modal */}
+            <ReportUserModal
+                isOpen={isReportModalOpen}
+                onClose={() => setIsReportModalOpen(false)}
+                userName="Jane Cooper"
+                userId="user-id-placeholder"
+                onReportSubmit={handleReportUser}
+            />
         </div>
     )
 }

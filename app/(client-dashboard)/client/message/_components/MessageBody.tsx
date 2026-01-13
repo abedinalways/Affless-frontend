@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { FaArrowLeft } from 'react-icons/fa6';
 
 interface Message {
     id: string;
@@ -42,7 +43,12 @@ const mockMessages: Message[] = [
     },
 ];
 
-export default function MessageBody() {
+type MessageBodyProps = {
+    selectedConversationId?: string;
+    onSelectConversation?: (id: string) => void;
+};
+
+export default function MessageBody({ selectedConversationId, onSelectConversation }: MessageBodyProps) {
     const [messages, setMessages] = useState<Message[]>(mockMessages);
     const [inputValue, setInputValue] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -109,6 +115,9 @@ export default function MessageBody() {
             {/* Header */}
             <div className="border-b border-gray-200 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
+                    <button onClick={()=>onSelectConversation && onSelectConversation("")} type="button" className='p-1 cursor-pointer xl:hidden'>
+                                            <FaArrowLeft />
+                                        </button>
                     <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm" style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}>
                         JD
                     </div>

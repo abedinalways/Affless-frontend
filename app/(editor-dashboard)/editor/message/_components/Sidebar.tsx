@@ -51,7 +51,12 @@ const mockConversations: Conversation[] = [
     },
 ];
 
-export default function Sidebar() {
+type SidebarProps = {
+    selectedConversationId?: string;
+    onSelectConversation?: (id: string) => void;
+};
+
+export default function Sidebar({ selectedConversationId, onSelectConversation }: SidebarProps) {
     const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
     const [selectedId, setSelectedId] = useState<string>('1');
     const [searchQuery, setSearchQuery] = useState('');
@@ -61,7 +66,7 @@ export default function Sidebar() {
     );
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col w-full h-full">
             {/* Search Bar */}
             <div className="mb-4">
                 <input
@@ -79,7 +84,10 @@ export default function Sidebar() {
                     filteredConversations.map((conversation) => (
                         <div
                             key={conversation.id}
-                            onClick={() => setSelectedId(conversation.id)}
+                            onClick={() => {
+                                setSelectedId(conversation.id);
+                                onSelectConversation && onSelectConversation(conversation.id);
+                            }}
                             className={`p-3 rounded-lg cursor-pointer transition-all ${selectedId === conversation.id
                                 ? 'border-l-4 hover:bg-gray-100'
                                 : 'hover:bg-gray-100'
