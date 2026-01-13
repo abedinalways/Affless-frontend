@@ -55,7 +55,12 @@ export default function AddEducationModal({
         <div className="flex gap-3 pt-2">
           <button
             type="button"
-            onClick={onClose}
+            onClick={()=>{
+              onClose();
+              setSchool("");
+              setSubject("");
+              setYear("");
+            }}
             className="w-full rounded-lg bg-gray-100 py-3 font-semibold text-gray-700 cursor-pointer"
           >
             Cancel

@@ -16,15 +16,25 @@ import Image from "next/image";
 import PortfolioSection from "./PortfolioSection";
 import ReviewBreakdown from "@/components/reusable/reviews";
 import ReviewProfile from "./ReviewProfile";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const reviewData = [
-        { stars: 5, count: 638 },
-        { stars: 4, count: 243 },
-        { stars: 3, count: 121 },
-        { stars: 2, count: 43 },
-        { stars: 1, count: 12 },
-    ];
+    { stars: 5, count: 638 },
+    { stars: 4, count: 243 },
+    { stars: 3, count: 121 },
+    { stars: 2, count: 43 },
+    { stars: 1, count: 12 },
+  ];
+
+  const clientsWorkedWith = [
+    { id: 1, name: "Sarah Johnson", avatar: "/images/sarah.png" },
+    { id: 2, name: "Tech Startup Inc", avatar: "/images/saramc.png" },
+    { id: 3, name: "Creative Agency", avatar: "/images/sarah.png" },
+    { id: 4, name: "Marketing Pro", avatar: "/images/saramc.png" },
+    { id: 5, name: "Digital Studios", avatar: "/images/sarah.png" },
+    { id: 6, name: "Brand Solutions", avatar: "/images/saramc.png" },
+  ];
 
   const [profile, setProfile] = useState<ProfileState>({
     name: "Zeeshan",
@@ -65,8 +75,29 @@ export default function ProfilePage() {
 
         <AboutCard about={about} onEdit={() => setOpenEditAbout(true)} />
 
+        {/* ✅ Clients Worked With */}
+        <div className="bg-white rounded-xl shadow-sm p-6">
+          <h2 className="text-[22px] font-semibold text-[#333] mb-6">Clients You've Worked With ({clientsWorkedWith.length})</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {clientsWorkedWith.map((client) => (
+              <div key={client.id} className="flex flex-col items-center gap-3 text-center">
+                <Link href={`/client/profile?id=${client.id}`} className="w-20 h-20 overflow-hidden rounded-full">
+                  <Image
+                    src={client.avatar}
+                    alt={client.name}
+                    width={500}
+                    height={500}
+                    className="w-full h-full rounded-full object-cover border-2 border-gray-200 transition cursor-pointer hover:scale-110 duration-300"
+                  />
+                </Link>
+                <p className="text-sm font-medium text-[#333] line-clamp-2">{client.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* ✅ Portfolio */}
-      <PortfolioSection />
+        <PortfolioSection />
 
         {/* ✅ Education */}
         <SectionCard
@@ -74,14 +105,14 @@ export default function ProfilePage() {
           title="Education"
           institute="Dhaka Polytechnic Institute"
           country="Bangladesh, 2023"
-          btnText="Add education"
+          btnText="Add Education"
           onClick={() => setOpenEducation(true)}
         />
 
         {/* ✅ Skills */}
         <SectionCard
           title="Skills and expertise"
-          btnText="Add Skills and expertise"
+          btnText="Add Skills and Expertise"
           onClick={() => setOpenSkills(true)}
           buttonAlign="default"
         >
@@ -132,12 +163,12 @@ export default function ProfilePage() {
         }
       />
       <div className="py-10">
-                <ReviewBreakdown reviewe={reviewData} title="Reviews" />
-            </div>
-            <div className="">
-              <ReviewProfile/>
-            </div>
-           
+        <ReviewBreakdown reviewe={reviewData} title="Reviews" />
+      </div>
+      <div className="">
+        <ReviewProfile />
+      </div>
+
     </div>
   );
 }

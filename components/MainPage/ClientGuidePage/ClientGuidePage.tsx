@@ -223,7 +223,7 @@ export default function ClientGuidePage() {
                   <h3
                     id='found'
                     className='text-[20px] md:text-2xl text-[#333] font-medium '>
-                    4. Fund the Project Escrow
+                    4. Fund the Project using Escrow
                   </h3>
                 </div>
                 <h3 className='pt-3 pb-6 text-[#4A4C56]'>

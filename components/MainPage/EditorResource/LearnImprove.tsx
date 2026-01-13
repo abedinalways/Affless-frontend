@@ -1,6 +1,7 @@
-
+'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
+import CommingSoonPopup from '@/components/shared/CommingSoonPopup';
 
 const data = [
     {
@@ -18,19 +19,20 @@ const data = [
     {
         id: 3,
         img: "/images/success/learn3.jpg",
-        title: "Audio Mixing for Social Media",
-        desc: "Learn professional techniques for removing background noise and enhancing audio quality."
+        title: "Audio Mixing for Social Media Videos",
+        desc: "Learn how to balance dialogue, music, and sound effects for Shorts, TikToks, and Reels—plus loudness targets, compression, and clean exports for mobile playback."
     },
 
 ]
 export default function LearnImprove() {
+    const [showComingSoon, setShowComingSoon] = useState(false);
     return (
         <div className='py-10 md:py-20'>
             <div className='' >
                 <div className='containers'>
                     <div>
                         <h3 className='text-[32px] font-medium leading-120% md:text-[45px]  lg:text-[56px] text-[#333] text-center lg:text-start'>Learn & Improve Your Craft</h3>
-                        <p className='text-[#4A4C56] text-[18px] font-normal leading-[150%] pt-[18px] pb-10 md:pb-[60px]'>Enhance your skills with expert tutorials and guides.</p>
+                        <p className='text-[#4A4C56] text-[18px] font-normal leading-[150%] pt-[18px] pb-10 md:pb-[60px] text-center'>Enhance your skills with expert tutorials and guides.</p>
                     </div>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-between'>
                         {
@@ -42,7 +44,7 @@ export default function LearnImprove() {
 
                                         <p className='flex items-center justify-center  text-center text-[14px] font-normal leading-[150%]'>{index.desc}</p>
                                         <div className='py-6'>
-                                            <button className='px-4 py-2.5 text-red-600 bg-white w-full rounded-lg text-[16px] lg:text-[14px] cursor-pointer'>View Tutorial</button>
+                                            <button onClick={() => setShowComingSoon(prev => !prev)} className='px-4 py-2.5 text-red-600 bg-white w-full rounded-lg text-[16px] lg:text-[14px] cursor-pointer'>View Tutorial</button>
                                         </div>
                                     </div>
 
@@ -52,6 +54,9 @@ export default function LearnImprove() {
                     </div>
                 </div>
             </div>
+            {showComingSoon &&
+                <CommingSoonPopup onClose={() => setShowComingSoon(false)} />
+            }
         </div>
     )
 }

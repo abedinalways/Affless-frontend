@@ -61,7 +61,7 @@ export default function SectionCard({
           )}
 
           {rightIcon && (
-            <div className="h-[56px] w-[56px] rounded-xl bg-[#EEF2FF] border border-[#E6EAFD] flex items-center justify-center">
+            <div className="h-14 w-14 rounded-xl bg-[#EEF2FF] border border-[#E6EAFD] flex items-center justify-center">
               {rightIcon}
             </div>
           )}

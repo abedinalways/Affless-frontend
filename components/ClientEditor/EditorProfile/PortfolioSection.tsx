@@ -22,7 +22,7 @@ export default function PortfolioSection() {
           className="flex items-center gap-0 lg:gap-2 rounded-lg border border-gray-300 px-2  lg:px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition cursor-pointer"
         >
           <span className="text-lg font-semibold"><GoPlus /></span>
-          New Add
+          Add New
         </button>
       </div>
 

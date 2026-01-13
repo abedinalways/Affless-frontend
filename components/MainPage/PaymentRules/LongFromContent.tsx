@@ -29,7 +29,7 @@ export default function LongFormContent() {
             Long-Form Content Minimums
           </h3>
           <p className="mt-1 text-[14px] text-[#6B7280]">
-            YouTube long-form videos and extended content
+            YouTube Long-Form Videos and Extended Content
           </p>
         </div>
       </div>
@@ -64,8 +64,7 @@ export default function LongFormContent() {
         {/* Note */}
         <div className="bg-[#FFF5E6] px-6 py-4">
           <p className="text-[14px] text-[#B45309]">
-            <span className="font-semibold">Important:</span> The payment must
-            always appear as "minutes" and not abbreviated as "min".
+            <span className="font-semibold">Important: </span>Pricing is based on final content length, not raw footage length. The minimum payout automatically adjusts based on the selected duration bracket.
           </p>
         </div>
       </div>
