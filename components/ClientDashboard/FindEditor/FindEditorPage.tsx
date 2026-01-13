@@ -113,7 +113,7 @@ export default function FindEditorPage() {
                   alt={editor.name}
                   width={500}
                   height={160}
-                  className="rounded-lg object-cover w-full lg:w-[200px]"
+                  className="rounded-lg object-cover w-full lg:w-[200px] aspect-3/2"
                 />
 
                 <div className="flex flex-col w-full">

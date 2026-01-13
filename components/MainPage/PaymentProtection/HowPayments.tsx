@@ -18,7 +18,7 @@ const data = [
     id: 2,
     icon: <DepositeIcon className='text-red-500' />,
     title: "Deposit Payment",
-    desc: "How Payment Protection WorksThe deposit is securely held by the platform and is only released to the editor after the project is completed and approved.",
+    desc: "How Payment Protection Works? The deposit is securely held by the platform and is only released to the editor after the project is completed and approved.",
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ export default function HowPayments() {
         <h3 className='text-[32px] font-medium leading-120% md:text-[45px] text-center lg:text-[56px] text-[#333]'>
           How Payment Protection Works
         </h3>
-        <p className='text-[#4A4C56] text-[18px] font-normal leading-[150%] text-center pt-[18px] pb-10 md:pb-[56px]'>
+        <p className='text-[#4A4C56] text-[18px] font-normal leading-[150%] text-center pt-[18px] pb-10 md:pb-14'>
           Our secure escrow system ensures your money is safe until you're
           completely satisfied with the work.
         </p>

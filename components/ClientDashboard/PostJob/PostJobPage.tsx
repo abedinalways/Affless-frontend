@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import PageBanner from "@/components/reusable/Bgbanner";
@@ -10,6 +10,7 @@ import SinglePaymentIcon from "@/components/Icons/SinglePaymentIcon";
 import MilestoneIcon from "@/components/Icons/MilestoneIcon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast,{Toaster} from "react-hot-toast";
 
 type FormValues = {
   jobTitle: string;
@@ -100,6 +101,8 @@ export default function PostJobForm() {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [textDocument, setTextDocument] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [minPrice, setMinPrice] = useState(2);
+  const [videoLength, setVideoLength] = useState(0);
 
   // Handle file uploads
   const handleStyleReferenceChange = (
@@ -126,14 +129,57 @@ export default function PostJobForm() {
   const onSubmit = (data: FormValues) => {
     setLoading(true);
     console.log("Form Submitted:", data, "Payment Type:", paymentType);
+    if (minPrice > parseFloat(data.budget.replace("$", ""))) {
+      toast.error(`Minimum budget for this project is $${minPrice}`);
+      setLoading(false);
+      return;
+    }
     setTimeout(() => {
       setLoading(false);
       router?.push("/client/confirm-deposit");
     }, 500);
   };
 
+  useEffect(() => {
+    if (videoLength) {
+      let length = selectedCategory === "shorts_reels_tiktoks" ? videoLength : videoLength * 60;
+      console.log("Calculated length in seconds:", videoLength);
+      if (selectedCategory === "thumbnails") {
+        setMinPrice(2);
+        return;
+      } else {
+        if (length <= 39) {
+          setMinPrice(2);
+        } else if (length <= 59) {
+          setMinPrice(3);
+        } else if (length <= 300 && length > 59) {
+          setMinPrice(5);
+        } else if (length <= 600 && length > 300) {
+          setMinPrice(8);
+        } else if (length <= 900 && length > 600) {
+          setMinPrice(12);
+        } else if (length <= 1200 && length > 900) {
+          setMinPrice(16);
+        } else if (length <= 1800 && length > 1200) {
+          setMinPrice(20);
+        } else if (length <= 2400 && length > 1800) {
+          setMinPrice(25);
+        } else if (length <= 3000 && length > 2400) {
+          setMinPrice(30);
+        } else if (length <= 3600 && length > 3000) {
+          setMinPrice(40);
+        } else if (length <= 7200 && length > 3600) {
+          setMinPrice(50);
+        } else if (length > 7200) {
+          setMinPrice(100);
+        }
+      }
+    }
+  }, [videoLength, selectedCategory]);
+
   return (
     <div>
+      <Toaster position="top-right"/>
       <div>
         <PageBanner
           title='Post a Job'
@@ -186,7 +232,59 @@ export default function PostJobForm() {
               </p>
             )}
 
+            {/* Category */}
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
+              Job Category
+            </label>
+            <select
+              {...register("category", { required: true })}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className='w-full border rounded-lg p-3 mb-6'>
+              {jobCategory.map((category) => (
+                <option key={category.key} value={category.key}>
+                  {category.label}
+                </option>
+              ))}
+            </select>
+
             {/* Budget */}
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
+              Video Duration
+            </label>
+
+            <input
+              type='text'
+              placeholder='30'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
+              disabled={selectedCategory === "thumbnails"}
+              {...register("videoDuration", {
+                required: "Video duration is required",
+
+                onChange: (e) => {
+                  // শুধু number allow
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                  setVideoLength(parseInt(e.target.value) || 0);
+                },
+
+                onBlur: (e) => {
+                  let value = parseInt(e.target.value);
+
+                  if (!value || value < 1) value = 1;
+
+                  // auto format
+                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
+                  e.target.value = `${value} ${unit}`;
+                },
+              })}
+            />
+
+
+            {errors.videoDuration && (
+              <p className='text-red-500 text-sm mb-4'>
+                {errors.videoDuration.message || "Video Duration is required."}
+              </p>
+            )}
+
             <label className='block mb-2 text-sm font-medium text-gray-600'>
               Project Budget*
             </label>
@@ -194,6 +292,7 @@ export default function PostJobForm() {
             <input
               type='text'
               placeholder='$2.00'
+              disabled={(selectedCategory && videoLength) ? false : true}
               className='w-full border rounded-lg p-3 mb-2'
               {...register("budget", {
                 required: "Budget is required",
@@ -206,7 +305,7 @@ export default function PostJobForm() {
                 onBlur: (e) => {
                   let value = parseFloat(e.target.value);
 
-                  if (isNaN(value) || value < 2) value = 2;
+                  if (isNaN(value) || value < minPrice) value = minPrice;
 
                   // auto format
                   e.target.value = `$${value.toFixed(2)}`;
@@ -239,20 +338,6 @@ export default function PostJobForm() {
               </Link>
             </div>
 
-            {/* Category */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Job Category
-            </label>
-            <select
-              {...register("category", { required: true })}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className='w-full border rounded-lg p-3 mb-6'>
-              {jobCategory.map((category) => (
-                <option key={category.key} value={category.key}>
-                  {category.label}
-                </option>
-              ))}
-            </select>
 
             {/* Duration */}
             {/* Project Duration (Days) */}
@@ -282,51 +367,12 @@ export default function PostJobForm() {
                 },
               })}
             />
-
-            {errors.duration && (
-              <p className='text-red-500 text-sm'>{errors.duration.message}</p>
-            )}
-
             {errors.duration && (
               <p className='text-red-500 text-sm mb-4'>
                 {errors.duration.message || "Project Duration is required."}
               </p>
             )}
 
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Video Duration
-            </label>
-
-            <input
-              type='text'
-              placeholder='30'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
-              disabled={selectedCategory === "thumbnails"}
-              {...register("videoDuration", {
-                required: "Video duration is required",
-
-                onChange: (e) => {
-                  // শুধু number allow
-                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                },
-
-                onBlur: (e) => {
-                  let value = parseInt(e.target.value);
-
-                  if (!value || value < 1) value = 1;
-
-                  // auto format
-                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
-                  e.target.value = `${value} ${unit}`;
-                },
-              })}
-            />
-
-            {errors.videoDuration && (
-              <p className='text-red-500 text-sm mb-4'>
-                {errors.videoDuration.message || "Video Duration is required."}
-              </p>
-            )}
 
             {/* Platform */}
             <label className='block mb-2 text-sm font-medium text-gray-600'>
@@ -468,7 +514,7 @@ export default function PostJobForm() {
           </div>
 
           {/* RIGHT SUMMARY */}
-          <div className="w-full md:w-1/3 flex flex-col gap-4">
+          <div className="w-full md:w-[300px] flex flex-col gap-4">
             <div className='w-full bg-white p-6 rounded-xl shadow h-fit'>
               <h3 className='text-[20px] font-medium leading-150% pb-6'>
                 Budget & Payment

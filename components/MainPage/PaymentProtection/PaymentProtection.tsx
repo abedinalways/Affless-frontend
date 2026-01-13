@@ -24,15 +24,9 @@ export default function PaymentProtectionPage() {
         className="h-full md:h-[394px] bg-cover bg-center relative overflow-hidden py-8 lg:py-20"
         style={{ backgroundImage: `url('/images/Phone.jpg')` }}
       >
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/70"></div>
-
-        {/* Content */}
         <div className="containers relative z-10 h-full flex flex-col md:flex-row justify-between items-center py-20">
-
-          {/* LEFT TEXT BLOCK */}
           <div className=" text-white space-y-4  relative order-1 md:order-0 flex pt-5  ">
-            {/* Badge */}
             <div className=" flex flex-col lg:block justify-center items-center space-y-4 ">
               <button className="bg-[#534E45] px-4 py-2 rounded-md text-[14px] font-medium flex items-center  gap-2">
                 <LuShieldCheck className="w-4 h-4" /> 100% Secure

@@ -8,7 +8,8 @@ type Props = {
 };
 
 export default function FindFilterCategory({ isMobile = false }: Props) {
-  const [range, setRange] = React.useState([20, 100]);
+  const [range, setRange] = React.useState([20, 9000]);
+  const [duration, setDuration] = React.useState([1]);
 
   return (
     <aside
@@ -79,7 +80,7 @@ export default function FindFilterCategory({ isMobile = false }: Props) {
           </div>
 
           <Slider
-            defaultValue={[20, 100]}
+            defaultValue={[200, 500]}
             max={10000}
             min={2}
             step={1}
@@ -90,8 +91,28 @@ export default function FindFilterCategory({ isMobile = false }: Props) {
         </div>
       </div>
 
-      {/* Project Duration */}
+      {/* Project duration */}
       <div>
+        <h3 className="font-bold text-[20px] mb-3">Project Duration</h3>
+        <div className="w-full flex flex-col items-center gap-3 mb-8">
+          <div className="w-full flex justify-between px-2 text-gray-500 text-sm font-medium">
+            <span>{duration[0]} days</span>
+          </div>
+
+          <Slider
+            defaultValue={[1]}
+            max={50}
+            min={1}
+            step={1}
+            value={duration}
+            onValueChange={setDuration}
+            className="w-full"
+          />
+        </div>
+      </div>
+
+      {/* Project Duration */}
+      {/* <div>
         <h3 className="font-bold text-[20px] mb-3">Project Duration</h3>
         <div className="space-y-3">
           {["Express 24H", "Up to 3 days", "Up to 7 days", "Anytime"].map(
@@ -103,7 +124,7 @@ export default function FindFilterCategory({ isMobile = false }: Props) {
             )
           )}
         </div>
-      </div>
+      </div> */}
     </aside>
   );
 }

@@ -15,6 +15,8 @@ export type ProfileState = {
   country: string;
   languages: string;
   avatar: string;
+  jobsCompleted?: number;
+  clientsWorked?: number;
 };
 
 export default function ProfileHeaderCard({
@@ -47,6 +49,19 @@ export default function ProfileHeaderCard({
           </div>
 
           <p className="mt-2 text-[12px] text-[#333]">{profile.tagline}</p>
+
+          <div className="mt-3 flex flex-wrap items-center gap-4 text-[13px] text-[#333]">
+
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-green-500 font-bold">✔</span>
+              {profile.jobsCompleted || 0} Jobs Completed
+            </span>
+
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-green-500 font-bold">✔</span>
+              Worked with {profile.clientsWorked || 0} Clients
+            </span>
+          </div>
 
           <div className="mt-2 flex flex-wrap items-center gap-4 text-[14px] text-[#333]">
             <span className="inline-flex items-center gap-2">

@@ -29,7 +29,7 @@ export default function StatusPage() {
           </h2>
 
           <p className='text-green-600 font-poppins text-[18px] md:text-[20px] font-medium leading-[150%] mb-8'>
-            All Systems are Operational
+            All Systems are Operational.
           </p>
 
           <div className='mb-8'>
@@ -48,7 +48,7 @@ export default function StatusPage() {
           <Button
             onClick={handleContactSupport}
             size='lg'
-            className='h-12 text-[16px] font-semibold w-full sm:w-auto cursor-pointer'>
+            className='h-12 text-[16px] font-semibold w-full sm:w-auto cursor-pointer bg-red-500 hover:bg-red-600 text-white'>
             Contact Support
           </Button>
         </div>

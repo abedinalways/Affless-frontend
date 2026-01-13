@@ -1,3 +1,5 @@
+'use client'
+
 import AdobeIcon from '@/components/Icons/AdobeIcon'
 import DescriptIcon from '@/components/Icons/Descript'
 import DevinceIcon from '@/components/Icons/DivinceIcon'
@@ -5,7 +7,8 @@ import GramarlyIcon from '@/components/Icons/Gramarly'
 import HandBreackIcon from '@/components/Icons/HandBreakIcon'
 import HemingWayIcon from '@/components/Icons/HemingWayIcon'
 import { ArrowRight } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
+import CommingSoonPopup from '@/components/shared/CommingSoonPopup'
 
 const data = [
   {
@@ -47,6 +50,7 @@ const data = [
 ]
 
 export default function TopToolEditorPage() {
+  const [showComingSoon, setShowComingSoon] = useState(false);
   return (
     <div>
       <div className="bg-[#FFEDED]">
@@ -83,8 +87,8 @@ export default function TopToolEditorPage() {
                   </p>
                 </div>
                 {/* Button */}
-                <button className="flex items-center justify-center border-2 text-[18px] border-red-400 w-full rounded-full px-4 py-2.5 gap-2  hover:bg-red-50 transition cursor-pointer">
-                  <span>Read more</span>
+                <button onClick={() => setShowComingSoon(true)} className="flex items-center justify-center border-2 text-[18px] border-red-400 w-full rounded-full px-4 py-2.5 gap-2  hover:bg-red-50 transition cursor-pointer">
+                  <span>Read More</span>
                   <ArrowRight size={18} />
                 </button>
               </div>
@@ -93,6 +97,7 @@ export default function TopToolEditorPage() {
 
         </div>
       </div>
+      {showComingSoon && <CommingSoonPopup onClose={() => setShowComingSoon(false)} />}
     </div>
   )
 }

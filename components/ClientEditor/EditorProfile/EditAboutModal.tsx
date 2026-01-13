@@ -36,7 +36,10 @@ export default function EditAboutModal({
         <div className="flex gap-3">
           <button
             type="button"
-            onClick={onClose}
+            onClick={()=>{
+              onClose();
+              setTemp(value);
+            }}
             className="w-full rounded-lg border border-gray-200 py-3 font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer "
           >
             Cancel

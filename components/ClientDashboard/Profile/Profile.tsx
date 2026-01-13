@@ -12,6 +12,15 @@ import UsaFlag from "@/components/Icons/UsaFlag";
 import Link from "next/link";
 
 export default function ProfilePage() {
+  const editorsWorkedWith = [
+    { id: 1, name: "Alex Turner", avatar: "/images/sarah.png" },
+    { id: 2, name: "Jordan Smith", avatar: "/images/saramc.png" },
+    { id: 3, name: "Casey Anderson", avatar: "/images/sarah.png" },
+    { id: 4, name: "Morgan Lee", avatar: "/images/saramc.png" },
+    { id: 5, name: "Taylor Brown", avatar: "/images/sarah.png" },
+    { id: 6, name: "Riley Davis", avatar: "/images/saramc.png" },
+  ];
+
   const jobs = [
     {
       id: 1,
@@ -99,12 +108,33 @@ export default function ProfilePage() {
           </div>
 
           <div className="bg-[#FFC8C8] rounded-lg p-4">
-            <p className="text-gray-600 text-sm">Total Spent</p>
-            <p className="text-xl text-semibold text-[#FF4D4F] pt-2.5">$12,450</p>
+            <p className="text-gray-600 text-sm">Editors Worked With</p>
+            <p className="text-xl text-semibold text-[#FF4D4F] pt-2.5">{editorsWorkedWith.length}</p>
 
           </div>
         </div>
 
+      </div>
+
+      {/* EDITORS WORKED WITH */}
+      <div className="bg-white rounded-xl shadow-sm p-6 mt-8">
+        <h2 className="text-[25px] md:text-[32px] font-medium mb-6">Editors You've Worked With ({editorsWorkedWith.length})</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          {editorsWorkedWith.map((editor) => (
+            <div key={editor.id} className="flex flex-col items-center gap-3 text-center">
+              <Link href={`/editor/editor-profile?id=${editor?.id}`} className="w-20 h-20 overflow-hidden rounded-full">
+                <Image
+                  src={editor.avatar}
+                  alt={editor.name}
+                  width={500}
+                  height={500}
+                  className="w-full h-full rounded-full object-cover border-2 border-gray-200 transition cursor-pointer hover:scale-110 duration-300"
+                />
+              </Link>
+              <p className="text-sm font-medium text-[#333] line-clamp-2">{editor.name}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* JOB POSTINGS */}

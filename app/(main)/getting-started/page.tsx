@@ -16,13 +16,10 @@ export default function GettingStartedPage() {
     const isLogin = localStorage.getItem("isLogin");
 
     if (!isLogin) {
-      // Route to signup with client selected
       router.push("/singup?type=client");
     } else if (user === "client") {
-      // Route to client dashboard
       router.push("/client");
     } else {
-      // Fallback to signup
       router.push("/singup?type=client");
     }
   };
@@ -31,13 +28,10 @@ export default function GettingStartedPage() {
     const isLogin = localStorage.getItem("isLogin");
 
     if (!isLogin) {
-      // Route to signup with editor selected
       router.push("/singup?type=editor");
     } else if (user === "editor") {
-      // Route to editor profile page
       router.push("/editor/profile");
     } else {
-      // Fallback to signup
       router.push("/singup?type=editor");
     }
   };
@@ -54,7 +48,6 @@ export default function GettingStartedPage() {
 
       {/* Main Content */}
       <div className='containers mx-auto py-12 lg:py-20'>
-        {/* Page Title and Description */}
         <div className='text-center mb-12'>
           <h2 className='text-[#333] font-poppins text-[32px] md:text-[40px] lg:text-[48px] font-semibold leading-[120%]'>
             Welcome to Editor Marketplace
@@ -67,7 +60,6 @@ export default function GettingStartedPage() {
 
         {/* Two Column Layout */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto'>
-          {/* For Clients Section */}
           <div className='bg-white rounded-lg shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow'>
             <div className='mb-6'>
               <h3 className='text-[#333] font-poppins text-[28px] md:text-[32px] font-semibold leading-[120%] mb-2'>
@@ -77,8 +69,6 @@ export default function GettingStartedPage() {
                 Find and hire the perfect editor for your project
               </p>
             </div>
-
-            {/* Steps List */}
             <div className='space-y-4 mb-8'>
               {[
                 { step: 1, text: "Create an account (Client)" },
@@ -94,7 +84,7 @@ export default function GettingStartedPage() {
                 },
               ].map((item) => (
                 <div key={item.step} className='flex items-start gap-3'>
-                  <div className='shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm'>
+                  <div className='shrink-0 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-semibold text-sm'>
                     {item.step}
                   </div>
                   <p className='text-[#333] font-poppins text-[16px] font-normal leading-[150%] pt-1'>
@@ -103,11 +93,9 @@ export default function GettingStartedPage() {
                 </div>
               ))}
             </div>
-
-            {/* CTA Button */}
             <Button
               onClick={handleClientCTA}
-              className='w-full h-12 text-[16px] font-semibold'
+              className='w-full h-12 text-[16px] font-semibold cursor-pointer bg-red-500 hover:bg-red-600 text-white'
               size='lg'>
               Post a Job
             </Button>
@@ -123,8 +111,6 @@ export default function GettingStartedPage() {
                 Showcase your skills and find exciting projects
               </p>
             </div>
-
-            {/* Steps List */}
             <div className='space-y-4 mb-8'>
               {[
                 { step: 1, text: "Create an account (Editor)" },
@@ -137,7 +123,7 @@ export default function GettingStartedPage() {
                 { step: 5, text: "Get paid and build reviews" },
               ].map((item) => (
                 <div key={item.step} className='flex items-start gap-3'>
-                  <div className='shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm'>
+                  <div className='shrink-0 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-semibold text-sm'>
                     {item.step}
                   </div>
                   <p className='text-[#333] font-poppins text-[16px] font-normal leading-[150%] pt-1'>
@@ -146,18 +132,15 @@ export default function GettingStartedPage() {
                 </div>
               ))}
             </div>
-
-            {/* CTA Button */}
             <Button
               onClick={handleEditorCTA}
-              className='w-full h-12 text-[16px] font-semibold'
+              className='w-full h-12 text-[16px] font-semibold cursor-pointer bg-red-500 hover:bg-red-600 text-white'
               size='lg'>
               Create Profile
             </Button>
           </div>
         </div>
 
-        {/* Additional Help Section */}
         <div className='mt-16 text-center'>
           <p className='text-[#4A4C56] font-poppins text-[16px] md:text-[18px] font-normal leading-[150%]'>
             Need more information?{" "}

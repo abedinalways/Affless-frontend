@@ -26,7 +26,7 @@ export default function ProfileEditModal({
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] transition ${
+      className={`fixed inset-0 z-9999 transition ${
         open ? "visible" : "invisible"
       }`}
     >
@@ -47,12 +47,12 @@ export default function ProfileEditModal({
         {/* header */}
         <div className="flex justify-between items-center p-5 border-b">
           <h2 className="text-lg font-semibold text-[#222]">{title}</h2>
-          <button
+          {/* <button
             onClick={onClose}
             className="text-xl text-gray-500 cursor-pointer"
           >
             <FiX />
-          </button>
+          </button> */}
         </div>
 
         {/* content */}
