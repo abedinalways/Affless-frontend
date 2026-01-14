@@ -35,7 +35,7 @@ export default function GetTouchPage() {
 
   return (
     <div>
-      <Toaster position="top-right"/>
+      {/* <Toaster position="top-right"/> */}
       <div>
         <PageBanner
           title='Contact us

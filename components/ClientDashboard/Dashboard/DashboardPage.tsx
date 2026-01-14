@@ -11,6 +11,7 @@ import { DataTable } from "@/components/reusable/DataTable";
 
 type OrderStatus = "pending" | "accept";
 type FilterType = "Biding jobs" | "Offer jobs";
+import { Toaster } from "react-hot-toast";
 
 interface Order {
   id: number;
@@ -106,6 +107,7 @@ export default function ClientDashboard() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
+      {/* <Toaster position="top-right"/> */}
       <div className="mx-auto containers space-y-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* LEFT */}

@@ -149,12 +149,14 @@ export default function SuccessStroyPage() {
         </div>
 
         {/* ✅ NEW PAGINATION */}
-        <Pagination
-          page={currentPage}
-          pageSize={ITEMS_PER_PAGE}
-          total={filteredStories.length}
-          onPageChange={setCurrentPage}
-        />
+        <div className="py-4">
+          <Pagination
+            page={currentPage}
+            pageSize={ITEMS_PER_PAGE}
+            total={filteredStories.length}
+            onPageChange={setCurrentPage}
+          />
+        </div>
       </div>
     </div>
   );

@@ -67,7 +67,7 @@ export default function ReviewClient() {
 
   return (
     <div className="containers py-8 space-y-6">
-      <Toaster />
+      {/* <Toaster position="top-right" /> */}
       {/* TOP SELLER CARD */}
       <div className="bg-white rounded-2xl border p-5 flex items-center gap-4">
         <Image

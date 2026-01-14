@@ -5,7 +5,7 @@ import AddPortfolioModal from "./AddPortfolioModal";
 import PortfolioCarousel from "./PortfolioCarosule";
 import { GoPlus } from "react-icons/go";
 
-export default function PortfolioSection() {
+export default function PortfolioSection({ showAddBtn = true }: { showAddBtn?: boolean }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -16,14 +16,14 @@ export default function PortfolioSection() {
           Portfolio of past projects
         </h3>
 
-        <button
+        {showAddBtn && <button
           type="button"
           onClick={() => setOpen(true)}
           className="flex items-center gap-0 lg:gap-2 rounded-lg border border-gray-300 px-2  lg:px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition cursor-pointer"
         >
           <span className="text-lg font-semibold"><GoPlus /></span>
           Add New
-        </button>
+        </button>}
       </div>
 
       {/* ✅ Carousel */}

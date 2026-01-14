@@ -31,7 +31,7 @@ export default function Earnings() {
 
   return (
     <div className="containers py-10">
-      <Toaster />
+      {/* <Toaster position="top-right"/> */}
       <h1 className="text-3xl font-semibold mb-6">Earnings</h1>
 
       {/* ------- Top Section ------- */}

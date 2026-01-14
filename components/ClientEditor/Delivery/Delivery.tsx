@@ -72,7 +72,7 @@ export default function DeliveryMessage() {
 
   return (
     <div className="">
-      <Toaster />
+      {/* <Toaster position="top-right"/> */}
       <PageBanner
         title="Delivery"
         bgImage="/findEditor.jpg"

@@ -10,6 +10,8 @@ import { useRouter, usePathname } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import { FiLogOut } from "react-icons/fi";
 import Notification from "@/components/Notification/Notification";
+import { CookieHelper } from "@/helper/cookie.helper";
+import toast from "react-hot-toast";
 
 export default function ClientDashboardHeader() {
   const pathname = usePathname();
@@ -20,7 +22,7 @@ export default function ClientDashboardHeader() {
   const [profileDropdown, setProfileDropdown] = useState(false); // Profile dropdown
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const profileDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -67,14 +69,29 @@ export default function ClientDashboardHeader() {
   // }, []); // The empty dependency array ensures it runs only once after the first render
 
   const handleBecomeEditorClick = () => {
-    // Redirect to the editor dashboard
-    setMobileMenu(false);
-    router.push("/editor");
-  };
+    try {
+      const token = JSON.parse(CookieHelper.get({ key: 'user' }))
+      if (token.status === 'logged_in') {
+        CookieHelper.set({
+          key: "user", value: JSON.stringify({
+            status: 'logged_in',
+            user_type: 'editor'
+          })
+        })
+        setUser("editor");
+        router.push("/editor");
+      } else {
+        toast.error(`Please login first to become ${user === 'editor' ? 'a client' : 'an editor'}`);
+        router.push('/login');
+      }
+    } catch {
+      toast.error(`Please login first to become ${user === 'editor' ? 'a client' : 'an editor'}`);
+      router.push('/login');
+    }
+  }
 
   const handleLogout = () => {
-    localStorage.removeItem("userType");
-    localStorage.removeItem("isLogin");
+    CookieHelper.destroy({ key: "user" });
     setUser("");
     router.push("/");
   };

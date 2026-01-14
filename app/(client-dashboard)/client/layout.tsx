@@ -1,4 +1,4 @@
-
+import ClientLayout from "./_components/ClientLayout";
 import ContactUs from "@/components/MainPage/Contact-Us/Contact-Us";
 import ClientDashboardHeader from "@/components/shared/ClientDashboardHeader/ClinetDashboardHeaader";
 import Footer from "@/components/shared/Footer/Footer";
@@ -11,7 +11,9 @@ export default function Layout({
 }>) {
   return (
     <div className="">
-      {children}
+      <ClientLayout>
+        {children}
+      </ClientLayout>
       <ContactUs />
       <Footer />
     </div>

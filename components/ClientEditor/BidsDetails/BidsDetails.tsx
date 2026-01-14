@@ -36,97 +36,97 @@ const BidsDetails = () => {
       {/* Page Content */}
       <div className="containers py-10 lg:py-20 ">
         <div className="gap-9">
-            <div className=" flex flex-col lg:flex-row  gap-9">
-          <div className="space-y-5 w-full lg:w-2/3 order-2 lg:order-1">
-            {/* Title */}
-            <h1 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% text-[#333]">
-              Proposal Details
-            </h1>
+          <div className=" flex flex-col lg:flex-row  gap-9">
+            <div className="space-y-5 w-full lg:w-2/3 order-2 lg:order-1">
+              {/* Title */}
+              <h1 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% text-[#333]">
+                Proposal Details
+              </h1>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Etiam gravida euismod sodales. Vestibulum sed egestas sapien, sit
-              amet iaculis eros. Suspendisse pulvinar, erat sed interdum auctor,
-              eros ligula tempus quam, in congue est nunc et turpis. Nam non
-              nisi sed sem placerat semper. Proin egestas, odio eu semper mattis,
-              enim odio pulvinar leo, ac vestibulum sapien nulla non arcu.
-            </p>
+              <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
+                Etiam gravida euismod sodales. Vestibulum sed egestas sapien, sit
+                amet iaculis eros. Suspendisse pulvinar, erat sed interdum auctor,
+                eros ligula tempus quam, in congue est nunc et turpis. Nam non
+                nisi sed sem placerat semper. Proin egestas, odio eu semper mattis,
+                enim odio pulvinar leo, ac vestibulum sapien nulla non arcu.
+              </p>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Mauris sed venenatis libero, Pellentesque elementum ante massa, ac
-              ornare augue molestie ut. Suspendisse lacinia tortor sem, at
-              condimentum nulla auctor in. Sed vulputate euismod risus, eget
-              auctor nulla aliquet sed.
-            </p>
+              <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
+                Mauris sed venenatis libero, Pellentesque elementum ante massa, ac
+                ornare augue molestie ut. Suspendisse lacinia tortor sem, at
+                condimentum nulla auctor in. Sed vulputate euismod risus, eget
+                auctor nulla aliquet sed.
+              </p>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Nunc consequat quam tincidunt, mattis purus et, euismod eros.
-              Donec sed lobortis nunc. Donec a pretium ipsum. Curabitur
-              pellentesque neque et dictum interdum. Nam eu faucibus augue, id
-              sagittis magna. Aliquam sodales est dolor, non convallis arcu
-              feugiat a. Curabitur dictum dapibus nisl quis convallis. Morbi nec
-              ex vestibulum, tincidunt sapien a, pretium arcu.
-            </p>
+              <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
+                Nunc consequat quam tincidunt, mattis purus et, euismod eros.
+                Donec sed lobortis nunc. Donec a pretium ipsum. Curabitur
+                pellentesque neque et dictum interdum. Nam eu faucibus augue, id
+                sagittis magna. Aliquam sodales est dolor, non convallis arcu
+                feugiat a. Curabitur dictum dapibus nisl quis convallis. Morbi nec
+                ex vestibulum, tincidunt sapien a, pretium arcu.
+              </p>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              The Ultimate Guide To StartEtiam gravida euismod sodales.
-              Vestibulum sed egestas sapien, sit amet iaculis eros. Suspendisse
-              pulvinar, erat sed interdum auctor, eros ligula tempus quam, in
-              congue est nunc et turpis. Nam non nisi sed sem placerat semper.
-              Proin egestas, odio eu semper mattis, enim odio pulvinar leo, ac
-              vestibulum sapien nulla non arcu.
-            </p>
+              <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
+                The Ultimate Guide To StartEtiam gravida euismod sodales.
+                Vestibulum sed egestas sapien, sit amet iaculis eros. Suspendisse
+                pulvinar, erat sed interdum auctor, eros ligula tempus quam, in
+                congue est nunc et turpis. Nam non nisi sed sem placerat semper.
+                Proin egestas, odio eu semper mattis, enim odio pulvinar leo, ac
+                vestibulum sapien nulla non arcu.
+              </p>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Mauris sed venenatis libero, Pellentesque elementum ante massa, ac
-              ornare augue molestie ut. Suspendisse lacinia tortor sem, at
-              condimentum nulla auctor in. Sed vulputate euismod risus, eget
-              auctor nulla aliquet sed.
-            </p>
+              <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
+                Mauris sed venenatis libero, Pellentesque elementum ante massa, ac
+                ornare augue molestie ut. Suspendisse lacinia tortor sem, at
+                condimentum nulla auctor in. Sed vulputate euismod risus, eget
+                auctor nulla aliquet sed.
+              </p>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Nunc consequat quam tincidunt, mattis purus et, euismod eros.
-              Donec sed lobortis nunc. Donec a pretium ipsum. Curabitur
-              pellentesque neque et dictum interdum. Nam eu faucibus augue, id
-              sagittis magna. Aliquam sodales est dolor, non convallis arcu
-              feugiat a. Curabitur dictum dapibus nisl quis convallis. Morbi nec
-              ex vestibulum, tincidunt sapien a, pretium arcu.
-            </p>
+              <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
+                Nunc consequat quam tincidunt, mattis purus et, euismod eros.
+                Donec sed lobortis nunc. Donec a pretium ipsum. Curabitur
+                pellentesque neque et dictum interdum. Nam eu faucibus augue, id
+                sagittis magna. Aliquam sodales est dolor, non convallis arcu
+                feugiat a. Curabitur dictum dapibus nisl quis convallis. Morbi nec
+                ex vestibulum, tincidunt sapien a, pretium arcu.
+              </p>
 
-            {/* Skills */}
-            <div>
-              <h2 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% text-[#333] py-6">
-                Skills Required
-              </h2>
+              {/* Skills */}
+              <div>
+                <h2 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% text-[#333] py-6">
+                  Skills Required
+                </h2>
 
-              <div className="flex flex-wrap gap-3">
-                <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                  Adobe Premiere Pro
-                </span>
-                <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                  Adobe After Effects
-                </span>
-                <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                  Adobe After Effects
-                </span>
+                <div className="flex flex-wrap gap-3">
+                  <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
+                    Adobe Premiere Pro
+                  </span>
+                  <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
+                    Adobe After Effects
+                  </span>
+                  <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
+                    Adobe After Effects
+                  </span>
+                </div>
               </div>
-            </div>
 
-            {/* Attachments */}
-            <div>
-              <h2 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% mb-4">
-                Attachments
-              </h2>
+              {/* Attachments */}
+              <div>
+                <h2 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% mb-4">
+                  Attachments
+                </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* PDF Upload */}
-                <label className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
-                  <PdfIcon className="w-10 h-10" />
-                  <div>
-                    <p className="text-[18px] font-medium leading-150%">PDF File</p>
-                    <p className="text-[16px] font-normal leading-150% text-[#666]">File size: 690399 KB</p>
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* PDF Upload */}
+                  <label className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                    <PdfIcon className="w-10 h-10" />
+                    <div>
+                      <p className="text-[18px] font-medium leading-150%">PDF File</p>
+                      <p className="text-[16px] font-normal leading-150% text-[#666]">File size: 690399 KB</p>
+                    </div>
 
-                  {/* <div>
+                    {/* <div>
                     <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
                       {pdfFile ? pdfFile.name : "PDF File"}
                     </p>
@@ -144,17 +144,17 @@ const BidsDetails = () => {
                     className="hidden"
                     onChange={handlePdfUpload}
                   /> */}
-                </label>
+                  </label>
 
-                {/* TEXT Upload */}
-                <label className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
-                  <PdfIcon className="w-10 h-10" />
-                  <div>
-                    <p className="text-[18px] font-medium leading-150%">Text Document</p>
-                    <p className="text-[16px] font-normal leading-150% text-[#666]">File size: 690399 KB</p>
-                  </div>
+                  {/* TEXT Upload */}
+                  <label className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                    <PdfIcon className="w-10 h-10" />
+                    <div>
+                      <p className="text-[18px] font-medium leading-150%">Text Document</p>
+                      <p className="text-[16px] font-normal leading-150% text-[#666]">File size: 690399 KB</p>
+                    </div>
 
-                  {/* <div>
+                    {/* <div>
                     <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
                       {textFile ? textFile.name : "Upload Text Document"}
                     </p>
@@ -172,15 +172,15 @@ const BidsDetails = () => {
                     className="hidden"
                     onChange={handleTextUpload}
                   /> */}
-                </label>
+                  </label>
+                </div>
               </div>
             </div>
+            <div className="w-full lg:w-1/3 order-1 lg:order-2">
+              <EditorPrise />
+            </div>
           </div>
-          <div className="w-full lg:w-1/3 order-1 lg:order-2">
-            <EditorPrise/>
-        </div>
-        </div>
-        
+
         </div>
       </div>
     </div>

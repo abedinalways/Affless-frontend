@@ -42,7 +42,7 @@ export default function PaymentMethodPage() {
 
   return (
     <>
-      <Toaster />
+      {/* <Toaster position="top-right"/> */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="containers mx-auto py-10 px-6 bg-[#f6f6f6]"

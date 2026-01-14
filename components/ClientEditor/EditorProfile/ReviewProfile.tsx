@@ -14,6 +14,9 @@ const reviews = [
     flag: "/images/flags/uk.png",
     rating: 4.9,
     time: "1 month ago",
+    jobImage: "/images/project1.jpg",
+    jobTitle: "I will do SEO backlinks with blogger outreach for high quality link building",
+    price: "$400",
     message:
       "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     previewImage: "/images/vedio.png.jpg",
@@ -26,6 +29,9 @@ const reviews = [
     flag: "/images/flags/uk.png",
     rating: 4.9,
     time: "1 month ago",
+    jobImage: "/images/project2.jpg",
+    jobTitle: "Create a modern minimalist logo design for tech startup",
+    price: "$150",
     message:
       "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     previewImage: "/images/vedio.png.jpg",
@@ -44,25 +50,27 @@ export default function ReviewsSection() {
           <div className="flex gap-4 flex-1">
             {/* Avatar */}
             <div className="h-12 w-12 rounded-full overflow-hidden border border-gray-200 shrink-0">
-              <Image
-                src={review.avatar}
-                alt={review.name}
-                width={48}
-                height={48}
-                className="h-full w-full object-cover"
-              />
+              <Link href={`/client-profile/${review?.id}`} className="">
+                <Image
+                  src={review.avatar}
+                  alt={review.name}
+                  width={48}
+                  height={48}
+                  className="h-full w-full object-cover hover:scale-110 transition duration-300"
+                />
+              </Link>
             </div>
 
             {/* Content */}
             <div className="flex-1">
               {/* Name + Country */}
               <div className="space-y-1">
-                <Link href="/client/profile" className="text-[16px] font-semibold text-[#333] leading-none">
+                <h1 className="text-[16px] font-semibold text-[#333] leading-none capitalize">
                   {review.name}
-                </Link>
+                </h1>
 
                 <div className="flex items-center gap-2 text-[13px] text-gray-500">
-                 <UsaFlag />
+                  <UsaFlag />
                   <span>{review.country}</span>
                 </div>
               </div>
@@ -91,15 +99,21 @@ export default function ReviewsSection() {
           </div>
 
           {/* ✅ RIGHT SIDE Preview Image */}
-          <div className="w-full lg:w-[170px]  rounded-lg overflow-hidden border border-gray-200 shrink-0">
-            <Image
-              src={review.previewImage}
-              alt="preview"
-              width={170}
-              height={110}
-              className="h-full w-full object-cover"
-            />
-          </div>
+          {review.jobImage && (
+            <div className="mt-4 flex gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 items-center">
+              <Image
+                src={review.jobImage}
+                alt={`Job image for review by ${review.name}`}
+                width={80}
+                height={60}
+                className="w-24 h-16 rounded-md object-cover"
+              />
+              <div className="flex-1">
+                <h3 className="font-medium text-[#333] line-clamp-1">{review.jobTitle}</h3>
+                <p className="text-sm text-gray-500 mt-1">Fixed-price • {review.price}</p>
+              </div>
+            </div>
+          )}
         </div>
       ))}
     </div>

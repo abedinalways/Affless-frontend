@@ -169,7 +169,7 @@ export default function BrowseJob() {
             />
           </div>
 
-          <div className="grid items-center justify-end lg:hidden">
+          <div className="grid items-center justify-end lg:hidden pt-4">
             <button
               type="button"
               onClick={() => setMobileMenu(true)}
