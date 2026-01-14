@@ -122,7 +122,7 @@ export default function ProfilePage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {editorsWorkedWith.map((editor) => (
             <div key={editor.id} className="flex flex-col items-center gap-3 text-center">
-              <Link href={`/editor/editor-profile?id=${editor?.id}`} className="w-20 h-20 overflow-hidden rounded-full">
+              <Link href={`/editor-profile/${editor?.id}`} className="w-20 h-20 overflow-hidden rounded-full">
                 <Image
                   src={editor.avatar}
                   alt={editor.name}
@@ -138,7 +138,7 @@ export default function ProfilePage() {
       </div>
 
       {/* JOB POSTINGS */}
-      <h2 className="text-[25px] md:text-[32px] font-medium py-8">Job </h2>
+      <h2 className="text-[25px] md:text-[32px] font-medium py-8">Jobs </h2>
 
       <div className="space-y-6">
         {jobs.map((job) => (

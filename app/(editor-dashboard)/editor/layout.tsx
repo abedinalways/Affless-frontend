@@ -1,5 +1,6 @@
 import EditorDashboardHeader from "@/components/shared/EditorDashboardHeader/EditorDashboardHeader";
 import Footer from "@/components/shared/Footer/Footer";
+import EditorLayout from "./_components/EditorLayout";
 
 export default function Layout({
   children,
@@ -8,7 +9,9 @@ export default function Layout({
 }>) {
   return (
     <div className="">
-      {children}
+      <EditorLayout >
+        {children}
+      </EditorLayout>
       <Footer />
     </div>
   );

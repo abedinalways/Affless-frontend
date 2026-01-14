@@ -11,6 +11,8 @@ import { useUser } from "@/context/UserContext";
 import Inbox from "@/components/ClientEditor/Inbox/Inbox";
 import { FiLogOut } from "react-icons/fi";
 import Notification from "@/components/Notification/Notification";
+import { CookieHelper } from "@/helper/cookie.helper";
+import toast from "react-hot-toast";
 
 export default function EditorDashboardHeader() {
   const pathname = usePathname();
@@ -21,7 +23,7 @@ export default function EditorDashboardHeader() {
   const [profileDropdown, setProfileDropdown] = useState(false); // Profile dropdown
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const profileDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -75,15 +77,30 @@ export default function EditorDashboardHeader() {
   //   }, 2000);
   // }, []); // The empty dependency array ensures it runs only once after the first render
 
-  const handleBecomeEditorClick = () => {
-    // Redirect to the editor dashboard
-    setMobileMenu(false);
-    router.push("/client");
-  };
+  const handleBecomeClientClick = () => {
+    try {
+      const token = JSON.parse(CookieHelper.get({ key: 'user' }))
+      if (token.status === 'logged_in') {
+        CookieHelper.set({
+          key: "user", value: JSON.stringify({
+            status: 'logged_in',
+            user_type: 'client'
+          })
+        })
+        setUser("client");
+        router.push("/client");
+      } else {
+        toast.error(`Please login first to become ${user === 'editor' ? 'a client' : 'an editor'}`);
+        router.push('/login');
+      }
+    } catch {
+      toast.error(`Please login first to become ${user === 'editor' ? 'a client' : 'an editor'}`);
+      router.push('/login');
+    }
+  }
 
   const handleLogout = () => {
-    localStorage.removeItem("userType");
-    localStorage.removeItem("isLogin");
+    CookieHelper.destroy({ key: "user" });
     setUser("");
     router.push("/");
   };
@@ -198,7 +215,7 @@ export default function EditorDashboardHeader() {
             {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
             <div className="flex gap-8 items-center">
               <button
-                onClick={handleBecomeEditorClick}
+                onClick={handleBecomeClientClick}
                 className={`hidden lg:block cursor-pointer ${isActive("/client") ? activeCls : inactiveCls}`}
               >
                 Become an Client
@@ -399,7 +416,7 @@ export default function EditorDashboardHeader() {
 
             <li>
               <button
-                onClick={handleBecomeEditorClick}
+                onClick={handleBecomeClientClick}
                 className={`cursor-pointer px-3 py-2 hover:bg-gray-100 duration-300 w-full text-left ${isActive("/client") ? activeCls : inactiveCls
                   }`}
               >

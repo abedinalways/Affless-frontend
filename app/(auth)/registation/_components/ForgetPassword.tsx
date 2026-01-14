@@ -38,7 +38,7 @@ export default function ForgotPasswordForm() {
       lg:px-[100px] 
       xl:px-[150px]
       2xl:px-[300px] h-full grid items-center">
-      <Toaster />
+      {/* <Toaster position="top-right"/> */}
       <div
         className="
         grid grid-cols-1 md:grid-cols-2 

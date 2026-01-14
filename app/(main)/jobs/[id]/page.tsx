@@ -87,7 +87,9 @@ export default function JobDetails({ params }: PostPageProps) {
           </div>
         </div>
         <div className="w-full lg:w-3/4">
-          <BudgetPage />
+          <BudgetPage 
+           btnText="Chat with Buyer"
+          />
         </div>
       </div>
 

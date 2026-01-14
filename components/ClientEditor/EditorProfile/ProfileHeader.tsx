@@ -24,7 +24,7 @@ export default function ProfileHeaderCard({
   onEdit,
 }: {
   profile: ProfileState;
-  onEdit: () => void;
+  onEdit?: () => void;
 }) {
   return (
     <div className="w-full rounded-xl border border-gray-200 bg-white p-6">
@@ -75,14 +75,14 @@ export default function ProfileHeaderCard({
             </span>
           </div>
 
-          <button
+          {onEdit && <button
             type="button"
             onClick={onEdit}
             className="mt-5 inline-flex items-center gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-[13px] font-medium text-gray-700 hover:bg-gray-50 transition cursor-pointer"
           >
             <FiPlus />
             Edit
-          </button>
+          </button>}
         </div>
       </div>
     </div>

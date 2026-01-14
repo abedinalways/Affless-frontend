@@ -19,7 +19,7 @@ export default function DeliveryClient() {
 
   return (
     <div className="">
-      <Toaster />
+      {/* <Toaster position="top-right"/> */}
       <div>
         <PageBanner
           title="Delivery Page"

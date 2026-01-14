@@ -1,5 +1,6 @@
 'use client'
 
+import { CookieHelper } from '@/helper/cookie.helper';
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface UserContextType {
@@ -15,7 +16,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const userTypeFromStorage = localStorage.getItem('userType');
+        const userTypeFromStorage = JSON.parse(CookieHelper.get({key: "user"}) || '{}').user_type;
         if (userTypeFromStorage) {
             setUserState(userTypeFromStorage);
         }

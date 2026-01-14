@@ -33,7 +33,7 @@ export default function AddMoney() {
 
   return (
     <div className=" bg-[#F8F8F8] py-10">
-      <Toaster />
+      {/* <Toaster position="top-right"/> */}
       <div className="mx-auto w-full max-w-[860px] space-y-8 px-4">
 
         {/* STEP: BALANCE */}

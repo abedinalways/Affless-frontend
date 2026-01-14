@@ -52,7 +52,7 @@ export default function FindEditors() {
 
         {/* Mobile Filter Section (Visible only on small screens) */}
         <div
-          className={`fixed inset-0 translate-y-20 lg:hidden h-full bg-[#0003] z-999 ${
+          className={`fixed -top-4 inset-0 translate-y-20 lg:hidden h-full bg-[#0003] z-999 ${
             mobileMenu ? "w-full translate-x-0" : "w-fit -translate-x-full "
           } duration-300`}
           onClick={() => setMobileMenu(false)}>

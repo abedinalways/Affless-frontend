@@ -177,7 +177,7 @@ export default function HireVideoEditorForm() {
 
   return (
     <div>
-      <Toaster position="top-right"/>
+      {/* <Toaster position="top-right"/> */}
       <div>
         <PageBanner
           title='Hire a Video Editor'

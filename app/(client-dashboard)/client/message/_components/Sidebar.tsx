@@ -58,7 +58,7 @@ type SidebarProps = {
 
 export default function Sidebar({ selectedConversationId, onSelectConversation }: SidebarProps) {
     const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
-    const [selectedId, setSelectedId] = useState<string>('1');
+    const [selectedId, setSelectedId] = useState<string>('');
     const [searchQuery, setSearchQuery] = useState('');
 
     const filteredConversations = conversations.filter(conv =>

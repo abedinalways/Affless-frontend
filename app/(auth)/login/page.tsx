@@ -12,6 +12,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
 import { EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
+import { CookieHelper } from "@/helper/cookie.helper";
 
 type FormValues = {
   email: string;
@@ -40,23 +41,35 @@ export default function SignInForm() {
       localStorage.setItem("isLogin", "true");
       if (data?.email === "client@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/client");
-        localStorage.setItem("userType", "client");
+        CookieHelper.set({key : "user",value: JSON.stringify({
+          status: 'logged_in',
+          user_type: 'client'
+        })})
         setUser("client");
       } else if (data?.email === "editor@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/editor");
-        localStorage.setItem("userType", "editor");
+        CookieHelper.set({key : "user",value: JSON.stringify({
+          status: 'logged_in',
+          user_type: 'editor'
+        })})
         setUser("editor");
       } else if (data?.email === "admin@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/admin");
+        CookieHelper.set({key : "user",value: JSON.stringify({
+          status: 'logged_in',
+          user_type: 'admin'
+        })})
+        setUser("admin");
       } else {
         toast.error("Invalid email or password");
+        CookieHelper.destroy({key : "user"});
       }
     }, 2000);
   };
 
   return (
     <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
-      <Toaster position="top-right" />
+      {/* <Toaster position="top-right" /> */}
       <div className="ml-2">
         <Link href="/" className="pb-3 ">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
           <FaArrowLeft className="mt-1" />

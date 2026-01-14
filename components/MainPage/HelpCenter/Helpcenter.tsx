@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import {
   Accordion,
@@ -29,12 +29,94 @@ type FaqItem = {
   contentClassName: string;
 };
 
+const searchSuggestions = [
+  {
+    id: "acc-1",
+    title: "How to reset my password?",
+    activeTab: "account" as TabType
+  },
+  {
+    id: "acc-2",
+    title: "Can I change my account type (client/editor)?",
+    activeTab: "account" as TabType
+  },
+  {
+    id: "acc-3",
+    title: "How do I reset my password?",
+    activeTab: "account" as TabType
+  },
+  {
+    id: "acc-4",
+    title: "How do I delete my account?",
+    activeTab: "account" as TabType
+  },
+  {
+    id: "acc-5",
+    title: "Why is my account under review?",
+    activeTab: "account" as TabType
+  },
+  {
+    id: "pay-1",
+    title: "How are payments processed on the platform?",
+    activeTab: "payment" as TabType
+  },
+  {
+    id: "pay-2",
+    title: "When are editors paid?",
+    activeTab: "payment" as TabType
+  },
+  {
+    id: "pay-3",
+    title: "What fees does the platform charge?",
+    activeTab: "payment" as TabType
+  },
+  {
+    id: "pay-4",
+    title: "Can clients request refunds?",
+    activeTab: "payment" as TabType
+  },
+  {
+    id: "pay-5",
+    title: "What payment methods are supported?",
+    activeTab: "payment" as TabType
+  },
+  {
+    id: "item-1",
+    title: "How to contact customer support",
+    activeTab: "support" as TabType
+  },
+  {
+    id: "item-2",
+    title: "Reporting technical issues or bugs",
+    activeTab: "support" as TabType
+  },
+  {
+    id: "item-3",
+    title: "Dispute resolution process",
+    activeTab: "support" as TabType
+  },
+  {
+    id: "item-4",
+    title: "Community guidelines and code of conduct",
+    activeTab: "support" as TabType
+  },
+  {
+    id: "item-5",
+    title: "Providing feedback and feature requests",
+    activeTab: "support" as TabType
+  }
+]
+
 export default function HelpCenterPage() {
   const [activeTab, setActiveTab] = useState<TabType>("support");
   const [activeChat, setActiveChat] = useState<ChatType>(null);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<typeof searchSuggestions>(searchSuggestions);
 
   // ✅ search state
   const [searchTerm, setSearchTerm] = useState("");
+  // ✅ focus state
+  const [isFocused, setIsFocused] = useState(false);
+  const [activeAccordionItem, setActiveAccordionItem] = useState("");
 
   const openLiveChat = () => setActiveChat("live");
   const openEmailChat = () => setActiveChat("email");
@@ -151,10 +233,6 @@ export default function HelpCenterPage() {
   // ✅ filtering (title + content)
   const q = searchTerm.trim().toLowerCase();
   const currentFaqs = faqsByTab[activeTab];
-  const filteredFaqs = currentFaqs.filter((item) => {
-    if (!q) return true;
-    return (item.title + " " + item.content).toLowerCase().includes(q);
-  });
 
   const tabTitle =
     activeTab === "account"
@@ -162,6 +240,24 @@ export default function HelpCenterPage() {
       : activeTab === "payment"
         ? "Payments & Billing"
         : "Support & Contact";
+
+  const handleSearchSuggestionClick = (suggestion: { id: string; title: string; activeTab: TabType }) => () => {
+    setActiveTab(suggestion.activeTab);
+    setActiveAccordionItem(suggestion.id);
+    setIsFocused(false);
+  }
+
+  useEffect(()=>{
+    if(searchTerm.trim() === "") {
+      setFilteredSuggestions(searchSuggestions);
+      return;
+    };
+
+    const matchedSuggestions = searchSuggestions.filter(suggestion =>
+      suggestion.title.toLowerCase().includes(q)
+    );
+    setFilteredSuggestions(matchedSuggestions);
+  },[searchTerm])
 
   return (
     <div>
@@ -180,10 +276,26 @@ export default function HelpCenterPage() {
             <input
               type="text"
               placeholder="Search articles, FAQs, or topics..."
-              className="w-full py-3 pl-12 pr-4 rounded-lg bg-white border border-gray-200 focus:ring-2 focus:ring-red-300 outline-none"
+              className="w-full py-3 pl-12 pr-4 focus:rounded-b-none rounded-lg bg-white border border-gray-200 outline-none"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setTimeout(() => setIsFocused(false), 200)}
             />
+            {isFocused && (
+              <div className="bg-white p-3 rounded-b-lg shadow-md absolute w-full z-10 transition-transform duration-300">
+                {filteredSuggestions?.slice(0, 5)?.map((suggestion) => (
+                  <button
+                    type="button"
+                    key={suggestion.id}
+                    className="block w-full text-start py-2 px-3 hover:bg-gray-100 rounded cursor-pointer text-sm text-gray-700"
+                    onClick={handleSearchSuggestionClick(suggestion)}
+                  >
+                    {suggestion.title}
+                  </button>
+                ))}
+            </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-14">
@@ -219,8 +331,8 @@ export default function HelpCenterPage() {
           <h2 className="text-[18px] font-medium text-black mb-4">{tabTitle}</h2>
 
           <div className="bg-white rounded-xl shadow p-4">
-            <Accordion type="single" collapsible>
-              {filteredFaqs.map((item) => (
+            <Accordion type="single" collapsible value={activeAccordionItem} onValueChange={setActiveAccordionItem}>
+              {currentFaqs.map((item) => (
                 <AccordionItem key={item.id} value={item.id}>
                   <AccordionTrigger className="text-[18px] font-normal text-[#333] py-4 leading-150% cursor-pointer">
                     <div className="flex gap-3">
@@ -235,7 +347,7 @@ export default function HelpCenterPage() {
               ))}
             </Accordion>
 
-            {filteredFaqs.length === 0 && (
+            {currentFaqs.length === 0 && (
               <p className="text-gray-500 text-sm py-4 text-center">No results found.</p>
             )}
           </div>

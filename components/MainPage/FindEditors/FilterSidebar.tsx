@@ -3,7 +3,7 @@
 "use client";
 
 import { Slider } from "@/components/ui/slider";
-import React from "react";
+import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 /* ----------------------------------------
@@ -72,15 +72,17 @@ function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
 -----------------------------------------*/
 export default function FilterSidebar({ isMobile, handleMenu }: propType) {
   // ✅ HOOK MUST BE INSIDE COMPONENT
-  const [range, setRange] = React.useState([5, 35]);
+  const [range, setRange] = useState([5, 35]);
+  const [anyPrice, setAnyPrice] = useState(true);
+  const [anyDeliveryTime, setAnyDeliveryTime] = useState(true);
 
   return (
     <div
-      className={`w-[320px] sm:w-[400px] md:w-[320px]  border p-6 bg-white shadow-sm ${
-        isMobile
+      className={`w-[320px] sm:w-[400px] md:w-[320px]  border p-6 bg-white shadow-sm ${isMobile
           ? "h-full max-h-screen overflow-y-auto"
           : "rounded-[20px] h-fit"
-      }`}
+        }`}
+      // style={{ maxHeight: 'calc(100vh - 65px)' }}
       onClick={(e) => e.stopPropagation()}>
       {/* Job Category */}
       <div className='flex items-start justify-between'>
@@ -88,9 +90,8 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
         <button
           type='button'
           disabled={!isMobile}
-          className={`p-1 text-xl rounded-full hover:bg-red-50 cursor-pointer ${
-            isMobile ? "block" : "hidden"
-          }`}
+          className={`p-1 text-xl rounded-full hover:bg-red-50 cursor-pointer ${isMobile ? "block" : "hidden"
+            }`}
           onClick={handleMenu}>
           <IoClose />
         </button>
@@ -110,7 +111,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
       </div>
 
       {/* Price Range */}
-      <div className='w-full flex flex-col items-center gap-3 mb-8'>
+      {/* <div className='w-full flex flex-col items-center gap-3 mb-8'>
         <div className='w-full flex justify-between px-2 text-gray-500 text-sm font-medium'>
           <span>${range[0]}</span>
           <span>${range[1]}</span>
@@ -125,7 +126,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
           onValueChange={setRange}
           className='w-full'
         />
-      </div>
+      </div> */}
 
       {/* Delivery Time */}
       <div className=''>
@@ -139,14 +140,15 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
         <div className='flex items-center gap-3 mb-2'>
           <input
             type='checkbox'
-            id='anyDeliveryTime'
-            defaultChecked
+            id='anyPrice'
+            defaultChecked={anyPrice}
+            onChange={() => setAnyPrice(!anyPrice)}
             className='w-5 h-5 accent-black cursor-pointer'
           />
           <label
-            htmlFor='anyDeliveryTime'
+            htmlFor='anyPrice'
             className='text-[#333] text-[16px] cursor-pointer'>
-            Any Delivery Time
+            Any Price
           </label>
         </div>
 
@@ -155,11 +157,13 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
           <input
             type='number'
             placeholder='Min'
+            disabled={anyPrice}
             className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
           />
           <input
             type='number'
             placeholder='Max'
+            disabled={anyPrice}
             className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
           />
         </div>
@@ -179,7 +183,8 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
           <input
             type='checkbox'
             id='anyDeliveryTime'
-            defaultChecked
+            checked={anyDeliveryTime}
+            onChange={() => setAnyDeliveryTime(!anyDeliveryTime)}
             className='w-5 h-5 accent-black cursor-pointer'
           />
           <label
@@ -194,11 +199,13 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
           <input
             type='number'
             placeholder='Min'
+            disabled={anyDeliveryTime}
             className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
           />
           <input
             type='number'
             placeholder='Max'
+            disabled={anyDeliveryTime}
             className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
           />
         </div>

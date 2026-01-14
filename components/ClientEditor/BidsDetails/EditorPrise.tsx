@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function EditorPrise() {
-    const [status, setStatus] = useState<"accept" | "reject" | null>(null);
+  const [status, setStatus] = useState<"accept" | "reject" | null>(null);
 
   return (
-    <div className="w-full max-w-[380px] bg-white rounded-2xl overflow-hidden">
+    <div className="grid sm:grid-cols-[1fr_1fr] lg:grid-cols-1 w-full lg:max-w-[380px] bg-white rounded-2xl overflow-hidden">
       {/* Top Section */}
       <div className="p-6">
         <p className="text-[18px] font-bold text-[#4A4C56] leading-150% py-2.5">Editor price</p>
@@ -18,7 +18,7 @@ export default function EditorPrise() {
 
         {/* Delivery Date */}
         <div className="">
-          <p className="text-[16px] font-medium text-[#000] pt-8 pb-4">
+          <p className="text-[16px] font-medium text-black pt-8 pb-4">
             Delivery Date
           </p>
 
@@ -47,34 +47,32 @@ export default function EditorPrise() {
 
         {/* Buttons */}
         <div className="mt-6 space-y-3">
-  {/* Accept */}
-  <button
-    type="button"
-    onClick={() => setStatus("accept")}
-    className={`w-full py-3 rounded-xl font-medium text-[16px] transition
-      ${
-        status === "accept"
-          ? "bg-[#FF4D4F] text-white hover:opacity-90"
-          : "border border-[#FF4D4F] text-[#FF4D4F] hover:bg-[#FFECEC]"
-      } cursor-pointer`}
-  >
-    Accept
-  </button>
+          {/* Accept */}
+          <button
+            type="button"
+            onClick={() => setStatus("accept")}
+            className={`w-full py-3 rounded-xl font-medium text-[16px] transition
+      ${status === "accept"
+                ? "bg-[#FF4D4F] text-white hover:opacity-90"
+                : "border border-[#FF4D4F] text-[#FF4D4F] hover:bg-[#FFECEC]"
+              } cursor-pointer`}
+          >
+            Accept
+          </button>
 
-  {/* Reject */}
-  <button
-    type="button"
-    onClick={() => setStatus("reject")}
-    className={`w-full py-3 rounded-xl font-medium text-[16px] transition
-      ${
-        status === "reject"
-          ? "bg-[#FF4D4F] text-white hover:opacity-90"
-          : "border border-[#FF4D4F] text-[#FF4D4F] hover:bg-[#FFECEC]"
-      } cursor-pointer`}
-  >
-    Reject
-  </button>
-</div>
+          {/* Reject */}
+          <button
+            type="button"
+            onClick={() => setStatus("reject")}
+            className={`w-full py-3 rounded-xl font-medium text-[16px] transition
+      ${status === "reject"
+                ? "bg-[#FF4D4F] text-white hover:opacity-90"
+                : "border border-[#FF4D4F] text-[#FF4D4F] hover:bg-[#FFECEC]"
+              } cursor-pointer`}
+          >
+            Reject
+          </button>
+        </div>
       </div>
 
       {/* About Editor */}
@@ -120,9 +118,9 @@ export default function EditorPrise() {
 
         {/* Contact */}
         <Link href="/editor/message">
-        <button className="mt-6 w-full py-3 rounded-xl bg-[#FF4D4F] text-white font-medium text-[16px] cursor-pointer hover:opacity-90 transition">
-          Contact Editor
-        </button></Link>
+          <button className="mt-6 w-full py-3 rounded-xl bg-[#FF4D4F] text-white font-medium text-[16px] cursor-pointer hover:opacity-90 transition">
+            Contact Editor
+          </button></Link>
       </div>
     </div>
   );

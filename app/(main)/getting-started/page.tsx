@@ -7,32 +7,33 @@ import PageBanner from "@/components/reusable/Bgbanner";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import { CheckCircle } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function GettingStartedPage() {
   const router = useRouter();
   const { user, loading } = useUser();
 
   const handleClientCTA = () => {
-    const isLogin = localStorage.getItem("isLogin");
-
-    if (!isLogin) {
-      router.push("/singup?type=client");
-    } else if (user === "client") {
-      router.push("/client");
+    if (user === "client") {
+      router.push("/client/post-job");
+    } else if (user === "editor") {
+      toast.error("Only clients can post jobs.");
+      router.push("/editor");
     } else {
-      router.push("/singup?type=client");
+      toast.error("Please login as a client to post a job.");
+      router.push("/login");
     }
   };
 
   const handleEditorCTA = () => {
-    const isLogin = localStorage.getItem("isLogin");
-
-    if (!isLogin) {
-      router.push("/singup?type=editor");
-    } else if (user === "editor") {
-      router.push("/editor/profile");
-    } else {
-      router.push("/singup?type=editor");
+    if (user === "editor") {
+      router.push("/editor/editor-profile");
+    } else if(user === 'client'){
+      toast.error("Please switch to an editor account to create a profile.");
+      router.push('/client')
+    }else {
+      toast.error("Please login as a editor to create a profile")
+      router.push("/login");
     }
   };
 

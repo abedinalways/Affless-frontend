@@ -24,7 +24,7 @@ export default function WithdrawBalance() {
 
   return (
     <div className="containers">
-      <Toaster />
+      {/* <Toaster position="top-right" /> */}
       <div className=" flex items-center justify-center bg-white  rounded-2xl">
         <div className="w-full max-w-4xl rounded-2xl  bg-white p-8 sm:p-12">
           <h1 className="text-3xl sm:text-4xl font-semibold text-center">
