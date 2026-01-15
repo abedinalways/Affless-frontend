@@ -3,7 +3,7 @@
 "use client";
 
 import { Slider } from "@/components/ui/slider";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 /* ----------------------------------------
@@ -12,8 +12,12 @@ import { IoClose } from "react-icons/io5";
 export const jobCategories = [
   { label: "Long-Form Video", count: "54" },
   { label: "Shorts/Reels/TikToks", count: "9+" },
-  { label: "Photo", count: "36+" },
-  { label: "Audio", count: "28+" },
+  { label: "Thumbnails", count: "36+" },
+  { label: "Ads/UGC", count: "28+" },
+  { label: "Podcasts", count: "28+" },
+  { label: "Weddings/Events", count: "28+" },
+  { label: "Color & Audio", count: "28+" },
+  { label: "Captions/Subtitles", count: "28+" },
 ];
 
 export const platforms = [
@@ -72,15 +76,48 @@ function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
 -----------------------------------------*/
 export default function FilterSidebar({ isMobile, handleMenu }: propType) {
   // ✅ HOOK MUST BE INSIDE COMPONENT
-  const [range, setRange] = useState([5, 35]);
+  const [priceRange, setPriceRange] = useState([]);
   const [anyPrice, setAnyPrice] = useState(true);
   const [anyDeliveryTime, setAnyDeliveryTime] = useState(true);
+  const [deliveryRange, setDeliveryRange] = useState([]);
+  const minPriceRef = useRef<HTMLInputElement | null>(null);
+  const maxPriceRef = useRef<HTMLInputElement | null>(null);
+  const minDeliveryRef = useRef<HTMLInputElement | null>(null);
+  const maxDeliveryRef = useRef<HTMLInputElement | null>(null);
+
+  const handleNumericInput = (event: React.FormEvent<HTMLInputElement>) => {
+    const input = event.currentTarget;
+    input.value = input.value.replace(/\D+/g, "");
+  };
+
+  const handleCurrencyBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const input = event.currentTarget;
+    const numericValue = input.value.replace(/\D+/g, "");
+
+    if (!numericValue) {
+      input.value = "";
+      return;
+    }
+
+    input.value = `$${numericValue}`;
+  };
+  const handleDayBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const input = event.currentTarget;
+    const numericValue = input.value.replace(/\D+/g, "");
+
+    if (!numericValue) {
+      input.value = "";
+      return;
+    }
+
+    input.value = `${numericValue} days`;
+  };
 
   return (
     <div
       className={`w-[320px] sm:w-[400px] md:w-[320px]  border p-6 bg-white shadow-sm ${isMobile
-          ? "h-full max-h-screen overflow-y-auto"
-          : "rounded-[20px] h-fit"
+        ? "h-full max-h-screen overflow-y-auto"
+        : "rounded-[20px] h-fit"
         }`}
       // style={{ maxHeight: 'calc(100vh - 65px)' }}
       onClick={(e) => e.stopPropagation()}>
@@ -133,39 +170,70 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
         {/* {deliveryTimes.map((d, idx) => (
           <CheckboxRow key={idx} label={d} />
         ))} */}
-        {/* Delivery Time Section */}
+        {/* Price Section */}
         <h2 className='text-[#333] font-semibold text-xl mb-4'>Price</h2>
 
-        {/* Any Delivery Time Checkbox */}
-        <div className='flex items-center gap-3 mb-2'>
+        {/* Any Price Checkbox */}
+        <label className='flex items-center gap-3 mb-2 cursor-pointer'>
           <input
             type='checkbox'
-            id='anyPrice'
-            defaultChecked={anyPrice}
-            onChange={() => setAnyPrice(!anyPrice)}
+            checked={anyPrice}
+            onChange={() => {
+              const nextValue = !anyPrice;
+              setAnyPrice(nextValue);
+              setPriceRange([]);
+              if (nextValue) {
+                if (minPriceRef.current) minPriceRef.current.value = "";
+                if (maxPriceRef.current) maxPriceRef.current.value = "";
+              }
+            }}
             className='w-5 h-5 accent-black cursor-pointer'
           />
-          <label
-            htmlFor='anyPrice'
-            className='text-[#333] text-[16px] cursor-pointer'>
+          <span className='text-[#333] text-[16px]'>
             Any Price
-          </label>
-        </div>
+          </span>
+        </label>
 
         {/* Min Max Inputs */}
         <div className='flex gap-3 items-center'>
-          <input
-            type='number'
-            placeholder='Min'
-            disabled={anyPrice}
-            className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
-          />
-          <input
-            type='number'
-            placeholder='Max'
-            disabled={anyPrice}
-            className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
-          />
+          <div className='relative w-full'>
+            <input
+              type='text'
+              placeholder='Min'
+              inputMode='numeric'
+              pattern="[0-9]*"
+              disabled={anyPrice}
+              ref={minPriceRef}
+              onInput={handleNumericInput}
+              onBlur={handleCurrencyBlur}
+              className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+            />
+            {anyPrice && (
+              <div
+                className='absolute inset-0 cursor-pointer'
+                onClick={() => setAnyPrice(false)}
+              />
+            )}
+          </div>
+          <div className='relative w-full'>
+            <input
+              type='text'
+              placeholder='Max'
+              inputMode='numeric'
+              pattern="[0-9]*"
+              disabled={anyPrice}
+              ref={maxPriceRef}
+              onInput={handleNumericInput}
+              onBlur={handleCurrencyBlur}
+              className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+            />
+            {anyPrice && (
+              <div
+                className='absolute inset-0 cursor-pointer'
+                onClick={() => setAnyPrice(false)}
+              />
+            )}
+          </div>
         </div>
       </div>
 
@@ -179,35 +247,66 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
         </h2>
 
         {/* Any Delivery Time Checkbox */}
-        <div className='flex items-center gap-3 mb-2'>
+        <label className='flex items-center gap-3 mb-2 cursor-pointer'>
           <input
             type='checkbox'
-            id='anyDeliveryTime'
             checked={anyDeliveryTime}
-            onChange={() => setAnyDeliveryTime(!anyDeliveryTime)}
+            onChange={() => {
+              const nextValue = !anyDeliveryTime;
+              setAnyDeliveryTime(nextValue);
+              setDeliveryRange([]);
+              if (nextValue) {
+                if (minDeliveryRef.current) minDeliveryRef.current.value = "";
+                if (maxDeliveryRef.current) maxDeliveryRef.current.value = "";
+              }
+            }}
             className='w-5 h-5 accent-black cursor-pointer'
           />
-          <label
-            htmlFor='anyDeliveryTime'
-            className='text-[#333] text-[16px] cursor-pointer'>
+          <span className='text-[#333] text-[16px]'>
             Any Delivery Time
-          </label>
-        </div>
+          </span>
+        </label>
 
         {/* Min Max Inputs */}
         <div className='flex gap-3 items-center'>
-          <input
-            type='number'
-            placeholder='Min'
-            disabled={anyDeliveryTime}
-            className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
-          />
-          <input
-            type='number'
-            placeholder='Max'
-            disabled={anyDeliveryTime}
-            className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
-          />
+          <div className='relative w-full'>
+            <input
+              type='text'
+              placeholder='Min'
+              disabled={anyDeliveryTime}
+              inputMode='numeric'
+              pattern="[0-9]*"
+              ref={minDeliveryRef}
+              onInput={handleNumericInput}
+              onBlur={handleDayBlur}
+              className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+            />
+            {anyDeliveryTime && (
+              <div
+                className='absolute inset-0 cursor-pointer'
+                onClick={() => setAnyDeliveryTime(false)}
+              />
+            )}
+          </div>
+          <div className='relative w-full'>
+            <input
+              type='text'
+              placeholder='Max'
+              disabled={anyDeliveryTime}
+              inputMode='numeric'
+              pattern="[0-9]*"
+              ref={maxDeliveryRef}
+              onInput={handleNumericInput}
+              onBlur={handleDayBlur}
+              className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+            />
+            {anyDeliveryTime && (
+              <div
+                className='absolute inset-0 cursor-pointer'
+                onClick={() => setAnyDeliveryTime(false)}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
