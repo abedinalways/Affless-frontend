@@ -8,6 +8,7 @@ import Pagination from "@/components/reusable/pagination";
 import PageBanner from "@/components/reusable/Bgbanner";
 import { FaSitemap } from "react-icons/fa";
 import FindFilterCategory from "./FindFilterCategory";
+import FilterSidebar from "./FindFilterCategory";
 
 interface Editor {
   id: number;
@@ -53,102 +54,87 @@ export default function FindEditorPage() {
         ]}
       />
 
-      <div className="containers mx-auto flex flex-col lg:flex-row gap-8 lg:pt-20">
-        {/* ✅ Desktop Sidebar */}
-        <FindFilterCategory />
-
-        {/* ✅ Mobile Filter Button */}
-        <div className="grid items-center justify-end lg:hidden mt-9">
-          <button
-            type="button"
-            onClick={() => setMobileMenu(true)}
-            className="flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300"
-          >
-            <FaSitemap />
-            <span>Filters</span>
-          </button>
-        </div>
-
-        {/* ✅ Mobile Drawer */}
-        {mobileMenu && (
-          <div className="fixed inset-0 z-9999 lg:hidden flex">
-            {/* Overlay */}
-            <div
-              className="absolute inset-0 bg-black/40"
-              onClick={() => setMobileMenu(false)}
-            />
-
-            {/* Drawer */}
-            <div className="relative w-[85%] max-w-[340px] h-full bg-white shadow-xl animate-slideInLeft">
-              <div className="flex items-center justify-between px-4 py-4 border-b">
-                <h3 className="text-[18px] font-semibold text-[#222]">
-                  Filters
-                </h3>
-
-                <button
-                  onClick={() => setMobileMenu(false)}
-                  className="p-2 rounded-md hover:bg-gray-100 transition cursor-pointer"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div className="p-4 overflow-y-auto h-[calc(100%-64px)]">
-                <FindFilterCategory isMobile />
-              </div>
-            </div>
+      <div className="containers w-fit mx-auto gap-6 py-10 px-4 lg:px-0 space-y-4">
+        <div className="mx-auto grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:pt-20">
+          {/* ✅ Desktop Sidebar */}
+          <div className="hidden lg:block">
+            <FilterSidebar />
           </div>
-        )}
 
-        {/* ✅ Right Side Content */}
-        <div className="w-full lg:w-3/4 space-y-6">
-          {visibleEditors.map((editor) => (
-            <div
-              key={editor.id}
-              className="bg-white rounded-xl p-5 shadow-sm flex w-full justify-between"
+          <div
+            className={`fixed inset-0 lg:hidden h-full bg-[#0003] z-999 ${mobileMenu ? "w-full translate-x-0" : "w-fit -translate-x-full"
+              } duration-300`}
+            onClick={() => setMobileMenu(false)}
+          >
+            <FilterSidebar
+              isMobile={true}
+              handleMenu={() => setMobileMenu(false)}
+            />
+          </div>
+
+          <div className="grid items-center justify-end lg:hidden pt-4">
+            <button
+              type="button"
+              onClick={() => setMobileMenu(true)}
+              className="flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300"
             >
-              <div className="flex flex-col lg:flex-row w-full justify-between gap-6">
-                <Image
-                  src={editor.image}
-                  alt={editor.name}
-                  width={500}
-                  height={160}
-                  className="rounded-lg object-cover w-full lg:w-[200px] aspect-3/2"
-                />
+              <FaSitemap />
+              <span>Filters</span>
+            </button>
+          </div>
 
-                <div className="flex flex-col w-full">
-                  <h2 className="text-[22px] font-medium">{editor.name}</h2>
+          {/* ✅ Right Side Content */}
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+            {visibleEditors.map((editor) => (
+              <div
+                key={editor.id}
+                className="bg-white rounded-xl p-5 shadow-sm flex w-full justify-between"
+              >
+                <div className="flex flex-col lg:flex-row w-full justify-between gap-6">
+                  <Image
+                    src={editor.image}
+                    alt={editor.name}
+                    width={500}
+                    height={160}
+                    className="rounded-lg object-cover w-full lg:w-[200px] aspect-3/2"
+                  />
 
-                  <p className="text-[15px] text-gray-700 flex items-center gap-1">
-                    <TiStarFullOutline className="text-[#FAAD14]" />
-                    {editor.rating} ({editor.reviews} Review)
-                  </p>
+                  <div className="flex flex-col w-full">
+                    <h2 className="text-[22px] font-medium">{editor.name}</h2>
 
-                  <p className="text-[12px] text-[#777980]">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
+                    <p className="text-[15px] text-gray-700 flex items-center gap-1">
+                      <TiStarFullOutline className="text-[#FAAD14]" />
+                      {editor.rating} ({editor.reviews} Review)
+                    </p>
 
-                  <div className="flex gap-3 mt-4">
-                    <Link
-                      href="/client/hire-vedio-editor"
-                      className="px-4 py-2 bg-red-500 text-white rounded-full text-sm"
-                    >
-                      Hire Editor
-                    </Link>
+                    <p className="text-[12px] text-[#777980]">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry.
+                    </p>
 
-                    <Link
-                      href="/client/message"
-                      className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm"
-                    >
-                      Message
-                    </Link>
+                    <div className="flex flex-wrap gap-3 mt-4">
+                      <Link
+                        href="/client/hire-vedio-editor"
+                        className="px-4 py-2 bg-red-500 text-white rounded-full text-sm"
+                      >
+                        Hire Editor
+                      </Link>
+
+                      <Link
+                        href="/client/message"
+                        className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm"
+                      >
+                        Message
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
 
+          </div>
+        </div>
+        <div className="w-full">
           <Pagination
             page={page}
             pageSize={pageSize}

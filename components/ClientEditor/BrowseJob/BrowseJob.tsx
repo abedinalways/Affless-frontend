@@ -21,10 +21,10 @@ export const data = [
     profesion: "Professional",
     country: "Pakistan",
     delevery: "Delivery: 6 -Months",
-    category: "SEO",
-    platform: "Upwork",
+    category: "Thumbnails",
+    platform: "YouTube",
     deliveryTime: "3 Days",
-    budget: "10-50",
+    budget: "50",
   },
   {
     id: 2,
@@ -38,10 +38,10 @@ export const data = [
     profesion: "Professional",
     country: "Pakistan",
     delevery: "Delivery: 6 -Months",
-    category: "Video Editing",
-    platform: "Fiverr",
+    category: "Shorts/Reels/TikToks",
+    platform: "TikTok",
     deliveryTime: "5 Days",
-    budget: "50-100",
+    budget: "100",
   },
   {
     id: 3,
@@ -55,10 +55,10 @@ export const data = [
     profesion: "Professional",
     country: "Pakistan",
     delevery: "Delivery: 6 -Months",
-    category: "Web Development",
-    platform: "Freelancer",
+    category: "Shorts/Reels/TikToks",
+    platform: "Facebook",
     deliveryTime: "7 Days",
-    budget: "100+",
+    budget: "100",
   },
   {
     id: 4,
@@ -72,10 +72,10 @@ export const data = [
     profesion: "Professional",
     country: "Pakistan",
     delevery: "Delivery: 6 -Months",
-    category: "SEO",
-    platform: "Upwork",
+    category: "Ads/UGC",
+    platform: "Snapchat",
     deliveryTime: "3 Days",
-    budget: "10-50",
+    budget: "500",
   },
   {
     id: 5,
@@ -89,10 +89,10 @@ export const data = [
     profesion: "Professional",
     country: "Pakistan",
     delevery: "Delivery: 6 -Months",
-    category: "Video Editing",
-    platform: "Fiverr",
+    category: "Captions/Subtitles",
+    platform: "X (Twitter)",
     deliveryTime: "5 Days",
-    budget: "50-100",
+    budget: "900",
   },
   {
     id: 6,
@@ -106,10 +106,10 @@ export const data = [
     profesion: "Professional",
     country: "Pakistan",
     delevery: "Delivery: 6 -Months",
-    category: "Web Development",
-    platform: "Freelancer",
+    category: "Long-Form YouTube",
+    platform: "YouTube",
     deliveryTime: "7 Days",
-    budget: "100+",
+    budget: "250",
   },
 ];
 
@@ -148,7 +148,7 @@ export default function BrowseJob() {
       <PageBanner
         title="Browse Jobs"
         bgImage="/findEditor.jpg"
-        desc="Find the best editor according to your work type, budget, and delivery time."
+        desc=" Find the best client jobs based on job type, budget, and project duration."
         links={[{ label: "Home", href: "/" }, { label: "Browse Jobs" }]}
       />
 
@@ -211,23 +211,21 @@ export default function BrowseJob() {
                         <h3 className="">{item.name}</h3>
                       </div>
                     </Link>
-
-                    <div>{item.review}</div>
                   </div>
 
-                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-1.5 pb-4">
-                    <span className="px-2.5 py-1 bg-[#DBE3FC] rounded-full">
-                      {item.link}
+                  <div className="flex flex-wrap gap-1.5 pb-4">
+                    <span className="flex-1 text-nowrap px-2.5 py-1 bg-[#f3f5f6] rounded-full">
+                      ${item.budget}
                     </span>
-                    <span className="px-2.5 py-1 bg-[#C6F7EE] rounded-full">
-                      {item.profesion}
+                    <span className="flex-1 text-nowrap px-2.5 py-1 bg-[#f3f5f6] rounded-full">
+                      {item.category}
                     </span>
-                    <span className="px-2.5 py-1 bg-[#F9EDC9] rounded-full">
-                      {item.country}
+                    <span className="flex-1 text-nowrap px-2.5 py-1 bg-[#f3f5f6] rounded-full">
+                      {item.platform}
                     </span>
                   </div>
 
-                  <div>{item.delevery}</div>
+                  <div>Delivery: {item.deliveryTime}</div>
                 </div>
               ))}
             </div>

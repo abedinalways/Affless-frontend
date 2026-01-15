@@ -20,7 +20,7 @@ export default function Banner() {
         if (token.user_type === 'client') {
           router.push("/client/post-job");
         } else {
-          toast.error('Only clients can post a job');
+          toast.error('Switch to client account to post a job');
           router.push("/editor");
         }
       } else {

@@ -30,7 +30,7 @@ export default function Pagination({
   const pagesToShow = getPages();
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="w-full flex items-center justify-between">
       <div className="flex justify-center items-center gap-3">
         {/* Prev */}
         <button
@@ -83,7 +83,7 @@ export default function Pagination({
         </button>
       </div>
       <div className="text-sm">
-        <p>Showing {Math.min(pageSize, total)} out of {total} total</p>
+        <p>Showing {total} results • Page {page} of {totalPages}</p>
       </div>
     </div>
   );
