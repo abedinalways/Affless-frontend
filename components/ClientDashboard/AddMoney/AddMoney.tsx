@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Calendar, Plus } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -14,7 +14,7 @@ export default function AddMoney() {
 
   // Amount state
   const [amount, setAmount] = useState<number>(0);
-  const quickAmounts = useMemo(() => [50, 100, 200, 500], []);
+  const quickAmounts = useMemo(() => [350.00, 150.00, 25.00, 10.00], []);
 
   // Payment form states
   const [cardNumber, setCardNumber] = useState("");
@@ -26,7 +26,7 @@ export default function AddMoney() {
   const canGoPayment = amount > 0;
   const canPay =
     amount > 0 &&
-    cardNumber.trim().length >= 12 &&
+    cardNumber.trim().length >= 19 &&
     expiry.trim().length >= 4 &&
     cvc.trim().length >= 3 &&
     holder.trim().length >= 2;
@@ -52,7 +52,7 @@ export default function AddMoney() {
         {/* STEP: ADD MONEY */}
         {step === "ADD_MONEY" && (
           <>
-            <SectionHeader title="Add Money" subtitle="Enter amount to add" />
+            <SectionHeader title="Add Money" subtitle="Add funds to your wallet to pay editors quickly and securely for completed jobs." />
             <Panel>
               <AddMoneyStep
                 amount={amount}
@@ -71,7 +71,7 @@ export default function AddMoney() {
           <>
             <SectionHeader
               title="Payment Method"
-              subtitle={`Select how to pay ${amount.toFixed(2)}`}
+              subtitle={`Enter your card details below to securely complete your payment.`}
             />
             <Panel>
               <PaymentMethodStep
@@ -87,7 +87,7 @@ export default function AddMoney() {
                 canPay={canPay}
                 onBack={() => setStep("ADD_MONEY")}
                 onPay={() => {
-                  toast.success(`Paid $${amount.toFixed(2)} successfully!`);
+                  toast.success(`Paid $${amount.toFixed(2)} Successfully`);
                   setTimeout(() => {
                     setStep("BALANCE");
                     setAmount(0);
@@ -137,7 +137,7 @@ function BalanceStep({
       <div className="text-[38px] font-semibold text-gray-900">
         ${balance.toFixed(2)}
       </div>
-      <div className="mt-2 text-[14px] text-gray-500">Available to spend</div>
+      <div className="mt-2 text-[14px] text-gray-500">Available to Spend</div>
 
       <button
         type="button"
@@ -167,6 +167,12 @@ function AddMoneyStep({
   onNext: () => void;
   onBack: () => void;
 }) {
+  const [displayAmount, setDisplayAmount] = useState<string>("");
+
+  useEffect(() => {
+    setDisplayAmount(amount ? amount.toString() : "");
+  }, [amount]);
+
   return (
     <div className="space-y-6">
       <div>
@@ -175,9 +181,21 @@ function AddMoneyStep({
         </label>
 
         <div className="mt-3 rounded-xl border border-gray-200 bg-white px-5 py-6">
-          <div className="text-[36px] font-semibold text-gray-900">
-            ${amount || 0}
-          </div>
+          <input
+            type="text"
+            inputMode="decimal"
+            value={displayAmount}
+            onChange={(e) => {
+              let rawValue = e.target.value.replace(/[^0-9.]/g, "");
+              const parts = rawValue.split(".");
+              rawValue = parts.shift() + (parts.length ? "." + parts.join("") : "");
+              setAmount(rawValue ? Number.parseFloat(rawValue) : 0);
+              setDisplayAmount(rawValue);
+            }}
+            onFocus={() => setDisplayAmount(amount ? amount.toString() : "")}
+            onBlur={() => setDisplayAmount(amount ? `$${amount.toFixed(2)}` : "")}
+            className="w-full h-full text-[36px] font-semibold text-gray-900 outline-none"
+          />
         </div>
       </div>
 
@@ -198,7 +216,7 @@ function AddMoneyStep({
                     : "bg-[#E9F7FA] text-gray-900 hover:opacity-90 cursor-pointer"
                   }`}
               >
-                ${q}
+                ${q}.00
               </button>
             );
           })}
@@ -266,7 +284,12 @@ function PaymentMethodStep({
       <Field label="Card Number">
         <input
           value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
+          inputMode="numeric"
+          onChange={(e) => {
+            const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 16);
+            const formatted = digitsOnly.replace(/(\d{4})(?=\d)/g, "$1 ");
+            setCardNumber(formatted);
+          }}
           placeholder="1234 5678 9012 3456"
           className="w-full h-12 rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
         />
@@ -276,13 +299,16 @@ function PaymentMethodStep({
         <div className="relative">
           <input
             value={expiry}
-            onChange={(e) => setExpiry(e.target.value)}
+            inputMode="numeric"
+            onChange={(e) => {
+              const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 4);
+              const formatted = digitsOnly.length > 2
+                ? `${digitsOnly.slice(0, 2)} / ${digitsOnly.slice(2)}`
+                : digitsOnly;
+              setExpiry(formatted);
+            }}
             placeholder="MM / YY"
             className="w-full h-12 rounded-lg border border-gray-300 px-4 pr-12 outline-none focus:border-gray-400"
-          />
-          <Calendar
-            size={18}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
           />
         </div>
       </Field>
@@ -290,7 +316,12 @@ function PaymentMethodStep({
       <Field label="CVC / CVV">
         <input
           value={cvc}
-          onChange={(e) => setCvc(e.target.value)}
+          inputMode="numeric"
+          maxLength={4}
+          onChange={(e) => {
+            const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 4);
+            setCvc(digitsOnly);
+          }}
           placeholder="123"
           className="w-full h-12 rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
         />
@@ -299,7 +330,10 @@ function PaymentMethodStep({
       <Field label="Card holder Name">
         <input
           value={holder}
-          onChange={(e) => setHolder(e.target.value)}
+          onChange={(e) => {
+            const lettersOnly = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+            setHolder(lettersOnly);
+          }}
           placeholder="John Doe"
           className="w-full h-12 rounded-lg border border-gray-300 px-4 outline-none focus:border-gray-400"
         />

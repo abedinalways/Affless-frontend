@@ -10,7 +10,7 @@ export default function AddMoneyPage() {
           title="Add Money"
           bgImage="/findEditor.jpg"
           links={[
-            { label: "Home", href: "/client" },
+            { label: "Dashboard", href: "/client" },
             { label: "Add Money", href: "#" },
           ]}
         />

@@ -22,7 +22,7 @@ export default function BudgetPage({ btnText }: propType) {
       <div className="bg-[#FFFFFF] rounded-2xl p-6 text-center space-y-4 ">
         <h2 className="text-lg font-bold text-[#4A4C56]">Budget</h2>
 
-        <p className="text-[30px] log:text-[40px] font-bold text-gray-900">$350.00</p>
+        <p className="text-[30px] log:text-[40px] font-bold text-gray-900">$350</p>
 
         {/* Wishlist Button */}
         {/* <button onClick={handleAddWishlist} className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition">
@@ -38,46 +38,48 @@ export default function BudgetPage({ btnText }: propType) {
         </div>
       </div>
 
-      {/* About Buyer */}
+      {/* About Client */}
       <div className="space-y-6">
         <div className="bg-white rounded-2xl shadow p-6 border">
           <h2 className="text-xl font-semibold text-center mb-4 text-gray-900">
-            About Buyer
+            About Client
           </h2>
 
           {/* Buyer Avatar */}
           <div className="flex flex-col items-center space-y-2">
             <div className="w-20 h-20 rounded-full overflow-hidden border">
-              <Image
-                src="/images/jerome.png"
-                alt="Buyer"
-                width={80}
-                height={80}
-                className="object-cover"
-              />
+              <Link href="/client-profile/1">
+                <Image
+                  src="/images/jerome.png"
+                  alt="Buyer"
+                  width={80}
+                  height={80}
+                  className="object-cover"
+                />
+              </Link>
             </div>
 
-            <p className="text-lg font-semibold">Bessie Cooper</p>
+            <Link href="/client-profile/1" className="text-lg font-semibold">Bessie Cooper</Link>
 
             {/* Small Badge Icons */}
             <div className="flex items-center gap-2 mt-2">
               <Image src="/images/coper1.png" alt="img" width={30} height={30}></Image>
-              <Image src="/images/coper2.png" alt="img" width={30} height={30}></Image>
-              <Image src="/images/coper3.png" alt="img" width={30} height={30}></Image>
+              {/* <Image src="/images/coper2.png" alt="img" width={30} height={30}></Image>
+              <Image src="/images/coper3.png" alt="img" width={30} height={30}></Image> */}
             </div>
           </div>
 
           {/* Buyer Info */}
           <div className="bg-gray-50 border rounded-2xl p-4 mt-4">
-            <InfoRow label="Gender:" value="Male" />
-            <InfoRow label="Location:" value="Australia" />
-            <InfoRow label="Languages:" value="Arabic" />
-            <InfoRow label="English Level:" value="Fluent" />
+            <InfoRow label="Total Jobs Posted:" value="50" />
+            <InfoRow label="Hire Rate (%):" value="80%" />
+            <InfoRow label="Average Response Time:" value="30 mins" />
+            <InfoRow label="Member Since:" value="Jan, 2020" />
           </div>
         </div>
 
         {/* Chat Button */}
-        <Link href="/client/message" className="w-full block text-center bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition">
+        <Link href="/editor/message?id=1" className="w-full block text-center bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition">
           {btnText}
         </Link>
       </div>

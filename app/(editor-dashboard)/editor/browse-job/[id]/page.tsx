@@ -8,8 +8,9 @@ import BidCard from "@/components/reusable/Bids";
 import clsx from "clsx";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Toaster } from "react-hot-toast";
+import { set, useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import Pagination from "@/components/reusable/pagination";
 
 const bids = [
   {
@@ -44,7 +45,8 @@ type PostPageProps = {
 
 export default function JobDetails({ params }: PostPageProps) {
   const { id } = useParams();
-  const { handleSubmit, register, formState: { errors } } = useForm<{
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { handleSubmit, register, reset, formState: { errors } } = useForm<{
     bidAmount: string;
     deliveryTime: string;
     coverLetter: string;
@@ -61,7 +63,12 @@ export default function JobDetails({ params }: PostPageProps) {
   if (!job) return <div className="conta?iners py-10">Loading...</div>;
 
   const onProposalSubmit = (data: { bidAmount: string; deliveryTime: string; coverLetter: string }) => {
-    console.log("Proposal Submitted:", data);
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      reset();
+      toast.success("Proposal submitted successfully!");
+    }, 1000);
   };
 
   return (
@@ -72,7 +79,7 @@ export default function JobDetails({ params }: PostPageProps) {
         bgImage="/findEditor.jpg"
         links={[
           { label: "Home", href: "/" },
-          { label: "Browse Jobs", href: "/browse-job" },
+          { label: "Browse Jobs", href: "/editor/browse-job" },
           { label: job.title },
         ]}
       />
@@ -89,9 +96,28 @@ export default function JobDetails({ params }: PostPageProps) {
                     <div className="w-full">
                       <input
                         type="text"
-                        placeholder="Enter bid price"
+                        placeholder="Enter Your Pricing"
                         className="w-full outline-none border rounded-full p-5 text-sm"
-                        {...register("bidAmount", { required: true })}
+                        {...register("bidAmount", {
+                          required: true,
+                          onChange: (e) => {
+                            // শুধু number allow
+                            let rawValue = e.target.value.replace(/[^0-9.]/g, "");
+                            const parts = rawValue.split(".");
+                            rawValue = parts.shift() + (parts.length ? "." + parts.join("") : "");
+                            e.target.value = rawValue;
+                          },
+
+                          onBlur: (e) => {
+                            let value = parseFloat(e.target.value.replace(/[^0-9.]/g, ""));
+
+                            if (!value || value < 1) value = 1;
+
+                            // auto format
+                            e.target.value = `$${value}`;
+                          },
+                        })}
+
                       />
                       {errors.bidAmount && (
                         <p className="text-red-500 text-xs mt-1">
@@ -102,9 +128,25 @@ export default function JobDetails({ params }: PostPageProps) {
                     <div className="w-full">
                       <input
                         type="text"
-                        placeholder="Enter delivery time"
+                        placeholder="Enter Delivery Time"
                         className="w-full outline-none border rounded-full p-5 text-sm"
                         {...register("deliveryTime", { required: true })}
+                        {...register("deliveryTime", {
+                          required: true,
+                          onChange: (e) => {
+                            // শুধু number allow
+                            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                          },
+
+                          onBlur: (e) => {
+                            let value = parseInt(e.target.value.replace(/[^0-9]/g, ""));
+
+                            if (!value || value < 1) value = 1;
+
+                            // auto format
+                            e.target.value = `${value} days`;
+                          },
+                        })}
                       />
                       {errors.deliveryTime && (
                         <p className="text-red-500 text-xs mt-1">
@@ -116,31 +158,40 @@ export default function JobDetails({ params }: PostPageProps) {
                   <div className="w-full">
                     <textarea
                       rows={6}
-                      placeholder="Write your cover letter"
+                      placeholder="Write Your Proposal Details"
                       className="w-full outline-none border rounded-lg p-5 text-sm resize-none"
-                      {...register("coverLetter", { required: true })}
+                      {...register("coverLetter", { required: true, minLength: 50 })}
                     />
                     {errors.coverLetter && (
                       <p className="text-red-500 text-xs mt-1">
-                        Cover Letter is required
+                        {errors.coverLetter.type === "minLength"
+                          ? "Cover Letter must be at least 50 characters"
+                          : "Cover Letter is required"}
                       </p>
                     )}
                   </div>
                 </div>
-                <button type="submit" className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition">
-                  Submit a Proposal
+                <button disabled={isSubmitting} type="submit" className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition disabled:opacity-50 disabled:cursor-not-allowed">
+                  {isSubmitting ? "Submitting..." : "Submit a Proposal"}
                 </button>
               </form>
             </div>
-            <h1 className="text-2xl font-semibold py-8">Bids</h1>
+            <h1 className="text-2xl font-semibold py-8">Proposals</h1>
             {bids.map((bid) => (
               <BidCard key={bid.id} {...bid} />
             ))}
+            <Pagination
+              page={1}
+              total={3}
+              totalPages={1}
+              onPageChange={(page) => console.log("Navigate to page:", page)}
+              pageSize={10}
+            />
           </div>
           {/* RIGHT */}
           <div className="w-full lg:w-1/3">
             <BudgetPage
-              btnText="Chat with Buyer"
+              btnText="Chat With Client"
             />
           </div>
         </div>

@@ -91,16 +91,20 @@ export default function FindEditorPage() {
                 className="bg-white rounded-xl p-5 shadow-sm flex w-full justify-between"
               >
                 <div className="flex flex-col lg:flex-row w-full justify-between gap-6">
-                  <Image
-                    src={editor.image}
-                    alt={editor.name}
-                    width={500}
-                    height={160}
-                    className="rounded-lg object-cover w-full lg:w-[200px] aspect-3/2"
-                  />
+                  <Link href={`/editor-profile/${editor.id}`}>
+                    <Image
+                      src={editor.image}
+                      alt={editor.name}
+                      width={500}
+                      height={160}
+                      className="rounded-lg object-cover w-full lg:w-[200px] aspect-3/2"
+                    />
+                  </Link>
 
                   <div className="flex flex-col w-full">
-                    <h2 className="text-[22px] font-medium">{editor.name}</h2>
+                    <Link href={`/editor-profile/${editor.id}`}>
+                      <h2 className="text-[22px] font-medium">{editor.name}</h2>
+                    </Link>
 
                     <p className="text-[15px] text-gray-700 flex items-center gap-1">
                       <TiStarFullOutline className="text-[#FAAD14]" />
@@ -121,7 +125,7 @@ export default function FindEditorPage() {
                       </Link>
 
                       <Link
-                        href="/client/message"
+                        href={`/client/message?id=${editor.id}&return=find-editor`}
                         className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm"
                       >
                         Message
@@ -140,6 +144,7 @@ export default function FindEditorPage() {
             pageSize={pageSize}
             total={allEditors.length}
             onPageChange={setPage}
+            totalPages={1}
           />
         </div>
       </div>

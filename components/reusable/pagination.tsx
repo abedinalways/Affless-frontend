@@ -6,14 +6,15 @@ export default function Pagination({
   page,
   pageSize,
   total,
+  totalPages,
   onPageChange,
 }: {
   page: number;
   pageSize: number;
   total: number;
+  totalPages: number;
   onPageChange: (page: number) => void;
 }) {
-  const totalPages = Math.ceil(total / pageSize);
 
   const getPages = () => {
     if (totalPages <= 6) {

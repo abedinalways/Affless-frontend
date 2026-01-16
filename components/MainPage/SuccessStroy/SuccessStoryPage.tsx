@@ -155,6 +155,7 @@ export default function SuccessStroyPage() {
             pageSize={ITEMS_PER_PAGE}
             total={filteredStories.length}
             onPageChange={setCurrentPage}
+            totalPages={Math.ceil(filteredStories.length / ITEMS_PER_PAGE)}
           />
         </div>
       </div>
