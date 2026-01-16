@@ -81,9 +81,12 @@ export default function ProfilePage() {
             <p className="text-gray-600 flex gap-2.5"><WorldIcon /> PST (UTC-8)</p>
             <p className="text-gray-600 flex gap-2.5"><FiCalendar /> Member since Jan 2023</p>
 
-            <Link href="/client/post-job" className="mt-3 p-3 bg-red-500 text-white rounded-lg text-sm">
-              + Post New Job
-            </Link>
+            <Link
+                href="/client/post-job"
+                className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
+              >
+                + Post New Job
+              </Link>
           </div>
         </div>
 

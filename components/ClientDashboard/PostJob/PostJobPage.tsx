@@ -24,6 +24,7 @@ type FormValues = {
   textFile?: FileList;
   styleReference?: FileList;
   videoDuration: string;
+  requiredSkills?: string;
 };
 
 // Mapping of categories to available platforms
@@ -285,8 +286,28 @@ export default function PostJobForm() {
               </p>
             )}
 
+            {/* Required Skills */}
             <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Project Budget*
+              Required Skills
+            </label>
+
+            <input
+              type='text'
+              placeholder='e.g. Retention Editing, Storytelling, Color Correction'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
+              {...register("requiredSkills", {
+                required: "Required skills are required.",
+              })}
+            />
+
+            {errors.requiredSkills && (
+              <p className='text-red-500 text-sm mb-4'>
+                {errors.requiredSkills.message || "Required skills are required."}
+              </p>
+            )}
+
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
+              Project Budget
             </label>
 
             <input
@@ -399,7 +420,7 @@ export default function PostJobForm() {
             <div className='space-y-5 pb-3'>
               <div>
                 <label className='mb-2 block'>
-                  Style Reference <span className='text-red-500'>*</span>
+                  Style Reference
                 </label>
                 <input
                   {...register("styleReference", {

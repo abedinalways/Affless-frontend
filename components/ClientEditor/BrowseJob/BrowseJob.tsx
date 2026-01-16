@@ -200,7 +200,7 @@ export default function BrowseJob() {
                   </div>
 
                   <div className="flex justify-between py-4">
-                    <Link href="/client/profile">
+                    <Link href="/client-profile/1">
                       <div className="flex gap-2">
                         <Image
                           src={item.profileImage}
@@ -236,6 +236,7 @@ export default function BrowseJob() {
                 pageSize={PAGE_SIZE}
                 total={filteredData.length}
                 onPageChange={(p) => setPage(p)}
+                totalPages={1}
               />
             </div>
           </div>

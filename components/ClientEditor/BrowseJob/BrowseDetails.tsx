@@ -38,7 +38,7 @@ export default function BrowseDetails() {
           </div>
             <div>
               <p className="text-lg text-[18px] font-semibold">Job Category</p>
-              <p className="text-[16px] font-medium leading-150% mt-1.5 ">Video</p>
+              <p className="text-[16px] font-medium leading-150% mt-1.5 ">Shorts/Reels/TikToks</p>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@ export default function BrowseDetails() {
           </div>
             <div>
               <p className="text-lg text-[18px] font-semibold">Project Budget</p>
-              <p className="text-[16px] font-medium leading-150% mt-1.5 ">$675</p>
+              <p className="text-[16px] font-medium leading-150% mt-1.5 ">$350</p>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function BrowseDetails() {
             </div>
               <div>
                 <p className="text-lg text-[18px] font-semibold">Platform</p>
-                <p className="text-[16px] font-medium leading-150% mt-1.5 ">Youtobe</p>
+                <p className="text-[16px] font-medium leading-150% mt-1.5 ">YouTube</p>
               </div>
             </div>
           </div>
@@ -93,8 +93,8 @@ export default function BrowseDetails() {
               <WorldIcon />
             </div>
               <div>
-                <p className="text-lg text-[18px] font-semibold">Country</p>
-                <p className="text-[16px] font-medium leading-150% mt-1.5 ">USA</p>
+                <p className="text-lg text-[18px] font-semibold">Footage Duration</p>
+                <p className="text-[16px] font-medium leading-150% mt-1.5 ">50 sec</p>
               </div>
             </div>
           </div>
@@ -140,13 +140,13 @@ export default function BrowseDetails() {
 
         <div className="flex flex-wrap gap-3">
           <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-            Adobe Premiere Pro
+            Retention Editing
           </span>
           <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-            Adobe After Effects
+            Storytelling
           </span>
           <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-            Adobe After Effects
+            Color Correction
           </span>
         </div>
       </div>

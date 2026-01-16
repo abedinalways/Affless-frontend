@@ -3,7 +3,7 @@
 import KeyIcon from "@/components/Icons/KeyIcon";
 import LocationIcon from "@/components/Icons/LocationIcon";
 import LockIcon from "@/components/Icons/LockIcon";
-import WorldIcon from "@/components/Icons/WorldIcon";
+import { FaRegUser } from "react-icons/fa";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -192,8 +192,8 @@ export default function EditorDashboard() {
                 <Image
                   src="/images/inbox1.png"
                   alt="Zeeshan"
-                  width={50}
-                  height={50}
+                  width={500}
+                  height={500}
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -201,7 +201,7 @@ export default function EditorDashboard() {
                 <Link href="/editor/editor-profile" className="text-lg font-semibold underline">Zeeshan</Link>
                 <div className="pt-3 text-sm text-gray-500 flex">
                   <p className="flex gap-2">
-                    <LocationIcon /> Pakistan <WorldIcon /> English
+                    <LocationIcon /> Pakistan <FaRegUser className="text-[#333333]"/> Editor
                   </p>
                 </div>
               </div>

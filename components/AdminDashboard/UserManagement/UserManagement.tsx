@@ -120,6 +120,7 @@ export default function UserManagement() {
               pageSize={ITEMS_PER_PAGE}
               total={editorUsers.length}
               onPageChange={setPage}
+              totalPages={totalPages}
             />
 
           </div>

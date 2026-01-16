@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Sidebar from "./_components/Sidebar";
@@ -8,12 +8,15 @@ import MessageBody from "./_components/MessageBody";
 import ReportUserModal from "@/components/reusable/ReportUserModal";
 import { UserService } from "@/usersService/user.service";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 
 export default function page() {
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const conversationIdFromParams = searchParams.get("id") || "";
 
     const handleSelectConversation = (id: string) => {
         setSelectedConversationId(id);
@@ -22,7 +25,7 @@ export default function page() {
     const handleReportUser = async (reportData: any) => {
         try {
             const response = await UserService.reportUser(reportData);
-            
+
             if (response.status === 201 || response.status === 200) {
                 // Report submitted successfully
                 console.log("Report submitted successfully", response);
@@ -35,6 +38,12 @@ export default function page() {
         }
     }
 
+    useEffect(() => {
+        if (conversationIdFromParams) {
+            setSelectedConversationId(conversationIdFromParams);
+        }
+    }, [conversationIdFromParams])
+
     return (
         <div className="p-4 containers bg-[#f9f9f9] grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 relative overflow-hidden">
             <div className="grid grid-cols-1 xl:grid-cols-[auto_1fr] gap-6 w-full h-full overflow-y-auto">
@@ -45,10 +54,16 @@ export default function page() {
                     />
                 </div>
                 <div className={`w-full h-full ${selectedConversationId === "" ? "hidden xl:block" : ""}`} style={{ height: 'calc(100vh - 100px)' }}>
-                    <MessageBody
-                        selectedConversationId={selectedConversationId}
-                        onSelectConversation={handleSelectConversation}
-                    />
+                    {selectedConversationId ?
+                        <MessageBody
+                            selectedConversationId={selectedConversationId}
+                            onSelectConversation={handleSelectConversation}
+                        />
+                        :
+                        <div className="w-full h-full bg-white grid items-center justify-center">
+                            <p className="text-center text-gray-400 font-medium text-xl">Select a conversation to start messaging</p>
+                        </div>
+                    }
                 </div>
             </div>
             <div className="w-full md:w-[326px] h-fit space-y-4">
@@ -83,8 +98,8 @@ export default function page() {
                             Keep all communication on Editor Marketplace. Never share personal contact details or move payments off-platform.
                         </div>
                     </div>
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         onClick={() => setIsReportModalOpen(true)}
                         className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300"
                     >

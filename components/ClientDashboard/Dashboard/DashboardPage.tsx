@@ -9,9 +9,13 @@ import LocationIcon from "@/components/Icons/LocationIcon";
 import WorldIcon from "@/components/Icons/WorldIcon";
 import { DataTable } from "@/components/reusable/DataTable";
 
-type OrderStatus = "pending" | "accept";
+type OrderStatus = "pending" | "in_progress" | "delivered" | "completed" | "cancelled";
 type FilterType = "Biding jobs" | "Offer jobs";
 import { Toaster } from "react-hot-toast";
+import LockIcon from "@/components/Icons/LockIcon";
+import { IoArrowForwardSharp } from "react-icons/io5";
+import { FaRegUser } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 interface Order {
   id: number;
@@ -23,39 +27,56 @@ interface Order {
 }
 
 const ordersData: Order[] = [
-  { id: 1, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654, time: "Jun 21", status: "pending" },
-  { id: 2, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654, time: "Jun 21", status: "pending" },
-  { id: 3, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654, time: "Jun 21", status: "pending" },
-  { id: 4, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654, time: "Jun 21", status: "pending" },
-  { id: 5, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654, time: "Jun 21", status: "pending" },
-  { id: 6, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654, time: "Jun 21", status: "pending" },
-  { id: 7, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654, time: "Jun 21", status: "pending" },
-  { id: 8, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654, time: "Jun 21", status: "accept" },
+  { id: 1, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654.00, time: "1", status: "pending" },
+  { id: 2, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654.00, time: "2", status: "in_progress" },
+  { id: 5, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654.00, time: "5", status: "cancelled" },
+  { id: 3, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654.00, time: "3", status: "pending" },
+  { id: 4, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654.00, time: "4", status: "completed" },
+  { id: 6, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654.00, time: "6", status: "delivered" },
+  { id: 7, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654.00, time: "7", status: "pending" },
+  { id: 8, img: "/images/product.png", title: "I will create backlinks to improve your SEO rankings.", price: 654.00, time: "8", status: "in_progress" },
 ];
 
 export default function ClientDashboard() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const pageSize = 7;
 
   const [filter, setFilter] = useState<FilterType>("Biding jobs");
 
-  useEffect(() => {
-    setPage(1);
-  }, [filter]);
 
-  const filteredOrders = useMemo(() => {
-    if (filter === "Biding jobs") return ordersData.filter((o) => o.status === "pending");
-    return ordersData.filter((o) => o.status === "accept");
-  }, [filter]);
+  const total = ordersData.length;
+  const paginated = ordersData.slice((page - 1) * pageSize, page * pageSize);
 
-  const total = filteredOrders.length;
-  const paginated = filteredOrders.slice((page - 1) * pageSize, page * pageSize);
+  const statusClasses: Record<OrderStatus, string> = {
+    pending: "rounded-lg bg-[#FFF7E6] px-5 py-2 text-[14px] font-medium text-[#FAAD14]",
+    in_progress: "rounded-lg bg-[#E6F4FF] px-5 py-2 text-[14px] font-medium text-[#1677FF]",
+    delivered: "rounded-lg bg-[#F6FFED] px-5 py-2 text-[14px] font-medium text-[#52C41A]",
+    completed: "rounded-lg bg-[#D9F7BE] px-5 py-2 text-[14px] font-medium text-[#237804]",
+    cancelled: "rounded-lg bg-[#FFF1F0] px-5 py-2 text-[14px] font-medium text-[#F5222D]",
+  };
+
+  const statusLabels: Record<OrderStatus, string> = {
+    pending: "Pending",
+    in_progress: "In Progress",
+    delivered: "Delivered",
+    completed: "Completed",
+    cancelled: "Cancelled",
+  };
+
+  const statusTooltips: Record<OrderStatus, string> = {
+    pending: "Job posted, awaiting action",
+    in_progress: "Work has started",
+    delivered: "Work submitted",
+    completed: "Client accepted delivery",
+    cancelled: "Job cancelled by either party",
+  };
 
   const columns = useMemo<ColumnDef<Order>[]>(
     () => [
       {
         accessorKey: "title",
-        header: "Service",
+        header: "Jobs",
         cell: ({ row }) => {
           const o = row.original;
           return (
@@ -71,12 +92,12 @@ export default function ClientDashboard() {
       {
         accessorKey: "price",
         header: "Amount",
-        cell: ({ row }) => <span className="text-[14px] text-[#4A4C56]">${row.original.price}</span>,
+        cell: ({ row }) => <span className="text-[14px] text-[#4A4C56]">${row.original.price.toFixed(2)}</span>,
       },
       {
         accessorKey: "time",
-        header: "Time",
-        cell: ({ row }) => <span className="text-[14px] text-[#4A4C56]">{row.original.time}</span>,
+        header: "Days Left",
+        cell: ({ row }) => <span className="text-[14px] text-[#4A4C56]">{row.original.time} Days Left</span>,
       },
       {
         id: "action",
@@ -85,24 +106,15 @@ export default function ClientDashboard() {
           const s = row.original.status;
           return (
             <div className="flex justify-end">
-              {s === "pending" ? (
-                <span className="rounded-lg bg-[#FFF7E6] px-5 py-2 text-[14px] font-medium text-[#FAAD14]">
-                  Pending
-                </span>
-              ) : (
-                <button
-                  type="button"
-                  className="rounded-lg bg-[#EEFAE9] px-5 py-2 text-[14px] font-medium text-[#52C41A] cursor-pointer"
-                >
-                  Accept
-                </button>
-              )}
+              <span title={statusTooltips[s]} className={statusClasses[s]}>
+                {statusLabels[s]}
+              </span>
             </div>
           );
         },
       },
     ],
-    []
+    [statusClasses, statusLabels, statusTooltips]
   );
 
   return (
@@ -115,30 +127,42 @@ export default function ClientDashboard() {
             <div className="rounded-2xl bg-white px-6 pt-6 pb-8 shadow-sm">
               <div className="flex flex-col items-center gap-3">
                 <div className="h-20 w-20 overflow-hidden rounded-full">
-                  <Image src="/images/inbox1.png" alt="Zeeshan" width={80} height={80} className="h-full w-full object-cover" />
+                  <Image src="/images/inbox1.png" alt="Zeeshan" width={500} height={500} className="h-full w-full object-cover" />
                 </div>
 
                 <div className="text-center">
                   <Link href="/client/profile" className="text-lg font-semibold underline">Zeeshan</Link>
                   <div className="pt-3 text-sm text-gray-500 flex">
                     <p className="flex gap-2">
-                      <LocationIcon /> Pakistan <WorldIcon /> English
+                      <LocationIcon /> Pakistan <FaRegUser className="text-[#333333]" /> Client
                     </p>
                   </div>
                 </div>
 
-                <Link
+                {/* <Link
                   href="/client/find-editor-match"
                   className="mt-6 w-fit rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white"
                 >
                   Match Me with an Editor
+                </Link> */}
+                <Link href="/client/find-editor-match" className="w-full">
+                  <button className="mt-6 w-full cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white">
+                    Match Me with an Editor Quickly
+                  </button>
+                </Link>
+
+                <Link href="/platform-safety" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
+                  <button className="flex gap-2 text-[#FF4D4F] text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] cursor-pointer">
+                    <LockIcon /> Platform Safety Rules{" "}
+                    <IoArrowForwardSharp className="mt-1 text-red-500" />
+                  </button>
                 </Link>
               </div>
             </div>
 
             <div className="rounded-2xl bg-white p-6 shadow-sm">
               <h3 className="text-[18px] font-medium text-[#333] leading-130%">Balance</h3>
-              <p className="text-2xl font-medium leading-150% text-[#333] text-center py-4">US$0</p>
+              <p className="text-2xl font-medium leading-150% text-[#333] text-center py-4">$0.00</p>
               <div className="flex justify-center">
                 <Link href="/client/add-money">
                   <button type="button" className="rounded-lg border border-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-[#ff4b4b] cursor-pointer">
@@ -178,20 +202,20 @@ export default function ClientDashboard() {
               <div className="flex-1">
                 <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>
                 <p className="mt-1 text-sm text-gray-500">
-                  Find important messages, tips, and links to helpful resources here:
+                  Manage your jobs from here.
                 </p>
               </div>
 
               <Link
                 href="/client/post-job"
-                className="w-fit p-3 bg-red-500 text-white rounded-lg text-sm inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
+                className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
               >
                 + Post New Job
               </Link>
 
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className="rounded-2xl bg-white px-6 shadow-sm">
               <DataTable<Order, any>
                 columns={columns}
                 data={paginated}
@@ -199,21 +223,13 @@ export default function ClientDashboard() {
                 pageSize={pageSize}
                 total={total}
                 onPageChange={setPage}
+                onRowClick={()=>router.push('/client/manage-job/1')}
               >
-                <div className="rounded-xl bg-[#FFE1E1] px-6 py-4 flex items-center justify-between">
+                {/* <div className="rounded-xl bg-[#FFE1E1] px-6 py-4 flex items-center justify-between">
                   <p className="text-[18px] md:text-[22px] font-medium text-[#FF4D4F]">
                     {filter}
                   </p>
-
-                  <select
-                    value={filter}
-                    onChange={(e) => setFilter(e.target.value as FilterType)}
-                    className="h-[38px] rounded-lg border border-[#7F7F86] bg-[#FFE1E1] px-3 text-[14px] text-[#333] outline-none cursor-pointer"
-                  >
-                    <option value="Biding jobs">Biding jobs</option>
-                    <option value="Offer jobs">Offer jobs</option>
-                  </select>
-                </div>
+                </div> */}
               </DataTable>
             </div>
           </div>
@@ -222,201 +238,3 @@ export default function ClientDashboard() {
     </div>
   );
 }
-
-
-
-// "use client";
-
-// import LocationIcon from "@/components/Icons/LocationIcon";
-// import WorldIcon from "@/components/Icons/WorldIcon";
-// import Pagination from "@/components/reusable/pagination";
-// import Image from "next/image";
-// import Link from "next/link";
-// import { useState } from "react";
-
-// type OrderStatus = "pending" | "accept";
-
-// interface Order {
-//   id: number;
-//   title: string;
-//   price: number;
-//   days: number;
-//   status: OrderStatus;
-//   img: string;
-//   bids: string;
-// }
-
-// interface InboxItem {
-//   id: number;
-//   name: string;
-//   message: string;
-//   time: string;
-//   img: string;
-// }
-
-// const ordersData: Order[] = [
-//   { id: 1, img: "/images/product.png", title: "I will craft quality backlinks for your website's SEO.", price: 55, bids: "Bids 5", days: 5, status: "pending" },
-//   { id: 2, img: "/images/product.png", title: "I will craft quality backlinks for your website's SEO.", price: 55, bids: "Bids 5", days: 5, status: "pending" },
-//   { id: 3, img: "/images/product.png", title: "I will craft quality backlinks for your website's SEO.", price: 55, bids: "Bids 5", days: 5, status: "pending" },
-//   { id: 4, img: "/images/product.png", title: "I will craft quality backlinks for your website's SEO.", price: 55, bids: "Bids 5", days: 5, status: "pending" },
-//   { id: 5, img: "/images/product.png", title: "I will craft quality backlinks for your website's SEO.", price: 55, bids: "Bids 5", days: 5, status: "pending" },
-//   { id: 6, img: "/images/product.png", title: "I will craft quality backlinks for your website's SEO.", price: 55, bids: "Bids 5", days: 5, status: "pending" },
-//   { id: 7, img: "/images/product.png", title: "I will craft quality backlinks for your website's SEO.", price: 55, bids: "Bids 5", days: 5, status: "pending" },
-//   { id: 8, img: "/images/product.png", title: "I will craft quality backlinks for your website's SEO.", price: 55, bids: "Bids 5", days: 5, status: "pending" },
-// ];
-
-// const inboxItems: InboxItem[] = [
-//   { id: 1, name: "Farhan", message: "Lorem Ipsum is text", time: "1 month", img: "/images/inbox1.png" },
-//   { id: 2, name: "Arlene", message: "Lorem Ipsum is text", time: "1 month", img: "/images/inbox2.png" },
-//   { id: 3, name: "Ralph", message: "Lorem Ipsum is text", time: "1 month", img: "/images/inbox3.png" },
-//   { id: 4, name: "Jenny", message: "Lorem Ipsum is text", time: "1 month", img: "/images/inbox4.png" },
-// ];
-
-// export default function ClientDashboard() {
-//   const [page, setPage] = useState(1);
-//   const pageSize = 4;
-
-//   const totalActiveOrders = ordersData.length;
-//   const totalAmount = ordersData.reduce((sum, o) => sum + o.price, 0);
-
-//   const paginatedOrders = ordersData.slice((page - 1) * pageSize, page * pageSize);
-
-//   return (
-//     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
-//       <div className="mx-auto containers space-y-6">
-//         {/* <div className="grid justify-end">
-//           <Link href="/client/post-job" className="mt-3 p-3 bg-red-500 text-white rounded-lg text-sm opacity-80 hover:opacity-100 duration-300">
-//             + Post New Job
-//           </Link>
-//         </div> */}
-//         {/* LEFT COLUMN */}
-//         <div className="flex flex-col gap-8 lg:flex-row">
-//           <div className="w-full space-y-6 lg:w-1/3 ">
-//             {/* Profile Card */}
-//             <div className="rounded-2xl bg-white px-6 pt-6 pb-8 shadow-sm">
-//               <div className="flex flex-col items-center gap-3">
-//                 <div className="h-20 w-20 overflow-hidden rounded-full">
-//                   <Image src="/images/inbox1.png" alt="Zeeshan" width={50} height={50} className="h-full w-full object-cover" />
-//                 </div>
-//                 <div className="text-center">
-//                   <p className="text-lg font-semibold underline">Zeeshan</p>
-//                   <div className="pt-3 text-sm text-gray-500 flex">
-//                     <p className="flex gap-2"><LocationIcon /> Pakistan <WorldIcon /> English</p>
-//                   </div>
-//                 </div>
-//                 <Link href="/client/find-editor-match" className="mt-6 w-fit rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white">
-//                   Match Me with an Editor
-//                 </Link>
-//               </div>
-//             </div>
-
-//             {/* Payment Overview */}
-//             <div className="rounded-2xl bg-white p-6 shadow-sm">
-//               <h3 className="text-[18px] font-medium text-[#333] leading-130%">Balance</h3>
-//               <p className="text-2xl font-medium leading-150% text-[#333] text-center py-4">US$0</p>
-//               <div className="flex justify-center">
-//                <Link href="/client/add-money">
-//                 <button className="rounded-lg border border-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-[#ff4b4b] cursor-pointer">
-//                   Add Funds
-//                 </button></Link>
-//               </div>
-//             </div>
-
-//             {/* Inbox */}
-//             {/* <div className="rounded-2xl bg-white p-4 shadow-sm">
-//               <div className="flex items-center justify-between">
-//                 <h3 className="text-sm font-medium text-[18px] text-[#333]">Inbox</h3>
-//                 <button className="text-[14px] font-normal text-[#FF4D4F]">View All</button>
-//               </div>
-
-//               <div className="space-y-3 pt-4">
-//                 {inboxItems.map((item) => (
-//                   <div key={item.id} className="flex items-center justify-between rounded-xl px-1 py-2 hover:bg-gray-50">
-//                     <div className="flex items-center gap-3">
-//                       <div className="h-9 w-9 overflow-hidden rounded-full bg-gray-200">
-//                         <Image src={item.img} alt={item.name} width={32} height={32} className="h-full w-full object-cover" />
-//                       </div>
-//                       <div className="space-y-1">
-//                         <p className="font-medium text-[18px]">{item.name}</p>
-//                         <p className="text-[14px] text-[#777980]">{item.message}</p>
-//                       </div>
-//                     </div>
-//                     <p className="text-xs text-gray-400">{item.time}</p>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div> */}
-//           </div>
-
-//           {/* RIGHT COLUMN */}
-//           <div className="w-full lg:w-2/3 space-y-4">
-//             <div className=" gap-8">
-//               <div className="flex justify-between">
-//                <div className="">
-//                  <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>
-//                 <p className="mt-1 text-sm text-gray-500">
-//                   Find important messages, tips, and links to helpful resources here:
-//                 </p>
-//                </div>
-//                <div className="">
-//                  <Link href="/client/post-job" className="mt-3 p-3 bg-red-500 text-white rounded-lg text-sm">
-//               + Post New Job
-//             </Link>
-//                </div>
-//               </div>
-//             </div>
-
-//             {/* Active Orders Summary */}
-//             <div className="rounded-xl bg-[#ffe1e1] px-6 py-6 text-[18px] md:text-[24px] font-medium text-[#FF4D4F]">
-//               Active orders {totalActiveOrders} (${totalAmount})
-//             </div>
-
-//             {/* Orders List */}
-//             <div className="rounded-2xl bg-white p-6 shadow-sm grid">
-//               <div className="space-y-4 grid overflow-x-auto">
-//                 {paginatedOrders.map((order) => (
-//                   <div key={order.id} className="flex flex-col md:flex-row items-center justify-between gap-4 rounded-xl px-2 py-3 hover:bg-gray-50">
-
-//                     {/* Left */}
-//                     <div className="grid grid-cols-[auto_1fr] min-w-[300px] gap-4">
-//                       <div className="h-14 w-14 rounded-md">
-//                         <Image src={order.img} alt="Order" width={500} height={500} className="h-full w-full object-cover rounded-md" />
-//                       </div>
-//                       <p className="text-sm font-normal text-[#333] text-[16px] leading-150%">
-//                         {order.title}
-//                       </p>
-//                     </div>
-
-//                     {/* Middle & Right */}
-//                     <div className="flex md:gap-4 justify-between">
-//                       <div className="flex items-center gap-4 text-[16px] font-normal text-[#4A4C56]">
-//                         <p>${order.price}</p>
-//                         <p className="whitespace-nowrap">{order.bids}</p>
-//                         <p className="hidden md:block whitespace-nowrap">{order.days} Days</p>
-//                       </div>
-//                       <div>
-//                         {order.status === "pending" ? (
-//                           <button className="rounded-lg bg-[#EEFAE9] px-5 py-2 text-[16px] font-medium text-[#52C41A]">Pending</button>
-//                         ) : (
-//                           <button className="rounded-lg bg-[#FF4D4F] px-5 py-2 text-[16px] font-medium text-white">Accept</button>
-//                         )}
-//                       </div>
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-
-//               {/* Pagination */}
-//               <Pagination
-//                 page={page}
-//                 pageSize={pageSize}
-//                 total={ordersData.length}
-//                 onPageChange={setPage}
-//               />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
