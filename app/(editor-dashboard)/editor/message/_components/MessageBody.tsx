@@ -211,7 +211,13 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-4 pt-14 space-y-4 bg-gray-50 relative">
+                <button
+                    type="button"
+                    className="absolute right-4 top-3 px-4 py-2 rounded-full bg-[#e74c4c] text-white text-xs sm:text-sm font-medium shadow-lg hover:bg-[#c23b3b] transition-colors animate-floating cursor-pointer"
+                >
+                    Post a Job for This Editor
+                </button>
                 {messages.map((message) => (
                     <div
                         key={message.id}

@@ -11,6 +11,7 @@ import MilestoneIcon from "@/components/Icons/MilestoneIcon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast,{Toaster} from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
 
 type FormValues = {
   jobTitle: string;
@@ -49,6 +50,8 @@ const allPlatforms = [
 ];
 
 export default function PostJobForm() {
+  const searchParams = useSearchParams();
+  const assignEditor = searchParams.get('assign');
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
     "single"
   );
@@ -137,7 +140,7 @@ export default function PostJobForm() {
     }
     setTimeout(() => {
       setLoading(false);
-      router?.push("/client/confirm-deposit");
+      router?.push("/client/confirm-deposit?assign=" + (assignEditor || ""));
     }, 500);
   };
 

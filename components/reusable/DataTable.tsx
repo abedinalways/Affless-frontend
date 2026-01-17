@@ -75,11 +75,7 @@ export function DataTable<TData, TValue>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className={`text-lg font-normal text-[#4A4C56] leading-150% bg-white ${
-                      header.id === "action"
-                        ? "text-center"
-                        : ""
-                    }`}
+                    className={`text-lg font-normal text-[#4A4C56] leading-150% bg-white text-center`}
                   >
                     {flexRender(
                       header.column.columnDef.header,

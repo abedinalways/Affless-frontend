@@ -148,7 +148,7 @@ export default function ClientDashboardHeader() {
                           }`}
                         onClick={() => setOpen(false)}
                       >
-                        Manage Job
+                        Manage Jobs
                       </Link>
 
                       <Link
@@ -339,7 +339,7 @@ export default function ClientDashboardHeader() {
                     href="/client/manage-job"
                     onClick={() => setMobileMenu(false)}
                   >
-                    Manage Job
+                    Manage Jobs
                   </Link>
                 </li>
                 <li>
