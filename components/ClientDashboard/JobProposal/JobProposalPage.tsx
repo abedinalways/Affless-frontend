@@ -11,7 +11,7 @@ interface ProposalRow {
   service: string;
   amount: string;
   time: "3 Days" | "5 Days" | "7 Days";
-  status: "Accepted" | "Declined" | "In Progress" | "In Revision";
+  status: "in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
   thumbnail: string;
 }
 
@@ -19,16 +19,16 @@ const PAGE_SIZE = 8;
 
 // ✅ IMPORTANT: unique IDs (ডুপ্লিকেট id দিলে React key collision হয়)
 const Proposal: ProposalRow[] = [
-  { id: 1, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "Accepted" },
-  { id: 2, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "Accepted" },
-  { id: 3, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "Declined" },
-  { id: 4, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "Accepted" },
-  { id: 5, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "3 Days", status: "In Progress" },
-  { id: 6, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "7 Days", status: "In Revision" },
-  { id: 7, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "Accepted" },
-  { id: 8, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "Declined" },
-  { id: 9, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "Accepted" },
-  { id: 10, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "Accepted" },
+  { id: 1, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "in_progress" },
+  { id: 2, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "in_progress" },
+  { id: 3, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "delivered" },
+  { id: 4, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "in_revision" },
+  { id: 5, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "3 Days", status: "in_revision" },
+  { id: 6, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "7 Days", status: "late" },
+  { id: 7, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "delivered" },
+  { id: 8, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "completed" },
+  { id: 9, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "cancelled" },
+  { id: 10, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "late" },
 ];
 
 export default function JobProposalPage() {
@@ -39,7 +39,7 @@ export default function JobProposalPage() {
   const [timeFilter, setTimeFilter] = useState<"ALL" | "5 Days" | "7 Days" | "3 Days">("ALL");
 
   // ✅ filter toggle only Accepted/Declined for your UI
-  const [statusFilter, setStatusFilter] = useState<"Accepted" | "Declined">("Accepted");
+  const [statusFilter, setStatusFilter] = useState<"in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled">("in_progress");
 
   // ✅ filtered data
   const filteredData = useMemo(() => {
@@ -86,25 +86,21 @@ export default function JobProposalPage() {
         <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
           <div className="flex gap-4">
             <button
-              onClick={() => setStatusFilter("Accepted")}
-              className={`p-2.5 rounded-md cursor-pointer ${
-                statusFilter === "Accepted" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
-              }`}
+              onClick={() => setStatusFilter("in_progress")}
+              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                }`}
             >
               Accept
             </button>
 
             <button
-              onClick={() => setStatusFilter("Declined")}
-              className={`p-2.5 rounded-md cursor-pointer ${
-                statusFilter === "Declined" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
-              }`}
+              onClick={() => setStatusFilter("cancelled")}
+              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "cancelled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                }`}
             >
               Declined
             </button>
           </div>
-
-          {/* (Optional) desktop time filter add করলে এখানে দেবে */}
         </div>
 
         <DataTable
@@ -141,13 +137,13 @@ export default function JobProposalPage() {
               cell: ({ row }: any) => {
                 const s = row.original.status as ProposalRow["status"];
                 const badge =
-                  s === "Accepted"
+                  s === "in_progress"
                     ? "bg-green-600"
-                    : s === "In Progress"
-                    ? "bg-yellow-500"
-                    : s === "In Revision"
-                    ? "bg-orange-500"
-                    : "bg-red-500";
+                    : s === "pending"
+                      ? "bg-yellow-500"
+                      : s === "in_revision"
+                        ? "bg-orange-500"
+                        : "bg-red-500";
 
                 return (
                   <span className={`px-4 py-1 rounded-md text-[14px] font-medium uppercase text-white ${badge}`}>
@@ -180,19 +176,17 @@ export default function JobProposalPage() {
             <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
               <div className="flex gap-4">
                 <button
-                  onClick={() => setStatusFilter("Accepted")}
-                  className={`p-3.5 rounded-md cursor-pointer ${
-                    statusFilter === "Accepted" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
-                  }`}
+                  onClick={() => setStatusFilter("in_progress")}
+                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                    }`}
                 >
                   Accept
                 </button>
 
                 <button
-                  onClick={() => setStatusFilter("Declined")}
-                  className={`p-3.5 rounded-md cursor-pointer ${
-                    statusFilter === "Declined" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
-                  }`}
+                  onClick={() => setStatusFilter("cancelled")}
+                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "cancelled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                    }`}
                 >
                   Declined
                 </button>
@@ -212,18 +206,18 @@ export default function JobProposalPage() {
           </div>
 
           {/* ✅ Mobile: Card click => route push */}
-        {paginatedData.map((proposal) => (
-  <JobProposalCard
-    key={proposal.id}
-    id={proposal.id}
-    image={proposal.thumbnail}
-    title={proposal.service}
-    total={proposal.amount}
-    status={proposal.status}
-    onOpen={(id: number) => goToDetail(id, proposal.status)} // card click
-    onAction={(id: number) => goToDetail(id, proposal.status)}
-  />
-))}
+          {paginatedData.map((proposal) => (
+            <JobProposalCard
+              key={proposal.id}
+              id={proposal.id}
+              image={proposal.thumbnail}
+              title={proposal.service}
+              total={proposal.amount}
+              status={proposal.status}
+              onOpen={(id: number) => goToDetail(id, proposal.status)} // card click
+              onAction={(id: number) => goToDetail(id, proposal.status)}
+            />
+          ))}
 
 
         </div>
