@@ -1,23 +1,26 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
 import { useRouter } from "next/navigation";
 import JobProposalCard from "@/components/reusable/TableCard";
 import { SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
+import DatePicker from "./DatePicker";
+import Loading from "@/components/shared/Loading";
+import { getJobStatusDefinition, type JobStatus } from "@/lib/job-status";
 
 export interface JobRow {
   id: number;
   service: string;
   thumbnail: string;
   total: string;
-  dueOn: string;
-  status: "Accepted" | "In Progress" | "In Revision";
+  dueOn: Date;
+  status: JobStatus;
 
   customer: string;
-  deliveryDate: string;
+  deliveryDate: Date;
   price: number;
   orderId: string;
 
@@ -29,10 +32,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
     total: "$654",
-    dueOn: "Jun 21",
-    status: "In Progress",
+    dueOn: new Date("2025-06-21"),
+    status: "completed",
     customer: "Bessie Cooper",
-    deliveryDate: "NOV 6, 7:24 AM",
+    deliveryDate: new Date("2025-11-06T07:24:00"),
     price: 654,
     orderId: "#EM78373A0",
 
@@ -42,10 +45,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
     total: "$743",
-    dueOn: "Jun 21",
-    status: "In Progress",
+    dueOn: new Date("2025-06-21"),
+    status: "pending",
     customer: "Cameron Williamson",
-    deliveryDate: "NOV 9, 3:30 PM",
+    deliveryDate: new Date("2025-11-09T15:30:00"),
     price: 743,
     orderId: "#EM78373A1",
 
@@ -55,10 +58,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
     total: "$512",
-    dueOn: "Jun 21",
-    status: "In Revision",
+    dueOn: new Date("2025-06-21"),
+    status: "in_revision",
     customer: "Devon Lane",
-    deliveryDate: "NOV 4, 9:15 AM",
+    deliveryDate: new Date("2025-11-04T09:15:00"),
     price: 512,
     orderId: "#EM78373A2",
   },
@@ -67,10 +70,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
     total: "$654",
-    dueOn: "Jun 21",
-    status: "In Progress",
+    dueOn: new Date("2026-01-21"),
+    status: "in_progress",
     customer: "Bessie Cooper",
-    deliveryDate: "NOV 6, 7:24 AM",
+    deliveryDate: new Date("2025-11-06T07:24:00"),
     price: 654,
     orderId: "#EM78373A0",
   },
@@ -79,10 +82,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
     total: "$743",
-    dueOn: "Jun 21",
-    status: "In Progress",
+    dueOn: new Date("2025-06-21"),
+    status: "delivered",
     customer: "Cameron Williamson",
-    deliveryDate: "NOV 9, 3:30 PM",
+    deliveryDate: new Date("2025-11-09T15:30:00"),
     price: 743,
     orderId: "#EM78373A1",
   },
@@ -91,10 +94,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
     total: "$512",
-    dueOn: "Jun 21",
-    status: "In Revision",
+    dueOn: new Date("2025-06-21"),
+    status: "late",
     customer: "Devon Lane",
-    deliveryDate: "NOV 4, 9:15 AM",
+    deliveryDate: new Date("2025-11-04T09:15:00"),
     price: 512,
     orderId: "#EM78373A2",
   },
@@ -103,10 +106,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
     total: "$654",
-    dueOn: "Jun 21",
-    status: "In Progress",
+    dueOn: new Date("2025-06-21"),
+    status: "cancelled",
     customer: "Bessie Cooper",
-    deliveryDate: "NOV 6, 7:24 AM",
+    deliveryDate: new Date("2025-11-06T07:24:00"),
     price: 654,
     orderId: "#EM78373A0",
   },
@@ -115,10 +118,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
     total: "$743",
-    dueOn: "Jun 21",
-    status: "In Progress",
+    dueOn: new Date("2025-06-21"),
+    status: "delivered",
     customer: "Cameron Williamson",
-    deliveryDate: "NOV 9, 3:30 PM",
+    deliveryDate: new Date("2025-11-09T15:30:00"),
     price: 743,
     orderId: "#EM78373A1",
   },
@@ -127,10 +130,10 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
     total: "$512",
-    dueOn: "Jun 21",
-    status: "In Revision",
+    dueOn: new Date("2025-06-21"),
+    status: "in_progress",
     customer: "Devon Lane",
-    deliveryDate: "NOV 4, 9:15 AM",
+    deliveryDate: new Date("2025-11-04T09:15:00"),
     price: 512,
     orderId: "#EM78373A2",
   },
@@ -141,21 +144,73 @@ const PAGE_SIZE = 8;
 export default function ManageJobsPage() {
   const router = useRouter();
   const [page, setPage] = useState(1);
-  const [activeTab, setActiveTab] = useState("Active");
+  const [activeTab, setActiveTab] = useState("all");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dateFilter, setDateFilter] = useState("lifetime");
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+  const [filteredJobs, setFilteredJobs] = useState<JobRow[]>(ALL_JOBS);
 
 
   const pageData = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
-    return ALL_JOBS.slice(start, start + PAGE_SIZE);
-  }, [page]);
+    return filteredJobs.slice(start, start + PAGE_SIZE);
+  }, [page, filteredJobs]);
 
   const goToDetail = (id: number) => router.push(`/client/manage-job/${id}`);
+
+  useEffect(() => {
+    setLoading(true);
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    let data = ALL_JOBS;
+
+    if (activeTab !== "all") {
+      data = data.filter(job => job.status === activeTab);
+    }
+
+    if (dateFilter === "custom_date") {
+      if (startDate && endDate) {
+        data = data.filter(job => {
+          const jobDate = job.deliveryDate;
+          return jobDate >= startDate && jobDate <= endDate;
+        });
+      }
+    } else {
+      if (startDate || endDate) {
+        setStartDate(undefined);
+        setEndDate(undefined);
+      }
+
+      if (dateFilter === "today") {
+        const today = new Date();
+        data = data.filter(job => job.dueOn.toDateString() === today.toDateString());
+      } else if (dateFilter === "this_week") {
+        const today = new Date();
+        const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+        const lastDayOfWeek = new Date(today.setDate(firstDayOfWeek.getDate() + 6));
+        data = data.filter(job => job.dueOn >= firstDayOfWeek && job.dueOn <= lastDayOfWeek);
+      } else if (dateFilter === "this_month") {
+        const today = new Date();
+        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        data = data.filter(job => job.dueOn >= firstDayOfMonth && job.dueOn <= lastDayOfMonth);
+      }
+    }
+
+    setFilteredJobs(data);
+
+    return () => clearTimeout(timeoutId);
+  }, [activeTab, dateFilter, startDate, endDate]);
+
 
   const columns: ColumnDef<JobRow>[] = [
     {
       accessorKey: "service",
-      header: "Service",
+      header: "Jobs",
       cell: ({ row }) => {
         const data = row.original;
         return (
@@ -180,7 +235,7 @@ export default function ManageJobsPage() {
 
     {
       accessorKey: "total",
-      header: "TOTAL",
+      header: "Amount",
       cell: ({ row }) => {
         const d = row.original;
         return (
@@ -196,16 +251,25 @@ export default function ManageJobsPage() {
 
     {
       accessorKey: "dueOn",
-      header: "DUE ON",
+      header: "Days Left",
       cell: ({ row }) => {
         const d = row.original;
         return (
-          <div
-            onClick={() => goToDetail(d.id)}
-            className="cursor-pointer  p-2 rounded-md"
-          >
-            {d.dueOn}
-          </div>
+          <>
+            {(d.status === "in_progress" || d.status === "late") && (
+              <div
+                onClick={() => goToDetail(d.id)}
+                className="cursor-pointer  p-2 rounded-md"
+              >
+                {Math.max(
+                  0,
+                  Math.ceil(
+                    (d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24)
+                  )
+                )} Days Left
+              </div>
+            )}
+          </>
         );
       },
     },
@@ -213,29 +277,35 @@ export default function ManageJobsPage() {
 
     {
       accessorKey: "status",
-      header: "STATUS",
+      header: "Status",
       cell: ({ row }) => {
         const d = row.original;
+        const statusDefinition = getJobStatusDefinition(d.status);
         return (
           <div
             onClick={() => goToDetail(d.id)}
-            className="cursor-pointer  p-2 rounded-md"
+            className="cursor-pointer  p-2 rounded-md grid items-center justify-center"
           >
             <span
-              className={`px-3 text-[16px] w-full py-1.5 text-white rounded-md ${d.status === "In Revision"
-                  ? "bg-[#FF4D4F]"
-                  : d.status === "In Progress"
-                    ? "bg-[#00648A]"
-                    : "bg-[#FF4D4F]"
-                }`}
+              title={statusDefinition.description}
+              className={`px-3 text-[16px] w-full py-1.5 rounded-md ${statusDefinition.colorClass}`}
             >
-              {d.status}
+              {statusDefinition.label}
             </span>
           </div>
         );
       },
     },
   ];
+
+
+  if (loading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    )
+  }
 
   return (
     <div className="containers py-8">
@@ -244,16 +314,16 @@ export default function ManageJobsPage() {
       <div className="hidden md:block">
 
         {/* TABS */}
-        <div className="flex justify-between mb-6">
+        <div className="flex items-center justify-between mb-6">
           <div className="grid grid-cols-5 gap-4 text-sm font-medium">
-            {["Active", "Late", "Delivered", "Completed", "Cancelled"].map((tab) => (
+            {["all", "in_progress", "pending", "in_revision", "late", "delivered", "completed", "cancelled"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-3 py-2 rounded-md cursor-pointer bg-white ${activeTab === tab ? "text-black font-semibold shadow" : "text-gray-500"
+                className={`px-3 py-2 rounded-md cursor-pointer bg-white capitalize ${activeTab === tab ? "text-black font-semibold shadow" : "text-gray-500"
                   }`}
               >
-                {tab}
+                {tab?.split("_").join(" ")}
               </button>
             ))}
           </div>
@@ -269,12 +339,28 @@ export default function ManageJobsPage() {
         {/* HEADER */}
         <div className="">
           <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg">
-            <h2 className="text-lg font-semibold">Active Orders</h2>
-
-            <select className="rounded-lg p-2 border border-gray-300 text-sm cursor-pointer">
-              <option className="cursor-pointer">Today</option>
-              <option className="cursor-pointer">This week</option>
-              <option className="cursor-pointer">This month</option>
+            <h2 className="text-lg font-semibold"><span className="capitalize">{(activeTab?.split("_").join(" ") === "in progress" || activeTab?.split("_").join(" ") === "in revision") ? "Jobs " + activeTab?.split("_").join(" ") : activeTab?.split("_").join(" ") + " Jobs"}</span></h2>
+            {dateFilter === "custom_date" && <div>
+              <DatePicker
+                startDate={startDate}
+                endDate={endDate}
+                onChange={(date) => {
+                  setStartDate(date[0]);
+                  setEndDate(date[1]);
+                  console.log("Selected date range:", date);
+                }}
+              />
+            </div>}
+            <select
+              value={dateFilter}
+              onChange={(e) => setDateFilter(e.target.value)}
+              className="rounded-lg p-2 border border-gray-300 text-sm cursor-pointer"
+            >
+              <option value="today" className="cursor-pointer">Today</option>
+              <option value="this_week" className="cursor-pointer">This week</option>
+              <option value="this_month" className="cursor-pointer">This month</option>
+              <option value="lifetime" className="cursor-pointer">Lifetime</option>
+              <option value="custom_date" className="cursor-pointer">Custome Date</option>
             </select>
           </div>
 
@@ -284,7 +370,7 @@ export default function ManageJobsPage() {
             data={pageData}
             page={page}
             pageSize={PAGE_SIZE}
-            total={ALL_JOBS.length}
+            total={pageData.length}
             onPageChange={setPage}
           />
         </div>

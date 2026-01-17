@@ -7,8 +7,11 @@ import PageBanner from "@/components/reusable/Bgbanner";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function ConfirmDepositPage() {
+  const searchParams = useSearchParams();
+  const assignEditor = searchParams.get("assign");
   const [method, setMethod] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -17,7 +20,11 @@ export default function ConfirmDepositPage() {
     setLoading(true);
     // Submit logic here
     setTimeout(() => {
-      toast.success("Deposit confirmed successfully!");
+      if(assignEditor){
+        toast.success(`Deposit confirmed! Assigned to ${assignEditor}`);
+      } else {
+        toast.success("Deposit confirmed successfully!");
+      }
     }, 200);
     setTimeout(() => {
       router.push("/client/manage-job");

@@ -147,4 +147,22 @@ body{
       xl:px-[150px]
       2xl:px-[300px];
   }
+  
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+.animate-floating:hover {
+  animation-play-state: paused;
+}
 }
