@@ -46,7 +46,7 @@ export default function SettingsPage() {
       </div>
       <PasswordModal 
         open={openModal} 
-        onClose={(v) => setOpenModal(v)}
+        onClose={(v:boolean) => setOpenModal(v)}
       />
     </>
   );

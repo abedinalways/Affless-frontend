@@ -5,7 +5,7 @@ import Earning from "../../earning/page";
 import EditorDetails from "@/components/AdminDashboard/UserManagement/EditorDetails";
 import EditorJobDetails from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
 import { data } from "@/components/ClientEditor/BrowseJob/BrowseJob";
-import EarningPage from "@/app/(editor-dashboard)/editor/earning/page";
+import EarningPage from "@/app/(website)/(editor-dashboard)/editor/earning/page";
 import EarningsPage from "@/components/AdminDashboard/UserManagement/EditorEarningTab";
 import JobHistoryPage from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
 

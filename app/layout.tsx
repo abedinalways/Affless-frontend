@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import RootMainLayout from "@/components/shared/RootMainLayout";
-import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
@@ -27,13 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-       <body className={`${poppins.variable}`}>
+      <body className={`${poppins.variable}`}>
         <Toaster position="top-right" />
-        <UserProvider>
-          <RootMainLayout>
-            {children}
-          </RootMainLayout>
-        </UserProvider>
+        {children}
       </body>
     </html>
   );

@@ -56,7 +56,7 @@ const Sidebar = () => {
             <div>
               <LuLogOut className="w-5 h-5 text-white" />
             </div>
-            <div className="hidden lg:inline">
+            <div className="hidden lg:inline text-white">
               Logout
             </div>
           </button>

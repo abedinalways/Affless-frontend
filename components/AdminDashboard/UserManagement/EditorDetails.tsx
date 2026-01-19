@@ -4,7 +4,7 @@ import React from "react";
 import { TiStarFullOutline } from "react-icons/ti";
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import DeliveryPage from './../../../app/(editor-dashboard)/editor/delivery/page';
+import DeliveryPage from "@/app/(website)/(client-dashboard)/client/delivery/page";
 import Review from "./Review";
 interface Item {
   id: number;
