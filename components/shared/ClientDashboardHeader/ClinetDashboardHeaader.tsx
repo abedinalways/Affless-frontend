@@ -167,7 +167,7 @@ export default function ClientDashboardHeader() {
                           }`}
                         onClick={() => setOpen(false)}
                       >
-                        Job Proposal
+                        Job Proposals
                       </Link>
 
                       <Link
@@ -360,7 +360,7 @@ export default function ClientDashboardHeader() {
                     href="/client/job-proposal"
                     onClick={() => setMobileMenu(false)}
                   >
-                    Job Proposal
+                    Job Proposals
                   </Link>
                 </li>
                 <li>

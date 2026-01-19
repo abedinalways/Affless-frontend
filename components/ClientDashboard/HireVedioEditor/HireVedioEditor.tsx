@@ -10,7 +10,9 @@ import SinglePaymentIcon from "@/components/Icons/SinglePaymentIcon";
 import MilestoneIcon from "@/components/Icons/MilestoneIcon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast,{Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
+import PdfIcon from "@/components/Icons/PdfIcon";
 
 type FormValues = {
   jobTitle: string;
@@ -39,6 +41,8 @@ const categoryPlatformMap: { [key: string]: string[] } = {
 };
 
 export default function HireVideoEditorForm() {
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/";
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
     "single"
   );
@@ -183,7 +187,8 @@ export default function HireVideoEditorForm() {
           title='Hire a Video Editor'
           bgImage='/findEditor.jpg'
           links={[
-            { label: "Home", href: "/" },
+            { label: redirectUrl === "/client" ? "Dashboard" : "Home", href: redirectUrl },
+            ...(redirectUrl === "/client" ? [{ label: "Find Editor", href: "/client/find-editor" }] : []),
             { label: "Hire a Video Editor" },
           ]}
         />
@@ -397,78 +402,26 @@ export default function HireVideoEditorForm() {
             </div> */}
 
             {/* File Inputs */}
-            <div className='space-y-5 pb-3'>
-              <div>
-                <label className='mb-2 block'>
-                  Style Reference <span className='text-red-500'>*</span>
-                </label>
-                <input
-                  {...register("styleReference", {
-                    required: "Style reference is required",
-                  })}
-                  id='style-reference-upload'
-                  className='hidden'
-                  type='file'
-                  onChange={handleStyleReferenceChange}
-                />
-                <div className='flex items-center gap-3'>
-                  <label
-                    htmlFor='style-reference-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
-                    Choose File
-                  </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
-                    {styleReference?.name || "No file selected"}
-                  </span>
-                </div>
-                {errors.styleReference && (
-                  <p className='text-red-500 text-sm mt-1'>
-                    {errors.styleReference.message}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* PDF Upload */}
+              <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                <PdfIcon className="w-10 h-10" />
+                <div>
+                  <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
+                    {pdfFile ? pdfFile.name : "PDF File"}
                   </p>
-                )}
-              </div>
-
-              <div>
-                <label className='mb-2 block'>PDF File:</label>
-                <input
-                  {...register("pdfFile")}
-                  id='pdf-file-upload'
-                  className='hidden'
-                  type='file'
-                  onChange={handlePdfFileChange}
-                />
-                <div className='flex items-center gap-3'>
-                  <label
-                    htmlFor='pdf-file-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
-                    Choose File
-                  </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
-                    {pdfFile?.name || "No file selected"}
-                  </span>
                 </div>
-              </div>
+              </Link>
 
-              <div>
-                <label className='block'>Text Document:</label>
-                <input
-                  {...register("textFile")}
-                  id='text-document-upload'
-                  className='hidden'
-                  type='file'
-                  onChange={handleTextDocumentChange}
-                />
-                <div className='flex items-center gap-3'>
-                  <label
-                    htmlFor='text-document-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
-                    Choose File
-                  </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
-                    {textDocument?.name || "No file selected"}
-                  </span>
+              {/* TEXT Upload */}
+              <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                <PdfIcon className="w-10 h-10" />
+                <div>
+                  <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
+                    {textDocument ? textDocument.name : "Upload Text Document"}
+                  </p>
                 </div>
-              </div>
+              </Link>
             </div>
 
             {/* Payment Options */}
