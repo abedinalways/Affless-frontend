@@ -11,7 +11,7 @@ interface ProposalRow {
   service: string;
   amount: string;
   time: "3 Days" | "5 Days" | "7 Days";
-  status: "pending_approval_of_editor" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
+  status: "in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
   thumbnail: string;
 }
 
@@ -19,8 +19,8 @@ const PAGE_SIZE = 8;
 
 // ✅ IMPORTANT: unique IDs (ডুপ্লিকেট id দিলে React key collision হয়)
 const Proposal: ProposalRow[] = [
-  { id: 1, thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "pending_approval_of_editor" },
-  { id: 2, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "pending_approval_of_editor" },
+  { id: 1, thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "in_progress" },
+  { id: 2, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "in_progress" },
   { id: 3, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "delivered" },
   { id: 4, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "in_revision" },
   { id: 5, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "3 Days", status: "in_revision" },
@@ -39,7 +39,7 @@ export default function JobProposalPage() {
   const [timeFilter, setTimeFilter] = useState<"ALL" | "5 Days" | "7 Days" | "3 Days">("ALL");
 
   // ✅ filter toggle only Accepted/Declined for your UI
-  const [statusFilter, setStatusFilter] = useState<"pending_approval_of_editor" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled">("pending_approval_of_editor");
+  const [statusFilter, setStatusFilter] = useState<"in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled">("in_progress");
 
   // ✅ filtered data
   const filteredData = useMemo(() => {
@@ -86,8 +86,8 @@ export default function JobProposalPage() {
         <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
           <div className="flex gap-4">
             <button
-              onClick={() => setStatusFilter("pending_approval_of_editor")}
-              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "pending_approval_of_editor" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+              onClick={() => setStatusFilter("in_progress")}
+              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                 }`}
             >
               Jobs Awaiting Your Editor Selection
@@ -137,7 +137,7 @@ export default function JobProposalPage() {
               cell: ({ row }: any) => {
                 const s = row.original.status as ProposalRow["status"];
                 const badge =
-                  s === "pending_approval_of_editor"
+                  s === "in_progress"
                     ? "bg-yellow-500"
                     : s === "pending"
                       ? "bg-yellow-500"
@@ -176,8 +176,8 @@ export default function JobProposalPage() {
             <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
               <div className="flex gap-4">
                 <button
-                  onClick={() => setStatusFilter("pending_approval_of_editor")}
-                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "pending_approval_of_editor" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                  onClick={() => setStatusFilter("in_progress")}
+                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                     }`}
                 >
                   Accept

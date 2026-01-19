@@ -7,8 +7,7 @@ interface JobProposalCardProps {
   image: string;
   title: string;
   total: string;
-  status: "pending_approval_of_editor" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
-
+  status: "in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
   id: number;
 
   // ✅ old behavior (keep)
@@ -19,7 +18,7 @@ interface JobProposalCardProps {
 }
 
 const statusColors: Record<JobProposalCardProps["status"], string> = {
-  pending_approval_of_editor: "bg-green-500 text-white",
+  in_progress: "bg-green-500 text-white",
   delivered: "bg-[#EEFAE9] text-[#52C41A]",
   completed: "bg-[#EEFAE9] text-[#52C41A]",
   in_revision: "bg-red-500 text-white",
