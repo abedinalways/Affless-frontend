@@ -164,12 +164,12 @@ export default function EditorCard({
       {/* Budget + Rating */}
       <div className='mt-4 flex items-center gap-5'>
         <p className='text-[16px] text-[#777980]  font-medium'>
-          Project Budget: <span className=''>{budget}</span>
+          Hourly Rate : <span className=''>{budget}</span>
         </p>
         <div className='flex items-center gap-1 text-[16px] text-[#777980]'>
           <Star size={18} className='text-yellow-500 fill-yellow-500' />
           <span>
-            {rating}({reviews})
+            {rating}({reviews} Reviews)
           </span>
         </div>
       </div>
@@ -214,7 +214,7 @@ export default function EditorCard({
             Hire Editor
           </div>
         </Link>
-        <Link href='/client/message' className='cursor-pointer w-full'>
+        <Link href={`/client/message?id=${name}`} className='cursor-pointer w-full'>
           <div className=' text-center bg-[#FFEDED] cursor-pointer w-full text-[#FF4D4F]  p-3 rounded-lg font-medium hover:bg-red-100 duration-300 '>
             Message
           </div>

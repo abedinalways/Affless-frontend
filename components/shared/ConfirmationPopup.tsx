@@ -1,45 +1,60 @@
-'use client'
+'use client';
 
-import { useState } from "react";
-import { IoWarningOutline } from "react-icons/io5";
+import React from 'react';
 
-type propType = {
-    Icon: React.ElementType;
-    title: string;
-    message: string;
-    button: string;
-    color?: string;
-    OnCancel: () => void;
-    OnConfirm: () => void;
+interface ConfirmationModalProps {
+    isOpen: boolean;
+    title?: string;
+    description?: string;
+    confirmText?: string;
+    cancelText?: string;
+    onConfirm: () => void;
+    onCancel: () => void;
+    confirmClassName?: string;
+    loading?: boolean;
 }
 
-
-export default function ConfirmationPopup({Icon,title,message,button,color,OnCancel,OnConfirm}:propType) {
-    
-    const [loading,setLoading] = useState(false);
-
-    const handleLogout = async () => {
-        setLoading(true);
-        setTimeout(() => {
-            OnConfirm();
-            setLoading(false);
-        }, 1000);
-    }
+export default function ConfirmationPopup({
+    isOpen,
+    title = 'Are you sure?',
+    description = 'Please confirm this action.',
+    confirmText = 'Confirm',
+    cancelText = 'Cancel',
+    onConfirm,
+    onCancel,
+    confirmClassName,
+    loading = false,
+}: ConfirmationModalProps) {
+    if (!isOpen) return null;
     return (
-        <div className="fixed inset-0 bg-[#0003] bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-xs" onClick={OnCancel}>
-            <div className="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-sm" onClick={(e)=>e.stopPropagation()}>
-                <div className="flex flex-col items-center">
-                    <div className="bg-red-100 rounded-full p-4 mb-4">
-                        <Icon className={`w-8 h-8 ${color ? color : "text-red-600"}`} />
-                    </div>
-                    <h2 className="text-xl font-semibold mb-2">{title}</h2>
-                    <p className="text-gray-600 text-center mb-6">{message}</p>
-                    <div className="flex justify-between space-x-4 w-full">
-                        <button className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer" onClick={OnCancel}>Cancel</button>
-                        <button disabled={loading} className="bg-red-600 text-white px-4 py-2 rounded hover:opacity-80 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" onClick={handleLogout}>{loading?"Loading...":button}</button>
-                    </div>
+        <div className="fixed inset-0 z-99 flex items-center justify-center">
+            <div className="absolute inset-0 bg-[#0003] backdrop-blur-xs" onClick={onCancel} />
+            <div className="relative w-full max-w-sm rounded-xl bg-white p-5 shadow-xl">
+                <h3 className="text-base font-semibold text-gray-900">{title}</h3>
+                {description && (
+                    <p className="mt-2 text-sm text-gray-600">{description}</p>
+                )}
+                <div className="mt-4 flex items-center justify-end gap-2">
+                    <button
+                        type="button"
+                        onClick={onCancel}
+                        className="px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer"
+                    >
+                        {cancelText}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={onConfirm}
+                        className={
+                            confirmClassName ||
+                            `px-3 py-1.5 rounded-lg text-sm font-medium bg-[#1570EF] text-white hover:bg-[#1266DD] ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`
+                        }
+                        disabled={loading}
+                    >
+                        {confirmText}
+                    </button>
                 </div>
             </div>
         </div>
-    )
+    );
 }

@@ -52,6 +52,7 @@ const allPlatforms = [
 export default function PostJobForm() {
   const searchParams = useSearchParams();
   const assignEditor = searchParams.get('assign');
+  const redirectUrl = searchParams.get('redirect') || '/';
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
     "single"
   );
@@ -188,7 +189,10 @@ export default function PostJobForm() {
         <PageBanner
           title='Post a Job'
           bgImage='/findEditor.jpg'
-          links={[{ label: "Home", href: "/" }, { label: "Post a Job" }]}
+          links={[
+            { label: redirectUrl === "/client"?"Dashboard": redirectUrl === "/client/manage-job"?"Manage Jobs":"Home", href: redirectUrl || "/" }, 
+            { label: "Post a Job" }
+          ]}
         />
       </div>
       <form
