@@ -11,6 +11,7 @@ import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import BidCard from "@/components/reusable/Bids";
 import ReviewList, { ReviewType } from "@/components/reusable/Review";
+import Link from "next/link";
 interface UploadedFile {
   name: string;
   size: number;
@@ -153,7 +154,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           bgImage="/findEditor.jpg"
           links={[
             { label: "Home", href: "/editor" },
-            { label: "My Job",href:"/editor/myproposal"}, 
+            { label: "My Job", href: "/editor/myproposal" },
             { label: "In Progress" }
 
           ]}
@@ -300,52 +301,24 @@ export default function HireDetails({ params }: { params: { id: string } }) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* PDF Upload */}
-                <label className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
                   <PdfIcon className="w-10 h-10" />
-
                   <div>
                     <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
                       {pdfFile ? pdfFile.name : "PDF File"}
                     </p>
-
-                    <p className=" text-[#666] text-[16px]">
-                      {pdfFile
-                        ? `File size: ${(pdfFile.size / 1024).toFixed(2)} KB`
-                        : "Choose a PDF file"}
-                    </p>
                   </div>
-
-                  <input
-                    type="file"
-                    accept="application/pdf"
-                    className="hidden"
-                    onChange={handlePdfUpload}
-                  />
-                </label>
+                </Link>
 
                 {/* TEXT Upload */}
-                <label className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
                   <PdfIcon className="w-10 h-10" />
-
                   <div>
                     <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
                       {textFile ? textFile.name : "Upload Text Document"}
                     </p>
-
-                    <p className=" text-[#666] text-[16px]">
-                      {textFile
-                        ? `File size: ${(textFile.size / 1024).toFixed(2)} KB`
-                        : "Choose a TXT file"}
-                    </p>
                   </div>
-
-                  <input
-                    type="file"
-                    accept=".txt"
-                    className="hidden"
-                    onChange={handleTextUpload}
-                  />
-                </label>
+                </Link>
               </div>
             </div>
           </div>
@@ -368,7 +341,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 }

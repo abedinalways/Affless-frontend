@@ -8,7 +8,6 @@ interface JobProposalCardProps {
   title: string;
   total: string;
   status: "in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
-
   id: number;
 
   // ✅ old behavior (keep)

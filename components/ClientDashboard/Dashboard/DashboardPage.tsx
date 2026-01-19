@@ -151,7 +151,7 @@ export default function ClientDashboard() {
                   </button>
                 </Link>
 
-                <Link href="/platform-safety" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
+                <Link href="/platform-safety?redirect=/client" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
                   <button className="flex gap-2 text-[#FF4D4F] text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] cursor-pointer">
                     <LockIcon /> Platform Safety Rules{" "}
                     <IoArrowForwardSharp className="mt-1 text-red-500" />

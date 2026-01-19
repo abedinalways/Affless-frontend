@@ -19,7 +19,7 @@ const PAGE_SIZE = 8;
 
 // ✅ IMPORTANT: unique IDs (ডুপ্লিকেট id দিলে React key collision হয়)
 const Proposal: ProposalRow[] = [
-  { id: 1, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "in_progress" },
+  { id: 1, thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "in_progress" },
   { id: 2, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "in_progress" },
   { id: 3, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "delivered" },
   { id: 4, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "in_revision" },
@@ -73,7 +73,7 @@ export default function JobProposalPage() {
   const handleRevision = (id: number) => console.log(`Proposal ${id} in revision`);
 
   const goToDetail = (id: number, status: string) => {
-    router.push(`/client/job-proposal/${id}?status=${encodeURIComponent(status)}`);
+    router.push(`/client/job-proposal/${id}?status=${encodeURIComponent(status)}&redirect=/client`);
   };
 
   return (
@@ -90,7 +90,7 @@ export default function JobProposalPage() {
               className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                 }`}
             >
-              Accept
+              Jobs Awaiting Your Editor Selection
             </button>
 
             <button
@@ -98,7 +98,7 @@ export default function JobProposalPage() {
               className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "cancelled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                 }`}
             >
-              Declined
+              Canceled Jobs
             </button>
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function JobProposalPage() {
           columns={[
             {
               accessorKey: "service",
-              header: "Service",
+              header: "Jobs",
               cell: ({ row }: any) => (
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
@@ -123,22 +123,22 @@ export default function JobProposalPage() {
             },
             {
               accessorKey: "amount",
-              header: "AMOUNT",
-              cell: ({ row }: any) => <span className="text-gray-700">{row.original.amount}</span>,
+              header: "Amount",
+              cell: ({ row }: any) => <div className="text-gray-700 text-center">{row.original.amount}</div>,
             },
             {
               accessorKey: "time",
-              header: "DELIVERY TIME",
-              cell: ({ row }: any) => <span className="text-gray-700">{row.original.time}</span>,
+              header: "Time Awaiting Editor Approval",
+              cell: ({ row }: any) => <div className="text-gray-700 text-center">{row.original.time}</div>,
             },
             {
               accessorKey: "status",
-              header: "STATUS",
+              header: "Status",
               cell: ({ row }: any) => {
                 const s = row.original.status as ProposalRow["status"];
                 const badge =
                   s === "in_progress"
-                    ? "bg-green-600"
+                    ? "bg-yellow-500"
                     : s === "pending"
                       ? "bg-yellow-500"
                       : s === "in_revision"
