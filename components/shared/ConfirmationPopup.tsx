@@ -27,7 +27,7 @@ export default function ConfirmationPopup({
 }: ConfirmationModalProps) {
     if (!isOpen) return null;
     return (
-        <div className="fixed inset-0 z-99 flex items-center justify-center">
+        <div className="fixed inset-0 z-999 flex items-center justify-center">
             <div className="absolute inset-0 bg-[#0003] backdrop-blur-xs" onClick={onCancel} />
             <div className="relative w-full max-w-sm rounded-xl bg-white p-5 shadow-xl">
                 <h3 className="text-base font-semibold text-gray-900">{title}</h3>

@@ -23,7 +23,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="h-screen shadow-lg  w-full p-3 grid grid-rows-[auto_1fr] gap-4 overflow-y-auto overflow-x-hidden">
+    <div className="shadow-lg w-full h-full p-3 grid grid-rows-[auto_1fr] gap-4 overflow-y-auto overflow-x-hidden">
       <div className="flex items-center justify-center">
         <Image src="/Logo.png" alt="logo" height={500} width={500} className="hidden lg:block w-[220px] h-15 object-cover"/>
         <Image src="/logo-small.png" alt="logo" height={500} width={500} className="w-10 aspect-square lg:hidden"/>
@@ -62,7 +62,7 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
-      {showLogoutPopup && <ConfirmationPopup Icon={IoWarningOutline} title="Are you sure?" message="You want to logout?" button="Logout" OnCancel={() => setShowLogoutPopup(false)} OnConfirm={handleLogout} />}
+      {showLogoutPopup && <ConfirmationPopup isOpen={showLogoutPopup} title="Are you sure?" description="You want to logout?" onCancel={() => setShowLogoutPopup(false)} onConfirm={handleLogout} cancelText="Cancel" confirmText="Logout"/>}
     </div>
   );
 };
