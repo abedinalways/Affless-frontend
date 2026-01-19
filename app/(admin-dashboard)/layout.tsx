@@ -4,9 +4,8 @@ import DashboardHeader from "./admin/_components/dashboard-header";
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
-
-      <div className="w-full grid grid-cols-[auto_1fr]">
-        <div className="">
+      <div className="w-full h-screen grid grid-cols-[auto_1fr]">
+        <div className="w-full h-full ">
           <Sidebar />
         </div>
         <div className="w-full px-8 py-10 h-screen overflow-y-auto space-y-8">

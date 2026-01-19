@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useMemo } from "react";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { stories } from "@/app/(main)/success-story/data";
+import { stories } from "@/app/(website)/(main)/success-story/data";
 import PageBanner from "@/components/reusable/Bgbanner";
 import Pagination from "@/components/reusable/pagination";
 

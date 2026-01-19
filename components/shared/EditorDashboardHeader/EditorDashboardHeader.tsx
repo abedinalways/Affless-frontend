@@ -41,6 +41,7 @@ export default function EditorDashboardHeader() {
   const inactiveCls = "text-[#333] hover:text-[#FF4D4F] transition-colors";
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
+  const isExactActive = (href: string) => pathname === href;
 
   const jobRoutes = [
     "/editor/hire-request",
@@ -130,7 +131,7 @@ export default function EditorDashboardHeader() {
                 <li>
                   <Link
                     href="/editor"
-                    className={isActive("/editor") ? activeCls : inactiveCls}
+                    className={isExactActive("/editor") ? activeCls : inactiveCls}
                   >
                     Dashboard
                   </Link>
@@ -326,7 +327,7 @@ export default function EditorDashboardHeader() {
             <li>
               <Link
                 href="/editor"
-                className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor") ? activeCls : inactiveCls
+                className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isExactActive("/editor") ? activeCls : inactiveCls
                   }`}
                 onClick={() => setMobileMenu(false)}
               >
