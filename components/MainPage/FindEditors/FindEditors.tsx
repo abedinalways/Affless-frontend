@@ -9,12 +9,16 @@ import EditorCard, { editors } from "./EditorCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageBanner from "@/components/reusable/Bgbanner";
 import { FaSitemap } from "react-icons/fa";
+import Pagination from "@/components/reusable/pagination";
+import { useSearchParams } from "next/navigation";
 
 export default function FindEditors() {
   // Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
   const [mobileMenu, setMobileMenu] = useState(false);
-  const itemsPerPage = 3; // HOW MANY EDITORS PER PAGE
+  const itemsPerPage = 10; // HOW MANY EDITORS PER PAGE
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
 
   const totalPages = Math.ceil(editors.length / itemsPerPage);
 
@@ -40,7 +44,7 @@ export default function FindEditors() {
       <PageBanner
         title='Find Editors'
         bgImage='/findEditor.jpg'
-        links={[{ label: "Home", href: "/" }, { label: "Find Editors" }]}
+        links={[{ label: redirectUrl === "/client" ? "Dashboard" : redirectUrl === "/client/manage-job" ? "Manage Jobs" : "Home", href: redirectUrl || "/" }, { label: "Find Editors" }]}
       />
 
       {/* Main Section */}
@@ -52,7 +56,7 @@ export default function FindEditors() {
 
         {/* Mobile Filter Section (Visible only on small screens) */}
         <div
-          className={`fixed -top-4 inset-0 translate-y-20 lg:hidden h-full bg-[#0003] z-999 ${
+          className={`fixed inset-0 lg:hidden h-screen bg-[#0003] z-999 grid ${
             mobileMenu ? "w-full translate-x-0" : "w-fit -translate-x-full "
           } duration-300`}
           onClick={() => setMobileMenu(false)}>
@@ -80,46 +84,13 @@ export default function FindEditors() {
           ))}
 
           {/* Pagination */}
-          <div className='flex justify-center items-center gap-4 mt-12'>
-            {/* Prev */}
-            <button
-              onClick={handlePrev}
-              disabled={currentPage === 1}
-              className={`w-11 h-11 flex items-center justify-center rounded-full border border-gray-300 bg-white hover:bg-gray-100
-                ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""}`}>
-              <ChevronLeft className='text-gray-700' size={18} />
-            </button>
-
-            {/* Page Numbers */}
-            <ul className='flex items-center gap-4'>
-              {pages.map((page) => (
-                <li
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-11 h-11 flex items-center justify-center rounded-full font-medium cursor-pointer
-                    ${
-                      currentPage === page
-                        ? "bg-[#FF5151] text-white"
-                        : "bg-white text-[#FF5151]"
-                    }`}>
-                  {page}
-                </li>
-              ))}
-            </ul>
-
-            {/* Next */}
-            <button
-              onClick={handleNext}
-              disabled={currentPage === totalPages}
-              className={`w-11 h-11 flex items-center justify-center rounded-full border border-gray-300 bg-white hover:bg-gray-100 
-                ${
-                  currentPage === totalPages
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}>
-              <ChevronRight className='text-gray-700' size={18} />
-            </button>
-          </div>
+          <Pagination 
+            page={currentPage} 
+            totalPages={totalPages} 
+            onPageChange={(page) => setCurrentPage(page)}
+            total={displayedEditors.length}
+            pageSize={itemsPerPage}
+          />
         </div>
       </div>
     </div>

@@ -3,12 +3,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
+import { IoCheckmarkOutline } from "react-icons/io5";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { IoCheckmarkDoneSharp } from "react-icons/io5";
 
 interface Message {
     id: string;
     sender: 'user' | 'other';
     content: string;
-    timestamp: string;
+    createdAt: string;
+    readAt?: string;
 }
 
 const mockMessages: Message[] = [
@@ -16,31 +20,32 @@ const mockMessages: Message[] = [
         id: '1',
         sender: 'other',
         content: 'Hey! I saw your project post. Are you still looking for an editor?',
-        timestamp: '10:30 AM',
+        createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
     },
     {
         id: '2',
         sender: 'user',
         content: 'Yes! I need someone to edit a 30-minute video. Are you interested?',
-        timestamp: '10:32 AM',
+        createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
     },
     {
         id: '3',
         sender: 'other',
         content: 'Absolutely! I have experience with similar projects. Can you share more details?',
-        timestamp: '10:35 AM',
+        createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
     },
     {
         id: '4',
         sender: 'user',
         content: 'Great! The video is about travel vlogging. I need color correction, sound mixing, and transitions.',
-        timestamp: '10:37 AM',
+        createdAt: new Date().toISOString(),
     },
     {
         id: '5',
         sender: 'other',
         content: 'That looks great! Can you adjust the intro to match the new branding?',
-        timestamp: '2 min ago',
+        createdAt: new Date().toISOString(),
     },
 ];
 
@@ -55,6 +60,58 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
     const [inputValue, setInputValue] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const prevMessageCount = useRef(messages.length);
+    const [soundsEnabled] = useState(true);
+    const otherUserId = '1';
+    const isConversationOpen = Boolean(selectedConversationId);
+
+    const formatTime = (date: Date) =>
+        date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+
+    const isSameDay = (a: Date, b: Date) =>
+        a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate();
+
+    const getDayLabel = (date: Date) => {
+        const today = new Date();
+        const yesterday = new Date();
+        yesterday.setDate(today.getDate() - 1);
+
+        if (isSameDay(date, today)) return 'Today';
+        if (isSameDay(date, yesterday)) return 'Yesterday';
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+        });
+    };
+
+    const playNotificationSound = () => {
+        try {
+            const audioContext = new (window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.0001, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.15, audioContext.currentTime + 0.02);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.3);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.3);
+            oscillator.onended = () => audioContext.close();
+        } catch (error) {
+            console.error('Unable to play notification sound', error);
+        }
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -74,10 +131,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
             id: String(messages.length + 1),
             sender: 'user',
             content: inputValue,
-            timestamp: new Date().toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-            }),
+            createdAt: new Date().toISOString(),
         };
 
         setMessages([...messages, newMessage]);
@@ -112,19 +166,69 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
         setIsMenuOpen(false);
     };
 
+    useEffect(() => {
+        const lastMessage = messages[messages.length - 1];
+        const hasNewMessage = messages.length > prevMessageCount.current;
+
+        if (
+            hasNewMessage &&
+            lastMessage?.sender === 'other' &&
+            soundsEnabled &&
+            !isConversationOpen
+        ) {
+            playNotificationSound();
+        }
+
+        prevMessageCount.current = messages.length;
+    }, [messages, soundsEnabled, isConversationOpen]);
+
+    useEffect(() => {
+        if (!isConversationOpen) return;
+
+        const lastUserMessage = [...messages].reverse().find((m) => m.sender === 'user');
+        if (!lastUserMessage || lastUserMessage.readAt) return;
+
+        const timeoutId = setTimeout(() => {
+            setMessages((prev) =>
+                prev.map((msg) =>
+                    msg.id === lastUserMessage.id
+                        ? { ...msg, readAt: new Date().toISOString() }
+                        : msg
+                )
+            );
+        }, 1200);
+
+        return () => clearTimeout(timeoutId);
+    }, [messages, isConversationOpen]);
+
+    const lastUserMessageId = [...messages]
+        .reverse()
+        .find((message) => message.sender === 'user')?.id;
+
     return (
         <div className="h-full flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
             {/* Header */}
             <div className="border-b border-gray-200 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <button onClick={()=>onSelectConversation && onSelectConversation("")} type="button" className='p-1 cursor-pointer xl:hidden'>
-                                            <FaArrowLeft />
-                                        </button>
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm" style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}>
+                    <button onClick={() => onSelectConversation && onSelectConversation("")} type="button" className='p-1 cursor-pointer xl:hidden'>
+                        <FaArrowLeft />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => router.push(`/editor-profile/${otherUserId}`)}
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer"
+                        style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}
+                    >
                         JD
-                    </div>
+                    </button>
                     <div>
-                        <h2 className="font-semibold text-gray-900">John Designer</h2>
+                        <button
+                            type="button"
+                            onClick={() => router.push(`/editor-profile/${otherUserId}`)}
+                            className="font-semibold text-gray-900 cursor-pointer hover:underline"
+                        >
+                            John Designer
+                        </button>
                         <p className="text-xs text-green-600 font-medium">Online</p>
                     </div>
                 </div>
@@ -216,41 +320,67 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
             <div className="flex-1 overflow-y-auto p-4 pt-14 space-y-4 bg-gray-50 relative">
                 <button
                     type="button"
-                    onClick={()=>router.push('/client/post-job?assign=john_designer')}
+                    onClick={() => router.push('/client/post-job?assign=john_designer')}
                     className="absolute right-4 top-3 px-4 py-2 rounded-full bg-[#e74c4c] text-white text-xs sm:text-sm font-medium shadow-lg hover:bg-[#c23b3b] transition-colors animate-floating cursor-pointer"
                 >
                     Post a Job for This Editor
                 </button>
-                {messages.map((message) => (
-                    <div
-                        key={message.id}
-                        className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'
-                            }`}
-                    >
-                        <div
-                            className={`max-w-xs lg:max-w-md xl:max-w-lg px-4 py-2 rounded-lg ${message.sender === 'user'
-                                ? 'rounded-br-none text-white'
-                                : 'bg-white text-gray-900 border border-gray-200 rounded-bl-none'
-                                }`}
-                            style={message.sender === 'user' ? { backgroundColor: '#e74c4c' } : {}}
-                        >
-                            <p className="text-sm wrap-break-word">{message.content}</p>
-                            <p
-                                className={`text-xs mt-1 ${message.sender === 'user'
-                                    ? 'text-blue-100'
-                                    : 'text-gray-500 text-end'
+                {messages.map((message, index) => {
+                    const messageDate = new Date(message.createdAt);
+                    const prevMessage = messages[index - 1];
+                    const shouldShowDayDivider =
+                        !prevMessage ||
+                        !isSameDay(messageDate, new Date(prevMessage.createdAt));
+
+                    return (
+                        <div key={message.id}>
+                            {shouldShowDayDivider && (
+                                <div className="flex items-center justify-center my-4">
+                                    <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                                        {getDayLabel(messageDate)}
+                                    </span>
+                                </div>
+                            )}
+                            <div
+                                className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'
                                     }`}
                             >
-                                {message.timestamp}
-                            </p>
+                                <div
+                                    className={`max-w-xs lg:max-w-md xl:max-w-lg px-4 py-2 rounded-lg ${message.sender === 'user'
+                                        ? 'rounded-br-none text-white'
+                                        : 'bg-white text-gray-900 border border-gray-200 rounded-bl-none'
+                                        }`}
+                                    style={message.sender === 'user' ? { backgroundColor: '#e74c4c' } : {}}
+                                >
+                                    <p className="text-sm wrap-break-word">{message.content}</p>
+                                    <div className='w-full flex items-center justify-between'>
+                                        <p
+                                            className={`text-xs mt-1 ${message.sender === 'user'
+                                                ? 'text-blue-100'
+                                                : 'text-gray-500 text-end'
+                                                }`}
+                                        >
+                                            {formatTime(messageDate)}
+                                        </p>
+                                        {message.sender === 'user' && message.id === lastUserMessageId && (
+                                            <p className={`text-sm font-semibold mt-1 ${message.readAt ? 'text-blue-100' : 'text-gray-500'} cursor-default select-none`} title={`${formatTime(new Date(message.readAt || ''))}`}>
+                                                {message.readAt
+                                                    ? <IoCheckmarkDoneSharp />
+                                                    : <IoCheckmarkDoneSharp />
+                                                }
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {/* Input Area */}
             <div className="border-t border-gray-200 p-4 bg-white">
-                    <div className="flex items-end gap-3">
+                <div className="flex items-end gap-3">
                     <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors shrink-0">
                         <svg
                             className="w-5 h-5 text-gray-600"
@@ -293,7 +423,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                             />
                         </svg>
                     </button>
-                    </div>
+                </div>
             </div>
         </div>
     );

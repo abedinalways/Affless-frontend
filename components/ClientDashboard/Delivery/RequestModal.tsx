@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import toast from "react-hot-toast";
+import {useForm} from "react-hook-form";
 
 type Props = {
   open: boolean;
@@ -12,20 +13,28 @@ type Props = {
 
 export default function RequestRevisionModal({ open, setOpen, handleSubmit }: Props) {
   const [note, setNote] = useState("");
-
+  const { register, handleSubmit: formSubmit, formState: { errors } } = useForm();
   const isDisabled = note.trim().length === 0;
+  const noteError = note.trim().length > 0 && note.trim().length < 10
+    ? "Note must be at least 10 characters."
+    : "";
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[760px] rounded-2xl p-0 overflow-hidden bg-white">
         <div className="p-8">
-          <DialogTitle className="text-xl font-semibold mb-4">Request Revision</DialogTitle>
+          <DialogTitle className="text-xl font-semibold mb-4">Request Your Revision — You Have 3 Revisions Left</DialogTitle>
           <textarea
             value={note}
-            onChange={(e) => setNote(e.target.value)}
+            {...register("note", { required: true, minLength: 10 })}
+            onChange={(event) => setNote(event.target.value)}
             placeholder="Note..."
             className="w-full min-h-[220px] rounded-lg border border-gray-200 bg-[#F8F8F8] p-4 text-[15px] text-gray-700 outline-none focus:border-gray-300 resize-none"
           />
+          {noteError && (
+            <p className="mt-2 text-[13px] text-red-500">{noteError}</p>
+          )}
+          
           <button
             type="button"
             disabled={isDisabled}

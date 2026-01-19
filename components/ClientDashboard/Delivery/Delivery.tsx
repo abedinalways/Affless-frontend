@@ -10,137 +10,113 @@ import {
   FileArchive,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RequestRevisionModal from "./RequestModal";
 import toast, { Toaster } from "react-hot-toast";
+import { ALL_JOBS, JobRow } from "../ManageJob/ManageJob";
+import Loading from "@/components/shared/Loading";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import DeliveredFileCard from "./DeliveredFileCard";
+import ConfirmationPopup from "@/components/shared/ConfirmationPopup";
+import { GoAlert } from "react-icons/go";
 
 export default function DeliveryClient() {
   const [openRevision, setOpenRevision] = useState(false);
+  const [job, setJob] = useState<JobRow | null>(null);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const router = useRouter();
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isAccepting, setIsAccepting] = useState(false);
+
+  const handleConfirmAccept = () => {
+    setIsAccepting(true);
+    // Simulate accept delay
+    setTimeout(() => {
+      setIsAccepting(false);
+      setIsConfirmationOpen(false);
+      toast.success("Delivery accepted successfully!");
+      router.push("/client/review");
+    }, 2000);
+  }
+
+  useEffect(() => {
+    // Scroll to top immediately
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    const selected = ALL_JOBS.find((item) => item.id === Number(id));
+    setJob(selected || null);
+  }, [id]);
+
+  // Additional scroll to top after render
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [job]);
+
+  if (!job) return <div className="containers py-20">
+    <Loading />
+  </div>;
+
 
   return (
     <div className="">
       {/* <Toaster position="top-right"/> */}
       <div>
         <PageBanner
-          title="Delivery Page"
+          title="Job Delivery"
           bgImage="/findEditor.jpg"
           links={[
-            { label: "Home", href: "/client" },
-            { label: "Delivery Page" },
+            { label: job?.service || "", href: `/client/manage-job/${job?.id}` },
+            { label: "Job Delivery" },
           ]}
         />
       </div>
 
-      <div className="w-full bg-white rounded-2xl containers pt-10 lg:pt-20">
+      <div className="w-full bg-white rounded-2xl containers pt-10 lg:pt-20 space-y-10">
         {/* Files */}
+        <button type="button" onClick={() => router.back()} className="border px-4 py-1 rounded-md cursor-pointer bg-[#ff4b4b] text-white">Back</button>
         <div className="space-y-5">
+          <h4 className="text-lg font-semibold text-gray-900">Delivered Files</h4>
           {/* Item 1 */}
-          <div className="flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white px-5 py-4">
-            <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl border border-purple-400 bg-purple-50 flex items-center justify-center">
-                <Video className="text-purple-600" size={22} />
-              </div>
-
-              <div>
-                <p className="text-[18px] font-semibold text-gray-900">
-                  Final project edit v3.mp4
-                </p>
-                <div className="mt-2 flex items-center gap-3">
-                  <span className="text-[13px] text-gray-500">2.4 GB</span>
-                  <span className="rounded-lg bg-red-50 px-3 py-1 text-[13px] font-medium text-[#ff4b4b]">
-                    Video
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <button className="flex items-center gap-2 text-[#ff4b4b] font-medium hover:opacity-80 transition cursor-pointer">
-              <Download size={18} />
-              <span className="text-[14px]">Download</span>
-            </button>
-          </div>
+          <DeliveredFileCard
+            ImageIcon={Video}
+            title="Final project edit v3.mp4"
+            size="2.4 GB"
+            fileType="video"
+          />
 
           {/* Item 2 */}
-          <div className="flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white px-5 py-4">
-            <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl border border-green-400 bg-green-50 flex items-center justify-center">
-                <Music className="text-green-600" size={22} />
-              </div>
-
-              <div>
-                <p className="text-[18px] font-semibold text-gray-900">
-                  Audio mix Final.wav
-                </p>
-                <div className="mt-2 flex items-center gap-3">
-                  <span className="text-[13px] text-gray-500">156 MB</span>
-                  <span className="rounded-lg bg-red-50 px-3 py-1 text-[13px] font-medium text-[#ff4b4b]">
-                    Audio
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <button className="flex items-center gap-2 text-[#ff4b4b] font-medium hover:opacity-80 transition cursor-pointer">
-              <Download size={18} />
-              <span className="text-[14px]">Download</span>
-            </button>
-          </div>
+          <DeliveredFileCard
+            ImageIcon={Music}
+            title="Audio mix Final.wav"
+            size="156 MB"
+            fileType="audio"
+          />
 
           {/* Item 3 */}
-          <div className="flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white px-5 py-4">
-            <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl border border-amber-300 bg-amber-50 flex items-center justify-center">
-                <ImageIcon className="text-amber-600" size={22} />
-              </div>
-
-              <div>
-                <p className="text-[18px] font-semibold text-gray-900">
-                  Video thumbnail.jpg
-                </p>
-                <div className="mt-2 flex items-center gap-3">
-                  <span className="text-[13px] text-gray-500">156 MB</span>
-                  <span className="rounded-lg bg-red-50 px-3 py-1 text-[13px] font-medium text-[#ff4b4b]">
-                    Audio
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <button className="flex items-center gap-2 text-[#ff4b4b] font-medium hover:opacity-80 transition cursor-pointer">
-              <Download size={18} />
-              <span className="text-[14px]">Download</span>
-            </button>
-          </div>
+          <DeliveredFileCard
+            ImageIcon={ImageIcon}
+            title="Video thumbnail.jpg"
+            size="5 MB"
+            fileType="image"
+          />
 
           {/* Item 4 */}
-          <div className="flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white px-5 py-4">
-            <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl border border-blue-400 bg-blue-50 flex items-center justify-center">
-                <FileArchive className="text-blue-600" size={22} />
-              </div>
-
-              <div>
-                <p className="text-[18px] font-semibold text-gray-900">
-                  Assets and elements.zip
-                </p>
-                <div className="mt-2 flex items-center gap-3">
-                  <span className="text-[13px] text-gray-500">89 MB</span>
-                  <span className="rounded-lg bg-red-50 px-3 py-1 text-[13px] font-medium text-[#ff4b4b]">
-                    Elements/Assets
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button className="flex items-center gap-2 text-[#ff4b4b] font-medium hover:opacity-80 transition cursor-pointer">
-              <Download size={18} />
-              <span className="text-[14px]">Download</span>
-            </button>
-          </div>
+          <DeliveredFileCard
+            ImageIcon={FileArchive}
+            title="Elements and assets.zip"
+            size="89 MB"
+            fileType="elements/assets"
+          />
         </div>
 
         {/* Message */}
-        <div className="mt-10">
-          <h4 className="text-[18px] font-semibold text-gray-900">Message</h4>
+        <div className="">
+          <h4 className="text-[18px] font-semibold text-gray-900">Editor’s Delivery Message</h4>
           <p className="mt-3 text-[15px] leading-6 text-gray-500">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
@@ -161,14 +137,15 @@ export default function DeliveryClient() {
         {/* Actions */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5 pb-10">
           <div>
-            <Link href="/client/review">
+            {/* <Link href="/client/review"> */}
               <button
-                className="w-full py-4 rounded-xl bg-[#FFEDED] border border-[#FF4B4B] text-[#FF4B4B] hover:bg-[#FF4D4F] hover:text-white font-semibold transition cursor-pointer"
                 type="button"
+                className="w-full py-4 rounded-xl bg-[#FFEDED] border border-[#FF4B4B] text-[#FF4B4B] hover:bg-[#FF4D4F] hover:text-white font-semibold transition cursor-pointer"
+                onClick={() => setIsConfirmationOpen(true)}
               >
                 Accept
               </button>
-            </Link>
+            {/* </Link> */}
           </div>
           <button
             type="button"
@@ -179,10 +156,20 @@ export default function DeliveryClient() {
           </button>
         </div>
 
-        <RequestRevisionModal open={openRevision} setOpen={setOpenRevision} handleSubmit={()=>{
+        <RequestRevisionModal open={openRevision} setOpen={setOpenRevision} handleSubmit={() => {
           toast.success("Revision requested successfully!")
           setOpenRevision(false);
-        }}/>
+        }} />
+
+        <ConfirmationPopup
+          isOpen={isConfirmationOpen}
+          title="Are you sure?"
+          description="Do you really want to accept the delivery? This process cannot be undone."
+          confirmText="Accept"
+          onCancel={() => { setIsConfirmationOpen(false); }}
+          onConfirm={handleConfirmAccept}
+          loading={isAccepting}
+        />
       </div>
     </div>
   );

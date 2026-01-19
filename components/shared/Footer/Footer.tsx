@@ -77,7 +77,7 @@ export default function Footer() {
             <h3 className="text-lg font-poppins font-medium mb-4">For Clients</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href="/client/post-job">Post a Job</Link></li>
-              <li><Link href="/find-editors">Find Editors</Link></li>
+              <li><Link href="/client/find-editor">Find Editors</Link></li>
               <li><Link href="/payment-protection">Payment Protection</Link></li>
               <li><Link href="/client-guide">Client Guide</Link></li>
               <li><Link href="/payment-rules">Payment Rules</Link></li>

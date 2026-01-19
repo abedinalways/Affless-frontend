@@ -31,7 +31,8 @@ export default function ClientDashboardHeader() {
   const activeCls = "text-[#FF4D4F] font-semibold";
   const inactiveCls = "text-[#333] hover:text-[#FF4D4F] transition-colors";
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
+  const isActive = (href: string, exact = false) =>
+    exact ? pathname === href : pathname === href || pathname.startsWith(href + "/");
 
   const businessRoutes = [
     "/client/manage-job",
@@ -119,8 +120,8 @@ export default function ClientDashboardHeader() {
             <ul className="hidden lg:flex items-center gap-8 text-[#333] font-poppins text-base relative">
               <li>
                 <Link
-                  href="/client/dashboard"
-                  className={isActive("/client/dashboard") ? activeCls : inactiveCls}
+                  href="/client"
+                  className={isActive("/client", true) ? activeCls : inactiveCls}
                 >
                   Dashboard
                 </Link>
@@ -152,7 +153,7 @@ export default function ClientDashboardHeader() {
                       </Link>
 
                       <Link
-                        href="/client/find-editor"
+                        href="/client/find-editor?redirect=/client"
                         className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/find-editor") ? activeCls : inactiveCls
                           }`}
                         onClick={() => setOpen(false)}
@@ -308,9 +309,9 @@ export default function ClientDashboardHeader() {
         <ul className="text-lg pt-3">
           <li>
             <Link
-              href="/client/dashboard"
+              href="/client"
               onClick={() => setMobileMenu(false)}
-              className={`block px-4 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/dashboard") ? activeCls : inactiveCls
+              className={`block px-4 py-2 hover:bg-gray-100 duration-300 ${isActive("/client", true) ? activeCls : inactiveCls
                 }`}
             >
               Dashboard
@@ -346,7 +347,7 @@ export default function ClientDashboardHeader() {
                   <Link
                     className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/find-editor") ? activeCls : inactiveCls
                       }`}
-                    href="/client/find-editor"
+                    href="/client/find-editor?redirect=/client"
                     onClick={() => setMobileMenu(false)}
                   >
                     Find Editor

@@ -42,10 +42,10 @@ export default function JobDetails({id}:propType) {
   return (
     <div>
       <PageBanner
-        title="Graphic Designer for ongoing job"
+        title={job.service}
         bgImage="/findEditor.jpg"
         links={[
-          { label: "Home", href: "/" },
+          { label: "Dashboard", href: "/client" },
           { label: "Manage Job", href: "/client/manage-job" },
           { label: job.service, href: `/client/manage-job/${job.id}` },
         ]}
@@ -54,7 +54,9 @@ export default function JobDetails({id}:propType) {
       <div className="containers flex flex-col lg:flex-row gap-6 py-20">
 
         <div className="lg:w-2/3">
-          <JobDetailsPage />
+          <JobDetailsPage 
+          job={job}
+          />
         </div>
 
         <div className="lg:w-1/3">
@@ -89,7 +91,7 @@ export default function JobDetails({id}:propType) {
             <hr />
             <div className="w-full max-w-[520px] bg-white">
               <h3 className="text-[18px] font-semibold text-black mb-4">
-                Time left To Deliver
+                Time Left Until Your Job Is Completed
               </h3>
 
               {/* Time Row */}
@@ -118,12 +120,12 @@ export default function JobDetails({id}:propType) {
               {/* Buttons */}
               <div className="mt-6 space-y-4">
                 <div className="">
-                  <Link href="/client/delivery">
+                  <Link href={`/client/delivery?id=${job.id}`}>
                     <button
                       className="w-full py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F] font-semibold hover:opacity-90 transition cursor-pointer"
                       type="button"
                     >
-                      Delivary View
+                      Delivery View
                     </button></Link>
                 </div>
 
@@ -132,7 +134,7 @@ export default function JobDetails({id}:propType) {
                     className="w-full block text-center py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F]  font-semibold hover:opacity-90 transition cursor-pointer"
                     type="button"
                   >
-                    Message
+                    Message Editor
                   </Link>
                 </div>
               </div>
@@ -145,16 +147,20 @@ export default function JobDetails({id}:propType) {
               </div>
 
               <div className="flex justify-between">
-                <span className="text-gray-500">Delivery date</span>
+                <span className="text-gray-500">Delivery Date</span>
                 <span>{job.deliveryDate.toLocaleDateString("en-US", {
-                  month: "short",
+                  month: "long",
                   day: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
                 })}</span>
               </div>
 
               <div className="flex justify-between">
                 <span className="text-gray-500">Total Price</span>
-                <span>${job.price}</span>
+                <span>${Number(job.price).toFixed(2)}</span>
               </div>
 
               <div className="flex justify-between">

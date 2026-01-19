@@ -75,7 +75,7 @@ export default function JobDetails({ params }: PostPageProps) {
     <div>
       {/* <Toaster position="top-right" /> */}
       <PageBanner
-        title={"Graphic Designer for ongoing job"}
+        title={job.title}
         bgImage="/findEditor.jpg"
         links={[
           { label: "Home", href: "/" },

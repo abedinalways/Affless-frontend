@@ -9,9 +9,10 @@ import WorldIcon from "@/components/Icons/WorldIcon";
 import { FileText, File, YoutubeIcon, Clapperboard, Clock4 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { JobRow } from "../ManageJob/ManageJob";
 import { TbClock } from "react-icons/tb";
 
-export default function JobDetailsPage() {
+export default function JobDetailsPage({ job }: { job: JobRow }) {
 
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [textFile, setTextFile] = useState<File | null>(null);
@@ -39,7 +40,7 @@ export default function JobDetailsPage() {
           </div>
             <div>
               <p className="text-lg text-[18px] font-semibold">Job Category</p>
-              <p className="text-[16px] font-medium leading-150% mt-1.5 ">Video</p>
+              <p className="text-[16px] font-medium leading-150% mt-1.5 capitalize">{job.category || "N/A"}</p>
             </div>
           </div>
         </div>
@@ -50,7 +51,7 @@ export default function JobDetailsPage() {
           </div>
             <div>
               <p className="text-lg text-[18px] font-semibold">Project Budget</p>
-              <p className="text-[16px] font-medium leading-150% mt-1.5 ">$675</p>
+              <p className="text-[16px] font-medium leading-150% mt-1.5 ">${Number(job.total)?.toFixed(2)}</p>
             </div>
           </div>
         </div>
@@ -67,7 +68,7 @@ export default function JobDetailsPage() {
             </div>
               <div>
                 <p className="text-lg text-[18px] font-semibold">Platform</p>
-                <p className="text-[16px] font-medium leading-150% mt-1.5 ">Youtobe</p>
+                <p className="text-[16px] font-medium leading-150% mt-1.5 ">{job.platform || "N/A"}</p>
               </div>
             </div>
           </div>
@@ -82,24 +83,24 @@ export default function JobDetailsPage() {
             </div>
               <div>
                 <p className="text-lg text-[18px] font-semibold">Project Duration</p>
-                <p className="text-[16px] font-medium leading-150% mt-1.5 ">5 Days</p>
+                <p className="text-[16px] font-medium leading-150% mt-1.5 ">{job.duration} Days</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border bg-[#E6F7D9]">
+        {job.videoLength && <div className="p-4 rounded-xl border bg-[#E6F7D9]">
           <div className="flex gap-4">
             <div className="flex gap-4"> <div className="flex justify-center items-center">
               <WorldIcon />
             </div>
               <div>
-                <p className="text-lg text-[18px] font-semibold">Country</p>
-                <p className="text-[16px] font-medium leading-150% mt-1.5 ">USA</p>
+                <p className="text-lg text-[18px] font-semibold">Footage Duration</p>
+                <p className="text-[16px] font-medium leading-150% mt-1.5 ">{job.videoLength} {job.category === "Shorts/Reels/TikToks" ? "seconds" : "minutes"}</p>
               </div>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
 
       {/* Title */}
@@ -141,13 +142,13 @@ export default function JobDetailsPage() {
 
         <div className="flex flex-wrap gap-3">
           <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-            Adobe Premiere Pro
+            Retention Editing
           </span>
           <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-            Adobe After Effects
+            Storytelling
           </span>
           <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-            Adobe After Effects
+            Color Correction
           </span>
         </div>
       </div>
