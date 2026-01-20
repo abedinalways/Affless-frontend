@@ -7,6 +7,12 @@ import BidCard from "@/components/reusable/Bids";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import Pagination from "@/components/reusable/pagination";
+import { Clapperboard, Clock4 } from "lucide-react";
+import DolarIcon from "@/components/Icons/DolarIcon";
+import DesktopIcon from "@/components/Icons/Desktop";
+import WorldIcon from "@/components/Icons/WorldIcon";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function JobDetails({ params }: { params: { id: string } }) {
   const bids = [
@@ -63,66 +69,123 @@ export default function JobDetails({ params }: { params: { id: string } }) {
         <PageBanner
           title="Proposal Details"
           bgImage="/findEditor.jpg"
-          links={[{ label: "Dashboard", href: "/client" },{ label: "Job Proposals", href: "/client/job-proposal" }, { label: "Proposal Details" }]}
+          links={[{ label: "Dashboard", href: "/client" }, { label: "Job Proposals", href: "/client/job-proposal" }, { label: "Proposal Details" }]}
         />
       </div>
 
       <div className="containers py-10 lg:py-20 ">
         <div className="flex flex-col lg:flex-row gap-9">
           {/* LEFT */}
-          <div className="space-y-5 w-full lg:w-3/4 order-2 lg:order-1">
-            <h1 className="text-[28px] lg:text-[32px] font-medium text-[#333]">
-              Proposal Details
-            </h1>
+          <div className="space-y-5 w-full order-2 lg:order-1">
+            <Link href="/client/job-proposal" className="block">
+              <button className="px-4 py-2 border rounded-md bg-[#EBECEC] hover:bg-gray-100 text-[#333] text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
+                <FaArrowLeft />
+                Back to Job Proposals
+              </button>
+            </Link>
 
-           <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Etiam gravida euismod sodales. Vestibulum sed egestas sapien, sit
-              amet iaculis eros. Suspendisse pulvinar, erat sed interdum auctor,
-              eros ligula tempus quam, in congue est nunc et turpis. Nam non
-              nisi sed sem placerat semper. Proin egestas, odio eu semper mattis,
-              enim odio pulvinar leo, ac vestibulum sapien nulla non arcu.
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+              <div className="p-4 rounded-xl border bg-[#E1E7FF]">
+                <div className="flex gap-4"> <div className="flex justify-center items-center">
+                  <Clapperboard />
+                </div>
+                  <div>
+                    <p className="text-lg text-[18px] font-semibold">Job Category</p>
+                    <p className="text-[16px] font-medium leading-150% mt-1.5 capitalize">{"Thumbnail"}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl border bg-[#EBE6FE]">
+                <div className="flex gap-4"> <div className="flex justify-center items-center">
+                  <DolarIcon />
+                </div>
+                  <div>
+                    <p className="text-lg text-[18px] font-semibold">Project Budget</p>
+                    <p className="text-[16px] font-medium leading-150% mt-1.5 ">${Number(210.10).toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+            {/* 2nd Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="p-4 rounded-xl border bg-[#FFCCE4]">
+                <div className="flex gap-4">
+                  <div className="flex gap-4"> <div className="flex justify-center items-center">
+                    <DesktopIcon />
+                  </div>
+                    <div>
+                      <p className="text-lg text-[18px] font-semibold">Platform</p>
+                      <p className="text-[16px] font-medium leading-150% mt-1.5 ">{"YouTube"}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="p-4 rounded-xl border bg-[#FFF1CC]">
+                <div className="flex gap-4">
+                  <div className="flex gap-4"> <div className="flex justify-center items-center">
+                    <Clock4 className="text-black" />
+
+                  </div>
+                    <div>
+                      <p className="text-lg text-[18px] font-semibold">Project Duration</p>
+                      <p className="text-[16px] font-medium leading-150% mt-1.5 ">{2} Days</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {<div className="p-4 rounded-xl border bg-[#E6F7D9]">
+                <div className="flex gap-4">
+                  <div className="flex gap-4"> <div className="flex justify-center items-center">
+                    <WorldIcon />
+                  </div>
+                    <div>
+                      <p className="text-lg text-[18px] font-semibold">Footage Duration</p>
+                      <p className="text-[16px] font-medium leading-150% mt-1.5 ">N/A</p>
+                    </div>
+                  </div>
+                </div>
+              </div>}
+            </div>
+
+            {/* Title */}
+            <h1 className="text-[28px] lg:text-[32px] font-medium text-[#333]">The Ultimate Guide To Start</h1>
+
+            {/* Description */}
+            <p className="text-gray-700 leading-relaxed">
+              Etiam gravida euismod sodales. Vestibulum sed egestas sapien, sit amet
+              iaculis eros. Suspendisse pulvinar, erat sed interdum auctor, eros
+              ligula tempus quam, in congue est nunc et turpis. Nam non nisl sed sem
+              placerat semper. Proin egestas, odio eu semper mattis, enim odio
+              pulvinar leo, ac vestibulum sapien nulla non arcu.
             </p>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Mauris sed venenatis libero, Pellentesque elementum ante massa,ac
+            <p className="text-gray-700 leading-relaxed">
+              Mauris sed venenatis libero. Pellentesque elementum ante massa, ac
               ornare augue molestie ut. Suspendisse lacinia tortor sem, at
-              condimentum nulla auctor in. Sed vulputate euismod risus, eget
-              auctor nulla aliquet sed.
+              condimentum nulla auctor in. Sed vulputate euismod risus, eget auctor
+              nulla aliquet sed.
             </p>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Nunc consequat quam tincidunt, mattis purus et, euismod eros.
-              Donec sed lobortis nunc. Donec a pretium ipsum. Curabitur
-              pellentesque neque et dictum interdum. Nam eu faucibus augue, id
-              sagittis magna. Aliquam sodales est dolor, non convallis arcu
-              feugiat a. Curabitur dictum dapibus nisl quis convallis. Morbi nec
-              ex vestibulum, tincidunt sapien a, pretium arcu.
-            </p>
+            {/* Subtitle */}
+            <h2 className="tex-lg lg:text-[32px] font-medium text-[#333]">
+              Pellentesque elementum ante massa
+            </h2>
 
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              The Ultimate Guide To StartEtiam gravida euismod sodales.
-              Vestibulum sed egestas sapien, sit amet iaculis eros. Suspendisse
-              pulvinar, erat sed interdum auctor, eros ligula tempus quam, in
-              congue est nunc et turpis. Nam non nisi sed sem placerat semper.
-              Proin egestas, odio eu semper mattis, enim odio pulvinar leo, ac
-              vestibulum sapien nulla non arcu.
-            </p>
-
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Mauris sed venenatis libero, Pellentesque elementum ante massa, ac
-              ornare augue molestie ut. Suspendisse lacinia tortor sem, at
-              condimentum nulla auctor in. Sed vulputate euismod risus, eget
-              auctor nulla aliquet sed.
-            </p>
-
-            <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">
-              Nunc consequat quam tincidunt, mattis purus et, euismod eros.
-              Donec sed lobortis nunc. Donec a pretium ipsum. Curabitur
-              pellentesque neque et dictum interdum. Nam eu faucibus augue, id
-              sagittis magna. Aliquam sodales est dolor, non convallis arcu
-              feugiat a. Curabitur dictum dapibus nisl quis convallis. Morbi nec
-              ex vestibulum, tincidunt sapien a, pretium arcu.
-            </p>
+            <ul className="list-disc pl-6 space-y-2 text-gray-700">
+              <li>Suspendisse gravida risus in sapien sollicitudin.</li>
+              <li>Quisque mollis enim nec lacus elementum vulputate.</li>
+              <li>Nullam fermentum turpis a nisl tristique.</li>
+              <li>Donec placerat orci id lobortis suscipit.</li>
+              <li>Accumsan nibh vitae, hendrerit turpis.</li>
+              <li>Etiam dignissim mauris at orci finibus.</li>
+            </ul>
 
             {/* Skills */}
             <div>
@@ -132,10 +195,10 @@ export default function JobDetails({ params }: { params: { id: string } }) {
 
               <div className="flex flex-wrap gap-3">
                 <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                  Adobe Premiere Pro
+                  Color Correction
                 </span>
                 <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                  Adobe After Effects
+                  Storytelling
                 </span>
               </div>
             </div>
@@ -171,7 +234,7 @@ export default function JobDetails({ params }: { params: { id: string } }) {
               {/* Bids */}
               <div className="pt-10">
                 <p className="text-[24px] lg:text-[32px] font-semibold pb-6 text-[#333]">
-                  Bids
+                  Proposals
                 </p>
 
                 {bids.map((bid) => (
@@ -189,15 +252,21 @@ export default function JobDetails({ params }: { params: { id: string } }) {
                     />
                   </Link>
                 ))}
+                <Pagination
+                  total={bids.length}
+                  page={1}
+                  pageSize={10}
+                  totalPages={1}
+                  onPageChange={() => { }}
+                />
               </div>
             </div>
           </div>
 
           {/* RIGHT */}
-          <div className="w-full lg:w-1/4 order-1 lg:order-2">
-            {/* ✅ Pass status safely */}
+          {/* <div className="w-full lg:w-1/4 order-1 lg:order-2">
             <BudgetPage status={status} />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
