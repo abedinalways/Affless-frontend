@@ -5,10 +5,21 @@ import PageBanner from "@/components/reusable/Bgbanner";
 import { Edit } from "lucide-react";
 import React, { useState } from "react";
 import EditorPrise from "./EditorPrise";
+import { useSearchParams } from "next/navigation";
+import { bidsData } from "@/app/(website)/(client-dashboard)/client/job-proposal/_component/ProposalDetails";
+import { ProposalData, ProposalRow } from "@/components/ClientDashboard/JobProposal/JobProposalPage";
+import Link from "next/link";
 
-const BidsDetails = () => {
+const BidsDetails = ({ id }: { id: string }) => {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [textFile, setTextFile] = useState<File | null>(null);
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+  const proposalId = searchParams.get("proposalId");
+  const bidDetails = bidsData.find(bid => bid.id === id);
+  const proposalDetails = proposalId ? (ProposalData.find(proposal => proposal.id === proposalId) as ProposalRow) : null;
+
+  console.log("Bid Details:", bidDetails);
 
   const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -29,7 +40,25 @@ const BidsDetails = () => {
         <PageBanner
           title="Proposal Details"
           bgImage="/findEditor.jpg"
-          links={[{ label: "Home", href: "/" }, { label: "Proposal Details" }]}
+          links={[
+            {
+              label: redirect === "client-dashboard" ? "Dashboard" : "Home",
+              href: redirect === "client-dashboard" ? "/client" : "/"
+            },
+            {
+              label: redirect === "client-dashboard" ? "Job Proposals" : "Home",
+              href: redirect === "client-dashboard" ? "/client/job-proposal" : "/"
+            },
+            ...(proposalDetails ?
+              [{
+                label: proposalDetails ? proposalDetails.service : "Home",
+                href: proposalDetails ? `/client/job-proposal/${proposalDetails.id}` : "/"
+              }] : []
+            ),
+            {
+              label: bidDetails ? bidDetails.name : "Proposal Details"
+            }
+          ]}
         />
       </div>
 
@@ -100,13 +129,10 @@ const BidsDetails = () => {
 
                 <div className="flex flex-wrap gap-3">
                   <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                    Adobe Premiere Pro
+                    Color Correction
                   </span>
                   <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                    Adobe After Effects
-                  </span>
-                  <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                    Adobe After Effects
+                    Storytelling
                   </span>
                 </div>
               </div>
@@ -119,60 +145,24 @@ const BidsDetails = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* PDF Upload */}
-                  <label className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                  <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
                     <PdfIcon className="w-10 h-10" />
                     <div>
-                      <p className="text-[18px] font-medium leading-150%">PDF File</p>
-                      <p className="text-[16px] font-normal leading-150% text-[#666]">File size: 690399 KB</p>
+                      <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
+                        {pdfFile ? pdfFile.name : "PDF File"}
+                      </p>
                     </div>
-
-                    {/* <div>
-                    <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                      {pdfFile ? pdfFile.name : "PDF File"}
-                    </p>
-
-                    <p className=" text-[#666] text-[16px]">
-                      {pdfFile
-                        ? `File size: ${(pdfFile.size / 1024).toFixed(2)} KB`
-                        : "Choose a PDF file"}
-                    </p>
-                  </div>
-
-                  <input
-                    type="file"
-                    accept="application/pdf"
-                    className="hidden"
-                    onChange={handlePdfUpload}
-                  /> */}
-                  </label>
+                  </Link>
 
                   {/* TEXT Upload */}
-                  <label className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                  <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
                     <PdfIcon className="w-10 h-10" />
                     <div>
-                      <p className="text-[18px] font-medium leading-150%">Text Document</p>
-                      <p className="text-[16px] font-normal leading-150% text-[#666]">File size: 690399 KB</p>
+                      <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
+                        {textFile ? textFile.name : "Upload Text Document"}
+                      </p>
                     </div>
-
-                    {/* <div>
-                    <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                      {textFile ? textFile.name : "Upload Text Document"}
-                    </p>
-
-                    <p className=" text-[#666] text-[16px]">
-                      {textFile
-                        ? `File size: ${(textFile.size / 1024).toFixed(2)} KB`
-                        : "Choose a TXT file"}
-                    </p>
-                  </div>
-
-                  <input
-                    type="file"
-                    accept=".txt"
-                    className="hidden"
-                    onChange={handleTextUpload}
-                  /> */}
-                  </label>
+                  </Link>
                 </div>
               </div>
             </div>

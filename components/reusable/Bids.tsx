@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface BidCardProps {
-  id: number;
+  id: string;
   name: string;
   avatar: string;
   time: string;
   description: string;
+  proposalId?: string;
 }
 
 export default function BidCard({
@@ -16,6 +17,7 @@ export default function BidCard({
   avatar,
   time,
   description,
+  proposalId
 }: BidCardProps) {
   return (
     <div className="space-y-6 mb-6">
@@ -44,7 +46,7 @@ export default function BidCard({
 
         {/* RIGHT SIDE BUTTON */}
         <Link
-          href="/client/bids-details"
+          href={`/client/bids-details/${id}?redirect=client-dashboard&proposalId=${proposalId}`}
           className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
         >
           View
@@ -53,53 +55,3 @@ export default function BidCard({
     </div>
   );
 }
-
-
-//usage
-// import BidCard from "@/components/reusable/BidCard";
-
-// const bids = [
-//   {
-//     id: 1,
-//     name: "Devon Lane",
-//     avatar: "/images/user1.png",
-//     time: "4 days ago",
-//     description:
-//       "Absolutely outstanding work! The seller went above and beyond...",
-//   },
-//   {
-//     id: 2,
-//     name: "Jerome Bell",
-//     avatar: "/images/user2.png",
-//     time: "7 days ago",
-//     description:
-//       "The seller delivered exceptional quality well ahead of deadline...",
-//   },
-//   {
-//     id: 3,
-//     name: "Floyd Miles",
-//     avatar: "/images/user3.png",
-//     time: "9 days ago",
-//     description:
-//       "Professionalism, attention to detail and ability to collaborate...",
-//   },
-// ];
-
-// export default function BidsPage() {
-//   return (
-//     <div className="containers py-6 space-y-4">
-//       <h2 className="text-xl font-semibold mb-4">Bids</h2>
-
-//       {bids.map((item) => (
-//         <BidCard
-//           key={item.id}
-//           id={item.id}
-//           name={item.name}
-//           avatar={item.avatar}
-//           time={item.time}
-//           description={item.description}
-//         />
-//       ))}
-//     </div>
-//   );
-// }

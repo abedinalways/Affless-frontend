@@ -497,42 +497,6 @@ export default function PostJobForm() {
                 </div>
               </div>
             </div>
-
-            {/* Payment Options */}
-            <div
-              className={cn(
-                "p-4 border rounded-lg cursor-pointer mb-4",
-                paymentType === "single"
-                  ? "border-red-300 bg-red-50"
-                  : "border-gray-300"
-              )}
-              onClick={() => setPaymentType("single")}>
-              <p className='font-semibold text-red-600 flex gap-3'>
-                <SinglePaymentIcon />
-                Single Payment
-              </p>
-              <p className='text-sm text-gray-600'>
-                The editor will receive full payment once the project is
-                completed.
-              </p>
-            </div>
-
-            <div
-              className={cn(
-                "p-4 border rounded-lg cursor-pointer",
-                paymentType === "milestone"
-                  ? "border-red-300 bg-red-50"
-                  : "border-gray-300"
-              )}
-              onClick={() => setPaymentType("milestone")}>
-              <p className='font-semibold flex gap-3'>
-                <MilestoneIcon /> Milestone Payments
-              </p>
-              <p className='text-sm text-gray-600'>
-                Divide the project into stages for partial payments.
-              </p>
-            </div>
-
             <button
               type='submit'
               disabled={loading}

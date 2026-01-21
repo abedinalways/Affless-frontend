@@ -12,6 +12,7 @@ interface Message {
     sender: 'user' | 'other';
     content: string;
     createdAt: string;
+    deliveredAt?: string;
     readAt?: string;
 }
 
@@ -27,6 +28,7 @@ const mockMessages: Message[] = [
         sender: 'user',
         content: 'Yes! I need someone to edit a 30-minute video. Are you interested?',
         createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        deliveredAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
         readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
     },
     {
@@ -40,6 +42,7 @@ const mockMessages: Message[] = [
         sender: 'user',
         content: 'Great! The video is about travel vlogging. I need color correction, sound mixing, and transitions.',
         createdAt: new Date().toISOString(),
+        deliveredAt: new Date().toISOString(),
     },
     {
         id: '5',
@@ -188,6 +191,16 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
         const lastUserMessage = [...messages].reverse().find((m) => m.sender === 'user');
         if (!lastUserMessage || lastUserMessage.readAt) return;
 
+        const deliveryTimeoutId = setTimeout(() => {
+            setMessages((prev) =>
+                prev.map((msg) =>
+                    msg.id === lastUserMessage.id
+                        ? { ...msg, deliveredAt: msg.deliveredAt || new Date().toISOString() }
+                        : msg
+                )
+            );
+        }, 600);
+
         const timeoutId = setTimeout(() => {
             setMessages((prev) =>
                 prev.map((msg) =>
@@ -196,14 +209,23 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                         : msg
                 )
             );
-        }, 1200);
+        }, 1400);
 
-        return () => clearTimeout(timeoutId);
+        return () => {
+            clearTimeout(deliveryTimeoutId);
+            clearTimeout(timeoutId);
+        };
     }, [messages, isConversationOpen]);
 
-    const lastUserMessageId = [...messages]
-        .reverse()
-        .find((message) => message.sender === 'user')?.id;
+    const getStatusIcon = (message: Message) => {
+        if (!message.deliveredAt) {
+            return <IoCheckmarkOutline />;
+        }
+        if (!message.readAt) {
+            return <IoCheckmarkDoneOutline />;
+        }
+        return <IoCheckmarkDoneSharp />;
+    };
 
     return (
         <div className="h-full flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
@@ -362,12 +384,12 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                                         >
                                             {formatTime(messageDate)}
                                         </p>
-                                        {message.sender === 'user' && message.id === lastUserMessageId && (
-                                            <p className={`text-sm font-semibold mt-1 ${message.readAt ? 'text-blue-100' : 'text-gray-500'} cursor-default select-none`} title={`${formatTime(new Date(message.readAt || ''))}`}>
-                                                {message.readAt
-                                                    ? <IoCheckmarkDoneSharp />
-                                                    : <IoCheckmarkDoneSharp />
-                                                }
+                                        {message.sender === 'user' && (
+                                            <p
+                                                className={`text-sm font-semibold mt-1 ${message.readAt ? 'text-blue-100' : 'text-gray-300'} cursor-default select-none`}
+                                                title={message.readAt ? `Read ${formatTime(new Date(message.readAt))}` : message.deliveredAt ? `Delivered ${formatTime(new Date(message.deliveredAt))}` : `Sent ${formatTime(new Date(message.createdAt))}`}
+                                            >
+                                                {getStatusIcon(message)}
                                             </p>
                                         )}
                                     </div>

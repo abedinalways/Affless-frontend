@@ -108,7 +108,7 @@ export default function FindEditorsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f6f6f6] py-10">
+    <div className=" bg-[#f6f6f6] py-10">
       <div className="containers mx-auto">
         <div className="flex flex-wrap items-center justify-between pb-5">
           <div className="grid items-center justify-end ">
@@ -155,14 +155,14 @@ export default function FindEditorsPage() {
                 className="bg-white rounded-xl p-5 shadow-sm gap-6"
               >
                 <div className="grid lg:grid-cols-[auto_1fr] grid-cols-1 xl:grid-cols-1 gap-6">
-                  <div className="flex gap-4">
+                  <div className="w-full grid gap-4">
                     <Link href={`/editor-profile/${editor.id}`}>
                       <Image
                         src={editor.image}
                         alt={editor.name}
-                        width={251}
-                        height={184}
-                        className="object-cover rounded-lg w-full lg:w-60 xl:w-full h-60"
+                        width={500}
+                        height={500}
+                        className="object-cover rounded-lg w-full lg:w-60 xl:w-full h-60 xl:h-full xl:aspect-video"
                       />
                     </Link>
                   </div>
@@ -238,7 +238,7 @@ export default function FindEditorsPage() {
           <button
             type="button"
             onClick={handleReMatch}
-            className="w-full flex items-center justify-center gap-2 border px-5 py-1 rounded-md bg-[#ff4d4f] text-white border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fc373a] hover:text-white duration-300"
+            className="w-full flex items-center justify-center gap-2 border px-5 py-3 rounded-md bg-[#ff4d4f] text-white border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fc373a] hover:text-white duration-300"
           >
             <span>Find Another Match</span>
           </button>

@@ -14,7 +14,7 @@ import Pagination from "@/components/reusable/pagination";
 
 const bids = [
   {
-    id: 1,
+    id: "1",
     name: "Devon Lane",
     avatar: "/images/devon.png",
     time: "2 hours ago",
@@ -22,7 +22,7 @@ const bids = [
       "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
   },
   {
-    id: 1,
+    id: "2",
     name: "Jerome Bell",
     avatar: "/images/jerome.png",
     time: "2 hours ago",
@@ -30,7 +30,7 @@ const bids = [
       "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
   },
   {
-    id: 2,
+    id: "3",
     name: "John Doe",
     avatar: "/images/jerome.png",
     time: "1 day ago",
