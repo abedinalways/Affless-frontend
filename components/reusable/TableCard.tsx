@@ -8,13 +8,13 @@ interface JobProposalCardProps {
   title: string;
   total: string;
   status: "in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
-  id: number;
+  id: string;
 
   // ✅ old behavior (keep)
-  onAction: (id: number) => void;
+  onAction: (id: string) => void;
 
   // ✅ new (optional) - only use where you need navigation
-  onOpen?: (id: number) => void;
+  onOpen?: (id: string) => void;
 }
 
 const statusColors: Record<JobProposalCardProps["status"], string> = {

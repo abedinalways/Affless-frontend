@@ -6,8 +6,8 @@ import { DataTable } from "@/components/reusable/DataTable";
 import JobProposalCard from "@/components/reusable/TableCard";
 import { SlidersHorizontal } from "lucide-react";
 
-interface ProposalRow {
-  id: number;
+export interface ProposalRow {
+  id: string;
   service: string;
   amount: string;
   time: "3 Days" | "5 Days" | "7 Days";
@@ -18,17 +18,17 @@ interface ProposalRow {
 const PAGE_SIZE = 8;
 
 // ✅ IMPORTANT: unique IDs (ডুপ্লিকেট id দিলে React key collision হয়)
-const Proposal: ProposalRow[] = [
-  { id: 1, thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "in_progress" },
-  { id: 2, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "in_progress" },
-  { id: 3, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "delivered" },
-  { id: 4, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "in_revision" },
-  { id: 5, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "3 Days", status: "in_revision" },
-  { id: 6, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "7 Days", status: "late" },
-  { id: 7, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "delivered" },
-  { id: 8, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "completed" },
-  { id: 9, thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "cancelled" },
-  { id: 10, thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "late" },
+export const ProposalData: ProposalRow[] = [
+  { id: "1", thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "in_progress" },
+  { id: "2", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "in_progress" },
+  { id: "3", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "delivered" },
+  { id: "4", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "in_revision" },
+  { id: "5", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "3 Days", status: "in_revision" },
+  { id: "6", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "7 Days", status: "late" },
+  { id: "7", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "delivered" },
+  { id: "8", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "completed" },
+  { id: "9", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "cancelled" },
+  { id: "10", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "late" },
 ];
 
 export default function JobProposalPage() {
@@ -43,7 +43,7 @@ export default function JobProposalPage() {
 
   // ✅ filtered data
   const filteredData = useMemo(() => {
-    let data = Proposal;
+    let data = ProposalData;
 
     // ✅ status filter
     data = data.filter((p) => p.status === statusFilter);
@@ -68,11 +68,11 @@ export default function JobProposalPage() {
   }, [timeFilter, statusFilter]);
 
   // ✅ Mobile action handlers
-  const handleAccept = (id: number) => console.log(`Proposal ${id} accepted`);
-  const handleInProgress = (id: number) => console.log(`Proposal ${id} in progress`);
-  const handleRevision = (id: number) => console.log(`Proposal ${id} in revision`);
+  const handleAccept = (id: string) => console.log(`Proposal ${id} accepted`);
+  const handleInProgress = (id: string) => console.log(`Proposal ${id} in progress`);
+  const handleRevision = (id: string) => console.log(`Proposal ${id} in revision`);
 
-  const goToDetail = (id: number, status: string) => {
+  const goToDetail = (id: string, status: string) => {
     router.push(`/client/job-proposal/${id}?status=${encodeURIComponent(status)}&redirect=/client`);
   };
 
@@ -214,8 +214,8 @@ export default function JobProposalPage() {
               title={proposal.service}
               total={proposal.amount}
               status={proposal.status}
-              onOpen={(id: number) => goToDetail(id, proposal.status)} // card click
-              onAction={(id: number) => goToDetail(id, proposal.status)}
+              onOpen={(id: string) => goToDetail(id, proposal.status)} // card click
+              onAction={(id: string) => goToDetail(id, proposal.status)}
             />
           ))}
 
