@@ -18,12 +18,13 @@ type propType ={
 
 export default function JobDetails({id}:propType) {
   const [job, setJob] = useState<JobRow | null>(null);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     // Scroll to top immediately
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
-    const selected = ALL_JOBS.find((item) => item.id === Number(id));
+    const selected = ALL_JOBS.find((item) => item.id === id);
     setJob(selected || null);
   }, [id]);
 
@@ -33,6 +34,27 @@ export default function JobDetails({id}:propType) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }, 0);
     return () => clearTimeout(timer);
+  }, [job]);
+
+  useEffect(() => {
+    if (!job?.dueOn) return;
+
+    const updateTimeLeft = () => {
+      const now = new Date().getTime();
+      const target = new Date(job.dueOn).getTime();
+      const diff = Math.max(target - now, 0);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+    };
+
+    updateTimeLeft();
+    const interval = setInterval(updateTimeLeft, 1000);
+    return () => clearInterval(interval);
   }, [job]);
 
   if (!job) return <div className="containers py-20">
@@ -76,14 +98,14 @@ export default function JobDetails({id}:propType) {
                 <p>{job.service}</p>
 
                 <span
-                  className={`text-xs px-3 py-1 rounded-full mt-2 inline-block ${job.status === "in_progress"
+                  className={`text-xs px-3 py-1 rounded-full mt-2 inline-block capitalize ${job.status === "in_progress"
                     ? "bg-green-100 text-green-700"
                     : job.status === "in_revision"
                       ? "bg-red-100 text-red-700"
                       : "bg-blue-100 text-blue-700"
                     }`}
                 >
-                  {job.status}
+                  {job.status?.split("_").join(" ")}
                 </span>
               </div>
             </div>
@@ -97,23 +119,23 @@ export default function JobDetails({id}:propType) {
               {/* Time Row */}
               <div className="flex items-stretch justify-between">
                 <div className="flex-1 text-center py-2">
-                  <div className="text-[20px] font-semibold text-gray-700">07</div>
+                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.days}</div>
                   <div className="text-[13px] text-gray-500">Days</div>
                 </div>
 
                 <div className="flex-1 text-center py-2 border-l border-gray-200">
-                  <div className="text-[20px] font-semibold text-gray-700">12</div>
+                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.hours}</div>
                   <div className="text-[13px] text-gray-500">Hours</div>
                 </div>
 
                 <div className="flex-1 text-center py-2 border-l border-gray-200">
-                  <div className="text-[20px] font-semibold text-gray-700">35</div>
+                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.minutes}</div>
                   <div className="text-[13px] text-gray-500">Minutes</div>
                 </div>
 
                 <div className="flex-1 text-center py-2 border-l border-gray-200">
-                  <div className="text-[20px] font-semibold text-gray-700">34</div>
-                  <div className="text-[13px] text-gray-500">Second</div>
+                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.seconds}</div>
+                  <div className="text-[13px] text-gray-500">Seconds</div>
                 </div>
               </div>
 
@@ -168,7 +190,7 @@ export default function JobDetails({id}:propType) {
                 <span>{job.orderId}</span>
               </div>
             </div>
-            <ExtendDeliveryCard />
+            {(job.status !== "completed" && job.status !== "cancelled") && <ExtendDeliveryCard />}
 
           </div>
         </div>

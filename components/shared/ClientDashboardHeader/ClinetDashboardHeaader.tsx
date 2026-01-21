@@ -40,6 +40,8 @@ export default function ClientDashboardHeader() {
     "/client/job-proposal",
     "/client/payment-history",
     "/client/profile",
+    "/client/find-editor-match",
+    "/client/post-job",
   ];
 
   const businessActive = businessRoutes.some((r) => isActive(r));
@@ -150,6 +152,14 @@ export default function ClientDashboardHeader() {
                         onClick={() => setOpen(false)}
                       >
                         Manage Jobs
+                      </Link>
+                      <Link
+                        href="/client/post-job"
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/post-job") ? activeCls : inactiveCls
+                          }`}
+                        onClick={() => setOpen(false)}
+                      >
+                        Post a Job
                       </Link>
 
                       <Link
