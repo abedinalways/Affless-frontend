@@ -13,7 +13,7 @@ import { getJobStatusDefinition, type JobStatus } from "@/lib/job-status";
 import PageBanner from "@/components/reusable/Bgbanner";
 
 export interface JobRow {
-  id: number;
+  id: string;
   service: string;
   thumbnail: string;
   total: string;
@@ -31,7 +31,7 @@ export interface JobRow {
 
 export const ALL_JOBS: JobRow[] = [
   {
-    id: 1,
+    id: "1",
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
     total: "654",
@@ -47,14 +47,14 @@ export const ALL_JOBS: JobRow[] = [
     videoLength: 4,
   },
   {
-    id: 2,
+    id: "2",
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
     total: "743",
-    dueOn: new Date("2025-06-21"),
-    status: "pending",
+    dueOn: new Date("2026-02-21"),
+    status: "in_progress",
     customer: "Cameron Williamson",
-    deliveryDate: new Date("2025-11-09T15:30:00"),
+    deliveryDate: new Date("2026-11-09T15:30:00"),
     price: 743,
     orderId: "#EM78373A1",
     category: "Shorts/Reels/TikToks",
@@ -63,7 +63,7 @@ export const ALL_JOBS: JobRow[] = [
     videoLength: 39,
   },
   {
-    id: 3,
+    id: "3",
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
     total: "512",
@@ -78,11 +78,11 @@ export const ALL_JOBS: JobRow[] = [
     duration: 4,
   },
   {
-    id: 4,
+    id: "4",
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
     total: "654",
-    dueOn: new Date("2026-01-21"),
+    dueOn: new Date("2026-02-10"),
     status: "in_progress",
     customer: "Bessie Cooper",
     deliveryDate: new Date("2025-11-06T07:24:00"),
@@ -94,7 +94,7 @@ export const ALL_JOBS: JobRow[] = [
     videoLength: 2,
   },
   {
-    id: 5,
+    id: "5",
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
     total: "743",
@@ -109,7 +109,7 @@ export const ALL_JOBS: JobRow[] = [
     duration: 5,
   },
   {
-    id: 6,
+    id: "6",
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
     total: "512",
@@ -124,7 +124,7 @@ export const ALL_JOBS: JobRow[] = [
     duration: 2,
   },
   {
-    id: 7,
+    id: "7",
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
     total: "654",
@@ -140,7 +140,7 @@ export const ALL_JOBS: JobRow[] = [
     videoLength: 20,
   },
   {
-    id: 8,
+    id: "8",
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
     total: "743",
@@ -155,7 +155,7 @@ export const ALL_JOBS: JobRow[] = [
     duration: 7,
   },
   {
-    id: 9,
+    id: "9",
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
     total: "512",
@@ -190,7 +190,7 @@ export default function ManageJobsPage() {
     return filteredJobs.slice(start, start + PAGE_SIZE);
   }, [page, filteredJobs]);
 
-  const goToDetail = (id: number) => router.push(`/client/manage-job/${id}`);
+  const goToDetail = (id: string) => router.push(`/client/manage-job/${id}`);
 
   useEffect(() => {
     setLoading(true);
@@ -355,7 +355,7 @@ export default function ManageJobsPage() {
           {/* TABS */}
           <div className="flex items-center justify-between mb-6">
             <div className="grid grid-cols-5 gap-4 text-sm font-medium">
-              {["all", "in_progress", "pending", "in_revision", "late", "delivered", "completed", "cancelled"].map((tab) => (
+              {["all", "in_progress", "in_revision", "late", "delivered", "completed", "cancelled"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}

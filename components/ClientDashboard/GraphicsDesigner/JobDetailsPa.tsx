@@ -160,7 +160,7 @@ export default function JobDetailsPage({ job }: { job: JobRow }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
           {/* PDF Upload */}
-          <Link href="#" target="_blank" className="flex items-center gap-4 py-4 px-6 border rounded-xl cursor-pointer">
+          <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" target="_blank" className="flex items-center gap-4 py-4 px-6 border rounded-xl cursor-pointer">
             <PdfIcon className="w-10 h-10" />
             <div>
               <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
@@ -170,7 +170,7 @@ export default function JobDetailsPage({ job }: { job: JobRow }) {
           </Link>
 
           {/* TEXT Upload */}
-          <Link href="#" target="_blank" className="flex items-center gap-4 py-4 px-6 border rounded-xl cursor-pointer">
+          <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" target="_blank" className="flex items-center gap-4 py-4 px-6 border rounded-xl cursor-pointer">
             <PdfIcon className="w-10 h-10" />
             <div>
               <p className="font-semibold pb-1.5 text-[18px] text-[#333]">

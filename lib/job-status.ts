@@ -1,9 +1,4 @@
 export const JOB_STATUS_DEFINITIONS = {
-  pending: {
-    label: "Pending",
-    colorClass: "bg-[#FACC15] text-black",
-    description: "Job posted, awaiting action",
-  },
   in_progress: {
     label: "In Progress",
     colorClass: "bg-[#00648A] text-white",

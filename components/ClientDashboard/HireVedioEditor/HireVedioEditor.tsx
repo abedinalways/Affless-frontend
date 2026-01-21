@@ -402,61 +402,78 @@ export default function HireVideoEditorForm() {
             </div> */}
 
             {/* File Inputs */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* PDF Upload */}
-              <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
-                <PdfIcon className="w-10 h-10" />
-                <div>
-                  <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                    {pdfFile ? pdfFile.name : "PDF File"}
-                  </p>
+            <div className='space-y-5 pb-3'>
+              <div>
+                <label className='mb-2 block'>
+                  Style Reference
+                </label>
+                <input
+                  {...register("styleReference", {
+                    required: "Style reference is required",
+                  })}
+                  id='style-reference-upload'
+                  className='hidden'
+                  type='file'
+                  onChange={handleStyleReferenceChange}
+                />
+                <div className='flex items-center gap-3'>
+                  <label
+                    htmlFor='style-reference-upload'
+                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    Choose File
+                  </label>
+                  <span className='text-sm text-gray-600 truncate capitalize'>
+                    {styleReference?.name || "No file selected"}
+                  </span>
                 </div>
-              </Link>
-
-              {/* TEXT Upload */}
-              <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
-                <PdfIcon className="w-10 h-10" />
-                <div>
-                  <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                    {textDocument ? textDocument.name : "Upload Text Document"}
+                {errors.styleReference && (
+                  <p className='text-red-500 text-sm mt-1'>
+                    {errors.styleReference.message}
                   </p>
+                )}
+              </div>
+
+              <div>
+                <label className='mb-2 block'>PDF File:</label>
+                <input
+                  {...register("pdfFile")}
+                  id='pdf-file-upload'
+                  className='hidden'
+                  type='file'
+                  onChange={handlePdfFileChange}
+                />
+                <div className='flex items-center gap-3'>
+                  <label
+                    htmlFor='pdf-file-upload'
+                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    Choose File
+                  </label>
+                  <span className='text-sm text-gray-600 truncate capitalize'>
+                    {pdfFile?.name || "No file selected"}
+                  </span>
                 </div>
-              </Link>
-            </div>
+              </div>
 
-            {/* Payment Options */}
-            <div
-              className={cn(
-                "p-4 border rounded-lg cursor-pointer mb-4",
-                paymentType === "single"
-                  ? "border-red-300 bg-red-50"
-                  : "border-gray-300"
-              )}
-              onClick={() => setPaymentType("single")}>
-              <p className='font-semibold text-red-600 flex gap-3'>
-                <SinglePaymentIcon />
-                Single Payment
-              </p>
-              <p className='text-sm text-gray-600'>
-                The editor will receive full payment once the project is
-                completed.
-              </p>
-            </div>
-
-            <div
-              className={cn(
-                "p-4 border rounded-lg cursor-pointer",
-                paymentType === "milestone"
-                  ? "border-red-300 bg-red-50"
-                  : "border-gray-300"
-              )}
-              onClick={() => setPaymentType("milestone")}>
-              <p className='font-semibold flex gap-3'>
-                <MilestoneIcon /> Milestone Payments
-              </p>
-              <p className='text-sm text-gray-600'>
-                Divide the project into stages for partial payments.
-              </p>
+              <div>
+                <label className='block'>Text Document:</label>
+                <input
+                  {...register("textFile")}
+                  id='text-document-upload'
+                  className='hidden'
+                  type='file'
+                  onChange={handleTextDocumentChange}
+                />
+                <div className='flex items-center gap-3'>
+                  <label
+                    htmlFor='text-document-upload'
+                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    Choose File
+                  </label>
+                  <span className='text-sm text-gray-600 truncate capitalize'>
+                    {textDocument?.name || "No file selected"}
+                  </span>
+                </div>
+              </div>
             </div>
 
             <div className="flex items-center gap-4 py-4">

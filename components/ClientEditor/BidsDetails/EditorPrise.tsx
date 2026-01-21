@@ -76,52 +76,62 @@ export default function EditorPrise() {
       </div>
 
       {/* About Editor */}
-      <div className="bg-[#F8F8F8] p-6">
-        <h3 className="text-center text-[24px] font-semibold text-[#333] mb-4">
-          About Editor
-        </h3>
+      <div className="bg-[#F8F8F8]">
+        <div className="bg-white rounded-2xl shadow p-6 border">
+          <h2 className="text-xl font-semibold text-center mb-4 text-gray-900">
+            About Editor
+          </h2>
 
-        {/* Avatar + Name */}
-        <div className="flex flex-col items-center">
-          <div className="w-[90px] h-[90px] rounded-full overflow-hidden border">
-            <Image
-              src="/images/devon.png"
-              alt="Editor"
-              width={90}
-              height={90}
-              className="w-full h-full object-cover"
-            />
+          {/* Buyer Avatar */}
+          <div className="flex flex-col items-center space-y-2">
+            <div className="w-20 h-20 rounded-full overflow-hidden border">
+              <Link href="/client-profile/1">
+                <Image
+                  src="/images/jerome.png"
+                  alt="Buyer"
+                  width={80}
+                  height={80}
+                  className="object-cover"
+                />
+              </Link>
+            </div>
+
+            <Link href="/client-profile/1" className="text-lg font-semibold">Bessie Cooper</Link>
+
+            {/* Small Badge Icons */}
+            <div className="flex items-center gap-2 mt-2">
+              <Image src="/images/coper1.png" alt="img" width={30} height={30}></Image>
+              {/* <Image src="/images/coper2.png" alt="img" width={30} height={30}></Image>
+              <Image src="/images/coper3.png" alt="img" width={30} height={30}></Image> */}
+            </div>
           </div>
 
-          <p className="pt-4 text-[16px] font-medium text-[#333]">
-            Bessie Cooper
-          </p>
-        </div>
-
-        {/* Info */}
-        <div className="mt-6 bg-white rounded-xl p-4 space-y-3">
-          <div className="flex justify-between text-[14px]">
-            <span className="text-[#777980] font-normal leading-150%">Gender:</span>
-            <span className="text-[#4A6375] text-[16px] font-medium">Male</span>
-          </div>
-
-          <div className="flex justify-between text-[14px]">
-            <span className="text-[#777980] font-normal leading-150%">Location:</span>
-            <span className="text-[#4A6375] text-[16px] font-medium">Australia</span>
-          </div>
-
-          <div className="flex justify-between text-[14px]">
-            <span className="text-[#777980] font-normal leading-150%">Languages:</span>
-            <span className="text-[#4A6375] text-[16px] font-medium">Arabic</span>
+          {/* Buyer Info */}
+          <div className="bg-gray-50 border rounded-2xl p-4 mt-4">
+            <InfoRow label="Total Jobs Completed:" value="50" />
+            <InfoRow label="Project Completion Rate (%):" value="80%" />
+            <InfoRow label="Average Response Time:" value="30 mins" />
+            <InfoRow label="Member Since:" value="Jan, 2020" />
           </div>
         </div>
 
         {/* Contact */}
-        <Link href="/editor/message">
+        <Link href="/client/message?id=2">
           <button className="mt-6 w-full py-3 rounded-xl bg-[#FF4D4F] text-white font-medium text-[16px] cursor-pointer hover:opacity-90 transition">
-            Contact Editor
+            Chat With Editor
           </button></Link>
       </div>
+    </div>
+  );
+}
+
+
+/* Reusable row */
+function InfoRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex justify-between text-sm py-1">
+      <span className="text-gray-500 font-medium">{label}</span>
+      <span className="text-[#4A6375] font-medium text-[16px] leading-150% text-end">{value}</span>
     </div>
   );
 }
