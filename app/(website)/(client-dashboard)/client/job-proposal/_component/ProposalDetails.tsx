@@ -15,33 +15,34 @@ import WorldIcon from "@/components/Icons/WorldIcon";
 import { FaArrowLeft } from "react-icons/fa";
 import { ProposalData, ProposalRow } from "@/components/ClientDashboard/JobProposal/JobProposalPage";
 
+export const bidsData = [
+    {
+        id: "1",
+        name: "Sarah Johnson",
+        avatar: "/images/devon.png",
+        time: "2 hours ago",
+        description:
+            "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
+    },
+    {
+        id: "2",
+        name: "John Doe",
+        avatar: "/images/jerome.png",
+        time: "1 day ago",
+        description:
+            "I will handle your project professionally. You will get unlimited revisions and fast response.",
+    },
+    {
+        id: "3",
+        name: "John Doe",
+        avatar: "/images/jerome.png",
+        time: "1 day ago",
+        description:
+            "I will handle your project professionally. You will get unlimited revisions and fast response.",
+    },
+];
+
 export default function ProposalDetails({ id }: { id: string }) {
-    const bids = [
-        {
-            id: 1,
-            name: "Sarah Johnson",
-            avatar: "/images/devon.png",
-            time: "2 hours ago",
-            description:
-                "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
-        },
-        {
-            id: 2,
-            name: "John Doe",
-            avatar: "/images/jerome.png",
-            time: "1 day ago",
-            description:
-                "I will handle your project professionally. You will get unlimited revisions and fast response.",
-        },
-        {
-            id: 3,
-            name: "John Doe",
-            avatar: "/images/jerome.png",
-            time: "1 day ago",
-            description:
-                "I will handle your project professionally. You will get unlimited revisions and fast response.",
-        },
-    ];
 
 
     const [proposal, setProposal] = useState<ProposalRow | null>(ProposalData.find((p) => p.id === id) || null);
@@ -241,10 +242,10 @@ export default function ProposalDetails({ id }: { id: string }) {
                                     Proposals
                                 </p>
 
-                                {bids.map((bid) => (
+                                {bidsData.map((bid) => (
                                     <Link
                                         key={bid.id}
-                                        href="/client/bids-details"
+                                        href={`/client/bids-details/${bid.id}`}
                                         className=""
                                     >
                                         <BidCard
@@ -253,11 +254,12 @@ export default function ProposalDetails({ id }: { id: string }) {
                                             avatar={bid.avatar}
                                             time={bid.time}
                                             description={bid.description}
+                                            proposalId={id}
                                         />
                                     </Link>
                                 ))}
                                 <Pagination
-                                    total={bids.length}
+                                    total={bidsData.length}
                                     page={1}
                                     pageSize={10}
                                     totalPages={1}

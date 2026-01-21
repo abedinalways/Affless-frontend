@@ -7,7 +7,7 @@ interface JobProposalCardProps {
   image: string;
   title: string;
   total: string;
-  status: "in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
+  status: "in_progress"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
   id: string;
 
   // ✅ old behavior (keep)
@@ -24,7 +24,6 @@ const statusColors: Record<JobProposalCardProps["status"], string> = {
   in_revision: "bg-red-500 text-white",
   late: "bg-[#FDD3D5] text-[#F5222D]",
   cancelled: "bg-[#FEE9EA] text-[#F5222D]",
-  pending: "bg-[#FFF7E8] text-[#FAAD14]",
 };
 
 const JobProposalCard: React.FC<JobProposalCardProps> = ({
