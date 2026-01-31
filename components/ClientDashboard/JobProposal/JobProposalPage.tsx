@@ -11,7 +11,7 @@ export interface ProposalRow {
   service: string;
   amount: string;
   time: "3 Days" | "5 Days" | "7 Days";
-  status: "in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
+  status: "in_progress"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
   thumbnail: string;
 }
 
@@ -139,7 +139,7 @@ export default function JobProposalPage() {
                 const badge =
                   s === "in_progress"
                     ? "bg-yellow-500"
-                    : s === "pending"
+                    : s === "completed"
                       ? "bg-yellow-500"
                       : s === "in_revision"
                         ? "bg-orange-500"
