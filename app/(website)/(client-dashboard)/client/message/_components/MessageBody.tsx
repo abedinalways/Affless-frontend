@@ -1,11 +1,15 @@
 'use client';
-
-import { useState, useRef, useEffect } from 'react';
 import { FaArrowLeft } from 'react-icons/fa6';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
+import ReportUserModal from '@/components/reusable/ReportUserModal';
+import ConfirmationPopup from '@/components/shared/ConfirmationPopup';
+import { MdBlock } from "react-icons/md";
+import { IoMdNotificationsOff } from "react-icons/io";
+import { IoIosEye } from "react-icons/io";
 
 interface Message {
     id: string;
@@ -14,59 +18,213 @@ interface Message {
     createdAt: string;
     deliveredAt?: string;
     readAt?: string;
+    attachments?: AttachmentItem[];
 }
 
-const mockMessages: Message[] = [
-    {
-        id: '1',
-        sender: 'other',
-        content: 'Hey! I saw your project post. Are you still looking for an editor?',
-        createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-    },
-    {
-        id: '2',
-        sender: 'user',
-        content: 'Yes! I need someone to edit a 30-minute video. Are you interested?',
-        createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        deliveredAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-    },
-    {
-        id: '3',
-        sender: 'other',
-        content: 'Absolutely! I have experience with similar projects. Can you share more details?',
-        createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-    },
-    {
-        id: '4',
-        sender: 'user',
-        content: 'Great! The video is about travel vlogging. I need color correction, sound mixing, and transitions.',
-        createdAt: new Date().toISOString(),
-        deliveredAt: new Date().toISOString(),
-    },
-    {
-        id: '5',
-        sender: 'other',
-        content: 'That looks great! Can you adjust the intro to match the new branding?',
-        createdAt: new Date().toISOString(),
-    },
+type AttachmentItem = {
+    id: string;
+    file?: File;
+    url: string;
+    type: 'file' | 'link';
+    name: string;
+};
+
+const mockConversations = [
+    { id: '1', name: 'John Designer', status: 'online', profileId: 'john_designer' },
+    { id: '2', name: 'Sarah Editor', status: 'offline', profileId: 'sarah_editor' },
+    { id: '3', name: 'Mike Graphic', status: 'online', profileId: 'mike_graphic' },
+    { id: '4', name: 'Emma Video', status: 'offline', profileId: 'emma_video' },
 ];
+
+const mockMessageThreads: Record<string, Message[]> = {
+    '1': [
+        {
+            id: '1',
+            sender: 'other',
+            content: 'Hey! I saw your project post. Are you still looking for an editor?',
+            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        },
+        {
+            id: '2',
+            sender: 'user',
+            content: 'Yes! I need someone to edit a 30-minute video. Are you interested?',
+            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+            deliveredAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+            readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        },
+        {
+            id: '3',
+            sender: 'other',
+            content: 'Absolutely! I have experience with similar projects. Can you share more details?',
+            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        },
+        {
+            id: '4',
+            sender: 'user',
+            content: 'Great! The video is about travel vlogging. I need color correction, sound mixing, and transitions.',
+            createdAt: new Date().toISOString(),
+            deliveredAt: new Date().toISOString(),
+        },
+        {
+            id: '5',
+            sender: 'other',
+            content: 'That looks great! Can you adjust the intro to match the new branding?',
+            createdAt: new Date().toISOString(),
+        },
+    ],
+    '2': [
+        {
+            id: '1',
+            sender: 'other',
+            content: 'Delivered the final version. Please review when you can.',
+            createdAt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString(),
+        },
+        {
+            id: '2',
+            sender: 'user',
+            content: 'Looks solid. Can you export a 1080p version as well?',
+            createdAt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString(),
+            deliveredAt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString(),
+        },
+        {
+            id: '3',
+            sender: 'other',
+            content: 'Sure, I will upload it tonight.',
+            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        },
+    ],
+    '3': [
+        {
+            id: '1',
+            sender: 'other',
+            content: 'When can you start on the graphics package?',
+            createdAt: new Date(new Date().setHours(new Date().getHours() - 6)).toISOString(),
+        },
+        {
+            id: '2',
+            sender: 'user',
+            content: 'I can start today. Do you have a brand guide?',
+            createdAt: new Date(new Date().setHours(new Date().getHours() - 5)).toISOString(),
+            deliveredAt: new Date(new Date().setHours(new Date().getHours() - 5)).toISOString(),
+        },
+    ],
+    '4': [
+        {
+            id: '1',
+            sender: 'other',
+            content: 'Thank you for the quick turnaround!',
+            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        },
+        {
+            id: '2',
+            sender: 'user',
+            content: 'Happy to help. Let me know if you need revisions.',
+            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+            deliveredAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+            readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
+        },
+    ],
+};
 
 type MessageBodyProps = {
     selectedConversationId?: string;
     onSelectConversation?: (id: string) => void;
 };
 
+type ConversationState = Record<string, { muted?: boolean; blocked?: boolean; reported?: boolean; deleted?: boolean }>;
+
+const getConversationState = (): ConversationState => {
+    if (typeof window === 'undefined') return {};
+    try {
+        const raw = window.localStorage.getItem('conversationState');
+        return raw ? JSON.parse(raw) : {};
+    } catch {
+        return {};
+    }
+};
+
 export default function MessageBody({ selectedConversationId, onSelectConversation }: MessageBodyProps) {
-    const [messages, setMessages] = useState<Message[]>(mockMessages);
+    const [conversationMessages, setConversationMessages] = useState<Record<string, Message[]>>(mockMessageThreads);
+    const [conversationState, setConversationState] = useState<ConversationState>({});
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [inputValue, setInputValue] = useState('');
+    const [attachments, setAttachments] = useState<AttachmentItem[]>([]);
+    const [isAttachmentMenuOpen, setIsAttachmentMenuOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [pendingAction, setPendingAction] = useState<'mute' | 'block' | 'unblock' | 'delete' | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
-    const prevMessageCount = useRef(messages.length);
+    const attachmentMenuRef = useRef<HTMLDivElement>(null);
+    const attachmentsRef = useRef<AttachmentItem[]>([]);
+    const messagesRef = useRef<Record<string, Message[]>>({});
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [fileAccept, setFileAccept] = useState('');
+    const prevMessageCount = useRef(0);
     const [soundsEnabled] = useState(true);
-    const otherUserId = '1';
-    const isConversationOpen = Boolean(selectedConversationId);
+    const searchId = searchParams.get('id') || '';
+    const availableConversations = mockConversations.filter((conv) => !conversationState[conv.id]?.deleted);
+    const activeConversationId = selectedConversationId || searchId || '';
+    const activeConversation = availableConversations.find((conv) => conv.id === activeConversationId);
+    const activeConversationMeta = conversationState[activeConversationId] || {};
+    const otherUserId = activeConversation?.profileId || activeConversationId || '1';
+    const isConversationOpen = Boolean(activeConversationId);
+    const messages = conversationMessages[activeConversationId] || [];
+
+    const persistConversationState = (nextState: ConversationState) => {
+        setConversationState(nextState);
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem('conversationState', JSON.stringify(nextState));
+            window.dispatchEvent(new CustomEvent('conversation:update'));
+        }
+    };
+
+    useEffect(() => {
+        setConversationState(getConversationState());
+        const handleUpdate = () => setConversationState(getConversationState());
+        window.addEventListener('conversation:update', handleUpdate as EventListener);
+        window.addEventListener('storage', handleUpdate);
+        return () => {
+            window.removeEventListener('conversation:update', handleUpdate as EventListener);
+            window.removeEventListener('storage', handleUpdate);
+        };
+    }, []);
+
+    useEffect(() => {
+        attachmentsRef.current = attachments;
+    }, [attachments]);
+
+    useEffect(() => {
+        messagesRef.current = conversationMessages;
+    }, [conversationMessages]);
+
+    useEffect(() => {
+        return () => {
+            attachmentsRef.current.forEach((item) => URL.revokeObjectURL(item.url));
+            Object.values(messagesRef.current)
+                .flat()
+                .forEach((message) => {
+                    message.attachments?.forEach((attachment) => {
+                        if (attachment.url.startsWith('blob:')) {
+                            URL.revokeObjectURL(attachment.url);
+                        }
+                    });
+                });
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!selectedConversationId && !searchId && availableConversations.length > 0) {
+            onSelectConversation?.(availableConversations[0].id);
+        }
+    }, [selectedConversationId, searchId, availableConversations, onSelectConversation]);
+
+    useEffect(() => {
+        if (activeConversationId && !activeConversation && availableConversations.length > 0) {
+            onSelectConversation?.(availableConversations[0].id);
+        }
+    }, [activeConversationId, activeConversation, availableConversations, onSelectConversation]);
 
     const formatTime = (date: Date) =>
         date.toLocaleTimeString('en-US', {
@@ -127,18 +285,41 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (attachmentMenuRef.current && !attachmentMenuRef.current.contains(event.target as Node)) {
+                setIsAttachmentMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     const handleSendMessage = () => {
-        if (inputValue.trim() === '') return;
+        if ((inputValue.trim() === '' && attachments.length === 0) || !activeConversationId || activeConversationMeta.blocked || activeConversationMeta.deleted) return;
+
+        const attachmentsToSend = attachments.map(({ id, url, type, name }) => ({
+            id,
+            url,
+            type,
+            name,
+        }));
 
         const newMessage: Message = {
             id: String(messages.length + 1),
             sender: 'user',
             content: inputValue,
             createdAt: new Date().toISOString(),
+            attachments: attachmentsToSend.length > 0 ? attachmentsToSend : undefined,
         };
 
-        setMessages([...messages, newMessage]);
+        setConversationMessages((prev) => ({
+            ...prev,
+            [activeConversationId]: [...messages, newMessage],
+        }));
         setInputValue('');
+        setAttachments([]);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -148,20 +329,113 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
         }
     };
 
-    const handleMenuAction = (action: string) => {
+    const handleAttachmentsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files || []);
+        if (files.length === 0) return;
+
+        const newItems = files.map((file, index) => ({
+            id: `${Date.now()}-${index}-${file.name}`,
+            file,
+            url: URL.createObjectURL(file),
+            type: 'file' as const,
+            name: file.name,
+        }));
+
+        setAttachments((prev) => [...prev, ...newItems]);
+        event.target.value = '';
+    };
+
+    const handleRemoveAttachment = (id: string) => {
+        setAttachments((prev) => {
+            const item = prev.find((entry) => entry.id === id);
+            if (item?.file) {
+                URL.revokeObjectURL(item.url);
+            }
+            return prev.filter((entry) => entry.id !== id);
+        });
+    };
+
+    const openFilePicker = (accept: string) => {
+        setFileAccept(accept);
+        setIsAttachmentMenuOpen(false);
+        requestAnimationFrame(() => fileInputRef.current?.click());
+    };
+
+    const handleAddLink = () => {
+        const link = window.prompt('Paste the link');
+        if (!link) return;
+        const trimmed = link.trim();
+        if (!trimmed) return;
+        const id = `${Date.now()}-link`;
+        setAttachments((prev) => [
+            ...prev,
+            {
+                id,
+                url: trimmed,
+                type: 'link',
+                name: trimmed,
+            },
+        ]);
+        setIsAttachmentMenuOpen(false);
+    };
+
+    const performMenuAction = (action: 'mute' | 'block' | 'unblock' | 'report' | 'delete') => {
         console.log(`Menu action: ${action}`);
         switch (action) {
             case 'mute':
-                console.log('Muting conversation');
+                persistConversationState({
+                    ...conversationState,
+                    [activeConversationId]: {
+                        ...conversationState[activeConversationId],
+                        muted: !conversationState[activeConversationId]?.muted,
+                    },
+                });
                 break;
             case 'block':
-                console.log('Blocking user');
+                persistConversationState({
+                    ...conversationState,
+                    [activeConversationId]: {
+                        ...conversationState[activeConversationId],
+                        blocked: true,
+                    },
+                });
+                break;
+            case 'unblock':
+                persistConversationState({
+                    ...conversationState,
+                    [activeConversationId]: {
+                        ...conversationState[activeConversationId],
+                        blocked: false,
+                    },
+                });
                 break;
             case 'report':
-                console.log('Reporting conversation');
+                persistConversationState({
+                    ...conversationState,
+                    [activeConversationId]: {
+                        ...conversationState[activeConversationId],
+                        reported: true,
+                    },
+                });
                 break;
             case 'delete':
-                console.log('Deleting conversation');
+                persistConversationState({
+                    ...conversationState,
+                    [activeConversationId]: {
+                        ...conversationState[activeConversationId],
+                        deleted: true,
+                    },
+                });
+                setConversationMessages((prev) => {
+                    const { [activeConversationId]: _removed, ...rest } = prev;
+                    return rest;
+                });
+                if (availableConversations.length > 0) {
+                    const nextConversation = availableConversations.find((conv) => conv.id !== activeConversationId);
+                    onSelectConversation?.(nextConversation?.id || '');
+                } else {
+                    onSelectConversation?.('');
+                }
                 break;
             default:
                 break;
@@ -169,7 +443,62 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
         setIsMenuOpen(false);
     };
 
+    const handleMenuAction = (action: 'mute' | 'block' | 'report' | 'delete') => {
+        if (!activeConversationId) return;
+
+        if (action === 'report') {
+            setIsReportModalOpen(true);
+            setIsMenuOpen(false);
+            return;
+        }
+
+        if (action === 'block' && activeConversationMeta.blocked) {
+            setPendingAction('unblock');
+        } else {
+            setPendingAction(action);
+        }
+        setIsConfirmOpen(true);
+        setIsMenuOpen(false);
+    };
+
+    const handleReportUser = async (reportData: any) => {
+        if (!activeConversationId) return;
+        performMenuAction('report');
+        setIsReportModalOpen(false);
+    };
+
+    const handleConfirmAction = () => {
+        if (!pendingAction) return;
+        performMenuAction(pendingAction);
+        setPendingAction(null);
+        setIsConfirmOpen(false);
+    };
+
+    const isMuted = Boolean(activeConversationMeta.muted);
+    const confirmTitle = pendingAction === 'mute'
+        ? (isMuted ? 'Unmute Conversation' : 'Mute Conversation')
+        : pendingAction === 'block'
+            ? 'Block User'
+            : pendingAction === 'unblock'
+                ? 'Unblock User'
+                : 'Delete Conversation';
+
+    const confirmDescription = pendingAction === 'mute'
+        ? (isMuted
+            ? 'Are you sure you want to unmute this conversation?'
+            : 'Are you sure you want to mute this conversation? You can unmute it later.')
+        : pendingAction === 'block'
+            ? 'Are you sure you want to block this user? You will not receive messages from them.'
+            : pendingAction === 'unblock'
+                ? 'Are you sure you want to unblock this user?'
+                : 'Are you sure you want to delete this conversation? This action cannot be undone.';
+
     useEffect(() => {
+        if (!activeConversationId) {
+            prevMessageCount.current = 0;
+            return;
+        }
+
         const lastMessage = messages[messages.length - 1];
         const hasNewMessage = messages.length > prevMessageCount.current;
 
@@ -183,7 +512,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
         }
 
         prevMessageCount.current = messages.length;
-    }, [messages, soundsEnabled, isConversationOpen]);
+    }, [messages, soundsEnabled, isConversationOpen, activeConversationId]);
 
     useEffect(() => {
         if (!isConversationOpen) return;
@@ -192,56 +521,59 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
         if (!lastUserMessage || lastUserMessage.readAt) return;
 
         const deliveryTimeoutId = setTimeout(() => {
-            setMessages((prev) =>
-                prev.map((msg) =>
+            setConversationMessages((prev) => ({
+                ...prev,
+                [activeConversationId]: (prev[activeConversationId] || []).map((msg) =>
                     msg.id === lastUserMessage.id
                         ? { ...msg, deliveredAt: msg.deliveredAt || new Date().toISOString() }
                         : msg
-                )
-            );
+                ),
+            }));
         }, 600);
 
         const timeoutId = setTimeout(() => {
-            setMessages((prev) =>
-                prev.map((msg) =>
+            setConversationMessages((prev) => ({
+                ...prev,
+                [activeConversationId]: (prev[activeConversationId] || []).map((msg) =>
                     msg.id === lastUserMessage.id
                         ? { ...msg, readAt: new Date().toISOString() }
                         : msg
-                )
-            );
+                ),
+            }));
         }, 1400);
 
         return () => {
             clearTimeout(deliveryTimeoutId);
             clearTimeout(timeoutId);
         };
-    }, [messages, isConversationOpen]);
+    }, [messages, isConversationOpen, activeConversationId]);
 
     const getStatusIcon = (message: Message) => {
         if (!message.deliveredAt) {
             return <IoCheckmarkOutline />;
         }
         if (!message.readAt) {
-            return <IoCheckmarkDoneOutline />;
+            return <IoIosEye />;
         }
-        return <IoCheckmarkDoneSharp />;
+        return <IoIosEye />;
     };
 
     return (
         <div className="h-full flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
             {/* Header */}
-            <div className="border-b border-gray-200 p-4 flex items-center justify-between">
+            <div className="border-b border-gray-200 p-2 sm:p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <button onClick={() => onSelectConversation && onSelectConversation("")} type="button" className='p-1 cursor-pointer xl:hidden'>
-                        <FaArrowLeft />
-                    </button>
                     <button
                         type="button"
                         onClick={() => router.push(`/editor-profile/${otherUserId}`)}
                         className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer"
                         style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}
                     >
-                        JD
+                        {(activeConversation?.name || 'User')
+                            .split(' ')
+                            .map((part) => part[0])
+                            .slice(0, 2)
+                            .join('')}
                     </button>
                     <div>
                         <button
@@ -249,9 +581,23 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                             onClick={() => router.push(`/editor-profile/${otherUserId}`)}
                             className="font-semibold text-gray-900 cursor-pointer hover:underline"
                         >
-                            John Designer
+                            {activeConversation?.name || 'Select a conversation'}
                         </button>
-                        <p className="text-xs text-green-600 font-medium">Online</p>
+                        <p className={`text-xs font-medium ${activeConversation?.status === 'online' ? 'text-green-600' : 'text-gray-500'}`}>
+                            {activeConversationMeta.blocked ? (
+                                <MdBlock className="inline h-4 w-4" title="Blocked" aria-label="Blocked" />
+                            ) : activeConversationMeta.muted ? (
+                                <IoMdNotificationsOff className="inline h-4 w-4" title="Muted" aria-label="Muted" />
+                            ) : activeConversationMeta.reported ? (
+                                'Reported'
+                            ) : activeConversation?.status === 'online' ? (
+                                'Online'
+                            ) : activeConversation ? (
+                                'Offline'
+                            ) : (
+                                ''
+                            )}
+                        </p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -312,13 +658,13 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                                     onClick={() => handleMenuAction('mute')}
                                     className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm first:rounded-t-lg cursor-pointer"
                                 >
-                                    Mute Notifications
+                                    {activeConversationMeta.muted ? 'Unmute Notifications' : 'Mute Notifications'}
                                 </button>
                                 <button
                                     onClick={() => handleMenuAction('block')}
                                     className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm border-t border-gray-100 cursor-pointer"
                                 >
-                                    Block User
+                                    {activeConversationMeta.blocked ? 'Unblock User' : 'Block User'}
                                 </button>
                                 <button
                                     onClick={() => handleMenuAction('report')}
@@ -339,14 +685,12 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 pt-14 space-y-4 bg-gray-50 relative">
-                <button
-                    type="button"
-                    onClick={() => router.push('/client/post-job?assign=john_designer')}
-                    className="absolute right-4 top-3 px-4 py-2 rounded-full bg-[#e74c4c] text-white text-xs sm:text-sm font-medium shadow-lg hover:bg-[#c23b3b] transition-colors animate-floating cursor-pointer"
-                >
-                    Post a Job for This Editor
-                </button>
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 relative">
+                {activeConversationMeta.blocked && (
+                    <div className="text-center py-6 text-gray-500 text-sm">
+                        You blocked this conversation.
+                    </div>
+                )}
                 {messages.map((message, index) => {
                     const messageDate = new Date(message.createdAt);
                     const prevMessage = messages[index - 1];
@@ -374,8 +718,38 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                                         }`}
                                     style={message.sender === 'user' ? { backgroundColor: '#e74c4c' } : {}}
                                 >
-                                    <p className="text-sm wrap-break-word">{message.content}</p>
-                                    <div className='w-full flex items-center justify-between'>
+                                    {message.content.trim() !== '' && (
+                                        <p className="text-sm wrap-break-word">{message.content}</p>
+                                    )}
+                                    {message.attachments && message.attachments.length > 0 && (
+                                        <div className="mt-2 flex flex-wrap gap-2">
+                                            {message.attachments.map((attachment) => (
+                                                <div
+                                                    key={attachment.id}
+                                                    className="relative h-16 w-16 rounded-lg border border-gray-200 bg-white flex items-center justify-center overflow-hidden"
+                                                >
+                                                    {attachment.type === 'link' ? (
+                                                        <a
+                                                            href={attachment.url}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="text-[10px] text-gray-600 px-1 text-center underline"
+                                                        >
+                                                            Link
+                                                        </a>
+                                                    ) : attachment.name.match(/\.(png|jpe?g|gif|webp|bmp|svg)$/i) ? (
+                                                        // eslint-disable-next-line @next/next/no-img-element
+                                                        <img src={attachment.url} alt={attachment.name} className="h-full w-full object-cover" />
+                                                    ) : (
+                                                        <span className="text-[10px] text-gray-600 px-1 text-center">
+                                                            {attachment.name}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <div className='w-full flex items-center justify-between gap-4'>
                                         <p
                                             className={`text-xs mt-1 ${message.sender === 'user'
                                                 ? 'text-blue-100'
@@ -401,9 +775,46 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
             </div>
 
             {/* Input Area */}
-            <div className="border-t border-gray-200 p-4 bg-white">
-                <div className="flex items-end gap-3">
-                    <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors shrink-0">
+            <div className={`border-t border-gray-200 px-4 pb-4 bg-white ${attachments.length > 0 ? '' : 'pt-4'}`}>
+                {attachments.length > 0 && (
+                    <div className="mb-3 flex gap-2 overflow-x-auto">
+                        {attachments.map((item) => (
+                            <div className='relative pt-4' key={item.id}>
+                                <div
+                                    className="relative h-16 w-16 rounded-lg border border-gray-200 bg-white flex items-center justify-center overflow-hidden"
+                                >
+                                    {item.type === 'link' ? (
+                                        <span className="text-[10px] text-gray-600 px-1 text-center">
+                                            Link
+                                        </span>
+                                    ) : item.file?.type.startsWith('image/') ? (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img src={item.url} alt={item.name} className="h-full w-full object-cover" />
+                                    ) : (
+                                        <span className="text-[10px] text-gray-600 px-1 text-center">
+                                            {item.name}
+                                        </span>
+                                    )}
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleRemoveAttachment(item.id)}
+                                    className="cursor-pointer absolute top-2 -right-2 h-5 w-5 rounded-full bg-gray-800 text-white text-xs flex items-center justify-center"
+                                    aria-label="Remove attachment"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                <div className="grid grid-cols-[auto_1fr_auto] gap-1 sm:gap-3">
+                    <div className="relative" ref={attachmentMenuRef}>
+                        <button
+                            type="button"
+                            onClick={() => setIsAttachmentMenuOpen((prev) => !prev)}
+                            className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors shrink-0 cursor-pointer"
+                        >
                         <svg
                             className="w-5 h-5 text-gray-600"
                             fill="none"
@@ -417,19 +828,62 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                                 d="M12 4v16m8-8H4"
                             />
                         </svg>
-                    </button>
+                        </button>
+                        {isAttachmentMenuOpen && (
+                            <div className="absolute bottom-12 left-0 w-44 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                                <button
+                                    type="button"
+                                    onClick={() => openFilePicker('image/*')}
+                                    className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm first:rounded-t-lg cursor-pointer"
+                                >
+                                    Images
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => openFilePicker('video/*')}
+                                    className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm border-t border-gray-100 cursor-pointer"
+                                >
+                                    Video
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={handleAddLink}
+                                    className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm border-t border-gray-100 cursor-pointer"
+                                >
+                                    Links
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => openFilePicker('.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt')}
+                                    className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm border-t border-gray-100 last:rounded-b-lg cursor-pointer"
+                                >
+                                    Documents
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    <input
+                        type="file"
+                        id="attachments"
+                        className="hidden"
+                        multiple
+                        accept={fileAccept}
+                        ref={fileInputRef}
+                        onChange={handleAttachmentsChange}
+                    />
                     <input
                         type="text"
-                        placeholder="Type your message..."
+                        placeholder={activeConversationMeta.blocked ? 'You blocked this user' : 'Type your message...'}
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e74c4c] text-sm"
+                        disabled={!activeConversationId || activeConversationMeta.blocked || activeConversationMeta.deleted}
+                        className="flex-1 px-2 min-w-[130px] sm:min-w-[250px] sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e74c4c] text-sm"
                     />
                     <button
                         onClick={handleSendMessage}
-                        disabled={inputValue.trim() === ''}
-                        className="p-2 bg-[#e74c4c] hover:bg-[#c23b3b] disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors shrink-0 cursor-pointer"
+                        disabled={(inputValue.trim() === '' && attachments.length === 0) || !activeConversationId || activeConversationMeta.blocked || activeConversationMeta.deleted}
+                        className="p-1.5 sm:p-2 bg-[#e74c4c] hover:bg-[#c23b3b] disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors shrink-0 cursor-pointer"
                     >
                         <svg
                             className="w-5 h-5"
@@ -447,6 +901,23 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                     </button>
                 </div>
             </div>
+            <ReportUserModal
+                isOpen={isReportModalOpen}
+                onClose={() => setIsReportModalOpen(false)}
+                userName={activeConversation?.name || 'User'}
+                userId={otherUserId}
+                onReportSubmit={handleReportUser}
+            />
+            <ConfirmationPopup
+                isOpen={isConfirmOpen}
+                onCancel={() => {
+                    setIsConfirmOpen(false);
+                    setPendingAction(null);
+                }}
+                title={confirmTitle}
+                description={confirmDescription}
+                onConfirm={handleConfirmAction}
+            />
         </div>
     );
 }

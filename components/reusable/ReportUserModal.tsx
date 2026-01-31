@@ -10,6 +10,14 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 interface ReportUserModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -27,6 +35,7 @@ export interface ReportData {
 
 const REPORT_REASONS = [
   { value: "harassment", label: "Harassment or abuse" },
+  { value: "violation_platform_safety_rules", label: "Violation of Platform Safety Rules (off-platform payments and communications)" },
   { value: "fraud", label: "Fraud or scam" },
   { value: "inappropriate", label: "Inappropriate content" },
   { value: "payment_issue", label: "Payment related issue" },
@@ -68,6 +77,11 @@ export default function ReportUserModal({
       return;
     }
 
+    if(description.trim().length > 500) {
+      setError("Description cannot exceed 500 characters");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -84,7 +98,7 @@ export default function ReportUserModal({
       // Reset form after successful submission
       setTimeout(() => {
         handleClose();
-      }, 1500);
+      }, 3000);
     } catch (err: any) {
       setError(err.message || "Failed to submit report. Please try again.");
     } finally {
@@ -147,21 +161,22 @@ export default function ReportUserModal({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Reason for Report <span className="text-red-500">*</span>
               </label>
-              <select
+              <Select
                 value={selectedReason}
-                onChange={(e) => {
-                  setSelectedReason(e.target.value);
+                onValueChange={(value) => {
+                  setSelectedReason(value);
                   setError("");
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
               >
-                <option value="">Select a reason...</option>
-                {REPORT_REASONS.map((reason) => (
-                  <option key={reason.value} value={reason.value}>
-                    {reason.label}
-                  </option>
+                <SelectTrigger className="w-full max-w-[90vw] sm:max-w-[464px] truncate px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ">
+                  <SelectValue placeholder="Select a reason..." className="" />
+                </SelectTrigger>
+                <SelectContent>
+                  {REPORT_REASONS.map((reason) => (
+                  <SelectItem className="max-w-[90vw] sm:max-w-[464px]" key={reason.value} value={reason.value}>{reason.label}</SelectItem>
                 ))}
-              </select>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Description */}

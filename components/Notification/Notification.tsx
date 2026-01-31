@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Mail } from "lucide-react";
 import { GrNotification } from "react-icons/gr";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 type InboxItem = {
   id: number;
@@ -17,49 +18,49 @@ type InboxItem = {
 const inboxData: InboxItem[] = [
   {
     id: 1,
-    name: "Jane Cooper",
-    lastMessage: "Project update: The latest changes have been made.",
-    time: "4 Weeks ago",
+    name: "Aisha Patel",
+    lastMessage: "Sent the revised storyboard and shot list for review.",
+    time: "2 hours ago",
     avatar: "/images/jone1.png",
     online: true,
   },
   {
     id: 2,
-    name: "Jane Cooper",
-    lastMessage: "Project update: The latest changes have been made.",
-    time: "4 Weeks ago",
+    name: "Miguel Santos",
+    lastMessage: "Uploaded the color grade draft—feedback welcome.",
+    time: "Yesterday",
     avatar: "/images/jone3.png",
     online: true,
   },
   {
     id: 3,
-    name: "Jane Cooper",
-    lastMessage: "Project update: The latest changes have been made.",
-    time: "4 Weeks ago",
+    name: "Priya Nair",
+    lastMessage: "Quick question about the intro music licensing.",
+    time: "3 days ago",
     avatar: "/images/Jerome.jpg",
     online: true,
   },
   {
     id: 4,
-    name: "Jane Cooper",
-    lastMessage: "Project update: The latest changes have been made.",
-    time: "4 Weeks ago",
+    name: "Ethan Brooks",
+    lastMessage: "Final export is ready; scheduling delivery now.",
+    time: "1 week ago",
     avatar: "/images/jone2.png",
     online: false,
   },
   {
     id: 5,
-    name: "Jane Cooper",
-    lastMessage: "Project update: The latest changes have been made.",
-    time: "4 Weeks ago",
+    name: "Support Team",
+    lastMessage: "Ticket #4821 resolved. Let us know if you need more help.",
+    time: "2 weeks ago",
     avatar: "/images/headset.svg",
     online: true,
   },
 ];
 
 export default function Notification() {
-  const count = 0; 
-
+  const count = 1;
+  const router = useRouter();
   return (
     <div className="w-full max-w-md rounded-2xl bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] overflow-hidden">
       {/* Header */}
@@ -70,27 +71,28 @@ export default function Notification() {
 
       {/* List */}
       <div>
-        {inboxData.map((item) => (
+        {inboxData.map((item,idx) => (
           <button
             key={item.id}
-            className="w-full flex items-center justify-between px-5 py-4 border-b last:border-b-0 hover:bg-gray-50 transition cursor-pointer"
-            onClick={() => console.log("Open chat:", item.id)}
+            className={`w-full flex items-center justify-between gap-4 px-5 py-4 border-b last:border-b-0 hover:bg-gray-50 ${idx === 0 ? "bg-gray-100" : ""} transition cursor-pointer`}
+            onClick={() => router.push(`/client/message?id=${item.id}`)}
           >
             <div className="flex items-center gap-4">
               {/* Avatar */}
-              <div className="relative h-11 w-16 rounded-full overflow-hidden bg-gray-200">
-                <Image
-                  src={item.avatar}
-                  alt={item.name}
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative">
+                <div className="relative h-11 w-11 rounded-full overflow-hidden bg-gray-200">
+                  <Image
+                    src={item.avatar}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                  />
 
-                {/* Online Dot */}
+                  {/* Online Dot */}
+                </div>
                 <span
-                  className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white ${
-                    item.online ? "bg-green-500" : "bg-gray-400"
-                  }`}
+                  className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white ${item.online ? "bg-green-500" : "bg-gray-400"
+                    }`}
                 />
               </div>
 
@@ -99,7 +101,7 @@ export default function Notification() {
                 <p className="font-semibold text-[16px] leading-5 text-gray-900">
                   {item.name}
                 </p>
-                <p className="text-[13px] text-gray-600 mt-1">
+                <p className={`text-[13px] text-gray-600 mt-1 ${idx === 0 ? "font-medium text-gray-900" : "font-normal"}`}>
                   {item.lastMessage}
                 </p>
               </div>

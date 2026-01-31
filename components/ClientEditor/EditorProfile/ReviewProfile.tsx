@@ -3,7 +3,8 @@
 import UsaFlag from "@/components/Icons/UsaFlag";
 import Image from "next/image";
 import Link from "next/link";
-import { MdStar } from "react-icons/md";
+import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 
 const reviews = [
   {
@@ -12,7 +13,7 @@ const reviews = [
     name: "sarahmcl",
     country: "United Kingdom",
     flag: "/images/flags/uk.png",
-    rating: 4.9,
+    rating: 4.0,
     time: "1 month ago",
     jobImage: "/images/project1.jpg",
     jobTitle: "I will do SEO backlinks with blogger outreach for high quality link building",
@@ -27,7 +28,7 @@ const reviews = [
     name: "sarahmcl",
     country: "United Kingdom",
     flag: "/images/flags/uk.png",
-    rating: 4.9,
+    rating: 4.0,
     time: "1 month ago",
     jobImage: "/images/project2.jpg",
     jobTitle: "Create a modern minimalist logo design for tech startup",
@@ -44,7 +45,7 @@ export default function ReviewsSection() {
       {reviews.map((review) => (
         <div
           key={review.id}
-          className="w-full rounded-xl border border-gray-200 bg-white px-6 py-5 flex flex-col lg:flex-row justify-between gap-6"
+          className="w-full rounded-xl border border-gray-200 bg-white px-6 py-5 flex flex-col justify-between gap-6"
         >
           {/* ✅ LEFT SIDE */}
           <div className="flex gap-4 flex-1">
@@ -65,9 +66,9 @@ export default function ReviewsSection() {
             <div className="flex-1">
               {/* Name + Country */}
               <div className="space-y-1">
-                <h1 className="text-[16px] font-semibold text-[#333] leading-none capitalize">
+                <Link href={`/client-profile/${review?.id}`} className="text-[16px] font-semibold text-[#333] leading-none capitalize">
                   {review.name}
-                </h1>
+                </Link>
 
                 <div className="flex items-center gap-2 text-[13px] text-gray-500">
                   <UsaFlag />
@@ -79,11 +80,13 @@ export default function ReviewsSection() {
               <div className="mt-3 flex items-center gap-3 text-[13px] text-gray-500">
                 {/* 5 Stars */}
                 <div className="flex items-center gap-1 text-yellow-500">
-                  {[...Array(5)].map((_, i) => (
-                    <MdStar key={i} className="text-[16px]" />
+                  {[...Array(Math.floor(review.rating))].map((_, i) => (
+                    <FaStar key={i} className="text-[16px]" />
+                  ))}
+                  {[...Array(5 - Math.floor(review.rating))].map((_, i) => (
+                    <FaStar key={i} className="text-[16px] text-gray-300" />
                   ))}
                 </div>
-
                 {/* Rating */}
                 <span className="font-medium text-[#222]">{review.rating}</span>
 

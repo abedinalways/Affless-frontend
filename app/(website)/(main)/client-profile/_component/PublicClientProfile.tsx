@@ -116,7 +116,7 @@ export default function PublicClientProfile() {
 
             {/* EDITORS WORKED WITH */}
             <div className="bg-white rounded-xl shadow-sm p-6 mt-8">
-                <h2 className="text-[25px] md:text-[32px] font-medium mb-6">Worked With ({editorsWorkedWith.length})</h2>
+                <h2 className="text-[25px] md:text-[32px] font-medium mb-6">Editors This Client Has Worked With ({editorsWorkedWith.length})</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                     {editorsWorkedWith.map((editor) => (
                         <div key={editor.id} className="flex flex-col items-center gap-3 text-center">
@@ -129,7 +129,7 @@ export default function PublicClientProfile() {
                                     className="w-full h-full rounded-full object-cover border-2 border-gray-200 transition cursor-pointer hover:scale-110 duration-300"
                                 />
                             </Link>
-                            <p className="text-sm font-medium text-[#333] line-clamp-2">{editor.name}</p>
+                            <Link href={`/editor-profile/${editor?.id}`} className="text-sm font-medium text-[#333] line-clamp-2">{editor.name}</Link>
                         </div>
                     ))}
                 </div>
