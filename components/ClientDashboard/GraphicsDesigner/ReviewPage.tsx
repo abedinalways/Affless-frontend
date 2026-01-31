@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Star } from "lucide-react";
+import { FaStar } from "react-icons/fa";
 import Link from "next/link";
 
 interface Review {
@@ -88,7 +88,7 @@ function ReviewItem({ review }: { review: Review }) {
       <div className="flex-1 space-y-1">
         {/* Name + Rating Row */}
         <div className="flex justify-between items-start">
-          <h1 className="font-semibold text-lg capitalize">{review.name}</h1>
+          <Link href={`/editor-profile/${review?.id}`} className="font-semibold text-lg capitalize">{review.name}</Link>
 
           <p className="text-gray-500 text-sm">{review.timeAgo}</p>
         </div>
@@ -96,11 +96,11 @@ function ReviewItem({ review }: { review: Review }) {
         {/* Rating + count */}
         <div className="flex items-center    gap-2">
           <div className="flex py-2.5">
-            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-            <Star className="w-5 h-5 text-gray-400 fill-gray-400" />
+            <FaStar className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+            <FaStar className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+            <FaStar className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+            <FaStar className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+            <FaStar className="w-5 h-5 text-gray-300 fill-gray-300" />
           </div>
           <div className="text-[#333]">
             <span className="">{review.rating}</span>

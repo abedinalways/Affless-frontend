@@ -45,7 +45,7 @@ export default function DeliveryClient() {
     // Scroll to top immediately
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
-    const selected = ALL_JOBS.find((item) => item.id === Number(id));
+    const selected = ALL_JOBS.find((item) => item.id === id);
     setJob(selected || null);
   }, [id]);
 

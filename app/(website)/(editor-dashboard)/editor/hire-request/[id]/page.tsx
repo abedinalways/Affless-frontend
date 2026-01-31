@@ -17,7 +17,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
 
   const bids = [
     {
-      id: 1,
+      id: "1",
       name: "Sarah Johnson",
       avatar: "/images/devon.png",
       time: "2 hours ago",
@@ -25,7 +25,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
         "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
     },
     {
-      id: 2,
+      id: "2",
       name: "John Doe",
       avatar: "/images/jerome.png",
       time: "1 day ago",
@@ -33,7 +33,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
         "I will handle your project professionally. You will get unlimited revisions and fast response.",
     },
     {
-      id: 3,
+      id: "3",
       name: "John Doe",
       avatar: "/images/jerome.png",
       time: "1 day ago",

@@ -30,8 +30,8 @@ export default function ProfilePage() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint ",
       tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-      priceRange: "$400–$600",
-      software: "Adobe Premiere Pro",
+      price: "$400",
+      numberOfRevisions: "3",
       duration: "7–30 days",
       thumbnail: "/images/vedio.png.jpg",
     },
@@ -43,8 +43,8 @@ export default function ProfilePage() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-      priceRange: "$400–$600",
-      software: "Adobe Premiere Pro",
+      price: "$400",
+      numberOfRevisions: "3",
       duration: "7–30 days",
       thumbnail: "/images/vedio.png.jpg",
     },
@@ -82,11 +82,11 @@ export default function ProfilePage() {
             <p className="text-gray-600 flex gap-2.5"><FiCalendar /> Member since Jan 2023</p>
 
             <Link
-                href="/client/post-job"
-                className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
-              >
-                + Post New Job
-              </Link>
+              href="/client/post-job"
+              className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
+            >
+              + Post New Job
+            </Link>
           </div>
         </div>
 
@@ -100,12 +100,12 @@ export default function ProfilePage() {
           </div>
 
           <div className="bg-[#FFC8C8] rounded-lg p-4">
-            <p className="text-gray-600 text-sm">Completed</p>
-            <p className="text-xl text-semibold text-[#FF4D4F] pt-2.5">42</p>
+            <p className="text-gray-600 text-sm">Hire Rate</p>
+            <p className="text-xl text-semibold text-[#FF4D4F] pt-2.5">98%</p>
           </div>
 
           <div className="bg-[#FFC8C8] rounded-lg p-4">
-            <p className="text-gray-600 text-sm">Avg Rating</p>
+            <p className="text-gray-600 text-sm">Average Rating</p>
             <p className="text-xl  text-semibold text-[#FF4D4F] pt-2.5 flex justify-center items-center gap-2">4.8 <span className="text-yellow-600"><FaStar /> </span></p>
 
           </div>
@@ -134,14 +134,14 @@ export default function ProfilePage() {
                   className="w-full h-full rounded-full object-cover border-2 border-gray-200 transition cursor-pointer hover:scale-110 duration-300"
                 />
               </Link>
-              <p className="text-sm font-medium text-[#333] line-clamp-2">{editor.name}</p>
+              <Link href={`/editor-profile/${editor?.id}`} className="text-sm font-medium text-[#333] line-clamp-2">{editor.name}</Link>
             </div>
           ))}
         </div>
       </div>
 
       {/* JOB POSTINGS */}
-      <h2 className="text-[25px] md:text-[32px] font-medium py-8">Jobs </h2>
+      <h2 className="text-[25px] md:text-[32px] font-medium py-8">Active Jobs </h2>
 
       <div className="space-y-6">
         {jobs.map((job) => (
@@ -164,16 +164,11 @@ export default function ProfilePage() {
                   />
 
                   <div>
-                    <p className="font-medium text-[18px] text-[#333]">{job.user}</p>
+                    <p className="font-medium text-[18px] text-[#333] capitalize">{job.user}</p>
                     <p className="text-sm text-[#4A4C56] flex items-center gap-1 pt-1.5">
                       <UsaFlag /> {job.country}
                     </p>
                   </div>
-                </div>
-                <div>
-                  <Link href="/jobs/1" className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
-                    View Job
-                  </Link>
                 </div>
               </div>
 
@@ -188,34 +183,32 @@ export default function ProfilePage() {
                   </p>
 
                   {/* TAGS */}
-                  <div className="flex flex-wrap gap-2 py-6 bg-[]">
-                    {job.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="bg-[#FFEEEE] text-red-500 px-3 py-1.5 rounded-full text-sm font-normal leading-150%"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="flex flex-wrap gap-3 py-6">
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Platform: </span>
+                      <span className="font-medium">YouTube</span>
+                    </div>
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Project Type: </span>
+                      <span className="font-medium">YouTube Long-Form</span>
+                    </div>
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Editor Experience: </span>
+                      <span className="font-medium">12 Jobs Completed</span>
+                    </div>
                   </div>
                   <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">
-                    <div className="p-6 flex gap-6">
+                    <div className="p-6 flex gap-6 border-r border-gray-300">
                       <div>
-                        <p className="text-[#4A4C56] text-[14px]">Price range</p>
-                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.priceRange}</p>
-                      </div>
-                      <div className="border hidden md:block border-r-gray-300 mx-6">
-
+                        <p className="text-[#4A4C56] text-[14px]">Price</p>
+                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.price}</p>
                       </div>
                     </div>
 
-                    <div className="p-6 flex  gap-6">
+                    <div className="p-6 flex  gap-6 border-r border-gray-300">
                       <div>
-                        <p className="text-[#4A4C56] text-[14px]">Software</p>
-                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.software}</p>
-                      </div>
-                      <div className="border hidden md:block border-r-gray-300 mx-6">
-
+                        <p className="text-[#4A4C56] text-[14px]">Number of Revisions</p>
+                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.numberOfRevisions}</p>
                       </div>
                     </div>
 
@@ -223,9 +216,6 @@ export default function ProfilePage() {
                       <div>
                         <p className="text-[#4A4C56] text-[14px]">Project duration</p>
                         <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
-                      </div>
-                      <div className="border hidden md:block border-r-gray-300 mx-6">
-
                       </div>
                     </div>
                   </div>

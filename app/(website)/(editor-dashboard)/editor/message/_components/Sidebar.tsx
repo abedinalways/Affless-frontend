@@ -1,6 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { MdBlock } from "react-icons/md";
+import { IoMdNotificationsOff } from "react-icons/io";
 
 interface Conversation {
     id: string;
@@ -10,6 +13,10 @@ interface Conversation {
     timestamp: string;
     unread: boolean;
     status: 'online' | 'offline';
+    muted?: boolean;
+    blocked?: boolean;
+    reported?: boolean;
+    deleted?: boolean;
 }
 
 const mockConversations: Conversation[] = [
@@ -19,7 +26,7 @@ const mockConversations: Conversation[] = [
         avatar: 'JD',
         lastMessage: 'That looks great! Can you adjust...',
         timestamp: '2 min ago',
-        unread: true,
+        unread: false,
         status: 'online',
     },
     {
@@ -56,19 +63,78 @@ type SidebarProps = {
     onSelectConversation?: (id: string) => void;
 };
 
+type ConversationState = Record<string, { muted?: boolean; blocked?: boolean; reported?: boolean; deleted?: boolean }>;
+
+const getConversationState = (): ConversationState => {
+    if (typeof window === 'undefined') return {};
+    try {
+        const raw = window.localStorage.getItem('conversationState');
+        return raw ? JSON.parse(raw) : {};
+    } catch {
+        return {};
+    }
+};
+
+const applyConversationState = (base: Conversation[], state: ConversationState) =>
+    base
+        .map((conv) => ({
+            ...conv,
+            ...state[conv.id],
+        }))
+        .filter((conv) => !conv.deleted);
+
 export default function Sidebar({ selectedConversationId, onSelectConversation }: SidebarProps) {
     const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
     const [selectedId, setSelectedId] = useState<string>('');
     const [searchQuery, setSearchQuery] = useState('');
+    const searchParams = useSearchParams();
+    const searchId = searchParams.get('id') || '';
+
+    useEffect(() => {
+        const syncConversations = () => {
+            setConversations(applyConversationState(mockConversations, getConversationState()));
+        };
+
+        syncConversations();
+
+        const handleUpdate = () => syncConversations();
+        window.addEventListener('conversation:update', handleUpdate as EventListener);
+        window.addEventListener('storage', handleUpdate);
+        return () => {
+            window.removeEventListener('conversation:update', handleUpdate as EventListener);
+            window.removeEventListener('storage', handleUpdate);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (selectedConversationId) {
+            setSelectedId(selectedConversationId);
+        }
+    }, [selectedConversationId]);
+
+    useEffect(() => {
+        if (searchId) {
+            setSelectedId(searchId);
+            onSelectConversation?.(searchId);
+        }
+    }, [searchId, onSelectConversation]);
+
+    useEffect(() => {
+        if (!selectedConversationId && !searchId && conversations.length > 0) {
+            const latestId = conversations[0].id;
+            setSelectedId(latestId);
+            onSelectConversation?.(latestId);
+        }
+    }, [selectedConversationId, searchId, conversations, onSelectConversation]);
 
     const filteredConversations = conversations.filter(conv =>
         conv.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col h-full">
             {/* Search Bar */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
                 <input
                     type="text"
                     placeholder="Search conversations..."
@@ -76,7 +142,7 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                 />
-            </div>
+            </div> */}
 
             {/* Conversations List */}
             <div className="flex-1 overflow-y-auto space-y-2">
@@ -88,16 +154,16 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
                                 setSelectedId(conversation.id);
                                 onSelectConversation && onSelectConversation(conversation.id);
                             }}
-                            className={`p-3 rounded-lg cursor-pointer transition-all ${selectedId === conversation.id
-                                ? 'border-l-4 hover:bg-gray-100'
+                            className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedConversationId || searchId || selectedId) === conversation.id
+                                ? 'xl:border-l-4 hover:bg-gray-100'
                                 : 'hover:bg-gray-100'
                                 }`}
-                            style={selectedId === conversation.id ? { borderLeftColor: '#e74c4c', backgroundColor: '#ffe6e6' } : {}}
+                            style={(selectedConversationId || searchId || selectedId) === conversation.id ? { borderLeftColor: '#e74c4c', backgroundColor: '#ffe6e6' } : {}}
                         >
                             <div className="flex items-start gap-3">
                                 {/* Avatar */}
                                 <div className="relative shrink-0">
-                                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold" style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}>
+                                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold" style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}>
                                         {conversation.avatar}
                                     </div>
                                     {/* Status Indicator */}
@@ -110,14 +176,27 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
                                 </div>
 
                                 {/* Conversation Info */}
-                                <div className="flex-1 min-w-0">
+                                <div className="flex-1 min-w-0 hidden xl:block">
                                     <div className="flex items-center justify-between mb-1">
                                         <h3 className="font-semibold text-gray-900 text-sm truncate">
                                             {conversation.name}
                                         </h3>
-                                        {conversation.unread && (
-                                            <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: '#e74c4c' }} />
-                                        )}
+                                        <div className='flex items-center gap-1'>
+                                            {(conversation.muted || conversation.blocked || conversation.reported) && (
+                                                <span className="ml-2 flex items-center text-gray-500">
+                                                    {conversation.blocked ? (
+                                                        <MdBlock className="h-3.5 w-3.5" title="Blocked" aria-label="Blocked" />
+                                                    ) : conversation.muted ? (
+                                                        <IoMdNotificationsOff className="h-3.5 w-3.5" title="Muted" aria-label="Muted" />
+                                                    ) : (
+                                                        <span className="text-[10px]">Reported</span>
+                                                    )}
+                                                </span>
+                                            )}
+                                            {conversation.unread && (
+                                                <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: '#e74c4c' }} />
+                                            )}
+                                        </div>
                                     </div>
                                     <p className="text-xs text-gray-600 truncate">
                                         {conversation.lastMessage}
