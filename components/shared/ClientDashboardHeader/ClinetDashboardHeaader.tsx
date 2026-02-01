@@ -154,8 +154,8 @@ export default function ClientDashboardHeader() {
                         Manage Jobs
                       </Link>
                       <Link
-                        href="/client/post-job"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/post-job") ? activeCls : inactiveCls
+                        href="/post-job"
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/post-job") ? activeCls : inactiveCls
                           }`}
                         onClick={() => setOpen(false)}
                       >
@@ -163,8 +163,8 @@ export default function ClientDashboardHeader() {
                       </Link>
 
                       <Link
-                        href="/client/find-editor?redirect=/client"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/find-editor") ? activeCls : inactiveCls
+                        href="/find-editor?redirect=/client"
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/find-editor") ? activeCls : inactiveCls
                           }`}
                         onClick={() => setOpen(false)}
                       >
@@ -303,7 +303,7 @@ export default function ClientDashboardHeader() {
 
       {/* ========== MOBILE MENU SLIDE ========== */}
       <div
-        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 py-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 py-5 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "-translate-x-full"
           }`}
       >
         {/* Close Button */}
@@ -355,9 +355,19 @@ export default function ClientDashboardHeader() {
                 </li>
                 <li>
                   <Link
-                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/client/find-editor") ? activeCls : inactiveCls
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/post-job") ? activeCls : inactiveCls
                       }`}
-                    href="/client/find-editor?redirect=/client"
+                    href="/post-job"
+                    onClick={() => setMobileMenu(false)}
+                  >
+                    Post a Job
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/find-editor") ? activeCls : inactiveCls
+                      }`}
+                    href="/find-editor?redirect=/client"
                     onClick={() => setMobileMenu(false)}
                   >
                     Find Editor

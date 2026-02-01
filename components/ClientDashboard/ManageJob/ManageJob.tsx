@@ -368,7 +368,7 @@ export default function ManageJobsPage() {
             </div>
 
             <Link
-              href="/client/post-job?redirect=/client/manage-job"
+              href="/post-job?redirect=/client/manage-job"
               className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300"
             >
               + Create a New Job

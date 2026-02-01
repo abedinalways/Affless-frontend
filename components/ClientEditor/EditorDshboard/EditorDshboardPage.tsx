@@ -475,7 +475,7 @@ export default function EditorDashboard() {
               </p>
             </div>
             <Link
-              href="/editor/browse-job?redirect=/editor"
+              href="/browse-job?redirect=/editor"
               type="button"
               className="cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white"
             >

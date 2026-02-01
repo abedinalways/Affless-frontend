@@ -187,7 +187,7 @@ export default function BrowseJob() {
               {paginatedData.map((item) => (
                 <div className="bg-white p-4 lg:p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link key={item.id} href={`/editor/browse-job/${item.id}`}>
+                    <Link key={item.id} href={`/browse-job/${item.id}`}>
                       <Image
                         src={item.img}
                         alt="editor"

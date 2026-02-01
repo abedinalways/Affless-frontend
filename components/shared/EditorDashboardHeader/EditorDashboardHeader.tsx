@@ -172,8 +172,8 @@ export default function EditorDashboardHeader() {
                         </Link>
 
                         <Link
-                          href="/editor/browse-job"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/browse-job") ? activeCls : inactiveCls
+                          href="/browse-job"
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/browse-job") ? activeCls : inactiveCls
                             }`}
                           onClick={closeDesktopJobDropdown}
                         >
@@ -372,8 +372,8 @@ export default function EditorDashboardHeader() {
                   </li>
                   <li>
                     <Link
-                      href="/editor/browse-job"
-                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/browse-job") ? activeCls : inactiveCls
+                      href="/browse-job"
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/browse-job") ? activeCls : inactiveCls
                         }`}
                       onClick={() => setMobileMenu(false)}
                     >

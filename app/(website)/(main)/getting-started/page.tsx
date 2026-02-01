@@ -21,7 +21,7 @@ export default function GettingStartedPage() {
       router.push("/editor");
     } else {
       toast.error("Please login as a client to post a job.");
-      router.push("/login");
+      router.push("/login?redirect=/getting-started");
     }
   };
 
@@ -33,7 +33,7 @@ export default function GettingStartedPage() {
       router.push('/client')
     }else {
       toast.error("Please login as a editor to create a profile")
-      router.push("/login");
+      router.push("/login?redirect=/getting-started");
     }
   };
 

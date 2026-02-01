@@ -208,7 +208,7 @@ export default function EditorCard({
       {/* Hire Button */}
       <div className='flex w-full gap-4'>
         <Link
-          href='/client/hire-vedio-editor?redirect=/client'
+          href='/hire-vedio-editor?redirect=/client'
           className='cursor-pointer w-full'>
           <div className=' text-center bg-red-500 cursor-pointer w-full text-white  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 '>
             Hire Editor

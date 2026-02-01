@@ -6,7 +6,7 @@ import { Edit } from "lucide-react";
 import React, { useState } from "react";
 import EditorPrise from "./EditorPrise";
 import { useSearchParams } from "next/navigation";
-import { bidsData } from "@/app/(website)/(client-dashboard)/client/job-proposal/_component/ProposalDetails";
+import { bidsData } from "@/app/(website)/(dashboard)/(client-dashboard)/client/job-proposal/_component/ProposalDetails";
 import { ProposalData, ProposalRow } from "@/components/ClientDashboard/JobProposal/JobProposalPage";
 import Link from "next/link";
 

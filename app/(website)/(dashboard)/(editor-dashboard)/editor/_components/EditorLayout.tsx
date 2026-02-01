@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Loading from "@/components/shared/Loading";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
 
 export default function EditorLayout({
   children,
@@ -12,18 +13,18 @@ export default function EditorLayout({
 }>) {
     const { user } = useUser();
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get('redirect');
+    const msg = searchParams.get('msg');
     const [loading, setLoading] = useState(true);
 
 
     useEffect(()=>{
-        if(user === "client"){
-            toast.error("Please switch to an editor account to access the editor dashboard.");
-            router.push('/client')
-        }else if(user === "editor"){
+        if(user === "editor"){
             setLoading(false);
         }else{
-            toast.error("Please login to access editor dashboard");
-            router.push('/login');
+            toast.error(`Please login ${msg || 'as editor to access editor dashboard'}`);
+            router.push('/login?redirect=' + (redirect || '/'));
         }
     },[])
 
