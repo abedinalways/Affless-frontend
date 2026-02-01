@@ -118,28 +118,11 @@ export default function MyProposal() {
         {/* FILTER BUTTONS */}
         <div className="flex gap-4 mb-6">
           <button
-            onClick={() => setStatusFilter("ALL")}
-            className={`w-[120px] py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "ALL" ? "shadow-md" : ""
-              }`}
-          >
-            All
-          </button>
-          <button
             onClick={() => setStatusFilter("Progress")}
             className={`w-[120px] py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "Progress" ? "shadow-md" : ""
               }`}
           >
             Accept
-          </button>
-
-          <button
-            onClick={() => setStatusFilter("Cancellation")}
-            className={`w-[120px] py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "Cancellation"
-                ? "shadow-md"
-                : ""
-              }`}
-          >
-            Decline
           </button>
         </div>
 
@@ -148,7 +131,7 @@ export default function MyProposal() {
           columns={[
             {
               accessorKey: "service",
-              header: "Service Title",
+              header: "Active Job Proposals Awaiting Client Acceptance",
               cell: ({ row }: any) => (
                 <div className="flex items-center gap-4 cursor-pointer">
                   {/* Thumbnail box */}
@@ -176,7 +159,7 @@ export default function MyProposal() {
             },
             {
               accessorKey: "time",
-              header: "Time",
+              header: "Days Awaiting Client Acceptance",
               cell: ({ row }: any) => <span>{row.original.time}</span>,
             },
             {

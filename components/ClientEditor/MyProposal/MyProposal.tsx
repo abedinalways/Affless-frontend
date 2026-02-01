@@ -10,7 +10,7 @@ interface ProposalRow {
   service: string;
   amount: string;
   time: string;
-  status: "ALL" | "Progress" | "Pending" | "Cancellation";
+  status: "accept" | "in_progress" | "pending";
   thumbnail: string;
 }
 
@@ -23,7 +23,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft quality backlinks.",
     amount: "$55",
     time: "5 Days",
-    status: "Progress",
+    status: "in_progress",
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks.",
     amount: "$55",
     time: "3 Days",
-    status: "Pending",
+    status: "pending",
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft backlinks.",
     amount: "$60",
     time: "5 Days",
-    status: "Pending",
+    status: "pending",
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks.",
     amount: "$70",
     time: "7 Days",
-    status: "Progress",
+    status: "in_progress",
   },
   {
     id: 5,
@@ -55,7 +55,7 @@ const Proposal: ProposalRow[] = [
     service: "I will craft backlinks.",
     amount: "$80",
     time: "5 Days",
-    status: "Progress",
+    status: "in_progress",
   },
   {
     id: 6,
@@ -63,7 +63,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks.",
     amount: "$55",
     time: "3 Days",
-    status: "Cancellation",
+    status: "accept",
   },
   {
     id: 7,
@@ -71,7 +71,7 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks.",
     amount: "$55",
     time: "3 Days",
-    status: "Pending",
+    status: "pending",
   },
   {
     id: 8,
@@ -79,15 +79,14 @@ const Proposal: ProposalRow[] = [
     service: "I will create backlinks.",
     amount: "$90",
     time: "7 Days",
-    status: "Pending",
+    status: "pending",
   },
 ];
 
 const statusBadgeClasses: Record<ProposalRow["status"], string> = {
-  ALL: "",
-  Progress: "bg-[#E8FFDA] text-[#52C41A]",
-  Pending: "bg-[#FFF7E8] text-[#FAAD14]",
-  Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
+  accept: "bg-[#E8FFDA] text-[#52C41A]",
+  in_progress: "bg-[#E3F2FF] text-[#1677FF]",
+  pending: "bg-[#FFF7E8] text-[#FAAD14]",
 };
 
 export default function MyProposal() {
@@ -118,48 +117,38 @@ export default function MyProposal() {
     <div className="containers py-8">
       {/* DESKTOP VIEW */}
       <div className="">
-        <h2 className="text-xl font-semibold mb-4">Job Proposals</h2>
+        <h2 className="text-xl font-semibold mb-4">My Job Proposals</h2>
 
         {/* FILTER BUTTONS */}
-        <div className="grid grid-cols-2 md:grid-cols-8 gap-4 mb-6">
+        <div className="flex gap-4 mb-6">
           <button
-            onClick={() => handleFilterClick("ALL")}
+            onClick={() => handleFilterClick("accept")}
             className={`
               w-[150px] py-2 rounded-lg text-center font-medium bg-white cursor-pointer
-              ${statusFilter === "ALL" ? "shadow-md" : ""}
+              ${statusFilter === "accept" ? "shadow-md" : ""}
             `}
           >
-            ALL
+            Accept
           </button>
 
           <button
-            onClick={() => handleFilterClick("Pending")}
+            onClick={() => handleFilterClick("pending")}
             className={`
               w-[150px] py-2 rounded-lg text-center font-medium bg-white cursor-pointer
-              ${statusFilter === "Pending" ? "shadow-md" : ""}
+              ${statusFilter === "pending" ? "shadow-md" : ""}
             `}
           >
             Pending
           </button>
 
           <button
-            onClick={() => handleFilterClick("Progress")}
+            onClick={() => handleFilterClick("in_progress")}
             className={`
               w-[150px] py-2 rounded-lg text-center font-medium bg-white cursor-pointer
-              ${statusFilter === "Progress" ? "shadow-md" : ""}
+              ${statusFilter === "in_progress" ? "shadow-md" : ""}
             `}
           >
             In Progress
-          </button>
-
-          <button
-            onClick={() => handleFilterClick("Cancellation")}
-            className={`
-              w-[150px] py-2 rounded-lg text-center font-medium bg-white cursor-pointer
-              ${statusFilter === "Cancellation" ? "shadow-md" : ""}
-            `}
-          >
-            Cancellation
           </button>
         </div>
 
@@ -168,7 +157,7 @@ export default function MyProposal() {
           columns={[
             {
               accessorKey: "service",
-              header: "Service",
+              header: "Job title",
               cell: ({ row }: any) => (
                 <div className="flex items-center gap-4">
                   <img
@@ -180,23 +169,37 @@ export default function MyProposal() {
                 </div>
               ),
             },
-            { accessorKey: "amount", header: "AMOUNT" },
-            { accessorKey: "time", header: "DELIVERY TIME" },
+            { accessorKey: "amount", header: "Amount",cell: ({row}: any)=>{
+              return(
+                <div className="text-center">
+                  {row.original.amount}
+                </div>
+              )
+            } },
+            { accessorKey: "time", header: "Delivery Time",cell: ({row}: any)=>{
+              return(
+                <div className="text-center">
+                  {row.original.time}
+                </div>
+              )
+            } },
             {
               accessorKey: "status",
-              header: "STATUS",
+              header: "Status",
               cell: ({ row }: any) => {
                 const status = row.original.status as ProposalRow["status"];
                 return (
-                  <span
-                    className={`
+                  <div className="flex justify-center">
+                    <span
+                      className={`
                       inline-block w-40 px-4 py-1 rounded-md
-                      text-[14px] font-medium text-center
+                      text-[14px] font-medium text-center capitalize
                       ${statusBadgeClasses[status]}
                     `}
-                  >
-                    {status}
-                  </span>
+                    >
+                      {status}
+                    </span>
+                  </div>
                 );
               },
             },
@@ -206,11 +209,11 @@ export default function MyProposal() {
           pageSize={PAGE_SIZE}
           total={total}
           onPageChange={setPage}
-         onRowClick={(row: any) => {
-  const id = row?.original?.id ?? row?.id;
-  if (!id) return;
-  router.push(`/editor/myproposal/${id}`);
-}}
+          onRowClick={(row: any) => {
+            const id = row?.original?.id ?? row?.id;
+            if (!id) return;
+            router.push(`/editor/myproposal/${id}`);
+          }}
 
 
         />

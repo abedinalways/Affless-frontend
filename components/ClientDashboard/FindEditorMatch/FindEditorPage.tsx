@@ -18,9 +18,9 @@ interface Editor {
   name: string;
   rating: number;
   reviews: number;
-  skills: number;
-  experience: string;
-  country: string;
+  jobsCompleted?: number;
+  avgResponseTime?: string;
+  clientsWorkedWith?: number;
   match: number;
   image: string;
 }
@@ -31,9 +31,9 @@ const editors: Editor[] = [
     name: "Jerome Bell",
     rating: 4.9,
     reviews: 338,
-    skills: 3,
-    experience: "2 Year+",
-    country: "Pakistan",
+    jobsCompleted: 128,
+    avgResponseTime: "15m",
+    clientsWorkedWith: 46,
     match: 84,
     image: "/images/Jerome.jpg",
   },
@@ -42,9 +42,9 @@ const editors: Editor[] = [
     name: "Courtney Henry",
     rating: 4.9,
     reviews: 338,
-    skills: 3,
-    experience: "2 Year+",
-    country: "Pakistan",
+    jobsCompleted: 94,
+    avgResponseTime: "05m",
+    clientsWorkedWith: 38,
     match: 75,
     image: "/images/Courtney.jpg",
   },
@@ -53,9 +53,9 @@ const editors: Editor[] = [
     name: "Annette Black",
     rating: 4.9,
     reviews: 338,
-    skills: 3,
-    experience: "2 Year+",
-    country: "Pakistan",
+    jobsCompleted: 57,
+    avgResponseTime: "40m",
+    clientsWorkedWith: 21,
     match: 27,
     image: "/images/Annette.jpg",
   },
@@ -64,9 +64,9 @@ const editors: Editor[] = [
     name: "Esther Howard",
     rating: 4.9,
     reviews: 338,
-    skills: 3,
-    experience: "2 Year+",
-    country: "Pakistan",
+    jobsCompleted: 112,
+    avgResponseTime: "45m",
+    clientsWorkedWith: 40,
     match: 75,
     image: "/images/Esther.jpg",
   },
@@ -75,9 +75,9 @@ const editors: Editor[] = [
     name: "Floyd Miles",
     rating: 4.9,
     reviews: 338,
-    skills: 3,
-    experience: "2 Year+",
-    country: "Pakistan",
+    jobsCompleted: 86,
+    avgResponseTime: "25m",
+    clientsWorkedWith: 33,
     match: 75,
     image: "/images/Floyd.jpg",
   },
@@ -114,11 +114,20 @@ export default function FindEditorsPage() {
           <div className="grid items-center justify-end ">
             <Link
               href="/client"
-              className="flex items-center gap-2 border px-5 py-1 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
+              className="flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
             >
               <FaArrowLeft />
               <span>Back to Dashboard</span>
             </Link>
+          </div>
+          <div className="">
+            <button
+              type="button"
+              onClick={handleReMatch}
+              className="w-full flex items-center justify-center gap-2 border px-5 py-3 rounded-md bg-[#ff4d4f] text-white border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fc373a] hover:text-white duration-300"
+            >
+              <span>Find Another Match</span>
+            </button>
           </div>
           {/* <div className="grid items-center justify-end lg:hidden">
             <button
@@ -171,9 +180,9 @@ export default function FindEditorsPage() {
                     <div className="flex justify-between">
                       <div>
                         <Link href={`/editor-profile/${editor.id}`}>
-                        <h2 className="text-[20px] md:text-[24px] font-medium text-[#333] pb-2.5">
-                          {editor.name}
-                        </h2>
+                          <h2 className="text-[20px] md:text-[24px] font-medium text-[#333] pb-2.5">
+                            {editor.name}
+                          </h2>
                         </Link>
                         <p className="text-[16px] font-normal text-[#333] flex items-center gap-1">
                           <TiStarFullOutline className="text-[#FAAD14]" />{" "}
@@ -198,20 +207,20 @@ export default function FindEditorsPage() {
 
                     <div className="flex gap-2 mt-2 text-xs text-gray-600 py-4 flex-wrap">
                       <span className="px-3 py-1 text-[14px] bg-[#F2F3F3] text-[#333] rounded-full">
-                        {editor.skills} Skill+
+                        ⭐ {editor.jobsCompleted} Jobs Completed
                       </span>
                       <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
-                        ⏳ {editor.experience}
+                        ⚡ {editor.avgResponseTime} Avg. Response Time
                       </span>
                       <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
-                        🌍 {editor.country}
+                        🤝 {editor.clientsWorkedWith} Clients Worked With
                       </span>
                     </div>
 
                     <div className="flex  gap-3 mt-3">
                       <div>
                         <Link href="/client/hire-vedio-editor" className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
-                            Hire Editor
+                          Hire Editor
                         </Link>
                       </div>
 
@@ -234,15 +243,6 @@ export default function FindEditorsPage() {
             totalPages={1}
           />
         </div> */}
-        <div className="pt-6">
-          <button
-            type="button"
-            onClick={handleReMatch}
-            className="w-full flex items-center justify-center gap-2 border px-5 py-3 rounded-md bg-[#ff4d4f] text-white border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fc373a] hover:text-white duration-300"
-          >
-            <span>Find Another Match</span>
-          </button>
-        </div>
       </div>
     </div>
   );

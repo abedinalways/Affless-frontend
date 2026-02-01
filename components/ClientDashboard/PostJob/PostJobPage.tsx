@@ -190,7 +190,7 @@ export default function PostJobForm() {
           title='Post a Job'
           bgImage='/findEditor.jpg'
           links={[
-            { label: redirectUrl === "/client"?"Dashboard": redirectUrl === "/client/manage-job"?"Manage Jobs":"Home", href: redirectUrl || "/" }, 
+            { label: redirectUrl === "/client"?"Dashboard": redirectUrl === "/client/manage-job"?"Manage Jobs": redirectUrl === "/getting-started"?"Getting Started":"Home", href: redirectUrl || "/" }, 
             { label: "Post a Job" }
           ]}
         />
