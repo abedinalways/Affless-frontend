@@ -76,8 +76,8 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">For Clients</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
-              <li><Link href="/client/post-job">Post a Job</Link></li>
-              <li><Link href="/client/find-editor">Find Editors</Link></li>
+              <li><Link href="/post-job?msg=as client to post a job">Post a Job</Link></li>
+              <li><Link href="/find-editor?msg=to find editors">Find Editors</Link></li>
               <li><Link href="/payment-protection">Payment Protection</Link></li>
               <li><Link href="/client-guide">Client Guide</Link></li>
               <li><Link href="/payment-rules">Payment Rules</Link></li>
@@ -89,8 +89,8 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">For Editors</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
-              <li><Link href="/editor/editor-profile">Create Profile</Link></li>
-              <li><Link href="/editor/browse-job">Browse Jobs</Link></li>
+              <li><Link href="/editor/editor-profile?msg=as editor to create profile">Create Profile</Link></li>
+              <li><Link href="/browse-job?msg=to browse jobs">Browse Jobs</Link></li>
               <li><Link href="/editor-resource">Editor Resources</Link></li>
             </ul>
           </div>

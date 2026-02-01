@@ -13,6 +13,7 @@ import { useUser } from "@/context/UserContext";
 import { EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { CookieHelper } from "@/helper/cookie.helper";
+import { useSearchParams } from "next/navigation";
 
 type FormValues = {
   email: string;
@@ -26,7 +27,8 @@ export default function SignInForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect');
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -67,14 +69,22 @@ export default function SignInForm() {
     }, 2000);
   };
 
+  const handleBack =()=>{
+    if(redirect){
+      router.push(redirect);
+    }else[
+      router.push('/')
+    ]
+  }
+
   return (
     <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
       {/* <Toaster position="top-right" /> */}
       <div className="ml-2">
-        <Link href="/" className="pb-3 ">  <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
+        <button onClick={handleBack} className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
           <FaArrowLeft className="mt-1" />
           Back
-        </button></Link>
+        </button>
       </div>
       <div
         className="

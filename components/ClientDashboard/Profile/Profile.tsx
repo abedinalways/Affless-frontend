@@ -82,7 +82,7 @@ export default function ProfilePage() {
             <p className="text-gray-600 flex gap-2.5"><FiCalendar /> Member since Jan 2023</p>
 
             <Link
-              href="/client/post-job"
+              href="/post-job"
               className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
             >
               + Post New Job
