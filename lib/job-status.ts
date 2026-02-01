@@ -29,6 +29,11 @@ export const JOB_STATUS_DEFINITIONS = {
     colorClass: "bg-[#991B1B] text-white",
     description: "Work is past the deadline",
   },
+  pending:{
+    label: "Pending",
+    colorClass: "bg-[#F59E0B] text-white",
+    description: "Job is pending",
+  }
 } as const;
 
 export type JobStatus = keyof typeof JOB_STATUS_DEFINITIONS;

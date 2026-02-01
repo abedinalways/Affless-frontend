@@ -1,10 +1,9 @@
-import QuickMatchResultPage from '@/components/ClientEditor/QuickMatchResult/QuickMatchResultPage'
-import React from 'react'
+import QuickMatchResult from "@/components/ClientEditor/QuickMatchResult/QuickMatchResultPage"
 
-export default function QuickMatchResult() {
-  return (
-    <div>
-     <QuickMatchResultPage/>   
-    </div>
-  )
+export default function page(){
+    return(
+        <div>
+            <QuickMatchResult />
+        </div>
+    )
 }

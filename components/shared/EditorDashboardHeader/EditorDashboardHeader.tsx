@@ -153,14 +153,6 @@ export default function EditorDashboardHeader() {
 
                     {open && (
                       <div className="absolute left-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
-                        <Link
-                          href="/editor/hire-request"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/hire-request") ? activeCls : inactiveCls
-                            }`}
-                          onClick={closeDesktopJobDropdown}
-                        >
-                          My Jobs
-                        </Link>
 
                         <Link
                           href="/editor/myproposal"
@@ -168,7 +160,15 @@ export default function EditorDashboardHeader() {
                             }`}
                           onClick={closeDesktopJobDropdown}
                         >
-                          My Proposals
+                          My Job Proposals
+                        </Link>
+                        <Link
+                          href="/editor/hire-request"
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/hire-request") ? activeCls : inactiveCls
+                            }`}
+                          onClick={closeDesktopJobDropdown}
+                        >
+                          Hire Request
                         </Link>
 
                         <Link
@@ -352,22 +352,22 @@ export default function EditorDashboardHeader() {
                 <ul className="mt-2 ml-3 text-base">
                   <li>
                     <Link
-                      href="/editor/hire-request"
-                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/hire-request") ? activeCls : inactiveCls
-                        }`}
-                      onClick={() => setMobileMenu(false)}
-                    >
-                      My Jobs
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       href="/editor/myproposal"
                       className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/myproposal") ? activeCls : inactiveCls
                         }`}
                       onClick={() => setMobileMenu(false)}
                     >
-                      My Proposals
+                      My Job Proposals
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/editor/hire-request"
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/editor/hire-request") ? activeCls : inactiveCls
+                        }`}
+                      onClick={() => setMobileMenu(false)}
+                    >
+                      Hire Request
                     </Link>
                   </li>
                   <li>

@@ -11,14 +11,17 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa6";
+import Popup from "@/components/shared/Popup";
 
 
 export default function page() {
     const searchParams = useSearchParams();
     const conversationIdFromUrl = searchParams.get("id") || "";
     const returnTo = searchParams.get("return") || "";
+    const requesting = searchParams.get("requestjob") || "";
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+    const [isPopupOpen, setIsPopupOpen] = useState(requesting === "true" ? true : false);
     const router = useRouter();
 
     const conversationDirectory = [
@@ -182,6 +185,16 @@ export default function page() {
                 userName={activeConversation?.name || "User"}
                 userId={activeConversation?.profileId || selectedConversationId}
                 onReportSubmit={handleReportUser}
+            />
+            {/* Popup */}
+            <Popup
+                isOpen={isPopupOpen}
+                description="Jerome Bell is requesting a job from John Designer...."
+                timeout={3000}
+                onClose={()=>{
+                    setIsPopupOpen(false);
+                    toast.success('Request sent to John Designer!');
+                }}
             />
         </div>
     )

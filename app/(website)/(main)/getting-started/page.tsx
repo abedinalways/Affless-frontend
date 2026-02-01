@@ -15,7 +15,7 @@ export default function GettingStartedPage() {
 
   const handleClientCTA = () => {
     if (user === "client") {
-      router.push("/client/post-job");
+      router.push("/client/post-job?redirect=/getting-started");
     } else if (user === "editor") {
       toast.error("Only clients can post jobs.");
       router.push("/editor");

@@ -19,7 +19,7 @@ export default function ClientLayout({
         if(user === "client"){
             setLoading(false);
         }else if(user === "editor"){
-            toast.error("Switch to client account to access this page");
+            toast.error("Please switch to a client account to access the client dashboard.");
             router.push('/editor');
         }else{
             toast.error("You must be logged in to access this page");

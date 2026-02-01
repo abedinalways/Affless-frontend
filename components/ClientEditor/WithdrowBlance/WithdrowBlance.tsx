@@ -1,8 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import toast,{Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export default function WithdrawBalance() {
   const transferTo = "Payoneer Account";
@@ -10,13 +17,13 @@ export default function WithdrawBalance() {
   const amount = 150;
 
   const handleCancel = () => {
-
+    router.back();
     console.log("Cancel clicked");
   };
 
   const handleConfirm = () => {
     console.log("Confirm withdraw", { transferTo, amount });
-    toast.success("Withdraw confirmed! (check console)");
+    toast.success("Withdrawal request submitted.");
     setTimeout(() => {
       router.push('/editor');
     }, 1000);
@@ -31,34 +38,31 @@ export default function WithdrawBalance() {
             Withdraw Balance
           </h1>
           <p className="text-center text-gray-500 mt-2">
-            Review Your withdrawal details.
+            Review your withdrawal details.
           </p>
 
           {/* Details Box */}
           <div className="mt-10 space-y-4">
             {/* Transfer To */}
-            <div className="flex items-center justify-between rounded-xl border px-6 py-4">
-              <p className="font-medium text-gray-700">Transfer to</p>
-
-              <div className="flex items-center gap-3">
-
-                <div className="h-6 w-6 relative">
-                  <Image
-                    src="/images/paynear.webp"
-                    alt="payoneer"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-
-                <p className="font-medium text-gray-800">{transferTo}</p>
-              </div>
+            <div className="space-y-1">
+              <label className="block font-medium text-gray-700">Transfer to</label>
+              <Select
+                value={transferTo}
+              >
+                <SelectTrigger className="w-full rounded-xl border px-6 py-7">
+                  <SelectValue placeholder="Select a transfer method" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={transferTo}>{transferTo}</SelectItem>
+                  <SelectItem value="More methods coming soon" >More methods coming soon...</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Amount */}
-            <div className="flex items-center justify-between rounded-xl border px-6 py-4">
-              <p className="font-medium text-gray-700">Amount</p>
-              <p className="font-semibold text-gray-900">${amount}</p>
+            <div className="space-y-1">
+              <label htmlFor="amount" className="block font-medium text-gray-700">Amount</label>
+              <input type="text" id="amount" className="w-full font-semibold text-gray-900 rounded-xl border px-6 py-4" value={`$${amount}`} readOnly />
             </div>
           </div>
 
@@ -80,7 +84,7 @@ export default function WithdrawBalance() {
               onClick={handleConfirm}
               className="px-10 py-3 rounded-xl bg-red-500 text-white font-semibold cursor-pointer w-full"
             >
-              Confirm and withdraw
+              Confirm and Withdraw
             </button>
           </div>
         </div>

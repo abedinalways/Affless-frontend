@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaSitemap } from "react-icons/fa";
 import React, { useState, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 
 export const data = [
   {
@@ -116,8 +117,9 @@ export const data = [
 const PAGE_SIZE = 4;
 
 export default function BrowseJob() {
+  const searchParams = useSearchParams();
   const [page, setPage] = useState(1);
-
+  const redirectUrl = searchParams.get('redirect') || '/';
   // Mobile filter states
   const [category, setCategory] = useState("");
   const [platform, setPlatform] = useState("");
@@ -149,7 +151,7 @@ export default function BrowseJob() {
         title="Browse Jobs"
         bgImage="/findEditor.jpg"
         desc=" Find the best client jobs based on job type, budget, and project duration."
-        links={[{ label: "Home", href: "/" }, { label: "Browse Jobs" }]}
+        links={[{ label: redirectUrl === "/editor"?"Dashboard":"Home", href: redirectUrl || "/" }, { label: "Browse Jobs" }]}
       />
 
       <div className="containers lg:py-20 ">

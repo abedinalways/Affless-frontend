@@ -17,7 +17,7 @@ export default function EditorLayout({
 
     useEffect(()=>{
         if(user === "client"){
-            toast.error("Switch to editor account to access editor dashboard");
+            toast.error("Please switch to an editor account to access the editor dashboard.");
             router.push('/client')
         }else if(user === "editor"){
             setLoading(false);
