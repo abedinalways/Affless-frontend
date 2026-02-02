@@ -10,7 +10,7 @@ import { IoClose } from "react-icons/io5";
    JSON DATA
 -----------------------------------------*/
 export const jobCategories = [
-  { label: "Long-Form Video", count: "54" },
+  { label: "Long-Form YouTube", count: "54" },
   { label: "Shorts/Reels/TikToks", count: "9+" },
   { label: "Thumbnails", count: "36+" },
   { label: "Ads/UGC", count: "28+" },

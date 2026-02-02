@@ -4,7 +4,6 @@ import PayoutSettingsModal from "@/components/reusable/PaymentSettingModal";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
 
 // ---------- Job row type ----------
 type JobRow = {
@@ -13,17 +12,18 @@ type JobRow = {
   price: string;
   days: string;
   status: "Withdrawal Request" | "Pending" | "Cancel";
+  tooltip: string;
 };
 
 // ---------- Dummy data ----------
 const jobs: JobRow[] = [
-  { id: 1, title: "I will craft quality backlinks for your website's SEO.", price: "$55", days: "5 Days", status: "Withdrawal Request" },
-  { id: 2, title: "I will craft quality backlinks for your website's SEO.", price: "$55", days: "5 Days", status: "Pending" },
-  { id: 3, title: "I will craft quality backlinks for your website's SEO.", price: "$55", days: "5 Days", status: "Cancel" },
-  { id: 4, title: "I will craft quality backlinks for your website's SEO.", price: "$55", days: "5 Days", status: "Withdrawal Request" },
-  { id: 5, title: "I will craft quality backlinks for your website's SEO.", price: "$55", days: "5 Days", status: "Withdrawal Request" },
-  { id: 6, title: "I will craft quality backlinks for your website's SEO.", price: "$55", days: "5 Days", status: "Pending" },
-  { id: 7, title: "I will craft quality backlinks for your website's SEO.", price: "$55", days: "5 Days", status: "Cancel" },
+  { id: 1, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5 Days", status: "Withdrawal Request", tooltip: "You have requested a payout. Processing is in progress." },
+  { id: 2, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5 Days", status: "Pending", tooltip: "Funds are being processed and will be available soon." },
+  { id: 3, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5 Days", status: "Cancel", tooltip: "This payout was cancelled and will not be processed." },
+  { id: 4, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5 Days", status: "Withdrawal Request", tooltip: "You have requested a payout. Processing is in progress." },
+  { id: 5, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5 Days", status: "Withdrawal Request", tooltip: "You have requested a payout. Processing is in progress." },
+  { id: 6, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5 Days", status: "Pending", tooltip: "Funds are being processed and will be available soon." },
+  { id: 7, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5 Days", status: "Cancel", tooltip: "This payout was cancelled and will not be processed." },
 ];
 
 export default function Earnings() {
@@ -31,7 +31,6 @@ export default function Earnings() {
 
   return (
     <div className="containers py-10">
-      {/* <Toaster position="top-right"/> */}
       <h1 className="text-3xl font-semibold mb-6">Earnings</h1>
 
       {/* ------- Top Section ------- */}
@@ -55,10 +54,10 @@ export default function Earnings() {
 
         <div className="p-6 bg-white rounded-xl shadow border">
           <h2 className="text-xl font-semibold mb-4">Future payments</h2>
-          <p className="text-gray-600 text-sm">Payments being cleared</p>
+          <p className="text-gray-600 text-sm">Payments Being Cleared</p>
           <p className="text-3xl font-bold mb-4">$54.00</p>
           <hr className="my-4" />
-          <p className="text-gray-600 text-sm">Payments for active orders</p>
+          <p className="text-gray-600 text-sm">Payments for Active Orders</p>
           <p className="text-2xl font-bold">US$0.00</p>
         </div>
       </div>
@@ -96,6 +95,7 @@ export default function Earnings() {
                   <td className="p-4">
                     <span
                       className={`px-5 w-[200px] text-center py-1 rounded-lg text-[15px] font-normal block ${statusColor}`}
+                      title={job.tooltip}
                     >
                       {job.status}
                     </span>

@@ -44,6 +44,9 @@ export default function ProfilePage() {
     country: "Pakistan",
     languages: "English, German, Spanish, French",
     avatar: "/images/sarah.png",
+    avgResponseTime: "1 hour",
+    jobsCompleted: 120,
+    clientsWorked: 75,
   });
 
   const [about, setAbout] = useState(

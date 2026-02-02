@@ -107,7 +107,7 @@ export default function page() {
                 </button>
             )}
             <div className="grid grid-cols-1 gap-6 relative overflow-hidden">
-                <div className="flex flex-wrap lg:grid lg:grid-cols-[auto_1fr_auto] gap-3 xm:gap-6 w-full h-full overflow-y-auto">
+                <div className="flex flex-wrap lg:grid lg:grid-cols-[auto_1fr_auto] gap-3 xm:gap-6 w-full h-full overflow-y-auto relative">
                     <div className={`p-2 sm:p-4 bg-white w-fit h-full rounded-lg overflow-y-auto xl:w-full`} style={{ height: 'calc(100vh - 100px)' }}>
                         <Sidebar
                             selectedConversationId={selectedConversationId}
@@ -156,11 +156,19 @@ export default function page() {
                                 <button
                                     type="button"
                                     onClick={() => toast.success('Request sent to John Designer!')}
-                                    className="w-full px-4 py-2 rounded-full bg-[#e74c4c] text-white text-xs sm:text-sm font-medium shadow-lg hover:bg-[#c23b3b] transition-colors animate-floating cursor-pointer"
+                                    className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                                 >
-                                    Request a job from John Designer
+                                    Request a job from {activeConversation?.name || "User"}
                                 </button>
                             )}
+
+                            <button
+                                type="button"
+                                onClick={() => router.push(`/browse-job?client=${activeConversation?.name || ""}`)}
+                                className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
+                            >
+                                View All Client’s Jobs
+                            </button>
                             <button
                                 type="button"
                                 onClick={() => setIsReportModalOpen(true)}
@@ -191,7 +199,7 @@ export default function page() {
                 isOpen={isPopupOpen}
                 description="Jerome Bell is requesting a job from John Designer...."
                 timeout={3000}
-                onClose={()=>{
+                onClose={() => {
                     setIsPopupOpen(false);
                     toast.success('Request sent to John Designer!');
                 }}

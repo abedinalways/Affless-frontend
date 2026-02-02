@@ -331,7 +331,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
               status="Pending"
               timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
               orderBy="Bessie"
-              deliveryDate="NOV 6"
+              deliveryDate="November 6, 2026"
               totalPrice={743}
               orderNumber="#123"
               onDeliverNow={() => router.push("/editor/delivery")} // ✅ link

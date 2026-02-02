@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { GoArrowLeft } from "react-icons/go";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useState } from "react";
 
 type FormValues = {
@@ -38,7 +38,6 @@ export default function ForgotPasswordForm() {
       lg:px-[100px] 
       xl:px-[150px]
       2xl:px-[300px] h-full grid items-center">
-      {/* <Toaster position="top-right"/> */}
       <div
         className="
         grid grid-cols-1 md:grid-cols-2 

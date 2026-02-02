@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 type FormValues = {
@@ -59,7 +59,6 @@ export default function OtpForm() {
 
   return (
     <div className="px-4 sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px] grid items-center">
-      {/* <Toaster position="top-right"/> */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-[100px] gap-8">
         <div className="flex items-center justify-center bg-white rounded-2xl h-full">
           <Image

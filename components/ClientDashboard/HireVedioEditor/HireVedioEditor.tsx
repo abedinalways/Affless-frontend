@@ -10,7 +10,7 @@ import SinglePaymentIcon from "@/components/Icons/SinglePaymentIcon";
 import MilestoneIcon from "@/components/Icons/MilestoneIcon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import PdfIcon from "@/components/Icons/PdfIcon";
 
@@ -181,7 +181,6 @@ export default function HireVideoEditorForm() {
 
   return (
     <div>
-      {/* <Toaster position="top-right"/> */}
       <div>
         <PageBanner
           title='Hire a Video Editor'

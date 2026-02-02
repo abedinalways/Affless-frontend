@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { FaStar } from "react-icons/fa6";
 import { MdOutlineFileUpload } from "react-icons/md";
-import toast,{Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 import { FaStarHalfAlt } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -116,7 +116,7 @@ export default function ReviewClient() {
 
   return (
     <form onSubmit={formSubmit(onSubmit)} className="containers py-8 space-y-6">
-      {/* <Toaster position="top-right" /> */}
+      {/* < position="top-right" /> */}
       {/* TOP SELLER CARD */}
       <div className="bg-white rounded-2xl border p-5 flex items-center gap-4">
         <Image

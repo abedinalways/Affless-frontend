@@ -11,7 +11,6 @@ import { DataTable } from "@/components/reusable/DataTable";
 
 type OrderStatus = "pending" | "in_progress" | "delivered" | "completed" | "cancelled";
 type FilterType = "Biding jobs" | "Offer jobs";
-import { Toaster } from "react-hot-toast";
 import LockIcon from "@/components/Icons/LockIcon";
 import { IoArrowForwardSharp } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
@@ -119,7 +118,6 @@ export default function ClientDashboard() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
-      {/* <Toaster position="top-right"/> */}
       <div className="mx-auto containers space-y-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* LEFT */}

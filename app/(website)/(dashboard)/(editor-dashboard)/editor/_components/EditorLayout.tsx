@@ -22,8 +22,11 @@ export default function EditorLayout({
     useEffect(()=>{
         if(user === "editor"){
             setLoading(false);
+        }else if(user === "client"){
+            toast.error(`Please switch to an Editor account ${msg || 'to access editor dashboard'}`);
+            router.push('/client');
         }else{
-            toast.error(`Please login ${msg || 'as editor to access editor dashboard'}`);
+            toast.error(`Please login as editor ${msg || 'to access editor dashboard'}`);
             router.push('/login?redirect=' + (redirect || '/'));
         }
     },[])

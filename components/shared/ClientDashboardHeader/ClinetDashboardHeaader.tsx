@@ -225,15 +225,9 @@ export default function ClientDashboardHeader() {
             </Link>
 
             <div className="relative group">
-              <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
+              <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer group-hover:text-[#FF4D4F]" />
               <div
-                className="
-      absolute right-0 mt-3 w-[412px]
-      rounded-xl border bg-white shadow-lg
-      opacity-0 invisible translate-y-2
-      group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
-      transition-all duration-200 z-50
-    "
+                className={`absolute right-0 mt-3 w-[412px] rounded-xl border bg-white shadow-lg opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50`}
               >
                 <Notification />
               </div>
@@ -241,7 +235,7 @@ export default function ClientDashboardHeader() {
 
             <Link href="/client/message">
               <MdMailOutline
-                className={`w-7 h-7 cursor-pointer ${isActive("/client/message") ? "text-[#FF4D4F]" : "text-[#333]"
+                className={`w-7 h-7 cursor-pointer ${isActive("/client/message") ? "text-[#FF4D4F]" : "text-[#333] hover:text-[#FF4D4F] transition-colors duration-300"
                   }`}
               />
             </Link>
@@ -250,7 +244,7 @@ export default function ClientDashboardHeader() {
             <div className="relative" ref={profileDropdownRef}>
               <button
                 onClick={() => setProfileDropdown(!profileDropdown)}
-                className="flex cursor-pointer"
+                className={`flex cursor-pointer border-2 rounded-full ${isActive("/client/profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}
               >
                 <Image
                   src="/images/profile.png"

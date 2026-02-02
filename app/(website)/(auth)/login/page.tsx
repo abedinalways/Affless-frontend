@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { RxRotateCounterClockwise } from "react-icons/rx";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
 import { EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
@@ -79,7 +79,6 @@ export default function SignInForm() {
 
   return (
     <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
-      {/* <Toaster position="top-right" /> */}
       <div className="ml-2">
         <button onClick={handleBack} className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
           <FaArrowLeft className="mt-1" />

@@ -1,10 +1,13 @@
+'use client'
 
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
+import { useUser } from "@/context/UserContext";
 
 export default function Footer() {
+  const { user } = useUser();
   return (
     <footer className="bg-[#0F1623] text-white pt-16 pb-10 mt-10">
       <div className="containers overflow-hidden ">
@@ -76,7 +79,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">For Clients</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
-              <li><Link href="/post-job?msg=as client to post a job">Post a Job</Link></li>
+              <li><Link href="/post-job?msg=to post a job">Post a Job</Link></li>
               <li><Link href="/find-editor?msg=to find editors">Find Editors</Link></li>
               <li><Link href="/payment-protection">Payment Protection</Link></li>
               <li><Link href="/client-guide">Client Guide</Link></li>
@@ -89,7 +92,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">For Editors</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
-              <li><Link href="/editor/editor-profile?msg=as editor to create profile">Create Profile</Link></li>
+              <li><Link href={`/editor/editor-profile?msg=${user?"to create profile":"as editor to create profile"}`}>Create Profile</Link></li>
               <li><Link href="/browse-job?msg=to browse jobs">Browse Jobs</Link></li>
               <li><Link href="/editor-resource">Editor Resources</Link></li>
             </ul>

@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { EditorAvailabilityService } from "@/usersService/editor-availability.service";
 
 interface SetAvailabilityModalProps {
@@ -94,7 +94,6 @@ export default function SetAvailabilityModal({
 
   return (
     <>
-      <Toaster position="top-right" />
       <Dialog open={open} onOpenChange={onClose}>
         <DialogContent className="max-w-md rounded-2xl bg-white p-6">
           <DialogHeader>

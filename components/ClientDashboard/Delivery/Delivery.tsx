@@ -12,7 +12,7 @@ import {
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import RequestRevisionModal from "./RequestModal";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { ALL_JOBS, JobRow } from "../ManageJob/ManageJob";
 import Loading from "@/components/shared/Loading";
 import { useSearchParams } from "next/navigation";
@@ -64,7 +64,6 @@ export default function DeliveryClient() {
 
   return (
     <div className="">
-      {/* <Toaster position="top-right"/> */}
       <div>
         <PageBanner
           title="Job Delivery"
