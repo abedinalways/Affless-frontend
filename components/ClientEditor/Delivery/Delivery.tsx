@@ -7,7 +7,9 @@ import JobDetailsCard from "@/components/reusable/JobDetails";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { GoDeviceCameraVideo, GoImage } from "react-icons/go";
 import { CheckCircle } from "lucide-react";
-import toast,{Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa6";
 
 type UploadKey = "video" | "audio" | "thumb1" | "thumb2";
 
@@ -19,41 +21,26 @@ const uploadItems: {
   bg: string;
   iconColor: string;
 }[] = [
-  {
-    key: "video",
-    icon: GoDeviceCameraVideo,
-    label: "Upload video",
-    accept: "video/*",
-    bg:"#F5E8FF" ,
-    iconColor: "#A855F7",
-  },
-  {
-    key: "audio",
-    icon: GoImage,
-    label: "Upload audio",
-    accept: "audio/*",
-    bg:"#E6F7EC" ,
-    iconColor: "#22C55E",
-  },
-  {
-    key: "thumb1",
-    icon: GoImage,
-    label: "Upload thumbnail",
-    accept: "image/*",
-    bg: "#FFF9EE",
-    iconColor: "#F59E0B",
-  },
-  {
-    key: "thumb2",
-    icon: GoImage,
-    label: "Upload thumbnail",
-    accept: "image/*",
-    bg: "#FFF9EE",
-    iconColor: "#F59E0B",
-  },
-];
+    {
+      key: "video",
+      icon: GoDeviceCameraVideo,
+      label: "Upload video",
+      accept: "video/*",
+      bg: "#F5E8FF",
+      iconColor: "#A855F7",
+    },
+    {
+      key: "thumb1",
+      icon: GoImage,
+      label: "Upload thumbnail",
+      accept: "image/*",
+      bg: "#FFF9EE",
+      iconColor: "#F59E0B",
+    },
+  ];
 
 export default function DeliveryMessage() {
+  const router = useRouter();
   const [files, setFiles] = useState<Record<UploadKey, File | null>>({
     video: null,
     audio: null,
@@ -67,25 +54,36 @@ export default function DeliveryMessage() {
 
   const handleDeliver = () => {
     console.log(files);
-    toast.success("Your work is in delivery process!");
+    if (files.video === null && files.audio === null && files.thumb1 === null && files.thumb2 === null) {
+      toast("Please upload at least one of the files.", {
+        icon: "⚠️"
+      });
+      return;
+    }
+    toast.success("Your work has been successfully delivered to the client.");
+    setTimeout(() => {
+      router.back();
+    }, 1000);
   };
 
   return (
     <div className="">
-      {/* <Toaster position="top-right"/> */}
       <PageBanner
         title="Delivery"
         bgImage="/findEditor.jpg"
-        links={[{ label: "Home", href: "/" },
-        { label: "Active order", },
-        { label: "Delivery" }]}
+        links={[
+          // { label: "Home", href: "/" },
+          { label: "I will craft quality backlinks for your website's SEO", href: "/editor/myproposal/1" },
+          { label: "Delivery" }]}
       />
 
       <div className="containers">
+        <button type="button" onClick={() => router.back()} className="bg-red-500 text-white px-4 py-1 mt-4 rounded-lg flex items-center gap-1 cursor-pointer"> <FaArrowLeft />
+          Back</button>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10 ">
           <div className="w-full max-w-3xl bg-white rounded-2xl p-6">
-            <h1 className="text-2xl font-semibold">Delivery Message</h1>
-            <p className="text-sm font-medium mt-6 mb-3">Upload Final Files</p>
+            <h1 className="text-2xl font-semibold">Deliver Your Work</h1>
+            <p className="text-sm font-medium mt-6 mb-3">Upload Deliverables</p>
 
             <div className="space-y-4">
               {uploadItems.map(({ key, icon: Icon, label, accept, bg, iconColor }) => (
@@ -149,10 +147,10 @@ export default function DeliveryMessage() {
             <JobDetailsCard
               title="I will craft quality backlinks for your website's SEO."
               image="/images/vedio.png.jpg"
-              status="Progress"
+              status="in_progress"
               timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
               orderBy="Bessie"
-              deliveryDate="NOV 6"
+              deliveryDate="November 6, 2026"
               totalPrice={743}
               orderNumber="#123"
               onMessage={() => console.log("Message clicked")}

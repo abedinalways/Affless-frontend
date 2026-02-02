@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { CookieHelper } from "@/helper/cookie.helper";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
 
 export default function Banner() {
@@ -37,20 +37,11 @@ export default function Banner() {
     try {
       const token = JSON.parse(CookieHelper.get({ key: 'user' }))
       if (token.status === 'logged_in') {
-        if (token.user_type === 'client') {
-          CookieHelper.set({key : "user", value: JSON.stringify({
-            status: 'logged_in',
-            user_type: 'editor'
-          })})
-          setUser("editor");
+        if (token.user_type === 'editor') {
+          toast.success('You’re already an Editor. To post jobs, log out and log in as a Client.');
           router.push("/editor");
         } else {
-          CookieHelper.set({key : "user", value: JSON.stringify({
-            status: 'logged_in',
-            user_type: 'client'
-          })})
-          router.push("/client");
-          setUser("client");
+          toast.error('To become an Editor, log out and log in as a Editor.');
         }
       } else {
         toast.error(`Please login first to become ${userType === 'editor' ? 'a client' : 'an editor'}`);
@@ -77,7 +68,6 @@ export default function Banner() {
 
   return (
     <div className="">
-      {/* <Toaster position="top-right" /> */}
       {/* Banner Wrapper */}
       <div className="relative overflow-hidden">
         {/* Background Image */}
@@ -131,7 +121,7 @@ export default function Banner() {
                   onClick={handleBecomeEditorClick}
                   className="text-white px-3 md:px-6.5 py-4.5 md:py-4 rounded-xl font-poppins text-base sm:text-lg border border-[#FF4D4F] cursor-pointer"
                 >
-                  Become {userType === 'client' ? 'an Editor' : 'a Client'}
+                  Become an Editor
                 </button>
               </div>
             </div>

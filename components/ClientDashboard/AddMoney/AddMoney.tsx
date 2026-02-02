@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import { Calendar, Plus } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 type Step = "BALANCE" | "ADD_MONEY" | "PAYMENT";
 
@@ -33,7 +33,6 @@ export default function AddMoney() {
 
   return (
     <div className=" bg-[#F8F8F8] py-10">
-      {/* <Toaster position="top-right"/> */}
       <div className="mx-auto w-full max-w-[860px] space-y-8 px-4">
 
         {/* STEP: BALANCE */}

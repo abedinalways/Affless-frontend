@@ -5,7 +5,7 @@ import DebitCardIcon from "@/components/Icons/DebitCard";
 import PaypalSvg from "@/components/Icons/PaypalIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
@@ -33,7 +33,6 @@ export default function ConfirmDepositPage() {
 
   return (
     <div className=''>
-      {/* <Toaster position="top-right" /> */}
       <div>
         <PageBanner
           title='Confirm Deposit'

@@ -10,7 +10,7 @@ import SinglePaymentIcon from "@/components/Icons/SinglePaymentIcon";
 import MilestoneIcon from "@/components/Icons/MilestoneIcon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast,{Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 
 type FormValues = {
@@ -184,7 +184,6 @@ export default function PostJobForm() {
 
   return (
     <div>
-      {/* <Toaster position="top-right"/> */}
       <div>
         <PageBanner
           title='Post a Job'

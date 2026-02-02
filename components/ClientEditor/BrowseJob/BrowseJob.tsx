@@ -33,7 +33,7 @@ export const data = [
     title:
       "I will do SEO backlinks with blogger outreach for high quality link building",
     profileImage: "/images/profile.png",
-    name: "Kristin Watson",
+    name: "John Designer",
     review: "4.9(338)",
     link: "Link Building",
     profesion: "Professional",
@@ -50,7 +50,7 @@ export const data = [
     title:
       "I will do SEO backlinks with blogger outreach for high quality link building",
     profileImage: "/images/profile.png",
-    name: "Jacob Jones",
+    name: "Sarah Editor",
     review: "4.9(338)",
     link: "Link Building",
     profesion: "Professional",
@@ -67,7 +67,7 @@ export const data = [
     title:
       "I will do SEO backlinks with blogger outreach for high quality link building",
     profileImage: "/images/profile.png",
-    name: "Kristin Watson",
+    name: "John Designer",
     review: "4.9(338)",
     link: "Link Building",
     profesion: "Professional",
@@ -84,7 +84,7 @@ export const data = [
     title:
       "I will do SEO backlinks with blogger outreach for high quality link building",
     profileImage: "/images/profile.png",
-    name: "Guy Hawkins",
+    name: "Emma Video",
     review: "4.9(338)",
     link: "Link Building",
     profesion: "Professional",
@@ -101,7 +101,7 @@ export const data = [
     title:
       "I will do SEO backlinks with blogger outreach for high quality link building",
     profileImage: "/images/profile.png",
-    name: "Guy Hawkins",
+    name: "Emma Video",
     review: "4.9(338)",
     link: "Link Building",
     profesion: "Professional",
@@ -120,6 +120,7 @@ export default function BrowseJob() {
   const searchParams = useSearchParams();
   const [page, setPage] = useState(1);
   const redirectUrl = searchParams.get('redirect') || '/';
+  const client = searchParams.get('client') || "";
   // Mobile filter states
   const [category, setCategory] = useState("");
   const [platform, setPlatform] = useState("");
@@ -134,10 +135,11 @@ export default function BrowseJob() {
         (category ? item.category === category : true) &&
         (platform ? item.platform === platform : true) &&
         (deliveryTime ? item.deliveryTime === deliveryTime : true) &&
-        (budget ? item.budget === budget : true)
+        (budget ? item.budget === budget : true) &&
+        (client ? item.name === client : true)
       );
     });
-  }, [category, platform, deliveryTime, budget]);
+  }, [category, platform, deliveryTime, budget, client]);
 
   // Pagination Logic
   const paginatedData = useMemo(() => {
@@ -187,7 +189,7 @@ export default function BrowseJob() {
               {paginatedData.map((item) => (
                 <div className="bg-white p-4 lg:p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link key={item.id} href={`/browse-job/${item.id}`}>
+                    <Link key={item.id} href={`/browse-job/${item.id}?redirect=${redirectUrl}`}>
                       <Image
                         src={item.img}
                         alt="editor"
@@ -230,13 +232,19 @@ export default function BrowseJob() {
                   <div>Delivery: {item.deliveryTime}</div>
                 </div>
               ))}
+
+              {paginatedData.length === 0 && (
+                <div className="col-span-full text-center py-10 font-medium text-gray-400">
+                  No jobs found matching the selected filters.
+                </div>
+              )}
             </div>
 
             <div className="mt-10">
               <Pagination
                 page={page}
                 pageSize={PAGE_SIZE}
-                total={filteredData.length}
+                total={paginatedData.length}
                 onPageChange={(p) => setPage(p)}
                 totalPages={1}
               />

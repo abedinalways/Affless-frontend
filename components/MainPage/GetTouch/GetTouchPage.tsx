@@ -5,7 +5,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { MapPin, Phone, Mail, User, ChevronDown } from "lucide-react";
 import PageBanner from "@/components/reusable/Bgbanner";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 type ContactFormValues = {
   name: string;
@@ -35,7 +35,6 @@ export default function GetTouchPage() {
 
   return (
     <div>
-      {/* <Toaster position="top-right"/> */}
       <div>
         <PageBanner
           title='Contact us

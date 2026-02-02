@@ -27,7 +27,9 @@ export default function EditorDashboardHeader() {
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const profileDropdownRef = useRef<HTMLDivElement | null>(null);
+  const notificationRef = useRef<HTMLDivElement | null>(null);
   const closeDesktopJobDropdown = () => setOpen(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const closeMobileAll = () => {
     setMobileDropdown(false);
@@ -49,6 +51,7 @@ export default function EditorDashboardHeader() {
     "/editor/browse-job",
     "/editor/editor-profile",
     "/editor/earning",
+    "/editor/delivery",
   ];
 
   const jobActive = jobRoutes.some((r) => isActive(r));
@@ -61,6 +64,9 @@ export default function EditorDashboardHeader() {
       }
       if (profileDropdownRef.current && !profileDropdownRef.current.contains(e.target as Node)) {
         setProfileDropdown(false);
+      }
+      if (notificationRef.current && !notificationRef.current.contains(e.target as Node)) {
+        setShowNotifications(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -115,11 +121,11 @@ export default function EditorDashboardHeader() {
             <div className="flex items-center gap-10">
               {/* Logo */}
               <Link href="/">
-                <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
+                <div className="w-26 sm:w-32 h-[42px] flex justify-center items-center overflow-hidden">
                   <Image
                     src="/images/footerLogo.png"
-                    width={128}
-                    height={100}
+                    width={1000}
+                    height={1000}
                     alt="Logo"
                     className=" object-cover justify-start"
                   />
@@ -156,7 +162,7 @@ export default function EditorDashboardHeader() {
 
                         <Link
                           href="/editor/myproposal"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/myproposal") ? activeCls : inactiveCls
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/myproposal") || isActive("/editor/delivery") ? activeCls : inactiveCls
                             }`}
                           onClick={closeDesktopJobDropdown}
                         >
@@ -172,7 +178,7 @@ export default function EditorDashboardHeader() {
                         </Link>
 
                         <Link
-                          href="/browse-job"
+                          href="/browse-job?redirect=/editor"
                           className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/browse-job") ? activeCls : inactiveCls
                             }`}
                           onClick={closeDesktopJobDropdown}
@@ -222,16 +228,12 @@ export default function EditorDashboardHeader() {
                 Become an Client
               </button>
 
-              <div className="relative group">
-                <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer" />
+              <div className="h-fit leading-0 group relative" ref={notificationRef}>
+                <button type="button" className="" onClick={()=>setShowNotifications(prev => !prev)}>
+                  <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer hover:text-[#FF4D4F]" />
+                </button>
                 <div
-                  className="
-      absolute right-0 mt-3 w-[412px]
-      rounded-xl border bg-white shadow-lg
-      opacity-0 invisible translate-y-2
-      group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
-      transition-all duration-200 z-50
-    "
+                  className={`leading-normal absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-0 mt-3 w-[412px] max-w-[80vw] rounded-xl border bg-white shadow-lg transition-all duration-200 z-50 ${showNotifications ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0"}`}
                 >
                   <Notification />
                 </div>
@@ -240,27 +242,14 @@ export default function EditorDashboardHeader() {
               <Link href="/editor/message" className="relative group">
                 {/* Icon */}
                 <MdMailOutline
-                  className={`w-7 h-7 cursor-pointer ${isActive("/editor/message") ? "text-[#FF4D4F]" : "text-[#333]"
+                  className={`w-7 h-7 cursor-pointer ${isActive("/editor/message") ? "text-[#FF4D4F]" : "text-[#333] hover:text-[#FF4D4F] transition-colors duration-300"
                     }`}
                 />
-
-                {/* Dropdown */}
-                {/* <div
-                  className="
-      absolute right-0 mt-3 w-[412px]
-      rounded-xl border bg-white shadow-lg
-      opacity-0 invisible translate-y-2
-      group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
-      transition-all duration-200 z-50
-    "
-                >
-                  <Inbox />
-                </div> */}
               </Link>
 
               {/* Profile Dropdown */}
               <div className="relative" ref={profileDropdownRef}>
-                <button onClick={() => setProfileDropdown(!profileDropdown)} className="flex cursor-pointer">
+                <button onClick={() => setProfileDropdown(!profileDropdown)} className={`flex cursor-pointer border-2 rounded-full ${isActive("/editor/editor-profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}>
                   <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
                 </button>
 
@@ -280,7 +269,7 @@ export default function EditorDashboardHeader() {
                         }`}
                       onClick={() => setProfileDropdown(false)}
                     >
-                      Earning
+                      Earnings
                     </Link>
                     <hr className="my-2" />
                     <button

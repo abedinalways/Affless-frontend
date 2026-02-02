@@ -10,6 +10,7 @@ import ReportUserModal from '@/components/reusable/ReportUserModal';
 import ConfirmationPopup from '@/components/shared/ConfirmationPopup';
 import { MdBlock } from "react-icons/md";
 import { IoMdNotificationsOff } from "react-icons/io";
+import { IoIosEye } from "react-icons/io";
 
 interface Message {
     id: string;
@@ -446,7 +447,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
         if (!message.readAt) {
             return <IoCheckmarkDoneOutline />;
         }
-        return <IoCheckmarkDoneSharp />;
+        return <IoIosEye />;
     };
 
     return (

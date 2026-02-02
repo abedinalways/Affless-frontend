@@ -152,10 +152,10 @@ export default function page() {
                             {selectedConversationId && (
                                 <button
                                     type="button"
-                                    onClick={() => router.push(`/client/post-job?assign=${activeConversation?.profileId || selectedConversationId}`)}
-                                    className="w-full px-4 py-2 rounded-full bg-[#e74c4c] text-white text-xs sm:text-sm font-medium shadow-lg hover:bg-[#c23b3b] transition-colors animate-floating cursor-pointer"
+                                    onClick={() => router.push(`/post-job?assign=${activeConversation?.profileId || selectedConversationId}`)}
+                                    className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                                 >
-                                    Post a Job for This Editor
+                                    Post a Job for {activeConversation?.name || "User"}
                                 </button>
                             )}
                             <button

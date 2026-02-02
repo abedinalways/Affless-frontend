@@ -44,6 +44,9 @@ export default function PublicEditorProfile() {
     country: "Pakistan",
     languages: "English, German, Spanish, French",
     avatar: "/images/sarah.png",
+    avgResponseTime: "1 hour",
+    jobsCompleted: 120,
+    clientsWorked: 75,
   });
 
   const [about, setAbout] = useState(
@@ -86,6 +89,7 @@ export default function PublicEditorProfile() {
                     alt={client.name}
                     width={500}
                     height={500}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="w-full h-full rounded-full object-cover border-2 border-gray-200 transition cursor-pointer hover:scale-110 duration-300"
                   />
                 </Link>

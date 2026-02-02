@@ -239,7 +239,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                             {/* Bids */}
                             <div className="pt-10">
                                 <p className="text-[24px] lg:text-[32px] font-semibold pb-6 text-[#333]">
-                                    Proposals
+                                    Editor Proposals
                                 </p>
 
                                 {bidsData.map((bid) => (

@@ -28,11 +28,11 @@ type JobDetailsCardProps = {
 };
 
 const statusStyleMap: Record<string, string> = {
-  "in progress": "bg-[#E8FFDA] text-[#52C41A]",
-  progress: "bg-[#E8FFDA] text-[#52C41A]",
-  pending: "bg-[#FFF7E8] text-[#FAAD14]",
-  cancellation: "bg-[#FEE9EA] text-[#F5222D]",
-  cancelled: "bg-[#FEE9EA] text-[#F5222D]",
+  pending: "bg-[#FFF7E6] text-[#FAAD14]",
+    in_progress: "bg-[#E6F4FF] text-[#1677FF]",
+    delivered: "bg-[#F6FFED] text-[#52C41A]",
+    completed: "bg-[#D9F7BE] text-[#237804]",
+    cancelled: "bg-[#FFF1F0] text-[#F5222D]",
 };
 
 const getStatusClasses = (status: string) => {
@@ -79,25 +79,24 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
               <p className="text-sm text-gray-700">{title}</p>
 
               <span
-                className={`inline-block mt-2 rounded-md px-3 py-1 text-sm font-medium ${getStatusClasses(
+                className={`inline-block mt-2 rounded-md px-3 py-1 text-sm font-medium capitalize ${getStatusClasses(
                   status
                 )}`}
               >
-                {status}
+                {status?.split("_").join(" ")}
               </span>
             </div>
           </div>
 
           {/* TIME LEFT */}
           <div>
-            <p className="font-medium mb-3">Time left To Deliver</p>
+            <p className="font-medium mb-3">Time Left to Complete the Job</p>
 
-            <div className="grid grid-cols-4 text-center gap-2 mb-6">
+            <div className="grid grid-cols-3 text-center gap-2 mb-6">
               {[
                 { label: "Days", value: timeLeft.days },
                 { label: "Hours", value: timeLeft.hours },
                 { label: "Minutes", value: timeLeft.minutes },
-                { label: "Second", value: timeLeft.seconds },
               ].map((item) => (
                 <div key={item.label}>
                   <p className="text-lg font-semibold">{item.value}</p>
@@ -121,7 +120,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
               <Link href="/editor/message"
                 className="mt-3 w-full block text-center rounded-full border border-red-500 py-3 text-red-500 font-medium hover:bg-red-50 transition cursor-pointer"
               >
-                Message
+               Message Client
               </Link>
             )}
 
@@ -140,22 +139,22 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
         {/* DETAILS */}
         <div className="mt-6 space-y-3 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-500">Order by</span>
+            <span className="text-gray-500">Order By: </span>
             <span className="font-medium">{orderBy}</span>
           </div>
 
           <div className="flex justify-between">
-            <span className="text-gray-500">Delivery date:</span>
+            <span className="text-gray-500">Delivery Date:</span>
             <span className="font-medium">{deliveryDate}</span>
           </div>
 
           <div className="flex justify-between">
-            <span className="text-gray-500">Total Price</span>
+            <span className="text-gray-500">Total Price:</span>
             <span className="font-semibold">${totalPrice}</span>
           </div>
 
           <div className="flex justify-between">
-            <span className="text-gray-500">Order Number</span>
+            <span className="text-gray-500">Order Number:</span>
             <span className="font-medium">{orderNumber}</span>
           </div>
         </div>

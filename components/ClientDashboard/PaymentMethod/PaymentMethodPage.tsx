@@ -6,7 +6,7 @@ import Link from "next/link";
 import PaymentModal from "@/components/reusable/Modal";
 import PaypalIcon from "@/components/Icons/PaypalIcon";
 import { ArrowRight, CreditCard } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 type FormValues = {
@@ -42,7 +42,6 @@ export default function PaymentMethodPage() {
 
   return (
     <>
-      {/* <Toaster position="top-right"/> */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="containers mx-auto py-10 px-6 bg-[#f6f6f6]"

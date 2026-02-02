@@ -553,7 +553,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
             return <IoCheckmarkOutline />;
         }
         if (!message.readAt) {
-            return <IoIosEye />;
+            return <IoCheckmarkDoneOutline />;
         }
         return <IoIosEye />;
     };

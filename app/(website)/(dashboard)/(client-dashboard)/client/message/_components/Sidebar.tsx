@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { MdBlock } from "react-icons/md";
 import { IoMdNotificationsOff } from "react-icons/io";
+import { IoSearch } from 'react-icons/io5';
 
 interface Conversation {
     id: string;
@@ -89,6 +90,8 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
     const [searchQuery, setSearchQuery] = useState('');
     const searchParams = useSearchParams();
     const searchId = searchParams.get('id') || '';
+    const [showSearch, setShowSearch] = useState(false);
+    const searchContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const syncConversations = () => {
@@ -127,6 +130,20 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
         }
     }, [selectedConversationId, searchId, conversations, onSelectConversation]);
 
+    useEffect(() => {
+        if (!showSearch) return;
+
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (!searchContainerRef.current) return;
+            if (!searchContainerRef.current.contains(event.target as Node)) {
+                setShowSearch(false);
+            }
+        };
+
+        window.addEventListener('mousedown', handleOutsideClick);
+        return () => window.removeEventListener('mousedown', handleOutsideClick);
+    }, [showSearch]);
+
     const filteredConversations = conversations.filter(conv =>
         conv.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -134,15 +151,30 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
     return (
         <div className="flex flex-col h-full">
             {/* Search Bar */}
-            {/* <div className="mb-4">
+            <div className='xl:hidden w-full flex items-center justify-center py-2 mb-2'>
+                <button
+                    type="button"
+                    onClick={() => setShowSearch((prev) => !prev)}
+                    aria-expanded={showSearch}
+                    aria-controls="conversation-search"
+                    className='p-2 rounded-md hover:bg-gray-100 cursor-pointer transition-all'
+                >
+                    <IoSearch className='text-xl' />
+                </button>
+            </div>
+            <div
+                ref={searchContainerRef}
+                className={`mb-4 absolute xl:static top-4 bg-white z-9 p-2 xl:p-0 shadow-md xl:shadow-none rounded-lg ${showSearch ? 'block' : 'hidden'} xl:block`}
+            >
                 <input
+                    id="conversation-search"
                     type="text"
-                    placeholder="Search conversations..."
+                    placeholder="Search..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
                 />
-            </div> */}
+            </div>
 
             {/* Conversations List */}
             <div className="flex-1 overflow-y-auto space-y-2">

@@ -9,8 +9,9 @@ import clsx from "clsx";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Pagination from "@/components/reusable/pagination";
+import { useSearchParams } from "next/navigation";
 
 const bids = [
   {
@@ -45,6 +46,8 @@ type PostPageProps = {
 
 export default function JobDetails({ params }: PostPageProps) {
   const { id } = useParams();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || undefined;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { handleSubmit, register, reset, formState: { errors } } = useForm<{
     bidAmount: string;
@@ -73,13 +76,12 @@ export default function JobDetails({ params }: PostPageProps) {
 
   return (
     <div>
-      {/* <Toaster position="top-right" /> */}
       <PageBanner
         title={job.title}
         bgImage="/findEditor.jpg"
         links={[
-          { label: "Home", href: "/" },
-          { label: "Browse Jobs", href: "/editor/browse-job" },
+          { label: redirectUrl === "/editor"?"Dashboard":"Home", href: redirectUrl || "/" },
+          { label: "Browse Jobs", href: "/browse-job" + (redirectUrl ? `?redirect=${redirectUrl}` : "") },
           { label: job.title },
         ]}
       />

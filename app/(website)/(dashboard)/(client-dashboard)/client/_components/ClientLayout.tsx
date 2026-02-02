@@ -23,8 +23,11 @@ export default function ClientLayout({
     useEffect(()=>{
         if(user === "client"){
             setLoading(false);
+        }else if(user === "editor"){
+            toast.error(`Please switch to a Client account ${msg || 'to access client dashboard'}`);
+            router.push('/editor');
         }else{
-            toast.error(`Please login ${msg || 'as client to access client dashboard'}`);
+            toast.error(`Please login as client ${msg || 'to access client dashboard'}`);
             router.push('/login?redirect=' + (redirect || '/'));
         }
     },[])

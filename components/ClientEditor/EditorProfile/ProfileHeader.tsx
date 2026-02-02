@@ -17,6 +17,7 @@ export type ProfileState = {
   avatar: string;
   jobsCompleted?: number;
   clientsWorked?: number;
+  avgResponseTime?: string;
 };
 
 export default function ProfileHeaderCard({
@@ -60,6 +61,10 @@ export default function ProfileHeaderCard({
             <span className="inline-flex items-center gap-1.5">
               <span className="text-green-500 font-bold">✔</span>
               Worked with {profile.clientsWorked || 0} Clients
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-green-500 font-bold">✔</span>
+              Avg. Response Time: {profile.avgResponseTime || "N/A"}
             </span>
           </div>
 

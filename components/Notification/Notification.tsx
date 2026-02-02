@@ -64,23 +64,23 @@ export default function Notification() {
   return (
     <div className="w-full max-w-md rounded-2xl bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] overflow-hidden">
       {/* Header */}
-      <div className="flex items-center gap-3 px-5 py-4 border-b">
+      <div className="flex items-center gap-3 p-3 sm:px-5 sm:py-4 border-b">
         <IoIosNotificationsOutline size={18} />
         <p className="font-medium text-[16px]">Inbox ({count})</p>
       </div>
 
       {/* List */}
-      <div>
+      <div className="h-fit max-h-[70vh] overflow-y-auto">
         {inboxData.map((item,idx) => (
           <button
             key={item.id}
-            className={`w-full flex items-center justify-between gap-4 px-5 py-4 border-b last:border-b-0 hover:bg-gray-50 ${idx === 0 ? "bg-gray-100" : ""} transition cursor-pointer`}
+            className={`w-full flex items-center justify-between gap-4 p-3 sm:px-5 sm:py-4 border-b last:border-b-0 hover:bg-gray-50 ${idx === 0 ? "bg-gray-100" : ""} transition cursor-pointer`}
             onClick={() => router.push(`/client/message?id=${item.id}`)}
           >
             <div className="flex items-center gap-4">
               {/* Avatar */}
               <div className="relative">
-                <div className="relative h-11 w-11 rounded-full overflow-hidden bg-gray-200">
+                <div className="relative w-9 h-9 sm:h-11 sm:w-11 rounded-full overflow-hidden bg-gray-200">
                   <Image
                     src={item.avatar}
                     alt={item.name}
@@ -98,10 +98,10 @@ export default function Notification() {
 
               {/* Name + message */}
               <div className="text-left">
-                <p className="font-semibold text-[16px] leading-5 text-gray-900">
+                <p className="font-semibold text-[13px] sm:text-[16px] leading-5 text-gray-900">
                   {item.name}
                 </p>
-                <p className={`text-[13px] text-gray-600 mt-1 ${idx === 0 ? "font-medium text-gray-900" : "font-normal"}`}>
+                <p className={`text-[11px] sm:text-[13px] text-gray-600 mt-1 ${idx === 0 ? "font-medium text-gray-900" : "font-normal"}`}>
                   {item.lastMessage}
                 </p>
               </div>
