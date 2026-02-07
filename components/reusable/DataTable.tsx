@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     onClick={() => onRowClick?.(row.original)}
-                    className="bg-white transition cursor-pointer"
+                    className={`bg-white transition ${onRowClick? "cursor-pointer":""}`}
                   >
                     {cells.map((cell, index) => {
                       const isFirst = index === 0;

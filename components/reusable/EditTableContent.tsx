@@ -18,6 +18,7 @@ interface EditableContentProps {
   initialContent: string;
   subtitle?: string;
   updateButtonText?: string;
+  back?: string;
 }
 
 const EditableContent: React.FC<EditableContentProps> = ({
@@ -25,6 +26,7 @@ const EditableContent: React.FC<EditableContentProps> = ({
   initialContent,
   subtitle,
   updateButtonText = "Update",
+  back,
 }) => {
   const [content, setContent] = useState(initialContent);
   const [isEditing, setIsEditing] = useState(false);
@@ -65,7 +67,7 @@ const EditableContent: React.FC<EditableContentProps> = ({
   );
 
   return (
-    <div className="flex justify-center py-10">
+    <div className="flex justify-center pb-10">
       <div className="w-full bg-[#F5F0DC] border border-[#D6CEA9] rounded-[20px] shadow-md p-8">
 
         {/* Title */}
@@ -98,7 +100,7 @@ const EditableContent: React.FC<EditableContentProps> = ({
         {/* Button */}
         <div className="flex justify-end mt-6">
           <button
-            className="bg-[#EE4D47] hover:bg-[#d63d37] w-[300px] text-white px-8 py-3 rounded-full transition-all"
+            className="bg-[#EE4D47] hover:bg-[#d63d37] w-[300px] text-white px-8 py-3 rounded-full transition-all cursor-pointer"
             onClick={() => setIsEditing(!isEditing)}
           >
             {isEditing ? updateButtonText : "Edit"}

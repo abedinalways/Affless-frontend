@@ -17,6 +17,7 @@ import {
 import { Poppins } from 'next/font/google';
 import TopClientTable from './_components/TopClientTable';
 import TopEditorTable from './_components/TopEditorTable';
+import Link from 'next/link';
 
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
@@ -57,9 +58,9 @@ export default function DashboardPage() {
   const [showAllUsers, setShowAllUsers] = useState(false)
   const [showAllOrders, setShowAllOrders] = useState(false)
   const stats: Stat[] = [
-    { id: 'users', title: 'Total Editor', value: '200', percent: '10%', icon: editorIcon },
-    { id: 'sell', title: 'Total Client', value: '200', percent: '6%', icon: Users },
-    { id: 'orders', title: ' Total Revenue', value: '$20K', percent: '6%', icon: revenueIcon }
+    { id: 'users', title: 'Total Editors', value: '200', percent: '10%', icon: editorIcon },
+    { id: 'sell', title: 'Total Clients', value: '200', percent: '6%', icon: Users },
+    { id: 'orders', title: ' Total Revenue', value: '$20,000.00', percent: '6%', icon: revenueIcon }
   ]
   return (
     <div className="w-full max-w-full mx-auto space-y-6">
@@ -68,14 +69,14 @@ export default function DashboardPage() {
           <StatCard key={s.id} {...s} />
         ))}
       </div>
-      <div className='grid grid-cols-[auto_1fr] gap-8'>
+      <div className='grid md:grid-cols-[auto_1fr] gap-8'>
         <div className="bg-white p-5 border border-[#E9E9E9] rounded-lg shadow-[0px_4px_33px_8px_rgba(0,0,0,0.04)] grid gap-6">
-          <div className='flex justify-between items-center gap-6'>
+          <div className='flex justify-between items-center gap-3 sm:gap-6'>
             <div className='space-y-1.5'>
-              <h2 className='text-[#444950]  text-sm font-medium leading-[19.6px]'>Total Signup</h2>
+              <h2 className='text-[#444950]  text-sm font-medium leading-[19.6px]'>Total Signups</h2>
               <div className='flex items-center gap-2'>
-                <h3 className='text-[#4A4C56] text-2xl font-bold leading-9'>200</h3>
-                <div className='flex items-center text-[10px] text-[#3F9917] font-semibold leading-2.5 gap-1 bg-[#4CAF501A] px-2 py-1 border border-[#4CAF50] rounded-full'>
+                <h3 className='text-[#4A4C56] text-lg sm:text-2xl font-bold leading-9'>200</h3>
+                <div className='flex items-center text-[10px] text-[#3F9917] font-semibold leading-2.5 gap-1 bg-[#4CAF501A] px-1 sm:px-2 py-0.5 sm:py-1 border border-[#4CAF50] rounded-full'>
                   <span>10%</span>
                   <TrendingUp size={14} />
                 </div>
@@ -83,14 +84,15 @@ export default function DashboardPage() {
             </div>
             <div>
               <Select>
-                <SelectTrigger className="w-[120px]">
+                <SelectTrigger className="">
                   <SelectValue className='text-[#62676C]' placeholder="Select a period" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem defaultChecked value="yearly">Yearly</SelectItem>
                     <SelectItem value="monthly">Monthly</SelectItem>
                     <SelectItem value="quarterly">Quarterly</SelectItem>
+                    <SelectItem defaultChecked value="yearly">Yearly</SelectItem>
+                    <SelectItem value="lifetime">Lifetime</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -100,8 +102,8 @@ export default function DashboardPage() {
         </div>
         <div className='bg-white p-4.5 border border-[#E9E9E9] rounded-lg shadow-[0px_4px_33px_8px_rgba(0,0,0,0.04)] flex flex-col gap-4'>
           <div className='flex justify-between items-center gap-4 whitespace-nowrap font-["Poppins"]'>
-            <h3 className='text-[#4A4C56] text-lg font-medium leading-[21.6px]'>Top Client</h3>
-            <button type="button" className='text-[#4A4C56] font-["Poppins"] text-sm leading-[21px] px-3.5 py-2 border border-[#E9E9E9] rounded-md cursor-pointer'>View All</button>
+            <h3 className='text-[#4A4C56] text-lg font-medium leading-[21.6px]'>Top Clients</h3>
+            <Link href="/admin/usermanagement?type=client" className='text-[#4A4C56] font-["Poppins"] text-sm leading-[21px] px-3.5 py-2 border border-[#E9E9E9] rounded-md cursor-pointer'>View All</Link>
           </div>
           <div className='border border-[#FAFBFC]'>
             <TopClientTable />

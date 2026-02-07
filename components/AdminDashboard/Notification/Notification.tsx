@@ -10,10 +10,10 @@ type Notification = {
 };
 
 const notifications: Notification[] = [
-  { id: 1, message: "You have received $500 from John Doe", time: "Fri, 12:30pm" },
-  { id: 2, message: "New User registered.", time: "Fri, 12:30pm" },
-  { id: 3, message: "New User registered.", time: "Fri, 12:30pm" },
-  { id: 4, message: "New User registered.", time: "Fri, 12:30pm" },
+  { id: 1, message: "You have received $500 from John Doe.", time: "Friday, 12:30 PM" },
+  { id: 2, message: "New User registered.", time: "Friday, 01:00 PM" },
+  { id: 3, message: "New User registered.", time: "Friday, 11:00 AM" },
+  { id: 4, message: "New User registered.", time: "Friday, 10:30 PM" },
 ];
 
 export default function Notification() {

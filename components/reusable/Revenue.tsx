@@ -59,7 +59,7 @@ const RevenueChart = () => {
       dataLabels: {
         enabled: false,
       },
-      colors: ["#ff6b6b"], // bar color (screenshot-এর মতো coral/red)
+      colors: ["#ff6b6b"],
       xaxis: {
         categories: data.map((item) => item.month),
         axisBorder: { show: false },
@@ -96,10 +96,10 @@ const RevenueChart = () => {
             ">
               <div style="margin-bottom:4px;">
                 <span style="color:#6b7280;">Earned:</span>
-                <span style="font-weight:600; margin-left:6px;">$${item.earned}</span>
+                <span style="font-weight:600; margin-left:6px;">$${item.earned.toFixed(2)}</span>
               </div>
               <div>
-                <span style="color:#6b7280;">Order:</span>
+                <span style="color:#6b7280;">Jobs Completed:</span>
                 <span style="font-weight:600; margin-left:6px;">${item.orders}</span>
               </div>
             </div>
@@ -121,18 +121,11 @@ const RevenueChart = () => {
       {/* Top bar: title + filters */}
       <div className="mb-4 flex items-center justify-between gap-3">
         <h2 className="text-sm font-semibold text-slate-900">
-          Revenue analytic
+          Revenue Analytic
         </h2>
 
         <div className="flex items-center gap-2">
-          <button className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm">
-            Earnings
-            <span className="text-[10px]">▼</span>
-          </button>
-          <button className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm">
-            Last 30 days
-            <span className="text-[10px]">▼</span>
-          </button>
+          
         </div>
       </div>
 

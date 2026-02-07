@@ -1,5 +1,6 @@
 "use client";
 
+import Pagination from "@/components/reusable/pagination";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,10 +20,6 @@ const users: User[] = [
   { id: 6, name: "Cody Fisher", rating: 4.7, img: "/images/profile.png" },
   { id: 7, name: "Devon Lane", rating: 4.7, img: "/images/profile.png" },
   { id: 8, name: "Savannah Nguyen", rating: 4.7, img: "/images/profile.png" },
-  { id: 9, name: "Esther Howard", rating: 4.7, img: "/images/profile.png" },
-  { id: 10, name: "Courtney Henry", rating: 4.7, img: "/images/profile.png" },
-  { id: 11, name: "Darlene Robertson", rating: 4.7, img: "/images/profile.png" },
-  { id: 12, name: "Wade Warren", rating: 4.7, img: "/images/profile.png" },
 ];
 
 export default function ClientPage() {
@@ -58,12 +55,22 @@ export default function ClientPage() {
               href={`/admin/usermanagement/client/[id]${user.id}`}
               className="w-full mt-4"
             >
-              <button className="w-full border rounded-lg py-2 hover:bg-gray-100 text-sm">
+              <button className="w-full border rounded-lg py-2 hover:bg-gray-100 text-sm cursor-pointer">
                 View profile
               </button>
             </Link>
           </div>
         ))}
+      </div>
+      <div className="mt-8 flex justify-center">
+        <Pagination
+          page={1}
+          pageSize={10}
+          total={users.length}
+          onPageChange={() => {}}
+          totalPages={1}
+        />
+
       </div>
     </div>
   );

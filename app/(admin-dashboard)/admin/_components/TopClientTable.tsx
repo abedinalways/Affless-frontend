@@ -1,5 +1,6 @@
 import DynamicTable from "@/helper/DynamicTable"
 import { Roboto } from "next/font/google"
+import Link from "next/link"
 
 
 const data = [
@@ -34,7 +35,7 @@ const data = [
 export default function TopClientTable() {
     const columns = [
         {
-            label: "User Name",
+            label: "Username",
             accessor: "user_name",
             width: "100px",
             formatter: (accessor: string, row: any) => (
@@ -53,23 +54,23 @@ export default function TopClientTable() {
                 </div>
             ),
         },
-        {
-            label: "Phone Number",
-            accessor: "phone_number",
-            width: "120px",
-            formatter: (accessor: string, row: any) => (
-                <div className="text-[#4A4C56] text-xs leading-[19.2px] font-['Roboto'] p-3">
-                    {row.phone_number}
-                </div>
-            ),
-        },
+        // {
+        //     label: "Phone Number",
+        //     accessor: "phone_number",
+        //     width: "120px",
+        //     formatter: (accessor: string, row: any) => (
+        //         <div className="text-[#4A4C56] text-xs leading-[19.2px] font-['Roboto'] p-3">
+        //             {row.phone_number}
+        //         </div>
+        //     ),
+        // },
         {
             label: "Action",
             accessor: "action",
             width: "20px",
             formatter: (accessor: string, row: any) => (
                 <div className="text-[#4A4C56] text-xs leading-[19.2px] font-['Roboto'] p-3">
-                    <button className="text-[#FF4D4F] underline whitespace-nowrap cursor-pointer">View profile</button>
+                    <Link href={`/admin/usermanagement/client/id`} className="text-[#FF4D4F] underline whitespace-nowrap cursor-pointer">View Profile</Link>
                 </div>
             ),
         }

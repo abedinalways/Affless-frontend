@@ -10,7 +10,7 @@ const aboutUsContent = `
 export default function AboutUs() {
   return (
     <EditableContent
-      title="Terms & Condition Edit"
+      title="Terms & Conditions"
       initialContent={aboutUsContent}
     />
   );
