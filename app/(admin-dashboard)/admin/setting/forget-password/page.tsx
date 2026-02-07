@@ -39,7 +39,7 @@ export default function ForgotPasswordModal({
           </div>
 
           <Button className="w-full bg-[#FF4D4F] hover:bg-red-500 text-white rounded-xl py-3">
-            Send OTP
+            Send Reset Code
           </Button>
         </div>
       </DialogContent>

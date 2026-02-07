@@ -149,7 +149,7 @@ function ChangePasswordStep({
       </p>
 
       <Button
-        className="w-full bg-[#FF4D4F] text-white mt-4"
+        className="w-full bg-[#FF4D4F] text-white mt-4 cursor-pointer"
         onClick={onUpdate}
       >
         Update Password
@@ -165,7 +165,7 @@ function ForgotPasswordStep({ email, setEmail, onNext, onBack }: any) {
   return (
     <div>
       <h2 className="text-xl font-semibold flex items-center gap-2">
-        <button onClick={onBack}>←</button> Forgot Password
+        <button onClick={onBack} className="cursor-pointer">←</button> Forgot Password
       </h2>
 
       <p className="text-gray-600 mb-6">
@@ -183,13 +183,13 @@ function ForgotPasswordStep({ email, setEmail, onNext, onBack }: any) {
       </div>
 
       <Button
-        className="w-full bg-[#FF4D4F] text-white"
+        className="w-full bg-[#FF4D4F] text-white cursor-pointer"
         onClick={() => {
           console.log("Send OTP to:", email);
           onNext();
         }}
       >
-        Send OTP
+        Send Reset Code
       </Button>
     </div>
   );
@@ -202,7 +202,7 @@ function VerifyOtpStep({ otp, setOtp, onNext, onBack }: any) {
   return (
     <div>
       <h2 className="text-xl font-semibold flex items-center gap-2">
-        <button onClick={onBack}>←</button> Verify Email
+        <button onClick={onBack} className="cursor-pointer">←</button> Verify Email
       </h2>
 
       <p className="text-gray-600 mb-6">
@@ -231,7 +231,7 @@ function VerifyOtpStep({ otp, setOtp, onNext, onBack }: any) {
       </p>
 
       <Button
-        className="w-full bg-[#FF4D4F] text-white"
+        className="w-full bg-[#FF4D4F] text-white cursor-pointer"
         onClick={() => {
           console.log("OTP Submitted:", otp.join(""));
           onNext();
@@ -260,7 +260,7 @@ function ResetPasswordStep({
   return (
     <div>
       <h2 className="text-xl font-semibold flex items-center gap-2">
-        <button onClick={onBack}>←</button> Reset Password
+        <button onClick={onBack} className="cursor-pointer">←</button> Reset Password
       </h2>
 
       <p className="text-gray-600 mb-6">
@@ -285,7 +285,7 @@ function ResetPasswordStep({
         toggle={() => setS2(!s2)}
       />
 
-      <Button className="w-full bg-[#FF4D4F] text-white mt-4" onClick={onDone}>
+      <Button className="w-full bg-[#FF4D4F] text-white mt-4 cursor-pointer" onClick={onDone}>
         Reset Password
       </Button>
     </div>

@@ -4,11 +4,10 @@ import EarningsPage from '@/components/AdminDashboard/UserManagement/EditorEarni
 import React from 'react'
 
 export default function Earning() {
-  
+
   return (
     <div>
-    <EarningPage/>
-
+      <EarningPage />
     </div>
   )
 }

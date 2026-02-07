@@ -1,4 +1,7 @@
+'use client'
+
 import EditableContent from "@/components/reusable/EditTableContent";
+import { useRouter } from "next/navigation";
 
 
 const aboutUsContent = `
@@ -8,10 +11,21 @@ const aboutUsContent = `
 `;
 
 export default function AboutUs() {
+  const router = useRouter();
   return (
-    <EditableContent
-      title="About Us Edit"
-      initialContent={aboutUsContent}
-    />
+    <div className="space-y-6">
+      <button
+        type="button"
+        onClick={() => router.back()}
+        className="border px-4 py-0.5 rounded-lg bg-[#FF4D4F] text-white hover:bg-[#e2413c] transition cursor-pointer"
+      >
+        Back
+      </button>
+      <EditableContent
+        title="About Us"
+        initialContent={aboutUsContent}
+        back="/admin/setting"
+      />
+    </div>
   );
 }

@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="w-full h-full ">
           <Sidebar />
         </div>
-        <div className="w-full px-8 py-10 h-screen overflow-y-auto space-y-8">
+        <div className="w-full px-2 sm:px-8 py-4 sm:py-10 h-screen overflow-y-auto space-y-8">
           <div className="w-full">
             <DashboardHeader />
           </div>

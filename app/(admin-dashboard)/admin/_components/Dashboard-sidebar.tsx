@@ -24,7 +24,7 @@ export const SidebarData: SidebarDataType[] = [
   },
   {
     id: 3,
-    name: "Earning",
+    name: "Earnings",
     href: "/admin/earning",
     icon: Earning,
   },
@@ -36,7 +36,7 @@ export const SidebarData: SidebarDataType[] = [
   },
     {
     id: 5,
-    name: "Setting",
+    name: "Settings",
     href: "/admin/setting",
     icon: Settings,
   },

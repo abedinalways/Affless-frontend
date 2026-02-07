@@ -15,12 +15,13 @@ export default function PersonalInformation({
   phone = "123456789",
 }: Props) {
   const [isEditing, setIsEditing] = useState(false);
+  const [countryCode, setCountryCode] = useState("+1");
 
   const [formData, setFormData] = useState({
     name,
     email,
     phone,
-    image: "/images/settingProfile.svg",
+    image: "/images/headset.svg",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,23 +53,24 @@ export default function PersonalInformation({
 
         {/* LEFT */}
         <div className="border border-[#F5C6C6] rounded-xl p-6 bg-white flex flex-col items-center">
-          <div className="w-40 h-40 rounded-full overflow-hidden border border-[#FF4D4F] relative">
+          <label htmlFor="profile" className={`w-40 h-40 rounded-full overflow-hidden border border-[#FF4D4F] relative ${isEditing ? "cursor-pointer" : ""}`}>
             <Image
               src={formData.image}
               alt="profile"
-              fill
+              width={1000}
+              height={1000}
               className="object-cover"
             />
-          </div>
+          </label>
 
-          {isEditing && (
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="mt-4 text-sm"
-            />
-          )}
+          <input
+            type="file"
+            id="profile"
+            accept="image/*"
+            onChange={handleImageChange}
+            disabled={!isEditing}
+            className="sr-only"
+          />
 
           <p className="mt-8 text-[#181414] text-lg">Profile</p>
           <h2 className="text-[24px] pb-3 font-normal">
@@ -82,7 +84,7 @@ export default function PersonalInformation({
           <div className="flex justify-end">
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="bg-[#FF4D4F] text-white px-6 py-2 rounded-full"
+              className="bg-[#FF4D4F] text-white px-6 py-2 rounded-full cursor-pointer"
             >
               {isEditing ? "Save" : "Edit Profile"}
             </button>
@@ -113,18 +115,25 @@ export default function PersonalInformation({
           <div>
             <label className="font-medium">Phone Number</label>
             <div className="flex gap-3">
-              <div className="flex items-center gap-4 w-[145px] px-2.5 rounded-lg border border-[#FF4D4F] bg-white">
-                <Image
-                  src="/images/flag america.png"
-                  width={47}
-                  height={25}
-                  alt="flag"
-                />
-                <span className="text-[16px] font-normal">+1242</span>
+              <div className="flex items-center gap-2 w-fit min-w-20 px-2.5 rounded-lg border border-[#FF4D4F] bg-white">
+                <select
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                  disabled={!isEditing}
+                  className="w-full bg-white text-[16px] font-normal outline-none"
+                >
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  <option value="+61">+61</option>
+                  <option value="+234">+234</option>
+                </select>
               </div>
 
               <input
                 name="phone"
+                type="text"
+                inputMode="numeric"
+                pattern="^[0-9]*$"
                 value={formData.phone}
                 onChange={handleChange}
                 disabled={!isEditing}

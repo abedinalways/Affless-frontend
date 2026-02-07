@@ -65,7 +65,7 @@ export default function ChangePasswordModal({
               className="text-red-500 text-sm cursor-pointer hover:underline"
               onClick={openForgot}
             >
-              Forget password?
+              Forgot Password?
             </p>
 
             <Button className="w-full bg-[#FF4D4F] hover:bg-red-500 text-white rounded-xl py-3">

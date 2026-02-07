@@ -10,7 +10,7 @@ const aboutUsContent = `
 export default function AboutUs() {
   return (
     <EditableContent
-      title="Privacy & Policy Edit"
+      title="Privacy Policy"
       initialContent={aboutUsContent}
     />
   );
