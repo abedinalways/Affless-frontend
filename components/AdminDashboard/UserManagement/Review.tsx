@@ -21,9 +21,9 @@ export default function Review() {
       description:
         "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
 
-      priceRange: "$400–$600",
-      software: "Adobe Premiere Pro",
-      duration: "7–30 days",
+      priceRange: "$400",
+      software: "2",
+      duration: "7 days",
       thumbnail: "/images/vedio.png.jpg",
       time: "1 month ago"
     },
@@ -34,9 +34,9 @@ export default function Review() {
       description:
         "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
 
-      priceRange: "$400–$600",
-      software: "Adobe Premiere Pro",
-      duration: "7–30 days",
+      priceRange: "$500",
+      software: "1",
+      duration: "12 days",
       thumbnail: "/images/vedio.png.jpg",
       time: "1 month ago"
     },
@@ -89,37 +89,41 @@ export default function Review() {
 
               {/* USER INFO ROW */}
               <div className="flex justify-between">
-                <div className="flex items-center gap-3 mb-2">
-                  <Image
-                    src="/images/saramc.png"
-                    width={40}
-                    height={40}
-                    alt={job.user}
-                    className="rounded-full"
-                  />
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">
+                  <Link href={`/client-profile/${job.id}`}>
+                    <Image
+                      src="/images/saramc.png"
+                      width={40}
+                      height={40}
+                      alt={job.user}
+                      className="rounded-full"
+                    />
+                  </Link>
 
                   <div>
-                    <p className="font-medium text-[18px] text-[#333]">{job.user}</p>
-                    <p className="text-sm text-[#4A4C56] flex items-center gap-1 pt-1.5">
+                    <Link href={`/client-profile/${job.id}`} className="font-medium text-[18px] text-[#333] capitalize">{job.user}</Link>
+                    <p className="text-sm text-[#4A4C56] flex items-center gap-1">
                       <UsaFlag /> {job.country}
                     </p>
-                    <div className="flex gap-3 pt-6">
-                      <div className="flex gap-1">
-                        <TiStarFullOutline className="text-yellow-400" />
-                        <TiStarFullOutline className="text-yellow-400" />
-                        <TiStarFullOutline className="text-yellow-400" />
-                        <TiStarFullOutline className="text-yellow-400" />
-                        <TiStarFullOutline className="text-gray-500" />
+                    <div className="flex flex-col sm:flex-row items-start sm:gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex gap-1">
+                          <TiStarFullOutline className="text-yellow-400" />
+                          <TiStarFullOutline className="text-yellow-400" />
+                          <TiStarFullOutline className="text-yellow-400" />
+                          <TiStarFullOutline className="text-yellow-400" />
+                          <TiStarFullOutline className="text-gray-500" />
+                        </div>
+                        <p className="text-sm">4.9(338 reviews)</p>
                       </div>
-                      <p>4.9(338 reviews)</p>
-                      <p>{job.time}</p>
+                      <p className="text-sm">{job.time}</p>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <p className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
+                  <Link href={`/admin/jobs/${job.id}`} className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
                     View Job
-                  </p>
+                  </Link>
                 </div>
               </div>
 
@@ -139,7 +143,7 @@ export default function Review() {
                   <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">
                     <div className="p-6 flex gap-6">
                       <div>
-                        <p className="text-[#4A4C56] text-[14px]">Price range</p>
+                        <p className="text-[#4A4C56] text-[14px]">Price</p>
                         <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.priceRange}</p>
                       </div>
                       <div className="border hidden md:block border-r-gray-300 mx-6">
@@ -149,7 +153,7 @@ export default function Review() {
 
                     <div className="p-6 flex  gap-6">
                       <div>
-                        <p className="text-[#4A4C56] text-[14px]">Software</p>
+                        <p className="text-[#4A4C56] text-[14px]">Number of Revisions</p>
                         <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.software}</p>
                       </div>
                       <div className="border hidden md:block border-r-gray-300 mx-6">

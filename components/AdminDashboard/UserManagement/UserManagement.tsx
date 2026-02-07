@@ -83,14 +83,11 @@ export default function UserManagement() {
           </div>
 
           <TabsContent value="editor">
-
           </TabsContent>
           <TabsContent value="client">
             <ClientPage />
           </TabsContent>
         </Tabs>
-
-
       </div>
 
 

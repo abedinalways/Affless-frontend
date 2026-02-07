@@ -93,7 +93,7 @@ export default function EditorDetails() {
 
         {/* PORTFOLIO */}
         <div className="bg-white p-6 rounded-xl shadow">
-          <h3 className="text-lg font-semibold mb-4">Job Completed</h3>
+          <h3 className="text-lg font-semibold mb-4">Jobs Completed</h3>
 
           <div className="space-y-4">
             {data.map((item) => (
@@ -129,8 +129,8 @@ export default function EditorDetails() {
                       <Image
                         src={item.img}
                         alt={item.title}
-                        width={600}
-                        height={400}
+                        width={1000}
+                        height={1000}
                         className="rounded-xl w-full h-full object-cover"
                       />
                     </div>
@@ -174,8 +174,8 @@ export default function EditorDetails() {
             </CarouselContent>
 
             {/* Carousel Buttons */}
-            <CarouselPrevious className="left-0"/>
-            <CarouselNext className="right-0"/>
+            <CarouselPrevious className="left-0 cursor-pointer"/>
+            <CarouselNext className="right-0 cursor-pointer"/>
           </Carousel>
         </div>
         <div className="">
