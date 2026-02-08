@@ -14,8 +14,6 @@ export default function Layout({
       <ClientLayout>
         {children}
       </ClientLayout>
-      <ContactUs />
-      <Footer />
     </div>
   );
 }

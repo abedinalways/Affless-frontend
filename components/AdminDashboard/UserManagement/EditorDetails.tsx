@@ -20,22 +20,22 @@ const data: Item[] = [
     id: 1,
     img: "/images/job1.png",
     title: "I will professionally record Bajoquinto for your Mexican regional song",
-    price: "$400",
-    total: 5,
+    price: "$400.00",
+    total: 5.0,
   },
   {
     id: 1,
     img: "/images/job2.png",
     title: "I will professionally record Bajoquinto for your Mexican regional song",
-    price: "$300",
-    total: 3,
+    price: "$300.00",
+    total: 3.5,
   },
   {
     id: 1,
     img: "/images/job3.png",
     title: "I will professionally record Bajoquinto for your Mexican regional song",
-    price: "$500",
-    total: 4,
+    price: "$500.00",
+    total: 4.0,
   },
 ];
 
@@ -44,27 +44,27 @@ const portfolioData = [
   {
     id: 1,
     img: "/images/protfolio.png",
-    date: "December 2023",
+    date: "December 9, 2023",
     title: "Antec Biogas – Empowering renewable energy",
     description1:
       "I had the pleasure of working with Antec, a company that provides turnkey solutions for biomass owners to convert waste into energy. Their primary goal was to create a website that effectively communicates their expertise in building and operating high-performing biogas plants, as well as producing biogas, biomethane, and biofertilizer.",
     description2:
       "One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec’s capabilities and successful projects.",
-    price: "$400–$600",
-    duration: "7–30 days",
+    price: "$400",
+    duration: "10 days",
     industry: "Énergie issue de la biomasse",
   },
   {
     id: 2,
     img: "/images/protfolio.png",
-    date: "December 2023",
+    date: "December 9, 2023",
     title: "Antec Biogas – Empowering renewable energy",
     description1:
       "I had the pleasure of working with Antec, a company that provides turnkey solutions for biomass owners to convert waste into energy. Their primary goal was to create a website that effectively communicates their expertise in building and operating high-performing biogas plants, as well as producing biogas, biomethane, and biofertilizer.",
     description2:
       "One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec’s capabilities and successful projects.",
-    price: "$400–$600",
-    duration: "7–30 days",
+    price: "$600",
+    duration: "7 days",
     industry: "Énergie issue de la biomasse",
   },
 ];
@@ -104,8 +104,14 @@ export default function EditorDetails() {
                     <p className="flex justify-center items-center">{item.title}</p>
                   </div>
                   <div className="flex gap-20 justify-center items-center">
-                    <p>{item.price}</p>
-                    <p className="flex gap-3"><TiStarFullOutline className="text-yellow-400 mt-1" />{item.total}</p>
+                    <div>
+                      <h2>Price</h2>
+                      <p>{item.price}</p>
+                    </div>
+                    <div>
+                      <h2>Rating</h2>
+                      <p className="flex gap-1"><TiStarFullOutline className="text-yellow-400 mt-1" />{item.total}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -118,7 +124,7 @@ export default function EditorDetails() {
         <div className="bg-white p-6 rounded-2xl shadow">
           <h3 className="text-lg font-semibold">My Portfolio</h3>
 
-          <Carousel className="w-full hello">
+          <Carousel className="w-full hello" opts={{ loop: true }}>
             <CarouselContent>
               {portfolioData.map((item) => (
                 <CarouselItem key={item.id}>
@@ -151,18 +157,18 @@ export default function EditorDetails() {
                       <div className="grid grid-cols-3 gap-6 border-t pt-4">
 
                         <div>
-                          <p className="text-sm text-gray-600">Price range</p>
-                          <p className="font-semibold">{item.price}</p>
+                          <p className="text-sm text-gray-600">Price</p>
+                          <p className="font-semibold">{item.price + ".00"}</p>
                         </div>
 
                         <div>
-                          <p className="text-sm text-gray-600">Project duration</p>
+                          <p className="text-sm text-gray-600">Project Duration</p>
                           <p className="font-semibold">{item.duration}</p>
                         </div>
 
                         <div>
-                          <p className="text-sm text-gray-600">Industry</p>
-                          <p className="font-semibold">{item.industry}</p>
+                          <p className="text-sm text-gray-600">Job Type</p>
+                          <p className="font-semibold"> Long-Form YouTube</p>
                         </div>
 
                       </div>
@@ -181,7 +187,6 @@ export default function EditorDetails() {
         <div className="">
           <Review />
         </div>
-
       </div>
     </div>
   );

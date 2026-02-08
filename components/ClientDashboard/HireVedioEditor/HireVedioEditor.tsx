@@ -187,7 +187,7 @@ export default function HireVideoEditorForm() {
           bgImage='/findEditor.jpg'
           links={[
             { label: redirectUrl === "/client" ? "Dashboard" : "Home", href: redirectUrl },
-            ...(redirectUrl === "/client" ? [{ label: "Find Editor", href: "/client/find-editor" }] : []),
+            ...(redirectUrl === "/client" ? [{ label: "Find Editor", href: "/find-editor" }] : []),
             { label: "Hire a Video Editor" },
           ]}
         />

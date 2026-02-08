@@ -4,11 +4,13 @@ import { useUser } from "@/context/UserContext";
 import Loading from "@/components/shared/Loading";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
+import Footer from "@/components/shared/Footer/Footer";
+import ContactUs from "../(main)/contactUs/page";
 
 export default function ClientLayout({
-  children,
+    children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
@@ -20,25 +22,27 @@ export default function ClientLayout({
     const { user } = useUser();
 
 
-    useEffect(()=>{
-        if(user){
+    useEffect(() => {
+        if (user) {
             setLoading(false);
-        }else{
+        } else {
             toast.error(`Please login ${msg || 'to access the dashboard'}`);
             router.push('/login?redirect=' + (redirect || '/'));
         }
-    },[])
+    }, [])
 
-    if(loading){
-        return(
+    if (loading) {
+        return (
             <div>
                 <Loading />
             </div>
         )
     }
-  return (
-    <div>
-        {children}
-    </div>
-  );
+    return (
+        <div className="">
+            <Toaster position="top-right"/>
+            {children}
+            <Footer />
+        </div>
+    );
 }

@@ -12,7 +12,6 @@ export default function Layout({
       <EditorLayout >
         {children}
       </EditorLayout>
-      <Footer />
     </div>
   );
 }
