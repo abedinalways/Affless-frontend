@@ -37,13 +37,13 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
           <div>
             <h2 className="text-3xl font-bold">$500.00</h2>
           </div>
-          <p className="text-gray-500">Amount Spent</p>
+          <p className="text-gray-500">Total Earnings</p>
         </div>
 
         <div className="bg-white p-6 shadow rounded-xl text-center">
           <div className="text-3xl font-bold flex items-center justify-center gap-1">
             <span>4.7</span>
-            <FaStar className="inline text-yellow-400" />
+            <FaStar className="text-2xl inline text-yellow-400" />
           </div>
           <p className="text-gray-500">Average Rating</p>
         </div>
@@ -54,7 +54,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
             <TabsList className="flex gap-9">
               <TabsTrigger value="editor" className="cursor-pointer">Details</TabsTrigger>
               <TabsTrigger value="client" className="cursor-pointer">Jobs</TabsTrigger>
-              <TabsTrigger value="earning" className="cursor-pointer">Payments</TabsTrigger>
+              <TabsTrigger value="earning" className="cursor-pointer">Earnings</TabsTrigger>
             </TabsList>
           </div>
         </div>

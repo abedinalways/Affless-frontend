@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
 import Image from "next/image";
+import Link from "next/link";
 
 interface JobRow {
   client: {
@@ -13,7 +14,7 @@ interface JobRow {
   service: string;
   price: number;
   delivery: string;
-  status: "Late" | "Active" | "Delivered" | "Completed" | "Cancelled";
+  status: "Late" | "In Progress" | "Delivered" | "Completed" | "Cancelled";
 }
 
 const PAGE_SIZE = 8;
@@ -23,42 +24,42 @@ const jobHistory: JobRow[] = [
     client: { name: "Arlene McCoy", avatar: "/images/profile.png" },
     service: "High quality sound recorded",
     price: 400,
-    delivery: "Delivers in 3 Days",
+    delivery: "1/5/2026",
     status: "Late",
   },
   {
     client: { name: "Jasper Kline", avatar: "/images/profile.png" },
     service: "Custom sound design",
     price: 750,
-    delivery: "Delivers in 5 Days",
-    status: "Active",
+    delivery: "1/6/2026",
+    status: "In Progress",
   },
   {
     client: { name: "Sophie Turner", avatar: "/images/profile.png" },
     service: "Voice over for commercials",
     price: 300,
-    delivery: "Delivers in 2 Days",
+    delivery: "1/7/2026",
     status: "Delivered",
   },
   {
     client: { name: "Derek Lee", avatar: "/images/profile.png" },
     service: "Podcast editing and mixing",
     price: 200,
-    delivery: "Delivers in 4 Days",
+    delivery: "1/8/2026",
     status: "Delivered",
   },
   {
     client: { name: "Maya Johnson", avatar: "/images/profile.png" },
     service: "Background music composition",
     price: 500,
-    delivery: "Delivers in 6 Days",
+    delivery: "1/9/2026",
     status: "Completed",
   },
   {
     client: { name: "Eliot Spencer", avatar: "/images/profile.png" },
     service: "Audio restoration services",
     price: 600,
-    delivery: "Delivers in 7 Days",
+    delivery: "1/10/2026",
     status: "Cancelled",
   },
 ];
@@ -92,23 +93,23 @@ export default function JobHistoryPage() {
     },
     {
       accessorKey: "service",
-      header: "Service",
+      header: "Job Title",
       cell: ({ row }) => (
         <span className="text-gray-700">{row.original.service}</span>
       ),
     },
     {
       accessorKey: "price",
-      header: "Price",
+      header: "Amount",
       cell: ({ row }) => (
         <span className="font-semibold text-gray-900">
-          ${row.original.price}
+          ${row.original.price.toFixed(2)}
         </span>
       ),
     },
     {
       accessorKey: "delivery",
-      header: "Delivery Time",
+      header: "Delivery Date",
       cell: ({ row }) => (
         <span className="text-gray-600 text-sm">
           {row.original.delivery}
@@ -122,8 +123,9 @@ export default function JobHistoryPage() {
         const status = row.original.status;
 
         const colors: Record<string, string> = {
-          Late: "bg-pink-100 text-pink-600",
-          Active: "bg-orange-100 text-orange-600",
+          "In Progress": "bg-pink-100 text-pink-600",
+          "In Revision": "bg-orange-100 text-orange-600",
+          "Late" : "bg-green-100 text-green-700",
           Delivered: "bg-green-100 text-green-700",
           Completed: "bg-blue-100 text-blue-600",
           Cancelled: "bg-red-100 text-red-600",
@@ -141,16 +143,18 @@ export default function JobHistoryPage() {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6">
       {/* LEFT SIDE — TABLE AREA */}
-      <div className="w-full lg:w-3/4">
+      <div className="w-full">
         <div className="bg-white p-6 rounded-2xl mb-6">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold">Job History</h2>
 
             <select className="border px-3 py-2 rounded-lg text-sm text-gray-700">
-              <option>All status</option>
-              <option>Active</option>
+              <option>All Statuses</option>
+              <option>In Progress</option>
+              <option>In Revision</option>
+              <option>Late</option>
               <option>Delivered</option>
               <option>Completed</option>
               <option>Cancelled</option>
@@ -172,33 +176,35 @@ export default function JobHistoryPage() {
       </div>
 
       {/* RIGHT SIDE — PROFILE CARD */}
-      <div className="w-full lg:w-1/4">
+      <div className="w-full">
         <div className="bg-white rounded-2xl p-6 shadow-sm">
           <div className="relative mx-auto w-24 h-24 mb-4">
-            <Image
+            <Link href="/editor-profile/1">
+              <Image
               src="/images/profile.png"
               alt="profile"
               fill
               className="rounded-full object-cover"
             />
+            </Link>
             <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></span>
           </div>
 
-          <h3 className="text-center font-semibold text-lg">MusicArt</h3>
-          <p className="text-center text-gray-500 text-sm">musicart@gamil.com</p>
+          <Link href="/editor-profile/1" className="block text-center font-semibold text-lg">MusicArt</Link>
+          <p className="text-center text-gray-500 text-sm">musicart@gmail.com</p>
 
           <div className="mt-4 space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-500">From</span>
-              <span className="font-medium text-gray-800">Mexican</span>
+              <span className="font-medium text-gray-800">Mexico</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Member since</span>
-              <span className="font-medium text-gray-800">May 2025</span>
+              <span className="font-medium text-gray-800"> May, 2025</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-500">Language</span>
-              <span className="font-medium text-gray-800">English</span>
+              <span className="text-gray-500">Unique Clients Worked With</span>
+              <span className="font-medium text-gray-800">8</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Rating</span>

@@ -15,6 +15,7 @@ import Review from "./Review";
 import ReviewPage from "@/components/ClientDashboard/GraphicsDesigner/ReviewPage";
 import ReviewBreakdown from "@/components/reusable/reviews";
 import ReviewList, { ReviewType } from "@/components/reusable/Review";
+import toast from "react-hot-toast";
 
 export default function ClientJob() {
   const jobs = [
@@ -25,9 +26,9 @@ export default function ClientJob() {
       description:
         "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
 
-      priceRange: "$400–$600",
-      software: "Adobe Premiere Pro",
-      duration: "7–30 days",
+      priceRange: "$600",
+      software: "3",
+      duration: "7 days",
       thumbnail: "/images/vedio.png.jpg",
       time: "1 month ago"
     },
@@ -38,62 +39,62 @@ export default function ClientJob() {
       description:
         "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
 
-      priceRange: "$400–$600",
-      software: "Adobe Premiere Pro",
-      duration: "7–30 days",
+      priceRange: "$400",
+      software: "5",
+      duration: "12 days",
       thumbnail: "/images/vedio.png.jpg",
       time: "1 month ago"
     },
   ];
 
-const reviewBreakdownData = [
-  { stars: 5, count: 1006 },
-  { stars: 4, count: 323 },
-  { stars: 3, count: 143 },
-  { stars: 2, count: 42 },
-  { stars: 1, count: 56 },
-];
+  const reviewBreakdownData = [
+    { stars: 5, count: 1006 },
+    { stars: 4, count: 323 },
+    { stars: 3, count: 143 },
+    { stars: 2, count: 42 },
+    { stars: 1, count: 56 },
+  ];
 
 
-const reviews: ReviewType[] = [
-  {
-    id: 1,
-    name: "Devon Lane",
-    img: "/images/devon.png",
-    rating: 5,
-    totalReviews: 338,
-    comment:
-      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
-    timeAgo: "4 years ago",
-  },
-  {
-    id: 2,
-    name: "Jerome Bell",
-    img: "/images/jerome.png",
-    rating: 5,
-    totalReviews: 338,
-    comment:
-      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
-    timeAgo: "4 years ago",
-  },
-  {
-    id: 3,
-    name: "Floyd Miles",
-    img: "/images/floyd.png",
-    rating: 5,
-    totalReviews: 338,
-    comment:
-      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline.",
-    timeAgo: "4 years ago",
-  },
-];
+  const reviews: ReviewType[] = [
+    {
+      id: 1,
+      name: "Devon Lane",
+      img: "/images/devon.png",
+      rating: 5,
+      totalReviews: 338,
+      comment:
+        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
+      timeAgo: "4 years ago",
+    },
+    {
+      id: 2,
+      name: "Jerome Bell",
+      img: "/images/jerome.png",
+      rating: 5,
+      totalReviews: 338,
+      comment:
+        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
+      timeAgo: "4 years ago",
+    },
+    {
+      id: 3,
+      name: "Floyd Miles",
+      img: "/images/floyd.png",
+      rating: 5,
+      totalReviews: 338,
+      comment:
+        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline.",
+      timeAgo: "4 years ago",
+    },
+  ];
 
 
   return (
     <div className=" min-h-screen ">
 
       {/* PROFILE HEADER */}
- <div className="space-y-6 pt-10">
+      <div className="space-y-6 pt-10">
         {jobs.map((job) => (
           <div
             key={job.id}
@@ -105,36 +106,40 @@ const reviews: ReviewType[] = [
               {/* USER INFO ROW */}
               <div className="flex justify-between">
                 <div className="flex items-center gap-3 mb-2">
-                  <Image
-                    src="/images/saramc.png"
-                    width={40}
-                    height={40}
-                    alt={job.user}
-                    className="rounded-full"
-                  />
+                  <Link href={`/client-profile/${job.id}`}>
+                    <Image
+                      src="/images/saramc.png"
+                      width={40}
+                      height={40}
+                      alt={job.user}
+                      className="rounded-full"
+                    />
+                  </Link>
 
                   <div>
-                    <p className="font-medium text-[18px] text-[#333]">{job.user}</p>
-                    <p className="text-sm text-[#4A4C56] flex items-center gap-1 pt-1.5">
+                    <Link href={`/client-profile/${job.id}`} className="font-medium text-[18px] text-[#333] capitalize">{job.user}</Link>
+                    <p className="text-sm text-[#4A4C56] flex items-center gap-1">
                       <UsaFlag /> {job.country}
                     </p>
-                    <div className="flex gap-3 pt-6">
-                      <div className="flex gap-1">
-                        <TiStarFullOutline className="text-yellow-400" />
-                        <TiStarFullOutline className="text-yellow-400" />
-                        <TiStarFullOutline className="text-yellow-400" />
-                        <TiStarFullOutline className="text-yellow-400" />
-                        <TiStarFullOutline className="text-gray-500" />
+                    <div className="flex flex-col sm:flex-row items-start sm:gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex gap-1">
+                          <TiStarFullOutline className="text-yellow-400" />
+                          <TiStarFullOutline className="text-yellow-400" />
+                          <TiStarFullOutline className="text-yellow-400" />
+                          <TiStarFullOutline className="text-yellow-400" />
+                          <TiStarFullOutline className="text-gray-500" />
+                        </div>
+                        <p className="text-sm">4.9(338 reviews)</p>
                       </div>
-                      <p>4.9(338 reviews)</p>
-                      <p>{job.time}</p>
+                      <p className="text-sm">{job.time}</p>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <p className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
+                  <button type="button" onClick={() => toast.success("Coming soon!")} className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
                     View Job
-                  </p>
+                  </button>
                 </div>
               </div>
 
@@ -148,13 +153,24 @@ const reviews: ReviewType[] = [
                   </p>
 
                   {/* TAGS */}
-                  <div className="flex flex-wrap gap-2 py-6 bg-[]">
-
+                  <div className="flex flex-wrap gap-3 py-6">
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Platform: </span>
+                      <span className="font-medium">YouTube</span>
+                    </div>
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Project Type: </span>
+                      <span className="font-medium">YouTube Long-Form</span>
+                    </div>
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Editor Experience: </span>
+                      <span className="font-medium">12 Jobs Completed</span>
+                    </div>
                   </div>
                   <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">
                     <div className="p-6 flex gap-6">
                       <div>
-                        <p className="text-[#4A4C56] text-[14px]">Price range</p>
+                        <p className="text-[#4A4C56] text-[14px]">Price</p>
                         <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.priceRange}</p>
                       </div>
                       <div className="border hidden md:block border-r-gray-300 mx-6">
@@ -164,7 +180,7 @@ const reviews: ReviewType[] = [
 
                     <div className="p-6 flex  gap-6">
                       <div>
-                        <p className="text-[#4A4C56] text-[14px]">Software</p>
+                        <p className="text-[#4A4C56] text-[14px]">Number of Revisions</p>
                         <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.software}</p>
                       </div>
                       <div className="border hidden md:block border-r-gray-300 mx-6">
@@ -196,15 +212,15 @@ const reviews: ReviewType[] = [
       </div>
       <div className="bg-white rounded-2xl">
         <div className=" rounded-xl  p-6 mt-10 mx-w-md lg:max-w-lg">
-        
-         <ReviewBreakdown reviewe={reviewBreakdownData} />
+
+          <ReviewBreakdown reviewe={reviewBreakdownData} />
 
 
         </div>
       </div>
-    <div className="container mx-auto py-10">
-      <ReviewList reviews={reviews} />
-    </div>
+      <div className="container mx-auto py-10">
+        <ReviewList reviews={reviews} />
+      </div>
     </div>
   );
 }

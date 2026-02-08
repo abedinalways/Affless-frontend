@@ -1,9 +1,12 @@
 import React from "react";
 import Sidebar from "./admin/_components/sidebar";
 import DashboardHeader from "./admin/_components/dashboard-header";
+import { Toaster } from "react-hot-toast";
+
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
+      <Toaster position="top-right"/>
       <div className="w-full h-screen grid grid-cols-[auto_1fr]">
         <div className="w-full h-full ">
           <Sidebar />

@@ -11,6 +11,7 @@ import UsaFlag from "@/components/Icons/UsaFlag";
 import Link from "next/link";
 import StarIcon from "@/components/Icons/StarIcon";
 import { TiStarFullOutline } from "react-icons/ti";
+import toast,{Toaster} from "react-hot-toast";
 
 export default function Review() {
   const jobs = [
@@ -52,7 +53,6 @@ export default function Review() {
 
   return (
     <div className=" min-h-screen space-y-6">
-
       {/* PROFILE HEADER */}
 
       <div className="bg-white rounded-2xl">
@@ -121,9 +121,9 @@ export default function Review() {
                   </div>
                 </div>
                 <div>
-                  <Link href={`/admin/jobs/${job.id}`} className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
+                  <button type="button" onClick={() => toast.success("Coming soon!")} className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
                     View Job
-                  </Link>
+                  </button>
                 </div>
               </div>
 
@@ -137,9 +137,20 @@ export default function Review() {
                   </p>
 
                   {/* TAGS */}
-                  <div className="flex flex-wrap gap-2 py-6 bg-[]">
-
-                  </div>
+                  {/* <div className="flex flex-wrap gap-3 py-6">
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Platform: </span>
+                      <span className="font-medium">YouTube</span>
+                    </div>
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Project Type: </span>
+                      <span className="font-medium">YouTube Long-Form</span>
+                    </div>
+                    <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
+                      <span className="text-[#777980]">Editor Experience: </span>
+                      <span className="font-medium">12 Jobs Completed</span>
+                    </div>
+                  </div> */}
                   <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">
                     <div className="p-6 flex gap-6">
                       <div>
