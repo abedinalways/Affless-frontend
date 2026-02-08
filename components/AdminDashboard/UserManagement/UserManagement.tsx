@@ -83,56 +83,50 @@ export default function UserManagement() {
           </div>
 
           <TabsContent value="editor">
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+
+                {currentData.map((user) => (
+                  <div key={user.id} className="bg-white border rounded-xl shadow-sm p-5 flex flex-col items-center text-center">
+
+                    <Image src={user.img} width={80} height={80} alt={user.name} className="rounded-full" />
+
+                    <h3 className="text-lg font-semibold mt-3">{user.name}</h3>
+                    <p className="text-gray-500">{user.jobs}</p>
+
+                    <div className="flex items-center gap-1 text-yellow-500 mt-2">
+                      ⭐ <span className="text-black">{user.rating}</span>
+                      <span className="text-gray-500">(95)</span>
+                    </div>
+
+                    <Link href={`/admin/usermanagement/${user.id}`} className="w-full">
+                      <button className="mt-4 border rounded-lg px-4 py-2 w-full hover:bg-gray-100 cursor-pointer">
+                        View Profile
+                      </button>
+                    </Link>
+
+                  </div>
+                ))}
+
+              </div>
+
+              <div className="mt-8 flex justify-center">
+                <Pagination
+                  page={page}
+                  pageSize={ITEMS_PER_PAGE}
+                  total={editorUsers.length}
+                  onPageChange={setPage}
+                  totalPages={totalPages}
+                />
+
+              </div>
+            </>
           </TabsContent>
           <TabsContent value="client">
             <ClientPage />
           </TabsContent>
         </Tabs>
       </div>
-
-
-      {activeTab === "client" ? (
-        <ClientPage />
-      ) : (
-        <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-
-            {currentData.map((user) => (
-              <div key={user.id} className="bg-white border rounded-xl shadow-sm p-5 flex flex-col items-center text-center">
-
-                <Image src={user.img} width={80} height={80} alt={user.name} className="rounded-full" />
-
-                <h3 className="text-lg font-semibold mt-3">{user.name}</h3>
-                <p className="text-gray-500">{user.jobs}</p>
-
-                <div className="flex items-center gap-1 text-yellow-500 mt-2">
-                  ⭐ <span className="text-black">{user.rating}</span>
-                  <span className="text-gray-500">(95)</span>
-                </div>
-
-                <Link href={`/admin/usermanagement/${user.id}`} className="w-full">
-                  <button className="mt-4 border rounded-lg px-4 py-2 w-full hover:bg-gray-100 cursor-pointer">
-                    View Profile
-                  </button>
-                </Link>
-
-              </div>
-            ))}
-
-          </div>
-
-          <div className="mt-8 flex justify-center">
-            <Pagination
-              page={page}
-              pageSize={ITEMS_PER_PAGE}
-              total={editorUsers.length}
-              onPageChange={setPage}
-              totalPages={totalPages}
-            />
-
-          </div>
-        </>
-      )}
     </div>
   );
 }
