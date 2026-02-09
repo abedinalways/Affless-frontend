@@ -109,11 +109,11 @@ export default function ResetPasswordForm() {
                       message: "Password must not exceed 64 characters",
                     },
                     pattern: {
-                      value:
-                        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
-                      message:
-                        "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
-                    },
+                    value:
+                      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
+                    message:
+                      "Password must include at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 symbol",
+                  },
                   })}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter Password"
@@ -174,10 +174,11 @@ export default function ResetPasswordForm() {
               )}
 
               <div className="text-sm text-[#333] space-y-1">
-                <p>Password must contain:</p>
+                <p>Password Must Contain:</p>
                 <ul className="list-disc ml-5">
                   <li>8–64 characters</li>
                   <li>At least 1 uppercase letter</li>
+                  <li>At least 1 lowercase letter</li>
                   <li>At least 1 number</li>
                   <li>At least 1 symbol</li>
                 </ul>

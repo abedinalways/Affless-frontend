@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/shared/Footer/Footer";
-import ContactUs from "../(main)/contactUs/page";
+import ContactUs from "../(main)/contactus/page";
 
 export default function ClientLayout({
     children,
@@ -26,8 +26,16 @@ export default function ClientLayout({
         if (user) {
             setLoading(false);
         } else {
-            toast.error(`Please login ${msg || 'to access the dashboard'}`);
-            router.push('/login?redirect=' + (redirect || '/'));
+            if(msg === "to post a job" || msg === "as editor to create profile"){
+                toast.error(`Please signup ${msg || 'to access the dashboard'}`);
+            }else{
+                toast.error(`Please login ${msg || 'to access the dashboard'}`);
+            }
+            if(msg === "to post a job" || msg === "as editor to create profile"){
+                router.push('/singup?redirect=' + (redirect || '/'));
+            }else{
+                router.push('/login?redirect=' + (redirect || '/'));
+            }
         }
     }, [])
 

@@ -32,7 +32,7 @@ type FaqItem = {
 const searchSuggestions = [
   {
     id: "acc-1",
-    title: "How to reset my password?",
+    title: "How do I create or edit my profile?",
     activeTab: "account" as TabType
   },
   {
