@@ -89,7 +89,7 @@ export default function ResetPasswordForm() {
 
             {/* Subtitle */}
             <p className="text-[#333] font-poppins text-base leading-[150%] pb-6">
-              Your password must be 8–10 characters long.
+              Your password must be 8-64 characters long.
             </p>
 
             {/* Form */}
