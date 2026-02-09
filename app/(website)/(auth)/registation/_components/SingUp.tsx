@@ -141,7 +141,7 @@ export default function SingUpForm() {
             <div className="relative">
               <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
               <input
-                {...register("name", { required: "Name is required" })}
+                {...register("name", { required: "Username is required" })}
                 type="text"
                 placeholder="Enter Username"
                 className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
