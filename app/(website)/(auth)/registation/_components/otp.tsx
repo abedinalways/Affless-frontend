@@ -89,7 +89,7 @@ export default function OtpForm() {
 
             {/* Subtitle */}
             <p className="text-[#333] font-poppins text-base leading-[150%] pb-6">
-              Please enter the Reset Code we have sent to your email address
+              Please enter the Reset Code we have sent to your email address.
             </p>
 
             {/* OTP Form */}

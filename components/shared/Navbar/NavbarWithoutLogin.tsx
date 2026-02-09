@@ -231,7 +231,7 @@ export default function NavbarWithoutLogin() {
           </Link>
 
           {/* ✅ Service (Mobile) */}
-          <button
+          {/* <button
             type="button"
             className={`text-left cursor-pointer ${serviceActive ? activeCls : inactiveCls
               }`}
@@ -244,43 +244,38 @@ export default function NavbarWithoutLogin() {
                   }`}
               />
             </div>
-          </button>
-
-          {mobileServiceOpen && (
-            <div className="flex flex-col pl-4 gap-2">
-              <Link
-                href="/howWork"
-                onClick={closeMobileMenu}
-                className={`${isActive("/howWork") ? activeCls : inactiveCls} cursor-pointer`}
-              >
-                How It Works
-              </Link>
-              <Link
-                href="/find-editors"
-                onClick={closeMobileMenu}
-                className={`${isActive("/find-editors") ? activeCls : inactiveCls} cursor-pointer`}
-              >
-                Find Editors
-              </Link>
-              <Link
-                href="/jobs"
-                onClick={closeMobileMenu}
-                className={`${isActive("/jobs") ? activeCls : inactiveCls} cursor-pointer`}
-              >
-                Browse Jobs
-              </Link>
-              <Link
-                href="/pricing"
-                onClick={closeMobileMenu}
-                className={`${isActive("/pricing") ? activeCls : inactiveCls} cursor-pointer`}
-              >
-                Pricing
-              </Link>
-            </div>
-          )}
+          </button> */}
+          <Link
+            href="/howWork"
+            onClick={closeMobileMenu}
+            className={`${isActive("/howWork") ? activeCls : inactiveCls} cursor-pointer`}
+          >
+            How It Works
+          </Link>
+          <Link
+            href="/find-editors"
+            onClick={closeMobileMenu}
+            className={`${isActive("/find-editors") ? activeCls : inactiveCls} cursor-pointer`}
+          >
+            Find Editors
+          </Link>
+          <Link
+            href="/jobs"
+            onClick={closeMobileMenu}
+            className={`${isActive("/jobs") ? activeCls : inactiveCls} cursor-pointer`}
+          >
+            Browse Jobs
+          </Link>
+          <Link
+            href="/pricing"
+            onClick={closeMobileMenu}
+            className={`${isActive("/pricing") ? activeCls : inactiveCls} cursor-pointer`}
+          >
+            Pricing
+          </Link>
 
           {/* ✅ Contact (Mobile) */}
-          <button
+          {/* <button
             type="button"
             className={`text-left cursor-pointer ${contactActive ? activeCls : inactiveCls
               }`}
@@ -293,10 +288,10 @@ export default function NavbarWithoutLogin() {
                   }`}
               />
             </div>
-          </button>
+          </button> */}
 
-          {mobileContactOpen && (
-            <div className="flex flex-col pl-4 gap-2">
+          {/* {mobileContactOpen && (
+            <div className="flex flex-col pl-4 gap-2"> */}
               <Link
                 href="/success-story"
                 onClick={closeMobileMenu}
@@ -309,10 +304,17 @@ export default function NavbarWithoutLogin() {
                 onClick={closeMobileMenu}
                 className={`${isActive("/help-center") ? activeCls : inactiveCls} cursor-pointer`}
               >
-                Help Center
+                Help Center / FAQ
               </Link>
-            </div>
-          )}
+              <Link
+                href="/contactus"
+                onClick={closeMobileMenu}
+                className={`${isActive("/contactus") ? activeCls : inactiveCls} cursor-pointer`}
+              >
+                Contact
+              </Link>
+            {/* </div> */}
+          {/* )} */}
 
           {/* Auth buttons */}
           <div className="flex gap-4 pt-4">
@@ -332,7 +334,7 @@ export default function NavbarWithoutLogin() {
               className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer"
             >
               <div className="flex items-center gap-2">
-                <DubbleUser /> Sign Up
+                <DubbleUser /> Sign Up (Free)
               </div>
             </Link>
           </div>

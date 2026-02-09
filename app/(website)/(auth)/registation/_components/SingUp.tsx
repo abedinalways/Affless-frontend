@@ -11,6 +11,7 @@ import Link from "next/link";
 import { EyeClosed, EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 type FormValues = {
   name: string;
@@ -24,15 +25,25 @@ export default function SingUpForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>();
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/';
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    setIsSubmitting(true);
     console.log("Form Submitted:", data);
+    // Simulate an async operation like form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      toast.success("Registration successful!");
+      reset();
+      // Reset form or show success message here
+    }, 2000);
   };
 
   return (
@@ -45,12 +56,12 @@ export default function SingUpForm() {
     >
       <div className="pb-3 px-2">
         <Link href={redirect} className="pb-9 ">
-        {" "}
-        <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap">
-          <FaArrowLeft className="mt-1" />
-          Back {redirect === '/' ? 'to home' : 'to '+redirect.replace('/',' ')}
-        </button>
-      </Link>
+          {" "}
+          <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap">
+            <FaArrowLeft className="mt-1" />
+            Back {redirect === '/' ? 'to Home' : 'to ' + redirect.replace('/', ' ')}
+          </button>
+        </Link>
       </div>
       <div
         className="
@@ -181,9 +192,9 @@ export default function SingUpForm() {
                   },
                   pattern: {
                     value:
-                      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
+                      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
                     message:
-                      "Password must include at least 1 uppercase letter, 1 number, and 1 symbol",
+                      "Password must include at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 symbol",
                   },
                 })}
                 type={showPassword ? "text" : "password"}
@@ -208,22 +219,20 @@ export default function SingUpForm() {
                 {errors.password.message}
               </p>
             )}
-           <div className="text-sm text-[#333] space-y-1">
-  <p>Password must contain:</p>
-  <ul className="list-disc ml-5">
-    <li>8–64 characters</li>
-    <li>At least 1 uppercase letter</li>
-    <li>At least 1 number</li>
-    <li>At least 1 symbol</li>
-  </ul>
-</div>
+            <div className="text-sm text-[#333] space-y-1">
+              <p>Password Must Contain:</p>
+              <ul className="list-disc ml-5">
+                <li>8–64 characters</li>
+                <li>At least 1 uppercase letter</li>
+                <li>At least 1 lowercase letter</li>
+                <li>At least 1 number</li>
+                <li>At least 1 symbol</li>
+              </ul>
+            </div>
 
             {/* Terms Text */}
             <div className="bg-[#FFECEC] p-4 rounded-xl text-[#333] text-sm font-poppins">
-              “By signing up, you agree to our Terms of Service and Privacy
-              Policy. You’ll join a community of video editors and clients, and
-              gain access to collaboration tools, project features, secure
-              payments, and marketplace opportunities.”
+              By signing up, you agree to our Terms of Service and Privacy Policy.  You’ll join a community of video editors and clients, and gain access to collaboration tools, project features, secure payments, and marketplace opportunities.
             </div>
 
             {/* Terms Checkbox */}
@@ -246,9 +255,10 @@ export default function SingUpForm() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 bg-[#FF4D4F] hover:bg-red-500 hover:delay-50 text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl cursor-pointer"
+              disabled={isSubmitting}
+              className="w-full py-3 bg-[#FF4D4F] hover:bg-red-500 hover:delay-50 text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign Up
+              {isSubmitting ? "Signing Up..." : "Sign Up"}
             </button>
 
             {/* Sign In link */}

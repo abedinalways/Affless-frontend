@@ -80,9 +80,9 @@ export default function SignInForm() {
   return (
     <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
       <div className="ml-2">
-        <button onClick={handleBack} className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
+        <button onClick={handleBack} className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2">
           <FaArrowLeft className="mt-1" />
-          Back
+          Back to Home
         </button>
       </div>
       <div
@@ -183,7 +183,7 @@ export default function SignInForm() {
                 <div className="flex items-center gap-2 cursor-pointer">
                   <input id="rememberme" type="checkbox" {...register("remember")} className="cursor-pointer" />
                   <label htmlFor="rememberme" className="flex items-center gap-2 text-[#333] font-poppins text-base leading-[150%] cursor-pointer">
-                    Remember me
+                    Remember Me
                   </label>
                 </div>
 

@@ -25,7 +25,7 @@ export default function ForgotPasswordForm() {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     setLoading(true);
-    toast.success("Reset code sent to your email address");
+    toast.success("Reset code sent to your email address.");
     setTimeout(() => {
       router?.push("/otp");
       setLoading(false);

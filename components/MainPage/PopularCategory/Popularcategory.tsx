@@ -16,7 +16,7 @@ const data = [
     icon: <YoutubeIcon className='text-red-400' />,
     bg: "bg-[#FEE8E8] border border-[#FECACA]",
     title: "Long-form YouTube",
-    desc: "videos, educational content, vlogs, and tutorials"
+    desc: " Long-form YouTube videos, educational content, vlogs, and tutorials."
   },
   {
     id: 2,
@@ -48,7 +48,7 @@ const data = [
   },
   {
     id: 6,
-    icon: <LuCalendarDays className='text-[#EA580C]'/>,
+    icon: <LuCalendarDays className='text-[#EA580C]' />,
     bg: "bg-[#FFF0DD] border border-[#FED7AA]",
     title: "Weddings/Events",
     desc: "Special occasions"
@@ -73,9 +73,9 @@ export default function Popularcategory() {
   return (
     <div className="containers mx-auto lg:py-20 py-10">
       <h2 className="text-[#333] text-center font-[Poppins] text-[36px] md:text-[64px] font-medium leading-[124%] [text-stroke-width:1px] "
->Popular Categories</h2>
+      >Popular Categories</h2>
       <p className="text-[#4A4C56] text-center font-[Poppins] text-[18px] font-normal leading-[150%] mt-4"
->
+      >
         Find the perfect editor for any project
       </p>
 
@@ -88,13 +88,13 @@ export default function Popularcategory() {
           >
             <div className="text-2xl mb-4">{item.icon}</div>
 
-      <p className="text-[#333] font-[Poppins] text-[12px] lg:text-[24px] font-medium leading-[150%] pb-1.5 whitespace-normal">
-  {item.title}
-</p>
+            <p className="text-[#333] font-[Poppins] text-[12px] lg:text-[24px] font-medium leading-[150%] pb-1.5 whitespace-normal">
+              {item.title}
+            </p>
 
 
             <p className="text-[#4A4C56] font-[Poppins] text-[14px] lg:text-[16px] font-normal leading-[150%] mt-2"
->{item.desc}</p>
+            >{item.desc}</p>
           </div>
         ))}
 
