@@ -107,7 +107,7 @@ export default function SignInForm() {
         {/* Right Form */}
         <div className="">
           <div className="w-full  bg-[#FFDBDC] sm:rounded-3xl shadow-md p-8 sm:p-14 mx-auto ">
-            <h2 className="text-[#333] text-center font-poppins text-2xl font-medium leading-[150%] pb-[42px]">
+            <h2 className="text-[#333] text-center font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%] pb-[42px]">
               Log In
             </h2>
 
