@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { SidebarDataType } from '@/app/(admin-dashboard)/admin/_components/Dashboard-sidebar';
 import { useUser } from '@/context/UserContext';
+import { useSearchParams } from 'next/navigation';
 
 const pricingPlans = [
   {
@@ -63,6 +64,8 @@ const pricingPlans = [
 export default function Pricing() {
   const router = useRouter();
   const { user } = useUser();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect');
   const handleClick = (label: string) => {
     if (user) {
       if(label === 'Get Started'){
@@ -71,7 +74,7 @@ export default function Pricing() {
         toast('Subscription feature coming soon!');
       }
     }else{
-      router.push('/singup');
+      router.push('/singup?redirect=/pricing');
     }
   };
 

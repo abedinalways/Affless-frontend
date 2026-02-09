@@ -210,7 +210,7 @@ export default function HelpCenterPage() {
         id: "item-3",
         title: "Dispute resolution process",
         content:
-          "Our team will review dispute submitted within 48 hours and follow up with you regarding the next steps.",
+          "Our team will review disputes submitted promptly and follow up with you regarding the next steps.",
         contentClassName: "text-gray-600 pb-4 pl-9",
       },
       {

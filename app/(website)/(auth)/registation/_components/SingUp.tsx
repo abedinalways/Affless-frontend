@@ -10,6 +10,7 @@ import UserIcon from "@/components/Icons/userIcon";
 import Link from "next/link";
 import { EyeClosed, EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
+import { useSearchParams } from "next/navigation";
 
 type FormValues = {
   name: string;
@@ -25,6 +26,8 @@ export default function SingUpForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -41,11 +44,11 @@ export default function SingUpForm() {
       2xl:px-[300px]"
     >
       <div className="pb-3 px-2">
-        <Link href="/" className="pb-9 ">
+        <Link href={redirect} className="pb-9 ">
         {" "}
-        <button className="bg-red-500 p-2 text-white cursor-pointer w-[100px] rounded-lg flex gap-2">
+        <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap">
           <FaArrowLeft className="mt-1" />
-          Back
+          Back {redirect === '/' ? 'to home' : 'to '+redirect.replace('/',' ')}
         </button>
       </Link>
       </div>
