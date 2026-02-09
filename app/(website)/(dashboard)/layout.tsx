@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/shared/Footer/Footer";
-import ContactUs from "../(main)/contactus/page";
 
 export default function ClientLayout({
     children,
