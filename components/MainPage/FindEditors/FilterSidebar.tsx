@@ -79,7 +79,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
   const [priceRange, setPriceRange] = useState([]);
   const [anyPrice, setAnyPrice] = useState(true);
   const [anyDeliveryTime, setAnyDeliveryTime] = useState(true);
-  const [deliveryRange, setDeliveryRange] = useState([]);
+  const [deliveryTime, setDeliveryTime] = useState([25]);
   const minPriceRef = useRef<HTMLInputElement | null>(null);
   const maxPriceRef = useRef<HTMLInputElement | null>(null);
   const minDeliveryRef = useRef<HTMLInputElement | null>(null);
@@ -254,10 +254,10 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
             onChange={() => {
               const nextValue = !anyDeliveryTime;
               setAnyDeliveryTime(nextValue);
-              setDeliveryRange([]);
               if (nextValue) {
-                if (minDeliveryRef.current) minDeliveryRef.current.value = "";
-                if (maxDeliveryRef.current) maxDeliveryRef.current.value = "";
+                setDeliveryTime([0]);
+              }else{
+                setDeliveryTime([10]);
               }
             }}
             className='w-5 h-5 accent-black cursor-pointer'
@@ -267,42 +267,30 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
           </span>
         </label>
 
-        {/* Min Max Inputs */}
-        <div className='flex gap-3 items-center'>
-          <div className='relative w-full'>
-            <input
-              type='text'
-              placeholder='Min'
-              disabled={anyDeliveryTime}
-              inputMode='numeric'
-              pattern="[0-9]*"
-              ref={minDeliveryRef}
-              onInput={handleNumericInput}
-              onBlur={handleDayBlur}
-              className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
-            />
-            {anyDeliveryTime && (
-              <div
-                className='absolute inset-0 cursor-pointer'
-                onClick={() => setAnyDeliveryTime(false)}
-              />
-            )}
+        {/* Delivery Time Slider */}
+        <div className='w-full flex flex-col items-center gap-3 mb-4'>
+          <div className='w-full flex justify-center px-2 text-gray-700 text-base font-medium'>
+            <span>{deliveryTime[0]} {deliveryTime[0] === 1 ? 'day' : 'days'}</span>
           </div>
+
           <div className='relative w-full'>
-            <input
-              type='text'
-              placeholder='Max'
+            <Slider
+              max={50}
+              min={1}
+              step={1}
+              value={deliveryTime}
+              onValueChange={(value) => {
+                setDeliveryTime(value);
+                if (anyDeliveryTime) {
+                  setAnyDeliveryTime(false);
+                }
+              }}
               disabled={anyDeliveryTime}
-              inputMode='numeric'
-              pattern="[0-9]*"
-              ref={maxDeliveryRef}
-              onInput={handleNumericInput}
-              onBlur={handleDayBlur}
-              className='border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700'
+              className="w-full"
             />
             {anyDeliveryTime && (
               <div
-                className='absolute inset-0 cursor-pointer'
+                className='absolute inset-0 cursor-pointer z-10'
                 onClick={() => setAnyDeliveryTime(false)}
               />
             )}

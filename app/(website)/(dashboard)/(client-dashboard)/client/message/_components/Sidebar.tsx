@@ -120,7 +120,7 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
             setSelectedId(searchId);
             onSelectConversation?.(searchId);
         }
-    }, [searchId, onSelectConversation]);
+    }, [searchId]);
 
     useEffect(() => {
         if (!selectedConversationId && !searchId && conversations.length > 0) {

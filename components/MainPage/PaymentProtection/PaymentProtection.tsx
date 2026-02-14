@@ -10,14 +10,14 @@ export default function PaymentProtectionPage() {
   return (
     <div>
       {/* 🔹 PAGE BANNER */}
-      <PageBanner
+      {/* <PageBanner
         title="Payment Protection"
         bgImage="/findEditor.jpg"
         links={[
           { label: "Home", href: "/" },
           { label: "Payment Protection" },
         ]}
-      />
+      /> */}
 
       {/* 🔹 HERO SECTION */}
       <div

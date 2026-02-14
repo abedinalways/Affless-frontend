@@ -31,7 +31,7 @@ export default function ClientLayout({
                 toast.error(`Please login ${msg || 'to access the dashboard'}`);
             }
             if(msg === "to post a job" || msg === "as editor to create profile"){
-                router.push('/singup?redirect=' + (redirect || '/'));
+                router.push('/singup?redirect=' + (redirect || '/') + "&type=editor");
             }else{
                 router.push('/login?redirect=' + (redirect || '/'));
             }

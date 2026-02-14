@@ -19,10 +19,12 @@ export default function PlatFromWide() {
 
 
       <div className="my-4 rounded-xl border border-[#FFB4B4] bg-[#FFF4EE] px-6 py-5 flex items-center gap-2">
-        <span className="text-[#FF4B4B] text-[18px] font-semibold">$</span>
-        <span className="text-[#FF4B4B] text-[18px] font-semibold">
-          {baseMinimum}
-        </span>
+        <div>
+          <span className="text-[#FF4B4B] text-[18px] font-semibold">$</span>
+          <span className="text-[#FF4B4B] text-[18px] font-semibold">
+            {baseMinimum}
+          </span>
+        </div>
         <span className="text-[15px] text-[#374151]">
           Absolute Minimum Payout
         </span>
@@ -30,9 +32,9 @@ export default function PlatFromWide() {
 
       <p className="mt-2 text-[14px] leading-6 text-[#6B7280]">
         This applies to all categories related to photo and audio editing. No job
-        can be posted below this amount
+        can be posted below this amount.
       </p>
-      
+
       <div className="mt-10 flex items-start gap-4">
         <div className="h-11 w-11 rounded-full bg-[#E9FBEE] flex items-center justify-center">
           <Video className="h-5 w-5 text-[#22C55E]" />

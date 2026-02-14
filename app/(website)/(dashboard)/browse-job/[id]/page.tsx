@@ -113,7 +113,7 @@ export default function JobDetails({ params }: PostPageProps) {
                           onBlur: (e) => {
                             let value = parseFloat(e.target.value.replace(/[^0-9.]/g, ""));
 
-                            if (!value || value < 1) value = 1;
+                            if (!value || value < 2) value = 2;
 
                             // auto format
                             e.target.value = `$${value}`;
@@ -123,7 +123,7 @@ export default function JobDetails({ params }: PostPageProps) {
                       />
                       {errors.bidAmount && (
                         <p className="text-red-500 text-xs mt-1">
-                          Bid Amount is required
+                          Proposal amount is required
                         </p>
                       )}
                     </div>

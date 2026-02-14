@@ -39,7 +39,7 @@ export default function GettingStartedPage() {
       {/* Page Banner */}
       <PageBanner
         title='Getting Started'
-        desc=''
+        desc='A quick guide to help you get started on the platform'
         bgImage='/findEditor.jpg'
         links={[{ label: "Home", href: "/" }, { label: "Getting Started" }]}
       />
@@ -51,8 +51,7 @@ export default function GettingStartedPage() {
             Welcome to Editor Marketplace
           </h2>
           <p className='text-[#4A4C56] font-poppins text-[18px] md:text-[20px] font-normal leading-[150%] mt-4 max-w-3xl mx-auto'>
-            Whether you're looking to hire talented editors or offering your
-            creative services, we've made it simple to get started.
+           Whether you’re looking to hire talented editors or offer your creative services, we’ve made it simple to get started.
           </p>
         </div>
 

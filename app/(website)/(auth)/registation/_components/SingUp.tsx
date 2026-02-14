@@ -22,17 +22,17 @@ type FormValues = {
 };
 
 export default function SingUpForm() {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
+  const signUpType = searchParams.get('type') || 'client';
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect') || '/';
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [showPassword, setShowPassword] = useState(false);
+  } = useForm<FormValues>({defaultValues: { accountType: signUpType }});
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     setIsSubmitting(true);

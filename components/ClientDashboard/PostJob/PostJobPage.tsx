@@ -128,6 +128,7 @@ export default function PostJobForm() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue
   } = useForm<FormValues>();
 
   // Submit handler
@@ -141,7 +142,7 @@ export default function PostJobForm() {
     }
     setTimeout(() => {
       setLoading(false);
-      router?.push("/client/confirm-deposit?assign=" + (assignEditor || ""));
+      router?.push("/confirm-deposit?assign=" + (assignEditor || ""));
     }, 500);
   };
 
@@ -189,7 +190,7 @@ export default function PostJobForm() {
           title='Post a Job'
           bgImage='/findEditor.jpg'
           links={[
-            { label: redirectUrl === "/client"?"Dashboard": redirectUrl === "/client/manage-job"?"Manage Jobs": redirectUrl === "/getting-started"?"Getting Started":"Home", href: redirectUrl || "/" }, 
+            { label: redirectUrl === "/client" ? "Dashboard" : redirectUrl === "/client/manage-job" ? "Manage Jobs" : redirectUrl === "/getting-started" ? "Getting Started" : "Home", href: redirectUrl || "/" },
             { label: "Post a Job" }
           ]}
         />
@@ -245,7 +246,12 @@ export default function PostJobForm() {
             </label>
             <select
               {...register("category", { required: true })}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                if (e.target.value === "thumbnails") {
+                  setValue("videoDuration", '');
+                }
+              }}
               className='w-full border rounded-lg p-3 mb-6'>
               {jobCategory.map((category) => (
                 <option key={category.key} value={category.key}>
@@ -253,44 +259,6 @@ export default function PostJobForm() {
                 </option>
               ))}
             </select>
-
-            {/* Budget */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Video Duration
-            </label>
-
-            <input
-              type='text'
-              placeholder='30'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
-              disabled={selectedCategory === "thumbnails"}
-              {...register("videoDuration", {
-                required: "Video duration is required",
-
-                onChange: (e) => {
-                  // শুধু number allow
-                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                  setVideoLength(parseInt(e.target.value) || 0);
-                },
-
-                onBlur: (e) => {
-                  let value = parseInt(e.target.value);
-
-                  if (!value || value < 1) value = 1;
-
-                  // auto format
-                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
-                  e.target.value = `${value} ${unit}`;
-                },
-              })}
-            />
-
-
-            {errors.videoDuration && (
-              <p className='text-red-500 text-sm mb-4'>
-                {errors.videoDuration.message || "Video Duration is required."}
-              </p>
-            )}
 
             {/* Required Skills */}
             <label className='block mb-2 text-sm font-medium text-gray-600'>
@@ -400,6 +368,43 @@ export default function PostJobForm() {
               </p>
             )}
 
+
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
+              Video Duration
+            </label>
+
+            <input
+              type='text'
+              placeholder='Video Duration (Estimate)'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed'
+              disabled={selectedCategory === "thumbnails"}
+              {...register("videoDuration", {
+                required: "Video duration is required",
+
+                onChange: (e) => {
+                  // শুধু number allow
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                  setVideoLength(parseInt(e.target.value) || 0);
+                },
+
+                onBlur: (e) => {
+                  let value = parseInt(e.target.value);
+
+                  if (!value || value < 1) value = 1;
+
+                  // auto format
+                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
+                  e.target.value = `${value} ${unit}`;
+                },
+              })}
+            />
+
+
+            {errors.videoDuration && (
+              <p className='text-red-500 text-sm mb-4'>
+                {errors.videoDuration.message || "Video Duration is required."}
+              </p>
+            )}
 
             {/* Platform */}
             <label className='block mb-2 text-sm font-medium text-gray-600'>

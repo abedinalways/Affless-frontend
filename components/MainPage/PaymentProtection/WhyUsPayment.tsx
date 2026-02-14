@@ -36,7 +36,7 @@ const data = [
     icon: <PaceMindIcon className='text-red-500' />,
     iconBg: "bg-[#FFEDD4]",
     title: "Peace of Mind",
-    desc: "Hire editors confidently knowing your payment is protected",
+    desc: "Hire editors confidently knowing your payment is protected.",
   },
 ];
 export default function WhyUsPamymet() {

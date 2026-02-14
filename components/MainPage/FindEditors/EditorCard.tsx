@@ -6,6 +6,13 @@ import Image, { StaticImageData } from "next/image";
 import { Star, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 export const editors = [
   {
@@ -18,7 +25,7 @@ export const editors = [
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
 
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed"],
+    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed","5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
     description:
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
@@ -31,7 +38,7 @@ export const editors = [
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed"],
+    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
 
     description:
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
@@ -45,7 +52,7 @@ export const editors = [
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed"],
+    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
 
     description:
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
@@ -60,7 +67,7 @@ export const editors = [
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
 
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed"],
+    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
     description:
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
@@ -77,7 +84,10 @@ export const editors = [
       "YouTube Long-form",
       "Within 3 Days",
       "127 Jobs Completed",
-      "127 Jobs Completed",
+      "5 Revisions included",
+      "Fast response / Communication",
+      "Timezone overlap / Language",
+      "Tools (Adobe Premiere Pro)"
     ],
 
     description:
@@ -92,7 +102,7 @@ export const editors = [
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed"],
+    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed" , "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
 
     description:
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
@@ -135,10 +145,10 @@ export default function EditorCard({
     }
   };
 
-  const visibleSkills = skills.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const visibleSkills = skills;
 
   return (
-    <div className='w-full bg-white p-6 rounded-xl shadow-sm border '>
+    <div className='w-full grid bg-white p-6 rounded-xl shadow-sm border '>
       {/* Header */}
       <div className='flex items-center gap-4'>
         <Image
@@ -178,31 +188,22 @@ export default function EditorCard({
         {description}
       </p>
       {/* Skills */}
-      {/* Skills */}
-      <div className='flex py-6 gap-2 items-center justify-between'>
-        <ChevronLeft
-          className={`cursor-pointer ${
-            startIndex === 0 ? "opacity-30" : "opacity-70"
-          }`}
-          onClick={handlePrev}
-        />
-        <div className='flex gap-3 flex-1 justify-center'>
-          {visibleSkills.map((skill, idx) => (
-            <span
-              key={idx}
-              className='bg-gray-100 px-4 py-1 rounded-full text-[12px] md:text-sm text-center'>
-              {skill}
-            </span>
-          ))}
-        </div>
-        <ChevronRight
-          className={`cursor-pointer ${
-            startIndex + ITEMS_PER_PAGE >= skills.length
-              ? "opacity-30"
-              : "opacity-70"
-          }`}
-          onClick={handleNext}
-        />
+      <div className='w-full py-6 overflow-hidden'>
+        <Carousel opts={{ loop: true }}>
+          <CarouselContent className="-ml-2">
+            {visibleSkills.map((skill, idx) => (
+              <CarouselItem key={idx} className="basis-auto pl-2">
+                <span
+                  key={idx}
+                  className='select-none whitespace-nowrap bg-gray-100 px-4 py-1 rounded-full text-[12px] md:text-sm text-center'>
+                  {skill}
+                </span>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="bg-white disabled:bg-gray-400 left-0 z-99 cursor-pointer disabled:cursor-not-allowed" />
+          <CarouselNext className="bg-white right-0 z-10 cursor-pointer disabled:cursor-not-allowed" />
+        </Carousel>
       </div>
 
       {/* Hire Button */}

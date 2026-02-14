@@ -53,7 +53,7 @@ export default function LongFormContent() {
               <div className="flex justify-end">
                 <div className="min-w-[78px] rounded-lg bg-[#FFEDED] px-4 py-2 text-center">
                   <span className="text-[14px] font-semibold text-[#FF4B4B]">
-                    $ {r.payout}
+                    ${r.payout}
                   </span>
                 </div>
               </div>

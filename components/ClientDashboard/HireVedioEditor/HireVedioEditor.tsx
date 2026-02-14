@@ -124,6 +124,7 @@ export default function HireVideoEditorForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -243,7 +244,10 @@ export default function HireVideoEditorForm() {
             </label>
             <select
               {...register("category", { required: true })}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                setValue("videoDuration", ""); // Clear video duration when category changes
+              }}
               className='w-full border rounded-lg p-3 mb-6'>
               {jobCategory.map((category) => (
                 <option key={category.key} value={category.key}>
@@ -251,44 +255,6 @@ export default function HireVideoEditorForm() {
                 </option>
               ))}
             </select>
-
-            {/* Budget */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Video Duration
-            </label>
-
-            <input
-              type='text'
-              placeholder='30'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
-              disabled={selectedCategory === "thumbnails"}
-              {...register("videoDuration", {
-                required: "Video duration is required",
-
-                onChange: (e) => {
-                  // শুধু number allow
-                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                  setVideoLength(parseInt(e.target.value) || 0);
-                },
-
-                onBlur: (e) => {
-                  let value = parseInt(e.target.value);
-
-                  if (!value || value < 1) value = 1;
-
-                  // auto format
-                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
-                  e.target.value = `${value} ${unit}`;
-                },
-              })}
-            />
-
-
-            {errors.videoDuration && (
-              <p className='text-red-500 text-sm mb-4'>
-                {errors.videoDuration.message || "Video Duration is required."}
-              </p>
-            )}
 
             <label className='block mb-2 text-sm font-medium text-gray-600'>
               Project Budget*
@@ -378,6 +344,42 @@ export default function HireVideoEditorForm() {
               </p>
             )}
 
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
+              Video Duration
+            </label>
+
+            <input
+              type='text'
+              placeholder='Video Duration (Estimate)'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed'
+              disabled={selectedCategory === "thumbnails"}
+              {...register("videoDuration", {
+                required: "Video duration is required",
+
+                onChange: (e) => {
+                  // শুধু number allow
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                  setVideoLength(parseInt(e.target.value) || 0);
+                },
+
+                onBlur: (e) => {
+                  let value = parseInt(e.target.value);
+
+                  if (!value || value < 1) value = 1;
+
+                  // auto format
+                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
+                  e.target.value = `${value} ${unit}`;
+                },
+              })}
+            />
+
+
+            {errors.videoDuration && (
+              <p className='text-red-500 text-sm mb-4'>
+                {errors.videoDuration.message || "Video Duration is required."}
+              </p>
+            )}
 
             {/* Platform */}
             <label className='block mb-2 text-sm font-medium text-gray-600'>

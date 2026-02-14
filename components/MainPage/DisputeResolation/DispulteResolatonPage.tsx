@@ -40,16 +40,12 @@ export default function DisputeResolutionPage() {
             <h2 className="text-[24px] font-medium leading-150%  mb-4 ">How to use the Resolution Center</h2>
 
             <p className="mb-4">
-              The Resolution Center is a place where editors and clients can work together to solve order
-              disputes or manage orders when a resolution cannot be reached through Inbox. You can raise
-              issues, submit supporting information to our Customer Support team through the Resolution
-              Center.
+              The Resolution Center is a place where editors and clients can work together to resolve order disputes or manage issues when a resolution cannot be reached through the Inbox. Users can raise issues and submit supporting information to Customer Support through the Resolution Center.
             </p>
 
-            <p className="mb-6">
-              This guide will walk you through how to access and use the Resolution Center from both the
-              freelancer’s and client’s perspectives.
-            </p>
+            {/* <p className="mb-6">
+              This guide explains how both editors and clients can access and use the Resolution Center.
+            </p> */}
 
             <h3 className="  mt-6 mb-3">Accessing the Resolution Center</h3>
 
@@ -73,26 +69,20 @@ export default function DisputeResolutionPage() {
           <h3 className="text-[24px] font-medium leading-150%  mt-8 mb-3" id="cancellations">Cancellations</h3>
 
           <p className="mb-4">
-            The Order Resolution Center is a safe tool for managing disputes and developing positive
-            relationships with clients and editors. To do this successfully, it's important for you to know
-            your options so that communication does not break down. If communication fails, orders are
-            cancelled automatically and keep in mind that if there is repeated anomaly and resistance.
+            The Resolution Center is designed to help manage disputes while encouraging clear and professional communication between editors and clients. Understanding your options helps prevent communication breakdowns.
+            If communication fails, an order may be canceled. Repeated misuse of the Resolution Center or failure to cooperate may result in account review.
           </p>
 
           <h4 className="font-semibold mt-6 mb-2" id="for-freelancers">For freelancers:</h4>
           <p className="mb-4">
-            Ensure you are transparent and clear with your client regarding your work and where you end your
-            service. Use the Resolution Center wisely as a tool to clarify matters and keep all parties informed.
-            Proper communication keeps projects healthy and keeps all parties safe.
+            Editors should communicate clearly with clients regarding project scope, deliverables, and where their service responsibilities begin and end. The Resolution Center should be used to clarify issues, provide updates, and maintain transparency. Proper communication helps keep projects healthy and protects all parties involved.
           </p>
 
           <h4 className="font-semibold mt-6 mb-2" id="for-clients">For clients:</h4>
           <p>
-            Always give the freelancer a chance to address your concerns before escalating to cancellation.
-            Clear communication about your expectations from the start prevents most disputes.
+            Clients are encouraged to give editors an opportunity to address concerns before escalating to cancellation. Clearly communicating expectations at the beginning of a project helps prevent most disputes and leads to better outcomes.
           </p>
         </section>
-
       </div>
     </div>
   );

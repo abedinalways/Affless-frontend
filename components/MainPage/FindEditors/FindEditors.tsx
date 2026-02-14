@@ -56,9 +56,8 @@ export default function FindEditors() {
 
         {/* Mobile Filter Section (Visible only on small screens) */}
         <div
-          className={`fixed inset-0 lg:hidden h-screen bg-[#0003] z-999 grid ${
-            mobileMenu ? "w-full translate-x-0" : "w-fit -translate-x-full "
-          } duration-300`}
+          className={`fixed inset-0 lg:hidden h-screen bg-[#0003] z-999 grid ${mobileMenu ? "w-full translate-x-0" : "w-fit -translate-x-full "
+            } duration-300`}
           onClick={() => setMobileMenu(false)}>
           <FilterSidebar
             isMobile={true}
@@ -79,14 +78,16 @@ export default function FindEditors() {
           </div>
 
           {/* Only Show Editors For This Page */}
-          {displayedEditors.map((editor, idx) => (
-            <EditorCard key={idx} {...editor} />
-          ))}
+          <div className="grid gap-6 overflow-hidden">
+            {displayedEditors.map((editor, idx) => (
+              <EditorCard key={idx} {...editor} />
+            ))}
+          </div>
 
           {/* Pagination */}
-          <Pagination 
-            page={currentPage} 
-            totalPages={totalPages} 
+          <Pagination
+            page={currentPage}
+            totalPages={totalPages}
             onPageChange={(page) => setCurrentPage(page)}
             total={displayedEditors.length}
             pageSize={itemsPerPage}
