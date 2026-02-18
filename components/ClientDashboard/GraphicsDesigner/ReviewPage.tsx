@@ -28,7 +28,7 @@ const reviewData: Review[] = [
     timeAgo: "4 years ago",
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "I will do SEO backlinks with blogger outreach for high quality link building",
-    price: "$400",
+    price: "$400.00",
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ const reviewData: Review[] = [
     timeAgo: "4 years ago",
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "Create a modern minimalist logo design for tech startup",
-    price: "$150",
+    price: "$150.00",
   },
   {
     id: 3,
@@ -52,7 +52,7 @@ const reviewData: Review[] = [
     timeAgo: "4 years ago",
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "Professional Video Editing for YouTube Channel - 10 min ep",
-    price: "$300",
+    price: "$300.00",
   },
 ];
 

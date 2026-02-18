@@ -30,9 +30,9 @@ export default function PublicClientProfile() {
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint ",
             tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-            price: "$400",
+            price: "$400.00",
             numberOfRevisions: "3",
-            duration: "7–30 days",
+            duration: "15 days",
             thumbnail: "/images/vedio.png.jpg",
         },
         {
@@ -43,9 +43,9 @@ export default function PublicClientProfile() {
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-            price: "$400",
+            price: "$400.00",
             numberOfRevisions: "3",
-            duration: "7–30 days",
+            duration: "10 days",
             thumbnail: "/images/vedio.png.jpg",
         },
     ];
@@ -95,7 +95,7 @@ export default function PublicClientProfile() {
                     </div>
 
                     <div className="bg-[#FFC8C8] rounded-lg p-4">
-                        <p className="text-gray-600 text-sm"> Hire Rate</p>
+                        <p className="text-gray-600 text-sm">Repeat Hire Rate</p>
                         <p className="text-xl text-semibold text-[#FF4D4F] pt-2.5">98%</p>
                     </div>
 
@@ -209,7 +209,7 @@ export default function PublicClientProfile() {
 
                                         <div className="p-6 flex gap-6">
                                             <div>
-                                                <p className="text-[#4A4C56] text-[14px]">Project duration</p>
+                                                <p className="text-[#4A4C56] text-[14px]">Project Duration</p>
                                                 <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
                                             </div>
                                         </div>

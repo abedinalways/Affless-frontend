@@ -24,12 +24,12 @@ export default function Banner() {
           router.push("/editor");
         }
       } else {
-        toast.error('Please login to post a job');
-        router.push('/login');
+        toast.error('Please signup as client to post a job');
+        router.push('/singup?redirect=/&type=client');
       }
     } catch {
-      toast.error('Please login to post a job');
-      router.push('/login');
+      toast.error('Please signup as client to post a job');
+      router.push('/singup?redirect=/&type=client');
     }
   }
 

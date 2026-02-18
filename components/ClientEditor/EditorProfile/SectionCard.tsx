@@ -1,6 +1,7 @@
 import { GoPlus } from "react-icons/go";
 
 export default function SectionCard({
+  data,
   title,
   desc,
   institute,
@@ -11,7 +12,8 @@ export default function SectionCard({
   buttonAlign = "left",
   children, // ✅ NEW
 }: {
-  title: string;
+  data?: { school: string; subject: string; year: string }[];
+  title?: string;
   desc?: string;
   btnText?: string;
   institute?: string;
@@ -26,12 +28,13 @@ export default function SectionCard({
       <div className="flex items-start justify-between gap-6">
         <div className="flex-1 space-y-2">
           <h3 className="text-[24px] font-medium text-[#333] leading-150%">{title}</h3>
-
-          {desc && <p className="text-[18px] font-medium text-[#1D1F2C]">{desc}</p>}
-          {institute && (
-            <p className="text-sm leading-relaxed text-gray-600">{institute}</p>
-          )}
-          {country && <p className="text-sm text-gray-500">{country}</p>}
+          {data?.map((edu, index) => (
+            <div>
+              <p className="text-[18px] font-medium text-[#1D1F2C]">{edu.subject}</p>
+              <p className="text-sm leading-relaxed text-gray-600">{edu.school}, {edu.year}</p>
+            </div>
+          ))}
+          {/* {country && <p className="text-sm text-gray-500">{country}</p>} */}
 
           {/* ✅ Show children below */}
           {children && <div className="pt-3">{children}</div>}
