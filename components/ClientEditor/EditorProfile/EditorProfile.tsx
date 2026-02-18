@@ -67,6 +67,11 @@ export default function ProfilePage() {
   const [openPortfolio, setOpenPortfolio] = useState(false);
   const [openEducation, setOpenEducation] = useState(false);
   const [openSkills, setOpenSkills] = useState(false);
+  const [educationList, setEducationList] = useState<{ school: string; subject: string; year: string }[]>([{
+    school: "Dhaka Polytechnic Institute",
+    subject: "CSE",
+    year: "2023"
+  }]);
 
   return (
     <div className="min-h-screen containers  bg-[#F7F7F7]">
@@ -104,17 +109,15 @@ export default function ProfilePage() {
 
         {/* ✅ Education */}
         <SectionCard
-          desc="Other - CSE"
           title="Education"
-          institute="Dhaka Polytechnic Institute"
-          country="Bangladesh, 2023"
+          data={educationList}
           btnText="Add Education"
           onClick={() => setOpenEducation(true)}
         />
 
         {/* ✅ Skills */}
         <SectionCard
-          title="Skills and expertise"
+          title="Skills and Expertise"
           btnText="Add Skills and Expertise"
           onClick={() => setOpenSkills(true)}
           buttonAlign="default"
@@ -154,7 +157,11 @@ export default function ProfilePage() {
 
       <AddEducationModal
         open={openEducation}
-        onClose={() => setOpenEducation(false)}
+        onClose={(edu: { school: string; subject: string; year: string }) => {
+          console.log("Education Added:", edu);
+          setOpenEducation(false);
+          setEducationList((prev) => [...prev, edu]);
+        }}
       />
 
       {/* ✅ Skills Modal - Now saves into state */}
@@ -165,13 +172,13 @@ export default function ProfilePage() {
           setSkills((prev) => [...new Set([...prev, ...newSkills])])
         }
       />
+
       <div className="py-10">
         <ReviewBreakdown reviewe={reviewData} title="Reviews" />
       </div>
       <div className="">
         <ReviewProfile />
       </div>
-
     </div>
   );
 }

@@ -8,7 +8,7 @@ export default function AddEducationModal({
   onClose,
 }: {
   open: boolean;
-  onClose: () => void;
+  onClose: (education: { school: string; subject: string; year: string }) => void;
 }) {
   const [school, setSchool] = useState("");
   const [subject, setSubject] = useState("");
@@ -16,11 +16,14 @@ export default function AddEducationModal({
 
   const save = () => {
     console.log({ school, subject, year });
-    onClose();
+    setSchool("");
+    setSubject("");
+    setYear("");
+    onClose({school, subject, year});
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Education">
+    <Modal open={open} onClose={() => onClose({school, subject, year})} title="Education">
       <div className="space-y-4">
         <div>
           <p className="text-sm font-semibold mb-2">Course name</p>
@@ -56,7 +59,7 @@ export default function AddEducationModal({
           <button
             type="button"
             onClick={()=>{
-              onClose();
+              onClose({school, subject, year});
               setSchool("");
               setSubject("");
               setYear("");
