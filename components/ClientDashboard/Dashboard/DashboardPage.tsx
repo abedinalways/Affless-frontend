@@ -125,7 +125,7 @@ export default function ClientDashboard() {
             <div className="rounded-2xl bg-white px-6 pt-6 pb-8 shadow-sm">
               <div className="flex flex-col items-center gap-3">
                 <div className="h-20 w-20 overflow-hidden rounded-full">
-                  <Image src="/images/inbox1.png" alt="Zeeshan" width={500} height={500} className="h-full w-full object-cover" />
+                  <Image src="/images/jone3.png" alt="Zeeshan" width={500} height={500} className="h-full w-full object-cover" />
                 </div>
 
                 <div className="text-center">

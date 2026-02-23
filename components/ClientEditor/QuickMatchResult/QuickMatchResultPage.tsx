@@ -107,6 +107,12 @@ export default function QuickMatchResult() {
   return (
     <div className=" bg-[#f6f6f6] py-10">
       <div className="containers mx-auto">
+        <div className="space-y-1 pb-5">
+          <h1 className="text-xl md:text-2xl font-medium text-[#333]">
+            Quick-Match Results
+          </h1>
+          <p className="text-sm md:text-base text-gray-600">Matches based on past successful collaborations.</p>
+        </div>
         <div className="flex flex-wrap items-center justify-between pb-5">
           <div className="grid items-center justify-end ">
             <Link
@@ -167,9 +173,9 @@ export default function QuickMatchResult() {
                     <div className="flex justify-between">
                       <div>
                         <Link href={`/client-profile/${client.id}`}>
-                        <h2 className="text-[20px] md:text-[24px] font-medium text-[#333] pb-2.5">
-                          {client.name}
-                        </h2>
+                          <h2 className="text-[20px] md:text-[24px] font-medium text-[#333] pb-2.5">
+                            {client.name}
+                          </h2>
                         </Link>
                         <p className="text-[16px] font-normal text-[#333] flex items-center gap-1">
                           <TiStarFullOutline className="text-[#FAAD14]" />{" "}
@@ -207,7 +213,7 @@ export default function QuickMatchResult() {
                     <div className="flex  gap-3 mt-3">
                       <div>
                         <Link href={`/editor/message?id=${client.id}&requestjob=true`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
-                            Request a Job
+                          Request a Job
                         </Link>
                       </div>
 

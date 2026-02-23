@@ -250,7 +250,7 @@ export default function EditorDashboardHeader() {
               {/* Profile Dropdown */}
               <div className="relative" ref={profileDropdownRef}>
                 <button onClick={() => setProfileDropdown(!profileDropdown)} className={`flex cursor-pointer border-2 rounded-full ${isActive("/editor/editor-profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}>
-                  <Image src="/images/profile.png" alt="profile" width={32} height={32} className="rounded-full" />
+                  <Image src="/images/photographer.jpg" alt="profile" width={1000} height={1000} className="w-8 h-8 rounded-full object-cover" />
                 </button>
 
                 {profileDropdown && (

@@ -215,7 +215,7 @@ export default function EditorCard({
             Hire Editor
           </div>
         </Link>
-        <Link href={`/client/message?id=${name}`} className='cursor-pointer w-full'>
+        <Link href={`/client/message?id=${name}&return=find-editor`} className='cursor-pointer w-full'>
           <div className=' text-center bg-[#FFEDED] cursor-pointer w-full text-[#FF4D4F]  p-3 rounded-lg font-medium hover:bg-red-100 duration-300 '>
             Message
           </div>

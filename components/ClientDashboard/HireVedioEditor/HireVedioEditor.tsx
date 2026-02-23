@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import PdfIcon from "@/components/Icons/PdfIcon";
+import { FaArrowLeft } from "react-icons/fa";
 
 type FormValues = {
   jobTitle: string;
@@ -26,6 +27,7 @@ type FormValues = {
   textFile?: FileList;
   styleReference?: FileList;
   videoDuration: string;
+  requiredSkills: string;
 };
 
 // Mapping of categories to available platforms
@@ -43,6 +45,7 @@ const categoryPlatformMap: { [key: string]: string[] } = {
 export default function HireVideoEditorForm() {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || "/";
+  const assignedEditorName = searchParams.get("assign") || "";
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
     "single"
   );
@@ -114,11 +117,49 @@ export default function HireVideoEditorForm() {
   };
 
   const handlePdfFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPdfFile(e.target.files ? e.target.files[0] : null);
+    const file = e.target.files?.[0] ?? null;
+
+    if (!file) {
+      setPdfFile(null);
+      return;
+    }
+
+    const isPdfType = file.type === "application/pdf";
+    const isPdfExtension = file.name.toLowerCase().endsWith(".pdf");
+
+    if (!isPdfType && !isPdfExtension) {
+      toast.error("Only PDF files are allowed.");
+      e.target.value = "";
+      setPdfFile(null);
+      return;
+    }
+
+    setPdfFile(file);
   };
 
   const handleTextDocumentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTextDocument(e.target.files ? e.target.files[0] : null);
+    const file = e.target.files?.[0] ?? null;
+
+    if (!file) {
+      setTextDocument(null);
+      return;
+    }
+
+    const lowerFileName = file.name.toLowerCase();
+    const isTxt = lowerFileName.endsWith(".txt") || file.type === "text/plain";
+    const isDocx =
+      lowerFileName.endsWith(".docx") ||
+      file.type ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+    if (!isTxt && !isDocx) {
+      toast.error("Only .txt and .docx files are allowed.");
+      e.target.value = "";
+      setTextDocument(null);
+      return;
+    }
+
+    setTextDocument(file);
   };
 
   const {
@@ -184,15 +225,24 @@ export default function HireVideoEditorForm() {
     <div>
       <div>
         <PageBanner
-          title='Hire a Video Editor'
+          title={assignedEditorName?`Hire ${assignedEditorName.split("_").join(" ")}`:'Hire a Video Editor'}
           bgImage='/findEditor.jpg'
           links={[
-            { label: redirectUrl === "/client" ? "Dashboard" : "Home", href: redirectUrl },
-            ...(redirectUrl === "/client" ? [{ label: "Find Editor", href: "/find-editor" }] : []),
+            { label: (redirectUrl === "/client" || redirectUrl === "find-editor-match") ? "Dashboard" : assignedEditorName ? "Direct Messages" : "Home", href: redirectUrl },
+            ...(redirectUrl === "/client" ? [{ label: "Find Editor", href: "/find-editor" }] : redirectUrl === "find-editor-match" ? [{ label: "Quick-Match Results", href: "/client/find-editor-match" }] : []),
             { label: "Hire a Video Editor" },
           ]}
         />
       </div>
+      {redirectUrl === "find-editor-match" && <div className="grid items-center justify-start p-6 containers">
+        <Link
+          href="/client/find-editor-match"
+          className="flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
+        >
+          <FaArrowLeft />
+          <span>Back to Quick Match</span>
+        </Link>
+      </div>}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='w-full flex p-6 containers'>
@@ -255,6 +305,26 @@ export default function HireVideoEditorForm() {
                 </option>
               ))}
             </select>
+
+            {/* Required Skills */}
+            <label className='block mb-2 text-sm font-medium text-gray-600'>
+              Required Skills
+            </label>
+
+            <input
+              type='text'
+              placeholder='e.g. Retention Editing, Storytelling, Color Correction'
+              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
+              {...register("requiredSkills", {
+                required: "Required skills are required.",
+              })}
+            />
+
+            {errors.requiredSkills && (
+              <p className='text-red-500 text-sm mb-4'>
+                {errors.requiredSkills.message || "Required skills are required."}
+              </p>
+            )}
 
             <label className='block mb-2 text-sm font-medium text-gray-600'>
               Project Budget*
@@ -441,6 +511,7 @@ export default function HireVideoEditorForm() {
                   id='pdf-file-upload'
                   className='hidden'
                   type='file'
+                  accept='.pdf,application/pdf'
                   onChange={handlePdfFileChange}
                 />
                 <div className='flex items-center gap-3'>
@@ -462,6 +533,7 @@ export default function HireVideoEditorForm() {
                   id='text-document-upload'
                   className='hidden'
                   type='file'
+                  accept='.txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                   onChange={handleTextDocumentChange}
                 />
                 <div className='flex items-center gap-3'>
@@ -478,12 +550,12 @@ export default function HireVideoEditorForm() {
             </div>
 
             <div className="flex items-center gap-4 py-4">
-              <button
+              {redirectUrl === "/client" && <button
                 type='button'
                 onClick={() => router?.back()}
                 className='w-full text-red-500 border border-red-500 py-3 rounded-lg hover:bg-red-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed duration-300'>
                 Back
-              </button>
+              </button>}
               <button
                 type='submit'
                 disabled={loading}

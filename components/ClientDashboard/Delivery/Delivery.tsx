@@ -156,7 +156,6 @@ export default function DeliveryClient() {
         </div>
 
         <RequestRevisionModal open={openRevision} setOpen={setOpenRevision} handleSubmit={() => {
-          toast.success("Revision requested successfully!")
           setOpenRevision(false);
         }} />
 

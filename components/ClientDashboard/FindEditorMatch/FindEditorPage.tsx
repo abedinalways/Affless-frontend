@@ -81,12 +81,142 @@ const editors: Editor[] = [
     match: 75,
     image: "/images/Floyd.jpg",
   },
+  {
+    id: 6,
+    name: "Kristin Watson",
+    rating: 4.8,
+    reviews: 291,
+    jobsCompleted: 103,
+    avgResponseTime: "12m",
+    clientsWorkedWith: 36,
+    match: 81,
+    image: "/images/Courtney.jpg",
+  },
+  {
+    id: 7,
+    name: "Darrell Steward",
+    rating: 4.7,
+    reviews: 214,
+    jobsCompleted: 68,
+    avgResponseTime: "20m",
+    clientsWorkedWith: 27,
+    match: 63,
+    image: "/images/Jerome.jpg",
+  },
+  {
+    id: 8,
+    name: "Jenny Wilson",
+    rating: 4.9,
+    reviews: 362,
+    jobsCompleted: 140,
+    avgResponseTime: "08m",
+    clientsWorkedWith: 52,
+    match: 89,
+    image: "/images/Esther.jpg",
+  },
+  {
+    id: 9,
+    name: "Albert Flores",
+    rating: 4.6,
+    reviews: 173,
+    jobsCompleted: 49,
+    avgResponseTime: "32m",
+    clientsWorkedWith: 18,
+    match: 44,
+    image: "/images/Annette.jpg",
+  },
+  {
+    id: 10,
+    name: "Savannah Nguyen",
+    rating: 4.8,
+    reviews: 267,
+    jobsCompleted: 88,
+    avgResponseTime: "16m",
+    clientsWorkedWith: 31,
+    match: 72,
+    image: "/images/Floyd.jpg",
+  },
+  {
+    id: 11,
+    name: "Bessie Cooper",
+    rating: 4.7,
+    reviews: 198,
+    jobsCompleted: 74,
+    avgResponseTime: "22m",
+    clientsWorkedWith: 25,
+    match: 58,
+    image: "/images/Courtney.jpg",
+  },
+  {
+    id: 12,
+    name: "Dianne Russell",
+    rating: 4.9,
+    reviews: 319,
+    jobsCompleted: 116,
+    avgResponseTime: "10m",
+    clientsWorkedWith: 43,
+    match: 86,
+    image: "/images/Jerome.jpg",
+  },
+  {
+    id: 13,
+    name: "Guy Hawkins",
+    rating: 4.5,
+    reviews: 142,
+    jobsCompleted: 41,
+    avgResponseTime: "35m",
+    clientsWorkedWith: 16,
+    match: 39,
+    image: "/images/Annette.jpg",
+  },
+  {
+    id: 14,
+    name: "Marvin McKinney",
+    rating: 4.8,
+    reviews: 255,
+    jobsCompleted: 92,
+    avgResponseTime: "14m",
+    clientsWorkedWith: 34,
+    match: 77,
+    image: "/images/Esther.jpg",
+  },
+  {
+    id: 15,
+    name: "Wade Warren",
+    rating: 4.6,
+    reviews: 184,
+    jobsCompleted: 61,
+    avgResponseTime: "28m",
+    clientsWorkedWith: 23,
+    match: 52,
+    image: "/images/Floyd.jpg",
+  },
 ];
+
+const MATCH_COUNT = 5;
+
+const getRandomEditors = (
+  source: Editor[],
+  count: number,
+  excludeIds: number[] = []
+) => {
+  const candidates = excludeIds.length
+    ? source.filter((editor) => !excludeIds.includes(editor.id))
+    : source;
+
+  const pool = candidates.length >= count ? candidates : source;
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+
+  return shuffled.slice(0, count);
+};
 
 export default function FindEditorsPage() {
   const router = useRouter();
   const [showFilters, setShowFilters] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [visibleEditors, setVisibleEditors] = useState<Editor[]>(() =>
+    getRandomEditors(editors, MATCH_COUNT)
+  );
   // ✅ Prevent body scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = showFilters ? "hidden" : "auto";
@@ -95,6 +225,10 @@ export default function FindEditorsPage() {
   const handleReMatch = () => {
     setIsLoading(true);
     setTimeout(() => {
+      setVisibleEditors((previousEditors) => {
+        const previousIds = previousEditors.map((editor) => editor.id);
+        return getRandomEditors(editors, MATCH_COUNT, previousIds);
+      });
       setIsLoading(false);
     }, 1000)
   }
@@ -110,6 +244,12 @@ export default function FindEditorsPage() {
   return (
     <div className=" bg-[#f6f6f6] py-10">
       <div className="containers mx-auto">
+        <div className="space-y-1 pb-5">
+          <h1 className="text-xl md:text-2xl font-medium text-[#333]">
+            Quick-Match Results
+          </h1>
+          <p className="text-sm md:text-base text-gray-600">Matches based on past successful collaborations.</p>
+        </div>
         <div className="flex flex-wrap items-center justify-between pb-5">
           <div className="grid items-center justify-end ">
             <Link
@@ -158,7 +298,7 @@ export default function FindEditorsPage() {
           </div> */}
           {/* ✅ RIGHT SIDE CONTENT */}
           <div className="w-full grid grid-cols-1 min-[640px]:grid-cols-2 min-[1024px]:grid-cols-1 min-[1280px]:grid-cols-2 min-[1700px]:grid-cols-3 gap-6">
-            {editors.map((editor) => (
+            {visibleEditors.map((editor) => (
               <div
                 key={editor.id}
                 className="bg-white rounded-xl p-5 shadow-sm gap-6"
@@ -219,12 +359,12 @@ export default function FindEditorsPage() {
 
                     <div className="flex  gap-3 mt-3">
                       <div>
-                        <Link href="/client/hire-vedio-editor" className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
+                        <Link href={`/hire-vedio-editor?id=${editor.id}&redirect=find-editor-match`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
                           Hire Editor
                         </Link>
                       </div>
 
-                      <Link href={`/client/message?id=${editor.id}&return=find-editor-match`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
+                      <Link href={`/client/message?id=${editor.id}`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
                         Message
                       </Link>
                     </div>

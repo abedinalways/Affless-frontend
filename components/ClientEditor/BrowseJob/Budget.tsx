@@ -74,7 +74,8 @@ export default function BudgetPage({ btnText }: propType) {
             <InfoRow label="Total Jobs Posted:" value="50" />
             <InfoRow label="Hire Rate (%):" value="80%" />
             <InfoRow label="Average Response Time:" value="30 mins" />
-            <InfoRow label="Member Since:" value="Jan, 2020" />
+            <InfoRow label="Location:" value="Australia" />
+            <InfoRow label="Member Since:" value="January, 2020" />
           </div>
         </div>
 

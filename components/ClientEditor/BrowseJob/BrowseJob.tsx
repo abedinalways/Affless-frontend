@@ -150,10 +150,10 @@ export default function BrowseJob() {
   return (
     <div>
       <PageBanner
-        title="Browse Jobs"
+        title={client ? `All of ${client} Jobs` : "Browse Jobs"}
         bgImage="/findEditor.jpg"
-        desc=" Find the best client jobs based on job type, budget, and project duration."
-        links={[{ label: redirectUrl === "/editor"?"Dashboard":"Home", href: redirectUrl || "/" }, { label: "Browse Jobs" }]}
+        desc={client ? "Browse this client’s jobs based on job type, budget, and project duration." : " Find the best client jobs based on job type, budget, and project duration."}
+        links={[{ label: redirectUrl === "/editor"?"Dashboard": redirectUrl?.split("?")[0] === "/client/message"?"Direct Messages": "Home", href: redirectUrl || "/" }, { label: redirectUrl ? `All of ${client}’s Jobs` : "Browse Jobs" }]}
       />
 
       <div className="containers lg:py-20 ">
@@ -229,7 +229,7 @@ export default function BrowseJob() {
                     </span>
                   </div>
 
-                  <div>Delivery: {item.deliveryTime}</div>
+                  <div>Job Duration: {item.deliveryTime}</div>
                 </div>
               ))}
 

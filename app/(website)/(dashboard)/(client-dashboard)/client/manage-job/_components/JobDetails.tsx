@@ -68,7 +68,7 @@ export default function JobDetails({id}:propType) {
         bgImage="/findEditor.jpg"
         links={[
           { label: "Dashboard", href: "/client" },
-          { label: "Manage Job", href: "/client/manage-job" },
+          { label: "Manage Jobs", href: "/client/manage-job" },
           { label: job.service, href: `/client/manage-job/${job.id}` },
         ]}
       />
@@ -98,9 +98,7 @@ export default function JobDetails({id}:propType) {
                 <p>{job.service}</p>
 
                 <span
-                  className={`text-xs px-3 py-1 rounded-full mt-2 inline-block capitalize ${job.status === "in_progress"
-                    ? "bg-green-100 text-green-700"
-                    : job.status === "in_revision"
+                  className={`text-xs px-3 py-1 rounded-full mt-2 inline-block capitalize ${job.status === "in_revision"
                       ? "bg-red-100 text-red-700"
                       : "bg-blue-100 text-blue-700"
                     }`}

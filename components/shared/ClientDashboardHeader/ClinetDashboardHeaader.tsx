@@ -36,7 +36,7 @@ export default function ClientDashboardHeader() {
 
   const businessRoutes = [
     "/client/manage-job",
-    "/client/find-editor",
+    "/client/find-editors",
     "/client/job-proposal",
     "/client/payment-history",
     "/client/profile",
@@ -247,7 +247,7 @@ export default function ClientDashboardHeader() {
                 className={`flex cursor-pointer border-2 rounded-full ${isActive("/client/profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}
               >
                 <Image
-                  src="/images/profile.png"
+                  src="/images/jone3.png"
                   alt="profile"
                   width={32}
                   height={32}

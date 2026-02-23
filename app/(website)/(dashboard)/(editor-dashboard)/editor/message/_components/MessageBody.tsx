@@ -457,7 +457,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                 <div className="flex items-center gap-3">
                     <button
                         type="button"
-                        onClick={() => router.push(`/editor-profile/${otherUserId}`)}
+                        onClick={() => router.push(`/client-profile/${otherUserId}`)}
                         className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer"
                         style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}
                     >
@@ -470,7 +470,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                     <div>
                         <button
                             type="button"
-                            onClick={() => router.push(`/editor-profile/${otherUserId}`)}
+                            onClick={() => router.push(`/client-profile/${otherUserId}`)}
                             className="font-semibold text-gray-900 cursor-pointer hover:underline"
                         >
                             {activeConversation?.name || 'Select a conversation'}

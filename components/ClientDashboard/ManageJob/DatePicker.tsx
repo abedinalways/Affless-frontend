@@ -15,7 +15,7 @@ import { useEffect, useState } from "react"
 import { DateRange } from "react-day-picker"
 
 type propType = {
-    onChange?: (date: Date[]) => void
+    onChange?: (date: [Date | undefined, Date | undefined]) => void
     placeHolderText?: string;
     initialDate?: Date;
     startDate?: Date;
@@ -29,15 +29,36 @@ export default function DatePicker({ onChange, placeHolderText, initialDate, sta
 
 
     const handleRangeSelect = (range?: DateRange) => {
-        setStartDate(range?.from);
-        setEndDate(range?.to);
+        if (!range) {
+            setStartDate(undefined);
+            setEndDate(undefined);
+            return false;
+        }
+
+        if (!startDate || endDate) {
+            setStartDate(range.from);
+            setEndDate(undefined);
+            return false;
+        }
+
+        setStartDate(range.from ?? startDate);
+        setEndDate(range.to);
+        return Boolean(range.to);
     };
 
-    useEffect(()=>{
-        if(onChange && startDate && endDate){
+    useEffect(() => {
+        setStartDate(propStartDate);
+    }, [propStartDate]);
+
+    useEffect(() => {
+        setEndDate(propEndDate);
+    }, [propEndDate]);
+
+    useEffect(() => {
+        if (onChange) {
             onChange([startDate, endDate]);
         }
-    },[startDate, endDate]);
+    }, [startDate, endDate]);
 
     return (
         <div className="flex flex-wrap items-center gap-4">
@@ -68,8 +89,8 @@ export default function DatePicker({ onChange, placeHolderText, initialDate, sta
                         }
                         captionLayout="dropdown"
                         onSelect={(range) => {
-                            handleRangeSelect(range);
-                            if (range?.from && range?.to) {
+                            const isRangeComplete = handleRangeSelect(range);
+                            if (isRangeComplete) {
                                 setDatePickerOpen(false);
                             }
                         }}

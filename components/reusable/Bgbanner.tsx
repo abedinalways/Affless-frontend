@@ -17,7 +17,7 @@ export default function PageBanner({ title, bgImage, links, desc}: PageBannerPro
       style={{ backgroundImage: `url('${bgImage}')` }}
     >
       <div className="containers justify-center items-start ">
-        <h1 className="text-white text-[40px] md:text-[50px] lg:text-[56px] font-medium">{title}</h1>
+        <h1 className="text-white text-[40px] md:text-[50px] lg:text-[56px] font-medium capitalize">{title}</h1>
         {desc&&<h1 className="text-white text-[16px] font-normal leading-150% pt-3 pb-6">{desc}</h1>}
         <BreadCrumb links={links} />
       </div>

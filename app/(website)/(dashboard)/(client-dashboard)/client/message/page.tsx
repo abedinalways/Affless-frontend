@@ -58,7 +58,9 @@ export default function page() {
 
     const handleSelectConversation = (id: string) => {
         setSelectedConversationId(id);
-        console.log("Selected conversation ID:", id);
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("id", id);
+        router.replace(`/client/message?${params.toString()}`);
     }
 
     const handleReportUser = async (reportData: any) => {
@@ -97,7 +99,7 @@ export default function page() {
             {returnTo === "find-editor" && (
                 <button
                     type="button"
-                    onClick={() => router.push("/client/find-editor")}
+                    onClick={() => router.push("/find-editor")}
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
                     <FaArrowLeft /> <span>Back to Find Editor</span>
@@ -152,7 +154,7 @@ export default function page() {
                             {selectedConversationId && (
                                 <button
                                     type="button"
-                                    onClick={() => router.push(`/post-job?assign=${activeConversation?.profileId || selectedConversationId}`)}
+                                    onClick={() => router.push(`/hire-vedio-editor?assign=${activeConversation?.profileId || selectedConversationId}&redirect=${`/client/message?id=${selectedConversationId}`}`)}
                                     className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                                 >
                                     Post a Job for {activeConversation?.name || "User"}

@@ -14,7 +14,7 @@ export default function DeliveredFileCard({ ImageIcon, title, size, fileType }: 
 
     const handleDownload = () => {
         setDownloading(true);
-        toast.success("Download started");
+        toast.success("The download has started.");
         // Simulate download delay
         setTimeout(() => {
             setDownloading(false);

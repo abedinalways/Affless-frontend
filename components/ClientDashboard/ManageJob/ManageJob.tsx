@@ -51,7 +51,7 @@ export const ALL_JOBS: JobRow[] = [
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
     total: "743",
-    dueOn: new Date("2026-02-21"),
+    dueOn: new Date("2026-04-21"),
     status: "in_progress",
     customer: "Cameron Williamson",
     deliveryDate: new Date("2026-11-09T15:30:00"),
@@ -193,10 +193,19 @@ export default function ManageJobsPage() {
   const goToDetail = (id: string) => router.push(`/client/manage-job/${id}`);
 
   useEffect(() => {
-    setLoading(true);
-    const timeoutId = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    const isCustomDateFilter = dateFilter === "custom_date";
+    const hasFullDateRange = Boolean(startDate && endDate);
+    const shouldTriggerLoading = !isCustomDateFilter || hasFullDateRange;
+
+    if (shouldTriggerLoading) {
+      setLoading(true);
+    }
+
+    const timeoutId = shouldTriggerLoading
+      ? setTimeout(() => {
+        setLoading(false);
+      }, 1000)
+      : undefined;
 
     let data = ALL_JOBS;
 
@@ -235,7 +244,13 @@ export default function ManageJobsPage() {
 
     setFilteredJobs(data);
 
-    return () => clearTimeout(timeoutId);
+    if (!shouldTriggerLoading) {
+      setLoading(false);
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [activeTab, dateFilter, startDate, endDate]);
 
 
@@ -286,19 +301,15 @@ export default function ManageJobsPage() {
       header: "Days Left",
       cell: ({ row }) => {
         const d = row.original;
+        const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
         return (
           <>
             {(d.status === "in_progress" || d.status === "late") && (
               <div
                 onClick={() => goToDetail(d.id)}
-                className="cursor-pointer  p-2 rounded-md"
+                className="cursor-pointer  p-2 rounded-md text-center"
               >
-                {Math.max(
-                  0,
-                  Math.ceil(
-                    (d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-                  )
-                )} Days Left
+                 {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "day left" : "day left"}
               </div>
             )}
           </>
@@ -355,7 +366,7 @@ export default function ManageJobsPage() {
           {/* TABS */}
           <div className="flex items-center justify-between mb-6">
             <div className="grid grid-cols-5 gap-4 text-sm font-medium">
-              {["all", "in_progress", "in_revision", "late", "delivered", "completed", "cancelled"].map((tab) => (
+              {["all", "in_progress", "pending", "in_revision", "late", "delivered", "completed", "cancelled"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -378,7 +389,16 @@ export default function ManageJobsPage() {
           {/* HEADER */}
           <div className="">
             <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg">
-              <h2 className="text-lg font-semibold"><span className="capitalize">{(activeTab?.split("_").join(" ") === "in progress" || activeTab?.split("_").join(" ") === "in revision") ? "Jobs " + activeTab?.split("_").join(" ") : activeTab?.split("_").join(" ") + " Jobs"}</span></h2>
+              <h2 className="text-lg font-semibold">
+                <span className="capitalize">
+                  {
+                    (activeTab?.split("_").join(" ") === "in progress" || activeTab?.split("_").join(" ") === "pending" || activeTab?.split("_").join(" ") === "in revision")
+                      ?
+                      "Jobs " + activeTab?.split("_").join(" ")
+                      :
+                      activeTab?.split("_").join(" ") + " Jobs"}
+                </span>
+              </h2>
               {dateFilter === "custom_date" && <div>
                 <DatePicker
                   startDate={startDate}

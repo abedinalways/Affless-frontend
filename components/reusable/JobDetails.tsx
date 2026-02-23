@@ -94,7 +94,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
 
             <div className="grid grid-cols-3 text-center gap-2 mb-6">
               {[
-                { label: "Days", value: timeLeft.days },
+                { label: "Day", value: timeLeft.days },
                 { label: "Hours", value: timeLeft.hours },
                 { label: "Minutes", value: timeLeft.minutes },
               ].map((item) => (

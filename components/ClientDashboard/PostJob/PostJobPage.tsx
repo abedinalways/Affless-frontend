@@ -466,6 +466,7 @@ export default function PostJobForm() {
                   id='pdf-file-upload'
                   className='hidden'
                   type='file'
+                  accept='.pdf,application/pdf'
                   onChange={handlePdfFileChange}
                 />
                 <div className='flex items-center gap-3'>
@@ -487,6 +488,7 @@ export default function PostJobForm() {
                   id='text-document-upload'
                   className='hidden'
                   type='file'
+                  accept='.txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                   onChange={handleTextDocumentChange}
                 />
                 <div className='flex items-center gap-3'>

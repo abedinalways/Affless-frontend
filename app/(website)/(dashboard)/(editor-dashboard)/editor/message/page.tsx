@@ -164,7 +164,7 @@ export default function page() {
 
                             <button
                                 type="button"
-                                onClick={() => router.push(`/browse-job?client=${activeConversation?.name || ""}`)}
+                                onClick={() => router.push(`/browse-job?client=${activeConversation?.name || ""}&redirect=/client/message?id=${selectedConversationId}`)}
                                 className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                             >
                                 View All Client’s Jobs
