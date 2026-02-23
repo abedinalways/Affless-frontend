@@ -43,10 +43,13 @@ export default function ProfileHeaderCard({
         <div className="flex-1 space-y-2.5">
           <p className="text-[18px] font-medium text-[#333] leading-120%">{profile.name}</p>
 
-          <div className="mt-1 flex items-center gap-2 text-[#333] text-[12px] font-normal">
-            <MdStar className="text-yellow-500" />
-            <span className=" text-[#333]">{profile.rating}</span>
-            <span>({profile.reviews} reviews)</span>
+          <div>
+            <h2>Reviews</h2>
+            <div className="flex items-center gap-2 text-[#333] text-[12px] font-normal">
+              <MdStar className="text-yellow-500" />
+              <span className=" text-[#333]">{profile.rating}</span>
+              <span>({profile.reviews} reviews)</span>
+            </div>
           </div>
 
           <p className="mt-2 text-[12px] text-[#333]">{profile.tagline}</p>

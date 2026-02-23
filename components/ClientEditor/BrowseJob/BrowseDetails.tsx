@@ -94,7 +94,7 @@ export default function BrowseDetails() {
             </div>
               <div>
                 <p className="text-lg text-[18px] font-semibold">Footage Duration</p>
-                <p className="text-[16px] font-medium leading-150% mt-1.5 ">50 sec</p>
+                <p className="text-[16px] font-medium leading-150% mt-1.5 ">50 seconds</p>
               </div>
             </div>
           </div>

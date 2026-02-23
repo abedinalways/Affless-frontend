@@ -141,7 +141,7 @@ const columns: ColumnDef<Order>[] = [
     accessorKey: "days",
     header: "Days Left",
     cell: ({ row }) => (
-      <p className="text-[16px] text-[#4A4C56] text-center">{row.original.days} Days</p>
+      <p className="text-[16px] text-[#4A4C56] text-center">{row.original.days} Days Left</p>
     ),
   },
   {

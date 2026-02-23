@@ -13,6 +13,16 @@ import toast from "react-hot-toast";
 import Pagination from "@/components/reusable/pagination";
 import { useSearchParams } from "next/navigation";
 
+const formatBidAmount = (value: string, minimum: number = 2) => {
+  const sanitized = value
+    .replace(/[^0-9.]/g, "")
+    .replace(/(\..*)\./g, "$1");
+  const parsed = Number.parseFloat(sanitized);
+  const finalAmount = Number.isFinite(parsed) && parsed >= minimum ? parsed : minimum;
+
+  return `$${finalAmount.toFixed(2)}`;
+};
+
 const bids = [
   {
     id: "1",
@@ -49,7 +59,7 @@ export default function JobDetails({ params }: PostPageProps) {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || undefined;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { handleSubmit, register, reset, formState: { errors } } = useForm<{
+  const { handleSubmit, register, reset, setValue, formState: { errors } } = useForm<{
     bidAmount: string;
     deliveryTime: string;
     coverLetter: string;
@@ -64,6 +74,30 @@ export default function JobDetails({ params }: PostPageProps) {
 
 
   if (!job) return <div className="conta?iners py-10">Loading...</div>;
+
+  const handleMatchClientBudget = () => {
+    const rawBudget = job?.budget ?? job?.clientBudget ?? job?.price;
+
+    if (rawBudget === undefined || rawBudget === null) {
+      toast.error("Client budget is not available.");
+      return;
+    }
+
+    const numericBudget =
+      typeof rawBudget === "number"
+        ? rawBudget
+        : Number.parseFloat(String(rawBudget).replace(/[^0-9.]/g, ""));
+
+    if (!Number.isFinite(numericBudget) || numericBudget <= 0) {
+      toast.error("Client budget is not available.");
+      return;
+    }
+
+    setValue("bidAmount", formatBidAmount(String(numericBudget), 2), {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  };
 
   const onProposalSubmit = (data: { bidAmount: string; deliveryTime: string; coverLetter: string }) => {
     setIsSubmitting(true);
@@ -111,16 +145,18 @@ export default function JobDetails({ params }: PostPageProps) {
                           },
 
                           onBlur: (e) => {
-                            let value = parseFloat(e.target.value.replace(/[^0-9.]/g, ""));
-
-                            if (!value || value < 2) value = 2;
-
-                            // auto format
-                            e.target.value = `$${value}`;
+                            e.target.value = formatBidAmount(e.target.value, 2);
                           },
                         })}
 
                       />
+                      <button
+                        type="button"
+                        onClick={handleMatchClientBudget}
+                        className="text-sm border px-4 py-1 cursor-pointer rounded-lg mt-2 ml-4 bg-red-500 text-white hover:bg-red-600 transition duration-300"
+                      >
+                        Match Client Budget
+                      </button>
                       {errors.bidAmount && (
                         <p className="text-red-500 text-xs mt-1">
                           Proposal amount is required

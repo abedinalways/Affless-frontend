@@ -4,6 +4,22 @@ import { useMemo, useState, useEffect } from "react";
 import { Calendar, Plus } from "lucide-react";
 import toast from "react-hot-toast";
 
+const isValidExpiryDate = (value: string) => {
+  const match = value.match(/^(\d{2})\s\/\s(\d{2})$/);
+  if (!match) return false;
+
+  const month = Number.parseInt(match[1], 10);
+  const year = Number.parseInt(match[2], 10);
+
+  if (month < 1 || month > 12) return false;
+
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear() % 100;
+
+  return year > currentYear || (year === currentYear && month >= currentMonth);
+};
+
 type Step = "BALANCE" | "ADD_MONEY" | "PAYMENT";
 
 export default function AddMoney() {
@@ -14,7 +30,7 @@ export default function AddMoney() {
 
   // Amount state
   const [amount, setAmount] = useState<number>(0);
-  const quickAmounts = useMemo(() => [350.00, 150.00, 25.00, 10.00], []);
+  const quickAmounts = useMemo(() => [50.00, 100.00, 200.00, 500.00], []);
 
   // Payment form states
   const [cardNumber, setCardNumber] = useState("");
@@ -27,7 +43,7 @@ export default function AddMoney() {
   const canPay =
     amount > 0 &&
     cardNumber.trim().length >= 19 &&
-    expiry.trim().length >= 4 &&
+    isValidExpiryDate(expiry.trim()) &&
     cvc.trim().length >= 3 &&
     holder.trim().length >= 2;
 
@@ -86,7 +102,7 @@ export default function AddMoney() {
                 canPay={canPay}
                 onBack={() => setStep("ADD_MONEY")}
                 onPay={() => {
-                  toast.success(`Paid $${amount.toFixed(2)} Successfully`);
+                  toast.success(`Paid $${amount.toFixed(2)} Successfully.`);
                   setTimeout(() => {
                     setStep("BALANCE");
                     setAmount(0);
@@ -169,7 +185,7 @@ function AddMoneyStep({
   const [displayAmount, setDisplayAmount] = useState<string>("");
 
   useEffect(() => {
-    setDisplayAmount(amount ? amount.toString() : "");
+    setDisplayAmount(amount ? `$${amount.toFixed(2)}` : "");
   }, [amount]);
 
   return (
@@ -300,11 +316,40 @@ function PaymentMethodStep({
             value={expiry}
             inputMode="numeric"
             onChange={(e) => {
-              const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 4);
-              const formatted = digitsOnly.length > 2
-                ? `${digitsOnly.slice(0, 2)} / ${digitsOnly.slice(2)}`
-                : digitsOnly;
+              const inputType = (e.nativeEvent as InputEvent).inputType;
+              const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 5);
+
+              if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
+                const deleteFormatted = digitsOnly.length > 2
+                  ? `${digitsOnly.slice(0, 2)} / ${digitsOnly.slice(2)}`
+                  : digitsOnly;
+                setExpiry(deleteFormatted);
+                return;
+              }
+
+              const monthPart = digitsOnly.slice(0, 2);
+              if (monthPart.length === 2) {
+                const monthNum = Number.parseInt(monthPart, 10);
+                if (monthNum < 1 || monthNum > 12) {
+                  return;
+                }
+              }
+              let formatted = "";
+              if (digitsOnly.length === 3) {
+                formatted = `0${digitsOnly.slice(0, 1)} / ${digitsOnly.slice(1)}`;
+              } else if(digitsOnly.length === 5) {
+                formatted = `${digitsOnly.slice(1, 3)} / ${digitsOnly.slice(3)}`;
+              } else {
+                formatted = digitsOnly;
+              }
               setExpiry(formatted);
+            }}
+            onBlur={() => {
+              if (!expiry) return;
+              if (!isValidExpiryDate(expiry)) {
+                toast.error("Please enter a valid expiry date.");
+                setExpiry("");
+              }
             }}
             placeholder="MM / YY"
             className="w-full h-12 rounded-lg border border-gray-300 px-4 pr-12 outline-none focus:border-gray-400"
@@ -348,7 +393,7 @@ function PaymentMethodStep({
             : "bg-[#FF4B4B] text-white cursor-pointer hover:opacity-90"
           }`}
       >
-        Pay ${amount || 0}
+        Pay ${amount.toFixed(2) || 0}
       </button>
 
       <button
