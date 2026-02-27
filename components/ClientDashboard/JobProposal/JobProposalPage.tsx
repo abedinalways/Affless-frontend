@@ -9,9 +9,9 @@ import { SlidersHorizontal } from "lucide-react";
 export interface ProposalRow {
   id: string;
   service: string;
-  amount: string;
-  time: "3 Days" | "5 Days" | "7 Days";
-  status: "in_progress"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
+  amount: number;
+  time: string;
+  status: "Pending Approval of Editor"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
   thumbnail: string;
 }
 
@@ -19,16 +19,16 @@ const PAGE_SIZE = 8;
 
 // ✅ IMPORTANT: unique IDs (ডুপ্লিকেট id দিলে React key collision হয়)
 export const ProposalData: ProposalRow[] = [
-  { id: "1", thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "in_progress" },
-  { id: "2", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "in_progress" },
-  { id: "3", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "delivered" },
-  { id: "4", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "in_revision" },
-  { id: "5", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "3 Days", status: "in_revision" },
-  { id: "6", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "7 Days", status: "late" },
-  { id: "7", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "5 Days", status: "delivered" },
-  { id: "8", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "3 Days", status: "completed" },
-  { id: "9", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: "$55", time: "7 Days", status: "cancelled" },
-  { id: "10", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: "$55", time: "5 Days", status: "late" },
+  { id: "1", thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "5", status: "Pending Approval of Editor" },
+  { id: "2", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "3", status: "Pending Approval of Editor" },
+  { id: "3", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "7", status: "delivered" },
+  { id: "4", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "5", status: "in_revision" },
+  { id: "5", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "3", status: "in_revision" },
+  { id: "6", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "7", status: "late" },
+  { id: "7", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "5", status: "delivered" },
+  { id: "8", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "3", status: "completed" },
+  { id: "9", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "7", status: "cancelled" },
+  { id: "10", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "5", status: "late" },
 ];
 
 export default function JobProposalPage() {
@@ -39,7 +39,7 @@ export default function JobProposalPage() {
   const [timeFilter, setTimeFilter] = useState<"ALL" | "5 Days" | "7 Days" | "3 Days">("ALL");
 
   // ✅ filter toggle only Accepted/Declined for your UI
-  const [statusFilter, setStatusFilter] = useState<"in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled">("in_progress");
+  const [statusFilter, setStatusFilter] = useState<"Pending Approval of Editor" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled">("Pending Approval of Editor");
 
   // ✅ filtered data
   const filteredData = useMemo(() => {
@@ -86,8 +86,8 @@ export default function JobProposalPage() {
         <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
           <div className="flex gap-4">
             <button
-              onClick={() => setStatusFilter("in_progress")}
-              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+              onClick={() => setStatusFilter("Pending Approval of Editor")}
+              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "Pending Approval of Editor" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                 }`}
             >
               Jobs Awaiting Your Editor Selection
@@ -124,12 +124,12 @@ export default function JobProposalPage() {
             {
               accessorKey: "amount",
               header: "Amount",
-              cell: ({ row }: any) => <div className="text-gray-700 text-center">{row.original.amount}</div>,
+              cell: ({ row }: any) => <div className="text-gray-700 text-center">${Number(row.original.amount).toFixed(2)}</div>,
             },
             {
               accessorKey: "time",
               header: "Time Awaiting Editor Approval",
-              cell: ({ row }: any) => <div className="text-gray-700 text-center">{row.original.time}</div>,
+              cell: ({ row }: any) => <div className="text-gray-700 text-center">{row.original.time} hours</div>,
             },
             {
               accessorKey: "status",
@@ -137,7 +137,7 @@ export default function JobProposalPage() {
               cell: ({ row }: any) => {
                 const s = row.original.status as ProposalRow["status"];
                 const badge =
-                  s === "in_progress"
+                  s === "Pending Approval of Editor"
                     ? "bg-yellow-500"
                     : s === "completed"
                       ? "bg-yellow-500"
@@ -146,7 +146,7 @@ export default function JobProposalPage() {
                         : "bg-red-500";
 
                 return (
-                  <span className={`px-4 py-1 rounded-md text-[14px] font-medium uppercase text-white ${badge}`}>
+                  <span className={`px-4 py-1 rounded-md text-[14px] font-medium capitalize text-white ${badge}`}>
                     {s}
                   </span>
                 );
@@ -176,8 +176,8 @@ export default function JobProposalPage() {
             <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
               <div className="flex gap-4">
                 <button
-                  onClick={() => setStatusFilter("in_progress")}
-                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                  onClick={() => setStatusFilter("Pending Approval of Editor")}
+                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "Pending Approval of Editor" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                     }`}
                 >
                   Accept

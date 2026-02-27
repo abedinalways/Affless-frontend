@@ -42,6 +42,7 @@ const reviews = [
 export default function ReviewsSection() {
   return (
     <div className="space-y-4">
+      <h2 className="font-medium text-[#333] text-2xl">Reviews</h2>
       {reviews.map((review) => (
         <div
           key={review.id}

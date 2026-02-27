@@ -72,7 +72,7 @@ export default function ProposalDetails({ id }: { id: string }) {
         <div>
             <div>
                 <PageBanner
-                    title="Proposal Details"
+                    title={`${proposal?.service || "Proposal Details"}`}
                     bgImage="/findEditor.jpg"
                     links={[{ label: "Dashboard", href: "/client" }, { label: "Job Proposals", href: "/client/job-proposal" }, { label: proposal?.service || "Proposal Details", href: "#" }]}
                 />
@@ -83,7 +83,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                     {/* LEFT */}
                     <div className="space-y-5 w-full order-2 lg:order-1">
                         <Link href="/client/job-proposal" className="block">
-                            <button className="px-4 py-2 border rounded-md bg-[#EBECEC] hover:bg-gray-100 text-[#333] text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
+                            <button className="px-4 py-2 border rounded-md bg-[#e74c4c] hover:bg-[#c0392b] text-white text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
                                 <FaArrowLeft />
                                 Back to Job Proposals
                             </button>
@@ -200,6 +200,9 @@ export default function ProposalDetails({ id }: { id: string }) {
 
                             <div className="flex flex-wrap gap-3">
                                 <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
+                                    Retention Editing
+                                </span>
+                                <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
                                     Color Correction
                                 </span>
                                 <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
@@ -220,7 +223,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                                     <PdfIcon className="w-10 h-10" />
                                     <div>
                                         <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                                            {pdfFile ? pdfFile.name : "PDF File"}
+                                            {pdfFile ? pdfFile.name : "Added-in PDF File"}
                                         </p>
                                     </div>
                                 </Link>
@@ -230,7 +233,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                                     <PdfIcon className="w-10 h-10" />
                                     <div>
                                         <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                                            {textFile ? textFile.name : "Upload Text Document"}
+                                            {textFile ? textFile.name : "Added-in Text Document"}
                                         </p>
                                     </div>
                                 </Link>
