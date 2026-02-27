@@ -19,26 +19,14 @@ const BidsDetails = ({ id }: { id: string }) => {
   const bidDetails = bidsData.find(bid => bid.id === id);
   const proposalDetails = proposalId ? (ProposalData.find(proposal => proposal.id === proposalId) as ProposalRow) : null;
 
-  console.log("Bid Details:", bidDetails);
-
-  const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setPdfFile(e.target.files[0]);
-    }
-  };
-
-  const handleTextUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setTextFile(e.target.files[0]);
-    }
-  };
+  // console.log("Bid Details:", bidDetails);
 
   return (
     <div>
       {/* Banner */}
       <div>
         <PageBanner
-          title="Proposal Details"
+          title={`${bidDetails?.name? bidDetails.name + "'s Proposal" : "Proposal Details"}`}
           bgImage="/findEditor.jpg"
           links={[
             {
@@ -56,7 +44,7 @@ const BidsDetails = ({ id }: { id: string }) => {
               }] : []
             ),
             {
-              label: bidDetails ? bidDetails.name : "Proposal Details"
+              label: bidDetails ? bidDetails.name + "'s Proposal" : "Proposal Details"
             }
           ]}
         />
