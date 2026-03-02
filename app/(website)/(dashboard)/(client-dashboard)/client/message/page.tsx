@@ -17,7 +17,9 @@ export default function page() {
     const searchParams = useSearchParams();
     const conversationIdFromUrl = searchParams.get("id") || "";
     const returnTo = searchParams.get("return") || "";
+    const redirect = searchParams.get("redirect") || "";
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
+    const [deletedConversationIds, setDeletedConversationIds] = useState<string[]>([]);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const router = useRouter();
 
@@ -52,9 +54,17 @@ export default function page() {
         },
     ];
 
-    const activeConversation = conversationDirectory.find(
+    const availableConversationDirectory = conversationDirectory.filter(
+        (item) => !deletedConversationIds.includes(item.id)
+    );
+
+    const activeConversation = availableConversationDirectory.find(
         (item) => item.id === selectedConversationId
     );
+
+    const handleDeleteConversation = (id: string) => {
+        setDeletedConversationIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
+    };
 
     const handleSelectConversation = (id: string) => {
         setSelectedConversationId(id);
@@ -105,18 +115,29 @@ export default function page() {
                     <FaArrowLeft /> <span>Back to Find Editor</span>
                 </button>
             )}
+            {returnTo === "proposal-1" && (
+                <button
+                    type="button"
+                    onClick={() => router.push(`/client/job-proposal/${returnTo.split("-")[1]}?redirect=${redirect}`)}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to Proposal Details</span>
+                </button>
+            )}
             <div className="grid grid-cols-1 gap-6 relative overflow-hidden">
                 <div className="flex flex-wrap lg:grid lg:grid-cols-[auto_1fr_auto] gap-3 xm:gap-6 w-full h-full overflow-y-auto">
                     <div className={`p-2 sm:p-4 bg-white w-fit h-full rounded-lg overflow-y-auto xl:w-full`} style={{ height: 'calc(100vh - 100px)' }}>
                         <Sidebar
                             selectedConversationId={selectedConversationId}
                             onSelectConversation={handleSelectConversation}
+                            hiddenConversationIds={deletedConversationIds}
                         />
                     </div>
                     <div className={`w-full flex-1 h-full ${selectedConversationId === "" ? "hidden xl:block" : ""}`} style={{ height: 'calc(100vh - 100px)' }}>
                         <MessageBody
                             selectedConversationId={selectedConversationId}
                             onSelectConversation={handleSelectConversation}
+                            onDeleteConversation={handleDeleteConversation}
                         />
                     </div>
                     <div className="w-full flex-1 min-w-[300px] md:min-w-[250px] max-w-full lg:max-w-[300px] h-fit space-y-4">

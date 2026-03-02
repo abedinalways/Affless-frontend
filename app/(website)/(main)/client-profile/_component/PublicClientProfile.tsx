@@ -181,15 +181,15 @@ export default function PublicClientProfile() {
                                     <div className="flex flex-wrap gap-3 py-6">
                                         <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
                                             <span className="text-[#777980]">Platform: </span>
-                                            <span className="font-medium">YouTube</span>
+                                            <span className="font-medium text-red-400">YouTube</span>
                                         </div>
                                         <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
                                             <span className="text-[#777980]">Project Type: </span>
-                                            <span className="font-medium">YouTube Long-Form</span>
+                                            <span className="font-medium text-red-400">YouTube Long-Form</span>
                                         </div>
                                         <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
                                             <span className="text-[#777980]">Editor Experience: </span>
-                                            <span className="font-medium">12 Jobs Completed</span>
+                                            <span className="font-medium text-red-400">12 Jobs Completed</span>
                                         </div>
                                     </div>
                                     <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">

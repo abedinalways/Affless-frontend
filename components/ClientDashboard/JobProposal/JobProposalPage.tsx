@@ -5,22 +5,61 @@ import { useRouter } from "next/navigation";
 import { DataTable } from "@/components/reusable/DataTable";
 import JobProposalCard from "@/components/reusable/TableCard";
 import { SlidersHorizontal } from "lucide-react";
+import { JOB_STATUS_DEFINITIONS } from "@/lib/job-status";
 
 export interface ProposalRow {
   id: string;
   service: string;
   amount: number;
   time: string;
-  status: "Pending Approval of Editor"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
+  status: "in_progress"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
   thumbnail: string;
 }
 
 const PAGE_SIZE = 8;
 
+const StatusBadge = {
+  "in_progress": {
+    label: "Pending Approval of Editor",
+    colorClass: "bg-yellow-500 text-white",
+    description: "Work has started",
+  },
+  in_revision: {
+    label: "In Revision",
+    colorClass: "bg-[#7C3AED] text-white",
+    description: "Work is in revision",
+  },
+  delivered: {
+    label: "Delivered",
+    colorClass: "bg-[#22C55E] text-white",
+    description: "Work submitted by editor",
+  },
+  completed: {
+    label: "Completed",
+    colorClass: "bg-[#166534] text-white",
+    description: "Client accepted delivery",
+  },
+  cancelled: {
+    label: "Cancelled",
+    colorClass: "bg-[#FF4D4F] text-white",
+    description: "Job cancelled by either party",
+  },
+  late: {
+    label: "Late",
+    colorClass: "bg-[#991B1B] text-white",
+    description: "Work is past the deadline",
+  },
+  pending:{
+    label: "Pending",
+    colorClass: "bg-[#F59E0B] text-white",
+    description: "Job is pending",
+  }
+}
+
 // ✅ IMPORTANT: unique IDs (ডুপ্লিকেট id দিলে React key collision হয়)
 export const ProposalData: ProposalRow[] = [
-  { id: "1", thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "5", status: "Pending Approval of Editor" },
-  { id: "2", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "3", status: "Pending Approval of Editor" },
+  { id: "1", thumbnail: "/images/mnagejob1.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "5", status: "in_progress" },
+  { id: "2", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "3", status: "in_progress" },
   { id: "3", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "7", status: "delivered" },
   { id: "4", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "5", status: "in_revision" },
   { id: "5", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "3", status: "in_revision" },
@@ -39,7 +78,7 @@ export default function JobProposalPage() {
   const [timeFilter, setTimeFilter] = useState<"ALL" | "5 Days" | "7 Days" | "3 Days">("ALL");
 
   // ✅ filter toggle only Accepted/Declined for your UI
-  const [statusFilter, setStatusFilter] = useState<"Pending Approval of Editor" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled">("Pending Approval of Editor");
+  const [statusFilter, setStatusFilter] = useState<"in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled">("in_progress");
 
   // ✅ filtered data
   const filteredData = useMemo(() => {
@@ -86,8 +125,8 @@ export default function JobProposalPage() {
         <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
           <div className="flex gap-4">
             <button
-              onClick={() => setStatusFilter("Pending Approval of Editor")}
-              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "Pending Approval of Editor" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+              onClick={() => setStatusFilter("in_progress")}
+              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                 }`}
             >
               Jobs Awaiting Your Editor Selection
@@ -137,7 +176,7 @@ export default function JobProposalPage() {
               cell: ({ row }: any) => {
                 const s = row.original.status as ProposalRow["status"];
                 const badge =
-                  s === "Pending Approval of Editor"
+                  s === "in_progress"
                     ? "bg-yellow-500"
                     : s === "completed"
                       ? "bg-yellow-500"
@@ -146,8 +185,8 @@ export default function JobProposalPage() {
                         : "bg-red-500";
 
                 return (
-                  <span className={`px-4 py-1 rounded-md text-[14px] font-medium capitalize text-white ${badge}`}>
-                    {s}
+                  <span className={`px-4 py-1 rounded-md text-[14px] font-medium capitalize text-white ${StatusBadge[s].colorClass}`}>
+                    {StatusBadge[s].label}
                   </span>
                 );
               },
@@ -176,8 +215,8 @@ export default function JobProposalPage() {
             <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
               <div className="flex gap-4">
                 <button
-                  onClick={() => setStatusFilter("Pending Approval of Editor")}
-                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "Pending Approval of Editor" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                  onClick={() => setStatusFilter("in_progress")}
+                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                     }`}
                 >
                   Accept

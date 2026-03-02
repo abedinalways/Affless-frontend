@@ -15,12 +15,12 @@ interface Payment {
 
 export default function PaymentHistoryPage() {
   const payments: Payment[] = [
-    { id: 1, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "$55", day: "5 Days", status: "in_revision" },
-    { id: 2, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "$75", day: "3 Days", status: "completed" },
-    { id: 3, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "$150", day: "10 Days", status: "in_revision" },
-    { id: 3, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "$55", day: "5 Days", status: "in_revision" },
-    { id: 4, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "$75", day: "3 Days", status: "completed" },
-    { id: 5, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "$150", day: "10 Days", status: "in_revision" },
+    { id: 1, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "55", day: "5 Days", status: "in_revision" },
+    { id: 2, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "75", day: "3 Days", status: "completed" },
+    { id: 3, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "150", day: "10 Days", status: "in_revision" },
+    { id: 3, img: "/images/payment1.jpg", title: "I will craft quality backlinks for your website's SEO.", price: "55", day: "5 Days", status: "in_revision" },
+    { id: 4, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "75", day: "3 Days", status: "completed" },
+    { id: 5, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "150", day: "10 Days", status: "in_revision" },
   ];
 
   return (
@@ -39,11 +39,14 @@ export default function PaymentHistoryPage() {
 
         {/* Right Card */}
         <div className="bg-white rounded-xl p-6 shadow-sm">
-          <p className="text-gray-600 text-lg mb-2 text-center  lg:text-start">Funds Held in Escrow</p>
-          <p className="text-[32px] font-semibold mb-4 text-center lg:text-start" title="Money paid by the client but not yet released to the editor">$0.00</p>
-
-          <p className="text-gray-600 text-[18px] mb-2 text-center pt-14 lg:pt-0 lg:text-start">Released Payments</p>
-          <p className="text-[32px] font-semibold text-center  lg:text-start" title="Funds already released to the editor after job completion">$0.00</p>
+          <div title="Money paid by the client but not yet released to the editor.">
+            <p className="text-gray-600 text-lg mb-2 text-center  lg:text-start">Funds Held in Escrow</p>
+            <p className="text-[32px] font-semibold mb-4 text-center lg:text-start" title="Money paid by the client but not yet released to the editor">$0.00</p>
+          </div>
+          <div title="Funds already released to the editor after job completion.">
+            <p className="text-gray-600 text-[18px] mb-2 text-center pt-14 lg:pt-0 lg:text-start">Released Payments</p>
+            <p className="text-[32px] font-semibold text-center  lg:text-start" title="Funds already released to the editor after job completion">$0.00</p>
+          </div>
         </div>
 
       </div>
@@ -56,7 +59,7 @@ export default function PaymentHistoryPage() {
       <div className="space-y-3">
         {payments.map((payment) => (
           <Link
-            href="/client/manage-job/1"
+            href="/client/manage-job/1?redirect=/client/payment-history"
             key={payment.id}
             className="bg-white rounded-xl flex items-center justify-between shadow-sm py-4 px-4"
           >
@@ -72,7 +75,7 @@ export default function PaymentHistoryPage() {
             </div>
 
             {/* Amount */}
-            <p className="font-semibold hidden md:block">{payment.price}</p>
+            <p className="font-semibold hidden md:block">${Number(payment.price).toFixed(2)}</p>
 
             {/* Days */}
             <p className="text-gray-500  hidden md:block">{payment.day}</p>

@@ -1,5 +1,5 @@
 export const JOB_STATUS_DEFINITIONS = {
-  in_progress: {
+  "in_progress": {
     label: "In Progress",
     colorClass: "bg-[#00648A] text-white",
     description: "Work has started",

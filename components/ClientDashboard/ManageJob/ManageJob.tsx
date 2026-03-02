@@ -11,12 +11,13 @@ import DatePicker from "./DatePicker";
 import Loading from "@/components/shared/Loading";
 import { getJobStatusDefinition, type JobStatus } from "@/lib/job-status";
 import PageBanner from "@/components/reusable/Bgbanner";
+import { useSearchParams } from "next/navigation";
 
 export interface JobRow {
   id: string;
   service: string;
   thumbnail: string;
-  total: string;
+  total: number;
   dueOn: Date;
   status: JobStatus;
   customer: string;
@@ -34,7 +35,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "1",
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
-    total: "654",
+    total: 654,
     dueOn: new Date("2025-06-21"),
     status: "completed",
     customer: "Bessie Cooper",
@@ -50,7 +51,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "2",
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
-    total: "743",
+    total: 743,
     dueOn: new Date("2026-04-21"),
     status: "in_progress",
     customer: "Cameron Williamson",
@@ -66,7 +67,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "3",
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
-    total: "512",
+    total: 512,
     dueOn: new Date("2025-06-21"),
     status: "in_revision",
     customer: "Devon Lane",
@@ -81,7 +82,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "4",
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
-    total: "654",
+    total: 654,
     dueOn: new Date("2026-02-10"),
     status: "in_progress",
     customer: "Bessie Cooper",
@@ -97,7 +98,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "5",
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
-    total: "743",
+    total: 743,
     dueOn: new Date("2025-06-21"),
     status: "delivered",
     customer: "Cameron Williamson",
@@ -112,7 +113,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "6",
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
-    total: "512",
+    total: 512,
     dueOn: new Date("2025-06-21"),
     status: "late",
     customer: "Devon Lane",
@@ -127,7 +128,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "7",
     service: "I will do SEO backlinks with building",
     thumbnail: "/images/mnagejob1.jpg",
-    total: "654",
+    total: 654,
     dueOn: new Date("2025-06-21"),
     status: "cancelled",
     customer: "Bessie Cooper",
@@ -143,7 +144,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "8",
     service: "I will create backlinks to improve your SEO rankings.",
     thumbnail: "/images/mnagejob2.jpg",
-    total: "743",
+    total: 743,
     dueOn: new Date("2025-06-21"),
     status: "delivered",
     customer: "Cameron Williamson",
@@ -158,7 +159,7 @@ export const ALL_JOBS: JobRow[] = [
     id: "9",
     service: "I will craft quality backlinks for your website's SEO.",
     thumbnail: "/images/mnagejob3.jpg",
-    total: "512",
+    total: 512,
     dueOn: new Date("2025-06-21"),
     status: "in_progress",
     customer: "Devon Lane",
@@ -183,6 +184,8 @@ export default function ManageJobsPage() {
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [filteredJobs, setFilteredJobs] = useState<JobRow[]>(ALL_JOBS);
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
 
 
   const pageData = useMemo(() => {
@@ -316,8 +319,6 @@ export default function ManageJobsPage() {
         );
       },
     },
-
-
     {
       accessorKey: "status",
       header: "Status",
@@ -356,7 +357,9 @@ export default function ManageJobsPage() {
         <PageBanner
           title="Manage Jobs"
           bgImage="/findEditor.jpg"
-          links={[{ label: "Dashboard", href: "/client" }, { label: "Manage Jobs" }]}
+          links={[
+            { label: "Dashboard", href: "/client" }, 
+            { label: "Manage Jobs" }]}
         />
       </div>
       <div className="containers py-8">

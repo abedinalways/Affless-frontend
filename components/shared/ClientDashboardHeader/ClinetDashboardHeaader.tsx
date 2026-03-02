@@ -13,6 +13,63 @@ import Notification from "@/components/Notification/Notification";
 import { CookieHelper } from "@/helper/cookie.helper";
 import toast from "react-hot-toast";
 
+type InboxItem = {
+  id: number;
+  name: string;
+  lastMessage: string;
+  time: string;
+  avatar: string; // image path
+  online?: boolean;
+  href?: string;
+};
+
+const inboxData: InboxItem[] = [
+  {
+    id: 1,
+    name: "Aisha Patel",
+    lastMessage: "Sent the revised storyboard and shot list for review.",
+    time: "2 hours ago",
+    avatar: "/images/jone1.png",
+    online: true,
+    href: "/client/message?id=1"
+  },
+  {
+    id: 2,
+    name: "Miguel Santos",
+    lastMessage: "Uploaded the color grade draft—feedback welcome.",
+    time: "Yesterday",
+    avatar: "/images/jone3.png",
+    online: true,
+    href: "/client/message?id=2"
+  },
+  {
+    id: 3,
+    name: "Priya Nair",
+    lastMessage: "Quick question about the intro music licensing.",
+    time: "3 days ago",
+    avatar: "/images/Jerome.jpg",
+    online: true,
+    href: "/client/message?id=3"
+  },
+  {
+    id: 4,
+    name: "Ethan Brooks",
+    lastMessage: "Final export is ready; scheduling delivery now.",
+    time: "1 week ago",
+    avatar: "/images/jone2.png",
+    online: false,
+    href: "/client/message?id=4"
+  },
+  {
+    id: 5,
+    name: "Support Team",
+    lastMessage: "Ticket #4821 resolved. Let us know if you need more help.",
+    time: "2 weeks ago",
+    avatar: "/images/headset.svg",
+    online: true,
+  },
+];
+
 export default function ClientDashboardHeader() {
   const pathname = usePathname();
 
@@ -229,7 +286,7 @@ export default function ClientDashboardHeader() {
               <div
                 className={`absolute right-0 mt-3 w-[412px] rounded-xl border bg-white shadow-lg opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50`}
               >
-                <Notification />
+                <Notification data = {inboxData}/>
               </div>
             </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { JOB_STATUS_DEFINITIONS } from "@/lib/job-status";
 import React from "react";
 import Image from "next/image";
 
@@ -7,7 +8,7 @@ interface JobProposalCardProps {
   image: string;
   title: string;
   total: number;
-  status: "Pending Approval of Editor"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled" | "pending";
+  status: "in_progress"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled" | "pending";
   id: string;
 
   // ✅ old behavior (keep)
@@ -16,16 +17,6 @@ interface JobProposalCardProps {
   // ✅ new (optional) - only use where you need navigation
   onOpen?: (id: string) => void;
 }
-
-const statusColors: Record<JobProposalCardProps["status"], string> = {
-  "Pending Approval of Editor": "bg-green-500 text-white",
-  delivered: "bg-[#EEFAE9] text-[#52C41A]",
-  completed: "bg-[#EEFAE9] text-[#52C41A]",
-  in_revision: "bg-red-500 text-white",
-  late: "bg-[#FDD3D5] text-[#F5222D]",
-  cancelled: "bg-[#FEE9EA] text-[#F5222D]",
-  pending: "bg-[#F59E0B] text-white",
-};
 
 const JobProposalCard: React.FC<JobProposalCardProps> = ({
   image,
@@ -75,9 +66,9 @@ const JobProposalCard: React.FC<JobProposalCardProps> = ({
             e.stopPropagation(); // ✅ fixes double-call bug everywhere
             onAction(id);
           }}
-          className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${statusColors[status]}`}
+          className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${JOB_STATUS_DEFINITIONS[status].colorClass}`}
         >
-          {status}
+          {JOB_STATUS_DEFINITIONS[status].label}
         </button>
       </div>
     </div>

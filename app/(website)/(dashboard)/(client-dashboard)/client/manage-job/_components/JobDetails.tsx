@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
+import { useSearchParams } from "next/navigation";
 import PageBanner from "@/components/reusable/Bgbanner";
 import JobDetailsPage from "@/components/ClientDashboard/GraphicsDesigner/JobDetailsPa";
 import { ALL_JOBS, JobRow } from "@/components/ClientDashboard/ManageJob/ManageJob";
@@ -17,6 +17,8 @@ type propType ={
 }
 
 export default function JobDetails({id}:propType) {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "";
   const [job, setJob] = useState<JobRow | null>(null);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -68,7 +70,7 @@ export default function JobDetails({id}:propType) {
         bgImage="/findEditor.jpg"
         links={[
           { label: "Dashboard", href: "/client" },
-          { label: "Manage Jobs", href: "/client/manage-job" },
+          { label: redirect === "/client/payment-history"? "Payment History" : "Manage Jobs", href: redirect || "/client/manage-job" },
           { label: job.service, href: `/client/manage-job/${job.id}` },
         ]}
       />

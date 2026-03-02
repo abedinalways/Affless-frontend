@@ -14,7 +14,8 @@ interface Review {
   text: string;
   jobImage?: string;
   jobTitle: string;
-  price: string;
+  price: number;
+  time: string;
 }
 
 const reviewData: Review[] = [
@@ -22,37 +23,40 @@ const reviewData: Review[] = [
     id: 1,
     name: "Devon Lane",
     avatar: "/images/devon.png", // your image
-    rating: 4.9,
+    rating: 4.0,
     reviews: 338,
     jobImage: "/images/project1.jpg",
     timeAgo: "4 years ago",
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "I will do SEO backlinks with blogger outreach for high quality link building",
-    price: "$400.00",
+    price: 400,
+    time: "1 month ago"
   },
   {
     id: 2,
     name: "Jerome Bell",
     avatar: "/images/jerome.png",
-    rating: 4.9,
+    rating: 4.0,
     reviews: 338,
     jobImage: "/images/project2.jpg",
     timeAgo: "4 years ago",
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "Create a modern minimalist logo design for tech startup",
-    price: "$150.00",
+    price: 150,
+    time: "2 month ago"
   },
   {
     id: 3,
     name: "Floyd Miles",
     avatar: "/images/floyd.png",
-    rating: 4.9,
+    rating: 4.0,
     reviews: 338,
     jobImage: "/images/project3.jpg",
     timeAgo: "4 years ago",
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "Professional Video Editing for YouTube Channel - 10 min ep",
-    price: "$300.00",
+    price: 300,
+    time: "6 month ago"
   },
 ];
 
@@ -90,7 +94,7 @@ function ReviewItem({ review }: { review: Review }) {
         <div className="flex justify-between items-start">
           <Link href={`/editor-profile/${review?.id}`} className="font-semibold text-lg capitalize">{review.name}</Link>
 
-          <p className="text-gray-500 text-sm">{review.timeAgo}</p>
+          {/* <p className="text-gray-500 text-sm">{review.timeAgo}</p> */}
         </div>
 
         {/* Rating + count */}
@@ -103,27 +107,29 @@ function ReviewItem({ review }: { review: Review }) {
             <FaStar className="w-5 h-5 text-gray-300 fill-gray-300" />
           </div>
           <div className="text-[#333]">
-            <span className="">{review.rating}</span>
-            <span className=" text-sm">({review.reviews} reviews)</span>
+            <span className="">{review.rating.toFixed(1)}</span>
+            <span className=" text-sm"> ({review.reviews} reviews)</span>
           </div>
+          {/* Time */}
+          <span>{review.time}</span>
         </div>
 
         {/* Review text */}
         <p className="text-gray-600 leading-relaxed">{review.text}</p>
-        
+
         {review.jobImage && (
           <div className="mt-4 flex gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 items-center">
-             <Image
-             src={review.jobImage}
-             alt={`Job image for review by ${review.name}`}
-             width={80}
-             height={60}
-             className="w-24 h-16 rounded-md object-cover"
-           />
-             <div className="flex-1">
-                <h3 className="font-medium text-[#333] line-clamp-1">{review.jobTitle}</h3>
-                <p className="text-sm text-gray-500 mt-1">Fixed-price • {review.price}</p>
-             </div>
+            <Image
+              src={review.jobImage}
+              alt={`Job image for review by ${review.name}`}
+              width={80}
+              height={60}
+              className="w-24 h-16 rounded-md object-cover"
+            />
+            <div className="flex-1">
+              <h3 className="font-medium text-[#333] line-clamp-1">{review.jobTitle}</h3>
+              <p className="text-sm text-gray-500 mt-1">Fixed-price • ${review.price.toFixed(2)}</p>
+            </div>
           </div>
         )}
       </div>

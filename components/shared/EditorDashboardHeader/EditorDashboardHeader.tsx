@@ -14,6 +14,63 @@ import Notification from "@/components/Notification/Notification";
 import { CookieHelper } from "@/helper/cookie.helper";
 import toast from "react-hot-toast";
 
+type InboxItem = {
+  id: number;
+  name: string;
+  lastMessage: string;
+  time: string;
+  avatar: string; // image path
+  online?: boolean;
+  href?: string;
+};
+
+const inboxData: InboxItem[] = [
+  {
+    id: 1,
+    name: "Aisha Patel",
+    lastMessage: "Sent the revised storyboard and shot list for review.",
+    time: "2 hours ago",
+    avatar: "/images/jone1.png",
+    online: true,
+    href: "/editor/message?id=1"
+  },
+  {
+    id: 2,
+    name: "Miguel Santos",
+    lastMessage: "Uploaded the color grade draft—feedback welcome.",
+    time: "Yesterday",
+    avatar: "/images/jone3.png",
+    online: true,
+    href: "/editor/message?id=2"
+  },
+  {
+    id: 3,
+    name: "Priya Nair",
+    lastMessage: "Quick question about the intro music licensing.",
+    time: "3 days ago",
+    avatar: "/images/Jerome.jpg",
+    online: true,
+    href: "/editor/message?id=3"
+  },
+  {
+    id: 4,
+    name: "Ethan Brooks",
+    lastMessage: "Final export is ready; scheduling delivery now.",
+    time: "1 week ago",
+    avatar: "/images/jone2.png",
+    online: false,
+    href: "/editor/message?id=4"
+  },
+  {
+    id: 5,
+    name: "Support Team",
+    lastMessage: "Ticket #4821 resolved. Let us know if you need more help.",
+    time: "2 weeks ago",
+    avatar: "/images/headset.svg",
+    online: true,
+  },
+];
+
 export default function EditorDashboardHeader() {
   const pathname = usePathname();
 
@@ -30,6 +87,7 @@ export default function EditorDashboardHeader() {
   const notificationRef = useRef<HTMLDivElement | null>(null);
   const closeDesktopJobDropdown = () => setOpen(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [notificationOpenMode, setNotificationOpenMode] = useState<"hover" | "click" | null>(null);
 
   const closeMobileAll = () => {
     setMobileDropdown(false);
@@ -67,6 +125,7 @@ export default function EditorDashboardHeader() {
       }
       if (notificationRef.current && !notificationRef.current.contains(e.target as Node)) {
         setShowNotifications(false);
+        setNotificationOpenMode(null);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -110,6 +169,31 @@ export default function EditorDashboardHeader() {
     CookieHelper.destroy({ key: "user" });
     setUser("");
     router.push("/");
+  };
+
+  const handleNotificationMouseEnter = () => {
+    if (!showNotifications) {
+      setShowNotifications(true);
+      setNotificationOpenMode("hover");
+    }
+  };
+
+  const handleNotificationMouseLeave = () => {
+    if (notificationOpenMode === "hover") {
+      setShowNotifications(false);
+      setNotificationOpenMode(null);
+    }
+  };
+
+  const handleNotificationClick = () => {
+    if (showNotifications && notificationOpenMode === "click") {
+      setShowNotifications(false);
+      setNotificationOpenMode(null);
+      return;
+    }
+
+    setShowNotifications(true);
+    setNotificationOpenMode("click");
   };
 
   return (
@@ -228,14 +312,19 @@ export default function EditorDashboardHeader() {
                 Become an Client
               </button>
 
-              <div className="h-fit leading-0 group relative" ref={notificationRef}>
-                <button type="button" className="" onClick={()=>setShowNotifications(prev => !prev)}>
+              <div
+                className="h-fit leading-0 relative"
+                ref={notificationRef}
+                onMouseEnter={handleNotificationMouseEnter}
+                onMouseLeave={handleNotificationMouseLeave}
+              >
+                <button type="button" className="" onClick={handleNotificationClick}>
                   <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer hover:text-[#FF4D4F]" />
                 </button>
                 <div
-                  className={`leading-normal absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-0 mt-3 w-[412px] max-w-[80vw] rounded-xl border bg-white shadow-lg transition-all duration-200 z-50 ${showNotifications ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0"}`}
+                  className={`leading-normal absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-0 mt-3 w-[412px] max-w-[80vw] rounded-xl border bg-white shadow-lg transition-all duration-200 z-50 ${showNotifications ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"}`}
                 >
-                  <Notification />
+                  <Notification data={inboxData} />
                 </div>
               </div>
 

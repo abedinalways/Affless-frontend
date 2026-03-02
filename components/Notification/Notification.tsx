@@ -13,52 +13,14 @@ type InboxItem = {
   time: string;
   avatar: string; // image path
   online?: boolean;
+  href?: string;
 };
 
-const inboxData: InboxItem[] = [
-  {
-    id: 1,
-    name: "Aisha Patel",
-    lastMessage: "Sent the revised storyboard and shot list for review.",
-    time: "2 hours ago",
-    avatar: "/images/jone1.png",
-    online: true,
-  },
-  {
-    id: 2,
-    name: "Miguel Santos",
-    lastMessage: "Uploaded the color grade draft—feedback welcome.",
-    time: "Yesterday",
-    avatar: "/images/jone3.png",
-    online: true,
-  },
-  {
-    id: 3,
-    name: "Priya Nair",
-    lastMessage: "Quick question about the intro music licensing.",
-    time: "3 days ago",
-    avatar: "/images/Jerome.jpg",
-    online: true,
-  },
-  {
-    id: 4,
-    name: "Ethan Brooks",
-    lastMessage: "Final export is ready; scheduling delivery now.",
-    time: "1 week ago",
-    avatar: "/images/jone2.png",
-    online: false,
-  },
-  {
-    id: 5,
-    name: "Support Team",
-    lastMessage: "Ticket #4821 resolved. Let us know if you need more help.",
-    time: "2 weeks ago",
-    avatar: "/images/headset.svg",
-    online: true,
-  },
-];
+type Proptype = {
+  data: InboxItem[];
+}
 
-export default function Notification() {
+export default function Notification({ data }: Proptype) {
   const count = 1;
   const router = useRouter();
   return (
@@ -71,11 +33,11 @@ export default function Notification() {
 
       {/* List */}
       <div className="h-fit max-h-[70vh] overflow-y-auto">
-        {inboxData.map((item,idx) => (
+        {data.map((item, idx) => (
           <button
             key={item.id}
-            className={`w-full flex items-center justify-between gap-4 p-3 sm:px-5 sm:py-4 border-b last:border-b-0 hover:bg-gray-50 ${idx === 0 ? "bg-gray-100" : ""} transition cursor-pointer`}
-            onClick={() => router.push(`/client/message?id=${item.id}`)}
+            className={`w-full flex items-center justify-between gap-4 p-3 sm:px-5 sm:py-4 border-b last:border-b-0 hover:bg-gray-50 ${idx === 0 ? "bg-gray-100" : ""} transition ${item.href ? "cursor-pointer" : "cursor-default"}`}
+            onClick={() => item?.href && router.push(item.href)}
           >
             <div className="flex items-center gap-4">
               {/* Avatar */}

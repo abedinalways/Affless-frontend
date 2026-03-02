@@ -155,7 +155,9 @@ const BidsDetails = ({ id }: { id: string }) => {
               </div>
             </div>
             <div className="w-full lg:w-1/3 order-1 lg:order-2">
-              <EditorPrise />
+              <EditorPrise
+                id={id}
+              />
             </div>
           </div>
 

@@ -30,7 +30,7 @@ export default function ProfilePage() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint ",
       tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-      price: "$400.00",
+      price: 400,
       numberOfRevisions: "3",
       duration: "13 days",
       thumbnail: "/images/vedio.png.jpg",
@@ -43,7 +43,7 @@ export default function ProfilePage() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-      price: "$400.00",
+      price: 400,
       numberOfRevisions: "3",
       duration: "10 days",
       thumbnail: "/images/vedio.png.jpg",
@@ -153,7 +153,7 @@ export default function ProfilePage() {
             <div className="flex-1">
 
               {/* USER INFO ROW */}
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3 mb-2">
                   <Image
                     src="/images/saramc.png"
@@ -170,6 +170,7 @@ export default function ProfilePage() {
                     </p>
                   </div>
                 </div>
+                <Link href="/client/manage-job" type="button" className="text-red-500 cursor-pointer">View Job</Link>
               </div>
 
               {/* TITLE */}
@@ -261,7 +262,6 @@ export default function ProfilePage() {
         </div>
       </div>
       <ReviewPage />
-
     </div>
   );
 }
