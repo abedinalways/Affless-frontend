@@ -57,9 +57,9 @@ export default function SingUpForm() {
       <div className="pb-3 px-2">
         <Link href={redirect} className="pb-9 ">
           {" "}
-          <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap">
+          <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap capitalize">
             <FaArrowLeft className="mt-1" />
-            Back {redirect === '/' ? 'to Home' : 'to ' + redirect.replace('/', ' ')}
+            Back {redirect === '/' ? 'to Home' : 'to ' + redirect.replace('/', ' ').replace('-', ' ')}
           </button>
         </Link>
       </div>

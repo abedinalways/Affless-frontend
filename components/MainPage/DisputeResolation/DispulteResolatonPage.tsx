@@ -50,18 +50,15 @@ export default function DisputeResolutionPage() {
             <h3 className="  mt-6 mb-3">Accessing the Resolution Center</h3>
 
             <p className="mb-4">
-              Once inside the Resolution Center, users and freelancers can see updates relevant to their
-              orders. When submitting a request or an issue through the Resolution Center, both parties can
-              view a ticket-style request or resolution, while users can choose to escalate an issue or cancel
-              the request once it's submitted.
+              Once inside the Resolution Center, editors and clients can view updates related to their orders. When a request or issue is submitted, both parties can view a ticket-style resolution thread. Users may choose to escalate an issue or cancel the request after it has been submitted.
             </p>
 
             <p className="mb-3 font-medium">To open a request, go through these steps:</p>
 
             <ol className="list-decimal ml-6 mb-6 space-y-1">
-              <li>Navigate to the Orders section from your Editor dashboard.</li>
-              <li>Select the specific order you want to dispute.</li>
-              <li>Click on Resolution Center located on the right side on the order page.</li>
+              <li>Navigate to the Orders section from your dashboard.</li>
+              <li>Select the specific order you would like to dispute.</li>
+              <li>Click Resolution Center located on the right side of the order page.</li>
             </ol>
           </div>
 
@@ -73,7 +70,7 @@ export default function DisputeResolutionPage() {
             If communication fails, an order may be canceled. Repeated misuse of the Resolution Center or failure to cooperate may result in account review.
           </p>
 
-          <h4 className="font-semibold mt-6 mb-2" id="for-freelancers">For freelancers:</h4>
+          <h4 className="font-semibold mt-6 mb-2" id="for-freelancers">For editors:</h4>
           <p className="mb-4">
             Editors should communicate clearly with clients regarding project scope, deliverables, and where their service responsibilities begin and end. The Resolution Center should be used to clarify issues, provide updates, and maintain transparency. Proper communication helps keep projects healthy and protects all parties involved.
           </p>
