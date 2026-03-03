@@ -153,7 +153,7 @@ export default function BrowseJob() {
         title={client ? `All of ${client} Jobs` : "Browse Jobs"}
         bgImage="/findEditor.jpg"
         desc={client ? "Browse this client’s jobs based on job type, budget, and project duration." : " Find the best client jobs based on job type, budget, and project duration."}
-        links={[{ label: redirectUrl === "/editor"?"Dashboard": redirectUrl?.split("?")[0] === "/client/message"?"Direct Messages": "Home", href: redirectUrl || "/" }, { label: redirectUrl ? `All of ${client}’s Jobs` : "Browse Jobs" }]}
+        links={[{ label: redirectUrl === "/editor"?"Dashboard": redirectUrl?.split("?")[0] === "/client/message"?"Direct Messages": "Home", href: redirectUrl || "/" }, { label: redirectUrl === "/client/message" ? `All of ${client}’s Jobs` : "Browse Jobs" }]}
       />
 
       <div className="containers lg:py-20 ">

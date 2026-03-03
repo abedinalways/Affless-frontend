@@ -10,21 +10,13 @@ export interface ProposalRow {
   service: string;
   amount: string;
   time: string;
-  status: "Progress" | "Pending" | "Cancellation";
+  status: "Pending Client Decision" | "Pending" | "Cancellation";
   thumbnail: string;
 }
 
 const PAGE_SIZE = 8;
 
 export const Proposal: ProposalRow[] = [
-  {
-    id: 1,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks.",
-    amount: "$55",
-    time: "5 Days",
-    status: "Progress",
-  },
   {
     id: 2,
     thumbnail: "/images/mnagejob2.jpg",
@@ -43,11 +35,11 @@ export const Proposal: ProposalRow[] = [
   },
   {
     id: 4,
-    thumbnail: "/images/mnagejob2.jpg",
+    thumbnail: "/images/mnagejob1.jpg",
     service: "I will create backlinks.",
     amount: "$70",
     time: "7 Days",
-    status: "Progress",
+    status: "Pending Client Decision",
   },
   {
     id: 5,
@@ -55,7 +47,15 @@ export const Proposal: ProposalRow[] = [
     service: "I will craft backlinks.",
     amount: "$80",
     time: "5 Days",
-    status: "Progress",
+    status: "Pending Client Decision",
+  },
+  {
+    id: 1,
+    thumbnail: "/images/mnagejob3.jpg",
+    service: "I will craft quality backlinks.",
+    amount: "$55",
+    time: "5 Days",
+    status: "Pending Client Decision",
   },
   {
     id: 6,
@@ -84,7 +84,7 @@ export const Proposal: ProposalRow[] = [
 ];
 
 const statusBadgeClasses: Record<ProposalRow["status"], string> = {
-  Progress: "bg-[#E8FFDA] text-[#52C41A]",
+  "Pending Client Decision": "bg-yellow-200 text-orange-500",
   Pending: "bg-[#FFF7E8] text-[#FAAD14]",
   Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
 };
@@ -93,7 +93,7 @@ export default function MyProposal() {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<"ALL" | ProposalRow["status"]>(
-    "Progress"
+    "Pending Client Decision"
   );
 
   const filteredData = useMemo(() => {
@@ -113,16 +113,16 @@ export default function MyProposal() {
     <div className="containers py-8">
       {/* DESKTOP */}
       <div className="">
-        <h2 className="text-xl font-semibold mb-4">Hire Request</h2>
+        <h2 className="text-xl font-semibold mb-4">My Job Proposals</h2>
 
         {/* FILTER BUTTONS */}
         <div className="flex gap-4 mb-6">
           <button
-            onClick={() => setStatusFilter("Progress")}
-            className={`w-[120px] py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "Progress" ? "shadow-md" : ""
+            onClick={() => setStatusFilter("Pending Client Decision")}
+            className={`w-fit px-4 py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "Pending Client Decision" ? "shadow-md" : ""
               }`}
           >
-            Accept
+            Active Job Proposals Awaiting Client Acceptance
           </button>
         </div>
 
@@ -133,7 +133,7 @@ export default function MyProposal() {
               accessorKey: "service",
               header: "Active Job Proposals Awaiting Client Acceptance",
               cell: ({ row }: any) => (
-                <div className="flex items-center gap-4 cursor-pointer">
+                <div className="flex items-center justify-center gap-4 cursor-pointer">
                   {/* Thumbnail box */}
                   <div className="h-14 w-20 rounded-lg overflow-hidden bg-[#F8F8F8] border border-[#EDEDED] shadow-sm">
                     <img
@@ -154,25 +154,33 @@ export default function MyProposal() {
               accessorKey: "amount",
               header: "Amount",
               cell: ({ row }: any) => (
-                <span className="text-[#1D1F2C]">{row.original.amount}</span>
+                <div className="flex justify-center">
+                  <span className="text-[#1D1F2C] text-center">{row.original.amount}</span>
+                </div>
               ),
             },
             {
               accessorKey: "time",
               header: "Days Awaiting Client Acceptance",
-              cell: ({ row }: any) => <span>{row.original.time}</span>,
+              cell: ({ row }: any) => (
+                <div className="flex justify-center">
+                  <span>{row.original.time}</span>
+                </div>
+              ),
             },
             {
               accessorKey: "status",
-              header: "STATUS",
+              header: "Status",
               cell: ({ row }: any) => {
                 const status = row.original.status as ProposalRow["status"];
                 return (
-                  <span
-                    className={`inline-block w-[100px] py-1 rounded-md text-[14px] text-center font-medium ${statusBadgeClasses[status]}`}
-                  >
-                    {status}
-                  </span>
+                  <div className="flex justify-center">
+                    <span
+                      className={`inline-block w-fit px-4 py-1 rounded-md text-[14px] text-center font-medium ${statusBadgeClasses[status]}`}
+                    >
+                      {status}
+                    </span>
+                  </div>
                 );
               },
             },

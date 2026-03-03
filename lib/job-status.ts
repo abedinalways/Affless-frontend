@@ -21,7 +21,7 @@ export const JOB_STATUS_DEFINITIONS = {
   },
   cancelled: {
     label: "Cancelled",
-    colorClass: "bg-[#FF4D4F] text-white",
+    colorClass: "bg-[#FCA5A5] text-[#7F1D1D]",
     description: "Job cancelled by either party",
   },
   late: {

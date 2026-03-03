@@ -155,7 +155,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
           links={[
             { label: "Home", href: "/editor" },
             { label: "My Job", href: "/editor/myproposal" },
-            { label: "In Progress" }
+            { label: "Graphic Designer for ongoing job" }
 
           ]}
         />

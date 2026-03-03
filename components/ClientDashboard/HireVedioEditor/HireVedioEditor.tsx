@@ -240,7 +240,7 @@ export default function HireVideoEditorForm() {
           className="flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
         >
           <FaArrowLeft />
-          <span>Back to Quick Match</span>
+          <span>Back to Quick-Match Results</span>
         </Link>
       </div>}
       <form

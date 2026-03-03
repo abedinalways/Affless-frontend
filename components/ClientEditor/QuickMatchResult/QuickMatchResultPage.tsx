@@ -78,12 +78,76 @@ const clients: Client[] = [
     match: 75,
     image: "/images/Floyd.jpg",
   },
+  {
+    id: 6,
+    name: "Cameron Williamson",
+    rating: 4.8,
+    reviews: 214,
+    hireRate: 89,
+    jobsPosted: 24,
+    editorsWorkedWith: 11,
+    match: 82,
+    image: "/images/Jerome.jpg",
+  },
+  {
+    id: 7,
+    name: "Savannah Nguyen",
+    rating: 4.7,
+    reviews: 167,
+    hireRate: 84,
+    jobsPosted: 14,
+    editorsWorkedWith: 7,
+    match: 68,
+    image: "/images/Courtney.jpg",
+  },
+  {
+    id: 8,
+    name: "Kristin Watson",
+    rating: 4.9,
+    reviews: 291,
+    hireRate: 94,
+    jobsPosted: 31,
+    editorsWorkedWith: 13,
+    match: 88,
+    image: "/images/Esther.jpg",
+  },
+  {
+    id: 9,
+    name: "Wade Warren",
+    rating: 4.6,
+    reviews: 129,
+    hireRate: 80,
+    jobsPosted: 10,
+    editorsWorkedWith: 5,
+    match: 59,
+    image: "/images/Floyd.jpg",
+  },
+  {
+    id: 10,
+    name: "Leslie Alexander",
+    rating: 4.8,
+    reviews: 203,
+    hireRate: 91,
+    jobsPosted: 18,
+    editorsWorkedWith: 9,
+    match: 73,
+    image: "/images/Annette.jpg",
+  },
 ];
+
+const getRandomTopClients = (list: Client[], limit = 5) => {
+  const shuffled = [...list].sort(() => Math.random() - 0.5);
+  const selectedClients = shuffled.slice(0, Math.min(limit, list.length));
+  return selectedClients.sort((a, b) => b.match - a.match);
+};
 
 export default function QuickMatchResult() {
   const router = useRouter();
   const [showFilters, setShowFilters] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [visibleClients, setVisibleClients] = useState<Client[]>(() =>
+    clients.slice(0, 5)
+  );
   // ✅ Prevent body scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = showFilters ? "hidden" : "auto";
@@ -92,6 +156,7 @@ export default function QuickMatchResult() {
   const handleReMatch = () => {
     setIsLoading(true);
     setTimeout(() => {
+      setVisibleClients(getRandomTopClients(clients, 5));
       setIsLoading(false);
     }, 1000)
   }
@@ -151,7 +216,7 @@ export default function QuickMatchResult() {
           </div> */}
           {/* ✅ RIGHT SIDE CONTENT */}
           <div className="w-full grid grid-cols-1 min-[640px]:grid-cols-2 min-[1024px]:grid-cols-1 min-[1280px]:grid-cols-2 min-[1700px]:grid-cols-3 gap-6">
-            {clients.map((client) => (
+            {visibleClients.map((client) => (
               <div
                 key={client.id}
                 className="bg-white rounded-xl p-5 shadow-sm gap-6"
@@ -206,18 +271,18 @@ export default function QuickMatchResult() {
                         📄 {client.jobsPosted} Jobs Posted
                       </span>
                       <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
-                        🤝 Worked with {client.editorsWorkedWith} editors
+                       🤝 {client.editorsWorkedWith} Editors Worked With
                       </span>
                     </div>
 
-                    <div className="flex  gap-3 mt-3">
+                    <div className="flex items-center gap-3 mt-3">
                       <div>
-                        <Link href={`/editor/message?id=${client.id}&requestjob=true`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
+                        <Link href={`/editor/message?id=3&requestjob=true`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
                           Request a Job
                         </Link>
                       </div>
 
-                      <Link href={`/editor/message?id=${client.id}&return=find-client-match`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
+                      <Link href={`/editor/message?id=3&return=find-client-match`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-[12px] rounded-full ">
                         Message
                       </Link>
                     </div>

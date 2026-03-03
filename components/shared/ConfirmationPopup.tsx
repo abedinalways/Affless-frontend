@@ -11,6 +11,7 @@ interface ConfirmationModalProps {
     onConfirm: () => void;
     onCancel: () => void;
     confirmClassName?: string;
+    cancelClassName?: string;
     loading?: boolean;
 }
 
@@ -23,6 +24,7 @@ export default function ConfirmationPopup({
     onConfirm,
     onCancel,
     confirmClassName,
+    cancelClassName,
     loading = false,
 }: ConfirmationModalProps) {
     if (!isOpen) return null;
@@ -38,7 +40,7 @@ export default function ConfirmationPopup({
                     <button
                         type="button"
                         onClick={onCancel}
-                        className="px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer"
+                        className={`${cancelClassName || 'px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer'}`}
                     >
                         {cancelText}
                     </button>

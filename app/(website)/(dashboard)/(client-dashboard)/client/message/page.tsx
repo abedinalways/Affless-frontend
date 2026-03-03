@@ -95,6 +95,10 @@ export default function page() {
         }
     }, [conversationIdFromUrl])
 
+    useEffect(()=> {
+        console.log(redirect);
+    },[])
+
     return (
         <div className="p-4 containers bg-[#f9f9f9] ">
             {returnTo === "find-editor-match" && (
@@ -103,7 +107,7 @@ export default function page() {
                     onClick={() => router.push("/client/find-editor-match")}
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
-                    <FaArrowLeft /> <span>Back to Find Editor</span>
+                    <FaArrowLeft /> <span>Back to Quick-Match Results</span>
                 </button>
             )}
             {returnTo === "find-editor" && (

@@ -78,7 +78,7 @@ export default function ReportUserModal({
     }
 
     if(description.trim().length > 500) {
-      setError("Description cannot exceed 500 characters");
+      setError("The description cannot exceed 500 characters.");
       return;
     }
 
@@ -168,12 +168,14 @@ export default function ReportUserModal({
                   setError("");
                 }}
               >
-                <SelectTrigger className="w-full max-w-[90vw] sm:max-w-[464px] truncate px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ">
-                  <SelectValue placeholder="Select a reason..." className="" />
+                <SelectTrigger className="w-full max-w-[90vw] sm:max-w-[464px] overflow-hidden px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all">
+                  <SelectValue placeholder="Select a reason..." className="truncate" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="max-w-[90vw] sm:max-w-[464px]">
                   {REPORT_REASONS.map((reason) => (
-                  <SelectItem className="max-w-[90vw] sm:max-w-[464px]" key={reason.value} value={reason.value}>{reason.label}</SelectItem>
+                  <SelectItem className="max-w-[90vw] sm:max-w-[464px] h-auto py-2 flex-wrap" key={reason.value} value={reason.value}>
+                    <span className="whitespace-normal wrap-break-word leading-snug">{reason.label}</span>
+                  </SelectItem>
                 ))}
                 </SelectContent>
               </Select>

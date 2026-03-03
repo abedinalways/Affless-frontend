@@ -106,7 +106,7 @@ export default function EditorDashboardHeader() {
   const jobRoutes = [
     "/editor/hire-request",
     "/editor/myproposal",
-    "/editor/browse-job",
+    "/browse-job",
     "/editor/editor-profile",
     "/editor/earning",
     "/editor/delivery",
