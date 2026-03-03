@@ -248,7 +248,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                                 {bidsData.map((bid) => (
                                     <Link
                                         key={bid.id}
-                                        href={`/client/bids-details/${bid.id}`}
+                                        href={`/client/bids-details/${bid.id}?redirect=client-dashboard&proposalId=${id}`}
                                         className=""
                                     >
                                         <BidCard

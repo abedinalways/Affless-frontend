@@ -121,21 +121,12 @@ const mockMessageThreads: Record<string, Message[]> = {
 type MessageBodyProps = {
     selectedConversationId?: string;
     onSelectConversation?: (id: string) => void;
+    onDeleteConversation?: (id: string) => void;
 };
 
 type ConversationState = Record<string, { muted?: boolean; blocked?: boolean; reported?: boolean; deleted?: boolean }>;
 
-const getConversationState = (): ConversationState => {
-    if (typeof window === 'undefined') return {};
-    try {
-        const raw = window.localStorage.getItem('conversationState');
-        return raw ? JSON.parse(raw) : {};
-    } catch {
-        return {};
-    }
-};
-
-export default function MessageBody({ selectedConversationId, onSelectConversation }: MessageBodyProps) {
+export default function MessageBody({ selectedConversationId, onSelectConversation, onDeleteConversation }: MessageBodyProps) {
     const [conversationMessages, setConversationMessages] = useState<Record<string, Message[]>>(mockMessageThreads);
     const [conversationState, setConversationState] = useState<ConversationState>({});
     const router = useRouter();
@@ -159,22 +150,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
 
     const persistConversationState = (nextState: ConversationState) => {
         setConversationState(nextState);
-        if (typeof window !== 'undefined') {
-            window.localStorage.setItem('conversationState', JSON.stringify(nextState));
-            window.dispatchEvent(new CustomEvent('conversation:update'));
-        }
     };
-
-    useEffect(() => {
-        setConversationState(getConversationState());
-        const handleUpdate = () => setConversationState(getConversationState());
-        window.addEventListener('conversation:update', handleUpdate as EventListener);
-        window.addEventListener('storage', handleUpdate);
-        return () => {
-            window.removeEventListener('conversation:update', handleUpdate as EventListener);
-            window.removeEventListener('storage', handleUpdate);
-        };
-    }, []);
 
     useEffect(() => {
         if (!selectedConversationId && !searchId && availableConversations.length > 0) {
@@ -322,6 +298,7 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                     const { [activeConversationId]: _removed, ...rest } = prev;
                     return rest;
                 });
+                onDeleteConversation?.(activeConversationId);
                 if (availableConversations.length > 0) {
                     const nextConversation = availableConversations.find((conv) => conv.id !== activeConversationId);
                     onSelectConversation?.(nextConversation?.id || '');

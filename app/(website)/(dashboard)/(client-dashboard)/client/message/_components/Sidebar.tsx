@@ -62,52 +62,17 @@ const mockConversations: Conversation[] = [
 type SidebarProps = {
     selectedConversationId?: string;
     onSelectConversation?: (id: string) => void;
+    hiddenConversationIds?: string[];
 };
 
-type ConversationState = Record<string, { muted?: boolean; blocked?: boolean; reported?: boolean; deleted?: boolean }>;
-
-const getConversationState = (): ConversationState => {
-    if (typeof window === 'undefined') return {};
-    try {
-        const raw = window.localStorage.getItem('conversationState');
-        return raw ? JSON.parse(raw) : {};
-    } catch {
-        return {};
-    }
-};
-
-const applyConversationState = (base: Conversation[], state: ConversationState) =>
-    base
-        .map((conv) => ({
-            ...conv,
-            ...state[conv.id],
-        }))
-        .filter((conv) => !conv.deleted);
-
-export default function Sidebar({ selectedConversationId, onSelectConversation }: SidebarProps) {
-    const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
+export default function Sidebar({ selectedConversationId, onSelectConversation, hiddenConversationIds = [] }: SidebarProps) {
+    const conversations = mockConversations;
     const [selectedId, setSelectedId] = useState<string>('');
     const [searchQuery, setSearchQuery] = useState('');
     const searchParams = useSearchParams();
     const searchId = searchParams.get('id') || '';
     const [showSearch, setShowSearch] = useState(false);
     const searchContainerRef = useRef<HTMLDivElement | null>(null);
-
-    useEffect(() => {
-        const syncConversations = () => {
-            setConversations(applyConversationState(mockConversations, getConversationState()));
-        };
-
-        syncConversations();
-
-        const handleUpdate = () => syncConversations();
-        window.addEventListener('conversation:update', handleUpdate as EventListener);
-        window.addEventListener('storage', handleUpdate);
-        return () => {
-            window.removeEventListener('conversation:update', handleUpdate as EventListener);
-            window.removeEventListener('storage', handleUpdate);
-        };
-    }, []);
 
     useEffect(() => {
         if (selectedConversationId) {
@@ -144,8 +109,8 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
         return () => window.removeEventListener('mousedown', handleOutsideClick);
     }, [showSearch]);
 
-    const filteredConversations = conversations.filter(conv =>
-        conv.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredConversations = conversations.filter((conv) =>
+        !hiddenConversationIds.includes(conv.id) && conv.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (

@@ -53,7 +53,7 @@ export default function WithdrawBalance() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={transferTo}>{transferTo}</SelectItem>
-                  <SelectItem value="More methods coming soon" >More methods coming soon...</SelectItem>
+                  <SelectItem value="More methods coming soon" >More payout methods coming soon.</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -61,7 +61,7 @@ export default function WithdrawBalance() {
             {/* Amount */}
             <div className="space-y-1">
               <label htmlFor="amount" className="block font-medium text-gray-700">Amount</label>
-              <input type="text" id="amount" className="w-full font-semibold text-gray-900 rounded-xl border px-6 py-4" value={`$${amount}`} readOnly />
+              <input type="text" id="amount" disabled={true} className="w-full font-semibold text-gray-900 rounded-xl border px-6 py-4 disabled:bg-gray-100 disabled:cursor-not-allowed" value={`$${amount}`} readOnly />
             </div>
           </div>
 
@@ -71,17 +71,17 @@ export default function WithdrawBalance() {
           </p>
 
           {/* Buttons */}
-          <div className="mt-12 flex flex-col  lg:flex-row items-center justify-center gap-4 space-y-3">
+          <div className="mt-12 flex flex-col lg:flex-row items-center gap-4 space-y-3">
             <button
               onClick={handleCancel}
-              className="px-10 py-3 rounded-xl bg-red-100 text-red-500 font-semibold cursor-pointer w-full"
+              className="px-10 py-3 m-0 rounded-xl bg-red-100 text-red-500 hover:bg-red-200 font-semibold cursor-pointer w-full transition duration-300"
             >
               Cancel
             </button>
 
             <button
               onClick={handleConfirm}
-              className="px-10 py-3 rounded-xl bg-red-500 text-white font-semibold cursor-pointer w-full"
+              className="px-10 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold cursor-pointer w-full transition duration-300"
             >
               Confirm and Withdraw
             </button>

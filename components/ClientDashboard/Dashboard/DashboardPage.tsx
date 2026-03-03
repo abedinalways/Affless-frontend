@@ -121,7 +121,7 @@ export default function ClientDashboard() {
       <div className="mx-auto containers space-y-6">
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* LEFT */}
-          <div className="w-full space-y-6 lg:w-1/3">
+          <div className="w-full space-y-6 lg:max-w-[348px]">
             <div className="rounded-2xl bg-white px-6 pt-6 pb-8 shadow-sm">
               <div className="flex flex-col items-center gap-3">
                 <div className="h-20 w-20 overflow-hidden rounded-full">

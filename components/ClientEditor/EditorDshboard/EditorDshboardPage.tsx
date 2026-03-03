@@ -3,7 +3,7 @@
 import KeyIcon from "@/components/Icons/KeyIcon";
 import LocationIcon from "@/components/Icons/LocationIcon";
 import LockIcon from "@/components/Icons/LockIcon";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaStar } from "react-icons/fa";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +18,7 @@ import SetAvailabilityModal, {
 import { useRouter } from "next/navigation";
 import { getJobStatusDefinition } from "@/lib/job-status";
 
-type OrderStatus = "pending" | "in_progress" | "cancelled" | "delivered";
+type OrderStatus = "pending" | "in_progress" | "cancelled" | "completed" | "delivered";
 
 interface Order {
   id: number;
@@ -45,7 +45,7 @@ const orders: Order[] = [
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
-    status: "in_progress",
+    status: "pending",
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ const orders: Order[] = [
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
-    status: "cancelled",
+    status: "in_progress",
   },
   {
     id: 3,
@@ -61,7 +61,7 @@ const orders: Order[] = [
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
-    status: "delivered",
+    status: "cancelled",
   },
   {
     id: 4,
@@ -69,7 +69,7 @@ const orders: Order[] = [
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
-    status: "pending",
+    status: "completed",
   },
   {
     id: 5,
@@ -77,7 +77,7 @@ const orders: Order[] = [
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
     days: 5,
-    status: "in_progress",
+    status: "delivered",
   },
   {
     id: 6,
@@ -282,6 +282,7 @@ export default function EditorDashboard() {
   });
 
   const averageResponseHours = 1;
+  const averageResponseMinutes = 12;
   const exposureTier = getExposureTierForHours(averageResponseHours);
 
   // Pagination state
@@ -356,22 +357,22 @@ export default function EditorDashboard() {
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-[#777980] text-[14px]">Average Response Time</span>
-                <span className="text-[#777980] text-[14px]">1h</span>
+                <span className="text-[#777980] text-[14px]" title="Average time to first reply">Average Response Time</span>
+                <span className="text-[#777980] text-[14px]">1 hour</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#777980] text-[14px]">Rating</span>
-                <span className="text-gray-500">-</span>
+                <span className="text-[#777980] text-[14px]" title="user’s average rating">Rating</span>
+                <p className="text-gray-500 flex items-center gap-1"><span className="text-yellow-600 text-sm"><FaStar /> </span> 4.9</p>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#777980] text-[14px]">Jobs Completed</span>
-                <span className="text-gray-500">-</span>
+                <span className="text-gray-500">40</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#777980] text-[14px]">
                   Clients Worked With
                 </span>
-                <span className="text-gray-500">-</span>
+                <span className="text-gray-500">12</span>
               </div>
             </div>
             <div className="flex justify-center items-center">
@@ -399,11 +400,20 @@ export default function EditorDashboard() {
             </div>
 
             <div className="grid grid-cols-1 gap-3">
-              <div className="flex items-center justify-between rounded-lg border px-4 py-3">
-                <span className="text-[14px] text-[#777980]">Your avg. response</span>
-                <span className="text-[14px] font-medium text-[#333]">
-                  {averageResponseHours}h
-                </span>
+              <div className="space-y-2">
+                <p className="text-[16px] text-[#4A4C56]">Your profile gets 10.3× more views in Search Results and a 500% increase in Quick Match priority when responding in under 1 hour.</p>
+                <p className="text-[13px] text-[#4A4C56]">Editors who respond quickly are prioritized across the platform. Faster replies increase exposure, ranking, and client match success.</p>
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center justify-between rounded-lg border px-4 py-3 gap-4">
+                  <span className="text-[14px] text-[#777980]">Your Average Response Time</span>
+                  <span className="text-[14px] font-medium text-[#333]">
+                    {averageResponseHours} hour {averageResponseMinutes} minutes
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-[13px] text-[#4A4C56]">Next Tier Unlocks at: Under 1 hour.</p>
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-lg border px-4 py-3">
@@ -423,7 +433,7 @@ export default function EditorDashboard() {
 
             <div className="overflow-hidden rounded-lg border">
               <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f3f4f6] px-3 py-2 text-[12px] font-medium text-[#4A4C56]">
-                <span>Avg Response Time</span>
+                <span>Average Response Time</span>
                 <span>Search Exposure</span>
                 <span>Quick Match Priority</span>
               </div>
@@ -431,13 +441,12 @@ export default function EditorDashboard() {
                 {exposureTiers.map((tier) => (
                   <div
                     key={tier.label}
-                    className={`grid grid-cols-[1.2fr_1fr_1fr] px-3 py-2 text-[13px] ${
-                      tier.zone === "benefit"
-                        ? "bg-[#F3FBF1]"
-                        : tier.zone === "neutral"
-                          ? "bg-[#FFF9E6]"
-                          : "bg-[#FFF0F0]"
-                    }`}
+                    className={`grid grid-cols-[1.2fr_1fr_1fr] px-3 py-2 text-[13px] ${tier.zone === "benefit"
+                      ? "bg-[#F3FBF1]"
+                      : tier.zone === "neutral"
+                        ? "bg-[#FFF9E6]"
+                        : "bg-[#FFF0F0]"
+                      }`}
                   >
                     <span className="text-[#333]">{tier.label}</span>
                     <span className="text-[#333]">{tier.exposure}</span>
@@ -448,7 +457,7 @@ export default function EditorDashboard() {
             </div>
 
             <p className="text-[12px] text-[#777980]">
-              Hard cap: slower than 48 hours will not reduce exposure further.
+              An average response time slower than 48 hours will not further reduce your search exposure or Quick Match priority.
             </p>
           </div>
 

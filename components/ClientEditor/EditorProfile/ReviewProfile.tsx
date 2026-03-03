@@ -17,10 +17,11 @@ const reviews = [
     time: "1 month ago",
     jobImage: "/images/project1.jpg",
     jobTitle: "I will do SEO backlinks with blogger outreach for high quality link building",
-    price: "$400",
+    price: 400,
     message:
       "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     previewImage: "/images/vedio.png.jpg",
+    reviews: 338,
   },
   {
     id: 2,
@@ -32,10 +33,11 @@ const reviews = [
     time: "1 month ago",
     jobImage: "/images/project2.jpg",
     jobTitle: "Create a modern minimalist logo design for tech startup",
-    price: "$150",
+    price: 150,
     message:
       "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     previewImage: "/images/vedio.png.jpg",
+    reviews: 328,
   },
 ];
 
@@ -89,8 +91,10 @@ export default function ReviewsSection() {
                   ))}
                 </div>
                 {/* Rating */}
-                <span className="font-medium text-[#222]">{review.rating}</span>
-
+                <div className="text-[#333]">
+                  <span className="font-medium text-[#222]">{review.rating.toFixed(1)}</span>
+                  <span className=" text-sm"> ({review.reviews} reviews)</span>
+                </div>
                 {/* Time */}
                 <span>{review.time}</span>
               </div>
@@ -114,7 +118,7 @@ export default function ReviewsSection() {
               />
               <div className="flex-1">
                 <h3 className="font-medium text-[#333] line-clamp-1">{review.jobTitle}</h3>
-                <p className="text-sm text-gray-500 mt-1">Fixed-price • {review.price}</p>
+                <p className="text-sm text-gray-500 mt-1">Fixed-price • ${review.price.toFixed(2)}</p>
               </div>
             </div>
           )}

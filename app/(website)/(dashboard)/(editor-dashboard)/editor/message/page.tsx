@@ -20,6 +20,7 @@ export default function page() {
     const returnTo = searchParams.get("return") || "";
     const requesting = searchParams.get("requestjob") || "";
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
+    const [deletedConversationIds, setDeletedConversationIds] = useState<string[]>([]);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(requesting === "true" ? true : false);
     const router = useRouter();
@@ -55,13 +56,24 @@ export default function page() {
         },
     ];
 
-    const activeConversation = conversationDirectory.find(
+    const availableConversationDirectory = conversationDirectory.filter(
+        (item) => !deletedConversationIds.includes(item.id)
+    );
+
+    const activeConversation = availableConversationDirectory.find(
         (item) => item.id === selectedConversationId
     );
+
+    const handleDeleteConversation = (id: string) => {
+        setDeletedConversationIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
+    }
 
     const handleSelectConversation = (id: string) => {
         setSelectedConversationId(id);
         console.log("Selected conversation ID:", id);
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("id", id);
+        router.replace(`/editor/message?${params.toString()}`);
     }
 
     const handleReportUser = async (reportData: any) => {
@@ -86,15 +98,37 @@ export default function page() {
         }
     }, [conversationIdFromUrl])
 
+    useEffect(()=>{
+    console.log(returnTo);
+  },[])
+
     return (
         <div className="p-4 containers bg-[#f9f9f9] ">
             {returnTo === "find-editor-match" && (
                 <button
                     type="button"
-                    onClick={() => router.push("/client/find-editor-match")}
+                    onClick={() => router.push("/editor/quick-match-result")}
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
-                    <FaArrowLeft /> <span>Back to Find Editor</span>
+                    <FaArrowLeft /> <span>Back to Quick-Match Results</span>
+                </button>
+            )}
+            {returnTo.includes("/editor/hire-request") && (
+                <button
+                    type="button"
+                    onClick={() => router.push(returnTo)}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to Job Proposal Details</span>
+                </button>
+            )}
+            {returnTo === "find-client-match" && (
+                <button
+                    type="button"
+                    onClick={() => router.push("/editor/quick-match-result")}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to Quick-Match Results</span>
                 </button>
             )}
             {returnTo === "find-editor" && (
@@ -112,12 +146,14 @@ export default function page() {
                         <Sidebar
                             selectedConversationId={selectedConversationId}
                             onSelectConversation={handleSelectConversation}
+                            hiddenConversationIds={deletedConversationIds}
                         />
                     </div>
                     <div className={`w-full flex-1 h-full ${selectedConversationId === "" ? "hidden xl:block" : ""}`} style={{ height: 'calc(100vh - 100px)' }}>
                         <MessageBody
                             selectedConversationId={selectedConversationId}
                             onSelectConversation={handleSelectConversation}
+                            onDeleteConversation={handleDeleteConversation}
                         />
                     </div>
                     <div className="w-full flex-1 min-w-[300px] md:min-w-[250px] max-w-full lg:max-w-[330px] h-fit space-y-4">
@@ -197,7 +233,7 @@ export default function page() {
             {/* Popup */}
             <Popup
                 isOpen={isPopupOpen}
-                description="Jerome Bell is requesting a job from John Designer...."
+                description="Jerome Bell is requesting a job from John Designer..."
                 timeout={3000}
                 onClose={() => {
                     setIsPopupOpen(false);

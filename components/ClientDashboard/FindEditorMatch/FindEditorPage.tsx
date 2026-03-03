@@ -32,7 +32,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     jobsCompleted: 128,
-    avgResponseTime: "15m",
+    avgResponseTime: "2",
     clientsWorkedWith: 46,
     match: 84,
     image: "/images/Jerome.jpg",
@@ -43,7 +43,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     jobsCompleted: 94,
-    avgResponseTime: "05m",
+    avgResponseTime: "5",
     clientsWorkedWith: 38,
     match: 75,
     image: "/images/Courtney.jpg",
@@ -54,7 +54,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     jobsCompleted: 57,
-    avgResponseTime: "40m",
+    avgResponseTime: "1",
     clientsWorkedWith: 21,
     match: 27,
     image: "/images/Annette.jpg",
@@ -65,7 +65,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     jobsCompleted: 112,
-    avgResponseTime: "45m",
+    avgResponseTime: "10",
     clientsWorkedWith: 40,
     match: 75,
     image: "/images/Esther.jpg",
@@ -76,7 +76,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 338,
     jobsCompleted: 86,
-    avgResponseTime: "25m",
+    avgResponseTime: "8",
     clientsWorkedWith: 33,
     match: 75,
     image: "/images/Floyd.jpg",
@@ -87,7 +87,7 @@ const editors: Editor[] = [
     rating: 4.8,
     reviews: 291,
     jobsCompleted: 103,
-    avgResponseTime: "12m",
+    avgResponseTime: "3",
     clientsWorkedWith: 36,
     match: 81,
     image: "/images/Courtney.jpg",
@@ -98,7 +98,7 @@ const editors: Editor[] = [
     rating: 4.7,
     reviews: 214,
     jobsCompleted: 68,
-    avgResponseTime: "20m",
+    avgResponseTime: "2",
     clientsWorkedWith: 27,
     match: 63,
     image: "/images/Jerome.jpg",
@@ -109,7 +109,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 362,
     jobsCompleted: 140,
-    avgResponseTime: "08m",
+    avgResponseTime: "5",
     clientsWorkedWith: 52,
     match: 89,
     image: "/images/Esther.jpg",
@@ -120,7 +120,7 @@ const editors: Editor[] = [
     rating: 4.6,
     reviews: 173,
     jobsCompleted: 49,
-    avgResponseTime: "32m",
+    avgResponseTime: "9",
     clientsWorkedWith: 18,
     match: 44,
     image: "/images/Annette.jpg",
@@ -131,7 +131,7 @@ const editors: Editor[] = [
     rating: 4.8,
     reviews: 267,
     jobsCompleted: 88,
-    avgResponseTime: "16m",
+    avgResponseTime: "2",
     clientsWorkedWith: 31,
     match: 72,
     image: "/images/Floyd.jpg",
@@ -142,7 +142,7 @@ const editors: Editor[] = [
     rating: 4.7,
     reviews: 198,
     jobsCompleted: 74,
-    avgResponseTime: "22m",
+    avgResponseTime: "4",
     clientsWorkedWith: 25,
     match: 58,
     image: "/images/Courtney.jpg",
@@ -153,7 +153,7 @@ const editors: Editor[] = [
     rating: 4.9,
     reviews: 319,
     jobsCompleted: 116,
-    avgResponseTime: "10m",
+    avgResponseTime: "3",
     clientsWorkedWith: 43,
     match: 86,
     image: "/images/Jerome.jpg",
@@ -164,7 +164,7 @@ const editors: Editor[] = [
     rating: 4.5,
     reviews: 142,
     jobsCompleted: 41,
-    avgResponseTime: "35m",
+    avgResponseTime: "2",
     clientsWorkedWith: 16,
     match: 39,
     image: "/images/Annette.jpg",
@@ -175,7 +175,7 @@ const editors: Editor[] = [
     rating: 4.8,
     reviews: 255,
     jobsCompleted: 92,
-    avgResponseTime: "14m",
+    avgResponseTime: "7",
     clientsWorkedWith: 34,
     match: 77,
     image: "/images/Esther.jpg",
@@ -186,7 +186,7 @@ const editors: Editor[] = [
     rating: 4.6,
     reviews: 184,
     jobsCompleted: 61,
-    avgResponseTime: "28m",
+    avgResponseTime: "4",
     clientsWorkedWith: 23,
     match: 52,
     image: "/images/Floyd.jpg",
@@ -206,8 +206,9 @@ const getRandomEditors = (
 
   const pool = candidates.length >= count ? candidates : source;
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  const randomSelection = shuffled.slice(0, count);
 
-  return shuffled.slice(0, count);
+  return randomSelection.sort((a, b) => b.match - a.match);
 };
 
 export default function FindEditorsPage() {
@@ -350,21 +351,21 @@ export default function FindEditorsPage() {
                         ⭐ {editor.jobsCompleted} Jobs Completed
                       </span>
                       <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
-                        ⚡ {editor.avgResponseTime} Avg. Response Time
+                        ⚡ Average Response Time: {editor.avgResponseTime} {editor.avgResponseTime === "1" ? "hour" : "hours"}
                       </span>
                       <span className="px-3 py-1 bg-[#F2F3F3] rounded-full flex items-center gap-1">
                         🤝 {editor.clientsWorkedWith} Clients Worked With
                       </span>
                     </div>
 
-                    <div className="flex  gap-3 mt-3">
+                    <div className="flex items-center gap-3 mt-3">
                       <div>
                         <Link href={`/hire-vedio-editor?id=${editor.id}&redirect=find-editor-match`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
                           Hire Editor
                         </Link>
                       </div>
 
-                      <Link href={`/client/message?id=${editor.id}`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
+                      <Link href={`/client/message?id=${editor.id}&return=find-editor-match`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
                         Message
                       </Link>
                     </div>

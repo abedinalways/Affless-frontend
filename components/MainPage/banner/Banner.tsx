@@ -41,7 +41,7 @@ export default function Banner() {
           toast.success('You’re already an Editor. To post jobs, log out and log in as a Client.');
           router.push("/editor");
         } else {
-          toast.error('To become an Editor, log out and log in as a Editor.');
+          toast.error('Only Editor accounts can access the Editor Dashboard. Please log out and create a new Editor account to continue.');
         }
       } else {
         toast.error(`Please login first to become ${userType === 'editor' ? 'a client' : 'an editor'}`);

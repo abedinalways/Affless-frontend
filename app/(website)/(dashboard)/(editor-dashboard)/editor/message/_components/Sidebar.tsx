@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { MdBlock } from "react-icons/md";
 import { IoMdNotificationsOff } from "react-icons/io";
-import { IoSearch } from "react-icons/io5";
+import { IoSearch } from 'react-icons/io5';
 
 interface Conversation {
     id: string;
@@ -62,53 +62,17 @@ const mockConversations: Conversation[] = [
 type SidebarProps = {
     selectedConversationId?: string;
     onSelectConversation?: (id: string) => void;
+    hiddenConversationIds?: string[];
 };
 
-type ConversationState = Record<string, { muted?: boolean; blocked?: boolean; reported?: boolean; deleted?: boolean }>;
-
-const getConversationState = (): ConversationState => {
-    if (typeof window === 'undefined') return {};
-    try {
-        const raw = window.localStorage.getItem('conversationState');
-        return raw ? JSON.parse(raw) : {};
-    } catch {
-        return {};
-    }
-};
-
-const applyConversationState = (base: Conversation[], state: ConversationState) =>
-    base
-        .map((conv) => ({
-            ...conv,
-            ...state[conv.id],
-        }))
-        .filter((conv) => !conv.deleted);
-
-export default function Sidebar({ selectedConversationId, onSelectConversation }: SidebarProps) {
-    const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
+export default function Sidebar({ selectedConversationId, onSelectConversation, hiddenConversationIds = [] }: SidebarProps) {
+    const conversations = mockConversations;
     const [selectedId, setSelectedId] = useState<string>('');
     const [searchQuery, setSearchQuery] = useState('');
-    const [debouncedQuery, setDebouncedQuery] = useState('');
-    const [showSearch, setShowSearch] = useState(false);
-    const searchContainerRef = useRef<HTMLDivElement | null>(null);
     const searchParams = useSearchParams();
     const searchId = searchParams.get('id') || '';
-
-    useEffect(() => {
-        const syncConversations = () => {
-            setConversations(applyConversationState(mockConversations, getConversationState()));
-        };
-
-        syncConversations();
-
-        const handleUpdate = () => syncConversations();
-        window.addEventListener('conversation:update', handleUpdate as EventListener);
-        window.addEventListener('storage', handleUpdate);
-        return () => {
-            window.removeEventListener('conversation:update', handleUpdate as EventListener);
-            window.removeEventListener('storage', handleUpdate);
-        };
-    }, []);
+    const [showSearch, setShowSearch] = useState(false);
+    const searchContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         if (selectedConversationId) {
@@ -121,7 +85,7 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
             setSelectedId(searchId);
             onSelectConversation?.(searchId);
         }
-    }, [searchId, onSelectConversation]);
+    }, [searchId]);
 
     useEffect(() => {
         if (!selectedConversationId && !searchId && conversations.length > 0) {
@@ -130,14 +94,6 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
             onSelectConversation?.(latestId);
         }
     }, [selectedConversationId, searchId, conversations, onSelectConversation]);
-
-    useEffect(() => {
-        const timer = window.setTimeout(() => {
-            setDebouncedQuery(searchQuery.trim());
-        }, 300);
-
-        return () => window.clearTimeout(timer);
-    }, [searchQuery]);
 
     useEffect(() => {
         if (!showSearch) return;
@@ -154,7 +110,7 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
     }, [showSearch]);
 
     const filteredConversations = conversations.filter((conv) =>
-        conv.name.toLowerCase().includes(debouncedQuery.toLowerCase())
+        !hiddenConversationIds.includes(conv.id) && conv.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
@@ -168,7 +124,7 @@ export default function Sidebar({ selectedConversationId, onSelectConversation }
                     aria-controls="conversation-search"
                     className='p-2 rounded-md hover:bg-gray-100 cursor-pointer transition-all'
                 >
-                    <IoSearch className='text-xl'/>
+                    <IoSearch className='text-xl' />
                 </button>
             </div>
             <div
