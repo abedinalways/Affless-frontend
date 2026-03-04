@@ -68,7 +68,7 @@ export default function Footer() {
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href="/howWork">How It Works</Link></li>
               <li><Link href="/getting-started">Getting Started</Link></li>
-              <li><Link href="/pricing">Pricing</Link></li>
+              <li><Link href="/pricing?redirect=home">Pricing</Link></li>
               <li><Link href="/trustSeftey">Trust & Safety</Link></li>
               <li><Link href="/success-story">Success Stories</Link></li>
               <li><Link href="/frequently-question">FAQs</Link></li>

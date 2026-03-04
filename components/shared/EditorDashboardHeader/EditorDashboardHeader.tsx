@@ -205,11 +205,11 @@ export default function EditorDashboardHeader() {
             <div className="flex items-center gap-10">
               {/* Logo */}
               <Link href="/">
-                <div className="w-26 sm:w-32 h-[42px] flex justify-center items-center overflow-hidden">
+                <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
                   <Image
-                    src="/images/footerLogo.png"
-                    width={1000}
-                    height={1000}
+                    src="/images/logoUpdate.png"
+                    width={128}
+                    height={100}
                     alt="Logo"
                     className=" object-cover justify-start"
                   />
@@ -235,7 +235,7 @@ export default function EditorDashboardHeader() {
                       className={`flex items-center gap-1 cursor-pointer select-none ${jobActive ? activeCls : inactiveCls
                         }`}
                     >
-                      Job
+                      Jobs
                       <span className={`transition-transform ${open ? "rotate-180" : ""}`}>
                         <MdKeyboardArrowDown />
                       </span>
@@ -250,15 +250,15 @@ export default function EditorDashboardHeader() {
                             }`}
                           onClick={closeDesktopJobDropdown}
                         >
-                          My Job Proposals
+                          My Jobs
                         </Link>
                         <Link
                           href="/editor/hire-request"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/hire-request") ? activeCls : inactiveCls
+                          className={`block px-4 py-2 hover:bg-gray-100 capitalize ${isActive("/editor/hire-request") ? activeCls : inactiveCls
                             }`}
                           onClick={closeDesktopJobDropdown}
                         >
-                          Hire Request
+                          My job proposals
                         </Link>
 
                         <Link
@@ -267,7 +267,7 @@ export default function EditorDashboardHeader() {
                             }`}
                           onClick={closeDesktopJobDropdown}
                         >
-                          Find Jobs
+                          Browse Jobs
                         </Link>
 
                         <Link

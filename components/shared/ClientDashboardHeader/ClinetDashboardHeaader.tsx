@@ -80,9 +80,11 @@ export default function ClientDashboardHeader() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { user, setUser } = useUser();
-
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const profileDropdownRef = useRef<HTMLDivElement | null>(null);
+  const notificationRef = useRef<HTMLDivElement | null>(null);
+    const [showNotifications, setShowNotifications] = useState(false);
+  const [notificationOpenMode, setNotificationOpenMode] = useState<"hover" | "click" | null>(null);
 
   // ✅ active style
   const activeCls = "text-[#FF4D4F] font-semibold";
@@ -100,6 +102,31 @@ export default function ClientDashboardHeader() {
     "/client/find-editor-match",
     "/client/post-job",
   ];
+
+  const handleNotificationMouseEnter = () => {
+    if (!showNotifications) {
+      setShowNotifications(true);
+      setNotificationOpenMode("hover");
+    }
+  };
+
+  const handleNotificationMouseLeave = () => {
+    if (notificationOpenMode === "hover") {
+      setShowNotifications(false);
+      setNotificationOpenMode(null);
+    }
+  };
+
+  const handleNotificationClick = () => {
+    if (showNotifications && notificationOpenMode === "click") {
+      setShowNotifications(false);
+      setNotificationOpenMode(null);
+      return;
+    }
+
+    setShowNotifications(true);
+    setNotificationOpenMode("click");
+  };
 
   const businessActive = businessRoutes.some((r) => isActive(r));
 
@@ -281,12 +308,19 @@ export default function ClientDashboardHeader() {
               Become a Editor
             </Link>
 
-            <div className="relative group">
-              <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer group-hover:text-[#FF4D4F]" />
+            <div
+              className="h-fit leading-0 relative"
+              ref={notificationRef}
+              onMouseEnter={handleNotificationMouseEnter}
+              onMouseLeave={handleNotificationMouseLeave}
+            >
+              <button type="button" className="" onClick={handleNotificationClick}>
+                <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer hover:text-[#FF4D4F]" />
+              </button>
               <div
-                className={`absolute right-0 mt-3 w-[412px] rounded-xl border bg-white shadow-lg opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50`}
+                className={`leading-normal absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-0 mt-3 w-[412px] max-w-[80vw] rounded-xl border bg-white shadow-lg transition-all duration-200 z-50 ${showNotifications ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"}`}
               >
-                <Notification data = {inboxData}/>
+                <Notification data={inboxData} />
               </div>
             </div>
 
