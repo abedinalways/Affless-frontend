@@ -39,7 +39,7 @@ export default function GettingStartedPage() {
       {/* Page Banner */}
       <PageBanner
         title='Getting Started'
-        desc='A quick guide to help you get started on the platform'
+        desc='A quick guide to help you get started on the platform.'
         bgImage='/findEditor.jpg'
         links={[{ label: "Home", href: "/" }, { label: "Getting Started" }]}
       />
