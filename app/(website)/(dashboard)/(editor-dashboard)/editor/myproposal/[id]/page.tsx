@@ -12,112 +12,16 @@ import { useRouter } from "next/navigation";
 import BidCard from "@/components/reusable/Bids";
 import ReviewList, { ReviewType } from "@/components/reusable/Review";
 import Link from "next/link";
+import { PROPOSAL_DEMO_DATA } from "@/components/ClientEditor/MyProposal/proposal-demo-data";
+import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
 interface UploadedFile {
   name: string;
   size: number;
   type: string;
 }
 
-interface ProposalRow {
-  id: number;
-  service: string;
-  amount: string;
-  time: string;
-  status: "ALL" | "Progress" | "Pending" | "Cancellation";
-  thumbnail: string;
-}
-
-const Proposal: ProposalRow[] = [
-  {
-    id: 1,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft quality backlinks.",
-    amount: "$55",
-    time: "5 Days",
-    status: "Progress",
-  },
-  {
-    id: 2,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft backlinks.",
-    amount: "$60",
-    time: "5 Days",
-    status: "Pending",
-  },
-  {
-    id: 4,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "$70",
-    time: "7 Days",
-    status: "Progress",
-  },
-  {
-    id: 5,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft backlinks.",
-    amount: "$80",
-    time: "5 Days",
-    status: "Progress",
-  },
-  {
-    id: 6,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Cancellation",
-  },
-  {
-    id: 7,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Pending",
-  },
-  {
-    id: 8,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "$90",
-    time: "7 Days",
-    status: "Pending",
-  },
-];
-
-const reviews: ReviewType[] = [
-  {
-    id: 1,
-    name: "Michael Brown",
-    img: "/images/devon.png",
-    rating: 5,
-    totalReviews: 32,
-    comment:
-      "Outstanding work. Communication was clear and delivery was faster than expected.",
-    timeAgo: "2 days ago",
-  },
-  {
-    id: 2,
-    name: "Ayesha Rahman",
-    img: "/images/headset.svg",
-    rating: 4,
-    totalReviews: 18,
-    comment:
-      "Very professional and responsive. Minor revisions needed but handled well.",
-    timeAgo: "1 week ago",
-  },
-];
-
-export default function HireDetails({ params }: { params: { id: string } }) {
+export default function HireDetails({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params);
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const router = useRouter();
   // File Upload Handler
@@ -137,25 +41,21 @@ export default function HireDetails({ params }: { params: { id: string } }) {
   };
 
   const proposal = useMemo(() => {
-    const idNum = Number(params.id);
-    if (Number.isNaN(idNum)) return null;
-    return Proposal.find((p) => p.id === idNum) || null;
-  }, [params.id]);
+    return PROPOSAL_DEMO_DATA.find((p) => p.id === id) || null;
+  }, [id]);
 
-
-  const dynamicStatus: ProposalRow["status"] = proposal?.status ?? "Pending";
 
   return (
     <div className="">
       <div>
         <PageBanner
 
-          title="Graphic Designer for ongoing job"
+          title={proposal?.service || ""}
           bgImage="/findEditor.jpg"
           links={[
             { label: "Dashboard", href: "/editor" },
-            { label: "My Job", href: "/editor/myproposal" },
-            { label: "Graphic Designer for ongoing job" }
+            { label: "My Jobs", href: "/editor/myproposal" },
+            { label: proposal?.service || "" }
 
           ]}
         />
@@ -175,7 +75,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
                         Job Category
                       </p>
                       <p className="text-[16px] font-medium leading-150% mt-1.5 ">
-                        Video
+                        Shorts/Reels/TikToks
                       </p>
                     </div>
                   </div>
@@ -191,7 +91,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
                         Project Budget
                       </p>
                       <p className="text-[16px] font-medium leading-150% mt-1.5 ">
-                        {proposal?.amount ?? "$675"}
+                        {proposal?.price ? `$${proposal.price}` : "$675"}
                       </p>
                     </div>
                   </div>
@@ -210,7 +110,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
                         Platform
                       </p>
                       <p className="text-[16px] font-medium leading-150% mt-1.5 ">
-                        Youtobe
+                        YouTube
                       </p>
                     </div>
                   </div>
@@ -226,7 +126,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
                         Project Duration
                       </p>
                       <p className="text-[16px] font-medium leading-150% mt-1.5 ">
-                        {proposal?.time ?? "5 Days"}
+                        {proposal?.duration ? `${proposal.duration} Days` : "5 Days"}
                       </p>
                     </div>
                   </div>
@@ -235,12 +135,12 @@ export default function HireDetails({ params }: { params: { id: string } }) {
                 <div className="p-4 rounded-xl border bg-[#E6F7D9]">
                   <div className="flex gap-4">
                     <div className="flex justify-center items-center">
-                      <WorldIcon />
+                      <Clock4 className="text-black" />
                     </div>
                     <div>
-                      <p className="text-lg text-[18px] font-semibold">Country</p>
+                      <p className="text-lg text-[18px] font-semibold">Footage Duration</p>
                       <p className="text-[16px] font-medium leading-150% mt-1.5 ">
-                        USA
+                        50 seconds
                       </p>
                     </div>
                   </div>
@@ -283,13 +183,13 @@ export default function HireDetails({ params }: { params: { id: string } }) {
 
               <div className="flex flex-wrap gap-3">
                 <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                  Adobe Premiere Pro
+                  Retention Editing
                 </span>
                 <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                  Adobe After Effects
+                  Storytelling
                 </span>
                 <span className="px-4 py-2 border rounded-full bg-[#F3F5F6]">
-                  Adobe After Effects
+                  Color Correction
                 </span>
               </div>
             </div>
@@ -301,7 +201,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* PDF Upload */}
-                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" aria-disabled="true" tabIndex={-1} className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-not-allowed pointer-events-none">
                   <PdfIcon className="w-10 h-10" />
                   <div>
                     <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
@@ -311,7 +211,7 @@ export default function HireDetails({ params }: { params: { id: string } }) {
                 </Link>
 
                 {/* TEXT Upload */}
-                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
+                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" aria-disabled="true" tabIndex={-1} className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-not-allowed pointer-events-none">
                   <PdfIcon className="w-10 h-10" />
                   <div>
                     <p className="font-semibold pb-1.5 text-[18px] text-[#333]">

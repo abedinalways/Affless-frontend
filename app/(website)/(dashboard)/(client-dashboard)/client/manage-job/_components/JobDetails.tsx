@@ -6,22 +6,23 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import PageBanner from "@/components/reusable/Bgbanner";
 import JobDetailsPage from "@/components/ClientDashboard/GraphicsDesigner/JobDetailsPa";
-import { ALL_JOBS, JobRow } from "@/components/ClientDashboard/ManageJob/ManageJob";
+import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
+import { ALL_JOBS } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
 import ExtendDelivery from "@/components/ClientEditor/ExtendDelivery/ExtendDelivery";
 import ExtendDeliveryCard from "@/components/ClientDashboard/GraphicsDesigner/ExtendDeliveryCard";
 import Link from "next/link";
 import Loading from "@/components/shared/Loading";
 
-type propType ={
-    id: string;
+type propType = {
+  id: string;
 }
 
-export default function JobDetails({id}:propType) {
+export default function JobDetails({ id }: propType) {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "";
   const [job, setJob] = useState<JobRow | null>(null);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
+  
   useEffect(() => {
     // Scroll to top immediately
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -70,7 +71,7 @@ export default function JobDetails({id}:propType) {
         bgImage="/findEditor.jpg"
         links={[
           { label: "Dashboard", href: "/client" },
-          { label: redirect === "/client/payment-history"? "Payment History" : "Manage Jobs", href: redirect || "/client/manage-job" },
+          { label: redirect === "/client/payment-history" ? "Payment History" : "Manage Jobs", href: redirect || "/client/manage-job" },
           { label: job.service, href: `/client/manage-job/${job.id}` },
         ]}
       />
@@ -78,8 +79,8 @@ export default function JobDetails({id}:propType) {
       <div className="containers flex flex-col lg:flex-row gap-6 py-20">
 
         <div className="lg:w-2/3">
-          <JobDetailsPage 
-          job={job}
+          <JobDetailsPage
+            job={job}
           />
         </div>
 
@@ -101,8 +102,8 @@ export default function JobDetails({id}:propType) {
 
                 <span
                   className={`text-xs px-3 py-1 rounded-full mt-2 inline-block capitalize ${job.status === "in_revision"
-                      ? "bg-red-100 text-red-700"
-                      : "bg-blue-100 text-blue-700"
+                    ? "bg-red-100 text-red-700"
+                    : "bg-blue-100 text-blue-700"
                     }`}
                 >
                   {job.status?.split("_").join(" ")}

@@ -86,7 +86,7 @@ export default function Pricing() {
           title="Pricing"
           bgImage="/findEditor.jpg"
           links={[
-            { label: user?"Dashboard":"Home", href: user ? `/${user}` : "/" },
+            { label: redirect === "home" ?"Home":"Dashboard", href: redirect === "home" ?"/" : `/${user}` },
             { label: "Pricing" }
           ]}
         />

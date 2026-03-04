@@ -98,7 +98,7 @@ export default function ProfilePage() {
                     className="w-full h-full rounded-full object-cover border-2 border-gray-200 transition cursor-pointer hover:scale-110 duration-300"
                   />
                 </Link>
-                <p className="text-sm font-medium text-[#333] line-clamp-2">{client.name}</p>
+                <Link href={`/client-profile/${client.id}`} className="text-sm font-medium text-[#333] line-clamp-2">{client.name}</Link>
               </div>
             ))}
           </div>

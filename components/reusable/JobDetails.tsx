@@ -61,7 +61,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
   return (
     <div className="w-full rounded-2xl bg-white p-6">
       {/* HEADER */}
-      <h2 className="text-xl font-semibold mb-4">Job Details</h2>
+      <h2 className="text-xl font-semibold mb-4">Job Actions</h2>
 
       {/* JOB INFO */}
       <div className="">
@@ -129,7 +129,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
                 onClick={onExtendDelivery}
                 className="mt-3 w-full text-sm underline text-gray-500 cursor-pointer"
               >
-                Extend delivery date
+                Extend Delivery Date
               </button>
             )}
           </div>

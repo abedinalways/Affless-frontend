@@ -37,7 +37,7 @@ export default function DisputeResolutionPage() {
         {/* ---------------- Content Section ---------------- */}
         <section className="bg-white shadow-sm rounded-xl p-5 lg:p-10 leading-relaxed text-[#333] mt-7">
           <div>
-            <h2 className="text-[24px] font-medium leading-150%  mb-4 ">How to use the Resolution Center</h2>
+            <h2 className="text-[24px] font-medium leading-150%  mb-4 ">How to Use the Resolution Center</h2>
 
             <p className="mb-4">
               The Resolution Center is a place where editors and clients can work together to resolve order disputes or manage issues when a resolution cannot be reached through the Inbox. Users can raise issues and submit supporting information to Customer Support through the Resolution Center.
@@ -58,7 +58,7 @@ export default function DisputeResolutionPage() {
             <ol className="list-decimal ml-6 mb-6 space-y-1">
               <li>Navigate to the Orders section from your dashboard.</li>
               <li>Select the specific order you would like to dispute.</li>
-              <li>Click Resolution Center located on the right side of the order page.</li>
+              <li>Click the Resolution Center located on the right side of the order page.</li>
             </ol>
           </div>
 
@@ -70,12 +70,12 @@ export default function DisputeResolutionPage() {
             If communication fails, an order may be canceled. Repeated misuse of the Resolution Center or failure to cooperate may result in account review.
           </p>
 
-          <h4 className="font-semibold mt-6 mb-2" id="for-freelancers">For editors:</h4>
+          <h4 className="font-semibold mt-6 mb-2" id="for-freelancers">For Editors:</h4>
           <p className="mb-4">
             Editors should communicate clearly with clients regarding project scope, deliverables, and where their service responsibilities begin and end. The Resolution Center should be used to clarify issues, provide updates, and maintain transparency. Proper communication helps keep projects healthy and protects all parties involved.
           </p>
 
-          <h4 className="font-semibold mt-6 mb-2" id="for-clients">For clients:</h4>
+          <h4 className="font-semibold mt-6 mb-2" id="for-clients">For Clients:</h4>
           <p>
             Clients are encouraged to give editors an opportunity to address concerns before escalating to cancellation. Clearly communicating expectations at the beginning of a project helps prevent most disputes and leads to better outcomes.
           </p>
