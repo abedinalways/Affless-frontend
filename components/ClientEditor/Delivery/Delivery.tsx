@@ -55,7 +55,7 @@ export default function DeliveryMessage() {
   const handleDeliver = () => {
     console.log(files);
     if (files.video === null && files.audio === null && files.thumb1 === null && files.thumb2 === null) {
-      toast("Please upload at least one of the files.", {
+      toast("Please upload at least one file before delivering your work.", {
         icon: "⚠️"
       });
       return;
@@ -69,12 +69,12 @@ export default function DeliveryMessage() {
   return (
     <div className="">
       <PageBanner
-        title="Delivery"
+        title="Deliver Work"
         bgImage="/findEditor.jpg"
         links={[
           // { label: "Home", href: "/" },
           { label: "I will craft quality backlinks for your website's SEO", href: "/editor/myproposal/1" },
-          { label: "Delivery" }]}
+          { label: "Deliver Work" }]}
       />
 
       <div className="containers">

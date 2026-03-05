@@ -214,7 +214,7 @@ export default function JobDetails({ params }: PostPageProps) {
                 </button>
               </form>
             </div>
-            <h1 className="text-2xl font-semibold py-8">Proposals</h1>
+            <h1 className="text-2xl font-semibold py-8">Editor Proposals</h1>
             {bids.map((bid) => (
               <BidCard key={bid.id} {...bid} />
             ))}

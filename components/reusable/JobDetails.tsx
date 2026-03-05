@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type TimeLeft = {
   days: number;
@@ -20,6 +21,7 @@ type JobDetailsCardProps = {
   deliveryDate: string;
   totalPrice: number;
   orderNumber: string;
+  jobId?: string;
 
   showDeliverNow?: boolean;
   onDeliverNow?: () => void;
@@ -52,12 +54,13 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
   deliveryDate,
   totalPrice,
   orderNumber,
-
   showDeliverNow = false,
   onDeliverNow,
   onMessage,
   onExtendDelivery,
+  jobId
 }) => {
+  const pathname = usePathname();
   return (
     <div className="w-full rounded-2xl bg-white p-6">
       {/* HEADER */}
@@ -106,8 +109,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             </div>
 
             {/* ACTIONS */}
-            {/* ACTIONS */}
-            {onDeliverNow && (
+            {onDeliverNow && status !== "cancelled" && status !== "completed" && status !== "delivered" && (
               <button
                 onClick={onDeliverNow}
                 className="w-full rounded-full bg-red-500 py-3 text-white font-medium hover:bg-red-600 transition cursor-pointer"
@@ -117,14 +119,14 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             )}
 
             {onMessage && (
-              <Link href="/editor/message"
+              <Link href={`/editor/message?return=${pathname === "/editor/extend-delivery" ? "/editor/extend-delivery&jobid=" + jobId : pathname === "/editor/delivery" ? "back_to_delivery" : "back_to_job_details"}`}
                 className="mt-3 w-full block text-center rounded-full border border-red-500 py-3 text-red-500 font-medium hover:bg-red-50 transition cursor-pointer"
               >
                Message Client
               </Link>
             )}
 
-            {onExtendDelivery && (
+            {onExtendDelivery && status !== "cancelled" && status !== "completed" && status !== "delivered" && (
               <button
                 onClick={onExtendDelivery}
                 className="mt-3 w-full text-sm underline text-gray-500 cursor-pointer"

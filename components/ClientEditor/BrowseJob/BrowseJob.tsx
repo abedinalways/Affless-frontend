@@ -6,7 +6,7 @@ import Pagination from "@/components/reusable/pagination";
 import Image from "next/image";
 import Link from "next/link";
 import { FaSitemap } from "react-icons/fa";
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 export const data = [
@@ -119,8 +119,42 @@ const PAGE_SIZE = 4;
 export default function BrowseJob() {
   const searchParams = useSearchParams();
   const [page, setPage] = useState(1);
-  const redirectUrl = searchParams.get('redirect') || '/';
-  const client = searchParams.get('client') || "";
+  const redirectParam = searchParams.get("redirect");
+  const hasRedirect = Boolean(redirectParam && redirectParam.trim());
+  const redirectUrl = hasRedirect ? redirectParam!.trim() : "/";
+  const client = searchParams.get("client") || "";
+  const redirectPath = redirectUrl.split("?")[0];
+  const isEditorMyProposalRedirect = redirectUrl === "/editor/myproposal";
+  const isDirectMessageRedirect = redirectPath === "/client/message";
+  const rootCrumbLabel = !hasRedirect
+    ? "Home"
+    : isDirectMessageRedirect
+      ? "Direct Messages"
+      : "Dashboard";
+
+  const bannerTitle = client ? `All of ${client}'s Jobs` : "Browse Jobs";
+  const bannerDescription = client
+    ? "Browse this client's jobs based on job type, budget, and project duration."
+    : "Find the best client jobs based on job type, budget, and project duration.";
+
+  const bannerLinks = useMemo(
+    () => {
+      const links: Array<{ label: string; href?: string }> = [
+        { label: rootCrumbLabel, href: redirectUrl },
+      ];
+
+      if (isEditorMyProposalRedirect) {
+        links.push({ label: "My Jobs", href: "/editor/myproposal" });
+      }
+
+      links.push({
+        label: isDirectMessageRedirect ? `All of ${client}'s Jobs` : "Browse Jobs",
+      });
+
+      return links;
+    },
+    [client, isDirectMessageRedirect, isEditorMyProposalRedirect, redirectUrl, rootCrumbLabel]
+  );
   // Mobile filter states
   const [category, setCategory] = useState("");
   const [platform, setPlatform] = useState("");
@@ -147,17 +181,21 @@ export default function BrowseJob() {
     return filteredData.slice(start, start + PAGE_SIZE);
   }, [page, filteredData]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredData.length / PAGE_SIZE));
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
   return (
     <div>
       <PageBanner
-        title={client ? `All of ${client} Jobs` : "Browse Jobs"}
+        title={bannerTitle}
         bgImage="/findEditor.jpg"
-        desc={client ? "Browse this client’s jobs based on job type, budget, and project duration." : " Find the best client jobs based on job type, budget, and project duration."}
-        links={[
-          { label: (redirectUrl === "/editor" || redirectUrl === "/editor/myproposal")?"Dashboard": redirectUrl?.split("?")[0] === "/client/message"?"Direct Messages": "Dashboard", href: redirectUrl || "/" }, 
-          { label: redirectUrl === "/editor/myproposal" ? 'My Jobs' : "", href: redirectUrl === "/editor/myproposal" ? "/editor/myproposal" : "" },
-          { label: redirectUrl === "/client/message" ? `All of ${client}’s Jobs` : "Browse Jobs" },
-        ]}
+        desc={bannerDescription}
+        links={bannerLinks}
       />
 
       <div className="containers lg:py-20 ">
@@ -191,9 +229,9 @@ export default function BrowseJob() {
           <div className="w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
               {paginatedData.map((item) => (
-                <div className="bg-white p-4 lg:p-6 rounded-lg">
+                <div key={item.id} className="bg-white p-4 lg:p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link key={item.id} href={`/browse-job/${item.id}?redirect=${redirectUrl}`}>
+                    <Link href={`/browse-job/${item.id}?redirect=${redirectUrl}`}>
                       <Image
                         src={item.img}
                         alt="editor"
@@ -248,9 +286,9 @@ export default function BrowseJob() {
               <Pagination
                 page={page}
                 pageSize={PAGE_SIZE}
-                total={paginatedData.length}
+                total={filteredData.length}
                 onPageChange={(p) => setPage(p)}
-                totalPages={1}
+                totalPages={totalPages}
               />
             </div>
           </div>

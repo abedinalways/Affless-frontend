@@ -17,6 +17,7 @@ import Popup from "@/components/shared/Popup";
 export default function page() {
     const searchParams = useSearchParams();
     const conversationIdFromUrl = searchParams.get("id") || "";
+    const jobId = searchParams.get("jobid") || "";
     const returnTo = searchParams.get("return") || "";
     const requesting = searchParams.get("requestjob") || "";
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
@@ -138,6 +139,33 @@ export default function page() {
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
                     <FaArrowLeft /> <span>Back to Find Editor</span>
+                </button>
+            )}
+            {returnTo === "/editor/extend-delivery" && (
+                <button
+                    type="button"
+                    onClick={() => router.push("/editor/extend-delivery?jobid=" + jobId)}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to Extend Delivery Date</span>
+                </button>
+            )}
+            {returnTo === "back_to_job_details" && (
+                <button
+                    type="button"
+                    onClick={() => router.back()}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to Job Details</span>
+                </button>
+            )}
+            {returnTo === "back_to_delivery" && (
+                <button
+                    type="button"
+                    onClick={() => router.push('/editor/delivery')}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to Deliver Work</span>
                 </button>
             )}
             <div className="grid grid-cols-1 gap-6 relative overflow-hidden">

@@ -45,12 +45,12 @@ export default function BidCard({
         </div>
 
         {/* RIGHT SIDE BUTTON */}
-        <Link
+        {/* <Link
           href={`/client/bids-details/${id}?redirect=client-dashboard&proposalId=${proposalId}`}
           className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
         >
           View
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
