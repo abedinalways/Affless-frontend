@@ -2,20 +2,23 @@
 
 import PageBanner from "@/components/reusable/Bgbanner";
 import JobDetailsCard from "@/components/reusable/JobDetails";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
 
 export default function ExtendDelivery() {
   const [message, setMessage] = useState("");
   const [days, setDays] = useState(1);
   const [file, setFile] = useState<File | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const jobId = searchParams.get("jobid") || "";
 
   const handleSubmit = () => {
     console.log({ message, days, file });
-    toast("Extension request sent \n\n The client has been notified and will review your request.",{
+    toast("Extension request sent. \n\n The client has been notified and will review your request.", {
       icon: "✅"
     })
     setTimeout(() => {
@@ -27,7 +30,6 @@ export default function ExtendDelivery() {
     <div className="">
       <div>
         <PageBanner
-
           title="Extend Delivery Date"
           bgImage="/findEditor.jpg"
           links={[
@@ -37,8 +39,8 @@ export default function ExtendDelivery() {
         />
       </div>
       <div className="containers py-10">
-        <button type="button" onClick={() => router.back()} className="bg-red-500 text-white px-4 py-1 rounded-lg flex items-center gap-1 cursor-pointer"> <FaArrowLeft />
-                  Back</button>
+        <button type="button" onClick={() => router.push(`/editor/myproposal/${jobId}`)} className="bg-red-500 text-white px-4 py-1 rounded-lg flex items-center gap-1 cursor-pointer"> <FaArrowLeft />
+          Back</button>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 py-10">
           <div className="bg-white p-6 rounded-xl lg:col-span-2">
             <h1 className="text-2xl font-semibold mb-6">
@@ -83,7 +85,7 @@ export default function ExtendDelivery() {
 
               <div>
                 <p className="text-sm font-medium mb-2">Original Date</p>
-                <p className="text-gray-600">Jan 12, 2024</p>
+                <p className="text-gray-600">November 6, 2026</p>
               </div>
             </div>
 
@@ -107,6 +109,7 @@ export default function ExtendDelivery() {
               totalPrice={743}
               orderNumber="#123"
               onMessage={() => console.log("Message clicked")}
+              jobId={jobId}
             />
 
           </div>

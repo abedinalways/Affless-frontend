@@ -228,7 +228,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
             <JobDetailsCard
               title="I will craft quality backlinks for your website's SEO."
               image="/images/vedio.png.jpg"
-              status="Pending"
+              status={proposal?.status || ""}
               timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
               orderBy="Bessie"
               deliveryDate="November 6, 2026"
@@ -236,7 +236,8 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
               orderNumber="#123"
               onDeliverNow={() => router.push("/editor/delivery")} // ✅ link
               onMessage={() => console.log("Message clicked")}
-              onExtendDelivery={() => router.push("/editor/extend-delivery")} // ✅ link
+              onExtendDelivery={() => router.push(`/editor/extend-delivery?jobid=${proposal?.id || ""}`)} // ✅ link
+              jobId={proposal?.id || ""}
             />
           </div>
         </div>

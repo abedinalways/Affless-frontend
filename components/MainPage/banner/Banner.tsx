@@ -18,7 +18,7 @@ export default function Banner() {
       const token = JSON.parse(CookieHelper.get({ key: 'user' }))
       if (token.status === 'logged_in') {
         if (token.user_type === 'client') {
-          router.push("/client/post-job");
+          router.push("/post-job");
         } else {
           toast.error('Switch to client account to post a job');
           router.push("/editor");

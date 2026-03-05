@@ -110,6 +110,7 @@ export default function EditorDashboardHeader() {
     "/editor/editor-profile",
     "/editor/earning",
     "/editor/delivery",
+    "/editor/extend-delivery"
   ];
 
   const jobActive = jobRoutes.some((r) => isActive(r));
@@ -246,8 +247,7 @@ export default function EditorDashboardHeader() {
 
                         <Link
                           href="/editor/myproposal"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/myproposal") || isActive("/editor/delivery") ? activeCls : inactiveCls
-                            }`}
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/myproposal") || isActive("/editor/delivery") || isActive("/editor/extend-delivery") ? activeCls : inactiveCls }`}
                           onClick={closeDesktopJobDropdown}
                         >
                           My Jobs
@@ -420,7 +420,7 @@ export default function EditorDashboardHeader() {
                   }`}
                 onClick={() => setMobileDropdown(!mobileDropdown)}
               >
-                Job
+                Jobs
                 <MdKeyboardArrowDown
                   className={`transition-transform ${mobileDropdown ? "rotate-180" : ""}`}
                 />
@@ -435,7 +435,7 @@ export default function EditorDashboardHeader() {
                         }`}
                       onClick={() => setMobileMenu(false)}
                     >
-                      My Job Proposals
+                      My Jobs
                     </Link>
                   </li>
                   <li>
@@ -445,7 +445,7 @@ export default function EditorDashboardHeader() {
                         }`}
                       onClick={() => setMobileMenu(false)}
                     >
-                      Hire Request
+                      My Job Proposals
                     </Link>
                   </li>
                   <li>
@@ -455,7 +455,7 @@ export default function EditorDashboardHeader() {
                         }`}
                       onClick={() => setMobileMenu(false)}
                     >
-                      Find Jobs
+                      Browse Jobs
                     </Link>
                   </li>
                   <li>
@@ -499,7 +499,7 @@ export default function EditorDashboardHeader() {
                 className={`cursor-pointer px-3 py-2 hover:bg-gray-100 duration-300 w-full text-left ${isActive("/client") ? activeCls : inactiveCls
                   }`}
               >
-                Become an client
+                Become a Client
               </button>
             </li>
 
