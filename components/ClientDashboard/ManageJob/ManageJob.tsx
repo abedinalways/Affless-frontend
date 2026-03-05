@@ -12,7 +12,8 @@ import Loading from "@/components/shared/Loading";
 import { getJobStatusDefinition } from "@/lib/job-status";
 import PageBanner from "@/components/reusable/Bgbanner";
 import { useSearchParams } from "next/navigation";
-import { ALL_JOBS, type JobRow } from "./manage-job-demo-data";
+import { ALL_JOBS } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
+import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
 
 const PAGE_SIZE = 8;
 

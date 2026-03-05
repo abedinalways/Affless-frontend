@@ -9,7 +9,7 @@ import WorldIcon from "@/components/Icons/WorldIcon";
 import { FileText, File, YoutubeIcon, Clapperboard, Clock4 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { JobRow } from "../ManageJob/ManageJob";
+import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
 import { TbClock } from "react-icons/tb";
 
 export default function JobDetailsPage({ job }: { job: JobRow }) {

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import JobDetailsPage from "@/components/ClientDashboard/GraphicsDesigner/JobDetailsPa";
-import { ALL_JOBS, JobRow } from "@/components/ClientDashboard/ManageJob/ManageJob";
+import { ALL_JOBS } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
+import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
 import Loading from "@/components/shared/Loading";
 import DesktopIcon from "@/components/Icons/Desktop";
 import DolarIcon from "@/components/Icons/DolarIcon";
