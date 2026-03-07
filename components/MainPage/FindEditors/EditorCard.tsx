@@ -12,15 +12,16 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
+import { useSearchParams } from "next/navigation";
 
 export const editors = [
   {
     id: 1,
     name: "Jane Cooper",
-    country: "Charlton, United States",
+    country: "United States",
     avatar: "/images/jonekeper.png",
-    budget: "$562",
+    budget: "562",
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
@@ -34,7 +35,7 @@ export const editors = [
     name: "Robert Fox",
     country: "United States",
     avatar: "/images/robatfox.png",
-    budget: "$562",
+    budget: "562",
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
@@ -48,7 +49,7 @@ export const editors = [
     name: "Bessie Cooper",
     country: "Algeria",
     avatar: "/images/basse.png",
-    budget: "$562",
+    budget: "562",
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
@@ -60,9 +61,9 @@ export const editors = [
   {
     id: 4,
     name: "Jane Cooper",
-    country: "Charlton, United States",
+    country: "United States",
     avatar: "/images/coper.png",
-    budget: "$562",
+    budget: "562",
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
@@ -76,7 +77,7 @@ export const editors = [
     name: "Robert Fox",
     country: "United States",
     avatar: "/images/shavanagh.png",
-    budget: "$562",
+    budget: "562",
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
@@ -98,7 +99,7 @@ export const editors = [
     name: "Bessie Cooper",
     country: "Algeria",
     avatar: "/images/bel.png",
-    budget: "$562",
+    budget: "562",
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
@@ -132,6 +133,8 @@ export default function EditorCard({
 }: EditorCardProps) {
   const [startIndex, setStartIndex] = useState(0);
   const ITEMS_PER_PAGE = 3;
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
 
   const handleNext = () => {
     if (startIndex + ITEMS_PER_PAGE < skills.length) {
@@ -173,8 +176,8 @@ export default function EditorCard({
       </div>
       {/* Budget + Rating */}
       <div className='mt-4 flex items-center gap-5'>
-        <p className='text-[16px] text-[#777980]  font-medium'>
-          Hourly Rate : <span className=''>{budget}</span>
+        <p className='text-[16px] text-[#777980]  font-medium' title="The minimum job price set by the editor. The final cost may vary based on the amount of work.">
+          Starting Price : <span className=''>${Number(budget).toFixed(2)}</span>
         </p>
         <div className='flex items-center gap-1 text-[16px] text-[#777980]'>
           <Star size={18} className='text-yellow-500 fill-yellow-500' />
@@ -209,7 +212,7 @@ export default function EditorCard({
       {/* Hire Button */}
       <div className='flex w-full gap-4'>
         <Link
-          href='/hire-vedio-editor?redirect=/client'
+          href={`/hire-vedio-editor?redirect=${redirect || "/"}`}
           className='cursor-pointer w-full'>
           <div className=' text-center bg-red-500 cursor-pointer w-full text-white  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 '>
             Hire Editor

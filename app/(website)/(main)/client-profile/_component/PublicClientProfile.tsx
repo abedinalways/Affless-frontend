@@ -150,16 +150,18 @@ export default function PublicClientProfile() {
                             {/* USER INFO ROW */}
                             <div className="flex justify-between">
                                 <div className="flex items-center gap-3 mb-2">
+                                    <Link href="/editor-profile/1" className="w-10 h-10 overflow-hidden rounded-full">
                                     <Image
                                         src="/images/saramc.png"
                                         width={40}
                                         height={40}
                                         alt={job.user}
-                                        className="rounded-full"
+                                        className="rounded-full hover:scale-[1.1] transition cursor-pointer object-cover "
                                     />
+                                    </Link>
 
                                     <div>
-                                        <p className="font-medium text-[18px] text-[#333] capitalize">{job.user}</p>
+                                        <Link href="/editor-profile/1" className="font-medium text-[18px] text-[#333] capitalize">{job.user}</Link>
                                         <p className="text-sm text-[#4A4C56] flex items-center gap-1 pt-1.5">
                                             <UsaFlag /> {job.country}
                                         </p>

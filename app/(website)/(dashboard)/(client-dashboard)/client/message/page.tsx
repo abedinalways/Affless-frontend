@@ -18,6 +18,7 @@ export default function page() {
     const conversationIdFromUrl = searchParams.get("id") || "";
     const returnTo = searchParams.get("return") || "";
     const redirect = searchParams.get("redirect") || "";
+    const name = searchParams.get("name") || "";
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
     const [deletedConversationIds, setDeletedConversationIds] = useState<string[]>([]);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
@@ -116,7 +117,7 @@ export default function page() {
                     onClick={() => router.push("/find-editor")}
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
-                    <FaArrowLeft /> <span>Back to Find Editor</span>
+                    <FaArrowLeft /> <span>Back to Find Editors</span>
                 </button>
             )}
             {returnTo === "proposal-1" && (
@@ -126,6 +127,15 @@ export default function page() {
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
                     <FaArrowLeft /> <span>Back to Proposal Details</span>
+                </button>
+            )}
+            {returnTo.includes("/client/bids-details") && (
+                <button
+                    type="button"
+                    onClick={() => router.push(`${returnTo}?redirect=client-dashboard&proposalId=1`)}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to {name}</span>
                 </button>
             )}
             <div className="grid grid-cols-1 gap-6 relative overflow-hidden">

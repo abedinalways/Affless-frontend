@@ -258,6 +258,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                                             time={bid.time}
                                             description={bid.description}
                                             proposalId={id}
+                                            showViewButton={true}
                                         />
                                     </Link>
                                 ))}

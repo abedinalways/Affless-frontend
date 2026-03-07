@@ -82,7 +82,7 @@ export default function NavbarWithoutLogin() {
                   className={`cursor-pointer flex items-center gap-1 ${serviceActive ? activeCls : inactiveCls
                     }`}
                 >
-                  Service
+                  Services
                   <MdKeyboardArrowDown
                     className={`text-xl transition-transform duration-200 ${desktopServiceOpen ? "rotate-180" : "rotate-0"
                       }`}
@@ -168,6 +168,24 @@ export default function NavbarWithoutLogin() {
                       Help Center
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/frequently-question"
+                      className={`${isActive("/frequently-question") ? activeCls : inactiveCls} cursor-pointer`}
+                      onClick={() => setDesktopContactOpen(false)}
+                    >
+                      FAQ
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/contactus"
+                      className={`${isActive("/contactus") ? activeCls : inactiveCls} cursor-pointer`}
+                      onClick={() => setDesktopContactOpen(false)}
+                    >
+                      Contact
+                    </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
@@ -185,7 +203,7 @@ export default function NavbarWithoutLogin() {
 
             <Link href="/singup" className="hidden xl:flex">
               <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer">
-                <DubbleUser /> Sign Up
+                <DubbleUser /> Sign Up (Free)
               </button>
             </Link>
           </div>
@@ -304,7 +322,14 @@ export default function NavbarWithoutLogin() {
                 onClick={closeMobileMenu}
                 className={`${isActive("/help-center") ? activeCls : inactiveCls} cursor-pointer`}
               >
-                Help Center / FAQ
+                Help Center
+              </Link>
+              <Link
+                href="/frequently-question"
+                onClick={closeMobileMenu}
+                className={`${isActive("/frequently-question") ? activeCls : inactiveCls} cursor-pointer`}
+              >
+                FAQ
               </Link>
               <Link
                 href="/contactus"

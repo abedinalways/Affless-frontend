@@ -279,6 +279,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
               min={1}
               step={1}
               value={deliveryTime}
+              onClick={()=>setAnyDeliveryTime(false)}
               onValueChange={(value) => {
                 setDeliveryTime(value);
                 if (anyDeliveryTime) {

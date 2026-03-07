@@ -9,6 +9,7 @@ interface BidCardProps {
   time: string;
   description: string;
   proposalId?: string;
+  showViewButton?: boolean;
 }
 
 export default function BidCard({
@@ -17,7 +18,8 @@ export default function BidCard({
   avatar,
   time,
   description,
-  proposalId
+  proposalId,
+  showViewButton = false,
 }: BidCardProps) {
   return (
     <div className="space-y-6 mb-6">
@@ -45,12 +47,14 @@ export default function BidCard({
         </div>
 
         {/* RIGHT SIDE BUTTON */}
-        {/* <Link
-          href={`/client/bids-details/${id}?redirect=client-dashboard&proposalId=${proposalId}`}
-          className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
-        >
-          View
-        </Link> */}
+        {showViewButton && (
+          <Link
+            href={`/client/bids-details/${id}?redirect=client-dashboard&proposalId=${proposalId}`}
+            className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
+          >
+            View
+          </Link>
+        )}
       </div>
     </div>
   );

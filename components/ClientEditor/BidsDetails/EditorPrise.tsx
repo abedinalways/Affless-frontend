@@ -8,11 +8,10 @@ import toast from "react-hot-toast";
 
 type proposal = {
   id: string;
+  redirect?: string;
 }
 
-export default function EditorPrise({ id }: proposal) {
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
+export default function EditorPrise({ id, redirect }: proposal) {
   const [status, setStatus] = useState<"accept" | "reject" | null>(null);
 
   return (
@@ -27,10 +26,10 @@ export default function EditorPrise({ id }: proposal) {
         {/* Delivery Date */}
         <div className="">
           <p className="text-[16px] font-medium text-black pt-8 pb-4">
-            Delivery Date: March 12
+            Delivery Date: March 12, 2026
           </p>
 
-          <div className="grid grid-cols-4 text-center rounded-xl overflow-hidden">
+          <div className="grid grid-cols-3 text-center rounded-xl overflow-hidden">
             <div className="py-3">
               <p className="text-[16px] font-semibold text-[#333] ">06</p>
               <p className="text-[12px] text-[#777980]">Days</p>
@@ -45,11 +44,11 @@ export default function EditorPrise({ id }: proposal) {
               <p className="text-[16px] font-semibold text-[#333] leading-180%">00</p>
               <p className="text-[12px] text-[#4A4C56] font-normal leading-150%">Minutes</p>
             </div>
-
+{/* 
             <div className="py-3 border-l">
               <p className="text-[16px] font-semibold text-[#333] leading-180%">00</p>
               <p className="text-[12px] text-[#4A4C56] font-normal leading-150%">Second</p>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -130,7 +129,7 @@ export default function EditorPrise({ id }: proposal) {
         </div>
 
         {/* Contact */}
-        <Link href={`/client/message?id=2&return=proposal-${id}&redirect=${redirect}`} className="block">
+        <Link href={`/client/message?id=2&return=${redirect}`} className="block">
           <button className="mt-6 w-full py-3 rounded-xl bg-[#FF4D4F] text-white font-medium text-[16px] cursor-pointer hover:opacity-90 transition">
             Chat With Editor
           </button></Link>

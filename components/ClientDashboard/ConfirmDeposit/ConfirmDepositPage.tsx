@@ -12,6 +12,8 @@ import { useSearchParams } from "next/navigation";
 export default function ConfirmDepositPage() {
   const searchParams = useSearchParams();
   const assignEditor = searchParams.get("assign");
+  const returnTo = searchParams.get("return");
+  const redirect = searchParams.get("redirect");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -37,7 +39,12 @@ export default function ConfirmDepositPage() {
         <PageBanner
           title='Confirm Deposit'
           bgImage='/findEditor.jpg'
-          links={[{ label: "Home", href: "/" }, { label: "Confirm Deposit" }]}
+          links={[
+            { label: redirect === "/client" ? "Dashboard" : "Home", href: redirect || "/home" },
+            ...(returnTo === "hire-video-editor" ? [{ label: "Find Editors", href: "/find-editor" }] : []),
+            ...(returnTo === "hire-video-editor" ? [{ label: "Hire a Video Editor", href: "/hire-vedio-editor" }] : []),
+            ...(!(returnTo === "hire-video-editor") ? [{ label: "Post a Job", href: "/post-job" }] : []),
+            { label: "Confirm Deposit" }]}
         />
       </div>
       <div className='containers pt-10 lg:pt-20'>
@@ -49,7 +56,7 @@ export default function ConfirmDepositPage() {
             </h3>
             <div className='space-y-2'>
               <div className='flex justify-between text-gray-700'>
-                <span>Project Budget</span>
+                <span>Job Budget</span>
                 <span>$20.00</span>
               </div>
               <div className='flex justify-between text-gray-700'>
@@ -63,14 +70,14 @@ export default function ConfirmDepositPage() {
               <hr className='' />
               <div className='flex justify-between text-gray-700'>
                 <span>Total Payment</span>
-                <span>$30</span>
+                <span>$30.00</span>
               </div>
             </div>
           </div>
 
           <div className='w-full bg-white p-6 rounded-xl shadow h-fit mt-6'>
             <div className='flex justify-between text-gray-700'>
-              <span>Project Duration</span>
+              <span>Job Duration</span>
               <span>5 Days</span>
             </div>
           </div>
