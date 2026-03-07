@@ -30,7 +30,7 @@ export default function ProfilePage() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint ",
       tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-      price: 400,
+      price: "$400.00",
       numberOfRevisions: "3",
       duration: "13 days",
       thumbnail: "/images/vedio.png.jpg",
@@ -43,7 +43,7 @@ export default function ProfilePage() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       tags: ["Adobe Premiere Pro", "Final Cut Pro", "DaVinci Resolve"],
-      price: 400,
+      price: "$400.00",
       numberOfRevisions: "3",
       duration: "10 days",
       thumbnail: "/images/vedio.png.jpg",
@@ -155,16 +155,18 @@ export default function ProfilePage() {
               {/* USER INFO ROW */}
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3 mb-2">
-                  <Image
-                    src="/images/saramc.png"
-                    width={40}
-                    height={40}
-                    alt={job.user}
-                    className="rounded-full"
-                  />
+                  <Link href="/editor-profile/1" className="w-10 h-10 overflow-hidden rounded-full">
+                    <Image
+                      src="/images/saramc.png"
+                      width={40}
+                      height={40}
+                      alt={job.user}
+                      className="rounded-full hover:scale-[1.1] transition cursor-pointer object-cover "
+                    />
+                  </Link>
 
                   <div>
-                    <p className="font-medium text-[18px] text-[#333] capitalize">{job.user}</p>
+                    <Link href="/editor-profile/1" className="font-medium text-[18px] text-[#333] capitalize">{job.user}</Link>
                     <p className="text-sm text-[#4A4C56] flex items-center gap-1 pt-1.5">
                       <UsaFlag /> {job.country}
                     </p>
@@ -187,15 +189,15 @@ export default function ProfilePage() {
                   <div className="flex flex-wrap gap-3 py-6">
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
                       <span className="text-[#777980]">Platform: </span>
-                      <span className="font-medium">YouTube</span>
+                      <span className="font-medium text-red-400">YouTube</span>
                     </div>
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
                       <span className="text-[#777980]">Project Type: </span>
-                      <span className="font-medium">YouTube Long-Form</span>
+                      <span className="font-medium text-red-400">YouTube Long-Form</span>
                     </div>
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
                       <span className="text-[#777980]">Editor Experience: </span>
-                      <span className="font-medium">12 Jobs Completed</span>
+                      <span className="font-medium text-red-400">12 Jobs Completed</span>
                     </div>
                   </div>
                   <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">

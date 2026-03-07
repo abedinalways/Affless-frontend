@@ -31,21 +31,21 @@ type FormValues = {
 // Mapping of categories to available platforms
 const categoryPlatformMap: { [key: string]: string[] } = {
   youtube_long_form: ["youtube"],
-  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat"],
+  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat","youtube","facebook","x_twitter"],
   thumbnails: ["youtube"],
-  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter"],
-  podcasts: ["youtube"],
-  weddings_events: ["youtube", "instagram", "facebook"],
-  captions_subtitles: ["youtube", "tiktok", "instagram"],
-  color_audio: ["youtube", "tiktok", "instagram"],
+  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter","youtube","snapchat"],
+  podcasts: ["youtube","tiktok","x_twitter"],
+  weddings_events: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
+  captions_subtitles: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
+  color_audio: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
 };
 
 const allPlatforms = [
   { key: "youtube", label: "YouTube" },
   { key: "tiktok", label: "TikTok" },
   { key: "instagram", label: "Instagram" },
-  { key: "facebook", label: "Facebook" },
   { key: "x_twitter", label: "X (Twitter)" },
+  { key: "facebook", label: "Facebook" },
   { key: "snapchat", label: "Snapchat" },
 ];
 
@@ -136,7 +136,7 @@ export default function PostJobForm() {
     setLoading(true);
     console.log("Form Submitted:", data, "Payment Type:", paymentType);
     if (minPrice > parseFloat(data.budget.replace("$", ""))) {
-      toast.error(`Minimum budget for this project is $${minPrice}`);
+      toast.error(`Minimum budget for this Job is $${minPrice}`);
       setLoading(false);
       return;
     }
@@ -281,14 +281,14 @@ export default function PostJobForm() {
             )}
 
             <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Project Budget
+              Job Budget
             </label>
 
             <input
               type='text'
               placeholder='$2.00'
               disabled={(selectedCategory && videoLength) ? false : true}
-              className='w-full border rounded-lg p-3 mb-2'
+              className='w-full border rounded-lg p-3 mb-2 disabled:cursor-not-allowed'
               {...register("budget", {
                 required: "Budget is required",
 
@@ -310,6 +310,16 @@ export default function PostJobForm() {
 
             {errors.budget && (
               <p className='text-red-500 text-sm'>{errors.budget.message}</p>
+            )}
+
+            {selectedCategory && videoLength ? (
+              <p className='text-gray-600 text-sm mb-4'>
+                The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
+              </p>
+            ):(
+              <p className='text-gray-600 text-sm mb-4'>
+                Please select a job category and enter the estimated video duration to enter the job budget.
+              </p>
             )}
 
             {/* Warning Box */}
@@ -335,9 +345,9 @@ export default function PostJobForm() {
 
 
             {/* Duration */}
-            {/* Project Duration (Days) */}
+            {/* Job Duration (Days) */}
             <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Project Duration
+              Job Duration
             </label>
 
             <input
@@ -364,7 +374,7 @@ export default function PostJobForm() {
             />
             {errors.duration && (
               <p className='text-red-500 text-sm mb-4'>
-                {errors.duration.message || "Project Duration is required."}
+                {errors.duration.message || "Job Duration is required."}
               </p>
             )}
 
@@ -518,8 +528,8 @@ export default function PostJobForm() {
                 Budget & Payment
               </h3>
               <div className='flex justify-between text-gray-700 mb-4'>
-                <span>Project Budget</span>
-                <span>$20</span>
+                <span>Job Budget</span>
+                <span>$20.00</span>
               </div>
               <div className='flex justify-between text-gray-700 mb-4'>
                 <span>Service Fee</span>
@@ -527,12 +537,12 @@ export default function PostJobForm() {
               </div>
               <div className='flex justify-between text-gray-700 mb-4'>
                 <span>Taxes & Other Fees</span>
-                <span>$6</span>
+                <span>$6.00</span>
               </div>
               <hr className='my-4' />
               <div className='flex justify-between text-gray-700 mb-4'>
                 <span>Total Payment</span>
-                <span>$40</span>
+                <span>$40.00</span>
               </div>
 
               {/* <div className="flex justify-between font-semibold text-gray-900">
@@ -542,7 +552,7 @@ export default function PostJobForm() {
             </div>
             <div className="bg-white p-6 rounded-xl shadow h-fit">
               <div className='flex justify-between text-gray-700'>
-                <span>Project Duration</span>
+                <span>Job Duration</span>
                 <span>5 Days</span>
               </div>
             </div>

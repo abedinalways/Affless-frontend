@@ -230,7 +230,10 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
             {anyPrice && (
               <div
                 className='absolute inset-0 cursor-pointer'
-                onClick={() => setAnyPrice(false)}
+                onClick={() => {
+                  setAnyPrice(false)
+                  minPriceRef.current?.focus();
+                }}
               />
             )}
           </div>
@@ -279,6 +282,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
               min={1}
               step={1}
               value={deliveryTime}
+              onClick={()=>setAnyDeliveryTime(false)}
               onValueChange={(value) => {
                 setDeliveryTime(value);
                 if (anyDeliveryTime) {

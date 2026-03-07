@@ -157,6 +157,7 @@ const BidsDetails = ({ id }: { id: string }) => {
             <div className="w-full lg:w-1/3 order-1 lg:order-2">
               <EditorPrise
                 id={id}
+                redirect="/client/bids-details/1&name=Sarah Johnson's Proposal"
               />
             </div>
           </div>

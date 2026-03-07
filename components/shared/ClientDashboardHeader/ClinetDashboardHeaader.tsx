@@ -100,7 +100,10 @@ export default function ClientDashboardHeader() {
     "/client/payment-history",
     "/client/profile",
     "/client/find-editor-match",
-    "/client/post-job",
+    "/post-job",
+    "/hire-vedio-editor",
+    "/find-editor",
+    "/confirm-deposit"
   ];
 
   const handleNotificationMouseEnter = () => {
@@ -238,7 +241,7 @@ export default function ClientDashboardHeader() {
                         Manage Jobs
                       </Link>
                       <Link
-                        href="/post-job"
+                        href="/post-job?redirect=/client"
                         className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/post-job") ? activeCls : inactiveCls
                           }`}
                         onClick={() => setOpen(false)}
@@ -248,11 +251,11 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/find-editor?redirect=/client"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/find-editor") ? activeCls : inactiveCls
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/find-editor") || isActive("/hire-vedio-editor") || isActive("/confirm-deposit") ? activeCls : inactiveCls
                           }`}
                         onClick={() => setOpen(false)}
                       >
-                        Find Editor
+                        Find Editors
                       </Link>
 
                       <Link
@@ -442,7 +445,7 @@ export default function ClientDashboardHeader() {
                   <Link
                     className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/post-job") ? activeCls : inactiveCls
                       }`}
-                    href="/post-job"
+                    href="/post-job?redirect=/client"
                     onClick={() => setMobileMenu(false)}
                   >
                     Post a Job
@@ -450,12 +453,12 @@ export default function ClientDashboardHeader() {
                 </li>
                 <li>
                   <Link
-                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/find-editor") ? activeCls : inactiveCls
+                    className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/find-editor") || isActive("/hire-vedio-editor") || isActive("/confirm-deposit") ? activeCls : inactiveCls
                       }`}
                     href="/find-editor?redirect=/client"
                     onClick={() => setMobileMenu(false)}
                   >
-                    Find Editor
+                    Find Editors
                   </Link>
                 </li>
                 <li>

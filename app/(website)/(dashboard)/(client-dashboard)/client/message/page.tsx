@@ -18,6 +18,7 @@ export default function page() {
     const conversationIdFromUrl = searchParams.get("id") || "";
     const returnTo = searchParams.get("return") || "";
     const redirect = searchParams.get("redirect") || "";
+    const name = searchParams.get("name") || "";
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
     const [deletedConversationIds, setDeletedConversationIds] = useState<string[]>([]);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
@@ -29,28 +30,28 @@ export default function page() {
             name: "John Designer",
             profileId: "john_designer",
             country: "United States",
-            memberSince: "Aug 2024",
+            memberSince: "12/08/2024",
         },
         {
             id: "2",
             name: "Sarah Editor",
             profileId: "sarah_editor",
             country: "United Kingdom",
-            memberSince: "Sep 2025",
+            memberSince: "09/01/2025",
         },
         {
             id: "3",
             name: "Mike Graphic",
             profileId: "mike_graphic",
             country: "Canada",
-            memberSince: "Jan 2025",
+            memberSince: "01/01/2025",
         },
         {
             id: "4",
             name: "Emma Video",
             profileId: "emma_video",
             country: "Australia",
-            memberSince: "Nov 2023",
+            memberSince: "11/01/2023",
         },
     ];
 
@@ -110,13 +111,13 @@ export default function page() {
                     <FaArrowLeft /> <span>Back to Quick-Match Results</span>
                 </button>
             )}
-            {returnTo === "find-editor" && (
+            {returnTo === "find-editors" && (
                 <button
                     type="button"
                     onClick={() => router.push("/find-editor")}
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
-                    <FaArrowLeft /> <span>Back to Find Editor</span>
+                    <FaArrowLeft /> <span>Back to Find Editors</span>
                 </button>
             )}
             {returnTo === "proposal-1" && (
@@ -126,6 +127,15 @@ export default function page() {
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
                     <FaArrowLeft /> <span>Back to Proposal Details</span>
+                </button>
+            )}
+            {returnTo.includes("/client/bids-details") && (
+                <button
+                    type="button"
+                    onClick={() => router.push(`${returnTo}?redirect=client-dashboard&proposalId=1`)}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to {name}</span>
                 </button>
             )}
             <div className="grid grid-cols-1 gap-6 relative overflow-hidden">
@@ -157,7 +167,10 @@ export default function page() {
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <span>Member since</span>
-                                    <span>{activeConversation?.memberSince || "—"}</span>
+                                    <span>{activeConversation ? new Date(activeConversation.memberSince).toLocaleDateString("en",{
+                                        month: "long",
+                                        year: "numeric",
+                                    }).split(" ").join(", ") : "—"}</span>
                                 </div>
                             </div>
                         </div>

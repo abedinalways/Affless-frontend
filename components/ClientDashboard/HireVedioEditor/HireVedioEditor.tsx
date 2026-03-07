@@ -33,13 +33,13 @@ type FormValues = {
 // Mapping of categories to available platforms
 const categoryPlatformMap: { [key: string]: string[] } = {
   youtube_long_form: ["youtube"],
-  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat"],
+  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat","youtube","facebook","x_twitter"],
   thumbnails: ["youtube"],
-  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter"],
-  podcasts: ["youtube"],
-  weddings_events: ["youtube", "instagram", "facebook"],
-  captions_subtitles: ["youtube", "tiktok", "instagram"],
-  color_audio: ["youtube", "tiktok", "instagram"],
+  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter","youtube","snapchat"],
+  podcasts: ["youtube","tiktok","x_twitter"],
+  weddings_events: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
+  captions_subtitles: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
+  color_audio: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
 };
 
 export default function HireVideoEditorForm() {
@@ -173,14 +173,14 @@ export default function HireVideoEditorForm() {
   const onSubmit = (data: FormValues) => {
     setLoading(true);
     if (minPrice > parseFloat(data.budget.replace("$", ""))) {
-      toast.error(`Minimum budget for this project is $${minPrice}`);
+      toast.error(`Minimum budget for this Job is $${minPrice}`);
       setLoading(false);
       return;
     }
     console.log("Form Submitted:", data, "Payment Type:", paymentType);
     setTimeout(() => {
       setLoading(false);
-      router?.push("/client/confirm-deposit");
+      router?.push(`/confirm-deposit?return=hire-video-editor&redirect=${redirectUrl}`);
     }, 500);
   };
 
@@ -229,7 +229,7 @@ export default function HireVideoEditorForm() {
           bgImage='/findEditor.jpg'
           links={[
             { label: (redirectUrl === "/client" || redirectUrl === "find-editor-match") ? "Dashboard" : assignedEditorName ? "Direct Messages" : "Home", href: redirectUrl },
-            ...(redirectUrl === "/client" ? [{ label: "Find Editor", href: "/find-editor" }] : redirectUrl === "find-editor-match" ? [{ label: "Quick-Match Results", href: "/client/find-editor-match" }] : []),
+            ...((redirectUrl === "/client" || redirectUrl === "/home") ? [{ label: "Find Editors", href: "/find-editor" }] : redirectUrl === "find-editor-match" ? [{ label: "Quick-Match Results", href: "/client/find-editor-match" }] : []),
             { label: "Hire a Video Editor" },
           ]}
         />
@@ -327,7 +327,7 @@ export default function HireVideoEditorForm() {
             )}
 
             <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Project Budget*
+              Job Budget*
             </label>
 
             <input
@@ -358,6 +358,16 @@ export default function HireVideoEditorForm() {
               <p className='text-red-500 text-sm'>{errors.budget.message}</p>
             )}
 
+            {selectedCategory && videoLength ? (
+              <p className='text-gray-600 text-sm mb-4'>
+                The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
+              </p>
+            ):(
+              <p className='text-gray-600 text-sm mb-4'>
+                Please select a job category and enter the estimated video duration to enter the job budget.
+              </p>
+            )}
+
             {/* Warning Box */}
             <div className='p-4 bg-red-50 border border-red-300 rounded-lg mb-6'>
               <p className='text-red-600 font-semibold mb-2'>
@@ -381,9 +391,9 @@ export default function HireVideoEditorForm() {
 
 
             {/* Duration */}
-            {/* Project Duration (Days) */}
+            {/* Job Duration (Days) */}
             <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Project Duration
+              Job Duration
             </label>
 
             <input
@@ -410,7 +420,7 @@ export default function HireVideoEditorForm() {
             />
             {errors.duration && (
               <p className='text-red-500 text-sm mb-4'>
-                {errors.duration.message || "Project Duration is required."}
+                {errors.duration.message || "Job Duration is required."}
               </p>
             )}
 
@@ -572,8 +582,8 @@ export default function HireVideoEditorForm() {
                 Budget & Payment
               </h3>
               <div className='flex justify-between text-gray-700 mb-4'>
-                <span>Project Budget</span>
-                <span>$20</span>
+                <span>Job Budget</span>
+                <span>$20.00</span>
               </div>
               <div className='flex justify-between text-gray-700 mb-4'>
                 <span>Service Fee</span>
@@ -581,12 +591,12 @@ export default function HireVideoEditorForm() {
               </div>
               <div className='flex justify-between text-gray-700 mb-4'>
                 <span>Taxes & Other Fees</span>
-                <span>$6</span>
+                <span>$6.00</span>
               </div>
               <hr className='my-4' />
               <div className='flex justify-between text-gray-700 mb-4'>
                 <span>Total Payment</span>
-                <span>$40</span>
+                <span>$30.00</span>
               </div>
 
               {/* <div className="flex justify-between font-semibold text-gray-900">
@@ -596,7 +606,7 @@ export default function HireVideoEditorForm() {
             </div>
             <div className="bg-white p-6 rounded-xl shadow h-fit">
               <div className='flex justify-between text-gray-700'>
-                <span>Project Duration</span>
+                <span>Job Duration</span>
                 <span>5 Days</span>
               </div>
             </div>
