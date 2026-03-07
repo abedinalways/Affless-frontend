@@ -230,7 +230,10 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
             {anyPrice && (
               <div
                 className='absolute inset-0 cursor-pointer'
-                onClick={() => setAnyPrice(false)}
+                onClick={() => {
+                  setAnyPrice(false)
+                  minPriceRef.current?.focus();
+                }}
               />
             )}
           </div>

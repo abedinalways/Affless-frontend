@@ -30,28 +30,28 @@ export default function page() {
             name: "John Designer",
             profileId: "john_designer",
             country: "United States",
-            memberSince: "Aug 2024",
+            memberSince: "12/08/2024",
         },
         {
             id: "2",
             name: "Sarah Editor",
             profileId: "sarah_editor",
             country: "United Kingdom",
-            memberSince: "Sep 2025",
+            memberSince: "09/01/2025",
         },
         {
             id: "3",
             name: "Mike Graphic",
             profileId: "mike_graphic",
             country: "Canada",
-            memberSince: "Jan 2025",
+            memberSince: "01/01/2025",
         },
         {
             id: "4",
             name: "Emma Video",
             profileId: "emma_video",
             country: "Australia",
-            memberSince: "Nov 2023",
+            memberSince: "11/01/2023",
         },
     ];
 
@@ -111,7 +111,7 @@ export default function page() {
                     <FaArrowLeft /> <span>Back to Quick-Match Results</span>
                 </button>
             )}
-            {returnTo === "find-editor" && (
+            {returnTo === "find-editors" && (
                 <button
                     type="button"
                     onClick={() => router.push("/find-editor")}
@@ -167,7 +167,10 @@ export default function page() {
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <span>Member since</span>
-                                    <span>{activeConversation?.memberSince || "—"}</span>
+                                    <span>{activeConversation ? new Date(activeConversation.memberSince).toLocaleDateString("en",{
+                                        month: "long",
+                                        year: "numeric",
+                                    }).split(" ").join(", ") : "—"}</span>
                                 </div>
                             </div>
                         </div>
