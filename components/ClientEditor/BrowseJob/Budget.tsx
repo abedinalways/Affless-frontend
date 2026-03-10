@@ -2,18 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 type propType = {
   btnText: string;
+  returnLink?: string;
 }
 
-export default function BudgetPage({ btnText }: propType) {
+export default function BudgetPage({ btnText, returnLink }: propType) {
 
   const handleAddWishlist = () => {
     console.log("Added to wishlist");
     toast.success("Added to wishlist");
   }
+
+
+  useEffect(()=>{
+    console.log("Return Link:", returnLink);
+  },[returnLink])
 
   return (
     <div className="w-full grid sm:grid-cols-[1fr_1fr] lg:grid-cols-1 mx-auto  gap-6 ]">
@@ -80,7 +87,7 @@ export default function BudgetPage({ btnText }: propType) {
         </div>
 
         {/* Chat Button */}
-        <Link href="/editor/message?id=1" className="w-full block text-center bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition">
+        <Link href={`/editor/message?id=1&return=${returnLink}`} className="w-full block text-center bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition">
           {btnText}
         </Link>
       </div>

@@ -168,6 +168,15 @@ export default function page() {
                     <FaArrowLeft /> <span>Back to Deliver Work</span>
                 </button>
             )}
+            {returnTo.includes("backtojobdetails") && (
+                <button
+                    type="button"
+                    onClick={() => router.push(returnTo.split("*")[1])}
+                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
+                >
+                    <FaArrowLeft /> <span>Back to Job Details</span>
+                </button>
+            )}
             <div className="grid grid-cols-1 gap-6 relative overflow-hidden">
                 <div className="flex flex-wrap lg:grid lg:grid-cols-[auto_1fr_auto] gap-3 xm:gap-6 w-full h-full overflow-y-auto relative">
                     <div className={`p-2 sm:p-4 bg-white w-fit h-full rounded-lg overflow-y-auto xl:w-full`} style={{ height: 'calc(100vh - 100px)' }}>
