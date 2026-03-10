@@ -230,6 +230,7 @@ export default function JobDetails({ params }: PostPageProps) {
           <div className="w-full lg:w-1/3">
             <BudgetPage
               btnText="Chat With Client"
+              returnLink={`backtojobdetails*/browse-job/${id}?redirect=${redirectUrl}`}
             />
           </div>
         </div>
