@@ -66,10 +66,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">Platform</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
-              <li><Link href="/howWork">How It Works</Link></li>
+              <li><Link href="/howwork">How It Works</Link></li>
               <li><Link href="/getting-started">Getting Started</Link></li>
               <li><Link href="/pricing?redirect=home">Pricing</Link></li>
-              <li><Link href="/trustSeftey">Trust & Safety</Link></li>
+              <li><Link href="/trustseftey">Trust & Safety</Link></li>
               <li><Link href="/success-story">Success Stories</Link></li>
               <li><Link href="/frequently-question">FAQs</Link></li>
             </ul>

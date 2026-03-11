@@ -31,10 +31,10 @@ type JobDetailsCardProps = {
 
 const statusStyleMap: Record<string, string> = {
   pending: "bg-[#FFF7E6] text-[#FAAD14]",
-    in_progress: "bg-[#E6F4FF] text-[#1677FF]",
-    delivered: "bg-[#F6FFED] text-[#52C41A]",
-    completed: "bg-[#D9F7BE] text-[#237804]",
-    cancelled: "bg-[#FFF1F0] text-[#F5222D]",
+  in_progress: "bg-[#E6F4FF] text-[#1677FF]",
+  delivered: "bg-[#F6FFED] text-[#52C41A]",
+  completed: "bg-[#D9F7BE] text-[#237804]",
+  cancelled: "bg-[#FFF1F0] text-[#F5222D]",
 };
 
 const getStatusClasses = (status: string) => {
@@ -119,11 +119,13 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             )}
 
             {onMessage && (
-              <Link href={`/editor/message?return=${pathname === "/editor/extend-delivery" ? "/editor/extend-delivery&jobid=" + jobId : pathname === "/editor/delivery" ? "back_to_delivery" : "back_to_job_details"}`}
+              <button
+                type="button"
+                onClick={onMessage}
                 className="mt-3 w-full block text-center rounded-full border border-red-500 py-3 text-red-500 font-medium hover:bg-red-50 transition cursor-pointer"
               >
-               Message Client
-              </Link>
+                Message Client
+              </button>
             )}
 
             {onExtendDelivery && status !== "cancelled" && status !== "completed" && status !== "delivered" && (

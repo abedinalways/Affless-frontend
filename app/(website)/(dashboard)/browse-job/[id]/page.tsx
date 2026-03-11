@@ -1,17 +1,19 @@
 "use client";
 
 import BrowseDetails from "@/components/ClientEditor/BrowseJob/BrowseDetails";
-import { data } from "@/components/ClientEditor/BrowseJob/BrowseJob";
+import { browseJobData as data } from "@/public/demodata";
 import BudgetPage from "@/components/ClientEditor/BrowseJob/Budget";
 import PageBanner from "@/components/reusable/Bgbanner";
 import BidCard from "@/components/reusable/Bids";
 import clsx from "clsx";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Pagination from "@/components/reusable/pagination";
 import { useSearchParams } from "next/navigation";
+import { browsejobbids as bids } from "@/public/demodata";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 const formatBidAmount = (value: string, minimum: number = 2) => {
   const sanitized = value
@@ -22,33 +24,6 @@ const formatBidAmount = (value: string, minimum: number = 2) => {
 
   return `$${finalAmount.toFixed(2)}`;
 };
-
-const bids = [
-  {
-    id: "1",
-    name: "Devon Lane",
-    avatar: "/images/devon.png",
-    time: "2 hours ago",
-    description:
-      "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
-  },
-  {
-    id: "2",
-    name: "Jerome Bell",
-    avatar: "/images/jerome.png",
-    time: "2 hours ago",
-    description:
-      "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
-  },
-  {
-    id: "3",
-    name: "John Doe",
-    avatar: "/images/jerome.png",
-    time: "1 day ago",
-    description:
-      "I will handle your project professionally. You will get unlimited revisions and fast response.",
-  },
-];
 
 type PostPageProps = {
   params: { id: string };
@@ -64,13 +39,23 @@ export default function JobDetails({ params }: PostPageProps) {
     deliveryTime: string;
     coverLetter: string;
   }>();
-  console.log(id)
+
   const [job, setJob] = useState<any>(null);
 
   useEffect(() => {
     const selectedJob = data.find((job) => job.id === Number(id));
     setJob(selectedJob);
   }, [id]);
+
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  useEffect(() => {
+    if (job) {
+      setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+        currentLabel: job.title,
+        fallbackBase: [{ label: "Home", href: "/" }],
+      }));
+    }
+  }, [redirectUrl, job]);
 
 
   if (!job) return <div className="conta?iners py-10">Loading...</div>;
@@ -108,16 +93,14 @@ export default function JobDetails({ params }: PostPageProps) {
     }, 1000);
   };
 
+  console.log("Job Details:", bannerLinks);
+
   return (
     <div>
       <PageBanner
         title={job.title}
         bgImage="/findEditor.jpg"
-        links={[
-          { label: redirectUrl === "/editor"?"Dashboard":"Home", href: redirectUrl || "/" },
-          { label: "Browse Jobs", href: "/browse-job" + (redirectUrl ? `?redirect=${redirectUrl}` : "") },
-          { label: job.title },
-        ]}
+        links={[...bannerLinks]}
       />
       <div className="containers">
         <div className="py-10 flex gap-9 flex-col lg:flex-row">
@@ -230,7 +213,7 @@ export default function JobDetails({ params }: PostPageProps) {
           <div className="w-full lg:w-1/3">
             <BudgetPage
               btnText="Chat With Client"
-              returnLink={`backtojobdetails*/browse-job/${id}?redirect=${redirectUrl}`}
+              returnLink={`${redirectUrl ? `${redirectUrl}_` : ""}browsejobdetails:${id}`}
             />
           </div>
         </div>

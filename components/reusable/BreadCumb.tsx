@@ -3,6 +3,7 @@
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { useSearchParams } from "next/navigation";
 
 export interface BreadLink {
   label: string;
@@ -11,6 +12,8 @@ export interface BreadLink {
 }
 
 export default function BreadCrumb({ links }: { links: BreadLink[] }) {
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || undefined;
   return (
     <div className="py-3">
       <div className="flex items-center gap-2 text-white">
@@ -25,7 +28,7 @@ export default function BreadCrumb({ links }: { links: BreadLink[] }) {
               {/* If not last item → make it clickable */}
               {!isLast && link.href ? (
                 <Link
-                  href={link.href}
+                  href={link.href + `${redirectUrl ? `?redirect=${redirectUrl.split("_").slice(0, index ).join("_")}` : ''}`}
                   className="hover:underline text-sm font-medium text-white"
                 >
                   {link.label}

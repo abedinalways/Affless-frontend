@@ -12,13 +12,15 @@ import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa6";
 import Popup from "@/components/shared/Popup";
+import { conversationDirectory } from "@/public/demodata";
+import { getRouteConfig, getRouteHref } from "@/helper/routes";
 
 
 export default function page() {
     const searchParams = useSearchParams();
     const conversationIdFromUrl = searchParams.get("id") || "";
     const jobId = searchParams.get("jobid") || "";
-    const returnTo = searchParams.get("return") || "";
+    const redirectUrl = searchParams.get("redirect") || "";
     const requesting = searchParams.get("requestjob") || "";
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
     const [deletedConversationIds, setDeletedConversationIds] = useState<string[]>([]);
@@ -26,36 +28,15 @@ export default function page() {
     const [isPopupOpen, setIsPopupOpen] = useState(requesting === "true" ? true : false);
     const router = useRouter();
 
-    const conversationDirectory = [
-        {
-            id: "1",
-            name: "John Designer",
-            profileId: "john_designer",
-            country: "United States",
-            memberSince: "Aug 2024",
-        },
-        {
-            id: "2",
-            name: "Sarah Editor",
-            profileId: "sarah_editor",
-            country: "United Kingdom",
-            memberSince: "Sep 2025",
-        },
-        {
-            id: "3",
-            name: "Mike Graphic",
-            profileId: "mike_graphic",
-            country: "Canada",
-            memberSince: "Jan 2025",
-        },
-        {
-            id: "4",
-            name: "Emma Video",
-            profileId: "emma_video",
-            country: "Australia",
-            memberSince: "Nov 2023",
-        },
-    ];
+    const redirectKeys = redirectUrl.split("_").filter(Boolean);
+    const lastRedirectKey = redirectKeys[redirectKeys.length - 1];
+    console.log("Last key : ", lastRedirectKey);
+    const redirectRoute = getRouteConfig(lastRedirectKey);
+    const redirectHref = lastRedirectKey ? getRouteHref(lastRedirectKey) : "";
+    console.log("Redirect route : ", redirectRoute)
+    const previousRedirect = redirectKeys.slice(0, -1).join("_");
+
+    console.log("Redirect URL:", previousRedirect);
 
     const availableConversationDirectory = conversationDirectory.filter(
         (item) => !deletedConversationIds.includes(item.id)
@@ -99,82 +80,25 @@ export default function page() {
         }
     }, [conversationIdFromUrl])
 
-    useEffect(()=>{
-    console.log(returnTo);
-  },[])
-
     return (
         <div className="p-4 containers bg-[#f9f9f9] ">
-            {returnTo === "find-editor-match" && (
+            {redirectUrl && (
                 <button
                     type="button"
-                    onClick={() => router.push("/editor/quick-match-result")}
+                    onClick={() => {
+                        if (!redirectHref) {
+                            return;
+                        }
+
+                        const nextHref = previousRedirect
+                            ? `${redirectHref}?redirect=${previousRedirect}`
+                            : redirectHref;
+
+                        router.push(nextHref);
+                    }}
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
-                    <FaArrowLeft /> <span>Back to Quick-Match Results</span>
-                </button>
-            )}
-            {returnTo.includes("/editor/hire-request") && (
-                <button
-                    type="button"
-                    onClick={() => router.push(returnTo)}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Job Proposal Details</span>
-                </button>
-            )}
-            {returnTo === "find-client-match" && (
-                <button
-                    type="button"
-                    onClick={() => router.push("/editor/quick-match-result")}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Quick-Match Results</span>
-                </button>
-            )}
-            {returnTo === "find-editor" && (
-                <button
-                    type="button"
-                    onClick={() => router.push("/client/find-editor")}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Find Editor</span>
-                </button>
-            )}
-            {returnTo === "/editor/extend-delivery" && (
-                <button
-                    type="button"
-                    onClick={() => router.push("/editor/extend-delivery?jobid=" + jobId)}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Extend Delivery Date</span>
-                </button>
-            )}
-            {returnTo === "back_to_job_details" && (
-                <button
-                    type="button"
-                    onClick={() => router.back()}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Job Details</span>
-                </button>
-            )}
-            {returnTo === "back_to_delivery" && (
-                <button
-                    type="button"
-                    onClick={() => router.push('/editor/delivery')}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Deliver Work</span>
-                </button>
-            )}
-            {returnTo.includes("backtojobdetails") && (
-                <button
-                    type="button"
-                    onClick={() => router.push(returnTo.split("*")[1])}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Job Details</span>
+                    <FaArrowLeft /> <span>Back to {redirectRoute?.label}</span>
                 </button>
             )}
             <div className="grid grid-cols-1 gap-6 relative overflow-hidden">
