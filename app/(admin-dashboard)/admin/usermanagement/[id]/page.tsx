@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Earning from "../../earning/page";
 import EditorDetails from "@/components/AdminDashboard/UserManagement/EditorDetails";
 import EditorJobDetails from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
-import { data } from "@/components/ClientEditor/BrowseJob/BrowseJob";
+import { browseJobData as data } from "@/public/demodata";
 import EarningPage from "@/app/(website)/(dashboard)/(editor-dashboard)/editor/earning/page";
 import EarningsPage from "@/components/AdminDashboard/UserManagement/EditorEarningTab";
 import JobHistoryPage from "@/components/AdminDashboard/UserManagement/EditorJobDetails";

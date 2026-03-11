@@ -1,0 +1,203 @@
+type RouteConfig = {
+    label: string;
+    href: string;
+    buildHref?: (...parts: string[]) => string;
+};
+
+export const routes: Record<string, RouteConfig> = {
+    home: {
+        label: "Home",
+        href: "/",
+    },
+    dashboardclient: {
+        label: "Dashboard",
+        href: "/client",
+    },
+    dashboardeditor: {
+        label: "Dashboard",
+        href: "/editor",
+    },
+    quickmatcheditor: {
+        label: "Quick Match Editor",
+        href: "/editor/quick-match-result",
+    },
+    platformsafetyrule: {
+        label: "Platform Safety Rules",
+        href: "/platform-safety"
+    },
+    editorprofile: {
+        label: "Profile",
+        href: "/editor/editor-profile"
+    },
+    browsejobs: {
+        label: "Browse Jobs",
+        href: "/browse-job"
+    },
+    browsejobdetails: {
+        label: "Job Details",
+        href: "/browse-job/",
+        buildHref: (id: string) => `/browse-job/${id}`,
+    },
+    editorpublicprofile: {
+        label: "Editor Profile",
+        href: "/editor-profile/",
+        buildHref: (id: string) => `/editor-profile/${id}`,
+    },
+    clinetpublicprofile: {
+        label: "Client Profile",
+        href: "/client-profile/",
+        buildHref: (id: string) => `/client-profile/${id}`,
+    },
+    editormessages: {
+        label: "Messages",
+        href: "/editor/message"
+    },
+    editorjobs: {
+        label: "My Jobs",
+        href: "/editor/myproposal"
+    },
+    editorjobdetails: {
+        label: "My Job Details",
+        href: "/editor/myproposal/",
+        buildHref: (id: string) => `/editor/myproposal/${id}`,
+    },
+    deliverproject: {
+        label: "Deliver work",
+        href: "/editor/delivery"
+    },
+    extenddeliverydate: {
+        label: "Extend Delivery Date",
+        href: "/editor/extend-delivery"
+    },
+    myjobproposals: {
+        label: "My Job Proposals",
+        href: "/editor/hire-request"
+    },
+    myjobproposalsdetails: {
+        label: "My Job Proposals Details",
+        href: "/editor/hire-request/",
+        buildHref: (id: string) => `/editor/hire-request/${id}`,
+    },
+    earnings: {
+        label: "Earnings",
+        href: "/editor/earning"
+    },
+    howitworks: {
+        label: "How It Works",
+        href: "/howwork"
+    },
+    gettingstarted: {
+        label: "Getting Started",
+        href: "/getting-started"
+    },
+    helpcenter: {
+        label: "Help Center",
+        href: "/help-center"
+    },
+    contactus: {
+        label: "Contact Us",
+        href: "/contactus"
+    },
+    pricing: {
+        label: "Pricing",
+        href: "/pricing"
+    },
+    trustsafety: {
+        label: "Trust & Safety",
+        href: "/trustseftey"
+    },
+    successstories: {
+        label: "Success Stories",
+        href: "/success-story"
+    },
+    successstorydetails: {
+        label: "Success Story Details",
+        href: "/success-story/",
+        buildHref: (id: string) => `/success-story/${id}`,
+    },
+    faq: {
+        label: "FAQs",
+        href: "/frequently-question"
+    },
+    postajob: {
+        label: "Post a Job",
+        href: "/post-job"
+    },
+    findEditors: {
+        label: "Find Editors",
+        href: "/find-editor"
+    },
+    hireaneditor: {
+        label: "Hire a Editor",
+        href: "/hire-vedio-editor"
+    },
+    clientmessage: {
+        label: "Messages",
+        href: "/client/message"
+    },
+    paymentprotection: {
+        label: "Payment Protection",
+        href: "/payment-protection"
+    },
+    clientguide: {
+        label: "Client Guide",
+        href: "/client-guide"
+    },
+    paymentrules: {
+        label: "Payment Rules",
+        href: "/payment-rules"
+    },
+    editorresources: {
+        label: "Editor Resources",
+        href: "/editor-resource"
+    },
+    disputeresolution: {
+        label: "Dispute Resolution",
+        href: "/dispute-resoulation"
+    },
+    statuspage: {
+        label: "Status Page",
+        href: "/status-page"
+    },
+    termsconditions: {
+        label: "Terms & Conditions",
+        href: "/terms-condition"
+    }
+};
+
+export const parseRouteToken = (token?: string | null) => {
+    const [rawKey, ...rawParts] = (token || "").split(":");
+    const key = rawKey?.trim();
+    const parts = rawParts.filter(Boolean);
+
+    return {
+        key,
+        parts,
+    };
+};
+
+export const getRouteConfig = (keyOrToken?: string | null): RouteConfig | undefined => {
+    const { key } = parseRouteToken(keyOrToken);
+
+    if (!key) {
+        return undefined;
+    }
+
+    return routes[key];
+};
+
+export const getRouteHref = (keyOrToken: string, ...parts: string[]) => {
+    const parsed = parseRouteToken(keyOrToken);
+    const route = getRouteConfig(parsed.key);
+    const resolvedParts = parts.length > 0 ? parts : parsed.parts;
+
+    if (!route) {
+        return "/";
+    }
+
+    if (route.buildHref) {
+        return route.buildHref(...resolvedParts);
+    }
+
+    return route.href;
+};

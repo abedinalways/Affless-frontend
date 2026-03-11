@@ -8,153 +8,29 @@ import Link from "next/link";
 import { FaSitemap } from "react-icons/fa";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { browseJobData as data } from "@/public/demodata";
+import { appendNavigationSource, getNavigationSource } from "@/lib/navigation-source";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
-export const data = [
-  {
-    id: 1,
-    img: "/images/Marvin1.jpg",
-    title:
-      "I will do SEO backlinks with blogger outreach for high quality link building",
-    profileImage: "/images/profile.png",
-    name: "Guy Hawkins",
-    review: "4.9(338)",
-    link: "Link Building",
-    profesion: "Professional",
-    country: "Pakistan",
-    delevery: "Delivery: 6 -Months",
-    category: "Thumbnails",
-    platform: "YouTube",
-    deliveryTime: "3 Days",
-    budget: "50",
-  },
-  {
-    id: 2,
-    img: "/images/Marvin2.jpg",
-    title:
-      "I will do SEO backlinks with blogger outreach for high quality link building",
-    profileImage: "/images/profile.png",
-    name: "John Designer",
-    review: "4.9(338)",
-    link: "Link Building",
-    profesion: "Professional",
-    country: "Pakistan",
-    delevery: "Delivery: 6 -Months",
-    category: "Shorts/Reels/TikToks",
-    platform: "TikTok",
-    deliveryTime: "5 Days",
-    budget: "100",
-  },
-  {
-    id: 3,
-    img: "/images/Marvin3.jpg",
-    title:
-      "I will do SEO backlinks with blogger outreach for high quality link building",
-    profileImage: "/images/profile.png",
-    name: "Sarah Editor",
-    review: "4.9(338)",
-    link: "Link Building",
-    profesion: "Professional",
-    country: "Pakistan",
-    delevery: "Delivery: 6 -Months",
-    category: "Shorts/Reels/TikToks",
-    platform: "Facebook",
-    deliveryTime: "7 Days",
-    budget: "100",
-  },
-  {
-    id: 4,
-    img: "/images/Marvin4.jpg",
-    title:
-      "I will do SEO backlinks with blogger outreach for high quality link building",
-    profileImage: "/images/profile.png",
-    name: "John Designer",
-    review: "4.9(338)",
-    link: "Link Building",
-    profesion: "Professional",
-    country: "Pakistan",
-    delevery: "Delivery: 6 -Months",
-    category: "Ads/UGC",
-    platform: "Snapchat",
-    deliveryTime: "3 Days",
-    budget: "500",
-  },
-  {
-    id: 5,
-    img: "/images/Marvin1.jpg",
-    title:
-      "I will do SEO backlinks with blogger outreach for high quality link building",
-    profileImage: "/images/profile.png",
-    name: "Emma Video",
-    review: "4.9(338)",
-    link: "Link Building",
-    profesion: "Professional",
-    country: "Pakistan",
-    delevery: "Delivery: 6 -Months",
-    category: "Captions/Subtitles",
-    platform: "X (Twitter)",
-    deliveryTime: "5 Days",
-    budget: "900",
-  },
-  {
-    id: 6,
-    img: "/images/Marvin2.jpg",
-    title:
-      "I will do SEO backlinks with blogger outreach for high quality link building",
-    profileImage: "/images/profile.png",
-    name: "Emma Video",
-    review: "4.9(338)",
-    link: "Link Building",
-    profesion: "Professional",
-    country: "Pakistan",
-    delevery: "Delivery: 6 -Months",
-    category: "Long-Form YouTube",
-    platform: "YouTube",
-    deliveryTime: "7 Days",
-    budget: "250",
-  },
-];
 
 const PAGE_SIZE = 4;
 
 export default function BrowseJob() {
   const searchParams = useSearchParams();
   const [page, setPage] = useState(1);
-  const redirectParam = searchParams.get("redirect");
-  const hasRedirect = Boolean(redirectParam && redirectParam.trim());
-  const redirectUrl = hasRedirect ? redirectParam!.trim() : "/";
+  const source = getNavigationSource(searchParams);
   const client = searchParams.get("client") || "";
-  const redirectPath = redirectUrl.split("?")[0];
-  const isEditorMyProposalRedirect = redirectUrl === "/editor/myproposal";
-  const isDirectMessageRedirect = redirectPath === "/client/message";
-  const rootCrumbLabel = !hasRedirect
-    ? "Home"
-    : isDirectMessageRedirect
-      ? "Direct Messages"
-      : "Dashboard";
-
   const bannerTitle = client ? `All of ${client}'s Jobs` : "Browse Jobs";
   const bannerDescription = client
     ? "Browse this client's jobs based on job type, budget, and project duration."
     : "Find the best client jobs based on job type, budget, and project duration.";
 
-  const bannerLinks = useMemo(
-    () => {
-      const links: Array<{ label: string; href?: string }> = [
-        { label: rootCrumbLabel, href: redirectUrl },
-      ];
-
-      if (isEditorMyProposalRedirect) {
-        links.push({ label: "My Jobs", href: "/editor/myproposal" });
-      }
-
-      links.push({
-        label: isDirectMessageRedirect ? `All of ${client}'s Jobs` : "Browse Jobs",
-      });
-
-      return links;
-    },
-    [client, isDirectMessageRedirect, isEditorMyProposalRedirect, redirectUrl, rootCrumbLabel]
-  );
+  const bannerLinks = useMemo(() => {
+    return buildSourceBreadcrumbs(source, {
+      currentLabel: "Browse Jobs",
+      fallbackBase: [{ label: "Home", href: "/" }],
+    });
+  }, [source]);
   // Mobile filter states
   const [category, setCategory] = useState("");
   const [platform, setPlatform] = useState("");
@@ -231,7 +107,7 @@ export default function BrowseJob() {
               {paginatedData.map((item) => (
                 <div key={item.id} className="bg-white p-4 lg:p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link href={`/browse-job/${item.id}?redirect=${redirectUrl}`}>
+                    <Link href={`/browse-job/${item.id}?redirect=${source}_browsejobs`}>
                       <Image
                         src={item.img}
                         alt="editor"

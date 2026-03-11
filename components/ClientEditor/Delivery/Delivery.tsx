@@ -10,6 +10,7 @@ import { CheckCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa6";
+import { useSearchParams } from "next/navigation";
 
 type UploadKey = "video" | "audio" | "thumb1" | "thumb2";
 
@@ -41,6 +42,8 @@ const uploadItems: {
 
 export default function DeliveryMessage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "";
   const [files, setFiles] = useState<Record<UploadKey, File | null>>({
     video: null,
     audio: null,
@@ -153,7 +156,7 @@ export default function DeliveryMessage() {
               deliveryDate="November 6, 2026"
               totalPrice={743}
               orderNumber="#123"
-              onMessage={() => console.log("Message clicked")}
+              onMessage={() => router.push(`/editor/message?redirect=${redirectUrl ? `${redirectUrl}_` : ""}deliverproject`)}
             />
           </div>
         </div>

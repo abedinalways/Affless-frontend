@@ -3,17 +3,17 @@
 import DesktopIcon from "@/components/Icons/Desktop";
 import DolarIcon from "@/components/Icons/DolarIcon";
 import PdfIcon from "@/components/Icons/PdfIcon";
-import WorldIcon from "@/components/Icons/WorldIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
 import JobDetailsCard from "@/components/reusable/JobDetails";
 import { Clapperboard, Clock4, File as FileIcon, FileText } from "lucide-react";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import BidCard from "@/components/reusable/Bids";
 import ReviewList, { ReviewType } from "@/components/reusable/Review";
 import Link from "next/link";
 import { PROPOSAL_DEMO_DATA } from "@/components/ClientEditor/MyProposal/proposal-demo-data";
-import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
+import { useSearchParams } from "next/navigation";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 interface UploadedFile {
   name: string;
   size: number;
@@ -24,6 +24,8 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
   const { id } = React.use(params);
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
   // File Upload Handler
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [textFile, setTextFile] = useState<File | null>(null);
@@ -44,6 +46,16 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
     return PROPOSAL_DEMO_DATA.find((p) => p.id === id) || null;
   }, [id]);
 
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  useEffect(() => {
+    if (proposal) {
+      setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+        currentLabel: proposal.service,
+        fallbackBase: [{ label: "Home", href: "/" }],
+      }));
+    }
+  }, [redirectUrl, proposal]);
+
 
   return (
     <div className="">
@@ -52,12 +64,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
 
           title={proposal?.service || ""}
           bgImage="/findEditor.jpg"
-          links={[
-            { label: "Dashboard", href: "/editor" },
-            { label: "My Jobs", href: "/editor/myproposal" },
-            { label: proposal?.service || "" }
-
-          ]}
+          links={bannerLinks}
         />
       </div>
       <div className="containers pt-10 lg:pt-20 ">
@@ -234,15 +241,14 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
               deliveryDate="November 6, 2026"
               totalPrice={743}
               orderNumber="#123"
-              onDeliverNow={() => router.push("/editor/delivery")} // ✅ link
-              onMessage={() => console.log("Message clicked")}
+              onDeliverNow={() => router.push(`/editor/delivery?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}`)} // ✅ link
+              onMessage={() => router.push(`/editor/message?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}`)} // ✅ link
               onExtendDelivery={() => router.push(`/editor/extend-delivery?jobid=${proposal?.id || ""}`)} // ✅ link
               jobId={proposal?.id || ""}
             />
           </div>
         </div>
       </div>
-
     </div>
   );
 }

@@ -9,6 +9,8 @@ import DatePicker from "@/components/ClientDashboard/ManageJob/DatePicker";
 import Link from "next/link";
 import { PROPOSAL_DEMO_DATA, ProposalRow } from "./proposal-demo-data";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 const PAGE_SIZE = 8;
 
@@ -26,7 +28,8 @@ const statusBadgeClasses: Partial<Record<ProposalRow["status"], string>> = {
 
 export default function MyProposal() {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || undefined;
   const [loading, setLoading] = useState(false);
   const [filteredJobs, setFilteredJobs] = useState<ProposalRow[]>(Proposal);
   const [page, setPage] = useState(1);
@@ -115,17 +118,21 @@ export default function MyProposal() {
     };
   }, [activeTab, dateFilter, startDate, endDate]);
 
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+    useEffect(() => {
+        setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+          currentLabel: "My jobs",
+          fallbackBase: [{ label: "Home", href: "/" }],
+        }));
+    }, [redirectUrl]);
+
   return (
     <div>
       <div>
         <PageBanner
           title="My Jobs"
           bgImage="/findEditor.jpg"
-          links={[
-            { label: "Dashboard", href: "/editor" },
-            { label: "My Job" }
-
-          ]}
+          links={bannerLinks}
         />
       </div>
       <div className="containers py-8">
@@ -148,7 +155,7 @@ export default function MyProposal() {
               ))}
             </div>
             <Link
-              href="/browse-job?redirect=/editor/myproposal"
+              href={`/browse-job?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobs`}
               className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300"
             >
               Browse New Jobs
@@ -265,7 +272,7 @@ export default function MyProposal() {
               onRowClick={(row: any) => {
                 const id = row?.original?.id ?? row?.id;
                 if (!id) return;
-                router.push(`/editor/myproposal/${id}`);
+                router.push(`/editor/myproposal/${id}?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobs`);
               }}
 
 
