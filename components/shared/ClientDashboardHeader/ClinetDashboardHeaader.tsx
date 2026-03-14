@@ -93,6 +93,7 @@ export default function ClientDashboardHeader() {
   const isActive = (href: string, exact = false) =>
     exact ? pathname === href : pathname === href || pathname.startsWith(href + "/");
 
+  
   const businessRoutes = [
     "/client/manage-job",
     "/client/find-editors",
