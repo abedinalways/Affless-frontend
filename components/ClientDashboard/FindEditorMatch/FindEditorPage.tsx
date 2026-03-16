@@ -12,6 +12,7 @@ import Pagination from "@/components/reusable/pagination";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/shared/Loading";
+import { useSearchParams } from "next/navigation";
 
 interface Editor {
   id: number;
@@ -215,6 +216,8 @@ export default function FindEditorsPage() {
   const router = useRouter();
   const [showFilters, setShowFilters] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
   const [visibleEditors, setVisibleEditors] = useState<Editor[]>(() =>
     getRandomEditors(editors, MATCH_COUNT)
   );
@@ -360,7 +363,7 @@ export default function FindEditorsPage() {
 
                     <div className="flex items-center gap-3 mt-3">
                       <div>
-                        <Link href={`/hire-vedio-editor?id=${editor.id}&redirect=find-editor-match`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
+                        <Link href={`/hire-vedio-editor?id=${editor.id}&redirect=${redirectUrl ? `${redirectUrl}_` : ""}quickmatchclient`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
                           Hire Editor
                         </Link>
                       </div>
@@ -384,6 +387,15 @@ export default function FindEditorsPage() {
             totalPages={1}
           />
         </div> */}
+        <div className="pt-6">
+          <button
+            type="button"
+            onClick={handleReMatch}
+            className="w-full flex items-center justify-center gap-2 border px-5 py-3 rounded-md bg-[#ff4d4f] text-white border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fc373a] hover:text-white duration-300"
+          >
+            <span>Find Another Match</span>
+          </button>
+        </div>
       </div>
     </div>
   );

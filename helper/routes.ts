@@ -18,7 +18,7 @@ export const routes: Record<string, RouteConfig> = {
         href: "/editor",
     },
     quickmatcheditor: {
-        label: "Quick Match Editor",
+        label: "Quick-Match Results",
         href: "/editor/quick-match-result",
     },
     platformsafetyrule: {
@@ -162,7 +162,11 @@ export const routes: Record<string, RouteConfig> = {
     termsconditions: {
         label: "Terms & Conditions",
         href: "/terms-condition"
-    }
+    },
+    quickmatchclient: {
+        label: "Quick-Match Results",
+        href: "/client/find-editor-match",
+    },
 };
 
 export const parseRouteToken = (token?: string | null) => {

@@ -41,7 +41,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                         </div>
                     </div>
 
-                    <Link href="/editor/quick-match-result" className="w-full">
+                    <Link href="/editor/quick-match-result?redirect=dashboardeditor" className="w-full">
                         <button className="mt-6 w-full cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white">
                             Match Me with a Client Quickly
                         </button>
@@ -67,7 +67,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                         <span className="text-[#777980] text-[14px]">1 hour</span>
                     </div>
                     <div className="flex justify-between">
-                        <span className="text-[#777980] text-[14px]" title="user’s average rating">Rating</span>
+                        <span className="text-[#777980] text-[14px]" title="User’s average rating">Rating</span>
                         <p className="text-gray-500 flex items-center gap-1"><span className="text-yellow-600 text-sm"><FaStar /> </span> 4.9</p>
                     </div>
                     <div className="flex justify-between">
@@ -114,7 +114,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                         <div className="flex items-center justify-between rounded-lg border px-4 py-3 gap-4">
                             <span className="text-[14px] text-[#777980]">Your Average Response Time</span>
                             <span className="text-[14px] font-medium text-[#333]">
-                                {averageResponseHours} hour {averageResponseMinutes} minutes
+                                {averageResponseHours} hour and {averageResponseMinutes} minutes
                             </span>
                         </div>
                         <div className="space-y-2">
@@ -139,9 +139,9 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
 
                 <div className="overflow-hidden rounded-lg border">
                     <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f3f4f6] px-3 py-2 text-[12px] font-medium text-[#4A4C56]">
-                        <span>Average Response Time</span>
-                        <span>Search Exposure</span>
-                        <span>Quick Match Priority</span>
+                        <div className="overflow-hidden">Average Response Time</div>
+                        <div className="pr-1 overflow-hidden">Search Exposure</div>
+                        <div className=" overflow-hidden">Quick Match Priority</div>
                     </div>
                     <div className="divide-y">
                         {exposureTiers.map((tier) => (

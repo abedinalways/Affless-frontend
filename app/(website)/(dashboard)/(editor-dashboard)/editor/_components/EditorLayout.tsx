@@ -18,15 +18,14 @@ export default function EditorLayout({
     const msg = searchParams.get('msg');
     const [loading, setLoading] = useState(true);
 
-
     useEffect(()=>{
         if(user === "editor"){
             setLoading(false);
         }else if(user === "client"){
-            toast.error(`Please switch to an editor account ${msg || 'to access editor dashboard'}.`);
+            toast.error(`Please switch to an editor account ${msg || 'to access the editor dashboard'}.`);
             router.push('/client');
         }else{
-            toast.error(`Please login as an editor ${msg || 'to access editor dashboard'}`);
+            toast.error(`Please login as an editor ${msg || 'to access the editor dashboard'}`);
             router.push('/login?redirect=' + (redirect || '/'));
         }
     },[])

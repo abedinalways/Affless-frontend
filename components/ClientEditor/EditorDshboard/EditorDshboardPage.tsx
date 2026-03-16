@@ -14,7 +14,7 @@ import { getJobStatusDefinition } from "@/lib/job-status";
 import EditorDashboardSidebar from "@/app/(website)/(dashboard)/(editor-dashboard)/editor/_components/EditorDashboardSidebar";
 import { exposureTiers, orders } from "@/public/demodata";
 import { ExposureTier, Order } from "@/app/type";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 
 const columns: ColumnDef<Order>[] = [
@@ -94,7 +94,8 @@ export default function EditorDashboard() {
     isAvailable: true,
   });
   const pathname = usePathname();
-
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
   const averageResponseHours = 1;
   const averageResponseMinutes = 12;
   const exposureTier = getExposureTierForHours(averageResponseHours);
@@ -115,7 +116,7 @@ export default function EditorDashboard() {
 
   const handleRowClick = (order: Order) => {
     console.log("Row clicked:", order);
-    router.push(`/editor/myproposal/${order.id}`);
+    router.push(`/editor/myproposal/${order.id}?redirect=${redirectUrl ? `${redirectUrl}_` : ""}dashboardeditor_editorjobs`);
   }
 
   const totalActiveOrders = orders.length;
@@ -153,7 +154,7 @@ export default function EditorDashboard() {
 
           {/* Summary */}
           <div className="my-5 rounded-xl bg-[#ffe1e1] px-6 py-6 text-[18px] font-medium text-[#FF4D4F] flex items-center justify-between">
-            <span>Active Jobs: {totalActiveOrders} (${totalAmount})</span>
+            <span>Active Jobs: 5 (${totalAmount})</span>
 
           </div>
 

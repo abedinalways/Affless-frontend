@@ -277,12 +277,12 @@ export default function QuickMatchResult() {
 
                     <div className="flex items-center gap-3 mt-3">
                       <div>
-                        <Link href={`/editor/message?id=3&requestjob=true`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
+                        <Link href={`/editor/message?id=3&redirect=quickmatcheditor&requestjob=true`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
                           Request a Job
                         </Link>
                       </div>
 
-                      <Link href={`/editor/message?id=3&return=find-client-match`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-[12px] rounded-full ">
+                      <Link href={`/editor/message?id=3&redirect=quickmatcheditor`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-[12px] rounded-full ">
                         Message
                       </Link>
                     </div>

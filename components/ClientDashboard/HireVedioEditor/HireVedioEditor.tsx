@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import PageBanner from "@/components/reusable/Bgbanner";
@@ -14,6 +14,8 @@ import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import PdfIcon from "@/components/Icons/PdfIcon";
 import { FaArrowLeft } from "react-icons/fa";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import { getNavigationSource } from "@/lib/navigation-source";
 
 type FormValues = {
   jobTitle: string;
@@ -33,18 +35,19 @@ type FormValues = {
 // Mapping of categories to available platforms
 const categoryPlatformMap: { [key: string]: string[] } = {
   youtube_long_form: ["youtube"],
-  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat","youtube","facebook","x_twitter"],
+  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat", "youtube", "facebook", "x_twitter"],
   thumbnails: ["youtube"],
-  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter","youtube","snapchat"],
-  podcasts: ["youtube","tiktok","x_twitter"],
-  weddings_events: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
-  captions_subtitles: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
-  color_audio: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
+  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter", "youtube", "snapchat"],
+  podcasts: ["youtube", "tiktok", "x_twitter"],
+  weddings_events: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
+  captions_subtitles: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
+  color_audio: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
 };
 
 export default function HireVideoEditorForm() {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || "/";
+  const source = getNavigationSource(searchParams);
   const assignedEditorName = searchParams.get("assign") || "";
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
     "single"
@@ -184,6 +187,13 @@ export default function HireVideoEditorForm() {
     }, 500);
   };
 
+  const bannerLinks = useMemo(() => {
+    return buildSourceBreadcrumbs(source, {
+      currentLabel: "Hire A Video Editor",
+      fallbackBase: [{ label: "Home", href: "/" }],
+    });
+  }, [source]);
+
   useEffect(() => {
     if (videoLength) {
       let length = selectedCategory === "shorts_reels_tiktoks" ? videoLength : videoLength * 60;
@@ -226,12 +236,8 @@ export default function HireVideoEditorForm() {
       <div>
         <PageBanner
           title={assignedEditorName?`Hire ${assignedEditorName.split("_").join(" ")}`:'Hire a Video Editor'}
-          bgImage='/findEditor.jpg'
-          links={[
-            { label: (redirectUrl === "/client" || redirectUrl === "find-editor-match") ? "Dashboard" : assignedEditorName ? "Direct Messages" : "Home", href: redirectUrl },
-            ...((redirectUrl === "/client" || redirectUrl === "/home") ? [{ label: "Find Editors", href: "/find-editor" }] : redirectUrl === "find-editor-match" ? [{ label: "Quick-Match Results", href: "/client/find-editor-match" }] : []),
-            { label: "Hire a Video Editor" },
-          ]}
+          bgImage="/findEditor.jpg"
+          links={bannerLinks}
         />
       </div>
       {redirectUrl === "find-editor-match" && <div className="grid items-center justify-start p-6 containers">
@@ -362,7 +368,7 @@ export default function HireVideoEditorForm() {
               <p className='text-gray-600 text-sm mb-4'>
                 The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
               </p>
-            ):(
+            ) : (
               <p className='text-gray-600 text-sm mb-4'>
                 Please select a job category and enter the estimated video duration to enter the job budget.
               </p>

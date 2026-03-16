@@ -92,8 +92,8 @@ export default function NavbarWithoutLogin() {
                 <DropdownMenuContent className="z-1000">
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/howWork"
-                      className={`${isActive("/howWork") ? activeCls : inactiveCls} cursor-pointer`}
+                      href="/howwork"
+                      className={`${isActive("/howwork") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopServiceOpen(false)}
                     >
                       How It Works
@@ -264,9 +264,9 @@ export default function NavbarWithoutLogin() {
             </div>
           </button> */}
           <Link
-            href="/howWork"
+            href="/howwork"
             onClick={closeMobileMenu}
-            className={`${isActive("/howWork") ? activeCls : inactiveCls} cursor-pointer`}
+            className={`${isActive("/howwork") ? activeCls : inactiveCls} cursor-pointer`}
           >
             How It Works
           </Link>
