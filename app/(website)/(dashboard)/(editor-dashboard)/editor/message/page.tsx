@@ -182,7 +182,6 @@ export default function page() {
                     </div>
                 </div>
             </div>
-
             {/* Report User Modal */}
             <ReportUserModal
                 isOpen={isReportModalOpen}

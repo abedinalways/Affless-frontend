@@ -136,7 +136,7 @@ export default function ManageJobsPage() {
             onClick={() => goToDetail(d.id)}
             className="cursor-pointer p-2 rounded-md"
           >
-            {d.total}
+            ${d.total}
           </div>
         );
       },

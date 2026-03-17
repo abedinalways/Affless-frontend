@@ -18,7 +18,7 @@ export const routes: Record<string, RouteConfig> = {
         href: "/editor",
     },
     quickmatcheditor: {
-        label: "Quick Match Editor",
+        label: "Quick-Match Results",
         href: "/editor/quick-match-result",
     },
     platformsafetyrule: {
@@ -162,6 +162,53 @@ export const routes: Record<string, RouteConfig> = {
     termsconditions: {
         label: "Terms & Conditions",
         href: "/terms-condition"
+    },
+    quickmatchclient: {
+        label: "Quick-Match Results",
+        href: "/client/find-editor-match",
+    },
+    managejobs: {
+        label: "Manage Jobs",
+        href: "/client/manage-job"
+    },
+    managejobdetails: {
+        label: "Manage Job Details",
+        href: "/client/manage-job/",
+        buildHref: (id: string) => `/client/manage-job/${id}`,
+    },
+    deliveryclient: {
+        label: "Delivery",
+        href: "/client/delivery"
+    },
+    messageclient: {
+        label: "Messages",
+        href: "/client/message"
+    },
+    findeditor: {
+        label: "Find Editor",
+        href: "/find-editor"
+    },
+    jobproposal: {
+        label: "Job Proposals",
+        href: "/client/job-proposal"
+    },
+    jobproposaldetails: {
+        label: "Job Proposal Details",
+        href: "/job-proposal/",
+        buildHref: (id: string) => `/job-proposal/${id}`,
+    },
+    bidsdetails: {
+        label: "Proposal Details",
+        href: "/client/bids-details/",
+        buildHref: (id: string) => `/client/bids-details/${id}`,
+    },
+    paymenthistory: {
+        label: "Payment History",
+        href: "/client/payment-history"
+    },
+    addmoney: {
+        label: "Add Money",
+        href: "/client/add-money"
     }
 };
 

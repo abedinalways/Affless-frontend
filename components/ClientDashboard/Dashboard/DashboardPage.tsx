@@ -125,7 +125,9 @@ export default function ClientDashboard() {
             <div className="rounded-2xl bg-white px-6 pt-6 pb-8 shadow-sm">
               <div className="flex flex-col items-center gap-3">
                 <div className="h-20 w-20 overflow-hidden rounded-full">
-                  <Image src="/images/jone3.png" alt="Zeeshan" width={500} height={500} className="h-full w-full object-cover" />
+                  <Link href="/client/profile">
+                    <Image src="/images/jone3.png" alt="Zeeshan" width={500} height={500} className="h-full w-full object-cover" />
+                  </Link>
                 </div>
 
                 <div className="text-center">
@@ -143,7 +145,7 @@ export default function ClientDashboard() {
                 >
                   Match Me with an Editor
                 </Link> */}
-                <Link href="/client/find-editor-match" className="w-full">
+                <Link href="/client/find-editor-match?redirect=dashboardclient" className="w-full">
                   <button className="mt-6 w-full cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white">
                     Match Me with an Editor Quickly
                   </button>
