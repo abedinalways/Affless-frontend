@@ -155,7 +155,7 @@ export default function MyProposal() {
               ))}
             </div>
             <Link
-              href={`/browse-job?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobs`}
+              href={`/editor/browse-job?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobs`}
               className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300"
             >
               Browse New Jobs

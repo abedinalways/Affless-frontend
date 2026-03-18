@@ -73,7 +73,6 @@ export default function BrowseJob() {
         desc={bannerDescription}
         links={bannerLinks}
       />
-
       <div className="containers lg:py-20 ">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="hidden lg:block">
@@ -107,7 +106,7 @@ export default function BrowseJob() {
               {paginatedData.map((item) => (
                 <div key={item.id} className="bg-white p-4 lg:p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link href={`/browse-job/${item.id}?redirect=${source}_browsejobs`}>
+                    <Link href={`/editor/browse-job/${item.id}?redirect=${source ? source + "_" : ""}browsejobs`}>
                       <Image
                         src={item.img}
                         alt="editor"

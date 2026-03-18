@@ -183,16 +183,18 @@ export default function HireVideoEditorForm() {
     console.log("Form Submitted:", data, "Payment Type:", paymentType);
     setTimeout(() => {
       setLoading(false);
-      router?.push(`/confirm-deposit?return=hire-video-editor&redirect=${redirectUrl}`);
+      router?.push(`/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`);
     }, 500);
   };
 
-  const bannerLinks = useMemo(() => {
-    return buildSourceBreadcrumbs(source, {
-      currentLabel: "Hire A Video Editor",
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  useEffect(() => {
+    setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+      currentLabel: "Hire a Video Editor",
       fallbackBase: [{ label: "Home", href: "/" }],
-    });
-  }, [source]);
+    }));
+    console.log("Redirect URL:", redirectUrl);
+  }, [redirectUrl]);
 
   useEffect(() => {
     if (videoLength) {
@@ -235,7 +237,7 @@ export default function HireVideoEditorForm() {
     <div>
       <div>
         <PageBanner
-          title={assignedEditorName?`Hire ${assignedEditorName.split("_").join(" ")}`:'Hire a Video Editor'}
+          title={assignedEditorName ? `Hire ${assignedEditorName.split("_").join(" ")}` : 'Hire a Video Editor'}
           bgImage="/findEditor.jpg"
           links={bannerLinks}
         />

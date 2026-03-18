@@ -8,7 +8,7 @@ export const normalizeNavigationSource = (
   value?: string | null
 ): string | undefined => {
   const normalized = value?.trim();
-  return normalized ? normalized : undefined;
+  return normalized ? normalized : "";
 };
 
 export const getNavigationSource = (

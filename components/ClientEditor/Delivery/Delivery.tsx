@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
+import { getRouteHref } from "@/helper/routes";
 
 type UploadKey = "video" | "audio" | "thumb1" | "thumb2";
 
@@ -44,6 +45,16 @@ export default function DeliveryMessage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || "";
+  const redirectKeys = redirectUrl.split("_").filter(Boolean);
+  const lastRedirectKey = redirectKeys[redirectKeys.length - 1];
+  const previousRedirect = redirectKeys.slice(0, -1).join("_");
+
+  const handleBack = () => {
+    const backHref = lastRedirectKey ? getRouteHref(lastRedirectKey) : "/editor";
+    const nextHref = previousRedirect ? `${backHref}?redirect=${previousRedirect}` : backHref;
+
+    router.push(nextHref);
+  };
   const [files, setFiles] = useState<Record<UploadKey, File | null>>({
     video: null,
     audio: null,
@@ -81,7 +92,7 @@ export default function DeliveryMessage() {
       />
 
       <div className="containers">
-        <button type="button" onClick={() => router.back()} className="bg-red-500 text-white px-4 py-1 mt-4 rounded-lg flex items-center gap-1 cursor-pointer"> <FaArrowLeft />
+        <button type="button" onClick={handleBack} className="bg-red-500 text-white px-4 py-1 mt-4 rounded-lg flex items-center gap-1 cursor-pointer"> <FaArrowLeft />
           Back</button>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10 ">
           <div className="w-full max-w-3xl bg-white rounded-2xl p-6">

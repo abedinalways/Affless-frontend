@@ -106,7 +106,7 @@ export default function EditorDashboardHeader() {
   const jobRoutes = [
     "/editor/hire-request",
     "/editor/myproposal",
-    "/browse-job",
+    "/editor/browse-job",
     "/editor/editor-profile",
     "/editor/earning",
     "/editor/delivery",
@@ -262,8 +262,8 @@ export default function EditorDashboardHeader() {
                         </Link>
 
                         <Link
-                          href="/browse-job?redirect=dashboardeditor"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/browse-job") ? activeCls : inactiveCls
+                          href="/editor/browse-job?redirect=dashboardeditor"
+                          className={`block px-4 py-2 hover:bg-gray-100 ${(isActive("/editor/browse-job") || isActive("/editor/browse-job/")) ? activeCls : inactiveCls
                             }`}
                           onClick={closeDesktopJobDropdown}
                         >
