@@ -6,6 +6,7 @@ import { DataTable } from "@/components/reusable/DataTable";
 import JobProposalCard from "@/components/reusable/TableCard";
 import { SlidersHorizontal } from "lucide-react";
 import { JOB_STATUS_DEFINITIONS } from "@/lib/job-status";
+import { useSearchParams } from "next/navigation";
 
 export interface ProposalRow {
   id: string;
@@ -72,6 +73,8 @@ export const ProposalData: ProposalRow[] = [
 
 export default function JobProposalPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "";
 
   const [page, setPage] = useState(1);
 
@@ -112,7 +115,7 @@ export default function JobProposalPage() {
   const handleRevision = (id: string) => console.log(`Proposal ${id} in revision`);
 
   const goToDetail = (id: string, status: string) => {
-    router.push(`/client/job-proposal/${id}?status=${encodeURIComponent(status)}&redirect=/client`);
+    router.push(`/client/job-proposal/${id}?status=${encodeURIComponent(status)}&redirect=${redirectUrl ? redirectUrl + "_" : ""}jobproposal`);
   };
 
   return (

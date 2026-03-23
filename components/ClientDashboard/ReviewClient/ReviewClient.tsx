@@ -104,7 +104,7 @@ export default function ReviewClient() {
     setFiles([]);
     reset();
     setTimeout(() => {
-      router.push('/client/manage-job')
+      router.push('/client/manage-job?redirect=dashboardclient')
     }, 1000);
   };
 

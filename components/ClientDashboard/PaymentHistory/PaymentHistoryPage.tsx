@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 // Define the type for the payment data
 interface Payment {
@@ -22,6 +23,8 @@ export default function PaymentHistoryPage() {
     { id: 4, img: "/images/payment2.jpg", title: "I will design a professional logo for your brand.", price: "75", day: "3 Days", status: "completed" },
     { id: 5, img: "/images/payment3.jpg", title: "I will develop a responsive website for your business.", price: "150", day: "10 Days", status: "in_revision" },
   ];
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "";
 
   return (
     <div className="p-6 containers">
@@ -48,7 +51,6 @@ export default function PaymentHistoryPage() {
             <p className="text-[32px] font-semibold text-center  lg:text-start" title="Funds already released to the editor after job completion">$0.00</p>
           </div>
         </div>
-
       </div>
 
       {/* ---------- PAYMENT ROWS (Figma Style) ---------- */}
@@ -59,7 +61,7 @@ export default function PaymentHistoryPage() {
       <div className="space-y-3">
         {payments.map((payment) => (
           <Link
-            href="/client/manage-job/1?redirect=/client/payment-history"
+            href={`/client/manage-job/1?redirect=${redirect ? redirect + "_" : ""}paymenthistory`}
             key={payment.id}
             className="bg-white rounded-xl flex items-center justify-between shadow-sm py-4 px-4"
           >

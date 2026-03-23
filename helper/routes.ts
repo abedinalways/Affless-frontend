@@ -121,15 +121,15 @@ export const routes: Record<string, RouteConfig> = {
     },
     postajob: {
         label: "Post a Job",
-        href: "/post-job"
+        href: "/client/post-job"
     },
     findeditors: {
         label: "Find Editors",
-        href: "/find-editor"
+        href: "/client/find-editor"
     },
     hireaneditor: {
         label: "Hire a Editor",
-        href: "/hire-vedio-editor"
+        href: "/client/hire-vedio-editor"
     },
     clientmessage: {
         label: "Messages",
@@ -184,18 +184,14 @@ export const routes: Record<string, RouteConfig> = {
         label: "Messages",
         href: "/client/message"
     },
-    findeditor: {
-        label: "Find Editor",
-        href: "/find-editor"
-    },
     jobproposal: {
         label: "Job Proposals",
         href: "/client/job-proposal"
     },
     jobproposaldetails: {
         label: "Job Proposal Details",
-        href: "/job-proposal/",
-        buildHref: (id: string) => `/job-proposal/${id}`,
+        href: "/client/job-proposal/",
+        buildHref: (id: string) => `/client/job-proposal/${id}`,
     },
     bidsdetails: {
         label: "Proposal Details",

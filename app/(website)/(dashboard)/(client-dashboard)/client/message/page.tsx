@@ -11,18 +11,25 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa6";
+import { getRouteConfig, getRouteHref } from "@/helper/routes";
 
 
 export default function page() {
     const searchParams = useSearchParams();
     const conversationIdFromUrl = searchParams.get("id") || "";
     const returnTo = searchParams.get("return") || "";
-    const redirect = searchParams.get("redirect") || "";
+    const redirectUrl = searchParams.get("redirect") || "";
     const name = searchParams.get("name") || "";
     const [selectedConversationId, setSelectedConversationId] = useState<string>("");
     const [deletedConversationIds, setDeletedConversationIds] = useState<string[]>([]);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const router = useRouter();
+
+    const redirectKeys = redirectUrl.split("_").filter(Boolean);
+    const lastRedirectKey = redirectKeys[redirectKeys.length - 1];
+    const redirectRoute = getRouteConfig(lastRedirectKey);
+    const redirectHref = lastRedirectKey ? getRouteHref(lastRedirectKey) : "";
+    const previousRedirect = redirectKeys.slice(0, -1).join("_");
 
     const conversationDirectory = [
         {
@@ -96,46 +103,25 @@ export default function page() {
         }
     }, [conversationIdFromUrl])
 
-    useEffect(()=> {
-        console.log(redirect);
-    },[])
-
     return (
         <div className="p-4 containers bg-[#f9f9f9] ">
-            {returnTo === "find-editor-match" && (
+            {redirectUrl && (
                 <button
                     type="button"
-                    onClick={() => router.push("/client/find-editor-match")}
+                    onClick={() => {
+                        if (!redirectHref) {
+                            return;
+                        }
+
+                        const nextHref = previousRedirect
+                            ? `${redirectHref}?redirect=${previousRedirect}`
+                            : redirectHref;
+
+                        router.push(nextHref);
+                    }}
                     className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
                 >
-                    <FaArrowLeft /> <span>Back to Quick-Match Results</span>
-                </button>
-            )}
-            {returnTo === "find-editors" && (
-                <button
-                    type="button"
-                    onClick={() => router.push("/find-editor")}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Find Editors</span>
-                </button>
-            )}
-            {returnTo === "proposal-1" && (
-                <button
-                    type="button"
-                    onClick={() => router.push(`/client/job-proposal/${returnTo.split("-")[1]}?redirect=${redirect}`)}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to Proposal Details</span>
-                </button>
-            )}
-            {returnTo.includes("/client/bids-details") && (
-                <button
-                    type="button"
-                    onClick={() => router.push(`${returnTo}?redirect=client-dashboard&proposalId=1`)}
-                    className="flex items-center gap-2 mb-4 font-medium bg-[#FF4D4F] text-white px-4 py-1 rounded-lg cursor-pointer"
-                >
-                    <FaArrowLeft /> <span>Back to {name}</span>
+                    <FaArrowLeft /> <span>Back to {redirectRoute?.label}</span>
                 </button>
             )}
             <div className="grid grid-cols-1 gap-6 relative overflow-hidden">
@@ -167,7 +153,7 @@ export default function page() {
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <span>Member since</span>
-                                    <span>{activeConversation ? new Date(activeConversation.memberSince).toLocaleDateString("en",{
+                                    <span>{activeConversation ? new Date(activeConversation.memberSince).toLocaleDateString("en", {
                                         month: "long",
                                         year: "numeric",
                                     }).split(" ").join(", ") : "—"}</span>

@@ -363,12 +363,12 @@ export default function FindEditorsPage() {
 
                     <div className="flex items-center gap-3 mt-3">
                       <div>
-                        <Link href={`/hire-vedio-editor?id=${editor.id}&redirect=${redirectUrl ? `${redirectUrl}_` : ""}quickmatchclient`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
+                        <Link href={`/client/hire-vedio-editor?id=${editor.id}&redirect=${redirectUrl ? `${redirectUrl}_` : ""}quickmatchclient`} className="w-full px-4 py-2 bg-[#ff4b4b] text-white text-xs rounded-full  cursor-pointer">
                           Hire Editor
                         </Link>
                       </div>
 
-                      <Link href={`/client/message?id=${editor.id}&return=find-editor-match`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
+                      <Link href={`/client/message?id=${editor.id}&redirect=${redirectUrl ? `${redirectUrl}_` : ""}quickmatchclient`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
                         Message
                       </Link>
                     </div>

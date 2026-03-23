@@ -36,7 +36,7 @@ export default function ManageJobsPage() {
     return filteredJobs.slice(start, start + PAGE_SIZE);
   }, [page, filteredJobs]);
 
-  const goToDetail = (id: string) => router.push(`/client/manage-job/${id}`);
+  const goToDetail = (id: string) => router.push(`/client/manage-job/${id}?redirect=${redirect ? redirect + "_" : ""}managejobs`);
 
   useEffect(() => {
     const isCustomDateFilter = dateFilter === "custom_date";
@@ -155,7 +155,7 @@ export default function ManageJobsPage() {
                 onClick={() => goToDetail(d.id)}
                 className="cursor-pointer  p-2 rounded-md text-center"
               >
-                 {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "day left" : "day left"}
+                {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "day left" : "day left"}
               </div>
             )}
           </>
@@ -201,7 +201,7 @@ export default function ManageJobsPage() {
           title="Manage Jobs"
           bgImage="/findEditor.jpg"
           links={[
-            { label: "Dashboard", href: "/client" }, 
+            { label: "Dashboard", href: "/client" },
             { label: "Manage Jobs" }]}
         />
       </div>
@@ -225,7 +225,7 @@ export default function ManageJobsPage() {
             </div>
 
             <Link
-              href="/post-job?redirect=/client/manage-job"
+              href={`/client/post-job?redirect=${redirect ? redirect + "_" : ""}managejobs`}
               className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300"
             >
               + Create a New Job

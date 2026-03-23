@@ -10,6 +10,7 @@ interface BidCardProps {
   description: string;
   proposalId?: string;
   showViewButton?: boolean;
+  redirect?: string;
 }
 
 export default function BidCard({
@@ -20,6 +21,7 @@ export default function BidCard({
   description,
   proposalId,
   showViewButton = false,
+  redirect,
 }: BidCardProps) {
   return (
     <div className="space-y-6 mb-6">
@@ -49,7 +51,7 @@ export default function BidCard({
         {/* RIGHT SIDE BUTTON */}
         {showViewButton && (
           <Link
-            href={`/client/bids-details/${id}?redirect=client-dashboard&proposalId=${proposalId}`}
+            href={`/client/bids-details/${id}?redirect=${redirect}&proposalId=${proposalId}`}
             className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
           >
             View
