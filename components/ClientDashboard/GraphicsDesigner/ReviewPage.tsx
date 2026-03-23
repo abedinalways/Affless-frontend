@@ -92,7 +92,7 @@ function ReviewItem({ review }: { review: Review }) {
       <div className="flex gap-4 flex-1">
         {/* Avatar */}
         <div className="h-12 w-12 rounded-full overflow-hidden border border-gray-200 shrink-0">
-          <Link href={`/client-profile/${review?.id}`} className="">
+          <Link href={`/editor-profile/${review?.id}`} className="">
             <Image
               src={review.avatar}
               alt={review.name}
@@ -107,7 +107,7 @@ function ReviewItem({ review }: { review: Review }) {
         <div className="flex-1">
           {/* Name + Country */}
           <div className="space-y-1">
-            <Link href={`/client-profile/${review?.id}`} className="text-[16px] font-semibold text-[#333] leading-none capitalize">
+            <Link href={`/editor-profile/${review?.id}`} className="text-[16px] font-semibold text-[#333] leading-none capitalize">
               {review.name}
             </Link>
 
