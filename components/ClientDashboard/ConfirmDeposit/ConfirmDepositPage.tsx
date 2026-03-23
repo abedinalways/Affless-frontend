@@ -4,10 +4,11 @@
 import DebitCardIcon from "@/components/Icons/DebitCard";
 import PaypalSvg from "@/components/Icons/PaypalIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 export default function ConfirmDepositPage() {
   const searchParams = useSearchParams();
@@ -33,18 +34,21 @@ export default function ConfirmDepositPage() {
     }, 500);
   };
 
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+    useEffect(() => {
+      setBannerLinks(buildSourceBreadcrumbs(redirect, {
+        currentLabel: "Confirm Deposit",
+        fallbackBase: [{ label: "Home", href: "/" }],
+      }));
+    }, [redirect]);
+
   return (
     <div className=''>
       <div>
         <PageBanner
           title='Confirm Deposit'
           bgImage='/findEditor.jpg'
-          links={[
-            { label: redirect === "/client" ? "Dashboard" : "Home", href: redirect || "/home" },
-            ...(returnTo === "hire-video-editor" ? [{ label: "Find Editors", href: "/find-editor" }] : []),
-            ...(returnTo === "hire-video-editor" ? [{ label: "Hire a Video Editor", href: "/hire-vedio-editor" }] : []),
-            ...(!(returnTo === "hire-video-editor") ? [{ label: "Post a Job", href: "/post-job" }] : []),
-            { label: "Confirm Deposit" }]}
+          links={bannerLinks}
         />
       </div>
       <div className='containers pt-10 lg:pt-20'>

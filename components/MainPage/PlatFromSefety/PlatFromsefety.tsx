@@ -10,21 +10,27 @@ import { IoMdCheckbox } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { FaSquareCheck } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import { useEffect, useState } from "react";
 
 
 export default function PlatformSefetyPage() {
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "";
+  const redirectUrl = searchParams.get("redirect") || "";
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  useEffect(() => {
+    setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+      currentLabel: "Platform Safety Rules",
+      fallbackBase: [{ label: "Home", href: "/" }],
+    }));
+  }, [redirectUrl]);
   return (
     <div>
       <div>
         <PageBanner
           title="Platform Safety Rules"
           bgImage="/findEditor.jpg"
-          links={[
-            { label: (redirect === "/client" || redirect === "/editor") ? "Dashboard" : "Home", href: redirect || "/" },
-            { label: "Platform Safety Rules" }
-          ]}
+          links={[...bannerLinks]}
         />
 
       </div>

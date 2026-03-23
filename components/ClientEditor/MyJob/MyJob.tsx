@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import { DataTable } from "@/components/reusable/DataTable";
 import { SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export interface ProposalRow {
   id: number;
@@ -95,6 +96,8 @@ export default function MyProposal() {
   const [statusFilter, setStatusFilter] = useState<"ALL" | ProposalRow["status"]>(
     "Pending Client Decision"
   );
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "";
 
   const filteredData = useMemo(() => {
     return Proposal.filter(
@@ -192,7 +195,7 @@ export default function MyProposal() {
           onPageChange={setPage}
           // ⭐ FULL ROW CLICK
           onRowClick={(row: ProposalRow) =>
-            router.push(`/editor/hire-request/${row.id}?status=${row.status}`)
+            router.push(`/editor/hire-request/${row.id}?redirect=${redirectUrl ? redirectUrl + "_" : ''}myjobproposals&status=${row.status}`)
           }
 
 

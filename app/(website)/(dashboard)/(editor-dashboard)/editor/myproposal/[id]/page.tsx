@@ -61,7 +61,6 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
     <div className="">
       <div>
         <PageBanner
-
           title={proposal?.service || ""}
           bgImage="/findEditor.jpg"
           links={bannerLinks}
@@ -243,7 +242,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
               orderNumber="#123"
               onDeliverNow={() => router.push(`/editor/delivery?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}`)} // ✅ link
               onMessage={() => router.push(`/editor/message?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}`)} // ✅ link
-              onExtendDelivery={() => router.push(`/editor/extend-delivery?jobid=${proposal?.id || ""}`)} // ✅ link
+              onExtendDelivery={() => router.push(`/editor/extend-delivery?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}&jobid=${proposal?.id || ""}`)} // ✅ link
               jobId={proposal?.id || ""}
             />
           </div>

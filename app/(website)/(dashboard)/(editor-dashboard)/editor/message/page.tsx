@@ -30,13 +30,9 @@ export default function page() {
 
     const redirectKeys = redirectUrl.split("_").filter(Boolean);
     const lastRedirectKey = redirectKeys[redirectKeys.length - 1];
-    console.log("Last key : ", lastRedirectKey);
     const redirectRoute = getRouteConfig(lastRedirectKey);
     const redirectHref = lastRedirectKey ? getRouteHref(lastRedirectKey) : "";
-    console.log("Redirect route : ", redirectRoute)
     const previousRedirect = redirectKeys.slice(0, -1).join("_");
-
-    console.log("Redirect URL:", previousRedirect);
 
     const availableConversationDirectory = conversationDirectory.filter(
         (item) => !deletedConversationIds.includes(item.id)
@@ -161,7 +157,7 @@ export default function page() {
 
                             <button
                                 type="button"
-                                onClick={() => router.push(`/browse-job?client=${activeConversation?.name || ""}&redirect=/client/message?id=${selectedConversationId}`)}
+                                onClick={() => router.push(`/editor/browse-job?client=${activeConversation?.name || ""}&redirect=/client/message?id=${selectedConversationId}`)}
                                 className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                             >
                                 View All Client’s Jobs

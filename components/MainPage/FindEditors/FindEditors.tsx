@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BreadCrumb from "@/components/reusable/BreadCumb";
 import FilterSidebar from "./FilterSidebar"; // Keep this as the desktop filter sidebar
 import EditorCard, { editors } from "./EditorCard";
@@ -11,6 +11,7 @@ import PageBanner from "@/components/reusable/Bgbanner";
 import { FaSitemap } from "react-icons/fa";
 import Pagination from "@/components/reusable/pagination";
 import { useSearchParams } from "next/navigation";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 export default function FindEditors() {
   // Pagination Logic
@@ -38,13 +39,21 @@ export default function FindEditors() {
   // Generate page numbers array dynamically
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  useEffect(() => {
+    setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+      currentLabel: "Find Editors",
+      fallbackBase: [{ label: "Home", href: "/" }],
+    }));
+  }, [redirectUrl]);
+
   return (
     <div>
       {/* Banner */}
       <PageBanner
         title='Find Editors'
         bgImage='/findEditor.jpg'
-        links={[{ label: redirectUrl === "/client" ? "Dashboard" : redirectUrl === "/client/manage-job" ? "Manage Jobs" : "Home", href: redirectUrl || "/" }, { label: "Find Editors" }]}
+        links={bannerLinks}
       />
 
       {/* Main Section */}

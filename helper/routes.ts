@@ -31,12 +31,12 @@ export const routes: Record<string, RouteConfig> = {
     },
     browsejobs: {
         label: "Browse Jobs",
-        href: "/browse-job"
+        href: "/editor/browse-job"
     },
     browsejobdetails: {
         label: "Job Details",
-        href: "/browse-job/",
-        buildHref: (id: string) => `/browse-job/${id}`,
+        href: "/editor/browse-job/",
+        buildHref: (id: string) => `/editor/browse-job/${id}`,
     },
     editorpublicprofile: {
         label: "Editor Profile",
@@ -123,7 +123,7 @@ export const routes: Record<string, RouteConfig> = {
         label: "Post a Job",
         href: "/post-job"
     },
-    findEditors: {
+    findeditors: {
         label: "Find Editors",
         href: "/find-editor"
     },

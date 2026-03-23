@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
+import { getRouteHref } from "@/helper/routes";
 
 export default function ExtendDelivery() {
   const [message, setMessage] = useState("");
@@ -15,6 +16,17 @@ export default function ExtendDelivery() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const jobId = searchParams.get("jobid") || "";
+  const redirectUrl = searchParams.get("redirect") || "";
+  const redirectKeys = redirectUrl.split("_").filter(Boolean);
+  const lastRedirectKey = redirectKeys[redirectKeys.length - 1];
+  const previousRedirect = redirectKeys.slice(0, -1).join("_");
+
+  const handleBack = () => {
+    const backHref = lastRedirectKey ? getRouteHref(lastRedirectKey) : "/editor";
+    const nextHref = previousRedirect ? `${backHref}?redirect=${previousRedirect}` : backHref;
+
+    router.push(nextHref);
+  };
 
   const handleSubmit = () => {
     console.log({ message, days, file });
@@ -39,7 +51,7 @@ export default function ExtendDelivery() {
         />
       </div>
       <div className="containers py-10">
-        <button type="button" onClick={() => router.push(`/editor/myproposal/${jobId}`)} className="bg-red-500 text-white px-4 py-1 rounded-lg flex items-center gap-1 cursor-pointer"> <FaArrowLeft />
+        <button type="button" onClick={handleBack} className="bg-red-500 text-white px-4 py-1 rounded-lg flex items-center gap-1 cursor-pointer"> <FaArrowLeft />
           Back</button>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 py-10">
           <div className="bg-white p-6 rounded-xl lg:col-span-2">
@@ -108,7 +120,7 @@ export default function ExtendDelivery() {
               deliveryDate="November 6, 2026"
               totalPrice={743}
               orderNumber="#123"
-              onMessage={() => console.log("Message clicked")}
+              onMessage={() => router.push(`/editor/message?redirect=${redirectUrl ? `${redirectUrl}_` : ""}extenddeliverydate:${jobId}`)}
               jobId={jobId}
             />
 

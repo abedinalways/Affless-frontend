@@ -16,7 +16,7 @@ export default function GettingStartedPage() {
   const handleClientCTA = () => {
     if (user === "client") {
       router.push("/post-job?redirect=/getting-started");
-    }else {
+    } else {
       toast.error("Please login to post a job.");
       router.push("/singup?redirect=/getting-started&type=client");
     }
@@ -25,10 +25,10 @@ export default function GettingStartedPage() {
   const handleEditorCTA = () => {
     if (user === "editor") {
       router.push("/editor/editor-profile");
-    } else if(user === 'client'){
+    } else if (user === 'client') {
       toast.error("Please switch to an editor account to create a profile.");
       router.push('/client')
-    }else {
+    } else {
       toast.error("Please login as a editor to create a profile")
       router.push("/singup?redirect=/getting-started&type=editor");
     }
@@ -51,7 +51,7 @@ export default function GettingStartedPage() {
             Welcome to Editor Marketplace
           </h2>
           <p className='text-[#4A4C56] font-poppins text-[18px] md:text-[20px] font-normal leading-[150%] mt-4 max-w-3xl mx-auto'>
-           Whether you’re looking to hire talented editors or offer your creative services, we’ve made it simple to get started.
+            Whether you’re looking to hire talented editors or offer your creative services, we’ve made it simple to get started.
           </p>
         </div>
 
@@ -99,42 +99,45 @@ export default function GettingStartedPage() {
           </div>
 
           {/* For Editors Section */}
-          <div className='bg-white rounded-lg shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow'>
-            <div className='mb-6'>
-              <h3 className='text-[#333] font-poppins text-[28px] md:text-[32px] font-semibold leading-[120%] mb-2'>
-                For Editors
-              </h3>
-              <p className='text-[#4A4C56] font-poppins text-[16px] font-normal leading-[150%]'>
-                Showcase your skills and find exciting projects
-              </p>
-            </div>
-            <div className='space-y-4 mb-8'>
-              {[
-                { step: 1, text: "Create an account (Editor)" },
-                { step: 2, text: "Create profile + add portfolio" },
-                { step: 3, text: "Browse jobs and send proposals" },
-                {
-                  step: 4,
-                  text: "Deliver work and communicate inside the platform",
-                },
-                { step: 5, text: "Get paid and build reviews" },
-              ].map((item) => (
-                <div key={item.step} className='flex items-start gap-3'>
-                  <div className='shrink-0 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-semibold text-sm'>
-                    {item.step}
+          <div className='w-full grid grid-cols-1 grid-rows-[1fr_auto] justify-between bg-white rounded-lg shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow'>
+            <div className="w-full">
+              <div className='mb-6'>
+                <h3 className='text-[#333] font-poppins text-[28px] md:text-[32px] font-semibold leading-[120%] mb-2'>
+                  For Editors
+                </h3>
+                <p className='text-[#4A4C56] font-poppins text-[16px] font-normal leading-[150%]'>
+                  Showcase your skills and find exciting projects
+                </p>
+              </div>
+              <div className='space-y-4 mb-8'>
+                {[
+                  { step: 1, text: "Create an account (Editor)" },
+                  { step: 2, text: "Create profile + add portfolio" },
+                  { step: 3, text: "Browse jobs and send proposals" },
+                  {
+                    step: 4,
+                    text: "Deliver work and communicate inside the platform",
+                  },
+                  { step: 5, text: "Get paid and build reviews" },
+                ].map((item) => (
+                  <div key={item.step} className='flex items-start gap-3'>
+                    <div className='shrink-0 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-semibold text-sm'>
+                      {item.step}
+                    </div>
+                    <p className='text-[#333] font-poppins text-[16px] font-normal leading-[150%] pt-1'>
+                      {item.text}
+                    </p>
                   </div>
-                  <p className='text-[#333] font-poppins text-[16px] font-normal leading-[150%] pt-1'>
-                    {item.text}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-            <Button
+            <button
               onClick={handleEditorCTA}
-              className='w-full h-12 text-[16px] font-semibold cursor-pointer bg-red-500 hover:bg-red-600 text-white'
-              size='lg'>
+              type="button"
+              className='w-full h-12 text-[16px] font-semibold cursor-pointer rounded-lg bg-red-500 hover:bg-red-600 text-white'
+            >
               Create Profile
-            </Button>
+            </button>
           </div>
         </div>
 
@@ -148,7 +151,7 @@ export default function GettingStartedPage() {
             </a>{" "}
             or{" "}
             <a
-              href='/contactUs'
+              href='/contactus'
               className='text-primary hover:underline font-medium'>
               Contact Us
             </a>

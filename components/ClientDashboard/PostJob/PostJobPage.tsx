@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 type FormValues = {
   jobTitle: string;
@@ -31,13 +32,13 @@ type FormValues = {
 // Mapping of categories to available platforms
 const categoryPlatformMap: { [key: string]: string[] } = {
   youtube_long_form: ["youtube"],
-  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat","youtube","facebook","x_twitter"],
+  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat", "youtube", "facebook", "x_twitter"],
   thumbnails: ["youtube"],
-  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter","youtube","snapchat"],
-  podcasts: ["youtube","tiktok","x_twitter"],
-  weddings_events: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
-  captions_subtitles: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
-  color_audio: ["youtube", "instagram", "facebook","tiktok","x_twitter","snapchat",],
+  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter", "youtube", "snapchat"],
+  podcasts: ["youtube", "tiktok", "x_twitter"],
+  weddings_events: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
+  captions_subtitles: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
+  color_audio: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
 };
 
 const allPlatforms = [
@@ -142,7 +143,7 @@ export default function PostJobForm() {
     }
     setTimeout(() => {
       setLoading(false);
-      router?.push("/confirm-deposit?assign=" + (assignEditor || ""));
+      router?.push(`/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob&assign=` + (assignEditor || ""));
     }, 500);
   };
 
@@ -183,16 +184,21 @@ export default function PostJobForm() {
     }
   }, [videoLength, selectedCategory]);
 
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  useEffect(() => {
+    setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+      currentLabel: "Post a Job",
+      fallbackBase: [{ label: "Home", href: "/" }],
+    }));
+  }, [redirectUrl]);
+
   return (
     <div>
       <div>
         <PageBanner
           title='Post a Job'
           bgImage='/findEditor.jpg'
-          links={[
-            { label: redirectUrl === "/client" ? "Dashboard" : redirectUrl === "/client/manage-job" ? "Manage Jobs" : redirectUrl === "/getting-started" ? "Getting Started" : "Home", href: redirectUrl || "/" },
-            { label: "Post a Job" }
-          ]}
+          links={bannerLinks}
         />
       </div>
       <form
@@ -316,7 +322,7 @@ export default function PostJobForm() {
               <p className='text-gray-600 text-sm mb-4'>
                 The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
               </p>
-            ):(
+            ) : (
               <p className='text-gray-600 text-sm mb-4'>
                 Please select a job category and enter the estimated video duration to enter the job budget.
               </p>
