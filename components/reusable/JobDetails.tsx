@@ -63,6 +63,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
   const pathname = usePathname();
   return (
     <div className="w-full rounded-2xl bg-white p-6">
+      <p className="border border-red-400 p-2 rounded-lg mb-4 bg-red-50 text-red-600 text-center">You have already requested extensions that have pushed the original delivery date back by 10 days.</p>
       {/* HEADER */}
       <h2 className="text-xl font-semibold mb-4">Job Actions</h2>
 
@@ -131,7 +132,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             {onExtendDelivery && status !== "cancelled" && status !== "completed" && status !== "delivered" && (
               <button
                 onClick={onExtendDelivery}
-                className="mt-3 w-full text-sm underline text-gray-500 cursor-pointer"
+                className="mt-3 w-full block text-center rounded-full bg-orange-500 border border-orange-500 py-3 text-white font-medium hover:bg-orange-700 transition cursor-pointer"
               >
                 Extend Delivery Date
               </button>
