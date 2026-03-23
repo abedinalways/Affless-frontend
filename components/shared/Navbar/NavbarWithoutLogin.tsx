@@ -40,8 +40,8 @@ export default function NavbarWithoutLogin() {
 
   const isActive = (href: string) => pathname === href;
 
-  const serviceRoutes = ["/howWork", "/find-editors", "/jobs", "/pricing"];
-  const contactRoutes = ["/success-story", "/help-center"];
+  const serviceRoutes = ["/howWork", "/find-editors", "/jobs", "/pricing", "/howwork"];
+  const contactRoutes = ["/success-story", "/help-center", "/frequently-question", "/contactus"];
 
   const serviceActive = serviceRoutes.includes(pathname);
   const contactActive = contactRoutes.includes(pathname);
