@@ -6,23 +6,23 @@ export default function HowWorkPage() {
   return (
     <div>
       <div>
-          <div>
-                <PageBanner
-          title="How It Works
+        <div>
+          <PageBanner
+            title="How It Works
 "
-          bgImage="/findEditor.jpg"
-          links={[
-            { label: "Home", href: "/" },
-            { label: "Trust & Safety", href:"/trustSeftey" },
-            // { label: "Trust & Safety", href:"/trustSeftey" }
+            bgImage="/findEditor.jpg"
+            links={[
+              { label: "Home", href: "/" },
+              { label: "How It Works" },
+              // { label: "Trust & Safety", href:"/trustSeftey" }
 
-          ]}
-        />
-              
-              </div>
-              <div>
-                <HowWork/>
-              </div>
+            ]}
+          />
+
+        </div>
+        <div>
+          <HowWork />
+        </div>
       </div>
     </div>
   )
