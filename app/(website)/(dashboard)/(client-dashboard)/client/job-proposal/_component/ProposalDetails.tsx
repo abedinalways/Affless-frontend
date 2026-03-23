@@ -6,7 +6,7 @@ import PageBanner from "@/components/reusable/Bgbanner";
 import BidCard from "@/components/reusable/Bids";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Pagination from "@/components/reusable/pagination";
 import { Clapperboard, Clock4 } from "lucide-react";
 import DolarIcon from "@/components/Icons/DolarIcon";
@@ -14,6 +14,7 @@ import DesktopIcon from "@/components/Icons/Desktop";
 import WorldIcon from "@/components/Icons/WorldIcon";
 import { FaArrowLeft } from "react-icons/fa";
 import { ProposalData, ProposalRow } from "@/components/ClientDashboard/JobProposal/JobProposalPage";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 export const bidsData = [
     {
@@ -60,21 +61,28 @@ export default function ProposalDetails({ id }: { id: string }) {
 
     // ✅ get status from url query
     const searchParams = useSearchParams();
-    const statusParam = searchParams.get("status");
+    const redirectUrl = searchParams.get("redirect") || "";
 
-    // ✅ type-safe sanitize
-    const status: "Accept" | "Declined" | null =
-        statusParam === "Accept" || statusParam === "Declined"
-            ? statusParam
-            : null;
-    console.log("Proposal Details Status:", ProposalData);
+    const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+    useEffect(() => {
+        if(proposal){
+            setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+                currentLabel: proposal.service || "Proposal Details",
+                fallbackBase: [{ label: "Home", href: "/" }],
+            }));
+        }
+    }, [redirectUrl, proposal]);
+
+
+
+
     return (
         <div>
             <div>
                 <PageBanner
                     title={`${proposal?.service || "Proposal Details"}`}
                     bgImage="/findEditor.jpg"
-                    links={[{ label: "Dashboard", href: "/client" }, { label: "Job Proposals", href: "/client/job-proposal" }, { label: proposal?.service || "Proposal Details", href: "#" }]}
+                    links={bannerLinks}
                 />
             </div>
 
@@ -82,7 +90,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                 <div className="flex flex-col lg:flex-row gap-9">
                     {/* LEFT */}
                     <div className="space-y-5 w-full order-2 lg:order-1">
-                        <Link href="/client/job-proposal" className="block">
+                        <Link href={`/client/job-proposal?redirect=${redirectUrl ? redirectUrl.split("_").slice(0,-1).join("_") : ""}`} className="block">
                             <button className="px-4 py-2 border rounded-md bg-[#e74c4c] hover:bg-[#c0392b] text-white text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
                                 <FaArrowLeft />
                                 Back to Job Proposals
@@ -248,7 +256,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                                 {bidsData.map((bid) => (
                                     <Link
                                         key={bid.id}
-                                        href={`/client/bids-details/${bid.id}?redirect=client-dashboard&proposalId=${id}`}
+                                        href={`/client/bids-details/${bid.id}?redirect=${redirectUrl ? redirectUrl + "_" : ""}jobproposaldetails:${id}&proposalId=${id}`}
                                         className=""
                                     >
                                         <BidCard
@@ -259,6 +267,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                                             description={bid.description}
                                             proposalId={id}
                                             showViewButton={true}
+                                            redirect={`${redirectUrl ? redirectUrl + "_" : ""}jobproposaldetails:${id}`}
                                         />
                                     </Link>
                                 ))}

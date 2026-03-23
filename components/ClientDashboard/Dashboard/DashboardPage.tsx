@@ -151,7 +151,7 @@ export default function ClientDashboard() {
                   </button>
                 </Link>
 
-                <Link href="/platform-safety?redirect=/client" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
+                <Link href="/platform-safety?redirect=dashboardclient" className="w-full bg-[#FFEEEE] rounded-lg mt-5">
                   <button className="flex gap-2 text-[#FF4D4F] text-center justify-center items-center mx-auto py-2.5 px-4 text-[14px] cursor-pointer">
                     <LockIcon /> Platform Safety Rules{" "}
                     <IoArrowForwardSharp className="mt-1 text-red-500" />
@@ -164,7 +164,7 @@ export default function ClientDashboard() {
               <h3 className="text-[18px] font-medium text-[#333] leading-130%">Balance</h3>
               <p className="text-2xl font-medium leading-150% text-[#333] text-center py-4">$0.00</p>
               <div className="flex justify-center">
-                <Link href="/client/add-money">
+                <Link href="/client/add-money?redirect=dashboardclient">
                   <button type="button" className="rounded-lg border border-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-[#ff4b4b] cursor-pointer">
                     Add Funds
                   </button>
@@ -195,7 +195,6 @@ export default function ClientDashboard() {
 //                 ))}
 //               </div>
 //             </div> */}
-
           {/* RIGHT */}
           <div className="w-full lg:w-2/3 space-y-4">
             <div className="w-full flex flex-col md:flex-row justify-between items-center gap-4">
@@ -205,14 +204,12 @@ export default function ClientDashboard() {
                   Manage your jobs from here.
                 </p>
               </div>
-
               <Link
-                href="/post-job?redirect=/client"
+                href="/client/post-job?redirect=dashboardclient"
                 className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
               >
                 + Post New Job
               </Link>
-
             </div>
 
             <div className="rounded-2xl bg-white px-6 shadow-sm">

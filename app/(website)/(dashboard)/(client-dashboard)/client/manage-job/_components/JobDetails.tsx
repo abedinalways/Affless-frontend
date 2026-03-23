@@ -12,6 +12,7 @@ import ExtendDelivery from "@/components/ClientEditor/ExtendDelivery/ExtendDeliv
 import ExtendDeliveryCard from "@/components/ClientDashboard/GraphicsDesigner/ExtendDeliveryCard";
 import Link from "next/link";
 import Loading from "@/components/shared/Loading";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 type propType = {
   id: string;
@@ -60,6 +61,15 @@ export default function JobDetails({ id }: propType) {
     return () => clearInterval(interval);
   }, [job]);
 
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+    useEffect(() => {
+      if(!job) return;
+      setBannerLinks(buildSourceBreadcrumbs(redirect, {
+        currentLabel: job.service,
+        fallbackBase: [{ label: "Home", href: "/" }],
+      }));
+    }, [redirect,job]);
+
   if (!job) return <div className="containers py-20">
     <Loading />
   </div>;
@@ -69,11 +79,7 @@ export default function JobDetails({ id }: propType) {
       <PageBanner
         title={job.service}
         bgImage="/findEditor.jpg"
-        links={[
-          { label: "Dashboard", href: "/client" },
-          { label: redirect === "/client/payment-history" ? "Payment History" : "Manage Jobs", href: redirect || "/client/manage-job" },
-          { label: job.service, href: `/client/manage-job/${job.id}` },
-        ]}
+        links={bannerLinks}
       />
 
       <div className="containers flex flex-col lg:flex-row gap-6 py-20">
@@ -143,7 +149,7 @@ export default function JobDetails({ id }: propType) {
               {/* Buttons */}
               <div className="mt-6 space-y-4">
                 <div className="">
-                  <Link href={`/client/delivery?id=${job.id}`}>
+                  <Link href={`/client/delivery?redirect=${redirect ? redirect + "_" : ""}managejobdetails:${id}&id=${job.id}`}>
                     <button
                       className="w-full py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F] font-semibold hover:opacity-90 transition cursor-pointer"
                       type="button"
@@ -153,7 +159,7 @@ export default function JobDetails({ id }: propType) {
                 </div>
 
                 <div className="w-full">
-                  <Link href="/client/message"
+                  <Link href={`/client/message?redirect=${redirect ? redirect + "_" : ""}managejobdetails:${id}`}
                     className="w-full block text-center py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F]  font-semibold hover:opacity-90 transition cursor-pointer"
                     type="button"
                   >

@@ -3,12 +3,13 @@
 import PdfIcon from "@/components/Icons/PdfIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
 import { Edit } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditorPrise from "./EditorPrise";
 import { useSearchParams } from "next/navigation";
 import { bidsData } from "@/app/(website)/(dashboard)/(client-dashboard)/client/job-proposal/_component/ProposalDetails";
 import { ProposalData, ProposalRow } from "@/components/ClientDashboard/JobProposal/JobProposalPage";
 import Link from "next/link";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 const BidsDetails = ({ id }: { id: string }) => {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -21,32 +22,22 @@ const BidsDetails = ({ id }: { id: string }) => {
 
   // console.log("Bid Details:", bidDetails);
 
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  useEffect(() => {
+    setBannerLinks(buildSourceBreadcrumbs(redirect, {
+      currentLabel: bidDetails ? bidDetails.name + "'s Proposal" : "Proposal Details",
+      fallbackBase: [{ label: "Home", href: "/" }],
+    }));
+  }, [redirect, bidDetails]);
+
   return (
     <div>
       {/* Banner */}
       <div>
         <PageBanner
-          title={`${bidDetails?.name? bidDetails.name + "'s Proposal" : "Proposal Details"}`}
+          title={`${bidDetails?.name ? bidDetails.name + "'s Proposal" : "Proposal Details"}`}
           bgImage="/findEditor.jpg"
-          links={[
-            {
-              label: redirect === "client-dashboard" ? "Dashboard" : "Home",
-              href: redirect === "client-dashboard" ? "/client" : "/"
-            },
-            {
-              label: redirect === "client-dashboard" ? "Job Proposals" : "Home",
-              href: redirect === "client-dashboard" ? "/client/job-proposal" : "/"
-            },
-            ...(proposalDetails ?
-              [{
-                label: proposalDetails ? proposalDetails.service : "Home",
-                href: proposalDetails ? `/client/job-proposal/${proposalDetails.id}` : "/"
-              }] : []
-            ),
-            {
-              label: bidDetails ? bidDetails.name + "'s Proposal" : "Proposal Details"
-            }
-          ]}
+          links={bannerLinks}
         />
       </div>
 
@@ -157,7 +148,7 @@ const BidsDetails = ({ id }: { id: string }) => {
             <div className="w-full lg:w-1/3 order-1 lg:order-2">
               <EditorPrise
                 id={id}
-                redirect="/client/bids-details/1&name=Sarah Johnson's Proposal"
+                redirect={redirect ? redirect + "_bidsdetails:" + id : "bidsdetails:" + id}
               />
             </div>
           </div>

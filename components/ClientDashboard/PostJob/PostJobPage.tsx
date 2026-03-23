@@ -109,6 +109,7 @@ export default function PostJobForm() {
   const [loading, setLoading] = useState(false);
   const [minPrice, setMinPrice] = useState(2);
   const [videoLength, setVideoLength] = useState(0);
+  const [videoNotRequired, setVideoNotRequired] = useState(false);
 
   // Handle file uploads
   const handleStyleReferenceChange = (
@@ -143,18 +144,24 @@ export default function PostJobForm() {
     }
     setTimeout(() => {
       setLoading(false);
-      router?.push(`/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob&assign=` + (assignEditor || ""));
+      router?.push(`/client/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob&assign=` + (assignEditor || ""));
     }, 500);
   };
 
   useEffect(() => {
     if (videoLength) {
       let length = selectedCategory === "shorts_reels_tiktoks" ? videoLength : videoLength * 60;
-      console.log("Calculated length in seconds:", videoLength);
       if (selectedCategory === "thumbnails") {
+        console.log("Since you selected 'Thumbnails' as the category, video duration is not required and the minimum price is set to $3.00.");
+        setMinPrice(3);
+        return;
+      } else if(selectedCategory === "captions_subtitles") {
         setMinPrice(2);
         return;
-      } else {
+      } else if(selectedCategory === "color_audio") {
+        setMinPrice(2);
+        return;
+      }else {
         if (length <= 39) {
           setMinPrice(2);
         } else if (length <= 59) {
@@ -191,6 +198,13 @@ export default function PostJobForm() {
       fallbackBase: [{ label: "Home", href: "/" }],
     }));
   }, [redirectUrl]);
+
+  useEffect(()=>{
+    ["thumbnails", "captions_subtitles", "color_audio"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
+    if(!videoNotRequired || !(selectedCategory && videoLength)) {
+      setValue("budget", "");
+    }
+  },[selectedCategory])
 
   return (
     <div>
@@ -255,6 +269,7 @@ export default function PostJobForm() {
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
                 if (e.target.value === "thumbnails") {
+                  console.log("Selected category:" , e.target.value);
                   setValue("videoDuration", '');
                 }
               }}
@@ -292,9 +307,9 @@ export default function PostJobForm() {
 
             <input
               type='text'
-              placeholder='$2.00'
-              disabled={(selectedCategory && videoLength) ? false : true}
-              className='w-full border rounded-lg p-3 mb-2 disabled:cursor-not-allowed'
+              placeholder={`$${minPrice.toFixed(2)}`}
+              disabled={videoNotRequired || (selectedCategory && videoLength) ? false : true}
+              className='w-full border rounded-lg p-3 mb-2 disabled:bg-gray-100 disabled:cursor-not-allowed'
               {...register("budget", {
                 required: "Budget is required",
 
@@ -318,7 +333,7 @@ export default function PostJobForm() {
               <p className='text-red-500 text-sm'>{errors.budget.message}</p>
             )}
 
-            {selectedCategory && videoLength ? (
+            {videoNotRequired || (selectedCategory && videoLength) ? (
               <p className='text-gray-600 text-sm mb-4'>
                 The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
               </p>
@@ -343,7 +358,7 @@ export default function PostJobForm() {
                 <br />• 2nd violation: Permanent ban + funds withheld
               </p>
               <Link
-                href='/platform-safety'
+                href={`/platform-safety?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`}
                 className='text-red-600 underline text-sm mt-2 inline-block'>
                 Read Full Off-Platform Policy
               </Link>
@@ -393,7 +408,7 @@ export default function PostJobForm() {
               type='text'
               placeholder='Video Duration (Estimate)'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed'
-              disabled={selectedCategory === "thumbnails"}
+              disabled={videoNotRequired}
               {...register("videoDuration", {
                 required: "Video duration is required",
 
