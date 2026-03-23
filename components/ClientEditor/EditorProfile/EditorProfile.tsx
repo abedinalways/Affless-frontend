@@ -157,10 +157,12 @@ export default function ProfilePage() {
 
       <AddEducationModal
         open={openEducation}
-        onClose={(edu: { school: string; subject: string; year: string }) => {
+        onClose={(edu?: { school: string; subject: string; year: string }) => {
           console.log("Education Added:", edu);
           setOpenEducation(false);
-          setEducationList((prev) => [...prev, edu]);
+          if(edu){
+            setEducationList((prev) => [...prev, edu]);
+          }
         }}
       />
 

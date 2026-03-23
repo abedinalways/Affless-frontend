@@ -48,7 +48,7 @@ const reviewData: Review[] = [
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "Create a modern minimalist logo design for tech startup",
     price: 150,
-    time: "2 month ago",
+    time: "2 months ago",
     country: "United Kingdom",
     flag: "/images/flags/uk.png",
   },
@@ -63,7 +63,7 @@ const reviewData: Review[] = [
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "Professional Video Editing for YouTube Channel - 10 min ep",
     price: 300,
-    time: "6 month ago",
+    time: "6 months ago",
     country: "United Kingdom",
     flag: "/images/flags/uk.png",
   },
@@ -71,7 +71,7 @@ const reviewData: Review[] = [
 
 export default function ReviewPage() {
   return (
-    <div className="max-w-4xl  mt-10 space-y-8">
+    <div className="mt-10 space-y-8">
       <h2 className="font-medium text-[#333] text-2xl">Reviews</h2>
       <div className="space-y-10">
         {reviewData.map((review) => (
@@ -138,7 +138,7 @@ function ReviewItem({ review }: { review: Review }) {
           </div>
 
           {/* Message */}
-          <p className="mt-3 text-[14px] leading-relaxed text-gray-600 max-w-[650px]">
+          <p className="mt-3 text-[14px] leading-relaxed text-gray-600">
             {review.text}
           </p>
         </div>
