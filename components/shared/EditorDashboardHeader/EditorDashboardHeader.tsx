@@ -253,7 +253,7 @@ export default function EditorDashboardHeader() {
                           My Jobs
                         </Link>
                         <Link
-                          href="/editor/hire-request"
+                          href="/editor/hire-request?redirect=dashboardeditor"
                           className={`block px-4 py-2 hover:bg-gray-100 capitalize ${isActive("/editor/hire-request") ? activeCls : inactiveCls
                             }`}
                           onClick={closeDesktopJobDropdown}

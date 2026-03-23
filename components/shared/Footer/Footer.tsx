@@ -103,7 +103,7 @@ export default function Footer() {
             <h3 className="text-lg font-poppins font-medium mb-4">Support</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href="/help-center?redirect=home">Help Center</Link></li>
-              <li><Link href="/contactUs?redirect=home">Contact Us</Link></li>
+              <li><Link href="/contactus?redirect=home">Contact Us</Link></li>
               {/* <li><Link href="/stats-page">Status Page</Link></li> */}
               <li><Link href="/dispute-resoulation?redirect=home">Dispute Resolution</Link></li>
               <li><Link href="/status-page?redirect=home">Status Page</Link></li>

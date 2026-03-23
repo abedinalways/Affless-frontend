@@ -11,7 +11,7 @@ export default function StatusPage() {
   const router = useRouter();
 
   const handleContactSupport = () => {
-    router.push("/contactUs");
+    router.push("/contactus");
   };
 
   return (

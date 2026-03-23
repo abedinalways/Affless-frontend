@@ -9,6 +9,8 @@ import React, { useEffect, useState } from "react";
 import ConfirmationPopup from "@/components/shared/ConfirmationPopup";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import { useParams, useSearchParams } from "next/navigation";
+import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
 interface UploadedFile {
   name: string;
@@ -16,34 +18,11 @@ interface UploadedFile {
   type: string;
 }
 
-export default function HireDetails({ params }: { params: { id: string } }) {
+export default function page({ params }: { params: { id: string } }) {
+  const { id } = useParams();
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const bids = [
-    {
-      id: "1",
-      name: "Sarah Johnson",
-      avatar: "/images/devon.png",
-      time: "2 hours ago",
-      description:
-        "I can do this job perfectly. I have 5+ years experience and I will deliver within 3 days with high quality output.",
-    },
-    {
-      id: "2",
-      name: "John Doe",
-      avatar: "/images/jerome.png",
-      time: "1 day ago",
-      description:
-        "I will handle your project professionally. You will get unlimited revisions and fast response.",
-    },
-    {
-      id: "3",
-      name: "John Doe",
-      avatar: "/images/jerome.png",
-      time: "1 day ago",
-      description:
-        "I will handle your project professionally. You will get unlimited revisions and fast response.",
-    },
-  ];
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "";
 
   const [files, setFiles] = useState<UploadedFile[]>([{
     name: "SampleDocument.pdf",
@@ -62,17 +41,21 @@ export default function HireDetails({ params }: { params: { id: string } }) {
     return `${(bytes / 1024).toFixed(1)} KB`;
   };
 
+  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  useEffect(() => {
+    setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+      currentLabel: "I will craft quality backlinks.",
+      fallbackBase: [{ label: "Home", href: "/" }],
+    }));
+  }, [redirectUrl]);
+
   return (
     <div className="">
       <div>
         <PageBanner
-
           title="I will craft quality backlinks."
           bgImage="/findEditor.jpg"
-          links={[
-            { label: "My Proposals", href: "/editor/hire-request" },
-            { label: "I will craft quality backlinks." }
-          ]}
+          links={[...bannerLinks]}
         />
       </div>
       <div className="containers py-10 flex flex-col lg:flex-row gap-10">
@@ -174,13 +157,13 @@ export default function HireDetails({ params }: { params: { id: string } }) {
 
             <div className="flex items-center gap-4">
               <Link href="/client-profile/1">
-              <Image
-                src="/images/headset.svg"
-                alt="Client profile image"
-                className="h-14 w-14 rounded-full object-cover"
-                width={500}
-                height={500}
-              />
+                <Image
+                  src="/images/headset.svg"
+                  alt="Client profile image"
+                  className="h-14 w-14 rounded-full object-cover"
+                  width={500}
+                  height={500}
+                />
               </Link>
               <div>
                 <Link href="/client-profile/1" className="font-semibold">Bessie Cooper</Link>
@@ -192,10 +175,10 @@ export default function HireDetails({ params }: { params: { id: string } }) {
               <p className="flex  justify-between"><strong>Total Jobs Posted:</strong> 45</p>
               <p className="flex  justify-between"><strong>Hire Rate (%):</strong> 92%</p>
               <p className="flex  justify-between"><strong>Average Response Time:</strong> 1 hour</p>
-              <p className="flex  justify-between"><strong>Member Since:</strong> Jan, 2023</p>
+              <p className="flex  justify-between"><strong>Member Since:</strong> January, 2023</p>
             </div>
 
-            <Link href="/editor/message?id=1&return=/editor/hire-request/5" className="inline-block text-center w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium cursor-pointer hover:bg-red-600 transition">
+            <Link href={`/editor/message?id=${id}&redirect=${ redirectUrl ? redirectUrl + "_" : ''}myjobproposalsdetails:${id}`} className="inline-block text-center w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium cursor-pointer hover:bg-red-600 transition">
               Message Client
             </Link>
           </div>
