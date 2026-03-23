@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import Link from "next/link";
+import UsaFlag from "@/components/Icons/UsaFlag";
 
 interface Review {
   id: number;
@@ -16,6 +17,8 @@ interface Review {
   jobTitle: string;
   price: number;
   time: string;
+  country: string;
+  flag: string;
 }
 
 const reviewData: Review[] = [
@@ -30,7 +33,9 @@ const reviewData: Review[] = [
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "I will do SEO backlinks with blogger outreach for high quality link building",
     price: 400,
-    time: "1 month ago"
+    time: "1 month ago",
+    country: "United Kingdom",
+    flag: "/images/flags/uk.png",
   },
   {
     id: 2,
@@ -43,7 +48,9 @@ const reviewData: Review[] = [
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "Create a modern minimalist logo design for tech startup",
     price: 150,
-    time: "2 month ago"
+    time: "2 month ago",
+    country: "United Kingdom",
+    flag: "/images/flags/uk.png",
   },
   {
     id: 3,
@@ -56,7 +63,9 @@ const reviewData: Review[] = [
     text: "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
     jobTitle: "Professional Video Editing for YouTube Channel - 10 min ep",
     price: 300,
-    time: "6 month ago"
+    time: "6 month ago",
+    country: "United Kingdom",
+    flag: "/images/flags/uk.png",
   },
 ];
 
@@ -77,62 +86,82 @@ export default function ReviewPage() {
 
 function ReviewItem({ review }: { review: Review }) {
   return (
-    <div className="flex items-start gap-4">
-      {/* Avatar */}
-      <Link href={`/editor-profile/${review?.id}`} className="w-16 h-16 overflow-hidden rounded-full shrink-0">
-        <Image
-          src={review.avatar}
-          alt={review.name}
-          width={70}
-          height={70}
-          className="rounded-full object-cover hover:scale-105 transition duration-300 w-full h-full"
-        />
-      </Link>
-
-      <div className="flex-1 space-y-1">
-        {/* Name + Rating Row */}
-        <div className="flex justify-between items-start">
-          <Link href={`/editor-profile/${review?.id}`} className="font-semibold text-lg capitalize">{review.name}</Link>
-
-          {/* <p className="text-gray-500 text-sm">{review.timeAgo}</p> */}
-        </div>
-
-        {/* Rating + count */}
-        <div className="flex items-center    gap-2">
-          <div className="flex py-2.5">
-            <FaStar className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-            <FaStar className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-            <FaStar className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-            <FaStar className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-            <FaStar className="w-5 h-5 text-gray-300 fill-gray-300" />
-          </div>
-          <div className="text-[#333]">
-            <span className="">{review.rating.toFixed(1)}</span>
-            <span className=" text-sm"> ({review.reviews} reviews)</span>
-          </div>
-          {/* Time */}
-          <span>{review.time}</span>
-        </div>
-
-        {/* Review text */}
-        <p className="text-gray-600 leading-relaxed">{review.text}</p>
-
-        {review.jobImage && (
-          <div className="mt-4 flex gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 items-center">
+    <div
+      key={review.id}
+      className="w-full rounded-xl border border-gray-200 bg-white px-6 py-5 flex flex-col justify-between gap-6"
+    >
+      {/* ✅ LEFT SIDE */}
+      <div className="flex gap-4 flex-1">
+        {/* Avatar */}
+        <div className="h-12 w-12 rounded-full overflow-hidden border border-gray-200 shrink-0">
+          <Link href={`/client-profile/${review?.id}`} className="">
             <Image
-              src={review.jobImage}
-              alt={`Job image for review by ${review.name}`}
-              width={80}
-              height={60}
-              className="w-24 h-16 rounded-md object-cover"
+              src={review.avatar}
+              alt={review.name}
+              width={48}
+              height={48}
+              className="h-full w-full object-cover hover:scale-110 transition duration-300"
             />
-            <div className="flex-1">
-              <h3 className="font-medium text-[#333] line-clamp-1">{review.jobTitle}</h3>
-              <p className="text-sm text-gray-500 mt-1">Fixed-price • ${review.price.toFixed(2)}</p>
+          </Link>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1">
+          {/* Name + Country */}
+          <div className="space-y-1">
+            <Link href={`/client-profile/${review?.id}`} className="text-[16px] font-semibold text-[#333] leading-none capitalize">
+              {review.name}
+            </Link>
+
+            <div className="flex items-center gap-2 text-[13px] text-gray-500">
+              <UsaFlag />
+              <span>{review.country}</span>
             </div>
           </div>
-        )}
+
+          {/* Rating + Time */}
+          <div className="mt-3 flex items-center gap-3 text-[13px] text-gray-500">
+            {/* 5 Stars */}
+            <div className="flex items-center gap-1 text-yellow-500">
+              {[...Array(Math.floor(review.rating))].map((_, i) => (
+                <FaStar key={i} className="text-[16px]" />
+              ))}
+              {[...Array(5 - Math.floor(review.rating))].map((_, i) => (
+                <FaStar key={i} className="text-[16px] text-gray-300" />
+              ))}
+            </div>
+            {/* Rating */}
+            <div className="text-[#333]">
+              <span className="font-medium text-[#222]">{review.rating.toFixed(1)}</span>
+              <span className=" text-sm"> ({review.reviews} reviews)</span>
+            </div>
+            {/* Time */}
+            <span>{review.time}</span>
+          </div>
+
+          {/* Message */}
+          <p className="mt-3 text-[14px] leading-relaxed text-gray-600 max-w-[650px]">
+            {review.text}
+          </p>
+        </div>
       </div>
+
+      {/* ✅ RIGHT SIDE Preview Image */}
+      {review.jobImage && (
+        <div className="mt-4 flex gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 items-center">
+          <Image
+            src={review.jobImage}
+            alt={`Job image for review by ${review.name}`}
+            width={80}
+            height={60}
+            className="w-24 h-16 rounded-md object-cover"
+          />
+          <div className="flex-1">
+            <h3 className="font-medium text-[#333] line-clamp-1">{review.jobTitle}</h3>
+            <p className="text-sm text-gray-500 mt-1">Fixed-price • ${review.price.toFixed(2)}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
