@@ -18,7 +18,7 @@ const data = [
     id: 2,
     icon: <DepositeIcon className='text-red-500' />,
     title: "Deposit Payment",
-    desc: "The deposit is securely held by the platform and is only released to the editor after the project is completed and approved.",
+    desc: "Securely deposit your payment into the system before the work begins. The deposit is securely held by the platform and is only released to the editor after the project is completed and approved.",
   },
   {
     id: 3,

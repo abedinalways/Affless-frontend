@@ -85,7 +85,8 @@ export default function ConfirmDepositPage() {
               <span>5 Days</span>
             </div>
           </div>
-          <div className='bg-white px-6 py-8 rounded-2xl'>
+          <div className='bg-white px-6 py-8 rounded-2xl space-y-6'>
+            <p>A secure deposit is required for your project. The deposit will be safely held in escrow, a secure third-party holding system that releases funds only after the job is completed.</p>
             <button
               type='button'
               disabled={loading}

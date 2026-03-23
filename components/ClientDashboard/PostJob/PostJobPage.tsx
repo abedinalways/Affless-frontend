@@ -410,7 +410,7 @@ export default function PostJobForm() {
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed'
               disabled={videoNotRequired}
               {...register("videoDuration", {
-                required: "Video duration is required",
+                required: videoNotRequired ? false : "Video duration is required",
 
                 onChange: (e) => {
                   // শুধু number allow

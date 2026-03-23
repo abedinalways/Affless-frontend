@@ -28,7 +28,7 @@ export default function Footer() {
                   <Image
                     src="/images/logoUpdate.png"
                     width={128}
-                    height={500}
+                    height={42}
                     alt="Logo"
                     className="object-cover w-32 h-[42px]"
                   />

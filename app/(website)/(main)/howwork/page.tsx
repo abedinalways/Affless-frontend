@@ -18,7 +18,6 @@ export default function HowWorkPage() {
 
             ]}
           />
-
         </div>
         <div>
           <HowWork />
