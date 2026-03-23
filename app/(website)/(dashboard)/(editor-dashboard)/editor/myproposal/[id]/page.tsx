@@ -14,6 +14,7 @@ import Link from "next/link";
 import { PROPOSAL_DEMO_DATA } from "@/components/ClientEditor/MyProposal/proposal-demo-data";
 import { useSearchParams } from "next/navigation";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import Image from "next/image";
 interface UploadedFile {
   name: string;
   size: number;
@@ -207,21 +208,31 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* PDF Upload */}
-                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" aria-disabled="true" tabIndex={-1} className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-not-allowed pointer-events-none">
-                  <PdfIcon className="w-10 h-10" />
+                <Link href="https://docs.google.com/document/d/1dMaecDuSwkP7_ppNmOGfjSun3W-4a1009OdFCozKdoc/edit?usp=sharing" target="_blank" aria-disabled="true" tabIndex={-1} className="flex items-center gap-4 py-4 px-6 border rounded-xl">
+                  <Image 
+                    src="/images/pdfIcon.png"
+                    alt="PDF Icon"
+                    width={40}
+                    height={40}
+                  />
                   <div>
-                    <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                      {pdfFile ? pdfFile.name : "PDF File"}
+                    <p className="font-semibold pb-1.5 text-[18px] text-[#333] capitalize">
+                      Instructions for the editor
                     </p>
                   </div>
                 </Link>
 
                 {/* TEXT Upload */}
-                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" aria-disabled="true" tabIndex={-1} className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-not-allowed pointer-events-none">
-                  <PdfIcon className="w-10 h-10" />
+                <Link href="https://docs.google.com/document/d/1j8vESQ6rYlclSjxmbhauxnN55SGqI6wjyu0OmWismE4/edit?usp=sharing" aria-disabled="true" target="_blank" tabIndex={-1} className="flex items-center gap-4 py-4 px-6 border rounded-xl">
+                  <Image 
+                    src="/images/wordIcon.jpg"
+                    alt="Word Icon"
+                    width={40}
+                    height={40}
+                  />
                   <div>
-                    <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                      {textFile ? textFile.name : "Upload Text Document"}
+                    <p className="font-semibold pb-1.5 text-[18px] text-[#333] capitalize">
+                      Script for the video
                     </p>
                   </div>
                 </Link>
