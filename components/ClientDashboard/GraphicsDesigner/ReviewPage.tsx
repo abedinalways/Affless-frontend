@@ -72,9 +72,7 @@ const reviewData: Review[] = [
 export default function ReviewPage() {
   return (
     <div className="max-w-4xl  mt-10 space-y-8">
-
-      <h2 className="text-xl lg:text-3xl font-bold font-roboto leading-150%">Reviews</h2>
-
+      <h2 className="font-medium text-[#333] text-2xl">Reviews</h2>
       <div className="space-y-10">
         {reviewData.map((review) => (
           <ReviewItem key={review.id} review={review} />
