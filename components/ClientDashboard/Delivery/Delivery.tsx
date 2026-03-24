@@ -8,6 +8,7 @@ import {
   Music,
   Image as ImageIcon,
   FileArchive,
+  ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -26,6 +27,8 @@ export default function DeliveryClient() {
   const [openRevision, setOpenRevision] = useState(false);
   const [job, setJob] = useState<JobRow | null>(null);
   const searchParams = useSearchParams();
+  const redirect = useSearchParams().get("redirect") || "";
+  console.log("Redirect param:", redirect);
   const id = searchParams.get("id");
   const router = useRouter();
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -66,14 +69,32 @@ export default function DeliveryClient() {
   return (
     <div className="">
       <div>
-        <PageBanner
-          title="Job Delivery"
-          bgImage="/findEditor.jpg"
-          links={[
-            { label: job?.service || "", href: `/client/manage-job/${job?.id}` },
-            { label: "Job Delivery" },
-          ]}
-        />
+        <div className="hidden lg:block">
+          <div
+            className="h-[394px] bg-cover bg-center flex items-center "
+            style={{ backgroundImage: `url('/findEditor.jpg')` }}
+          >
+            <div className="containers justify-center items-start ">
+              <h1 className="text-white text-[40px] md:text-[50px] lg:text-[56px] font-medium capitalize">Job Delivery</h1>
+              <div className="py-3">
+                <div className="flex items-center gap-2 text-white">
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/client/manage-job/${job?.id}?redirect=${redirect.split("_").slice(0, -1).join("_")}`}
+                      className="hover:underline text-sm font-medium text-white"
+                    >
+                      {job?.service}
+                    </Link>
+                    <ChevronRight className="h-4 w-4 text-white" />
+                    <span className="text-sm font-normal text-white opacity-80">
+                      Job Delivery
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="w-full bg-white rounded-2xl containers pt-10 lg:pt-20 space-y-10">
@@ -138,13 +159,13 @@ export default function DeliveryClient() {
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5 pb-10">
           <div>
             {/* <Link href="/client/review"> */}
-              <button
-                type="button"
-                className="w-full py-4 rounded-xl bg-[#FFEDED] border border-[#FF4B4B] text-[#FF4B4B] hover:bg-[#FF4D4F] hover:text-white font-semibold transition cursor-pointer"
-                onClick={() => setIsConfirmationOpen(true)}
-              >
-                Accept
-              </button>
+            <button
+              type="button"
+              className="w-full py-4 rounded-xl bg-[#FFEDED] border border-[#FF4B4B] text-[#FF4B4B] hover:bg-[#FF4D4F] hover:text-white font-semibold transition cursor-pointer"
+              onClick={() => setIsConfirmationOpen(true)}
+            >
+              Accept
+            </button>
             {/* </Link> */}
           </div>
           <button

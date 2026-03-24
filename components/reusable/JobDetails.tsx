@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TbAlertTriangleFilled } from "react-icons/tb";
+import { getJobStatusDefinition } from "@/lib/job-status";
 
 type TimeLeft = {
   days: number;
@@ -15,7 +16,7 @@ type TimeLeft = {
 type JobDetailsCardProps = {
   title: string;
   image: string;
-  status: string;
+  status: "in_progress" | "in_revision" | "delivered" | "completed" | "cancelled" | "late" | "pending";
   timeLeft: TimeLeft;
 
   orderBy: string;
@@ -28,22 +29,6 @@ type JobDetailsCardProps = {
   onDeliverNow?: () => void;
   onMessage?: () => void;
   onExtendDelivery?: () => void;
-};
-
-const statusStyleMap: Record<string, string> = {
-  pending: "bg-[#FFF7E6] text-[#FAAD14]",
-  in_progress: "bg-[#E6F4FF] text-[#1677FF]",
-  delivered: "bg-[#F6FFED] text-[#52C41A]",
-  completed: "bg-[#D9F7BE] text-[#237804]",
-  cancelled: "bg-[#FFF1F0] text-[#F5222D]",
-};
-
-const getStatusClasses = (status: string) => {
-  const key = status?.toLowerCase?.() ?? "";
-  return (
-    statusStyleMap[key] ||
-    "bg-gray-100 text-gray-600"
-  );
 };
 
 const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
@@ -87,9 +72,9 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
               <p className="text-sm text-gray-700">{title}</p>
 
               <span
-                className={`inline-block mt-2 rounded-md px-3 py-1 text-sm font-medium capitalize ${getStatusClasses(
+                className={`inline-block mt-2 rounded-md px-3 py-1 text-sm font-medium capitalize ${getJobStatusDefinition(
                   status
-                )}`}
+                ).colorClass}`}
               >
                 {status?.split("_").join(" ")}
               </span>

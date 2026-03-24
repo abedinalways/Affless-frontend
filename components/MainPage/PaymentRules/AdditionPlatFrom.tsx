@@ -83,12 +83,8 @@ export default function AdditionalPlatform() {
 
       {/* Required Note */}
       <div className="mt-8 rounded-2xl border border-red-200 bg-[#FFEDED] p-6">
-        <div className="grid items-center justify-center gap-3">
-          <div className="flex justify-center">
-            <AlertTriangle className="mt-0.5 h-5 w-5 text-red-500" />
-          </div>
-
-          <p className="text-sm font-medium text-[#111827] leading-7 text-center">Minimum pricing ensures fair compensation for editors. Clients may offer more than the minimum, but cannot go below it.</p>
+        <div className="flex justify-center">
+          <p className="text-sm font-medium text-[#111827] leading-7 text-center pl-1"><AlertTriangle className="mt-0.5 h-5 w-5 text-red-500 inline pb-0.5" /> Minimum pricing ensures fair compensation for editors. Clients may offer more than the minimum, but cannot go below it.</p>
 
           {/* <div className="flex-1">
             <h4 className="text-[18px] font-semibold text-red-500">

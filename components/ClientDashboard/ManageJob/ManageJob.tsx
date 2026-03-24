@@ -108,7 +108,6 @@ export default function ManageJobsPage() {
         const data = row.original;
         return (
           <div
-            onClick={() => goToDetail(data.id)}
             className="flex items-center gap-4 cursor-pointer  p-2 rounded-md"
           >
             <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
@@ -133,7 +132,6 @@ export default function ManageJobsPage() {
         const d = row.original;
         return (
           <div
-            onClick={() => goToDetail(d.id)}
             className="cursor-pointer p-2 rounded-md"
           >
             ${d.total}
@@ -150,12 +148,11 @@ export default function ManageJobsPage() {
         const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
         return (
           <>
-            {(d.status === "in_progress" || d.status === "late") && (
+            {(d.status === "in_progress" || d.status === "late" || d.status === "in_revision") && (
               <div
-                onClick={() => goToDetail(d.id)}
                 className="cursor-pointer  p-2 rounded-md text-center"
               >
-                {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "day left" : "day left"}
+                {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
               </div>
             )}
           </>
@@ -170,7 +167,6 @@ export default function ManageJobsPage() {
         const statusDefinition = getJobStatusDefinition(d.status);
         return (
           <div
-            onClick={() => goToDetail(d.id)}
             className="cursor-pointer  p-2 rounded-md grid items-center justify-center"
           >
             <span
@@ -277,6 +273,7 @@ export default function ManageJobsPage() {
               pageSize={PAGE_SIZE}
               total={pageData.length}
               onPageChange={setPage}
+              onRowClick={(data) => goToDetail(data.id)}
             />
           </div>
         </div>

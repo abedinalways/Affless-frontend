@@ -13,6 +13,8 @@ import ExtendDeliveryCard from "@/components/ClientDashboard/GraphicsDesigner/Ex
 import Link from "next/link";
 import Loading from "@/components/shared/Loading";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import { getJobStatusDefinition } from "@/lib/job-status";
+import { TbAlertTriangleFilled } from "react-icons/tb";
 
 type propType = {
   id: string;
@@ -92,6 +94,10 @@ export default function JobDetails({ id }: propType) {
 
         <div className="lg:w-1/3">
           <div className="p-6 bg-white shadow rounded-xl space-y-6 border">
+            <div className="border border-red-400 p-2 rounded-lg mb-4 bg-red-50 text-red-600 text-center">
+                    <TbAlertTriangleFilled className="text-yellow-400 inline text-xl" />
+                    <p className="inline"> You have already requested extensions that have pushed the original delivery date back by 10 days.</p>
+                  </div>
             <h2 className="text-xl font-semibold">Job Details</h2>
 
             <div className="flex gap-4 items-start">
@@ -107,10 +113,7 @@ export default function JobDetails({ id }: propType) {
                 <p>{job.service}</p>
 
                 <span
-                  className={`text-xs px-3 py-1 rounded-full mt-2 inline-block capitalize ${job.status === "in_revision"
-                    ? "bg-red-100 text-red-700"
-                    : "bg-blue-100 text-blue-700"
-                    }`}
+                  className={`text-xs px-3 rounded-full mt-2 inline-block capitalize leading-0 py-2.5 ${getJobStatusDefinition(job.status)?.colorClass}`}
                 >
                   {job.status?.split("_").join(" ")}
                 </span>
@@ -130,19 +133,14 @@ export default function JobDetails({ id }: propType) {
                   <div className="text-[13px] text-gray-500">Days</div>
                 </div>
 
-                <div className="flex-1 text-center py-2 border-l border-gray-200">
+                <div className="flex-1 text-center py-2">
                   <div className="text-[20px] font-semibold text-gray-700">{timeLeft.hours}</div>
                   <div className="text-[13px] text-gray-500">Hours</div>
                 </div>
 
-                <div className="flex-1 text-center py-2 border-l border-gray-200">
+                <div className="flex-1 text-center py-2 ">
                   <div className="text-[20px] font-semibold text-gray-700">{timeLeft.minutes}</div>
                   <div className="text-[13px] text-gray-500">Minutes</div>
-                </div>
-
-                <div className="flex-1 text-center py-2 border-l border-gray-200">
-                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.seconds}</div>
-                  <div className="text-[13px] text-gray-500">Seconds</div>
                 </div>
               </div>
 

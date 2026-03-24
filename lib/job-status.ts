@@ -1,37 +1,37 @@
 export const JOB_STATUS_DEFINITIONS = {
   "in_progress": {
     label: "In Progress",
-    colorClass: "bg-[#00648A] text-white",
+    colorClass: "bg-[#E3F2FF] text-[#1677FF]",
     description: "Work has started",
   },
   in_revision: {
     label: "In Revision",
-    colorClass: "bg-[#7C3AED] text-white",
+    colorClass: "bg-[#F3E8FF] text-[#7C3AED]",
     description: "Work is in revision",
   },
   delivered: {
     label: "Delivered",
-    colorClass: "bg-[#22C55E] text-white",
+    colorClass: "bg-[#DCFCE7] text-[#16A34A]",
     description: "Work submitted by editor",
   },
   completed: {
     label: "Completed",
-    colorClass: "bg-[#166534] text-white",
+    colorClass: "bg-green-300 text-green-900",
     description: "Client accepted delivery",
   },
   cancelled: {
     label: "Cancelled",
-    colorClass: "bg-[#FCA5A5] text-[#7F1D1D]",
+    colorClass: "bg-red-100 text-red-600",
     description: "Job cancelled by either party",
   },
   late: {
     label: "Late",
-    colorClass: "bg-[#991B1B] text-white",
+    colorClass: "bg-red-300 text-red-900",
     description: "Work is past the deadline",
   },
   pending:{
     label: "Pending",
-    colorClass: "bg-[#F59E0B] text-white",
+    colorClass: "bg-[#FFF7E8] text-[#FAAD14]",
     description: "Job is pending",
   }
 } as const;

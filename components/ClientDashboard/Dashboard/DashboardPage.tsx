@@ -220,7 +220,7 @@ export default function ClientDashboard() {
                 pageSize={pageSize}
                 total={total}
                 onPageChange={setPage}
-                onRowClick={()=>router.push('/client/manage-job/1')}
+                onRowClick={()=>router.push('/client/manage-job/1?redirect=dashboardclient_managejobs')}
               >
                 {/* <div className="rounded-xl bg-[#FFE1E1] px-6 py-4 flex items-center justify-between">
                   <p className="text-[18px] md:text-[22px] font-medium text-[#FF4D4F]">
