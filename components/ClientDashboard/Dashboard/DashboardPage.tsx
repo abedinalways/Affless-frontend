@@ -96,7 +96,7 @@ export default function ClientDashboard() {
       {
         accessorKey: "time",
         header: "Days Left",
-        cell: ({ row }) => <span className="text-[14px] text-[#4A4C56]">{row.original.time} Days Left</span>,
+        cell: ({ row }) => <span className="text-[14px] text-[#4A4C56]">{row.original.time} {Number(row.original.time) > 1 ? "Days" : "Day"} Left</span>,
       },
       {
         id: "action",

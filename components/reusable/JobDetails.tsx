@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { TbAlertTriangleFilled } from "react-icons/tb";
 
 type TimeLeft = {
   days: number;
@@ -63,7 +64,10 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
   const pathname = usePathname();
   return (
     <div className="w-full rounded-2xl bg-white p-6">
-      <p className="border border-red-400 p-2 rounded-lg mb-4 bg-red-50 text-red-600 text-center">You have already requested extensions that have pushed the original delivery date back by 10 days.</p>
+      <div className="border border-red-400 p-2 rounded-lg mb-4 bg-red-50 text-red-600 text-center">
+        <TbAlertTriangleFilled className="text-yellow-400 inline text-xl" />
+        <p className="inline"> You have already requested extensions that have pushed the original delivery date back by 10 days.</p>
+      </div>
       {/* HEADER */}
       <h2 className="text-xl font-semibold mb-4">Job Actions</h2>
 

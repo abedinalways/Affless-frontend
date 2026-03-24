@@ -68,7 +68,6 @@ export default function AddEducationModal({
           >
             Cancel
           </button>
-
           <button
             type="button"
             onClick={save}
