@@ -30,7 +30,7 @@ export default function AddMoney() {
 
   // Amount state
   const [amount, setAmount] = useState<number>(0);
-  const quickAmounts = useMemo(() => [50.00, 100.00, 200.00, 500.00], []);
+  const quickAmounts = useMemo(() => [10.00, 25.00, 50.00, 100.00, 150.00, 200.00, 350.00, 500.00], []);
 
   // Payment form states
   const [cardNumber, setCardNumber] = useState("");
@@ -183,11 +183,10 @@ function AddMoneyStep({
   onBack: () => void;
 }) {
   const [displayAmount, setDisplayAmount] = useState<string>("");
-
-  useEffect(() => {
-    setDisplayAmount(amount ? `$${amount.toFixed(2)}` : "");
-  }, [amount]);
-
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   return (
     <div className="space-y-6">
       <div>
@@ -208,7 +207,7 @@ function AddMoneyStep({
               setDisplayAmount(rawValue);
             }}
             onFocus={() => setDisplayAmount(amount ? amount.toString() : "")}
-            onBlur={() => setDisplayAmount(amount ? `$${amount.toFixed(2)}` : "")}
+            onBlur={() => setDisplayAmount(amount ? `$${usFormat.format(amount)}` : "")}
             className="w-full h-full text-[36px] font-semibold text-gray-900 outline-none"
           />
         </div>
@@ -224,7 +223,10 @@ function AddMoneyStep({
               <button
                 key={q}
                 type="button"
-                onClick={() => setAmount(q)}
+                onClick={() => {
+                  setAmount(q);
+                  setDisplayAmount(`$${usFormat.format(q)}`);
+                }}
                 className={`min-w-[88px] h-11 rounded-lg px-4 font-medium transition
                   ${active
                     ? "bg-[#1BB7C5] text-white cursor-not-allowed"
@@ -294,6 +296,10 @@ function PaymentMethodStep({
   onBack: () => void;
   onPay: () => void;
 }) {
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   return (
     <div className="space-y-6">
       <Field label="Card Number">
@@ -318,31 +324,17 @@ function PaymentMethodStep({
             onChange={(e) => {
               const inputType = (e.nativeEvent as InputEvent).inputType;
               const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 5);
-
-              if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
-                const deleteFormatted = digitsOnly.length > 2
-                  ? `${digitsOnly.slice(0, 2)} / ${digitsOnly.slice(2)}`
-                  : digitsOnly;
-                setExpiry(deleteFormatted);
-                return;
+              let formatted = digitsOnly;
+              if(digitsOnly.length === 1){
+                formatted = "0" + digitsOnly;
               }
-
-              const monthPart = digitsOnly.slice(0, 2);
-              if (monthPart.length === 2) {
-                const monthNum = Number.parseInt(monthPart, 10);
-                if (monthNum < 1 || monthNum > 12) {
-                  return;
-                }
+              if(digitsOnly.length > 4 && Number(digitsOnly[1]) < 2){
+                formatted = Number(digitsOnly).toString();
               }
-              let formatted = "";
-              if (digitsOnly.length === 3) {
-                formatted = `0${digitsOnly.slice(0, 1)} / ${digitsOnly.slice(1)}`;
-              } else if(digitsOnly.length === 5) {
-                formatted = `${digitsOnly.slice(1, 3)} / ${digitsOnly.slice(3)}`;
-              } else {
-                formatted = digitsOnly;
+              if(Number(formatted) === 0){
+                formatted = "";
               }
-              setExpiry(formatted);
+              setExpiry(formatted.replace(/(\d{2})(?=\d)/g, "$1 / ").slice(0,7))
             }}
             onBlur={() => {
               if (!expiry) return;
@@ -393,7 +385,7 @@ function PaymentMethodStep({
             : "bg-[#FF4B4B] text-white cursor-pointer hover:opacity-90"
           }`}
       >
-        Pay ${amount.toFixed(2) || 0}
+        Pay ${usFormat.format(amount) || 0}
       </button>
 
       <button
