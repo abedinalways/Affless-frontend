@@ -11,20 +11,11 @@ import { PROPOSAL_DEMO_DATA, ProposalRow } from "./proposal-demo-data";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import { getJobStatusDefinition } from "@/lib/job-status";
 
 const PAGE_SIZE = 8;
 
 const Proposal = PROPOSAL_DEMO_DATA;
-
-const statusBadgeClasses: Partial<Record<ProposalRow["status"], string>> = {
-  completed: "bg-[#E8FFDA] text-[#52C41A]",
-  in_progress: "bg-[#E3F2FF] text-[#1677FF]",
-  pending: "bg-[#FFF7E8] text-[#FAAD14]",
-  in_revision: "bg-[#F3E8FF] text-[#7C3AED]",
-  delivered: "bg-[#DCFCE7] text-[#16A34A]",
-  late: "bg-[#FEE2E2] text-[#DC2626]",
-  cancelled: "bg-[#F3F4F6] text-[#4B5563]",
-};
 
 export default function MyProposal() {
   const router = useRouter();
@@ -232,11 +223,11 @@ export default function MyProposal() {
                     const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
                     return (
                       <div className="text-center">
-                        {(row.original.status === "in_progress" || row.original.status === "late") && (
+                        {(row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision") && (
                           <div
                             className="cursor-pointer  p-2 rounded-md text-center"
                           >
-                            {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "day left" : "day left"}
+                            {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
                           </div>
                         )}
                       </div>
@@ -254,7 +245,7 @@ export default function MyProposal() {
                           className={`
                       inline-block w-40 px-4 py-1 rounded-md
                       text-[14px] font-medium text-center capitalize
-                      ${statusBadgeClasses[status] ?? "bg-[#F3F4F6] text-[#374151]"}
+                      ${getJobStatusDefinition(status).colorClass ?? "bg-[#F3F4F6] text-[#374151]"}
                     `}
                         >
                           {status.split("_").join(" ")}

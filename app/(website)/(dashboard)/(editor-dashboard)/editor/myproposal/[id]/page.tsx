@@ -245,7 +245,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
             <JobDetailsCard
               title="I will craft quality backlinks for your website's SEO."
               image="/images/vedio.png.jpg"
-              status={proposal?.status || ""}
+              status={proposal?.status || "pending"}
               timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
               orderBy="Bessie"
               deliveryDate="November 6, 2026"

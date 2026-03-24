@@ -14,6 +14,7 @@ export interface BreadLink {
 export default function BreadCrumb({ links }: { links: BreadLink[] }) {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || undefined;
+  console.log("Redirect URL in BreadCrumb:", redirectUrl);
   return (
     <div className="py-3">
       <div className="flex items-center gap-2 text-white">

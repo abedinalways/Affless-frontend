@@ -6,7 +6,7 @@ export interface ProposalRow {
   thumbnail: string;
   total: number;
   dueOn: Date;
-  status: JobStatus;
+  status: "in_progress" | "in_revision" | "delivered" | "completed" | "cancelled" | "late" | "pending";
   customer: string;
   deliveryDate: Date;
   price: number;

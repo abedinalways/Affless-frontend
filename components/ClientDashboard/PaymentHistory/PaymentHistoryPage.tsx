@@ -41,14 +41,14 @@ export default function PaymentHistoryPage() {
         </div>
 
         {/* Right Card */}
-        <div className="bg-white rounded-xl p-6 shadow-sm">
-          <div title="Money paid by the client but not yet released to the editor.">
+        <div className="bg-white rounded-xl shadow-sm">
+          <div className="p-6" title="Meaning: Money paid by the client but not yet released to the editor.">
             <p className="text-gray-600 text-lg mb-2 text-center  lg:text-start">Funds Held in Escrow</p>
-            <p className="text-[32px] font-semibold mb-4 text-center lg:text-start" title="Money paid by the client but not yet released to the editor">$0.00</p>
+            <p className="text-[32px] font-semibold text-center lg:text-start" title="Meaning: Money paid by the client but not yet released to the editor.">$0.00</p>
           </div>
-          <div title="Funds already released to the editor after job completion.">
+          <div className="px-6 pb-6" title="Meaning: Funds already released to the editor after job completion.">
             <p className="text-gray-600 text-[18px] mb-2 text-center pt-14 lg:pt-0 lg:text-start">Released Payments</p>
-            <p className="text-[32px] font-semibold text-center  lg:text-start" title="Funds already released to the editor after job completion">$0.00</p>
+            <p className="text-[32px] font-semibold text-center  lg:text-start" title="Meaning: Funds already released to the editor after job completion.">$0.00</p>
           </div>
         </div>
       </div>
