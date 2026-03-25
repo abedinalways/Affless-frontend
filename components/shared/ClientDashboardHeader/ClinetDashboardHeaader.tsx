@@ -457,7 +457,7 @@ export default function ClientDashboardHeader() {
                   <Link
                     className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/find-editor") || isActive("/hire-vedio-editor") || isActive("/confirm-deposit") ? activeCls : inactiveCls
                       }`}
-                    href="/find-editor?redirect=dashboardclient"
+                    href="/client/find-editor?redirect=dashboardclient"
                     onClick={() => setMobileMenu(false)}
                   >
                     Find Editors

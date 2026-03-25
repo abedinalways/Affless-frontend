@@ -26,6 +26,7 @@
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "jodit-react": "^5.2.38",
+    "lodash": "^4.17.23",
     "lucide-react": "^0.554.0",
     "next": "^16.0.10",
     "nookies": "^2.5.2",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/lodash": "^4.17.24",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -70,11 +70,7 @@ export default function SignInForm() {
   };
 
   const handleBack =()=>{
-    if(redirect){
-      router.push(redirect);
-    }else[
-      router.push('/')
-    ]
+    router.push("/")
   }
 
   return (

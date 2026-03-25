@@ -178,7 +178,7 @@ export default function page() {
                             {selectedConversationId && (
                                 <button
                                     type="button"
-                                    onClick={() => router.push(`/hire-vedio-editor?assign=${activeConversation?.profileId || selectedConversationId}&redirect=${`/client/message?id=${selectedConversationId}`}`)}
+                                    onClick={() => router.push(`/client/hire-vedio-editor?assign=${activeConversation?.profileId || selectedConversationId}&redirect=${redirectUrl ? redirectUrl + "_" : ""}messageclientid:${activeConversation?.profileId || selectedConversationId}`)}
                                     className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                                 >
                                     Post a Job for {activeConversation?.name || "User"}

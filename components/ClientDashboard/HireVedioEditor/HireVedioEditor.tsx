@@ -16,6 +16,7 @@ import PdfIcon from "@/components/Icons/PdfIcon";
 import { FaArrowLeft } from "react-icons/fa";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { getNavigationSource } from "@/lib/navigation-source";
+import _ from 'lodash';
 
 type FormValues = {
   jobTitle: string;
@@ -191,17 +192,14 @@ export default function HireVideoEditorForm() {
   const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
   useEffect(() => {
     setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
-      currentLabel: "Hire a Video Editor",
+      currentLabel: assignedEditorName ? `Hire ${assignedEditorName.split("_").map(name=>name[0].toUpperCase() + name.slice(1)).join(" ")}` : 'Hire a Video Editor',
       fallbackBase: [{ label: "Home", href: "/" }],
     }));
-    console.log("Redirect URL:", redirectUrl);
   }, [redirectUrl]);
 
   useEffect(() => {
     if (videoLength) {
       let length = selectedCategory === "shorts_reels_tiktoks" ? videoLength : videoLength * 60;
-      console.log("Calculated length in seconds:", videoLength);
-
       if (selectedCategory === "captions_subtitles") {
         setMinPrice(2);
         return;
