@@ -110,12 +110,77 @@ export default function MyProposal() {
   }, [activeTab, dateFilter, startDate, endDate]);
 
   const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
-    useEffect(() => {
-        setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
-          currentLabel: "My jobs",
-          fallbackBase: [{ label: "Home", href: "/" }],
-        }));
-    }, [redirectUrl]);
+  useEffect(() => {
+    setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
+      currentLabel: "My jobs",
+      fallbackBase: [{ label: "Home", href: "/" }],
+    }));
+  }, [redirectUrl]);
+
+  const columns =
+    [
+      {
+        accessorKey: "service",
+        header: "Job title",
+        cell: ({ row }: any) => (
+          <div className="grid grid-cols-[48px_1fr] items-center gap-4">
+            <Image
+              src={row.original.thumbnail}
+              width={500}
+              height={500}
+              className="h-12 w-16 rounded-md object-cover"
+              alt="thumb"
+            />
+            <span className="text-sm font-medium">{row.original.service}</span>
+          </div>
+        ),
+      },
+      {
+        accessorKey: "total", header: "Amount", cell: ({ row }: any) => {
+          return (
+            <div className="text-center">
+              ${Number(row.original.total).toFixed(2)}
+            </div>
+          )
+        }
+      },
+      {
+        accessorKey: "dueOn", header: "Days Left", cell: ({ row }: any) => {
+          const d = row.original;
+          return (
+            <div className="text-center">
+              {(row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision") && (
+                <div
+                  className="cursor-pointer  p-2 rounded-md text-center"
+                >
+                  {Math.abs(d.timeLeft.days)} {d.timeLeft.days > 1 ? "days left" : d.timeLeft.days < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+                </div>
+              )}
+            </div>
+          )
+        }
+      },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }: any) => {
+          const status = row.original.status as ProposalRow["status"];
+          return (
+            <div className="flex justify-center">
+              <span
+                className={`
+                      inline-block w-40 px-4 py-1 rounded-md
+                      text-[14px] font-medium text-center capitalize
+                      ${getJobStatusDefinition(status).colorClass ?? "bg-[#F3F4F6] text-[#374151]"}
+                    `}
+              >
+                {status.split("_").join(" ")}
+              </span>
+            </div>
+          );
+        },
+      },
+    ]
 
   return (
     <div>
@@ -191,70 +256,7 @@ export default function MyProposal() {
 
             {/* TABLE */}
             <DataTable
-              columns={[
-                {
-                  accessorKey: "service",
-                  header: "Job title",
-                  cell: ({ row }: any) => (
-                    <div className="grid grid-cols-[48px_1fr] items-center gap-4">
-                      <Image
-                        src={row.original.thumbnail}
-                        width={500}
-                        height={500}
-                        className="h-12 w-16 rounded-md object-cover"
-                        alt="thumb"
-                      />
-                      <span className="text-sm font-medium">{row.original.service}</span>
-                    </div>
-                  ),
-                },
-                {
-                  accessorKey: "total", header: "Amount", cell: ({ row }: any) => {
-                    return (
-                      <div className="text-center">
-                        ${Number(row.original.total).toFixed(2)}
-                      </div>
-                    )
-                  }
-                },
-                {
-                  accessorKey: "dueOn", header: "Days Left", cell: ({ row }: any) => {
-                    const d = row.original;
-                    const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-                    return (
-                      <div className="text-center">
-                        {(row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision") && (
-                          <div
-                            className="cursor-pointer  p-2 rounded-md text-center"
-                          >
-                            {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  }
-                },
-                {
-                  accessorKey: "status",
-                  header: "Status",
-                  cell: ({ row }: any) => {
-                    const status = row.original.status as ProposalRow["status"];
-                    return (
-                      <div className="flex justify-center">
-                        <span
-                          className={`
-                      inline-block w-40 px-4 py-1 rounded-md
-                      text-[14px] font-medium text-center capitalize
-                      ${getJobStatusDefinition(status).colorClass ?? "bg-[#F3F4F6] text-[#374151]"}
-                    `}
-                        >
-                          {status.split("_").join(" ")}
-                        </span>
-                      </div>
-                    );
-                  },
-                },
-              ]}
+              columns={columns}
               data={paginatedData}
               page={page}
               pageSize={PAGE_SIZE}
@@ -265,8 +267,6 @@ export default function MyProposal() {
                 if (!id) return;
                 router.push(`/editor/myproposal/${id}?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobs`);
               }}
-
-
             />
           </div>
         </div>

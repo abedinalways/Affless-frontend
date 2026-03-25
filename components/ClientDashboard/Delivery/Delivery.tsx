@@ -99,7 +99,7 @@ export default function DeliveryClient() {
 
       <div className="w-full bg-white rounded-2xl containers pt-10 lg:pt-20 space-y-10">
         {/* Files */}
-        <button type="button" onClick={() => router.back()} className="border px-4 py-1 rounded-md cursor-pointer bg-[#ff4b4b] text-white">Back</button>
+        <button type="button" onClick={() => router.push(`/client/manage-job/${job?.id}?redirect=${redirect.split("_").slice(0, -1).join("_")}`)} className="border px-4 py-1 rounded-md cursor-pointer bg-[#ff4b4b] text-white">Back</button>
         <div className="space-y-5">
           <h4 className="text-lg font-semibold text-gray-900">Delivered Files</h4>
           {/* Item 1 */}

@@ -63,21 +63,21 @@ export default function ReportUserModal({
 
     // Validation
     if (!selectedReason.trim()) {
-      setError("Please select a reason for reporting");
+      setError("Please select a reason for reporting.");
       return;
     }
 
     if (!description.trim()) {
-      setError("Please provide details about the report");
+      setError("Please provide details about the report.");
       return;
     }
 
     if (description.trim().length < 10) {
-      setError("Please provide at least 10 characters for the report details");
+      setError("Please provide at least 10 characters for the report details.");
       return;
     }
 
-    if(description.trim().length > 500) {
+    if (description.trim().length > 500) {
       setError("The description cannot exceed 500 characters.");
       return;
     }
@@ -117,16 +117,6 @@ export default function ReportUserModal({
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-md bg-white" showCloseButton={false}>
-        <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-gray-900">
-            Report User
-          </DialogTitle>
-          <DialogDescription className="text-gray-600">
-            Report <span className="font-medium">{userName}</span> for
-            inappropriate behavior or activity.
-          </DialogDescription>
-        </DialogHeader>
-
         {success ? (
           <div className="py-8 text-center">
             <div className="mb-4 flex justify-center">
@@ -156,6 +146,15 @@ export default function ReportUserModal({
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-semibold text-gray-900">
+                Report User
+              </DialogTitle>
+              <DialogDescription className="text-gray-600">
+                Report <span className="font-medium">{userName}</span> for
+                inappropriate behavior or activity.
+              </DialogDescription>
+            </DialogHeader>
             {/* Reason Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -168,15 +167,15 @@ export default function ReportUserModal({
                   setError("");
                 }}
               >
-                <SelectTrigger className="w-full max-w-[90vw] sm:max-w-[464px] overflow-hidden px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all">
+                <SelectTrigger className="w-full max-w-[90vw] sm:max-w-[464px] overflow-hidden px-3 py-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all text-xs sm:text-base">
                   <SelectValue placeholder="Select a reason..." className="truncate" />
                 </SelectTrigger>
                 <SelectContent className="max-w-[90vw] sm:max-w-[464px]">
                   {REPORT_REASONS.map((reason) => (
-                  <SelectItem className="max-w-[90vw] sm:max-w-[464px] h-auto py-2 flex-wrap" key={reason.value} value={reason.value}>
-                    <span className="whitespace-normal wrap-break-word leading-snug">{reason.label}</span>
-                  </SelectItem>
-                ))}
+                    <SelectItem className="max-w-[90vw] sm:max-w-[464px] h-auto py-2 flex-wrap" key={reason.value} value={reason.value}>
+                      <span className="whitespace-normal wrap-break-word leading-snug">{reason.label}</span>
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

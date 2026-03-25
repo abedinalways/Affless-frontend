@@ -246,7 +246,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
               title="I will craft quality backlinks for your website's SEO."
               image="/images/vedio.png.jpg"
               status={proposal?.status || "pending"}
-              timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
+              timeLeft={{ days: proposal?.timeLeft?.days || 0, hours: proposal?.timeLeft?.hours || 0, minutes: proposal?.timeLeft?.minutes || 0 }}
               orderBy="Bessie"
               deliveryDate="November 6, 2026"
               totalPrice={743}
