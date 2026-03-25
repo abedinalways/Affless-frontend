@@ -115,7 +115,7 @@ export default function ExtendDelivery() {
               title="I will craft quality backlinks for your website's SEO."
               image="/images/vedio.png.jpg"
               status="in_progress"
-              timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
+              timeLeft={{ days: 1, hours: 2, minutes: 3 }}
               orderBy="Bessie"
               deliveryDate="November 6, 2026"
               totalPrice={743}
