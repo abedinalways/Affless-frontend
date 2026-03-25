@@ -15,6 +15,11 @@ export interface ProposalRow {
   platform?: string;
   duration?: number;
   videoLength?: number;
+  timeLeft?: {
+    days: number;
+    hours: number;
+    minutes: number;
+  };
 }
 
 export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
@@ -29,6 +34,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     deliveryDate: new Date("2026-03-09"),
     price: 55,
     orderId: "ORD-1001",
+    timeLeft: { days: 1, hours: 2, minutes: 3 }
   },
   {
     id: "2",
@@ -41,6 +47,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     deliveryDate: new Date("2026-03-07"),
     price: 55,
     orderId: "ORD-1002",
+    timeLeft: { days: 0, hours: 0, minutes: 0 }
   },
   {
     id: "3",
@@ -53,6 +60,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     deliveryDate: new Date("2026-03-10"),
     price: 60,
     orderId: "ORD-1003",
+    timeLeft: { days: 2, hours: 5, minutes: 10 }
   },
   {
     id: "4",
@@ -65,6 +73,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     deliveryDate: new Date("2026-03-01"),
     price: 70,
     orderId: "ORD-1004",
+    timeLeft: { days: -2, hours: -3, minutes: -15 }
   },
   {
     id: "5",
@@ -77,6 +86,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     deliveryDate: new Date("2026-03-11"),
     price: 80,
     orderId: "ORD-1005",
+      timeLeft: { days: 4, hours: 12, minutes: 0 }
   },
   {
     id: "6",
@@ -89,6 +99,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     deliveryDate: new Date("2026-03-06"),
     price: 55,
     orderId: "ORD-1006",
+    timeLeft: { days: 0, hours: 0, minutes: 0 }
   },
   {
     id: "7",
@@ -101,6 +112,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     deliveryDate: new Date("2026-03-08"),
     price: 55,
     orderId: "ORD-1007",
+    timeLeft: { days: 0, hours: 0, minutes: 0 }
   },
   {
     id: "8",
@@ -113,5 +125,6 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     deliveryDate: new Date("2026-03-13"),
     price: 90,
     orderId: "ORD-1008",
+    timeLeft: { days: 0, hours: 0, minutes: 0 }
   },
 ];

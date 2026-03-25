@@ -10,7 +10,6 @@ type TimeLeft = {
   days: number;
   hours: number;
   minutes: number;
-  seconds: number;
 };
 
 type JobDetailsCardProps = {
@@ -85,18 +84,22 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
           <div>
             <p className="font-medium mb-3">Time Left to Complete the Job</p>
 
-            <div className="grid grid-cols-3 text-center gap-2 mb-6">
-              {[
-                { label: "Day", value: timeLeft.days },
-                { label: "Hours", value: timeLeft.hours },
-                { label: "Minutes", value: timeLeft.minutes },
-              ].map((item) => (
-                <div key={item.label}>
-                  <p className="text-lg font-semibold">{item.value}</p>
-                  <p className="text-xs text-gray-500">{item.label}</p>
+            <div className="flex items-stretch justify-between">
+                <div className="flex-1 text-center py-2">
+                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.days}</div>
+                  <div className="text-[13px] text-gray-500">Days</div>
                 </div>
-              ))}
-            </div>
+
+                <div className="flex-1 text-center py-2">
+                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.hours}</div>
+                  <div className="text-[13px] text-gray-500">Hours</div>
+                </div>
+
+                <div className="flex-1 text-center py-2 ">
+                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.minutes}</div>
+                  <div className="text-[13px] text-gray-500">Minutes</div>
+                </div>
+              </div>
 
             {/* ACTIONS */}
             {onDeliverNow && status !== "cancelled" && status !== "completed" && status !== "delivered" && (

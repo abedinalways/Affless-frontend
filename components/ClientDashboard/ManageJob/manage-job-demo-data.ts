@@ -15,6 +15,11 @@ export interface JobRow {
   platform?: string;
   duration?: number;
   videoLength?: number;
+  timeLeft: {
+    days: number;
+    hours: number;
+    minutes: number;
+  }
 }
 
 export const ALL_JOBS: JobRow[] = [
@@ -33,6 +38,11 @@ export const ALL_JOBS: JobRow[] = [
     platform: "YouTube",
     duration: 5,
     videoLength: 4,
+    timeLeft: {
+      days: 0,
+      hours: 0,
+      minutes: 0
+    }
   },
   {
     id: "2",
@@ -49,6 +59,11 @@ export const ALL_JOBS: JobRow[] = [
     platform: "TikTok",
     duration: 3,
     videoLength: 39,
+    timeLeft: {
+      days: 3,
+      hours: 5,
+      minutes: 34
+    }
   },
   {
     id: "3",
@@ -64,6 +79,11 @@ export const ALL_JOBS: JobRow[] = [
     category: "caption/subtitles",
     platform: "Instagram",
     duration: 4,
+    timeLeft: {
+      days: 10,
+      hours: 0,
+      minutes: 5
+    }
   },
   {
     id: "4",
@@ -80,6 +100,11 @@ export const ALL_JOBS: JobRow[] = [
     platform: "Facebook",
     duration: 5,
     videoLength: 2,
+    timeLeft: {
+      days: 21,
+      hours: 23,
+      minutes: 10
+    }
   },
   {
     id: "5",
@@ -95,6 +120,11 @@ export const ALL_JOBS: JobRow[] = [
     category: "thumbnails",
     platform: "X (Twitter)",
     duration: 5,
+    timeLeft: {
+      days: 5,
+      hours: 13,
+      minutes: 0
+    }
   },
   {
     id: "6",
@@ -110,6 +140,11 @@ export const ALL_JOBS: JobRow[] = [
     category: "ads/ugc",
     platform: "YouTube",
     duration: 2,
+    timeLeft: {
+      days: -2,
+      hours: 0,
+      minutes: 0
+    }
   },
   {
     id: "7",
@@ -126,6 +161,11 @@ export const ALL_JOBS: JobRow[] = [
     platform: "YouTube",
     duration: 6,
     videoLength: 20,
+    timeLeft: {
+      days: 0,
+      hours: 0,
+      minutes: 0
+    }
   },
   {
     id: "8",
@@ -141,6 +181,11 @@ export const ALL_JOBS: JobRow[] = [
     category: "thumbnails",
     platform: "YouTube",
     duration: 7,
+    timeLeft: {
+      days: 2,
+      hours: 19,
+      minutes: 25
+    }
   },
   {
     id: "9",
@@ -156,5 +201,10 @@ export const ALL_JOBS: JobRow[] = [
     category: "caption/subtitles",
     platform: "YouTube",
     duration: 4,
+    timeLeft: {
+      days: 16,
+      hours: 16,
+      minutes: 16
+    }
   },
 ];

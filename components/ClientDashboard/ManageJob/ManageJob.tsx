@@ -52,7 +52,6 @@ export default function ManageJobsPage() {
         setLoading(false);
       }, 1000)
       : undefined;
-
     let data = ALL_JOBS;
 
     if (activeTab !== "all") {
@@ -152,7 +151,7 @@ export default function ManageJobsPage() {
               <div
                 className="cursor-pointer  p-2 rounded-md text-center"
               >
-                {Math.abs(time)} {time > 1 ? "days left" : time < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+                {Math.abs(d.timeLeft.days)} {d.timeLeft.days > 1 ? "days left" : d.timeLeft.days < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
               </div>
             )}
           </>
