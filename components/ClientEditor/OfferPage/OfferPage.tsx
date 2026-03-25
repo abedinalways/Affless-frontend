@@ -107,7 +107,7 @@ export default function OfferPage() {
             title="I will craft quality backlinks for your website's SEO."
             image="/images/job.png"
             status="in_progress"
-            timeLeft={{ days: 1, hours: 2, minutes: 3, seconds: 4 }}
+            timeLeft={{ days: 1, hours: 2, minutes: 3 }}
             orderBy="Bessie"
             deliveryDate="NOV 6"
             totalPrice={743}
