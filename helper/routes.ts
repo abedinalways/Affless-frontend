@@ -184,6 +184,11 @@ export const routes: Record<string, RouteConfig> = {
         label: "Messages",
         href: "/client/message"
     },
+    messageclientid: {
+        label: "Messages",
+        href: "/client/message",
+        buildHref: (id: string) => `/client/manage-job?id=${id}`,
+    },
     jobproposal: {
         label: "Job Proposals",
         href: "/client/job-proposal"

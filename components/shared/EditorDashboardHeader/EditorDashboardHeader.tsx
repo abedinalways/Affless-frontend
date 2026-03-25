@@ -132,18 +132,6 @@ export default function EditorDashboardHeader() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Ensure that this logic runs only once
-  // useEffect(() => {
-  //   setLoading(true);
-  //   // Simulate an async operation like form submission
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //     localStorage.setItem("isLogin", "true");
-  //     router.push("/editor-dashboard");
-  //   }, 2000);
-  // }, []); // The empty dependency array ensures it runs only once after the first render
-
   const handleBecomeClientClick = () => {
     try {
       const token = JSON.parse(CookieHelper.get({ key: 'user' }))
@@ -328,7 +316,7 @@ export default function EditorDashboardHeader() {
                 </div>
               </div>
 
-              <Link href="/editor/message" className="relative group">
+              <Link href="/editor/message?redirect=dashboardeditor" className="relative group">
                 {/* Icon */}
                 <MdMailOutline
                   className={`w-7 h-7 cursor-pointer ${isActive("/editor/message") ? "text-[#FF4D4F]" : "text-[#333] hover:text-[#FF4D4F] transition-colors duration-300"
@@ -450,7 +438,7 @@ export default function EditorDashboardHeader() {
                   </li>
                   <li>
                     <Link
-                      href="/browse-job?redirect=dashboardeditor"
+                      href="/editor/browse-job?redirect=dashboardeditor"
                       className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/browse-job") ? activeCls : inactiveCls
                         }`}
                       onClick={() => setMobileMenu(false)}
@@ -502,16 +490,6 @@ export default function EditorDashboardHeader() {
                 Become a Client
               </button>
             </li>
-
-            {/* <li className="pt-4 border-t mt-4 flex justify-center">
-              <button
-                onClick={handleLogout}
-                className="text-white bg-[#ff4b4b] font-medium px-4 py-1 rounded-lg flex items-center gap-2 cursor-pointer"
-              >
-                <FiLogOut />
-                <span>Logout</span>
-              </button>
-            </li> */}
           </ul>
         </div>
       </div>

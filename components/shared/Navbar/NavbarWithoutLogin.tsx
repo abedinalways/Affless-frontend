@@ -6,9 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import DubbleUser from "@/components/Icons/dubbleuser";
-import { FaAngleDown } from "react-icons/fa";
 
-// shadcn (DESKTOP ONLY)
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,8 +19,6 @@ export default function NavbarWithoutLogin() {
   const pathname = usePathname();
 
   const [mobileMenu, setMobileMenu] = useState(false);
-
-  // ✅ mobile dropdown states
   const [mobileServiceOpen, setMobileServiceOpen] = useState(false);
   const [mobileContactOpen, setMobileContactOpen] = useState(false);
   const [desktopServiceOpen, setDesktopServiceOpen] = useState(false);
@@ -34,7 +30,7 @@ export default function NavbarWithoutLogin() {
     setMobileContactOpen(false);
   };
 
-  // ✅ active style
+
   const activeCls = "text-[#FF4D4F] font-semibold";
   const inactiveCls = "text-[#333] hover:text-[#FF4D4F] transition-colors";
 
@@ -50,9 +46,7 @@ export default function NavbarWithoutLogin() {
     <div className="containers bg-white">
       <nav>
         <div className="flex justify-between items-center py-4.5">
-          {/* ---------- LEFT SECTION ---------- */}
           <div className="flex items-center gap-10">
-            {/* Logo */}
             <Link href="/" className="cursor-pointer">
               <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
@@ -65,7 +59,6 @@ export default function NavbarWithoutLogin() {
               </div>
             </Link>
 
-            {/* ---------- DESKTOP MENU ---------- */}
             <ul className="hidden xl:flex items-center gap-10 font-poppins text-base">
               <li>
                 <Link
@@ -76,7 +69,6 @@ export default function NavbarWithoutLogin() {
                 </Link>
               </li>
 
-              {/* ✅ Service (Desktop) */}
               <DropdownMenu open={desktopServiceOpen} onOpenChange={setDesktopServiceOpen}>
                 <DropdownMenuTrigger
                   className={`cursor-pointer flex items-center gap-1 ${serviceActive ? activeCls : inactiveCls
@@ -92,7 +84,7 @@ export default function NavbarWithoutLogin() {
                 <DropdownMenuContent className="z-1000">
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/howwork"
+                      href="/howwork?redirect=home"
                       className={`${isActive("/howwork") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopServiceOpen(false)}
                     >
@@ -102,7 +94,7 @@ export default function NavbarWithoutLogin() {
 
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/find-editors"
+                      href="/find-editors?redirect=home"
                       className={`${isActive("/find-editors") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopServiceOpen(false)}
                     >
@@ -112,7 +104,7 @@ export default function NavbarWithoutLogin() {
 
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/jobs"
+                      href="/jobs?redirect=home"
                       className={`${isActive("/jobs") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopServiceOpen(false)}
                     >
@@ -122,7 +114,7 @@ export default function NavbarWithoutLogin() {
 
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/pricing"
+                      href="/pricing?redirect=home"
                       className={`${isActive("/pricing") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopServiceOpen(false)}
                     >
@@ -151,7 +143,7 @@ export default function NavbarWithoutLogin() {
                 <DropdownMenuContent className="z-1000">
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/success-story"
+                      href="/success-story?redirect=home"
                       className={`${isActive("/success-story") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopContactOpen(false)}
                     >
@@ -161,7 +153,7 @@ export default function NavbarWithoutLogin() {
 
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/help-center"
+                      href="/help-center?redirect=home"
                       className={`${isActive("/help-center") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopContactOpen(false)}
                     >
@@ -170,7 +162,7 @@ export default function NavbarWithoutLogin() {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/frequently-question"
+                      href="/frequently-question?redirect=home"
                       className={`${isActive("/frequently-question") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopContactOpen(false)}
                     >
@@ -179,7 +171,7 @@ export default function NavbarWithoutLogin() {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link
-                      href="/contactus"
+                      href="/contactus?redirect=home"
                       className={`${isActive("/contactus") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopContactOpen(false)}
                     >
@@ -193,7 +185,6 @@ export default function NavbarWithoutLogin() {
             </ul>
           </div>
 
-          {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
           <div className="flex gap-5">
             <Link href="/login" className="hidden xl:flex">
               <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer">
@@ -208,7 +199,6 @@ export default function NavbarWithoutLogin() {
             </Link>
           </div>
 
-          {/* ---------- HAMBURGER (MOBILE) ---------- */}
           <button
             className="xl:hidden text-3xl cursor-pointer"
             onClick={() => setMobileMenu(true)}
@@ -218,7 +208,6 @@ export default function NavbarWithoutLogin() {
         </div>
       </nav>
 
-      {/* ---------- OVERLAY ---------- */}
       {mobileMenu && (
         <div
           className="fixed inset-0 bg-black/50 z-40"
@@ -226,7 +215,6 @@ export default function NavbarWithoutLogin() {
         />
       )}
 
-      {/* ---------- MOBILE MENU ---------- */}
       <div
         className={`fixed top-0 left-0 w-fit h-full bg-white z-50 py-6 transform transition-transform duration-300 ${mobileMenu ? "translate-x-0" : "-translate-x-full"
           }`}
@@ -247,99 +235,62 @@ export default function NavbarWithoutLogin() {
           >
             Home
           </Link>
-
-          {/* ✅ Service (Mobile) */}
-          {/* <button
-            type="button"
-            className={`text-left cursor-pointer ${serviceActive ? activeCls : inactiveCls
-              }`}
-            onClick={() => setMobileServiceOpen((prev) => !prev)}
-          >
-            <div className="flex items-center justify-between w-full">
-              Service
-              <MdKeyboardArrowDown
-                className={`transition-transform duration-200 ${mobileServiceOpen ? "rotate-180" : "rotate-0"
-                  }`}
-              />
-            </div>
-          </button> */}
           <Link
-            href="/howwork"
+            href="/howwork?redirect=home"
             onClick={closeMobileMenu}
             className={`${isActive("/howwork") ? activeCls : inactiveCls} cursor-pointer`}
           >
             How It Works
           </Link>
           <Link
-            href="/find-editors"
+            href="/find-editors?redirect=home"
             onClick={closeMobileMenu}
             className={`${isActive("/find-editors") ? activeCls : inactiveCls} cursor-pointer`}
           >
             Find Editors
           </Link>
           <Link
-            href="/jobs"
+            href="/jobs?redirect=home"
             onClick={closeMobileMenu}
             className={`${isActive("/jobs") ? activeCls : inactiveCls} cursor-pointer`}
           >
             Browse Jobs
           </Link>
           <Link
-            href="/pricing"
+            href="/pricing?redirect=home"
             onClick={closeMobileMenu}
             className={`${isActive("/pricing") ? activeCls : inactiveCls} cursor-pointer`}
           >
             Pricing
           </Link>
-
-          {/* ✅ Contact (Mobile) */}
-          {/* <button
-            type="button"
-            className={`text-left cursor-pointer ${contactActive ? activeCls : inactiveCls
-              }`}
-            onClick={() => setMobileContactOpen((prev) => !prev)}
+          <Link
+            href="/success-story?redirect=home"
+            onClick={closeMobileMenu}
+            className={`${isActive("/success-story") ? activeCls : inactiveCls} cursor-pointer`}
           >
-            <div className="flex items-center justify-between w-full">
-              Contact
-              <MdKeyboardArrowDown
-                className={`transition-transform duration-200 ${mobileContactOpen ? "rotate-180" : "rotate-0"
-                  }`}
-              />
-            </div>
-          </button> */}
-
-          {/* {mobileContactOpen && (
-            <div className="flex flex-col pl-4 gap-2"> */}
-              <Link
-                href="/success-story"
-                onClick={closeMobileMenu}
-                className={`${isActive("/success-story") ? activeCls : inactiveCls} cursor-pointer`}
-              >
-                Success Stories
-              </Link>
-              <Link
-                href="/help-center"
-                onClick={closeMobileMenu}
-                className={`${isActive("/help-center") ? activeCls : inactiveCls} cursor-pointer`}
-              >
-                Help Center
-              </Link>
-              <Link
-                href="/frequently-question"
-                onClick={closeMobileMenu}
-                className={`${isActive("/frequently-question") ? activeCls : inactiveCls} cursor-pointer`}
-              >
-                FAQ
-              </Link>
-              <Link
-                href="/contactus"
-                onClick={closeMobileMenu}
-                className={`${isActive("/contactus") ? activeCls : inactiveCls} cursor-pointer`}
-              >
-                Contact
-              </Link>
-            {/* </div> */}
-          {/* )} */}
+            Success Stories
+          </Link>
+          <Link
+            href="/help-center?redirect=home"
+            onClick={closeMobileMenu}
+            className={`${isActive("/help-center") ? activeCls : inactiveCls} cursor-pointer`}
+          >
+            Help Center
+          </Link>
+          <Link
+            href="/frequently-question?redirect=home"
+            onClick={closeMobileMenu}
+            className={`${isActive("/frequently-question") ? activeCls : inactiveCls} cursor-pointer`}
+          >
+            FAQ
+          </Link>
+          <Link
+            href="/contactus?redirect=home"
+            onClick={closeMobileMenu}
+            className={`${isActive("/contactus") ? activeCls : inactiveCls} cursor-pointer`}
+          >
+            Contact
+          </Link>
 
           {/* Auth buttons */}
           <div className="flex gap-4 pt-4">

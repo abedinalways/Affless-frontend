@@ -26,7 +26,7 @@ export const editors = [
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
 
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed","5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
+    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
     description:
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
@@ -103,7 +103,7 @@ export const editors = [
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed" , "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
+    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
 
     description:
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
@@ -154,16 +154,20 @@ export default function EditorCard({
     <div className='w-full grid bg-white p-6 rounded-xl shadow-sm border '>
       {/* Header */}
       <div className='flex items-center gap-4'>
-        <Image
-          src={avatar}
-          alt={name}
-          width={70}
-          height={70}
-          className='rounded-full object-cover '
-        />
+        <Link
+          href='/editor-profile/1'
+        >
+          <Image
+            src={avatar}
+            alt={name}
+            width={70}
+            height={70}
+            className='rounded-full object-cover '
+          />
+        </Link>
         <div>
           <Link
-            href='/editor/editor-profile'
+            href='/editor-profile/1'
             className='text-[20px] md:text-[24px] font-medium leading-150% text-[#333]'>
             {name}
           </Link>
