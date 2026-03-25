@@ -66,7 +66,7 @@ type SidebarProps = {
 };
 
 export default function Sidebar({ selectedConversationId, onSelectConversation, hiddenConversationIds = [] }: SidebarProps) {
-    const conversations = mockConversations;
+    const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
     const [selectedId, setSelectedId] = useState<string>('');
     const [searchQuery, setSearchQuery] = useState('');
     const searchParams = useSearchParams();
@@ -84,6 +84,11 @@ export default function Sidebar({ selectedConversationId, onSelectConversation, 
         if (searchId) {
             setSelectedId(searchId);
             onSelectConversation?.(searchId);
+            setConversations((prevConversations) =>
+                prevConversations.map((conv) =>
+                    conv.id === searchId ? { ...conv, unread: false } : conv
+                )
+            );
         }
     }, [searchId]);
 
@@ -149,6 +154,11 @@ export default function Sidebar({ selectedConversationId, onSelectConversation, 
                             key={conversation.id}
                             onClick={() => {
                                 setSelectedId(conversation.id);
+                                setConversations((prevConversations) =>
+                                    prevConversations.map((conv) =>
+                                        conv.id === conversation.id ? { ...conv, unread: false } : conv
+                                    )
+                                );
                                 onSelectConversation && onSelectConversation(conversation.id);
                             }}
                             className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedConversationId || searchId || selectedId) === conversation.id

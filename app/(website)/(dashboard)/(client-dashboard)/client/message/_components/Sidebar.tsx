@@ -36,7 +36,7 @@ const mockConversations: Conversation[] = [
         avatar: 'SE',
         lastMessage: 'Delivered the final version',
         timestamp: '1 hour ago',
-        unread: false,
+        unread: true,
         status: 'offline',
     },
     {
@@ -54,7 +54,7 @@ const mockConversations: Conversation[] = [
         avatar: 'EV',
         lastMessage: 'Thank you for the quick turnaround',
         timestamp: 'Yesterday',
-        unread: false,
+        unread: true,
         status: 'offline',
     },
 ];
@@ -66,7 +66,7 @@ type SidebarProps = {
 };
 
 export default function Sidebar({ selectedConversationId, onSelectConversation, hiddenConversationIds = [] }: SidebarProps) {
-    const conversations = mockConversations;
+    const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
     const [selectedId, setSelectedId] = useState<string>('');
     const [searchQuery, setSearchQuery] = useState('');
     const searchParams = useSearchParams();
@@ -79,11 +79,17 @@ export default function Sidebar({ selectedConversationId, onSelectConversation, 
             setSelectedId(selectedConversationId);
         }
     }, [selectedConversationId]);
-
+    
     useEffect(() => {
         if (searchId) {
+            console.log('Searching for conversation with ID:', searchId);
             setSelectedId(searchId);
             onSelectConversation?.(searchId);
+            setConversations((prevConversations) =>
+                prevConversations.map((conv) =>
+                    conv.id === searchId ? { ...conv, unread: false } : conv
+                )
+            );
         }
     }, [searchId]);
 
@@ -149,6 +155,11 @@ export default function Sidebar({ selectedConversationId, onSelectConversation, 
                             key={conversation.id}
                             onClick={() => {
                                 setSelectedId(conversation.id);
+                                setConversations((prevConversations) =>
+                                    prevConversations.map((conv) =>
+                                        conv.id === conversation.id ? { ...conv, unread: false } : conv
+                                    )
+                                );
                                 onSelectConversation && onSelectConversation(conversation.id);
                             }}
                             className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedConversationId || searchId || selectedId) === conversation.id
