@@ -73,7 +73,10 @@ export default function MyProposal() {
       if (startDate && endDate) {
         data = data.filter(job => {
           const jobDate = job.deliveryDate;
-          return jobDate >= startDate && jobDate <= endDate;
+          if(jobDate) {
+            return jobDate >= startDate && jobDate <= endDate;
+          }
+          return false;
         });
       }
     } else {

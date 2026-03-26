@@ -56,6 +56,7 @@ const mockMessageThreads: Record<string, Message[]> = {
             content: 'Great! The video is about travel vlogging. I need color correction, sound mixing, and transitions.',
             createdAt: new Date().toISOString(),
             deliveredAt: new Date().toISOString(),
+            readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
         },
         {
             id: '5',
