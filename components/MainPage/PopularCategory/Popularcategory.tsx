@@ -15,14 +15,14 @@ const data = [
     id: 1,
     icon: <YoutubeIcon className='text-red-400' />,
     bg: "bg-[#FEE8E8] border border-[#FECACA]",
-    title: "Long-form YouTube",
-    desc: " Long-form YouTube videos, educational content, vlogs, and tutorials."
+    title: "Long-Form YouTube",
+    desc: " Long-Form YouTube videos, educational content, vlogs, and tutorials."
   },
   {
     id: 2,
     icon: <VideoIcon />,
     bg: "bg-[#FCEAF4] border border-[#FBCFE8]",
-    title: "Shorts/Reels/TikToks",
+    title: "Shorts / Reels / TikToks",
     desc: "Viral short-form content"
   },
   {
@@ -50,7 +50,7 @@ const data = [
     id: 6,
     icon: <LuCalendarDays className='text-[#EA580C]' />,
     bg: "bg-[#FFF0DD] border border-[#FED7AA]",
-    title: "Weddings/Events",
+    title: "Weddings / Events",
     desc: "Special occasions"
   },
   {
@@ -64,7 +64,7 @@ const data = [
     id: 8,
     icon: <BsBadgeCc className='text-[#4F46E5]' />,
     bg: "bg-[#E4EAFF] border border-[#C7D2FE]",
-    title: "Captions/Subtitles",
+    title: "Captions / Subtitles",
     desc: "Accessibility & engagement"
   }
 ];
@@ -88,16 +88,13 @@ export default function Popularcategory() {
           >
             <div className="text-2xl mb-4">{item.icon}</div>
 
-            <p className="text-[#333] font-[Poppins] text-[12px] lg:text-[24px] font-medium leading-[150%] pb-1.5 whitespace-normal">
+            <p className="text-[#333] font-[Poppins] text-[12px] lg:text-sm font-medium leading-[150%] pb-1.5 whitespace-break-spaces">
               {item.title}
             </p>
-
-
-            <p className="text-[#4A4C56] font-[Poppins] text-[14px] lg:text-[16px] font-normal leading-[150%] mt-2"
+            <p className="text-[#4A4C56] font-[Poppins] text-[14px] lg:text-xs font-normal leading-[150%] mt-2"
             >{item.desc}</p>
           </div>
         ))}
-
       </div>
     </div>
   );

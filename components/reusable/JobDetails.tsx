@@ -82,24 +82,33 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
 
           {/* TIME LEFT */}
           <div>
-            <p className="font-medium mb-3">Time Left to Complete the Job</p>
+            <p className="font-medium">{status === "late" ? "Time Status" : "Time Left to Complete the Job"}</p>
 
-            <div className="flex items-stretch justify-between">
-                <div className="flex-1 text-center py-2">
-                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.days}</div>
-                  <div className="text-[13px] text-gray-500">Days</div>
+            <div className="flex items-end justify-between gap-1">
+              {status === "late" ?
+                <div className="pb-2">
+                  <h1 className="text-center text-[20px] font-semibold text-red-500">Overdue by {Math.abs(timeLeft.days)} Days, {Math.abs(timeLeft.hours)} Hours </h1>
+                  <p className="text-center text-gray-500 text-sm font-normal">+{Math.abs(timeLeft.minutes)} Minutes</p>
                 </div>
+                :
+                <div className="flex items-stretch justify-between flex-1">
+                  <div className="flex-1 text-center py-2">
+                    <div className={`text-[20px] font-semibold text-gray-700`}>{Math.abs(timeLeft.days)}</div>
+                    <div className="text-[13px] text-gray-500">Days</div>
+                  </div>
 
-                <div className="flex-1 text-center py-2">
-                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.hours}</div>
-                  <div className="text-[13px] text-gray-500">Hours</div>
-                </div>
+                  <div className="flex-1 text-center py-2">
+                    <div className={`text-[20px] font-semibold text-gray-700`}>{Math.abs(timeLeft.hours)}</div>
+                    <div className="text-[13px] text-gray-500">Hours</div>
+                  </div>
 
-                <div className="flex-1 text-center py-2 ">
-                  <div className="text-[20px] font-semibold text-gray-700">{timeLeft.minutes}</div>
-                  <div className="text-[13px] text-gray-500">Minutes</div>
+                  <div className="flex-1 text-center py-2 ">
+                    <div className={`text-[20px] font-semibold text-gray-700`}>{Math.abs(timeLeft.minutes)}</div>
+                    <div className="text-[13px] text-gray-500">Minutes</div>
+                  </div>
                 </div>
-              </div>
+              }
+            </div>
 
             {/* ACTIONS */}
             {onDeliverNow && status !== "cancelled" && status !== "completed" && status !== "delivered" && (
@@ -140,14 +149,14 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             <span className="font-medium">{orderBy}</span>
           </div>
 
-          {(status !== "pending") && <div className="flex justify-between">
+          <div className="flex justify-between">
             <span className="text-gray-500">{status === "delivered" ? "Delivered" : status === "completed" ? "Completed" : status === "cancelled" ? "Cancelled" : "Delivery Date"}:</span>
-            {deliveryDate &&<span className="font-medium">{new Date(deliveryDate).toLocaleDateString('en-US',{
+            {deliveryDate ? <span className="font-medium">{new Date(deliveryDate).toLocaleDateString('en-US', {
               month: 'long',
               day: 'numeric',
               year: 'numeric'
-            })}</span>}
-          </div>}
+            })}</span> : <span className="font-medium capitalize">Not available</span>}
+          </div>
 
           <div className="flex justify-between">
             <span className="text-gray-500">Total Price:</span>

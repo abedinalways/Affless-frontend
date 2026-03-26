@@ -210,6 +210,10 @@ export const routes: Record<string, RouteConfig> = {
     addmoney: {
         label: "Add Money",
         href: "/client/add-money"
+    },
+    browseclientsjobs: {
+        label: "Direct Messages",
+        href: "/editor/message"
     }
 };
 
