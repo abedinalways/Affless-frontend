@@ -248,7 +248,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
               status={proposal?.status || "pending"}
               timeLeft={{ days: proposal?.timeLeft?.days || 0, hours: proposal?.timeLeft?.hours || 0, minutes: proposal?.timeLeft?.minutes || 0 }}
               orderBy="Bessie"
-              deliveryDate="November 6, 2026"
+              deliveryDate={proposal?.deliveryDate?.toString()}
               totalPrice={743}
               orderNumber="#123"
               onDeliverNow={() => router.push(`/editor/delivery?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}`)} // ✅ link

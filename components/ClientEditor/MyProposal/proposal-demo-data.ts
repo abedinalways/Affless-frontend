@@ -8,7 +8,7 @@ export interface ProposalRow {
   dueOn: Date;
   status: "in_progress" | "in_revision" | "delivered" | "completed" | "cancelled" | "late" | "pending";
   customer: string;
-  deliveryDate: Date;
+  deliveryDate?: Date;
   price: number;
   orderId: string;
   category?: string;
@@ -44,7 +44,6 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     dueOn: new Date("2026-03-07"),
     status: "pending",
     customer: "Emma Smith",
-    deliveryDate: new Date("2026-03-07"),
     price: 55,
     orderId: "ORD-1002",
     timeLeft: { days: 0, hours: 0, minutes: 0 }
@@ -96,7 +95,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     dueOn: new Date("2026-03-06"),
     status: "completed",
     customer: "Sophia Miller",
-    deliveryDate: new Date("2026-03-06"),
+    deliveryDate: new Date("2026-03-02"),
     price: 55,
     orderId: "ORD-1006",
     timeLeft: { days: 0, hours: 0, minutes: 0 }
@@ -108,8 +107,8 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     total: 55,
     dueOn: new Date("2026-03-08"),
     status: "cancelled",
+    deliveryDate: new Date("2026-03-09"),
     customer: "James Taylor",
-    deliveryDate: new Date("2026-03-08"),
     price: 55,
     orderId: "ORD-1007",
     timeLeft: { days: 0, hours: 0, minutes: 0 }
@@ -122,7 +121,6 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     dueOn: new Date("2026-03-13"),
     status: "pending",
     customer: "Ava Anderson",
-    deliveryDate: new Date("2026-03-13"),
     price: 90,
     orderId: "ORD-1008",
     timeLeft: { days: 0, hours: 0, minutes: 0 }

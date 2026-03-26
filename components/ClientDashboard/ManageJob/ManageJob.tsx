@@ -260,7 +260,7 @@ export default function ManageJobsPage() {
                 <option value="this_week" className="cursor-pointer">This week</option>
                 <option value="this_month" className="cursor-pointer">This month</option>
                 <option value="lifetime" className="cursor-pointer">Lifetime</option>
-                <option value="custom_date" className="cursor-pointer">Custome Date</option>
+                <option value="custom_date" className="cursor-pointer">Custom Date</option>
               </select>
             </div>
 

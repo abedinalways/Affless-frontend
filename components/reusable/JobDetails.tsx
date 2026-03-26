@@ -19,7 +19,7 @@ type JobDetailsCardProps = {
   timeLeft: TimeLeft;
 
   orderBy: string;
-  deliveryDate: string;
+  deliveryDate?: string;
   totalPrice: number;
   orderNumber: string;
   jobId?: string;
@@ -140,10 +140,14 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             <span className="font-medium">{orderBy}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-gray-500">Delivery Date:</span>
-            <span className="font-medium">{deliveryDate}</span>
-          </div>
+          {(status !== "pending") && <div className="flex justify-between">
+            <span className="text-gray-500">{status === "delivered" ? "Delivered" : status === "completed" ? "Completed" : status === "cancelled" ? "Cancelled" : "Delivery Date"}:</span>
+            {deliveryDate &&<span className="font-medium">{new Date(deliveryDate).toLocaleDateString('en-US',{
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            })}</span>}
+          </div>}
 
           <div className="flex justify-between">
             <span className="text-gray-500">Total Price:</span>
