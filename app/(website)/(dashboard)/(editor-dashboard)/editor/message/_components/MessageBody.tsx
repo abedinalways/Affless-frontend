@@ -78,6 +78,7 @@ const mockMessageThreads: Record<string, Message[]> = {
             content: 'Looks solid. Can you export a 1080p version as well?',
             createdAt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString(),
             deliveredAt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString(),
+            readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
         },
         {
             id: '3',
