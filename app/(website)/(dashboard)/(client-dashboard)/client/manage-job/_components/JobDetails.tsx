@@ -24,7 +24,7 @@ export default function JobDetails({ id }: propType) {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "";
   const [job, setJob] = useState<JobRow | null>(null);
-  
+
   useEffect(() => {
     // Scroll to top immediately
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -42,13 +42,13 @@ export default function JobDetails({ id }: propType) {
   }, [job]);
 
   const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
-    useEffect(() => {
-      if(!job) return;
-      setBannerLinks(buildSourceBreadcrumbs(redirect, {
-        currentLabel: job.service,
-        fallbackBase: [{ label: "Home", href: "/" }],
-      }));
-    }, [redirect,job]);
+  useEffect(() => {
+    if (!job) return;
+    setBannerLinks(buildSourceBreadcrumbs(redirect, {
+      currentLabel: job.service,
+      fallbackBase: [{ label: "Home", href: "/" }],
+    }));
+  }, [redirect, job]);
 
   if (!job) return <div className="containers py-20">
     <Loading />
@@ -72,10 +72,10 @@ export default function JobDetails({ id }: propType) {
 
         <div className="lg:w-1/3">
           <div className="p-6 bg-white shadow rounded-xl space-y-6 border">
-            <div className="border border-red-400 p-2 rounded-lg mb-4 bg-red-50 text-red-600 text-center">
-                    <TbAlertTriangleFilled className="text-yellow-400 inline text-xl" />
-                    <p className="inline"> You have already requested extensions that have pushed the original delivery date back by 10 days.</p>
-                  </div>
+            <div className="border border-yellow-400 p-2 rounded-lg mb-4 bg-yellow-50 text-yellow-600 text-center">
+              <TbAlertTriangleFilled className="text-yellow-400 inline text-xl" />
+              <p className="inline"> The editor requested an extension. The delivery date has been moved by 10 days.</p>
+            </div>
             <h2 className="text-xl font-semibold">Job Details</h2>
 
             <div className="flex gap-4 items-start">
@@ -101,26 +101,37 @@ export default function JobDetails({ id }: propType) {
             <hr />
             <div className="w-full max-w-[520px] bg-white">
               <h3 className="text-[18px] font-semibold text-black mb-4">
-                Time Left Until Your Job Is Completed
+                {job.status === "late" ? "Delivery Status" : "Time Left to Complete the Job"}
               </h3>
 
               {/* Time Row */}
-              <div className="flex items-stretch justify-between">
-                <div className="flex-1 text-center py-2">
-                  <div className="text-[20px] font-semibold text-gray-700">{job.timeLeft.days}</div>
-                  <div className="text-[13px] text-gray-500">Days</div>
+              {job.status === "late" ?
+                <div className="text-center text-[20px] font-semibold text-red-500">
+                  {job.timeLeft.days === 0 ?
+                    <p>{Math.abs(job.timeLeft.hours)} Hours Overdue</p>
+                    :
+                    <p>{Math.abs(job.timeLeft.days)} Days Overdue</p>
+                  }
+                  <p className="text-sm font-normal text-gray-500">Your editor is still working on this order. You’ll be notified as soon as it’s delivered.</p>
                 </div>
+                :
+                <div className="flex items-stretch justify-between">
+                  <div className="flex-1 text-center py-2">
+                    <div className="text-[20px] font-semibold text-gray-700">{job.timeLeft.days}</div>
+                    <div className="text-[13px] text-gray-500">Days</div>
+                  </div>
 
-                <div className="flex-1 text-center py-2">
-                  <div className="text-[20px] font-semibold text-gray-700">{job.timeLeft.hours}</div>
-                  <div className="text-[13px] text-gray-500">Hours</div>
-                </div>
+                  <div className="flex-1 text-center py-2">
+                    <div className="text-[20px] font-semibold text-gray-700">{job.timeLeft.hours}</div>
+                    <div className="text-[13px] text-gray-500">Hours</div>
+                  </div>
 
-                <div className="flex-1 text-center py-2 ">
-                  <div className="text-[20px] font-semibold text-gray-700">{job.timeLeft.minutes}</div>
-                  <div className="text-[13px] text-gray-500">Minutes</div>
+                  <div className="flex-1 text-center py-2 ">
+                    <div className="text-[20px] font-semibold text-gray-700">{job.timeLeft.minutes}</div>
+                    <div className="text-[13px] text-gray-500">Minutes</div>
+                  </div>
                 </div>
-              </div>
+              }
 
               {/* Buttons */}
               <div className="mt-6 space-y-4">

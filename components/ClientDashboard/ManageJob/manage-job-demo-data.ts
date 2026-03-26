@@ -137,9 +137,10 @@ export const ALL_JOBS: JobRow[] = [
     deliveryDate: new Date("2025-11-04T09:15:00"),
     price: 512,
     orderId: "#EM78373A5",
-    category: "ads/ugc",
+    category: "ads/UGC",
     platform: "YouTube",
     duration: 2,
+    videoLength: 1,
     timeLeft: {
       days: -2,
       hours: 0,

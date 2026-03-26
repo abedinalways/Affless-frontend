@@ -35,7 +35,7 @@ export default function DatePicker({ onChange, placeHolderText, initialDate, sta
             return false;
         }
 
-        if (!startDate || endDate) {
+        if(!startDate && !endDate && range.from === range.to) {
             setStartDate(range.from);
             setEndDate(undefined);
             return false;
@@ -88,6 +88,7 @@ export default function DatePicker({ onChange, placeHolderText, initialDate, sta
                                 : undefined
                         }
                         captionLayout="dropdown"
+                        disabled={{ after: new Date() }}
                         onSelect={(range) => {
                             const isRangeComplete = handleRangeSelect(range);
                             if (isRangeComplete) {

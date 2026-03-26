@@ -19,10 +19,11 @@ export default function BrowseJob() {
   const searchParams = useSearchParams();
   const [page, setPage] = useState(1);
   const source = getNavigationSource(searchParams);
+  const messageId = searchParams.get("id") || "";
   const client = searchParams.get("client") || "";
   const bannerTitle = client ? `All of ${client}'s Jobs` : "Browse Jobs";
   const bannerDescription = client
-    ? "Browse this client's jobs based on job type, budget, and project duration."
+    ? "Browse this client’s jobs based on job type, budget, and project duration."
     : "Find the best client jobs based on job type, budget, and project duration.";
 
   const bannerLinks = useMemo(() => {
