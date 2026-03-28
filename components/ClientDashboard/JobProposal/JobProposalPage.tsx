@@ -13,7 +13,7 @@ export interface ProposalRow {
   service: string;
   amount: number;
   time: string;
-  status: "in_progress"  | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
+  status: "in_progress" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
   thumbnail: string;
 }
 
@@ -50,7 +50,7 @@ const StatusBadge = {
     colorClass: "bg-[#991B1B] text-white",
     description: "Work is past the deadline",
   },
-  pending:{
+  pending: {
     label: "Pending",
     colorClass: "bg-[#F59E0B] text-white",
     description: "Job is pending",
@@ -178,19 +178,12 @@ export default function JobProposalPage() {
               header: "Status",
               cell: ({ row }: any) => {
                 const s = row.original.status as ProposalRow["status"];
-                const badge =
-                  s === "in_progress"
-                    ? "bg-yellow-500"
-                    : s === "completed"
-                      ? "bg-yellow-500"
-                      : s === "in_revision"
-                        ? "bg-orange-500"
-                        : "bg-red-500";
-
                 return (
-                  <span className={`px-4 py-1 rounded-md text-[14px] font-medium capitalize text-white ${StatusBadge[s].colorClass}`}>
-                    {StatusBadge[s].label}
-                  </span>
+                  <div className="flex items-center justify-center">
+                    <span className={`px-4 py-1 rounded-md text-[14px] font-medium text-white ${StatusBadge[s].colorClass}`}>
+                      {StatusBadge[s].label}
+                    </span>
+                  </div>
                 );
               },
             },

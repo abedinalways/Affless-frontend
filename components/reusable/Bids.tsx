@@ -27,7 +27,7 @@ export default function BidCard({
     <div className="space-y-6 mb-6">
       <div className="flex items-start justify-between bg-white p-4 rounded-xl shadow-sm border border-[#EFEFEF] ">
         {/* LEFT SIDE */}
-        <div className="flex gap-4 ">
+        <div className="grid grid-cols-[70px_1fr] gap-4 ">
           <Link href={`/editor-profile/1`} className="w-[70px] h-[70px] overflow-hidden">
             <Image
               src={avatar}

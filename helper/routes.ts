@@ -74,7 +74,7 @@ export const routes: Record<string, RouteConfig> = {
         href: "/editor/hire-request"
     },
     myjobproposalsdetails: {
-        label: "My Job Proposals Details",
+        label: "My Job Proposal Details",
         href: "/editor/hire-request/",
         buildHref: (id: string) => `/editor/hire-request/${id}`,
     },

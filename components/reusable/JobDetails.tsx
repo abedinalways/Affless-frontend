@@ -12,6 +12,33 @@ type TimeLeft = {
   minutes: number;
 };
 
+const statusTitles = {
+  "delivered": {
+    label: "Time Left for Client Review",
+    note: "The client can request revisions during this time."
+  },
+  "in_progress": {
+    label: "Time Left to Complete the Job",
+    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+  },
+  "completed": {
+    label: "The job is completed.",
+    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+  },
+  "cancelled": {
+    label: "The job is cancelled.",
+    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+  },
+  "late": {
+    label: "Delivery Status",
+    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+  },
+  "in_revision":{
+    label: "Time Left for Revision",
+    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+  }
+}
+
 type JobDetailsCardProps = {
   title: string;
   image: string;
@@ -82,7 +109,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
 
           {/* TIME LEFT */}
           <div>
-            <p className="font-medium">{status === "late" ? "Time Status" : "Time Left to Complete the Job"}</p>
+            {status !== "pending" &&<p className="font-medium">{statusTitles[status].label}</p>}
 
             <div className="flex items-end justify-between gap-1">
               {status === "late" ?
@@ -109,6 +136,12 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
                 </div>
               }
             </div>
+
+            {status !== "pending" && statusTitles[status]?.note && (
+              <p className="text-sm font-normal text-gray-500 text-center">
+                {statusTitles[status].note}
+              </p>
+            )}
 
             {/* ACTIONS */}
             {onDeliverNow && status !== "cancelled" && status !== "completed" && status !== "delivered" && (
