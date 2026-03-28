@@ -39,6 +39,7 @@ export default function JobDetails({ params }: PostPageProps) {
     deliveryTime: string;
     coverLetter: string;
   }>();
+  const [proposalDescription, setProposalDescription] = useState("");
 
   const [job, setJob] = useState<any>(null);
 
@@ -181,8 +182,29 @@ export default function JobDetails({ params }: PostPageProps) {
                       rows={6}
                       placeholder="Write Your Proposal Details"
                       className="w-full outline-none border rounded-lg p-5 text-sm resize-none"
-                      {...register("coverLetter", { required: true, minLength: 50 })}
+                      maxLength={2000}
+                      {...register("coverLetter", { required: true, minLength: 50,
+                        onChange: (e) => {
+                          let value = e.target.value;
+                          if (value.length > 2000) {
+                            value = value.slice(0, 2000);
+                          }
+                          setProposalDescription(value);
+                        }
+                      })}
+                      value={proposalDescription}
                     />
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className={proposalDescription.length >= 2000 ? "text-red-500 text-xs font-normal" : proposalDescription.length >= 1800 ? "text-gray-900 text-xs" : "text-gray-500 text-xs"}>
+                        {proposalDescription.length}/2000
+                      </span>
+                      {proposalDescription.length >= 1200 && proposalDescription.length < 2000 && (
+                        <span className={`${proposalDescription.length >= 1800 ? "text-gray-900 text-xs" : "text-gray-500 text-xs" }`}>Shorter proposals get more replies.</span>
+                      )}
+                      {proposalDescription.length === 2000 && (
+                        <span className="text-red-500 text-xs">Maximum character limit reached.</span>
+                      )}
+                    </div>
                     {errors.coverLetter && (
                       <p className="text-red-500 text-xs mt-1">
                         {errors.coverLetter.type === "minLength"

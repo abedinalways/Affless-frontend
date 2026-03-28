@@ -10,8 +10,11 @@ import { PiToolboxDuotone } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 import UsaFlag from "@/components/Icons/UsaFlag";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function PublicClientProfile() {
+    const router = useRouter();
+
     const editorsWorkedWith = [
         { id: 1, name: "Alex Turner", avatar: "/images/sarah.png" },
         { id: 2, name: "Jordan Smith", avatar: "/images/saramc.png" },
@@ -60,7 +63,9 @@ export default function PublicClientProfile() {
 
     return (
         <div className="bg-[#f6f6f6] min-h-screen p-6 containers">
-
+            <button type="button" onClick={() => router.back()} className="px-4 py-0.5 text-sm rounded-md bg-red-500 text-white cursor-pointer hover:bg-red-600 transition duration-300 mb-4">
+                Back
+            </button>
             {/* PROFILE HEADER */}
             <div className="bg-white rounded-xl px-5 py-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
 

@@ -21,56 +21,56 @@ export const Proposal: ProposalRow[] = [
   {
     id: 2,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "$55",
+    service: "I will create backlinks. I will make backlinks. I will make backlinks. I will make backlinks.",
+    amount: "55",
     time: "3 Days",
     status: "Pending",
   },
   {
     id: 3,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft backlinks.",
-    amount: "$60",
+    service: "I will craft backlinks. I will make backlinks. I will make backlinks. I will make backlinks.",
+    amount: "60",
     time: "5 Days",
     status: "Pending",
   },
   {
     id: 4,
     thumbnail: "/images/mnagejob1.jpg",
-    service: "I will create backlinks.",
-    amount: "$70",
+    service: "I will create backlinks.I will make backlinks. I will make backlinks. I will make backlinks.",
+    amount: "70",
     time: "7 Days",
     status: "Pending Client Decision",
   },
   {
     id: 5,
     thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft backlinks.",
-    amount: "$80",
+    service: "I will craft backlinks. I will make backlinks. I will make backlinks. I will make backlinks.",
+    amount: "80",
     time: "5 Days",
     status: "Pending Client Decision",
   },
   {
     id: 1,
     thumbnail: "/images/mnagejob3.jpg",
-    service: "I will craft quality backlinks.",
-    amount: "$55",
+    service: "I will make backlinks. I will make backlinks. I will make backlinks.",
+    amount: "55",
     time: "5 Days",
     status: "Pending Client Decision",
   },
-  {
-    id: 6,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "$55",
-    time: "3 Days",
-    status: "Cancellation",
-  },
+  // {
+  //   id: 6,
+  //   thumbnail: "/images/mnagejob2.jpg",
+  //   service: "I will create backlinks.",
+  //   amount: "55",
+  //   time: "3 Days",
+  //   status: "Cancellation",
+  // },
   {
     id: 7,
     thumbnail: "/images/mnagejob2.jpg",
     service: "I will create backlinks.",
-    amount: "$55",
+    amount: "55",
     time: "3 Days",
     status: "Pending",
   },
@@ -78,14 +78,14 @@ export const Proposal: ProposalRow[] = [
     id: 8,
     thumbnail: "/images/mnagejob2.jpg",
     service: "I will create backlinks.",
-    amount: "$90",
+    amount: "90",
     time: "7 Days",
     status: "Pending",
   },
 ];
 
 const statusBadgeClasses: Record<ProposalRow["status"], string> = {
-  "Pending Client Decision": "bg-yellow-200 text-orange-500",
+  "Pending Client Decision": "bg-[#FFF7E8] text-[#FAAD14]",
   Pending: "bg-[#FFF7E8] text-[#FAAD14]",
   Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
 };
@@ -136,7 +136,7 @@ export default function MyProposal() {
               accessorKey: "service",
               header: "Active Job Proposals Awaiting Client Acceptance",
               cell: ({ row }: any) => (
-                <div className="flex items-center justify-center gap-4 cursor-pointer">
+                <div className="flex items-center justify-center gap-4 cursor-pointer" title={row.original.service}>
                   {/* Thumbnail box */}
                   <div className="h-14 w-20 rounded-lg overflow-hidden bg-[#F8F8F8] border border-[#EDEDED] shadow-sm">
                     <img
@@ -147,7 +147,7 @@ export default function MyProposal() {
                   </div>
 
                   {/* Title */}
-                  <span className="text-[15px] font-normal text-[#1D1F2C] leading-5 max-w-[260px] line-clamp-2">
+                  <span className="text-[15px] font-normal text-[#1D1F2C] leading-5 max-w-[260px] line-clamp-2 truncate">
                     {row.original.service}
                   </span>
                 </div>
@@ -158,7 +158,7 @@ export default function MyProposal() {
               header: "Amount",
               cell: ({ row }: any) => (
                 <div className="flex justify-center">
-                  <span className="text-[#1D1F2C] text-center">{row.original.amount}</span>
+                  <span className="text-[#1D1F2C] text-center">${Number(row.original.amount).toFixed(2)}</span>
                 </div>
               ),
             },

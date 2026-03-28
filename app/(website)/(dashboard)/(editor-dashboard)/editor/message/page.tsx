@@ -126,7 +126,11 @@ export default function page() {
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <span>Member since</span>
-                                    <span>{activeConversation?.memberSince || "—"}</span>
+                                    {activeConversation?.memberSince && <span>{new Date(activeConversation?.memberSince).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    }) || "—"}</span>}
                                 </div>
                             </div>
                         </div>

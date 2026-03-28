@@ -309,27 +309,27 @@ export const conversationDirectory = [
     name: "John Designer",
     profileId: "john_designer",
     country: "United States",
-    memberSince: "Aug 2024",
+    memberSince: "08/02/2024", // 8th Feb 2024
   },
   {
     id: "2",
     name: "Sarah Editor",
     profileId: "sarah_editor",
     country: "United Kingdom",
-    memberSince: "Sep 2025",
+    memberSince: "09/10/2025", // 9th Oct 2025
   },
   {
     id: "3",
     name: "Mike Graphic",
     profileId: "mike_graphic",
     country: "Canada",
-    memberSince: "Jan 2025",
+    memberSince: "01/01/2025", // 1st Jan 2025
   },
   {
     id: "4",
     name: "Emma Video",
     profileId: "emma_video",
     country: "Australia",
-    memberSince: "Nov 2023",
+    memberSince: "11/15/2023", // 15th Nov 2023 (US format for clarity)
   },
 ];

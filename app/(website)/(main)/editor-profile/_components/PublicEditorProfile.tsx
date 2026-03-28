@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import ProfileHeaderCard, {ProfileState} from "@/components/ClientEditor/EditorProfile/ProfileHeader";
+import ProfileHeaderCard, { ProfileState } from "@/components/ClientEditor/EditorProfile/ProfileHeader";
 import SectionCard from "@/components/ClientEditor/EditorProfile/SectionCard";
 import AboutCard from "@/components/ClientEditor/EditorProfile/AboutCard";
 
@@ -17,8 +17,10 @@ import PortfolioSection from "@/components/ClientEditor/EditorProfile/PortfolioS
 import ReviewBreakdown from "@/components/reusable/reviews";
 import ReviewProfile from "@/components/ClientEditor/EditorProfile/ReviewProfile";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function PublicEditorProfile() {
+  const router = useRouter();
   const reviewData = [
     { stars: 5, count: 638 },
     { stars: 4, count: 243 },
@@ -61,7 +63,7 @@ export default function PublicEditorProfile() {
   ]);
 
   // ✅ Modal States
-//   const [openEditProfile, setOpenEditProfile] = useState(false);
+  //   const [openEditProfile, setOpenEditProfile] = useState(false);
   const [openEditAbout, setOpenEditAbout] = useState(false);
 
   const [openPortfolio, setOpenPortfolio] = useState(false);
@@ -71,11 +73,14 @@ export default function PublicEditorProfile() {
   return (
     <div className="min-h-screen containers  bg-[#F7F7F7]">
       <div className="py-10 space-y-6">
+        <button type="button" onClick={() => router.back()} className="px-4 py-0.5 text-sm rounded-md bg-red-500 text-white cursor-pointer hover:bg-red-600 transition duration-300 mb-4">
+          Back
+        </button>
         <ProfileHeaderCard
           profile={profile}
         />
 
-        <AboutCard about={about} title="About"/>
+        <AboutCard about={about} title="About" />
 
         {/* ✅ Clients Worked With */}
         <div className="bg-white rounded-xl shadow-sm p-6">

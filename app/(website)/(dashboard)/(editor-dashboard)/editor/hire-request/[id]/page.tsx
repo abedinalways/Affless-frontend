@@ -23,6 +23,7 @@ export default function page({ params }: { params: { id: string } }) {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || "";
+  const [proposalPrice, setProposalPrice] = useState(280);
 
   const [files, setFiles] = useState<UploadedFile[]>([{
     name: "SampleDocument.pdf",
@@ -70,7 +71,7 @@ export default function page({ params }: { params: { id: string } }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               <div className="border rounded-xl p-4 bg-white">
                 <p className="text-sm text-gray-500">My Pricing</p>
-                <p className="text-[22px] font-semibold text-[#333] mt-1">$350.00</p>
+                <p className="text-[22px] font-semibold text-[#333] mt-1">${proposalPrice.toFixed(2)}</p>
               </div>
               <div className="border rounded-xl p-4 bg-white">
                 <p className="text-sm text-gray-500">My Delivery Time</p>
@@ -102,24 +103,7 @@ export default function page({ params }: { params: { id: string } }) {
           </div> */}
 
           {/* ===== Attachments ===== */}
-          <div>
-            <h3 className="text-lg font-semibold mb-3">Attachments</h3>
 
-            {/* Upload Button */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* PDF Upload */}
-              {files.map((file, index) => (
-                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
-                  <PdfIcon className="w-10 h-10" />
-                  <div>
-                    <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                      {file ? file.name : "PDF File"}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
           {/* {bids.map((bid) => (
             <BidCard
               key={bid.id}
@@ -133,8 +117,44 @@ export default function page({ params }: { params: { id: string } }) {
         </div>
 
         {/* RIGHT SIDEBAR */}
-        <div className="lg:w-1/3 space-y-6">
+        <div className="lg:w-1/3 space-y-6 overflow-hidden">
 
+          <div className="w-full grid">
+            <h3 className="text-lg font-semibold mb-3">Attachments</h3>
+
+            {/* Upload Button */}
+            <div className="w-full grid grid-cols-1 gap-4">
+              {/* PDF Upload */}
+              <Link href="https://docs.google.com/document/d/1dMaecDuSwkP7_ppNmOGfjSun3W-4a1009OdFCozKdoc/edit?usp=sharing" target="_blank" aria-disabled="true" tabIndex={-1} className="w-full grid grid-cols-[40px_1fr] items-center gap-4 py-4 px-6 border rounded-xl">
+                <Image
+                  src="/images/pdfIcon.png"
+                  alt="PDF Icon"
+                  width={40}
+                  height={40}
+                />
+                <div>
+                  <p className="font-semibold pb-1.5 text-[18px] text-[#333] capitalize truncate" style={{maxWidth: 'calc(100% - 40px)'}} title="Instructions for the editor">
+                    Instructions for the editor
+                  </p>
+                </div>
+              </Link>
+
+              {/* TEXT Upload */}
+              <Link href="https://docs.google.com/document/d/1j8vESQ6rYlclSjxmbhauxnN55SGqI6wjyu0OmWismE4/edit?usp=sharing" aria-disabled="true" target="_blank" tabIndex={-1} className="w-full grid grid-cols-[40px_1fr] items-center gap-4 py-4 px-6 border rounded-xl">
+                <Image
+                  src="/images/wordIcon.jpg"
+                  alt="Word Icon"
+                  width={40}
+                  height={40}
+                />
+                <div>
+                  <p className="font-semibold pb-1.5 text-[18px] text-[#333] capitalize truncate" style={{maxWidth: 'calc(100% - 40px)'}} title="Script for the video">
+                    Script for the video
+                  </p>
+                </div>
+              </Link>
+            </div>
+          </div>
           {/* Budget Box */}
           <div className="border rounded-xl p-6 bg-white shadow-sm space-y-4">
             <h3 className="text-gray-500 font-medium">Client’s Chosen Job Payout</h3>
@@ -172,13 +192,13 @@ export default function page({ params }: { params: { id: string } }) {
             </div>
 
             <div className="mt-4 text-sm space-y-1">
-              <p className="flex  justify-between"><strong>Total Jobs Posted:</strong> 45</p>
-              <p className="flex  justify-between"><strong>Hire Rate (%):</strong> 92%</p>
-              <p className="flex  justify-between"><strong>Average Response Time:</strong> 1 hour</p>
-              <p className="flex  justify-between"><strong>Member Since:</strong> January, 2023</p>
+              <p className="flex  justify-between"><span className="text-base">Total Jobs Posted:</span> 45</p>
+              <p className="flex  justify-between"><span className="text-base">Hire Rate (%):</span> 92%</p>
+              <p className="flex  justify-between"><span className="text-base">Average Response Time:</span> 1 hour</p>
+              <p className="flex  justify-between"><span className="text-base">Member Since:</span> January, 2023</p>
             </div>
 
-            <Link href={`/editor/message?id=${id}&redirect=${ redirectUrl ? redirectUrl + "_" : ''}myjobproposalsdetails:${id}`} className="inline-block text-center w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium cursor-pointer hover:bg-red-600 transition">
+            <Link href={`/editor/message?id=${id}&redirect=${redirectUrl ? redirectUrl + "_" : ''}myjobproposalsdetails:${id}`} className="inline-block text-center w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium cursor-pointer hover:bg-red-600 transition">
               Message Client
             </Link>
           </div>
@@ -194,7 +214,8 @@ export default function page({ params }: { params: { id: string } }) {
         cancelClassName="px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer"
         onConfirm={() => {
           setShowConfirmation(false);
-          toast.success("You have accepted the job!")
+          toast.success("You have matched the client's chosen job payout.");
+          setProposalPrice(350);
         }}
         onCancel={() => setShowConfirmation(false)}
       />
