@@ -10,123 +10,8 @@ import ConfirmationPopup from '@/components/shared/ConfirmationPopup';
 import { MdBlock } from "react-icons/md";
 import { IoMdNotificationsOff } from "react-icons/io";
 import { IoIosEye } from "react-icons/io";
-
-interface Message {
-    id: string;
-    sender: 'user' | 'other';
-    content: string;
-    createdAt: string;
-    deliveredAt?: string;
-    readAt?: string;
-    attachments?: AttachmentItem[];
-}
-
-type AttachmentItem = {
-    id: string;
-    file?: File;
-    url: string;
-    type: 'file' | 'link';
-    name: string;
-};
-
-const mockConversations = [
-    { id: '1', name: 'John Designer', status: 'online', profileId: 'john_designer' },
-    { id: '2', name: 'Sarah Editor', status: 'offline', profileId: 'sarah_editor' },
-    { id: '3', name: 'Mike Graphic', status: 'online', profileId: 'mike_graphic' },
-    { id: '4', name: 'Emma Video', status: 'offline', profileId: 'emma_video' },
-];
-
-const mockMessageThreads: Record<string, Message[]> = {
-    '1': [
-        {
-            id: '1',
-            sender: 'other',
-            content: 'Hey! I saw your project post. Are you still looking for an editor?',
-            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        },
-        {
-            id: '2',
-            sender: 'user',
-            content: 'Yes! I need someone to edit a 30-minute video. Are you interested?',
-            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-            deliveredAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-            readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        },
-        {
-            id: '3',
-            sender: 'other',
-            content: 'Absolutely! I have experience with similar projects. Can you share more details?',
-            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        },
-        {
-            id: '4',
-            sender: 'user',
-            content: 'Great! The video is about travel vlogging. I need color correction, sound mixing, and transitions.',
-            createdAt: new Date().toISOString(),
-            deliveredAt: new Date().toISOString(),
-            readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        },
-        {
-            id: '5',
-            sender: 'other',
-            content: 'That looks great! Can you adjust the intro to match the new branding?',
-            createdAt: new Date().toISOString(),
-        },
-    ],
-    '2': [
-        {
-            id: '1',
-            sender: 'other',
-            content: 'Delivered the final version. Please review when you can.',
-            createdAt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString(),
-        },
-        {
-            id: '2',
-            sender: 'user',
-            content: 'Looks solid. Can you export a 1080p version as well?',
-            createdAt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString(),
-            deliveredAt: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString(),
-            readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        },
-        {
-            id: '3',
-            sender: 'other',
-            content: 'Sure, I will upload it tonight.',
-            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        },
-    ],
-    '3': [
-        {
-            id: '1',
-            sender: 'other',
-            content: 'When can you start on the graphics package?',
-            createdAt: new Date(new Date().setHours(new Date().getHours() - 6)).toISOString(),
-        },
-        {
-            id: '2',
-            sender: 'user',
-            content: 'I can start today. Do you have a brand guide?',
-            createdAt: new Date(new Date().setHours(new Date().getHours() - 5)).toISOString(),
-            deliveredAt: new Date(new Date().setHours(new Date().getHours() - 5)).toISOString(),
-        },
-    ],
-    '4': [
-        {
-            id: '1',
-            sender: 'other',
-            content: 'Thank you for the quick turnaround!',
-            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        },
-        {
-            id: '2',
-            sender: 'user',
-            content: 'Happy to help. Let me know if you need revisions.',
-            createdAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-            deliveredAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-            readAt: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString(),
-        },
-    ],
-};
+import { conversationDirectory, mockMessageThreads } from '@/public/demodata';
+import { Message, AttachmentItem } from '@/app/type';
 
 type MessageBodyProps = {
     selectedConversationId?: string;
@@ -157,11 +42,11 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
     const prevMessageCount = useRef(0);
     const [soundsEnabled] = useState(true);
     const searchId = searchParams.get('id') || '';
-    const availableConversations = mockConversations.filter((conv) => !conversationState[conv.id]?.deleted);
+    const availableConversations = conversationDirectory.filter((conv) => !conversationState[conv.id]?.deleted);
     const activeConversationId = selectedConversationId || searchId || '';
     const activeConversation = availableConversations.find((conv) => conv.id === activeConversationId);
     const activeConversationMeta = conversationState[activeConversationId] || {};
-    const otherUserId = activeConversation?.profileId || activeConversationId || '1';
+    const otherUserId = activeConversation?.id || activeConversationId || '1';
     const isConversationOpen = Boolean(activeConversationId);
     const messages = conversationMessages[activeConversationId] || [];
 
@@ -580,36 +465,6 @@ export default function MessageBody({ selectedConversationId, onSelectConversati
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
-                    {/* <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                        <svg
-                            className="w-5 h-5 text-gray-600"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                            />
-                        </svg>
-                    </button>
-                    <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                        <svg
-                            className="w-5 h-5 text-gray-600"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                            />
-                        </svg>
-                    </button> */}
                     <div className="relative" ref={menuRef}>
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}

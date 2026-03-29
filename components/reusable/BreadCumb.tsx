@@ -14,6 +14,7 @@ export interface BreadLink {
 export default function BreadCrumb({ links }: { links: BreadLink[] }) {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || undefined;
+  const queryString = searchParams.toString();
   console.log("Redirect URL in BreadCrumb:", redirectUrl);
   return (
     <div className="py-3">
@@ -21,7 +22,6 @@ export default function BreadCrumb({ links }: { links: BreadLink[] }) {
 
         {links.map((link, index) => {
           const isLast = index === links.length - 1;
-
           return (
             <div className="flex items-center gap-2" key={index}>
               {index > 0 && <ChevronRight className="h-4 w-4 text-white" />}
@@ -29,7 +29,7 @@ export default function BreadCrumb({ links }: { links: BreadLink[] }) {
               {/* If not last item → make it clickable */}
               {!isLast && link.href ? (
                 <Link
-                  href={link.href + `${redirectUrl ? `?redirect=${redirectUrl.split("_").slice(0, index ).join("_")}` : ''}`}
+                  href={link.href + `${redirectUrl ? `${link.href.split("?")?.length > 1 ? "&" : "?"}redirect=${redirectUrl.split("_").slice(0, index ).join("_")}` : ''}`}
                   className="hover:underline text-sm font-medium text-white"
                 >
                   {link.label}

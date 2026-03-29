@@ -129,7 +129,7 @@ export default function EditorPrise({ id, redirect }: proposal) {
         </div>
 
         {/* Contact */}
-        <Link href={`/client/message?id=2&redirect=${redirect}`} className="block">
+        <Link href={`/client/message/3?redirect=${redirect}`} className="block">
           <button className="mt-6 w-full py-3 rounded-xl bg-[#FF4D4F] text-white font-medium text-[16px] cursor-pointer hover:opacity-90 transition">
             Chat With Editor
           </button></Link>

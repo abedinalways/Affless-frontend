@@ -252,7 +252,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
               totalPrice={743}
               orderNumber="#123"
               onDeliverNow={() => router.push(`/editor/delivery?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}`)} // ✅ link
-              onMessage={() => router.push(`/editor/message?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}`)} // ✅ link
+              onMessage={() => router.push(`/editor/message/${id}?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}`)} // ✅ link
               onExtendDelivery={() => router.push(`/editor/extend-delivery?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobdetails:${id}&jobid=${proposal?.id || ""}`)} // ✅ link
               jobId={proposal?.id || ""}
             />

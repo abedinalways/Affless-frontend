@@ -9,133 +9,10 @@ import { X } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/shared/Loading";
+import {ClientQuickMatchResult} from "@/app/type";
+import { quickMatchResults } from "@/public/demodata";
 
-interface Client {
-  id: number;
-  name: string;
-  rating: number;
-  reviews: number;
-  hireRate?: number;
-  jobsPosted?: number;
-  editorsWorkedWith?: number;
-  match: number;
-  image: string;
-}
-
-const clients: Client[] = [
-  {
-    id: 1,
-    name: "Jerome Bell",
-    rating: 4.9,
-    reviews: 338,
-    hireRate: 96,
-    jobsPosted: 28,
-    editorsWorkedWith: 12,
-    match: 84,
-    image: "/images/Jerome.jpg",
-  },
-  {
-    id: 2,
-    name: "Courtney Henry",
-    rating: 4.9,
-    reviews: 338,
-    hireRate: 92,
-    jobsPosted: 19,
-    editorsWorkedWith: 9,
-    match: 75,
-    image: "/images/Courtney.jpg",
-  },
-  {
-    id: 3,
-    name: "Annette Black",
-    rating: 4.9,
-    reviews: 338,
-    hireRate: 78,
-    jobsPosted: 11,
-    editorsWorkedWith: 6,
-    match: 27,
-    image: "/images/Annette.jpg",
-  },
-  {
-    id: 4,
-    name: "Esther Howard",
-    rating: 4.9,
-    reviews: 338,
-    hireRate: 88,
-    jobsPosted: 22,
-    editorsWorkedWith: 10,
-    match: 75,
-    image: "/images/Esther.jpg",
-  },
-  {
-    id: 5,
-    name: "Floyd Miles",
-    rating: 4.9,
-    reviews: 338,
-    hireRate: 90,
-    jobsPosted: 16,
-    editorsWorkedWith: 8,
-    match: 75,
-    image: "/images/Floyd.jpg",
-  },
-  {
-    id: 6,
-    name: "Cameron Williamson",
-    rating: 4.8,
-    reviews: 214,
-    hireRate: 89,
-    jobsPosted: 24,
-    editorsWorkedWith: 11,
-    match: 82,
-    image: "/images/Jerome.jpg",
-  },
-  {
-    id: 7,
-    name: "Savannah Nguyen",
-    rating: 4.7,
-    reviews: 167,
-    hireRate: 84,
-    jobsPosted: 14,
-    editorsWorkedWith: 7,
-    match: 68,
-    image: "/images/Courtney.jpg",
-  },
-  {
-    id: 8,
-    name: "Kristin Watson",
-    rating: 4.9,
-    reviews: 291,
-    hireRate: 94,
-    jobsPosted: 31,
-    editorsWorkedWith: 13,
-    match: 88,
-    image: "/images/Esther.jpg",
-  },
-  {
-    id: 9,
-    name: "Wade Warren",
-    rating: 4.6,
-    reviews: 129,
-    hireRate: 80,
-    jobsPosted: 10,
-    editorsWorkedWith: 5,
-    match: 59,
-    image: "/images/Floyd.jpg",
-  },
-  {
-    id: 10,
-    name: "Leslie Alexander",
-    rating: 4.8,
-    reviews: 203,
-    hireRate: 91,
-    jobsPosted: 18,
-    editorsWorkedWith: 9,
-    match: 73,
-    image: "/images/Annette.jpg",
-  },
-];
-
-const getRandomTopClients = (list: Client[], limit = 5) => {
+const getRandomTopClients = (list: ClientQuickMatchResult[], limit = 5) => {
   const shuffled = [...list].sort(() => Math.random() - 0.5);
   const selectedClients = shuffled.slice(0, Math.min(limit, list.length));
   return selectedClients.sort((a, b) => b.match - a.match);
@@ -145,8 +22,8 @@ export default function QuickMatchResult() {
   const router = useRouter();
   const [showFilters, setShowFilters] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [visibleClients, setVisibleClients] = useState<Client[]>(() =>
-    clients.slice(0, 5)
+  const [visibleClients, setVisibleClients] = useState<ClientQuickMatchResult[]>(() =>
+    quickMatchResults.slice(0, 5)
   );
   // ✅ Prevent body scroll when drawer is open
   useEffect(() => {
@@ -156,7 +33,7 @@ export default function QuickMatchResult() {
   const handleReMatch = () => {
     setIsLoading(true);
     setTimeout(() => {
-      setVisibleClients(getRandomTopClients(clients, 5));
+      setVisibleClients(getRandomTopClients(quickMatchResults, 5));
       setIsLoading(false);
     }, 1000)
   }
@@ -282,7 +159,7 @@ export default function QuickMatchResult() {
                         </Link>
                       </div>
 
-                      <Link href={`/editor/message?id=3&redirect=quickmatcheditor`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-[12px] rounded-full ">
+                      <Link href={`/editor/message/${client?.id}?redirect=quickmatcheditor`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-[12px] rounded-full ">
                         Message
                       </Link>
                     </div>

@@ -198,7 +198,7 @@ export default function page({ params }: { params: { id: string } }) {
               <p className="flex  justify-between"><span className="text-base">Member Since:</span> January, 2023</p>
             </div>
 
-            <Link href={`/editor/message?id=${id}&redirect=${redirectUrl ? redirectUrl + "_" : ''}myjobproposalsdetails:${id}`} className="inline-block text-center w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium cursor-pointer hover:bg-red-600 transition">
+            <Link href={`/editor/message/${id}?redirect=${redirectUrl ? redirectUrl + "_" : ''}myjobproposalsdetails:${id}`} className="inline-block text-center w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium cursor-pointer hover:bg-red-600 transition">
               Message Client
             </Link>
           </div>

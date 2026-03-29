@@ -17,7 +17,7 @@ import { useSearchParams } from "next/navigation";
 
 export const editors = [
   {
-    id: 1,
+    id: "1",
     name: "Jane Cooper",
     country: "United States",
     avatar: "/images/jonekeper.png",
@@ -31,7 +31,7 @@ export const editors = [
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
   {
-    id: 2,
+    id: "2",
     name: "Robert Fox",
     country: "United States",
     avatar: "/images/robatfox.png",
@@ -45,7 +45,7 @@ export const editors = [
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
   {
-    id: 3,
+    id: "3",
     name: "Bessie Cooper",
     country: "Algeria",
     avatar: "/images/basse.png",
@@ -59,7 +59,7 @@ export const editors = [
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
   {
-    id: 4,
+    id: "4",
     name: "Jane Cooper",
     country: "United States",
     avatar: "/images/coper.png",
@@ -73,7 +73,7 @@ export const editors = [
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
   {
-    id: 5,
+    id: "5",
     name: "Robert Fox",
     country: "United States",
     avatar: "/images/shavanagh.png",
@@ -95,7 +95,7 @@ export const editors = [
       "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
   },
   {
-    id: 6,
+    id: "6",
     name: "Bessie Cooper",
     country: "Algeria",
     avatar: "/images/bel.png",
@@ -111,6 +111,7 @@ export const editors = [
 ];
 
 export type EditorCardProps = {
+  id: string;
   name: string;
   country: string;
   avatar: string | StaticImageData;
@@ -122,6 +123,7 @@ export type EditorCardProps = {
 };
 
 export default function EditorCard({
+  id,
   name,
   country,
   avatar,
@@ -222,7 +224,7 @@ export default function EditorCard({
             Hire Editor
           </div>
         </Link>
-        <Link href={`/client/message?id=${name}&redirect=${redirect ? redirect + "_" : ""}findeditors`} className='cursor-pointer w-full'>
+        <Link href={`/client/message/${id}?redirect=${redirect ? redirect + "_" : ""}findeditors`} className='cursor-pointer w-full'>
           <div className=' text-center bg-[#FFEDED] cursor-pointer w-full text-[#FF4D4F]  p-3 rounded-lg font-medium hover:bg-red-100 duration-300 '>
             Message
           </div>

@@ -21,7 +21,7 @@ const RootMainLayout = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <div>
+        <div className="w-full h-screen grid grid-rows-[auto_1fr]">
             <div className={`sticky top-0 w-full z-999 ${pathname === '/login' || pathname === '/singup' || pathname === '/forgetpassword' || pathname === '/otp' || pathname === '/resetPassword' ? 'hidden' : ''}`}>
                 {user === "client" ?
                     <ClientDashboardHeader />
@@ -31,7 +31,7 @@ const RootMainLayout = ({ children }: { children: React.ReactNode }) => {
                         <NavbarWithoutLogin />
                 }
             </div>
-            <div className="">
+            <div className="w-full h-full">
                 {children}
             </div>
         </div>

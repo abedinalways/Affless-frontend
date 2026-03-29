@@ -32,7 +32,7 @@ const inboxData: InboxItem[] = [
     time: "2 hours ago",
     avatar: "/images/jone1.png",
     online: true,
-    href: "/editor/message?id=1"
+    href: "/editor/message/1?redirect=dashboardeditor"
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ const inboxData: InboxItem[] = [
     time: "Yesterday",
     avatar: "/images/jone3.png",
     online: true,
-    href: "/editor/message?id=2"
+    href: "/editor/message/2?redirect=dashboardeditor"
   },
   {
     id: 3,
@@ -50,7 +50,7 @@ const inboxData: InboxItem[] = [
     time: "3 days ago",
     avatar: "/images/Jerome.jpg",
     online: true,
-    href: "/editor/message?id=3"
+    href: "/editor/message/3?redirect=dashboardeditor"
   },
   {
     id: 4,
@@ -59,7 +59,7 @@ const inboxData: InboxItem[] = [
     time: "1 week ago",
     avatar: "/images/jone2.png",
     online: false,
-    href: "/editor/message?id=4"
+    href: "/editor/message/4?redirect=dashboardeditor"
   },
   {
     id: 5,

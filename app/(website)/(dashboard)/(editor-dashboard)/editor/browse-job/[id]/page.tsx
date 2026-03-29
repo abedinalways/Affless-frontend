@@ -94,8 +94,6 @@ export default function JobDetails({ params }: PostPageProps) {
     }, 1000);
   };
 
-  console.log("Job Details:", bannerLinks);
-
   return (
     <div>
       <PageBanner
