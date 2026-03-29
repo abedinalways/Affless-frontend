@@ -11,6 +11,7 @@ import { useSearchParams } from "next/navigation";
 import { browseJobData as data } from "@/public/demodata";
 import { appendNavigationSource, getNavigationSource } from "@/lib/navigation-source";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import { conversationDirectory } from "@/public/demodata";
 
 
 const PAGE_SIZE = 4;
@@ -19,8 +20,8 @@ export default function BrowseJob() {
   const searchParams = useSearchParams();
   const [page, setPage] = useState(1);
   const source = getNavigationSource(searchParams);
-  const messageId = searchParams.get("id") || "";
-  const client = searchParams.get("client") || "";
+  const clientid = searchParams.get("clientid") || "";
+  const client = conversationDirectory.find(conv => conv.id === clientid)?.name || "";
   const bannerTitle = client ? `All of ${client}'s Jobs` : "Browse Jobs";
   const bannerDescription = client
     ? "Browse this client’s jobs based on job type, budget, and project duration."
@@ -28,7 +29,7 @@ export default function BrowseJob() {
 
   const bannerLinks = useMemo(() => {
     return buildSourceBreadcrumbs(source, {
-      currentLabel: "Browse Jobs",
+      currentLabel: bannerTitle,
       fallbackBase: [{ label: "Home", href: "/" }],
     });
   }, [source]);
@@ -65,6 +66,10 @@ export default function BrowseJob() {
       setPage(totalPages);
     }
   }, [page, totalPages]);
+
+  useEffect(()=>{
+    console.log("Source in BrowseJob:", bannerLinks);
+  },[bannerLinks])
 
   return (
     <div>
@@ -107,7 +112,7 @@ export default function BrowseJob() {
               {paginatedData.map((item) => (
                 <div key={item.id} className="bg-white p-4 lg:p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link href={`/editor/browse-job/${item.id}?redirect=${source ? source + "_" : ""}browsejobs`}>
+                    <Link href={`/editor/browse-job/${item.id}?redirect=${ source ? source + "_" : ""}browsejobs:${clientid}`} className="w-full">
                       <Image
                         src={item.img}
                         alt="editor"

@@ -1,5 +1,7 @@
+import { conversationDirectory } from "@/public/demodata";
+
 type RouteConfig = {
-    label: string;
+    label: string | ((...args: string[]) => string);
     href: string;
     buildHref?: (...parts: string[]) => string;
 };
@@ -30,8 +32,22 @@ export const routes: Record<string, RouteConfig> = {
         href: "/editor/editor-profile"
     },
     browsejobs: {
-        label: "Browse Jobs",
-        href: "/editor/browse-job"
+        label: (id?: string) => {
+            if (id) {
+                const conversation = conversationDirectory.find(conv => conv.id === id);
+                if (conversation) {
+                    return `All of ${conversation.name}'s Jobs`;
+                }
+            }
+            return "Browse Jobs";
+        },
+        href: "/editor/browse-job",
+        buildHref: (id: string) => {
+            if (id) {
+                return `/editor/browse-job?clientid=${id}`;
+            }
+            return `/editor/browse-job`
+        },
     },
     browsejobdetails: {
         label: "Job Details",
@@ -51,6 +67,11 @@ export const routes: Record<string, RouteConfig> = {
     editormessages: {
         label: "Messages",
         href: "/editor/message"
+    },
+    editormessagesid: {
+        label: "Direct Messages",
+        href: "/editor/message/",
+        buildHref: (id: string) => `/editor/message/${id}`,
     },
     editorjobs: {
         label: "My Jobs",
@@ -131,10 +152,6 @@ export const routes: Record<string, RouteConfig> = {
         label: "Hire a Editor",
         href: "/client/hire-vedio-editor"
     },
-    clientmessage: {
-        label: "Messages",
-        href: "/client/message"
-    },
     paymentprotection: {
         label: "Payment Protection",
         href: "/payment-protection"
@@ -185,9 +202,9 @@ export const routes: Record<string, RouteConfig> = {
         href: "/client/message"
     },
     messageclientid: {
-        label: "Messages",
+        label: "Direct Messages",
         href: "/client/message",
-        buildHref: (id: string) => `/client/message?id=${id}`,
+        buildHref: (id: string) => `/client/message/${id}`,
     },
     jobproposal: {
         label: "Job Proposals",
@@ -252,4 +269,13 @@ export const getRouteHref = (keyOrToken: string, ...parts: string[]) => {
     }
 
     return route.href;
+};
+
+export const getRouteLabel = (keyOrToken: string, ...args: string[]): string => {
+    const route = getRouteConfig(keyOrToken);
+    if (!route) return "";
+    if (typeof route.label === "function") {
+        return route.label(...args);
+    }
+    return route.label;
 };

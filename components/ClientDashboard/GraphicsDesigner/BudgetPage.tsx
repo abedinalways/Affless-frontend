@@ -89,7 +89,7 @@ export default function BudgetPage({ status = "Accept" }: Props) {
 
       {/* Chat Button */}
       <Link
-        href="/client/message"
+        href="/client/message/3"
         className="w-full block text-center bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition"
       >
         Chat with Editor

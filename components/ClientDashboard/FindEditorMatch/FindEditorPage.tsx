@@ -368,7 +368,7 @@ export default function FindEditorsPage() {
                         </Link>
                       </div>
 
-                      <Link href={`/client/message?id=${editor.id}&redirect=${redirectUrl ? `${redirectUrl}_` : ""}quickmatchclient`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
+                      <Link href={`/client/message/${editor.id}?redirect=${redirectUrl ? `${redirectUrl}_` : ""}quickmatchclient`} className="px-4 py-2 bg-[#F2F3F3] text-gray-700 text-xs rounded-full ">
                         Message
                       </Link>
                     </div>

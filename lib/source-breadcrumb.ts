@@ -1,4 +1,4 @@
-import { getRouteConfig, getRouteHref } from "@/helper/routes";
+import { getRouteConfig, getRouteHref, getRouteLabel } from "@/helper/routes";
 
 export type SourceBreadcrumbLink = {
   label: string;
@@ -18,7 +18,6 @@ export const buildSourceBreadcrumbs = (
     currentLabel,
     fallbackBase = [{ label: "Home", href: "/" }],
   } = options;
-
   const parsedBase = (source?.split("_") || []).reduce<SourceBreadcrumbLink[]>(
     (acc, token) => {
       const [rawKey, ...parts] = token.split(":").filter(Boolean);
@@ -26,23 +25,24 @@ export const buildSourceBreadcrumbs = (
       if (!rawKey) {
         return acc;
       }
-
+      
       const route = getRouteConfig(rawKey);
-
+      
       if (!route) {
         return acc;
       }
-
+      
       acc.push({
-        label: route.label,
+        label: getRouteLabel(rawKey, ...parts),
         href: getRouteHref(rawKey, ...parts),
       });
-
+      
       return acc;
     },
     []
   );
-
+  
+  console.log(" Source : ", parsedBase);
   const base = parsedBase.length > 0 ? parsedBase : fallbackBase;
 
   if (!currentLabel) {

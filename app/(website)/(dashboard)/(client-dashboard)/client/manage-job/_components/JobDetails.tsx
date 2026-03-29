@@ -146,7 +146,7 @@ export default function JobDetails({ id }: propType) {
                 </div>
 
                 <div className="w-full">
-                  <Link href={`/client/message?redirect=${redirect ? redirect + "_" : ""}managejobdetails:${id}`}
+                  <Link href={`/client/message/3?redirect=${redirect ? redirect + "_" : ""}managejobdetails:${id}`}
                     className="w-full block text-center py-4 rounded-full bg-[#EAF7E5]  text-[#3BB54A] hover:bg-[#FFEDED] hover:text-[#FF4D4F]  font-semibold hover:opacity-90 transition cursor-pointer"
                     type="button"
                   >

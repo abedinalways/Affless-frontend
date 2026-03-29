@@ -125,7 +125,7 @@ export default function FindEditorPage() {
                       </Link>
 
                       <Link
-                        href={`/client/message?id=${editor.id}&return=find-editor`}
+                        href={`/client/message/${editor.id}?return=find-editor`}
                         className="px-4 py-2 bg-red-100 text-red-500 rounded-full text-sm"
                       >
                         Message

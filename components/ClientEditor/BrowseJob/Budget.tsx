@@ -87,7 +87,7 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
         </div>
 
         {/* Chat Button */}
-        <Link href={`/editor/message?id=1&redirect=${returnLink}`} className="w-full block text-center bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition">
+        <Link href={`/editor/message/3?redirect=${returnLink}`} className="w-full block text-center bg-red-500 text-white py-4 rounded-full text-lg font-semibold hover:bg-red-600 transition">
           {btnText}
         </Link>
       </div>

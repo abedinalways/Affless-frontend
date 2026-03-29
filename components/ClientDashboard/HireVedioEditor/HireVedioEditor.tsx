@@ -17,6 +17,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { getNavigationSource } from "@/lib/navigation-source";
 import _ from 'lodash';
+import { conversationDirectory } from "@/public/demodata";
 
 type FormValues = {
   jobTitle: string;
@@ -49,7 +50,8 @@ export default function HireVideoEditorForm() {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || "/";
   const source = getNavigationSource(searchParams);
-  const assignedEditorName = searchParams.get("assign") || "";
+  const assignedEditorId = searchParams.get("assign") || "";
+  const assignedEditor = conversationDirectory.find((editor) => editor.id === assignedEditorId);
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
     "single"
   );
@@ -192,7 +194,7 @@ export default function HireVideoEditorForm() {
   const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
   useEffect(() => {
     setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
-      currentLabel: assignedEditorName ? `Hire ${assignedEditorName.split("_").map(name=>name[0].toUpperCase() + name.slice(1)).join(" ")}` : 'Hire a Video Editor',
+      currentLabel: assignedEditor?.name ? `Hire ${assignedEditor?.name.split("_").map(name=>name[0].toUpperCase() + name.slice(1)).join(" ")}` : 'Hire a Video Editor',
       fallbackBase: [{ label: "Home", href: "/" }],
     }));
   }, [redirectUrl]);
@@ -252,7 +254,7 @@ export default function HireVideoEditorForm() {
     <div>
       <div>
         <PageBanner
-          title={assignedEditorName ? `Hire ${assignedEditorName.split("_").join(" ")}` : 'Hire a Video Editor'}
+          title={assignedEditor?.name ? `Hire ${assignedEditor?.name.split("_").join(" ")}` : 'Hire a Video Editor'}
           bgImage="/findEditor.jpg"
           links={bannerLinks}
         />

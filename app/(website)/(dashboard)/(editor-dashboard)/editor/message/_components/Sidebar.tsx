@@ -5,6 +5,9 @@ import { useSearchParams } from 'next/navigation';
 import { MdBlock } from "react-icons/md";
 import { IoMdNotificationsOff } from "react-icons/io";
 import { IoSearch } from 'react-icons/io5';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { conversationDirectory } from '@/public/demodata';
 
 interface Conversation {
     id: string;
@@ -20,85 +23,28 @@ interface Conversation {
     deleted?: boolean;
 }
 
-const mockConversations: Conversation[] = [
-    {
-        id: '1',
-        name: 'John Designer',
-        avatar: 'JD',
-        lastMessage: 'That looks great! Can you adjust...',
-        timestamp: '2 min ago',
-        unread: false,
-        status: 'online',
-    },
-    {
-        id: '2',
-        name: 'Sarah Editor',
-        avatar: 'SE',
-        lastMessage: 'Delivered the final version',
-        timestamp: '1 hour ago',
-        unread: false,
-        status: 'offline',
-    },
-    {
-        id: '3',
-        name: 'Mike Graphic',
-        avatar: 'MG',
-        lastMessage: 'When can you start?',
-        timestamp: '3 hours ago',
-        unread: true,
-        status: 'online',
-    },
-    {
-        id: '4',
-        name: 'Emma Video',
-        avatar: 'EV',
-        lastMessage: 'Thank you for the quick turnaround',
-        timestamp: 'Yesterday',
-        unread: false,
-        status: 'offline',
-    },
-];
+
 
 type SidebarProps = {
-    selectedConversationId?: string;
-    onSelectConversation?: (id: string) => void;
     hiddenConversationIds?: string[];
 };
 
-export default function Sidebar({ selectedConversationId, onSelectConversation, hiddenConversationIds = [] }: SidebarProps) {
-    const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
+export default function Sidebar({ hiddenConversationIds = [] }: SidebarProps) {
+    const [conversations, setConversations] = useState<Conversation[]>(conversationDirectory);
     const [selectedId, setSelectedId] = useState<string>('');
     const [searchQuery, setSearchQuery] = useState('');
-    const searchParams = useSearchParams();
-    const searchId = searchParams.get('id') || '';
     const [showSearch, setShowSearch] = useState(false);
     const searchContainerRef = useRef<HTMLDivElement | null>(null);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirect") || "";
+    const pathname = usePathname();
 
-    useEffect(() => {
-        if (selectedConversationId) {
-            setSelectedId(selectedConversationId);
+    useEffect(()=>{
+        if(pathname){
+            setSelectedId(pathname.split("/").slice(-1)[0]);
         }
-    }, [selectedConversationId]);
-
-    useEffect(() => {
-        if (searchId) {
-            setSelectedId(searchId);
-            onSelectConversation?.(searchId);
-            setConversations((prevConversations) =>
-                prevConversations.map((conv) =>
-                    conv.id === searchId ? { ...conv, unread: false } : conv
-                )
-            );
-        }
-    }, [searchId]);
-
-    useEffect(() => {
-        if (!selectedConversationId && !searchId && conversations.length > 0) {
-            const latestId = conversations[0].id;
-            setSelectedId(latestId);
-            onSelectConversation?.(latestId);
-        }
-    }, [selectedConversationId, searchId, conversations, onSelectConversation]);
+    },[pathname])
 
     useEffect(() => {
         if (!showSearch) return;
@@ -159,19 +105,19 @@ export default function Sidebar({ selectedConversationId, onSelectConversation, 
                                         conv.id === conversation.id ? { ...conv, unread: false } : conv
                                     )
                                 );
-                                onSelectConversation && onSelectConversation(conversation.id);
+                                router.push(`/editor/message/${conversation.id}?redirect=${redirect}`);
                             }}
-                            className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedConversationId || searchId || selectedId) === conversation.id
+                            className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedId) === conversation.id
                                 ? 'xl:border-l-4 hover:bg-gray-100'
                                 : 'hover:bg-gray-100'
                                 }`}
-                            style={(selectedConversationId || searchId || selectedId) === conversation.id ? { borderLeftColor: '#e74c4c', backgroundColor: '#ffe6e6' } : {}}
+                            style={(selectedId) === conversation.id ? { borderLeftColor: '#e74c4c', backgroundColor: '#ffe6e6' } : {}}
                         >
                             <div className="flex items-start gap-3">
                                 {/* Avatar */}
                                 <div className="relative shrink-0">
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold" style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}>
-                                        {conversation.avatar}
+                                        {conversation.avatar?.includes("http") ? conversation?.avatar : conversation?.name?.split(" ")?.map((n: string) => n[0]).join("") || "U"}
                                     </div>
                                     {/* Status Indicator */}
                                     <div
