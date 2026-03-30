@@ -187,7 +187,10 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             {deliveryDate ? <span className="font-medium">{new Date(deliveryDate).toLocaleDateString('en-US', {
               month: 'long',
               day: 'numeric',
-              year: 'numeric'
+              year: 'numeric',
+              minute: '2-digit',
+              hour: '2-digit',
+              hour12: true
             })}</span> : <span className="font-medium capitalize">Not available</span>}
           </div>
 

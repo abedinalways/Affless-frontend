@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { DataTable } from "@/components/reusable/DataTable";
-import { SlidersHorizontal } from "lucide-react";
+import { PlusIcon, SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PageBanner from "@/components/reusable/Bgbanner";
 import DatePicker from "@/components/ClientDashboard/ManageJob/DatePicker";
@@ -126,7 +126,7 @@ export default function MyProposal() {
         accessorKey: "service",
         header: "Job title",
         cell: ({ row }: any) => (
-          <div className="grid grid-cols-[48px_1fr] items-center gap-4">
+          <div className="grid grid-cols-[48px_1fr] justify-center items-center gap-4">
             <Image
               src={row.original.thumbnail}
               width={500}
@@ -216,9 +216,10 @@ export default function MyProposal() {
             </div>
             <Link
               href={`/editor/browse-job?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobs`}
-              className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300"
+              className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300 flex items-center gap-1"
             >
-              Browse New Jobs
+              <PlusIcon className="w-5"/>
+              <span>Browse New Jobs</span>
             </Link>
           </div>
 

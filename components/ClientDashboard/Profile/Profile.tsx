@@ -4,7 +4,7 @@ import Image from "next/image";
 import ReviewPage from "../GraphicsDesigner/ReviewPage";
 import LocationIcon from "@/components/Icons/LocationIcon";
 import WorldIcon from "@/components/Icons/WorldIcon";
-import { CalendarHeartIcon, Star } from "lucide-react";
+import { CalendarHeartIcon, PlusIcon, Star } from "lucide-react";
 import { FiCalendar } from "react-icons/fi";
 import { PiToolboxDuotone } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
@@ -83,9 +83,9 @@ export default function ProfilePage() {
 
             <Link
               href="/post-job"
-              className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
+              className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0 gap-1"
             >
-              + Post New Job
+              <PlusIcon className="w-5"/> Post New Job
             </Link>
           </div>
         </div>

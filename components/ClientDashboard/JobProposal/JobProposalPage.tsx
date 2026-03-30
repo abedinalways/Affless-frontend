@@ -21,7 +21,7 @@ const PAGE_SIZE = 8;
 
 const StatusBadge = {
   "in_progress": {
-    label: "Pending Approval of Editor",
+    label: "Pending Your Approval of Editor",
     colorClass: "bg-[#FFF7E8] text-[#FAAD14]",
     description: "Work has started",
   },
@@ -41,7 +41,7 @@ const StatusBadge = {
     description: "Client accepted delivery",
   },
   cancelled: {
-    label: "Cancelled",
+    label: "Canceled",
     colorClass: "bg-[#FF4D4F] text-white",
     description: "Job cancelled by either party",
   },

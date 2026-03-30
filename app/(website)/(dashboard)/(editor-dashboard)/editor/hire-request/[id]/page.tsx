@@ -118,6 +118,21 @@ export default function page({ params }: { params: { id: string } }) {
 
         {/* RIGHT SIDEBAR */}
         <div className="lg:w-1/3 space-y-6 overflow-hidden">
+          {/* Budget Box */}
+          <div className="border rounded-xl p-6 bg-white shadow-sm space-y-4">
+            <h3 className="text-gray-500 font-medium">Client’s Chosen Job Payout</h3>
+            <p className="text-[34px] font-bold">$350.00</p>
+
+            <button type="button" onClick={() => setShowConfirmation(true)} className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition">
+              Match Client’s Chosen Job Payout
+            </button>
+
+            {/* <div className="pt-2 space-y-1 text-sm">
+              <p className="flex justify-between"><span>Project Level:</span><span>Expensive</span></p>
+              <p className="flex justify-between"><span>Languages:</span><span>French</span></p>
+              <p className="flex justify-between"><span>English Level:</span><span>Native</span></p>
+            </div> */}
+          </div>
 
           <div className="w-full grid">
             <h3 className="text-lg font-semibold mb-3">Attachments</h3>
@@ -154,21 +169,6 @@ export default function page({ params }: { params: { id: string } }) {
                 </div>
               </Link>
             </div>
-          </div>
-          {/* Budget Box */}
-          <div className="border rounded-xl p-6 bg-white shadow-sm space-y-4">
-            <h3 className="text-gray-500 font-medium">Client’s Chosen Job Payout</h3>
-            <p className="text-[34px] font-bold">$350.00</p>
-
-            <button type="button" onClick={() => setShowConfirmation(true)} className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition">
-              Match Client’s Chosen Job Payout
-            </button>
-
-            {/* <div className="pt-2 space-y-1 text-sm">
-              <p className="flex justify-between"><span>Project Level:</span><span>Expensive</span></p>
-              <p className="flex justify-between"><span>Languages:</span><span>French</span></p>
-              <p className="flex justify-between"><span>English Level:</span><span>Native</span></p>
-            </div> */}
           </div>
 
           {/* About Buyer */}
