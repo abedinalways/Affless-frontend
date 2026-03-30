@@ -134,7 +134,7 @@ export default function MyProposal() {
               className="h-12 w-16 rounded-md object-cover"
               alt="thumb"
             />
-            <span className="text-sm font-medium">{row.original.service}</span>
+            <span className="text-sm font-medium capitalize">{row.original.service}</span>
           </div>
         ),
       },
@@ -152,7 +152,7 @@ export default function MyProposal() {
           const d = row.original;
           return (
             <div className="text-center">
-              {(row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision") && (
+              {(row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision" || row.original.status === "delivered") && (
                 <div
                   className="cursor-pointer  p-2 rounded-md text-center"
                 >
@@ -171,6 +171,7 @@ export default function MyProposal() {
           return (
             <div className="flex justify-center">
               <span
+                title={getJobStatusDefinition(status).description}
                 className={`
                       inline-block w-40 px-4 py-1 rounded-md
                       text-[14px] font-medium text-center capitalize

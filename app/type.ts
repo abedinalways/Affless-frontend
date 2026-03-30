@@ -7,13 +7,13 @@ export type ExposureTier = {
   maxHours: number;
 };
 
-type OrderStatus = "pending" | "in_progress" | "cancelled" | "completed" | "delivered";
+type OrderStatus = "pending" | "in_progress" | "cancelled" | "completed" | "delivered" | "late" | "in_revision";
 
 export type Order = {
   id: number;
   title: string;
   price: number;
-  days: number;
+  days?: number;
   status: OrderStatus;
   img: string;
 }

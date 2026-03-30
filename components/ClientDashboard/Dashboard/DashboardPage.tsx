@@ -55,7 +55,7 @@ export default function ClientDashboard() {
                   className="h-full w-full object-cover"
                 />
               </div>
-              <span className="text-sm font-medium text-gray-800">
+              <span className="text-sm font-medium text-gray-800 capitalize">
                 {data.service}
               </span>
             </div>
@@ -86,7 +86,7 @@ export default function ClientDashboard() {
           const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
           return (
             <>
-              {(d.status === "in_progress" || d.status === "late" || d.status === "in_revision") && (
+              {(d.status === "in_progress" || d.status === "late" || d.status === "in_revision" || d.status === "delivered") && (
                 <div
                   className="cursor-pointer  p-2 rounded-md text-center"
                 >

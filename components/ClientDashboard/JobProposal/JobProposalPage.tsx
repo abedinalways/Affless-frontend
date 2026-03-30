@@ -22,7 +22,7 @@ const PAGE_SIZE = 8;
 const StatusBadge = {
   "in_progress": {
     label: "Pending Approval of Editor",
-    colorClass: "bg-yellow-500 text-white",
+    colorClass: "bg-[#FFF7E8] text-[#FAAD14]",
     description: "Work has started",
   },
   in_revision: {
@@ -52,7 +52,7 @@ const StatusBadge = {
   },
   pending: {
     label: "Pending",
-    colorClass: "bg-[#F59E0B] text-white",
+    colorClass: "bg-[#FFF7E8] text-[#FAAD14]",
     description: "Job is pending",
   }
 }
@@ -159,7 +159,7 @@ export default function JobProposalPage() {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  <span className="text-sm font-medium text-gray-800">{row.original.service}</span>
+                  <span className="text-sm font-medium text-gray-800 capitalize">{row.original.service}</span>
                 </div>
               ),
             },
@@ -180,7 +180,7 @@ export default function JobProposalPage() {
                 const s = row.original.status as ProposalRow["status"];
                 return (
                   <div className="flex items-center justify-center">
-                    <span className={`px-4 py-1 rounded-md text-[14px] font-medium text-white ${StatusBadge[s].colorClass}`}>
+                    <span className={`px-4 py-1 rounded-md text-[14px] font-medium ${StatusBadge[s].colorClass}`}>
                       {StatusBadge[s].label}
                     </span>
                   </div>

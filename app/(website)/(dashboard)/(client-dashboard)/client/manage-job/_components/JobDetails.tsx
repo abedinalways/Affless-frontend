@@ -166,7 +166,7 @@ export default function JobDetails({ id }: propType) {
                 <span className="text-gray-500">Delivery Date</span>
                 <span>{job.deliveryDate.toLocaleDateString("en-US", {
                   month: "long",
-                  day: "2-digit",
+                  day: "numeric",
                   year: "numeric",
                   hour: "2-digit",
                   minute: "2-digit",
