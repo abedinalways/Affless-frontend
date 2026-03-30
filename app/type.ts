@@ -62,3 +62,11 @@ export interface Conversation {
     country?: string;
     memberSince?: string;
 }
+
+
+export type MessageContextType = {
+    conversationDirectory: Conversation[];
+    deleteConversation: (id: string) => void;
+    selectedConversationId: string;
+    onSelectConversation: (id: string) => void;
+}

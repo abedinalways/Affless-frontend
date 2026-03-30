@@ -158,12 +158,12 @@ export default function JobDetails({ id }: propType) {
 
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-500">Order by</span>
+                <span className="text-gray-500">Order By:</span>
                 <span>{job.customer}</span>
               </div>
 
               <div className="flex justify-between">
-                <span className="text-gray-500">Delivery Date</span>
+                <span className="text-gray-500">Delivery Date:</span>
                 <span>{job.deliveryDate.toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",
@@ -175,12 +175,12 @@ export default function JobDetails({ id }: propType) {
               </div>
 
               <div className="flex justify-between">
-                <span className="text-gray-500">Total Price</span>
+                <span className="text-gray-500">Total Price:</span>
                 <span>${Number(job.price).toFixed(2)}</span>
               </div>
 
               <div className="flex justify-between">
-                <span className="text-gray-500">Order Number</span>
+                <span className="text-gray-500">Order Number:</span>
                 <span>{job.orderId}</span>
               </div>
             </div>

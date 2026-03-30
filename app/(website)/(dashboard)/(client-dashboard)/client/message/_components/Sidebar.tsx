@@ -7,31 +7,13 @@ import { IoMdNotificationsOff } from "react-icons/io";
 import { IoSearch } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import { conversationDirectory } from '@/public/demodata';
-
-interface Conversation {
-    id: string;
-    name: string;
-    avatar: string;
-    lastMessage: string;
-    timestamp: string;
-    unread: boolean;
-    status: 'online' | 'offline';
-    muted?: boolean;
-    blocked?: boolean;
-    reported?: boolean;
-    deleted?: boolean;
-}
+import { Conversation } from '@/app/type';
+import { useMessageContext } from './MessageLayout';
 
 
-
-type SidebarProps = {
-    hiddenConversationIds?: string[];
-};
-
-export default function Sidebar({ hiddenConversationIds = [] }: SidebarProps) {
-    const [conversations, setConversations] = useState<Conversation[]>(conversationDirectory);
-    const [selectedId, setSelectedId] = useState<string>('');
+export default function Sidebar() {
+    const { conversationDirectory, selectedConversationId, onSelectConversation } = useMessageContext();
+    const [conversations, setConversations] = useState<Conversation[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const searchContainerRef = useRef<HTMLDivElement | null>(null);
@@ -42,9 +24,13 @@ export default function Sidebar({ hiddenConversationIds = [] }: SidebarProps) {
 
     useEffect(()=>{
         if(pathname){
-            setSelectedId(pathname.split("/").slice(-1)[0]);
+            onSelectConversation(pathname.split("/").slice(-1)[0]);
         }
     },[pathname])
+
+    useEffect(()=>{
+        setConversations(conversationDirectory);
+    },[conversationDirectory])
 
     useEffect(() => {
         if (!showSearch) return;
@@ -59,10 +45,6 @@ export default function Sidebar({ hiddenConversationIds = [] }: SidebarProps) {
         window.addEventListener('mousedown', handleOutsideClick);
         return () => window.removeEventListener('mousedown', handleOutsideClick);
     }, [showSearch]);
-
-    const filteredConversations = conversations.filter((conv) =>
-        !hiddenConversationIds.includes(conv.id) && conv.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
 
     return (
         <div className="flex flex-col h-full">
@@ -94,12 +76,12 @@ export default function Sidebar({ hiddenConversationIds = [] }: SidebarProps) {
 
             {/* Conversations List */}
             <div className="flex-1 overflow-y-auto space-y-2">
-                {filteredConversations.length > 0 ? (
-                    filteredConversations.map((conversation) => (
+                {conversations.length > 0 ? (
+                    conversations.map((conversation) => (
                         <div
                             key={conversation.id}
                             onClick={() => {
-                                setSelectedId(conversation.id);
+                                onSelectConversation(conversation.id);
                                 setConversations((prevConversations) =>
                                     prevConversations.map((conv) =>
                                         conv.id === conversation.id ? { ...conv, unread: false } : conv
@@ -107,11 +89,11 @@ export default function Sidebar({ hiddenConversationIds = [] }: SidebarProps) {
                                 );
                                 router.push(`/client/message/${conversation.id}?redirect=${redirect}`);
                             }}
-                            className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedId) === conversation.id
+                            className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedConversationId) === conversation.id
                                 ? 'xl:border-l-4 hover:bg-gray-100'
                                 : 'hover:bg-gray-100'
                                 }`}
-                            style={(selectedId) === conversation.id ? { borderLeftColor: '#e74c4c', backgroundColor: '#ffe6e6' } : {}}
+                            style={(selectedConversationId) === conversation.id ? { borderLeftColor: '#e74c4c', backgroundColor: '#ffe6e6' } : {}}
                         >
                             <div className="flex items-start gap-3">
                                 {/* Avatar */}

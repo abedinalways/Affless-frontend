@@ -15,6 +15,7 @@ import EditorDashboardSidebar from "@/app/(website)/(dashboard)/(editor-dashboar
 import { exposureTiers, orders } from "@/public/demodata";
 import { ExposureTier, Order } from "@/app/type";
 import { usePathname, useSearchParams } from "next/navigation";
+import { PlusIcon } from "@/public/svgIcons/svgIcons";
 
 
 const columns: ColumnDef<Order>[] = [
@@ -153,9 +154,9 @@ export default function EditorDashboard() {
             <Link
               href="/editor/browse-job?redirect=dashboardeditor"
               type="button"
-              className="cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white"
+              className="cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white flex items-center gap-1"
             >
-              + Find New Job
+              <PlusIcon className="w-5"/> Find New Job
             </Link>
           </div>
 

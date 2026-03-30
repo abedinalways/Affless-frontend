@@ -14,6 +14,7 @@ import PageBanner from "@/components/reusable/Bgbanner";
 import { useSearchParams } from "next/navigation";
 import { ALL_JOBS } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
 import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
+import { PlusIcon } from "@/public/svgIcons/svgIcons";
 
 const PAGE_SIZE = 8;
 
@@ -221,9 +222,9 @@ export default function ManageJobsPage() {
 
             <Link
               href={`/client/post-job?redirect=${redirect ? redirect + "_" : ""}managejobs`}
-              className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300"
+              className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300 flex items-center gap-1"
             >
-              + Create a New Job
+              <PlusIcon className="w-5"/> Create a New Job
             </Link>
           </div>
 

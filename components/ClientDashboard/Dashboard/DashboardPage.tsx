@@ -17,6 +17,7 @@ import { FaRegUser } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { ALL_JOBS, JobRow } from "../ManageJob/manage-job-demo-data";
 import { getJobStatusDefinition } from "@/lib/job-status";
+import { PlusIcon } from "@/public/svgIcons/svgIcons";
 
 interface Order {
   id: number;
@@ -186,9 +187,9 @@ export default function ClientDashboard() {
               </div>
               <Link
                 href="/client/post-job?redirect=dashboardclient"
-                className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0"
+                className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0 gap-1"
               >
-                + Post New Job
+                <PlusIcon className="w-5"/> Post New Job
               </Link>
             </div>
 
