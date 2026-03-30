@@ -35,7 +35,7 @@ export default function BreadCrumb({ links }: { links: BreadLink[] }) {
                   {link.label}
                 </Link>
               ) : (
-                <span className="text-sm font-normal text-white opacity-80">
+                <span className="text-sm font-normal text-white opacity-80 capitalize">
                   {link.label}
                 </span>
               )}

@@ -35,7 +35,7 @@ const columns: ColumnDef<Order>[] = [
               className="object-cover w-full h-full"
             />
           </div>
-          <p className="text-[15px] font-medium text-[#333] leading-snug">
+          <p className="text-[15px] font-medium text-[#333] leading-snug capitalize">
             {order.title}
           </p>
         </div>
@@ -52,9 +52,16 @@ const columns: ColumnDef<Order>[] = [
   {
     accessorKey: "days",
     header: "Days Left",
-    cell: ({ row }) => (
-      <p className="text-[16px] text-[#4A4C56] text-center">{row.original.days} Days Left</p>
-    ),
+    cell: ({ row }) => {
+      const d = row.original;
+      return (row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision" || row.original.status === "delivered") && (
+        <div
+          className="cursor-pointer  p-2 rounded-md text-center"
+        >
+          {Math.abs(d.days || 0)} {d.days || 0 > 1 ? "days left" : d.days || 0 < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+        </div>
+      )
+    }
   },
   {
     accessorKey: "status",
@@ -126,7 +133,7 @@ export default function EditorDashboard() {
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
       <div className="mx-auto containers grid lg:grid-cols-[auto_1fr] gap-8">
         {/* LEFT SIDE */}
-        <EditorDashboardSidebar 
+        <EditorDashboardSidebar
           averageResponseHours={averageResponseHours}
           averageResponseMinutes={averageResponseMinutes}
           exposure={exposureTier.exposure}

@@ -147,7 +147,7 @@ export default function MyProposal() {
                   </div>
 
                   {/* Title */}
-                  <span className="text-[15px] font-normal text-[#1D1F2C] leading-5 max-w-[260px] line-clamp-2 truncate">
+                  <span className="text-[15px] font-normal text-[#1D1F2C] leading-5 max-w-[260px] line-clamp-2 truncate capitalize">
                     {row.original.service}
                   </span>
                 </div>

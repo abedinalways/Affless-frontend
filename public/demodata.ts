@@ -107,7 +107,6 @@ export const orders: Order[] = [
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
-    days: 5,
     status: "pending",
   },
   {
@@ -123,7 +122,6 @@ export const orders: Order[] = [
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
-    days: 5,
     status: "cancelled",
   },
   {
@@ -131,7 +129,6 @@ export const orders: Order[] = [
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
-    days: 5,
     status: "completed",
   },
   {
@@ -147,7 +144,6 @@ export const orders: Order[] = [
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
-    days: 5,
     status: "cancelled",
   },
   {
@@ -163,7 +159,6 @@ export const orders: Order[] = [
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
-    days: 5,
     status: "pending",
   },
 ];
