@@ -16,7 +16,7 @@ type JobRow = {
   title: string;
   price: string;
   days: string;
-  status: "Withdrawal Requested" | "Pending" | "Cancelled";
+  status: "Withdrawal Requested" | "Pending" | "Canceled";
   tooltip: string;
 };
 
@@ -24,11 +24,11 @@ type JobRow = {
 const jobs: JobRow[] = [
   { id: 1, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Withdrawal Requested", tooltip: "You have requested a payout. Processing is in progress." },
   { id: 2, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Pending", tooltip: "Funds are being processed and will be available soon." },
-  { id: 3, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Cancelled", tooltip: "This payout was cancelled and will not be processed." },
+  { id: 3, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Canceled", tooltip: "This payout was canceled and will not be processed." },
   { id: 4, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Withdrawal Requested", tooltip: "You have requested a payout. Processing is in progress." },
   { id: 5, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Withdrawal Requested", tooltip: "You have requested a payout. Processing is in progress." },
   { id: 6, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Pending", tooltip: "Funds are being processed and will be available soon." },
-  { id: 7, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Cancelled", tooltip: "This payout was cancelled and will not be processed." },
+  { id: 7, title: "I will craft quality backlinks for your website's SEO.", price: "$55.00", days: "5", status: "Canceled", tooltip: "This payout was canceled and will not be processed." },
 ];
 
 export default function Earnings() {
@@ -77,7 +77,7 @@ export default function Earnings() {
               const statusColor =
                 job.status === "Pending"
                   ? "bg-green-100 text-green-700"
-                  : job.status === "Cancelled"
+                  : job.status === "Canceled"
                   ? "bg-red-100 text-red-600"
                   : "bg-red-100 text-red-500";
 

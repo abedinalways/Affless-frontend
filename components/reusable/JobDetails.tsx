@@ -25,8 +25,8 @@ const statusTitles = {
     label: "The job is completed.",
     note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
   },
-  "cancelled": {
-    label: "The job is cancelled.",
+  "canceled": {
+    label: "The job is canceled.",
     note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
   },
   "late": {
@@ -42,7 +42,7 @@ const statusTitles = {
 type JobDetailsCardProps = {
   title: string;
   image: string;
-  status: "in_progress" | "in_revision" | "delivered" | "completed" | "cancelled" | "late" | "pending";
+  status: "in_progress" | "in_revision" | "delivered" | "completed" | "canceled" | "late" | "pending";
   timeLeft: TimeLeft;
 
   orderBy: string;
@@ -144,7 +144,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             )}
 
             {/* ACTIONS */}
-            {onDeliverNow && status !== "cancelled" && status !== "completed" && status !== "delivered" && (
+            {onDeliverNow && status !== "canceled" && status !== "completed" && status !== "delivered" && (
               <button
                 onClick={onDeliverNow}
                 className="w-full rounded-full bg-red-500 py-3 text-white font-medium hover:bg-red-600 transition cursor-pointer"
@@ -163,7 +163,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
               </button>
             )}
 
-            {onExtendDelivery && status !== "cancelled" && status !== "completed" && status !== "delivered" && (
+            {onExtendDelivery && status !== "canceled" && status !== "completed" && status !== "delivered" && (
               <button
                 onClick={onExtendDelivery}
                 className="mt-3 w-full block text-center rounded-full bg-orange-500 border border-orange-500 py-3 text-white font-medium hover:bg-orange-700 transition cursor-pointer"
@@ -183,7 +183,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
           </div>
 
           <div className="flex justify-between">
-            <span className="text-gray-500">{status === "delivered" ? "Delivered" : status === "completed" ? "Completed" : status === "cancelled" ? "Cancelled" : "Delivery Date"}:</span>
+            <span className="text-gray-500">{status === "delivered" ? "Delivered" : status === "completed" ? "Completed" : status === "canceled" ? "Canceled" : "Delivery Date"}:</span>
             {deliveryDate ? <span className="font-medium">{new Date(deliveryDate).toLocaleDateString('en-US', {
               month: 'long',
               day: 'numeric',

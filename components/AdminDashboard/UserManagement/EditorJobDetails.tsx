@@ -14,7 +14,7 @@ interface JobRow {
   service: string;
   price: number;
   delivery: string;
-  status: "Late" | "In Progress" | "Delivered" | "Completed" | "Cancelled";
+  status: "Late" | "In Progress" | "Delivered" | "Completed" | "Canceled";
 }
 
 const PAGE_SIZE = 8;
@@ -60,7 +60,7 @@ const jobHistory: JobRow[] = [
     service: "Audio restoration services",
     price: 600,
     delivery: "1/10/2026",
-    status: "Cancelled",
+    status: "Canceled",
   },
 ];
 
@@ -128,7 +128,7 @@ export default function JobHistoryPage() {
           "Late" : "bg-green-100 text-green-700",
           Delivered: "bg-green-100 text-green-700",
           Completed: "bg-blue-100 text-blue-600",
-          Cancelled: "bg-red-100 text-red-600",
+          Canceled: "bg-red-100 text-red-600",
         };
 
         return (
@@ -157,7 +157,7 @@ export default function JobHistoryPage() {
               <option>Late</option>
               <option>Delivered</option>
               <option>Completed</option>
-              <option>Cancelled</option>
+              <option>Canceled</option>
             </select>
           </div>
         </div>

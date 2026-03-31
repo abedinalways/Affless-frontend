@@ -13,7 +13,7 @@ export interface ProposalRow {
   service: string;
   amount: number;
   time: string;
-  status: "in_progress" | "in_revision" | "late" | "delivered" | "completed" | "cancelled";
+  status: "in_progress" | "in_revision" | "late" | "delivered" | "completed" | "canceled";
   thumbnail: string;
 }
 
@@ -40,10 +40,10 @@ const StatusBadge = {
     colorClass: "bg-[#166534] text-white",
     description: "Client accepted delivery",
   },
-  cancelled: {
+  canceled: {
     label: "Canceled",
     colorClass: "bg-[#FF4D4F] text-white",
-    description: "Job cancelled by either party",
+    description: "Job canceled by either party",
   },
   late: {
     label: "Late",
@@ -67,7 +67,7 @@ export const ProposalData: ProposalRow[] = [
   { id: "6", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "7", status: "late" },
   { id: "7", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "5", status: "delivered" },
   { id: "8", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "3", status: "completed" },
-  { id: "9", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "7", status: "cancelled" },
+  { id: "9", thumbnail: "/images/mnagejob2.jpg", service: "I will craft quality backlinks for your website's SEO.", amount: 55, time: "7", status: "canceled" },
   { id: "10", thumbnail: "/images/mnagejob2.jpg", service: "I will create backlinks to improve your rankings.", amount: 55, time: "5", status: "late" },
 ];
 
@@ -81,7 +81,7 @@ export default function JobProposalPage() {
   const [timeFilter, setTimeFilter] = useState<"ALL" | "5 Days" | "7 Days" | "3 Days">("ALL");
 
   // ✅ filter toggle only Accepted/Declined for your UI
-  const [statusFilter, setStatusFilter] = useState<"in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "cancelled">("in_progress");
+  const [statusFilter, setStatusFilter] = useState<"in_progress" | "pending" | "in_revision" | "late" | "delivered" | "completed" | "canceled">("in_progress");
 
   // ✅ filtered data
   const filteredData = useMemo(() => {
@@ -136,8 +136,8 @@ export default function JobProposalPage() {
             </button>
 
             <button
-              onClick={() => setStatusFilter("cancelled")}
-              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "cancelled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+              onClick={() => setStatusFilter("canceled")}
+              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "canceled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                 }`}
             >
               Canceled Jobs
@@ -219,8 +219,8 @@ export default function JobProposalPage() {
                 </button>
 
                 <button
-                  onClick={() => setStatusFilter("cancelled")}
-                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "cancelled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                  onClick={() => setStatusFilter("canceled")}
+                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "canceled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                     }`}
                 >
                   Declined

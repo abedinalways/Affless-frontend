@@ -122,7 +122,7 @@ export const orders: Order[] = [
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
-    status: "cancelled",
+    status: "canceled",
   },
   {
     id: 4,
@@ -144,7 +144,7 @@ export const orders: Order[] = [
     img: "/images/product.png",
     title: "I will craft quality backlinks for your website's SEO.",
     price: 55,
-    status: "cancelled",
+    status: "canceled",
   },
   {
     id: 7,

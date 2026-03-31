@@ -21,7 +21,7 @@ import { type DateRange } from "react-day-picker";
 interface EarningRow {
   date: string;
   order: string;
-  status: "Cancelled " | "Pending" | "Withdrawal Requested";
+  status: "Canceled " | "Pending" | "Withdrawal Requested";
   amount: number;
   tooltip: string;
 }
@@ -36,7 +36,7 @@ const earningData: EarningRow[] = [
   { date: "06/03/2025", order: "#41526398", status: "Pending", amount: 250, tooltip: "Funds are being processed and will be available for the editor soon." },
   { date: "06/05/2025", order: "#41527541", status: "Withdrawal Requested", amount: 400,tooltip: "The editor has requested a payout. Processing is in progress." },
   { date: "06/03/2025", order: "#41526398", status: "Pending", amount: 250, tooltip: "Funds are being processed and will be available for the editor soon." },
-  { date: "06/03/2025", order: "#41526398", status: "Cancelled ", amount: 250, tooltip: "This payout was cancelled and will not be processed." },
+  { date: "06/03/2025", order: "#41526398", status: "Canceled ", amount: 250, tooltip: "This payout was canceled and will not be processed." },
 ];
 
 export default function EarningsPage() {

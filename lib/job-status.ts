@@ -19,10 +19,10 @@ export const JOB_STATUS_DEFINITIONS = {
     colorClass: "bg-green-300 text-green-900",
     description: "Client accepted delivery.",
   },
-  cancelled: {
-    label: "Cancelled",
+  canceled: {
+    label: "Canceled",
     colorClass: "bg-red-100 text-red-600",
-    description: "Job cancelled by either party.",
+    description: "Job canceled by either party.",
   },
   late: {
     label: "Late",
