@@ -1,6 +1,8 @@
 'use client'
 
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { FaRedditAlien } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
@@ -16,7 +18,7 @@ export default function Footer() {
           sm:grid-cols-2
           md:grid-cols-3
           lg:grid-cols-5
-          gap-12
+          gap-4
           lg:gap-
         ">
 
@@ -24,7 +26,7 @@ export default function Footer() {
           <div className="">
             <div className="">
               <Link href="/">
-                <div className="w-full flex justify-start items-center overflow-hidden relative top-1">
+                <div className="w-full flex justify-start items-center overflow-hidden">
                   <Image
                     src="/images/logoUpdate.png"
                     width={128}
@@ -44,19 +46,25 @@ export default function Footer() {
 
             {/* Social Icons */}
             <div className="hidden md:block">
-              <div className="flex items-center gap-2 mt-6 ">
+              <div className="flex items-center flex-wrap gap-2 mt-6 ">
                 <Link href="#" className="border-2 border-white p-3 rounded-full cursor-pointer">
                   <BsDiscord width={40} height={35} className="" />
                 </Link>
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
                   <Facebook width={23} height={25} />
                 </Link>
-                <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
+                <Link target="_blank" href="https://www.instagram.com/editor_marketplace?igsh=cDhjOTRzbmJsMHF5&utm_source=qr" className="border-2 border-white p-2 rounded-full cursor-pointer">
                   <Instagram width={23} height={25} />
                 </Link>
 
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
                   <Linkedin width={23} height={25} />
+                </Link>
+                <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
+                  <FaRedditAlien className="text-[23px]" height={25} />
+                </Link>
+                <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
+                  <FaXTwitter className="text-[23px]" height={25} />
                 </Link>
               </div>
             </div>
@@ -92,7 +100,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">For Editors</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
-              <li><Link href={`/editor/editor-profile?msg=${user?"to create profile":"as editor to create profile"}&redirect=home`}>Create Profile</Link></li>
+              <li><Link href={`/editor/editor-profile?msg=${user ? "to create profile" : "as editor to create profile"}&redirect=home`}>Create Profile</Link></li>
               <li><Link href="/editor/browse-job?msg=to browse jobs&redirect=home">Browse Jobs</Link></li>
               <li><Link href="/editor-resource?redirect=home">Editor Resources</Link></li>
             </ul>
@@ -119,12 +127,17 @@ export default function Footer() {
             <Link href="#" className="border-2 border-white p-2 rounded-full">
               <Facebook width={23} height={25} />
             </Link>
-            <Link href="#" className="border-2 border-white p-2 rounded-full">
+            <Link target="_blank" href="https://www.instagram.com/editor_marketplace?igsh=cDhjOTRzbmJsMHF5&utm_source=qr" className="border-2 border-white p-2 rounded-full">
               <Instagram width={23} height={25} />
             </Link>
-
             <Link href="#" className="border-2 border-white p-2 rounded-full">
               <Linkedin width={23} height={25} />
+            </Link>
+            <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
+              <FaRedditAlien className="text-[23px]" height={25} />
+            </Link>
+            <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
+              <FaXTwitter className="text-[23px]" height={25} />
             </Link>
           </div>
         </div>
