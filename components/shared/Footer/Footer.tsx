@@ -48,23 +48,23 @@ export default function Footer() {
             <div className="hidden md:block">
               <div className="flex items-center flex-wrap gap-2 mt-6 ">
                 <Link href="#" className="border-2 border-white p-3 rounded-full cursor-pointer">
-                  <BsDiscord width={40} height={35} className="" />
+                  <BsDiscord width={23} height={23} className="" />
                 </Link>
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
-                  <Facebook width={23} height={25} />
+                  <Facebook width={23} height={23} />
                 </Link>
                 <Link target="_blank" href="https://www.instagram.com/editor_marketplace?igsh=cDhjOTRzbmJsMHF5&utm_source=qr" className="border-2 border-white p-2 rounded-full cursor-pointer">
-                  <Instagram width={23} height={25} />
+                  <Instagram width={23} height={23} />
                 </Link>
 
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
-                  <Linkedin width={23} height={25} />
+                  <Linkedin width={23} height={23} />
                 </Link>
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
-                  <FaRedditAlien className="text-[23px]" height={25} />
+                  <FaRedditAlien className="text-[23px]" height={23} />
                 </Link>
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
-                  <FaXTwitter className="text-[23px]" height={25} />
+                  <FaXTwitter className="text-[23px]" height={23} />
                 </Link>
               </div>
             </div>
@@ -125,13 +125,13 @@ export default function Footer() {
           <div className="flex items-center gap-2 mt-6 ">
             <Link href="#" className="border-2 border-white p-3 rounded-full">  <BsDiscord width={40} height={35} className="" /></Link>
             <Link href="#" className="border-2 border-white p-2 rounded-full">
-              <Facebook width={23} height={25} />
+              <Facebook width={23} height={23} />
             </Link>
             <Link target="_blank" href="https://www.instagram.com/editor_marketplace?igsh=cDhjOTRzbmJsMHF5&utm_source=qr" className="border-2 border-white p-2 rounded-full">
-              <Instagram width={23} height={25} />
+              <Instagram width={23} height={23} />
             </Link>
             <Link href="#" className="border-2 border-white p-2 rounded-full">
-              <Linkedin width={23} height={25} />
+              <Linkedin width={23} height={23} />
             </Link>
             <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
               <FaRedditAlien className="text-[23px]" height={25} />
