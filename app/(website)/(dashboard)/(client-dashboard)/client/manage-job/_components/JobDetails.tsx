@@ -20,6 +20,38 @@ type propType = {
   id: string;
 }
 
+
+const statusTitles = {
+  "delivered": {
+    label: "Time Left for You to Review the Job",
+    note: "You can request revisions during this time."
+  },
+  "in_progress": {
+    label: "Time Left to Complete the Job",
+    note: ""
+  },
+  "completed": {
+    label: "The Job is Completed.",
+    note: ""
+  },
+  "canceled": {
+    label: "The Job is Canceled.",
+    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+  },
+  "late": {
+    label: "Delivery Status",
+    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+  },
+  "in_revision":{
+    label: "Time Left for Revision",
+    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+  },
+  "pending":{
+    label: "Waiting for Editor to Start",
+    note: "Your order is pending. The editor will start working on it soon. You’ll be notified as soon as they begin."
+  }
+}
+
 export default function JobDetails({ id }: propType) {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "";
@@ -101,7 +133,7 @@ export default function JobDetails({ id }: propType) {
             <hr />
             <div className="w-full max-w-[520px] bg-white">
               <h3 className="text-[18px] font-semibold text-black mb-4">
-                {job.status === "late" ? "Delivery Status" : "Time Left to Complete the Job"}
+                {statusTitles[job.status]?.label}
               </h3>
 
               {/* Time Row */}
@@ -132,6 +164,12 @@ export default function JobDetails({ id }: propType) {
                   </div>
                 </div>
               }
+
+              {job.status !== "pending" && statusTitles[job.status]?.note && (
+              <p className="text-sm font-normal text-gray-500 text-center">
+                {statusTitles[job.status].note}
+              </p>
+            )}
 
               {/* Buttons */}
               <div className="mt-6 space-y-4">

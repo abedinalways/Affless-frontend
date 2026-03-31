@@ -19,7 +19,7 @@ const statusTitles = {
   },
   "in_progress": {
     label: "Time Left to Complete the Job",
-    note: "Your order has been delivered. The client has 3 days to review the work and request revisions or accept the delivery."
+    note: ""
   },
   "completed": {
     label: "The job is completed.",
@@ -182,7 +182,7 @@ const JobDetailsCard: React.FC<JobDetailsCardProps> = ({
             <span className="font-medium">{orderBy}</span>
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-3">
             <span className="text-gray-500">{status === "delivered" ? "Delivered" : status === "completed" ? "Completed" : status === "canceled" ? "Canceled" : "Delivery Date"}:</span>
             {deliveryDate ? <span className="font-medium">{new Date(deliveryDate).toLocaleDateString('en-US', {
               month: 'long',
