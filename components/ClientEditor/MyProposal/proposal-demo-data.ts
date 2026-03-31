@@ -6,7 +6,7 @@ export interface ProposalRow {
   thumbnail: string;
   total: number;
   dueOn: Date;
-  status: "in_progress" | "in_revision" | "delivered" | "completed" | "cancelled" | "late" | "pending";
+  status: "in_progress" | "in_revision" | "delivered" | "completed" | "canceled" | "late" | "pending";
   customer: string;
   deliveryDate?: Date;
   price: number;
@@ -106,7 +106,7 @@ export const PROPOSAL_DEMO_DATA: ProposalRow[] = [
     service: "TikTok pack of 5 clips with hooks and captions",
     total: 55,
     dueOn: new Date("2026-03-08"),
-    status: "cancelled",
+    status: "canceled",
     deliveryDate: new Date("2026-03-09"),
     customer: "James Taylor",
     price: 55,

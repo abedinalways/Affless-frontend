@@ -203,7 +203,7 @@ export default function MyProposal() {
           {/* FILTER BUTTONS */}
           <div className="flex items-center justify-between mb-6">
             <div className="grid grid-cols-5 gap-4 text-sm font-medium">
-              {["all", "in_progress", "pending", "in_revision", "late", "delivered", "completed", "cancelled"].map((tab) => (
+              {["all", "in_progress", "pending", "in_revision", "late", "delivered", "completed", "canceled"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}

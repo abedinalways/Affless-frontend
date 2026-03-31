@@ -208,7 +208,7 @@ export default function ManageJobsPage() {
           {/* TABS */}
           <div className="flex items-center justify-between mb-6">
             <div className="grid grid-cols-5 gap-4 text-sm font-medium">
-              {["all", "in_progress", "pending", "in_revision", "late", "delivered", "completed", "cancelled"].map((tab) => (
+              {["all", "in_progress", "pending", "in_revision", "late", "delivered", "completed", "canceled"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -296,7 +296,7 @@ export default function ManageJobsPage() {
             {mobileMenuOpen && (
               <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4 space-y-3">
                 <div className="grid grid-cols-2 gap-3 text-sm font-medium">
-                  {["Active", "Late", "Delivered", "Completed", "Cancelled"].map((tab) => (
+                  {["Active", "Late", "Delivered", "Completed", "Canceled"].map((tab) => (
                     <button
                       key={tab}
                       onClick={() => {

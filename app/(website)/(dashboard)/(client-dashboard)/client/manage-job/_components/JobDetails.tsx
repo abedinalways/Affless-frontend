@@ -184,7 +184,7 @@ export default function JobDetails({ id }: propType) {
                 <span>{job.orderId}</span>
               </div>
             </div>
-            {(job.status !== "completed" && job.status !== "cancelled") && <ExtendDeliveryCard />}
+            {(job.status !== "completed" && job.status !== "canceled") && <ExtendDeliveryCard />}
           </div>
         </div>
 

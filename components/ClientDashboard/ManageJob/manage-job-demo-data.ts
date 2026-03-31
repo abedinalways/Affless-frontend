@@ -153,7 +153,7 @@ export const ALL_JOBS: JobRow[] = [
     thumbnail: "/images/mnagejob1.jpg",
     total: 654,
     dueOn: new Date("2025-06-21"),
-    status: "cancelled",
+    status: "canceled",
     customer: "Bessie Cooper",
     deliveryDate: new Date("2025-11-06T07:24:00"),
     price: 654,

@@ -15,11 +15,6 @@ export default function PersonalInformationEdit() {
         console.log("Updated User Info:", updatedData);
     };
 
-    // Cancel button click handler
-    const handleCancel = () => {
-        console.log("Edit cancelled");
-    };
-
     return (
         <div>
           

@@ -9,7 +9,7 @@ import LocationIcon from "@/components/Icons/LocationIcon";
 import WorldIcon from "@/components/Icons/WorldIcon";
 import { DataTable } from "@/components/reusable/DataTable";
 
-type OrderStatus = "pending" | "in_progress" | "delivered" | "completed" | "cancelled";
+type OrderStatus = "pending" | "in_progress" | "delivered" | "completed" | "canceled";
 type FilterType = "Biding jobs" | "Offer jobs";
 import LockIcon from "@/components/Icons/LockIcon";
 import { IoArrowForwardSharp } from "react-icons/io5";
