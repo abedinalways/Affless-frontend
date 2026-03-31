@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="">
             <div className="">
               <Link href="/">
-                <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
+                <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden relative top-1">
                   <Image
                     src="/images/logoUpdate.png"
                     width={128}
