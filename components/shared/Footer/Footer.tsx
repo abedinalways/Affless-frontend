@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { useUser } from "@/context/UserContext";
+import { XIcon } from "@/public/svgIcons/svgIcons";
 
 export default function Footer() {
   const { user } = useUser();
@@ -64,7 +65,7 @@ export default function Footer() {
                   <FaRedditAlien className="text-[23px]" height={23} />
                 </Link>
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
-                  <FaXTwitter className="text-[23px]" height={23} />
+                  <XIcon className="w-[23px] h-[23px]" />
                 </Link>
               </div>
             </div>
@@ -137,7 +138,7 @@ export default function Footer() {
               <FaRedditAlien className="text-[23px]" height={25} />
             </Link>
             <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
-              <FaXTwitter className="text-[23px]" height={25} />
+              <XIcon className="w-[23px] h-[23px]" />
             </Link>
           </div>
         </div>

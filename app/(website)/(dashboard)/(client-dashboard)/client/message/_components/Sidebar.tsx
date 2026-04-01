@@ -47,7 +47,7 @@ export default function Sidebar() {
     }, [showSearch]);
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="h-full">
             {/* Search Bar */}
             <div className='xl:hidden w-full flex items-center justify-center py-2 mb-2'>
                 <button
@@ -75,7 +75,7 @@ export default function Sidebar() {
             </div>
 
             {/* Conversations List */}
-            <div className="flex-1 overflow-y-auto space-y-2">
+            <div className="space-y-2">
                 {conversations.length > 0 ? (
                     conversations.map((conversation) => (
                         <div

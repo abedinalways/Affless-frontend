@@ -21,8 +21,12 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileAccept, setFileAccept] = useState('');
     const [inputValue, setInputValue] = useState('');
+    const [showAddLinkModal, setShowAddLinkModal] = useState(false);
 
-
+    const handleToggleAddLinkModal = () => {
+        setShowAddLinkModal((prev) => !prev);
+        setIsAttachmentMenuOpen(false);
+    }
     const handleRemoveAttachment = (id: string) => {
         setAttachments((prev) => {
             const item = prev.find((entry) => entry.id === id);
@@ -37,24 +41,6 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
         setFileAccept(accept);
         setIsAttachmentMenuOpen(false);
         requestAnimationFrame(() => fileInputRef.current?.click());
-    };
-
-    const handleAddLink = () => {
-        const link = window.prompt('Paste the link');
-        if (!link) return;
-        const trimmed = link.trim();
-        if (!trimmed) return;
-        const id = `${Date.now()}-link`;
-        setAttachments((prev) => [
-            ...prev,
-            {
-                id,
-                url: trimmed,
-                type: 'link',
-                name: trimmed,
-            },
-        ]);
-        setIsAttachmentMenuOpen(false);
     };
 
 
@@ -104,7 +90,7 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
         }
     };
 
-    
+
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -177,7 +163,7 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
                             </button>
                             <button
                                 type="button"
-                                onClick={handleAddLink}
+                                onClick={handleToggleAddLinkModal}
                                 className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm border-t border-gray-100 cursor-pointer"
                             >
                                 Links
@@ -218,7 +204,27 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
                     <SendIcon className='w-5 h-5' />
                 </button>
             </div>
-            {/* <AddLinkModal /> */}
+            {showAddLinkModal &&
+                <AddLinkModal
+                    onAddLinks={(links: string[]) => {
+                        setAttachments((prev) => [
+                            ...prev,
+                            ...links.map((trimmed) => ({
+                                id: Date.now().toString(),
+                                url: trimmed,
+                                type: "link" as const,
+                            }))
+                        ]);
+                        console.log("Added links from modal:", links.map((trimmed) => ({
+                                id: Date.now().toString(),
+                                url: trimmed,
+                                type: "link" as const,
+                            })));
+                        setIsAttachmentMenuOpen(false);
+                        setShowAddLinkModal(false);
+                    }}
+                />
+            }
         </div>
 
     )

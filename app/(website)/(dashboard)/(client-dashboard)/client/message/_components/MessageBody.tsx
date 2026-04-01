@@ -27,7 +27,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [pendingAction, setPendingAction] = useState<'mute' | 'block' | 'unblock' | 'delete' | null>(null);
-    
+
     const attachmentsRef = useRef<AttachmentItem[]>([]);
     const messagesRef = useRef<Record<string, Message[]>>({});
     const prevMessageCount = useRef(0);
@@ -47,6 +47,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
 
     useEffect(() => {
         attachmentsRef.current = attachments;
+        console.log("Current attachments:", attachments);
     }, [attachments]);
 
     useEffect(() => {
@@ -237,11 +238,12 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
             clearTimeout(timeoutId);
         };
     }, [messages, isConversationOpen, activeConversationId]);
-    
+
 
     return (
-        <div className="h-full flex flex-col bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="h-full grid grid-cols-1 min-h-0 bg-white rounded-lg lg:shadow-md overflow-hidden">
             {/* Header */}
+            <div className='grid grid-rows-[auto_1fr_auto] min-h-0 w-full h-full'>
                 <MessageHeader
                     otherUserId={otherUserId}
                     activeConversation={activeConversation}
@@ -249,25 +251,29 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                     handleMenuAction={handleMenuAction}
                 />
 
-            {/* Messages Area */}
-            <MessageContent 
-                messages={messages}
-                activeConversationMeta={activeConversationMeta}
-            />
+                {/* Messages Area */}
+                <div className='w-full h-full min-h-0 overflow-y-auto'>
+                    <MessageContent
+                        messages={messages}
+                        activeConversationMeta={activeConversationMeta}
+                    />
+                </div>
 
-            {/* Input Area */}
-            <MessageFooter
-                activeConversationMeta={activeConversationMeta}
-                activeConversationId={activeConversationId}
-                onConversationMessagesChange={(newMessage: Message) => {
-                    setConversationMessages((prev) => ({
-                        ...prev,
-                        [activeConversationId]: [...messages, newMessage],
-                    }))}
-                }
-                attachments={attachments}
-                setAttachments={setAttachments}
-            />
+                {/* Input Area */}
+                <MessageFooter
+                    activeConversationMeta={activeConversationMeta}
+                    activeConversationId={activeConversationId}
+                    onConversationMessagesChange={(newMessage: Message) => {
+                        setConversationMessages((prev) => ({
+                            ...prev,
+                            [activeConversationId]: [...messages, newMessage],
+                        }))
+                    }
+                    }
+                    attachments={attachments}
+                    setAttachments={setAttachments}
+                />
+            </div>
 
             <ReportUserModal
                 isOpen={isReportModalOpen}

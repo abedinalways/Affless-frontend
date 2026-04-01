@@ -27,7 +27,14 @@ export const SendIcon = ({ className }: { className?: string }) => (
 
 
 export const ThreeDotsIcon = ({ className }: { className?: string }) => (
-    <svg className={ className } fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
     </svg>
 );
+
+
+export const XIcon = ({ className }: { className?: string }) => (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 501 512" fill="none">
+        <path d="M298.158 216.797L484.663 0H440.467L278.525 188.242L149.182 0H0L195.592 284.655L0 512H44.1982L215.214 313.21L351.809 512H500.991L298.147 216.797H298.158ZM237.622 287.163L217.804 258.818L60.1235 33.2716H128.009L255.26 215.295L275.077 243.64L440.488 480.241H372.602L237.622 287.174V287.163Z" fill="currentColor" />
+    </svg>
+)

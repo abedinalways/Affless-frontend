@@ -51,7 +51,7 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
     };
 
     return (
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 relative">
+        <div className="p-4 space-y-4 bg-gray-50 relative">
             {activeConversationMeta?.blocked && (
                 <div className="text-center py-6 text-gray-500 text-sm">
                     You blocked this conversation.

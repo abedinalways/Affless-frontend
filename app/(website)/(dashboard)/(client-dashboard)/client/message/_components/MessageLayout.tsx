@@ -60,9 +60,7 @@ export default function MessageLayout({
 
     return (
         <MessageProvider>
-            <div className={`w-full h-full p-4 containers bg-[#f9f9f9] grid ${redirectUrl ? "grid-rows-[auto_1fr]" : "grid-rows-1"} gap-4`} style={{
-                minHeight: 'calc(100vh - 66px)'
-            }}>
+            <div className={`w-full border min-h-0 p-4 containers bg-[#f9f9f9] grid ${redirectUrl ? "grid-rows-[auto_1fr]" : "grid-rows-1"} gap-4`}>
                 <div className={`${redirectUrl ? "flex" : "hidden"} items-center gap-4`}>
                     {redirectUrl && (
                         <button
@@ -84,13 +82,14 @@ export default function MessageLayout({
                         </button>
                     )}
                 </div>
-                <div className="w-full h-full grid grid-cols-1 gap-6 relative overflow-hidden">
-                    <div className="w-full h-full grid grid-cols-[auto_1fr] gap-3 xl:gap-6">
-                        <div className={`p-2 sm:p-4 bg-white w-fit h-full rounded-lg overflow-y-auto xl:w-full`}>
-                            <Sidebar
-                            />
+                <div className="w-full h-full min-h-0 grid grid-cols-1 gap-6 relative overflow-hidden">
+                    <div className="w-full h-full min-h-0 grid grid-cols-[auto_1fr]">
+                        <div className={`p-2 sm:p-4 bg-white w-fit h-full min-h-0 rounded-lg overflow-y-auto xl:w-full`} style={{
+                            height: 'calc(100vh - 147px)'
+                        }}>
+                            <Sidebar />
                         </div>
-                        {children}
+                        <div className="h-full min-h-0 w-full">{children}</div>
                     </div>
                 </div>
             </div>

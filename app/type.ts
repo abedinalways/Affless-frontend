@@ -23,7 +23,7 @@ export type AttachmentItem = {
     file?: File;
     url: string;
     type: 'file' | 'link';
-    name: string;
+    name?: string;
 };
 export interface Message {
     id: string;
