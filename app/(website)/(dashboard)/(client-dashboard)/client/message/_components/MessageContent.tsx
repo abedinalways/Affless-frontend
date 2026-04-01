@@ -103,7 +103,7 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
                                                     >
                                                         Link
                                                     </a>
-                                                ) : attachment.name.match(/\.(png|jpe?g|gif|webp|bmp|svg)$/i) ? (
+                                                ) : attachment?.name?.match(/\.(png|jpe?g|gif|webp|bmp|svg)$/i) ? (
                                                     // eslint-disable-next-line @next/next/no-img-element
                                                     <img src={attachment.url} alt={attachment.name} className="h-full w-full object-cover" />
                                                 ) : (

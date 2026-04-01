@@ -84,7 +84,7 @@ export default function Pagination({
         </button>
       </div>
       <div className="text-sm">
-        <p>Showing {total} results • Page {page} of {totalPages}</p>
+        <p>Showing {total} {total === 1 ? "result" : "results"} • Page {page} of {totalPages}</p>
       </div>
     </div>
   );
