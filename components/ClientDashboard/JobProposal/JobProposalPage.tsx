@@ -170,7 +170,7 @@ export default function JobProposalPage() {
             },
             {
               accessorKey: "time",
-              header: "Time Awaiting Editor Approval",
+              header: statusFilter === "in_progress" ? "Time Awaiting Your Approval" : "Time Since Cancellation",
               cell: ({ row }: any) => <div className="text-gray-700 text-center">{row.original.time} hours</div>,
             },
             {
