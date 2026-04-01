@@ -1,13 +1,13 @@
 'use client'
 
 import { Facebook, Instagram, Linkedin } from "lucide-react";
-import { FaRedditAlien } from "react-icons/fa";
+import { FaRedditAlien,  } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { useUser } from "@/context/UserContext";
-import { XIcon } from "@/public/svgIcons/svgIcons";
+import { XIcon, RedditIcon } from "@/public/svgIcons/svgIcons";
 
 export default function Footer() {
   const { user } = useUser();
@@ -62,7 +62,7 @@ export default function Footer() {
                   <Linkedin width={23} height={23} />
                 </Link>
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
-                  <FaRedditAlien className="text-[23px]" height={23} />
+                  <RedditIcon className="w-[23px] h-[23px]" />
                 </Link>
                 <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
                   <XIcon className="w-[23px] h-[23px]" />
@@ -135,7 +135,7 @@ export default function Footer() {
               <Linkedin width={23} height={23} />
             </Link>
             <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
-              <FaRedditAlien className="text-[23px]" height={25} />
+              <RedditIcon className="w-[23px] h-[23px]" />
             </Link>
             <Link href="#" className="border-2 border-white p-2 rounded-full cursor-pointer">
               <XIcon className="w-[23px] h-[23px]" />
