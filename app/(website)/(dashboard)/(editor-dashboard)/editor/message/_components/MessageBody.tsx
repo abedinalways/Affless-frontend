@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ReportUserModal from '@/components/reusable/ReportUserModal';
 import ConfirmationPopup from '@/components/shared/ConfirmationPopup';
@@ -33,7 +33,10 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
     const prevMessageCount = useRef(0);
 
     const [soundsEnabled] = useState(true);
-    const availableConversations = conversationDirectory.filter((conv) => !conversationState[conv.id]?.deleted);
+    const availableConversations = useMemo(
+        () => conversationDirectory.filter((conv) => !conversationState[conv.id]?.deleted),
+        [conversationDirectory, conversationState]
+    );
     const activeConversationId = conversationId || selectedConversationId || '';
     const activeConversation = availableConversations.find((conv) => conv.id === activeConversationId);
     const activeConversationMeta = conversationState[activeConversationId] || {};

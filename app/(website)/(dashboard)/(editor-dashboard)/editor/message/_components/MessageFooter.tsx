@@ -2,6 +2,7 @@ import { AttachmentItem, Message } from "@/app/type";
 import { SendIcon } from "@/public/svgIcons/svgIcons";
 import { PlusIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import AddLinkModal from "./AddLinkModal";
 
 type PropType = {
@@ -48,8 +49,8 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
         const files = Array.from(event.target.files || []);
         if (files.length === 0) return;
 
-        const newItems = files.map((file, index) => ({
-            id: `${Date.now()}-${index}-${file.name}`,
+        const newItems = files.map((file) => ({
+            id: uuidv4(),
             file,
             url: URL.createObjectURL(file),
             type: 'file' as const,
@@ -71,12 +72,14 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
         }));
 
         const newMessage: Message = {
-            id: Number(Date.now()).toString(),
+            id: uuidv4(),
             sender: 'user',
             content: inputValue,
             createdAt: new Date().toISOString(),
             attachments: attachmentsToSend.length > 0 ? attachmentsToSend : undefined,
         };
+
+        console.log("Sending message with attachments:", newMessage);
 
         onConversationMessagesChange(newMessage);
         setInputValue('');
@@ -118,6 +121,11 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
                                     </span>
                                 ) : item.file?.type.startsWith('image/') ? (
                                     <img src={item.url} alt={item.name} className="h-full w-full object-cover" />
+                                ) : item?.name?.match(/\.(mp4|webm|ogg|mov|avi)$/i) ? (
+                                    <video width={64} className="h-full w-full object-cover">
+                                        <source src={item.url} type={`video/${item.name.split('.').pop()?.toLowerCase()}`} />
+                                        Your browser does not support the video tag.
+                                    </video>
                                 ) : (
                                     <span className="text-[10px] text-gray-600 px-1 text-center">
                                         {item.name}
@@ -210,16 +218,16 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
                         setAttachments((prev) => [
                             ...prev,
                             ...links.map((trimmed) => ({
-                                id: Date.now().toString(),
+                                id: uuidv4(),
                                 url: trimmed,
                                 type: "link" as const,
                             }))
                         ]);
                         console.log("Added links from modal:", links.map((trimmed) => ({
-                                id: Date.now().toString(),
-                                url: trimmed,
-                                type: "link" as const,
-                            })));
+                            id: uuidv4(),
+                            url: trimmed,
+                            type: "link" as const,
+                        })));
                         setIsAttachmentMenuOpen(false);
                         setShowAddLinkModal(false);
                     }}
