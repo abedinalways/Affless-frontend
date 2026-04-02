@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ReportUserModal from '@/components/reusable/ReportUserModal';
 import ConfirmationPopup from '@/components/shared/ConfirmationPopup';
@@ -33,7 +33,10 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
     const prevMessageCount = useRef(0);
 
     const [soundsEnabled] = useState(true);
-    const availableConversations = conversationDirectory.filter((conv) => !conversationState[conv.id]?.deleted);
+    const availableConversations = useMemo(
+        () => conversationDirectory.filter((conv) => !conversationState[conv.id]?.deleted),
+        [conversationDirectory, conversationState]
+    );
     const activeConversationId = conversationId || selectedConversationId || '';
     const activeConversation = availableConversations.find((conv) => conv.id === activeConversationId);
     const activeConversationMeta = conversationState[activeConversationId] || {};
@@ -252,7 +255,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                 />
 
                 {/* Messages Area */}
-                <div className='w-full h-full min-h-0 overflow-y-auto'>
+                <div className='grid w-full h-full min-h-0 overflow-y-auto'>
                     <MessageContent
                         messages={messages}
                         activeConversationMeta={activeConversationMeta}
@@ -264,6 +267,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                     activeConversationMeta={activeConversationMeta}
                     activeConversationId={activeConversationId}
                     onConversationMessagesChange={(newMessage: Message) => {
+                        console.log("New message added:", newMessage);
                         setConversationMessages((prev) => ({
                             ...prev,
                             [activeConversationId]: [...messages, newMessage],

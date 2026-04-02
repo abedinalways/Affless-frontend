@@ -46,7 +46,7 @@ export default function ClientLayout({
         )
     }
     return (
-        <div className="">
+        <div className="w-full h-full grid grid-rows-[1fr_auto]">
             <Toaster position="top-right"/>
             {children}
             <Footer />
