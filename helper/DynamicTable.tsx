@@ -39,9 +39,19 @@ interface DynamicTableProps {
     rounded?: string;
     fontWeight?: string;
     fontSize?: string;
+    position?: "justify-center" | "justify-start" | "justify-end";
   },
   tableMinWidth?: string;
   tableMaxWidth?: string;
+  rowStyle?: {
+    hover?: boolean;
+    hoverbg?: string;
+    bg?: string;
+    border?: string;
+    spaceing?: string;
+    rowClickable?: boolean;
+    rowClick?: (row: any) => void;
+  }
 }
  
 export default function DynamicTable({
@@ -55,7 +65,10 @@ export default function DynamicTable({
   noDataMessage = "No data found.",
   sortConfig,
   onSort,
-  header
+  header = {
+    position: "justify-start",
+  },
+  rowStyle
 }: DynamicTableProps) {
   // const totalPages = Math.ceil(data.length / itemsPerPage);
   // const data = data.slice(
@@ -78,9 +91,9 @@ export default function DynamicTable({
       {/* Table Wrapper with Border & Radius */}
       <div className="overflow-hidden h-full">
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className={`w-full text-left ${rowStyle?.spaceing || ''}`}>
             <thead className="sticky top-0 z-99">
-              <tr style={{borderRadius: '100%'}}>
+              <tr style={{borderRadius: '100%'}} className="text-center">
                 {columns.map((col, index) => (
                   <th
                     key={index}
@@ -91,7 +104,7 @@ export default function DynamicTable({
                   // }
                   >
                     <div
-                      className={`flex gap-1 ${col.sortable ? "cursor-pointer" : ""
+                      className={`flex gap-1 ${header?.position} ${col.sortable ? "cursor-pointer" : ""
                         }`}
                       style={{ background: header?.bg, padding: header?.padding,color: header?.text, fontWeight: header?.fontWeight, fontSize: header?.fontSize, borderRadius: header?.rounded }}
                     >
@@ -110,7 +123,7 @@ export default function DynamicTable({
             <tbody>
               {data.length > 0 ? (
                 data.map((row, i) => (
-                  <tr key={i} className="">
+                  <tr key={i} className={`w-full h-full ${rowStyle?.hover ? rowStyle.hoverbg : ''} ${rowStyle?.bg || "bg-white"} ${rowStyle?.border ? `border ${rowStyle.border}` : ''} ${rowStyle?.rowClickable ? "cursor-pointer" : ''}`} onClick={() => rowStyle?.rowClickable && rowStyle.rowClick ? rowStyle.rowClick(row) : null}>
                     {columns.map((col, idx) => (
                       <td
                         key={idx}

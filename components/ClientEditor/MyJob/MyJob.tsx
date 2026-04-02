@@ -5,102 +5,23 @@ import { DataTable } from "@/components/reusable/DataTable";
 import { SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-
-export interface ProposalRow {
-  id: number;
-  service: string;
-  amount: string;
-  time: string;
-  status: "Pending Client Decision" | "Pending" | "Cancellation";
-  thumbnail: string;
-}
+import JobProposalTable from "@/app/(website)/(dashboard)/(editor-dashboard)/editor/hire-request/_components/JobProposalTable";
+import type { EditorJobProposalType } from "@/app/type";
+import { editorJobProposals } from "@/public/demodata";
 
 const PAGE_SIZE = 8;
-
-export const Proposal: ProposalRow[] = [
-  {
-    id: 2,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks. I will make backlinks. I will make backlinks. I will make backlinks.",
-    amount: "55",
-    time: "3 Days",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft backlinks. I will make backlinks. I will make backlinks. I will make backlinks.",
-    amount: "60",
-    time: "5 Days",
-    status: "Pending",
-  },
-  {
-    id: 4,
-    thumbnail: "/images/mnagejob1.jpg",
-    service: "I will create backlinks.I will make backlinks. I will make backlinks. I will make backlinks.",
-    amount: "70",
-    time: "7 Days",
-    status: "Pending Client Decision",
-  },
-  {
-    id: 5,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will craft backlinks. I will make backlinks. I will make backlinks. I will make backlinks.",
-    amount: "80",
-    time: "5 Days",
-    status: "Pending Client Decision",
-  },
-  {
-    id: 1,
-    thumbnail: "/images/mnagejob3.jpg",
-    service: "I will make backlinks. I will make backlinks. I will make backlinks.",
-    amount: "55",
-    time: "5 Days",
-    status: "Pending Client Decision",
-  },
-  // {
-  //   id: 6,
-  //   thumbnail: "/images/mnagejob2.jpg",
-  //   service: "I will create backlinks.",
-  //   amount: "55",
-  //   time: "3 Days",
-  //   status: "Cancellation",
-  // },
-  {
-    id: 7,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "55",
-    time: "3 Days",
-    status: "Pending",
-  },
-  {
-    id: 8,
-    thumbnail: "/images/mnagejob2.jpg",
-    service: "I will create backlinks.",
-    amount: "90",
-    time: "7 Days",
-    status: "Pending",
-  },
-];
-
-const statusBadgeClasses: Record<ProposalRow["status"], string> = {
-  "Pending Client Decision": "bg-[#FFF7E8] text-[#FAAD14]",
-  Pending: "bg-[#FFF7E8] text-[#FAAD14]",
-  Cancellation: "bg-[#FEE9EA] text-[#F5222D]",
-};
 
 export default function MyProposal() {
   const router = useRouter();
   const [page, setPage] = useState(1);
-  const [statusFilter, setStatusFilter] = useState<"ALL" | ProposalRow["status"]>(
-    "Pending Client Decision"
+  const [statusFilter, setStatusFilter] = useState<"ALL" | EditorJobProposalType["status"]>(
+    "pending"
   );
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || "";
 
   const filteredData = useMemo(() => {
-    return Proposal.filter(
+    return editorJobProposals.filter(
       (p) => statusFilter === "ALL" || p.status === statusFilter
     );
   }, [statusFilter]);
@@ -119,87 +40,27 @@ export default function MyProposal() {
         <h2 className="text-xl font-semibold mb-4">My Job Proposals</h2>
 
         {/* FILTER BUTTONS */}
-        <div className="flex gap-4 mb-6">
-          <button
-            onClick={() => setStatusFilter("Pending Client Decision")}
-            className={`w-fit px-4 py-2 rounded-lg text-center font-medium cursor-pointer bg-white ${statusFilter === "Pending Client Decision" ? "shadow-md" : ""
-              }`}
-          >
-            Active Job Proposals Awaiting Client Acceptance
-          </button>
+        <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
+          <div className="flex gap-4">
+            <button
+              onClick={() => setStatusFilter("pending")}
+              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "pending" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                }`}
+            >
+              Active Job Proposals Awaiting Client Acceptance
+            </button>
+
+            <button
+              onClick={() => setStatusFilter("canceled")}
+              className={`p-2.5 rounded-md cursor-pointer ${statusFilter === "canceled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                }`}
+            >
+              Canceled Jobs
+            </button>
+          </div>
         </div>
-
-        {/* TABLE */}
-        <DataTable
-          columns={[
-            {
-              accessorKey: "service",
-              header: "Active Job Proposals Awaiting Client Acceptance",
-              cell: ({ row }: any) => (
-                <div className="flex items-center justify-center gap-4 cursor-pointer" title={row.original.service}>
-                  {/* Thumbnail box */}
-                  <div className="h-14 w-20 rounded-lg overflow-hidden bg-[#F8F8F8] border border-[#EDEDED] shadow-sm">
-                    <img
-                      src={row.original.thumbnail}
-                      alt={row.original.service}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-
-                  {/* Title */}
-                  <span className="text-[15px] font-normal text-[#1D1F2C] leading-5 max-w-[260px] line-clamp-2 truncate capitalize">
-                    {row.original.service}
-                  </span>
-                </div>
-              ),
-            },
-            {
-              accessorKey: "amount",
-              header: "Amount",
-              cell: ({ row }: any) => (
-                <div className="flex justify-center">
-                  <span className="text-[#1D1F2C] text-center">${Number(row.original.amount).toFixed(2)}</span>
-                </div>
-              ),
-            },
-            {
-              accessorKey: "time",
-              header: "Days Awaiting Client Acceptance",
-              cell: ({ row }: any) => (
-                <div className="flex justify-center">
-                  <span>{row.original.time}</span>
-                </div>
-              ),
-            },
-            {
-              accessorKey: "status",
-              header: "Status",
-              cell: ({ row }: any) => {
-                const status = row.original.status as ProposalRow["status"];
-                return (
-                  <div className="flex justify-center">
-                    <span
-                      className={`inline-block w-fit px-4 py-1 rounded-md text-[14px] text-center font-medium ${statusBadgeClasses[status]}`}
-                    >
-                      {status}
-                    </span>
-                  </div>
-                );
-              },
-            },
-          ]}
-          data={paginatedData}
-          page={page}
-          pageSize={PAGE_SIZE}
-          total={total}
-          onPageChange={setPage}
-          // ⭐ FULL ROW CLICK
-          onRowClick={(row: ProposalRow) =>
-            router.push(`/editor/hire-request/${row.id}?redirect=${redirectUrl ? redirectUrl + "_" : ''}myjobproposals&status=${row.status}`)
-          }
-
-
-
+        <JobProposalTable 
+          data={paginatedData || []}
         />
       </div>
 

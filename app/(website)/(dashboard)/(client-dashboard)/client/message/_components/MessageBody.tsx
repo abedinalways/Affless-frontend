@@ -252,7 +252,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                 />
 
                 {/* Messages Area */}
-                <div className='w-full h-full min-h-0 overflow-y-auto'>
+                <div className='grid w-full h-full min-h-0 overflow-y-auto'>
                     <MessageContent
                         messages={messages}
                         activeConversationMeta={activeConversationMeta}
@@ -264,6 +264,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                     activeConversationMeta={activeConversationMeta}
                     activeConversationId={activeConversationId}
                     onConversationMessagesChange={(newMessage: Message) => {
+                        console.log("New message added:", newMessage);
                         setConversationMessages((prev) => ({
                             ...prev,
                             [activeConversationId]: [...messages, newMessage],

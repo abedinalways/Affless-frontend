@@ -223,6 +223,7 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
                         setIsAttachmentMenuOpen(false);
                         setShowAddLinkModal(false);
                     }}
+                    onClose={() => setShowAddLinkModal(false)}
                 />
             }
         </div>

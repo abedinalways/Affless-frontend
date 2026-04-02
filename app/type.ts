@@ -19,20 +19,20 @@ export type Order = {
 }
 
 export type AttachmentItem = {
-    id: string;
-    file?: File;
-    url: string;
-    type: 'file' | 'link';
-    name?: string;
+  id: string;
+  file?: File;
+  url: string;
+  type: 'file' | 'link';
+  name?: string;
 };
 export interface Message {
-    id: string;
-    sender: 'user' | 'other';
-    content: string;
-    createdAt: string;
-    deliveredAt?: string;
-    readAt?: string;
-    attachments?: AttachmentItem[];
+  id: string;
+  sender: 'user' | 'other';
+  content: string;
+  createdAt: string;
+  deliveredAt?: string;
+  readAt?: string;
+  attachments?: AttachmentItem[];
 }
 
 export interface ClientQuickMatchResult {
@@ -48,25 +48,37 @@ export interface ClientQuickMatchResult {
 }
 
 export interface Conversation {
-    id: string;
-    name: string;
-    avatar: string;
-    lastMessage: string;
-    timestamp: string;
-    unread: boolean;
-    status: 'online' | 'offline';
-    muted?: boolean;
-    blocked?: boolean;
-    reported?: boolean;
-    deleted?: boolean;
-    country?: string;
-    memberSince?: string;
+  id: string;
+  name: string;
+  avatar: string;
+  lastMessage: string;
+  timestamp: string;
+  unread: boolean;
+  status: 'online' | 'offline';
+  muted?: boolean;
+  blocked?: boolean;
+  reported?: boolean;
+  deleted?: boolean;
+  country?: string;
+  memberSince?: string;
 }
 
 
 export type MessageContextType = {
-    conversationDirectory: Conversation[];
-    deleteConversation: (id: string) => void;
-    selectedConversationId: string;
-    onSelectConversation: (id: string) => void;
+  conversationDirectory: Conversation[];
+  deleteConversation: (id: string) => void;
+  selectedConversationId: string;
+  onSelectConversation: (id: string) => void;
+}
+
+
+export type EditorJobProposalType = {
+  id: number;
+  job: {
+    title: string;
+    imageUrl: string;
+  },
+  amount: number;
+  timeLeft: number;
+  status: "pending" | "canceled";
 }

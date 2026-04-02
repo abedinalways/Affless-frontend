@@ -7,7 +7,8 @@ import React, { useEffect, useState } from "react";
 import EditorPrise from "./EditorPrise";
 import { useSearchParams } from "next/navigation";
 import { bidsData } from "@/app/(website)/(dashboard)/(client-dashboard)/client/job-proposal/_component/ProposalDetails";
-import { ProposalData, ProposalRow } from "@/components/ClientDashboard/JobProposal/JobProposalPage";
+import { EditorJobProposalType } from "@/app/type";
+import { editorJobProposals } from "@/public/demodata";
 import Link from "next/link";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 
@@ -18,7 +19,7 @@ const BidsDetails = ({ id }: { id: string }) => {
   const redirect = searchParams.get("redirect");
   const proposalId = searchParams.get("proposalId");
   const bidDetails = bidsData.find(bid => bid.id === id);
-  const proposalDetails = proposalId ? (ProposalData.find(proposal => proposal.id === proposalId) as ProposalRow) : null;
+  const proposalDetails = proposalId ? (editorJobProposals.find(proposal => proposal.id.toString() === proposalId) as EditorJobProposalType) : null;
 
   // console.log("Bid Details:", bidDetails);
 

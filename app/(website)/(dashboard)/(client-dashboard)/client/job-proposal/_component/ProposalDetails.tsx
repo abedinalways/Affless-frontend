@@ -13,8 +13,10 @@ import DolarIcon from "@/components/Icons/DolarIcon";
 import DesktopIcon from "@/components/Icons/Desktop";
 import WorldIcon from "@/components/Icons/WorldIcon";
 import { FaArrowLeft } from "react-icons/fa";
-import { ProposalData, ProposalRow } from "@/components/ClientDashboard/JobProposal/JobProposalPage";
+import { editorJobProposals } from "@/public/demodata";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import { EditorJobProposalType } from "@/app/type";
+import Image from "next/image";
 
 export const bidsData = [
     {
@@ -46,7 +48,7 @@ export const bidsData = [
 export default function ProposalDetails({ id }: { id: string }) {
 
 
-    const [proposal, setProposal] = useState<ProposalRow | null>(ProposalData.find((p) => p.id === id) || null);
+    const [proposal, setProposal] = useState<EditorJobProposalType | null>(editorJobProposals.find((p) => p.id.toString() === id) || null);
 
     const [pdfFile, setPdfFile] = useState<File | null>(null);
     const [textFile, setTextFile] = useState<File | null>(null);
@@ -65,22 +67,18 @@ export default function ProposalDetails({ id }: { id: string }) {
 
     const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
     useEffect(() => {
-        if(proposal){
+        if (proposal) {
             setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
-                currentLabel: proposal.service || "Proposal Details",
+                currentLabel: proposal.job.title || "Proposal Details",
                 fallbackBase: [{ label: "Home", href: "/" }],
             }));
         }
     }, [redirectUrl, proposal]);
-
-
-
-
     return (
         <div>
             <div>
                 <PageBanner
-                    title={`${proposal?.service || "Proposal Details"}`}
+                    title={`${proposal?.job.title || "Proposal Details"}`}
                     bgImage="/findEditor.jpg"
                     links={bannerLinks}
                 />
@@ -90,7 +88,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                 <div className="flex flex-col lg:flex-row gap-9">
                     {/* LEFT */}
                     <div className="space-y-5 w-full order-2 lg:order-1">
-                        <Link href={`/client/job-proposal?redirect=${redirectUrl ? redirectUrl.split("_").slice(0,-1).join("_") : ""}`} className="block">
+                        <Link href={`/client/job-proposal?redirect=${redirectUrl ? redirectUrl.split("_").slice(0, -1).join("_") : ""}`} className="block">
                             <button className="px-4 py-2 border rounded-md bg-[#e74c4c] hover:bg-[#c0392b] text-white text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
                                 <FaArrowLeft />
                                 Back to Job Proposals
@@ -227,21 +225,31 @@ export default function ProposalDetails({ id }: { id: string }) {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {/* PDF Upload */}
-                                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
-                                    <PdfIcon className="w-10 h-10" />
+                                <Link href="https://docs.google.com/document/d/1dMaecDuSwkP7_ppNmOGfjSun3W-4a1009OdFCozKdoc/edit?usp=sharing" target="_blank" aria-disabled="true" tabIndex={-1} className="flex items-center gap-4 py-4 px-6 border rounded-xl">
+                                    <Image
+                                        src="/images/pdfIcon.png"
+                                        alt="PDF Icon"
+                                        width={40}
+                                        height={40}
+                                    />
                                     <div>
-                                        <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                                            {pdfFile ? pdfFile.name : "Added-in PDF File"}
+                                        <p className="font-semibold text-[18px] text-[#333] capitalize">
+                                            Instructions for the editor
                                         </p>
                                     </div>
                                 </Link>
 
                                 {/* TEXT Upload */}
-                                <Link href="https://docs.google.com/document/d/1LiV0kTvIOAnxnB4lBC6D-JNR5XZuv_5qaOCyx9Jtxvs/edit?tab=t.0" className="flex items-center gap-4 py-8 px-6 border rounded-xl cursor-pointer">
-                                    <PdfIcon className="w-10 h-10" />
+                                <Link href="https://docs.google.com/document/d/1j8vESQ6rYlclSjxmbhauxnN55SGqI6wjyu0OmWismE4/edit?usp=sharing" aria-disabled="true" target="_blank" tabIndex={-1} className="flex items-center gap-4 py-4 px-6 border rounded-xl">
+                                    <Image
+                                        src="/images/wordIcon.jpg"
+                                        alt="Word Icon"
+                                        width={40}
+                                        height={40}
+                                    />
                                     <div>
-                                        <p className="font-semibold pb-1.5 text-[18px] text-[#333]">
-                                            {textFile ? textFile.name : "Added-in Text Document"}
+                                        <p className="font-semibold text-[18px] text-[#333] capitalize">
+                                            Script for the video
                                         </p>
                                     </div>
                                 </Link>

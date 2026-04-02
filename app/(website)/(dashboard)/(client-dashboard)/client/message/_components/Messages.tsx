@@ -51,13 +51,13 @@ export default function Messages({ id }: PropType) {
         <div className="bg-[#f9f9f9] w-full h-full grid ">
             <div className="grid grid-rows-1 lg:grid-cols-[1fr_auto] min-h-0 gap-3 xm:gap-6 w-full h-full">
                 <div className={`w-full h-full grid min-h-0 ${id === "" ? "hidden xl:block" : ""}`} style={{
-                height: 'calc(100vh - 148px)'
-            }}>
+                    height: 'calc(100vh - 148px)'
+                }}>
                     <MessageBody
                         conversationId={id}
                     />
                 </div>
-                <AdditionalActions 
+                <AdditionalActions
                     activeConversation={activeConversation}
                     conversationId={id}
                     onReportUser={() => setIsReportModalOpen(true)}

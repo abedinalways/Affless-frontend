@@ -4,9 +4,10 @@ import { useState } from "react"
 
 type PropTypes = {
     onAddLinks: (links: string[]) => void;
+    onClose: () => void;
 }
 
-export default function AddLinkModal({ onAddLinks }: PropTypes) {
+export default function AddLinkModal({ onAddLinks, onClose }: PropTypes) {
     const [link, setLink] = useState('');
 
     const handleAddLink = () => {
@@ -18,8 +19,8 @@ export default function AddLinkModal({ onAddLinks }: PropTypes) {
             }
     }
     return (
-        <div className="fixed inset-0 bg-[#0003] backdrop-blur-xs flex items-center justify-center p-4 z-999">
-            <div className="w-full max-w-sm bg-white rounded-lg p-4">
+        <div className="fixed inset-0 bg-[#0003] backdrop-blur-xs flex items-center justify-center p-4 z-999" onClick={onClose}>
+            <div className="w-full max-w-sm bg-white rounded-lg p-4" onClick={(e) => e.stopPropagation()}>
                 <h2 className="text-lg font-semibold mb-4">Paste Your Link(s) Here</h2>
                 <div>
                     <textarea

@@ -1,4 +1,4 @@
-import { ExposureTier, Order, Message, Conversation, ClientQuickMatchResult } from "@/app/type";
+import { ExposureTier, Order, Message, Conversation, ClientQuickMatchResult, EditorJobProposalType } from "@/app/type";
 
 export const exposureTiers: ExposureTier[] = [
   {
@@ -665,3 +665,77 @@ export const quickMatchResults: ClientQuickMatchResult[] = [
     image: "/images/Annette.jpg",
   },
 ];
+
+
+export const editorJobProposals: EditorJobProposalType[] = [
+  {
+    id: 1,
+    job: { title: "YouTube Video Editing", imageUrl: "/images/Marvin1.jpg" },
+    amount: 120,
+    timeLeft: 48,
+    status: "pending",
+  },
+  {
+    id: 2,
+    job: { title: "Instagram Reel Cut", imageUrl: "/images/Marvin2.jpg" },
+    amount: 80,
+    timeLeft: 24,
+    status: "pending",
+  },
+  {
+    id: 3,
+    job: { title: "Podcast Audio Cleanup", imageUrl: "/images/Marvin3.jpg" },
+    amount: 60,
+    timeLeft: 12,
+    status: "canceled",
+  },
+  {
+    id: 4,
+    job: { title: "Wedding Highlights Edit", imageUrl: "/images/Marvin4.jpg" },
+    amount: 200,
+    timeLeft: 36,
+    status: "pending",
+  },
+  {
+    id: 5,
+    job: { title: "Corporate Promo Video", imageUrl: "/images/Marvin1.jpg" },
+    amount: 150,
+    timeLeft: 72,
+    status: "pending",
+  },
+  {
+    id: 6,
+    job: { title: "Gaming Montage", imageUrl: "/images/Marvin2.jpg" },
+    amount: 90,
+    timeLeft: 18,
+    status: "canceled",
+  },
+  {
+    id: 7,
+    job: { title: "Travel Vlog Edit", imageUrl: "/images/Marvin3.jpg" },
+    amount: 110,
+    timeLeft: 30,
+    status: "pending",
+  },
+  {
+    id: 8,
+    job: { title: "Product Demo Video", imageUrl: "/images/Marvin4.jpg" },
+    amount: 130,
+    timeLeft: 20,
+    status: "pending",
+  },
+  {
+    id: 9,
+    job: { title: "Music Video Color Grading", imageUrl: "/images/Marvin1.jpg" },
+    amount: 170,
+    timeLeft: 60,
+    status: "canceled",
+  },
+  {
+    id: 10,
+    job: { title: "Short Film Edit", imageUrl: "/images/Marvin2.jpg" },
+    amount: 250,
+    timeLeft: 96,
+    status: "pending",
+  },
+]

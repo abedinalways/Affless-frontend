@@ -52,7 +52,7 @@ export default function BidCard({
         {showViewButton && (
           <Link
             href={`/client/bids-details/${id}?redirect=${redirect}&proposalId=${proposalId}`}
-            className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6]"
+            className="text-[14px] bg-[#FFECEC] text-[#FF4D4F] px-4 py-2 rounded-lg hover:bg-[#ffd6d6] duration-300"
           >
             View
           </Link>
