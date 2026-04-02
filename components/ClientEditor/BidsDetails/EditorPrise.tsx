@@ -44,7 +44,7 @@ export default function EditorPrise({ id, redirect }: proposal) {
               <p className="text-[16px] font-semibold text-[#333] leading-180%">0</p>
               <p className="text-[12px] text-[#4A4C56] font-normal leading-150%">Minutes</p>
             </div>
-{/* 
+            {/* 
             <div className="py-3 border-l">
               <p className="text-[16px] font-semibold text-[#333] leading-180%">00</p>
               <p className="text-[12px] text-[#4A4C56] font-normal leading-150%">Second</p>
@@ -73,6 +73,7 @@ export default function EditorPrise({ id, redirect }: proposal) {
           {/* Reject */}
           <button
             type="button"
+            disabled={true}
             onClick={() => {
               setStatus("reject")
               toast.error("Awaiting backend completion.")
@@ -122,7 +123,7 @@ export default function EditorPrise({ id, redirect }: proposal) {
           {/* Buyer Info */}
           <div className="bg-gray-50 border rounded-2xl p-4 mt-4">
             <InfoRow label="Total Jobs Completed:" value="50" />
-            <InfoRow label="Project Completion Rate (%):" value="80%" />
+            <InfoRow label="Job Completion Rate (%):" value="80%" />
             <InfoRow label="Average Response Time:" value="1 hour" />
             <InfoRow label="Member Since:" value="January, 2026" />
           </div>
@@ -132,7 +133,8 @@ export default function EditorPrise({ id, redirect }: proposal) {
         <Link href={`/client/message/3?redirect=${redirect}`} className="block">
           <button className="mt-6 w-full py-3 rounded-xl bg-[#FF4D4F] text-white font-medium text-[16px] cursor-pointer hover:opacity-90 transition">
             Chat With Editor
-          </button></Link>
+          </button>
+        </Link>
       </div>
     </div>
   );
