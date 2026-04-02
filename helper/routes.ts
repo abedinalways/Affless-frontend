@@ -216,7 +216,7 @@ export const routes: Record<string, RouteConfig> = {
         buildHref: (id: string) => `/client/job-proposal/${id}`,
     },
     bidsdetails: {
-        label: "Proposal Details",
+        label: "Job Proposal Details",
         href: "/client/bids-details/",
         buildHref: (id: string) => `/client/bids-details/${id}`,
     },

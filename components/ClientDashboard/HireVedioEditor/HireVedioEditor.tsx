@@ -18,6 +18,7 @@ import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { getNavigationSource } from "@/lib/navigation-source";
 import _ from 'lodash';
 import { conversationDirectory } from "@/public/demodata";
+import { routes } from "@/helper/routes";
 
 type FormValues = {
   jobTitle: string;
@@ -259,13 +260,13 @@ export default function HireVideoEditorForm() {
           links={bannerLinks}
         />
       </div>
-      {redirectUrl === "find-editor-match" && <div className="grid items-center justify-start p-6 containers">
+      {(redirectUrl.includes("quickmatchclient") || redirectUrl.includes("findeditors")) && <div className="grid items-center justify-start px-6 pt-6 containers">
         <Link
-          href="/client/find-editor-match"
+          href={`${redirectUrl.includes("quickmatchclient") ? "/client/find-editor-match" : "/client/find-editor"}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
           className="flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
         >
           <FaArrowLeft />
-          <span>Back to Quick-Match Results</span>
+          <span>Back to {redirectUrl.includes("quickmatchclient") ? "Quick-Match Results" : "Find Editors"}</span>
         </Link>
       </div>}
       <form
@@ -585,7 +586,7 @@ export default function HireVideoEditorForm() {
             </div>
 
             <div className="flex items-center gap-4 py-4">
-              {redirectUrl === "/client" && <button
+              {(redirectUrl.includes("quickmatchclient") || redirectUrl.includes("findeditors")) && <button
                 type='button'
                 onClick={() => router?.back()}
                 className='w-full text-red-500 border border-red-500 py-3 rounded-lg hover:bg-red-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed duration-300'>

@@ -86,7 +86,7 @@ export default function ConfirmDepositPage() {
             </div>
           </div>
           <div className='bg-white px-6 py-8 rounded-2xl space-y-6'>
-            <p>A secure deposit is required for your project. The deposit will be safely held in escrow, a secure third-party holding system that releases funds only after the job is completed.</p>
+            <p>A payment is required to share your job with editors. Your payment will be safely held in escrow, a secure third-party holding system that releases funds to the editor only after the job is completed. If the editor does not deliver or the job is canceled, your payment is fully protected.</p>
             <button
               type='button'
               disabled={loading}

@@ -1,7 +1,5 @@
 "use client";
 
-import BudgetPage from "@/components/ClientDashboard/GraphicsDesigner/BudgetPage";
-import PdfIcon from "@/components/Icons/PdfIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
 import BidCard from "@/components/reusable/Bids";
 import Link from "next/link";
