@@ -2,7 +2,7 @@
 
 import PdfIcon from "@/components/Icons/PdfIcon";
 import PageBanner from "@/components/reusable/Bgbanner";
-import { Edit } from "lucide-react";
+import { Clapperboard, Clock4, Edit } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import EditorPrise from "./EditorPrise";
 import { useSearchParams } from "next/navigation";
@@ -11,6 +11,10 @@ import { EditorJobProposalType } from "@/app/type";
 import { editorJobProposals } from "@/public/demodata";
 import Link from "next/link";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import DesktopIcon from "@/components/Icons/Desktop";
+import WorldIcon from "@/components/Icons/WorldIcon";
+import DolarIcon from "@/components/Icons/DolarIcon";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const BidsDetails = ({ id }: { id: string }) => {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -26,7 +30,7 @@ const BidsDetails = ({ id }: { id: string }) => {
   const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
   useEffect(() => {
     setBannerLinks(buildSourceBreadcrumbs(redirect, {
-      currentLabel: bidDetails ? bidDetails.name + "'s Proposal" : "Proposal Details",
+      currentLabel: bidDetails ? bidDetails.name + "'s Proposal Details" : "Proposal Details",
       fallbackBase: [{ label: "Home", href: "/" }],
     }));
   }, [redirect, bidDetails]);
@@ -36,7 +40,7 @@ const BidsDetails = ({ id }: { id: string }) => {
       {/* Banner */}
       <div>
         <PageBanner
-          title={`${bidDetails?.name ? bidDetails.name + "'s Proposal" : "Proposal Details"}`}
+          title={`${bidDetails?.name ? bidDetails.name + "'s Proposal Details" : "Proposal Details"}`}
           bgImage="/findEditor.jpg"
           links={bannerLinks}
         />
@@ -44,12 +48,88 @@ const BidsDetails = ({ id }: { id: string }) => {
 
       {/* Page Content */}
       <div className="containers py-10 lg:py-20 ">
+        <div className="space-y-4 mb-6">
+          <Link href={`/client/job-proposal/${id}?redirect=${redirect ? redirect.split("_").slice(0, -1).join("_") : ""}`} className="block">
+            <button className="px-4 py-2 border rounded-md bg-[#e74c4c] hover:bg-[#c0392b] text-white text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
+              <FaArrowLeft />
+              Back to Job Proposals Details
+            </button>
+          </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+            <div className="p-4 rounded-xl border bg-[#E1E7FF]">
+              <div className="flex gap-4"> <div className="flex justify-center items-center">
+                <Clapperboard />
+              </div>
+                <div>
+                  <p className="text-lg text-[18px] font-semibold">Job Category</p>
+                  <p className="text-[16px] font-medium leading-150% mt-1.5 capitalize">{"Thumbnail"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl border bg-[#EBE6FE]">
+              <div className="flex gap-4"> <div className="flex justify-center items-center">
+                <DolarIcon />
+              </div>
+                <div>
+                  <p className="text-lg text-[18px] font-semibold">Your Chosen Job Payout</p>
+                  <p className="text-[16px] font-medium leading-150% mt-1.5 ">${Number(210.10).toFixed(2)}</p>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          {/* 2nd Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl border bg-[#FFCCE4]">
+              <div className="flex gap-4">
+                <div className="flex gap-4"> <div className="flex justify-center items-center">
+                  <DesktopIcon />
+                </div>
+                  <div>
+                    <p className="text-lg text-[18px] font-semibold">Platform</p>
+                    <p className="text-[16px] font-medium leading-150% mt-1.5 ">{"YouTube"}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="p-4 rounded-xl border bg-[#FFF1CC]">
+              <div className="flex gap-4">
+                <div className="flex gap-4"> <div className="flex justify-center items-center">
+                  <Clock4 className="text-black" />
+                </div>
+                  <div>
+                    <p className="text-lg text-[18px] font-semibold">Your Chosen Job Duration</p>
+                    <p className="text-[16px] font-medium leading-150% mt-1.5 ">{2} Days</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {<div className="p-4 rounded-xl border bg-[#E6F7D9]">
+              <div className="flex gap-4">
+                <div className="flex gap-4"> <div className="flex justify-center items-center">
+                  <WorldIcon />
+                </div>
+                  <div>
+                    <p className="text-lg text-[18px] font-semibold">Your Chosen Footage Duration</p>
+                    <p className="text-[16px] font-medium leading-150% mt-1.5 ">N/A</p>
+                  </div>
+                </div>
+              </div>
+            </div>}
+          </div>
+        </div>
         <div className="gap-9">
           <div className=" flex flex-col lg:flex-row  gap-9">
             <div className="space-y-5 w-full lg:w-2/3 order-2 lg:order-1">
               {/* Title */}
               <h1 className="text-lg lg:text-[32px] font-bold text-[#333] leading-150% text-[#333]">
-                {bidDetails?.name ? bidDetails.name + "'s Proposal" : "Proposal Details"}
+                {bidDetails?.name ? bidDetails.name + "'s Proposal Details" : "Proposal Details"}
               </h1>
 
               <p className="text-[16px] font-normal leading-150% text-[#4A4C56]">

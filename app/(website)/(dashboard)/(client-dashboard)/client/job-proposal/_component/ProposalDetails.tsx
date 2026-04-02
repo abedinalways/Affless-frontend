@@ -91,7 +91,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                         <Link href={`/client/job-proposal?redirect=${redirectUrl ? redirectUrl.split("_").slice(0, -1).join("_") : ""}`} className="block">
                             <button className="px-4 py-2 border rounded-md bg-[#e74c4c] hover:bg-[#c0392b] text-white text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
                                 <FaArrowLeft />
-                                Back to Job Proposals
+                                Back to Job Proposals List
                             </button>
                         </Link>
 
@@ -112,7 +112,7 @@ export default function ProposalDetails({ id }: { id: string }) {
                                     <DolarIcon />
                                 </div>
                                     <div>
-                                        <p className="text-lg text-[18px] font-semibold">Project Budget</p>
+                                        <p className="text-lg text-[18px] font-semibold">Job Budget</p>
                                         <p className="text-[16px] font-medium leading-150% mt-1.5 ">${Number(210.10).toFixed(2)}</p>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@ export default function ProposalDetails({ id }: { id: string }) {
 
                                     </div>
                                         <div>
-                                            <p className="text-lg text-[18px] font-semibold">Project Duration</p>
+                                            <p className="text-lg text-[18px] font-semibold">Job Duration</p>
                                             <p className="text-[16px] font-medium leading-150% mt-1.5 ">{2} Days</p>
                                         </div>
                                     </div>
