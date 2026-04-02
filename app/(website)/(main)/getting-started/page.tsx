@@ -51,7 +51,7 @@ export default function GettingStartedPage() {
             Welcome to Editor Marketplace
           </h2>
           <p className='text-[#4A4C56] font-poppins text-[18px] md:text-[20px] font-normal leading-[150%] mt-4 max-w-3xl mx-auto'>
-            Whether you’re looking to hire talented editors or offer your creative services, we’ve made it simple to get started.
+            Whether you’re looking to hire talented editors or offer your editing services, we’ve made it simple to get started.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export default function GettingStartedPage() {
                 For Clients
               </h3>
               <p className='text-[#4A4C56] font-poppins text-[16px] font-normal leading-[150%]'>
-                Find and hire the perfect editor for your project
+                Find and hire the perfect editor for your job
               </p>
             </div>
             <div className='space-y-4 mb-8'>
@@ -74,7 +74,7 @@ export default function GettingStartedPage() {
                   text: "Post a job (title, budget, timeline, requirements)",
                 },
                 { step: 3, text: "Review proposals and profiles" },
-                { step: 4, text: "Hire an editor and manage the project" },
+                { step: 4, text: "Hire an editor and manage the job" },
                 {
                   step: 5,
                   text: "Pay securely through the platform and leave a review",
@@ -106,7 +106,7 @@ export default function GettingStartedPage() {
                   For Editors
                 </h3>
                 <p className='text-[#4A4C56] font-poppins text-[16px] font-normal leading-[150%]'>
-                  Showcase your skills and find exciting projects
+                  Showcase your skills and find exciting jobs
                 </p>
               </div>
               <div className='space-y-4 mb-8'>
