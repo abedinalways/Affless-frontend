@@ -194,11 +194,11 @@ export default function EditorDashboardHeader() {
             <div className="flex items-center gap-10">
               {/* Logo */}
               <Link href="/">
-                <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
+                <div className="w-24 sm:w-32 h-[42px] flex justify-center items-center overflow-hidden">
                   <Image
                     src="/images/logoUpdate.png"
                     width={128}
-                    height={100}
+                    height={42}
                     alt="Logo"
                     className=" object-cover justify-start"
                   />
@@ -292,7 +292,7 @@ export default function EditorDashboardHeader() {
             </div>
 
             {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
-            <div className="flex gap-8 items-center">
+            <div className="flex gap-4 sm:gap-8 items-center">
               <button
                 onClick={handleBecomeClientClick}
                 className={`hidden lg:block cursor-pointer ${isActive("/client") ? activeCls : inactiveCls}`}
@@ -326,8 +326,8 @@ export default function EditorDashboardHeader() {
 
               {/* Profile Dropdown */}
               <div className="relative" ref={profileDropdownRef}>
-                <button onClick={() => setProfileDropdown(!profileDropdown)} className={`flex cursor-pointer border-2 rounded-full ${isActive("/editor/editor-profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}>
-                  <Image src="/images/photographer.jpg" alt="profile" width={1000} height={1000} className="w-8 h-8 rounded-full object-cover" />
+                <button onClick={() => setProfileDropdown(!profileDropdown)} className={`w-8 h-8 flex cursor-pointer rounded-full ${isActive("/editor/editor-profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}>
+                  <Image src="/images/photographer.jpg" alt="profile" width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
                 </button>
 
                 {profileDropdown && (

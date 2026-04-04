@@ -196,11 +196,11 @@ export default function ClientDashboardHeader() {
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link href="/">
-              <div className="w-32 h-[42px] flex justify-center items-center overflow-hidden">
+              <div className="w-24 sm:w-32 h-[42px] flex justify-center items-center overflow-hidden">
                 <Image
                   src="/images/logoUpdate.png"
                   width={128}
-                  height={100}
+                  height={42}
                   alt="Logo"
                   className=" object-cover justify-start"
                 />
@@ -303,7 +303,7 @@ export default function ClientDashboardHeader() {
           </div>
 
           {/* ---------- RIGHT SECTION (DESKTOP) ---------- */}
-          <div className="flex gap-8 items-center">
+          <div className="flex gap-4 sm:gap-8 items-center">
             <Link
               href="/editor"
               onClick={handleBecomeEditorClick}
@@ -340,7 +340,7 @@ export default function ClientDashboardHeader() {
             <div className="relative" ref={profileDropdownRef}>
               <button
                 onClick={() => setProfileDropdown(!profileDropdown)}
-                className={`flex cursor-pointer border-2 rounded-full ${isActive("/client/profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}
+                className={`w-8 h-8 flex cursor-pointer border-2 rounded-full ${isActive("/client/profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}
               >
                 <Image
                   src="/images/jone3.png"
