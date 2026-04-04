@@ -95,7 +95,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
                     </div>
                     <div>
                       <p className="text-lg text-[18px] font-semibold">
-                        Project Budget
+                        Job Budget
                       </p>
                       <p className="text-[16px] font-medium leading-150% mt-1.5 ">
                         {proposal?.price ? `$${proposal.price}` : "$675"}
@@ -130,7 +130,7 @@ export default function HireDetails({ params }: { params: Promise<{ id: string }
                     </div>
                     <div>
                       <p className="text-lg text-[18px] font-semibold">
-                        Project Duration
+                        Job Duration
                       </p>
                       <p className="text-[16px] font-medium leading-150% mt-1.5 ">
                         {proposal?.duration ? `${proposal.duration} Days` : "5 Days"}

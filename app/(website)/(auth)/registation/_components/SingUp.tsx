@@ -232,7 +232,7 @@ export default function SingUpForm() {
 
             {/* Terms Text */}
             <div className="bg-[#FFECEC] p-4 rounded-xl text-[#333] text-sm font-poppins">
-              By signing up, you agree to our Terms of Service and Privacy Policy.  You’ll join a community of video editors and clients, and gain access to collaboration tools, project features, secure payments, and marketplace opportunities.
+              By signing up, you agree to our Terms of Service and Privacy Policy.  You’ll join a community of video editors and clients, and gain access to collaboration tools, job features, secure payments, and marketplace opportunities.
             </div>
 
             {/* Terms Checkbox */}

@@ -11,19 +11,19 @@ const data = [
   {
     id: 1,
     icon: <CreateIcon className='bg-red-400' />,
-    title: "Create Project",
-    desc: "Add your project details and set the payment amount.",
+    title: "Create Job",
+    desc: "Add your job details and set the payment amount.",
   },
   {
     id: 2,
     icon: <DepositeIcon className='text-red-500' />,
     title: "Deposit Payment",
-    desc: "Securely deposit your payment into the system before the work begins. The deposit is securely held by the platform and is only released to the editor after the project is completed and approved.",
+    desc: "Securely deposit your payment into the system before the work begins. The deposit is securely held by the platform and is only released to the editor after the job is completed and approved.",
   },
   {
     id: 3,
     icon: <ProjectIcon className='text-red-500' />,
-    title: "Project Completion",
+    title: "Job Completion",
     desc: "Editor delivers work and you review it carefully.",
   },
   {

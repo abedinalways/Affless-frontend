@@ -37,7 +37,7 @@ export default function PaymentProtectionPage() {
               </p>
 
               <p className="text-[18px] text-center leading-[150%] text-white/90 ">
-                Your payments are protected until your project is completed to your satisfaction.
+                Your payments are protected until your job is completed to your satisfaction.
               </p>
 
               <Link href="#how-it-works" className="py-3 px-6 bg-[#FF4D4F] rounded-md text-[16px] font-medium">

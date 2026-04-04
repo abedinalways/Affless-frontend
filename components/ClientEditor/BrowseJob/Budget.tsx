@@ -38,8 +38,8 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
 
         {/* Project Info */}
         <div className="bg-gray-50  text- rounded-2xl p-4 mt-4">
-          <InfoRow label="Project Duration:" value="1–5 Days" />
-          <InfoRow label="Project Level:" value="Expensive" />
+          <InfoRow label="Job Duration:" value="1–5 Days" />
+          <InfoRow label="Job Level:" value="Expensive" />
           <InfoRow label="Languages:" value="French" />
           <InfoRow label="English Level:" value="Native" />
         </div>

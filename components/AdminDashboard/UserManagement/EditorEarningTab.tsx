@@ -157,7 +157,7 @@ export default function EarningsPage() {
               <span>20%</span>
             </div>
             <div className="flex justify-between text-gray-700 mb-4">
-              <span>Projects Completed</span>
+              <span>Jobs Completed</span>
               <span>46</span>
             </div>
             <hr className="my-4" />

@@ -43,7 +43,7 @@ export default function PlatfromRules() {
                 <AccordionTrigger className=' text-[16px] lg:text-[18px] font-normal leading-120% cursor-pointer' style={{ color: 'red' }}> File Delivery Format Guidelines</AccordionTrigger>
               </div>
               <AccordionContent className='px-6 py-4'>
-                Editors should deliver the final files in formats that clients can easily download and use across common platforms. Accepted formats include MP4, MOV, WMV, MP3, PNG, and JPEG unless the client requests otherwise. All exports must be complete, playable, and include everything agreed upon with the client, such as subtitles, thumbnails, project files, or revisions.
+                Editors should deliver the final files in formats that clients can easily download and use across common platforms. Accepted formats include MP4, MOV, WMV, MP3, PNG, and JPEG unless the client requests otherwise. All exports must be complete, playable, and include everything agreed upon with the client, such as subtitles, thumbnails, job files, or revisions.
               </AccordionContent>
 
             </AccordionItem>
@@ -56,7 +56,7 @@ export default function PlatfromRules() {
                 <AccordionTrigger className='text-[16px] lg:text-[18px]  font-normal leading-120% cursor-pointer' style={{ color: 'red' }}>Best Practices for Deliverables</AccordionTrigger>
               </div>
               <AccordionContent className='px-6 py-4'>
-                Before sending a project to the client, review the full video or media to ensure there are no missing elements, errors, or incomplete sections. Make sure the deliveries meet the client’s instructions, deadlines, and style requirements. Provide well-organised files, maintain clear communication, and respond promptly to requests for minor revisions.
+                Before sending a job to the client, review the full video or media to ensure there are no missing elements, errors, or incomplete sections. Make sure the deliveries meet the client’s instructions, deadlines, and style requirements. Provide well-organised files, maintain clear communication, and respond promptly to requests for minor revisions.
               </AccordionContent>
 
             </AccordionItem>

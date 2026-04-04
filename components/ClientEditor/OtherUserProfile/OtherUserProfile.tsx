@@ -114,7 +114,7 @@ export default function OtherUserProfile() {
                 {/* OFFER PROJECT RATE */}
                 <div className="space-y-2">
                     <h3 className="text-2xl font-medium text-[#333] leading-150%">
-                        Offer Project Rate
+                        Offer Job Rate
                     </h3>
 
                     <p className="text-sm text-gray-600">

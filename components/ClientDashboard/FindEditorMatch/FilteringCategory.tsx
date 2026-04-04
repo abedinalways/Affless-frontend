@@ -8,7 +8,7 @@ export default function FilteringCategory() {
 
     {/* Project Types */}
     <div>
-      <h3 className="text-[26px] font-bold text-[#222] mb-5">Project Types</h3>
+      <h3 className="text-[26px] font-bold text-[#222] mb-5">Job Types</h3>
       <div className="space-y-5">
 
         {[
@@ -26,7 +26,7 @@ export default function FilteringCategory() {
               <span className="text-[16px] text-[#333]">{item.title}</span>
             </div>
 
-            <span className="min-w-[54px] h-[32px] flex items-center justify-center text-[14px] font-medium rounded-md bg-[#FFF1F0] text-[#FF4D4F]">
+            <span className="min-w-[54px] h-8 flex items-center justify-center text-[14px] font-medium rounded-md bg-[#FFF1F0] text-[#FF4D4F]">
               {item.count}
             </span>
           </label>
@@ -54,7 +54,7 @@ export default function FilteringCategory() {
               <span className="text-[16px] text-[#333]">{item.title}</span>
             </div>
 
-            <span className="min-w-[54px] h-[32px] flex items-center justify-center text-[14px] font-medium rounded-md bg-[#FFF1F0] text-[#FF4D4F]">
+            <span className="min-w-[54px] h-8 flex items-center justify-center text-[14px] font-medium rounded-md bg-[#FFF1F0] text-[#FF4D4F]">
               {item.count}
             </span>
           </label>
@@ -78,18 +78,18 @@ export default function FilteringCategory() {
       <div className="flex gap-4">
         <input
           placeholder="Min"
-          className="w-full h-[44px] rounded-lg border border-[#D9D9D9] px-4 text-[15px] outline-none bg-[#FAFAFA]"
+          className="w-full h-11 rounded-lg border border-[#D9D9D9] px-4 text-[15px] outline-none bg-[#FAFAFA]"
         />
         <input
           placeholder="Max"
-          className="w-full h-[44px] rounded-lg border border-[#D9D9D9] px-4 text-[15px] outline-none bg-[#FAFAFA]"
+          className="w-full h-11 rounded-lg border border-[#D9D9D9] px-4 text-[15px] outline-none bg-[#FAFAFA]"
         />
       </div>
     </div>
 
     {/* Project Duration */}
     <div>
-      <h3 className="text-[26px] font-bold text-[#222] mb-5">Project Duration</h3>
+      <h3 className="text-[26px] font-bold text-[#222] mb-5">Job Duration</h3>
       <div className="space-y-5">
 
         {["Express 24H", "Up to 3 days", "Up to 7 days", "Anytime"].map((item, i) => (
@@ -106,7 +106,7 @@ export default function FilteringCategory() {
     </div>
 
     {/* Button */}
-    <button className="w-full h-[48px] rounded-lg bg-[#FF4D4F] text-white text-[16px] font-medium hover:opacity-90 transition">
+    <button className="w-full h-12 rounded-lg bg-[#FF4D4F] text-white text-[16px] font-medium hover:opacity-90 transition">
       Find Another Match
     </button>
 

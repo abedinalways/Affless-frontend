@@ -192,7 +192,7 @@ export default function ProfilePage() {
                       <span className="font-medium text-red-400">YouTube</span>
                     </div>
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
-                      <span className="text-[#777980]">Project Type: </span>
+                      <span className="text-[#777980]">Job Type: </span>
                       <span className="font-medium text-red-400">YouTube Long-Form</span>
                     </div>
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
@@ -217,7 +217,7 @@ export default function ProfilePage() {
 
                     <div className="p-6 flex gap-6">
                       <div>
-                        <p className="text-[#4A4C56] text-[14px]">Project Duration</p>
+                        <p className="text-[#4A4C56] text-[14px]">Job Duration</p>
                         <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
                       </div>
                     </div>

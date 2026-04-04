@@ -31,7 +31,7 @@ export const bidsData = [
         avatar: "/images/jerome.png",
         time: "1 day ago",
         description:
-            "I will handle your project professionally. You will get unlimited revisions and fast response.",
+            "I will handle your job professionally. You will get unlimited revisions and fast response.",
     },
     {
         id: "3",
@@ -39,7 +39,7 @@ export const bidsData = [
         avatar: "/images/jerome.png",
         time: "1 day ago",
         description:
-            "I will handle your project professionally. You will get unlimited revisions and fast response.",
+            "I will handle your job professionally. You will get unlimited revisions and fast response.",
     },
 ];
 

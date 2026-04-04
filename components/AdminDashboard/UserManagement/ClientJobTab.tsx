@@ -24,7 +24,7 @@ export default function ClientJob() {
       user: "sarahncl",
       country: "United Kingdom",
       description:
-        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
+        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any job.",
 
       priceRange: "$600",
       software: "3",
@@ -37,7 +37,7 @@ export default function ClientJob() {
       user: "sarahncl",
       country: "United Kingdom",
       description:
-        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
+        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any job.",
 
       priceRange: "$400",
       software: "5",
@@ -64,7 +64,7 @@ export default function ClientJob() {
       rating: 5,
       totalReviews: 338,
       comment:
-        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
+        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
       timeAgo: "4 years ago",
     },
     {
@@ -74,7 +74,7 @@ export default function ClientJob() {
       rating: 5,
       totalReviews: 338,
       comment:
-        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
+        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free.",
       timeAgo: "4 years ago",
     },
     {
@@ -84,7 +84,7 @@ export default function ClientJob() {
       rating: 5,
       totalReviews: 338,
       comment:
-        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline.",
+        "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline.",
       timeAgo: "4 years ago",
     },
   ];
@@ -159,7 +159,7 @@ export default function ClientJob() {
                       <span className="font-medium">YouTube</span>
                     </div>
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
-                      <span className="text-[#777980]">Project Type: </span>
+                      <span className="text-[#777980]">Job Type: </span>
                       <span className="font-medium">YouTube Long-Form</span>
                     </div>
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
@@ -190,7 +190,7 @@ export default function ClientJob() {
 
                     <div className="p-6 flex gap-6">
                       <div>
-                        <p className="text-[#4A4C56] text-[14px]">Project duration</p>
+                        <p className="text-[#4A4C56] text-[14px]">Job duration</p>
                         <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
                       </div>
                       <div className="border hidden md:block border-r-gray-300 mx-6">

@@ -49,7 +49,7 @@ const portfolioData = [
     description1:
       "I had the pleasure of working with Antec, a company that provides turnkey solutions for biomass owners to convert waste into energy. Their primary goal was to create a website that effectively communicates their expertise in building and operating high-performing biogas plants, as well as producing biogas, biomethane, and biofertilizer.",
     description2:
-      "One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec’s capabilities and successful projects.",
+      "One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec’s capabilities and successful jobs.",
     price: "$400",
     duration: "10 days",
     industry: "Énergie issue de la biomasse",
@@ -62,7 +62,7 @@ const portfolioData = [
     description1:
       "I had the pleasure of working with Antec, a company that provides turnkey solutions for biomass owners to convert waste into energy. Their primary goal was to create a website that effectively communicates their expertise in building and operating high-performing biogas plants, as well as producing biogas, biomethane, and biofertilizer.",
     description2:
-      "One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec’s capabilities and successful projects.",
+      "One challenge was to present their extensive experience and complex processes in a clear and engaging manner. To address this, I focused on creating a user-friendly layout with informative content and visual elements that highlight Antec’s capabilities and successful jobs.",
     price: "$600",
     duration: "7 days",
     industry: "Énergie issue de la biomasse",
@@ -162,7 +162,7 @@ export default function EditorDetails() {
                         </div>
 
                         <div>
-                          <p className="text-sm text-gray-600">Project Duration</p>
+                          <p className="text-sm text-gray-600">Job Duration</p>
                           <p className="font-semibold">{item.duration}</p>
                         </div>
 

@@ -78,9 +78,9 @@ export default function ClientGuidePage() {
               </div>
 
               <ul className='list-disc pl-5 text-[#333] space-y-3.5'>
-                <li>How to create an effective project brief</li>
+                <li>How to create an effective job brief</li>
                 <li>Finding and evaluating the right editor</li>
-                <li>Managing your project and communication</li>
+                <li>Managing your job and communication</li>
                 <li>Understanding payment protection</li>
               </ul>
             </div>
@@ -107,12 +107,12 @@ export default function ClientGuidePage() {
                   <h3
                     id='post'
                     className='text-[20px] md:text-2xl text-[#333] font-medium '>
-                    1. Post Your Project
+                    1. Post Your Job
                   </h3>
                 </div>
                 <p className='text-[18px] text-[#4A4C56] font-normal pt-3 pb-5'>
-                  Start by creating a detailed project brief. Include clear
-                  information about your project type (YouTube Long-form,
+                  Start by creating a detailed job brief. Include clear
+                  information about your job type (YouTube Long-form,
                   Shorts/Reels/TikToks, Thumbnails, Ads/UGC, Podcasts,
                   Weddings/Events, Captions/Subtitles, or Color & Audio), along
                   with your desired editing style, budget range, and deadline.
@@ -127,7 +127,7 @@ export default function ClientGuidePage() {
                   <div className='list-disc  text-[#333] text-sm space-y-3.5 pt-3.5'>
                     <div className='flex gap-2'>
                       {" "}
-                      <FiCheckCircle className='text-red-500' /> Your project
+                      <FiCheckCircle className='text-red-500' /> Your job
                       type (YouTube Long-form, Shorts/Reels/TikToks, Thumbnails,
                       Ads/UGC, Podcasts, Weddings/Events, Captions/Subtitles, or
                       Color & Audio)
@@ -135,7 +135,7 @@ export default function ClientGuidePage() {
                     <div className='flex gap-2'>
                       {" "}
                       <FiCheckCircle className='text-red-500' /> Brief
-                      Information about your project
+                      Information about your job
                     </div>
                     <div className='flex gap-2'>
                       {" "}
@@ -160,10 +160,10 @@ export default function ClientGuidePage() {
                 </div>
 
                 <p className='text-[#4A4C56] text-[18px] leading-150% pt-3 pb-5'>
-                  After posting your project, you’ll begin receiving proposals
+                  After posting your job, you’ll begin receiving proposals
                   from interested editors. Each proposal includes the editor’s
                   rate, estimated delivery timeline, relevant portfolio samples,
-                  and a personalized message addressing your project.
+                  and a personalized message addressing your job.
                 </p>
 
                 <div className='bg-[#F7F6F6] rounded-lg p-4 space-y-3.5'>
@@ -196,9 +196,9 @@ export default function ClientGuidePage() {
                   </h3>
                 </div>
                 <h3 className='pt-3 pb-6 text-[#4A4C56]'>
-                  Before awarding the project, message your editor proposals to
+                  Before awarding the job, message your editor proposals to
                   confirm details and ensure alignment. Once you’ve selected the
-                  right editor, award the project and finalize expectations.
+                  right editor, award the job and finalize expectations.
                 </h3>
                 <div className='bg-[#F7F6F6] p-4 rounded-lg'>
                   <div className='flex items-center gap-2'>
@@ -223,11 +223,11 @@ export default function ClientGuidePage() {
                   <h3
                     id='found'
                     className='text-[20px] md:text-2xl text-[#333] font-medium '>
-                    4. Fund the Project using Escrow
+                    4. Fund the Job using Escrow
                   </h3>
                 </div>
                 <h3 className='pt-3 pb-6 text-[#4A4C56]'>
-                  After awarding the project, deposit the payment into our
+                  After awarding the job, deposit the payment into our
                   secure escrow system. Your funds are protected and will not be
                   released to the editor until you approve the completed work.
                   This ensures security for both clients and editors.
@@ -263,7 +263,7 @@ export default function ClientGuidePage() {
                 <h3 className='pt-3 pb-6 text-[#4A4C56]'>
                   Once the editor delivers the first draft, review it carefully.
                   If changes are needed, provide clear and specific feedback
-                  through the platform’s messaging system. Most projects include
+                  through the platform’s messaging system. Most jobs include
                   revision rounds, so don’t hesitate to request adjustments.
                 </h3>
 
@@ -311,14 +311,14 @@ export default function ClientGuidePage() {
                 </div>
                 <h3 className='pt-3 pb-6 text-[#4A4C56]'>
                   When you are fully satisfied with the final deliverable,
-                  approve the project and release the payment from escrow. The
+                  approve the job and release the payment from escrow. The
                   editor will receive their funds, and you will leave a review
                   to help future clients.
                 </h3>
                 <div className='bg-[#FEFCE8] rounded-lg p-4'>
                   <div className='flex items-center gap-2'>
                     <h4 className='text-[18px] pb-3.5'>
-                      After Project Completion:
+                      After Job Completion:
                     </h4>
                   </div>
 
@@ -330,7 +330,7 @@ export default function ClientGuidePage() {
                     <li className='flex gap-[7px]'>
                       {" "}
                       <CiStar className='w-5 h-5 text-[#D08700]' />
-                      Save the editor for future projects
+                      Save the editor for future jobs
                     </li>
                     <li className='flex gap-[7px]'>
                       {" "}

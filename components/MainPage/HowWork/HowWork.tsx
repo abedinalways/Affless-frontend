@@ -18,7 +18,7 @@ const data1 = [
     id: 1,
     icon: <Postjob />,
     title: " Post Job",
-    desc: "Describe your project needs and budget",
+    desc: "Describe your job needs and budget",
   },
   {
     id: 2,
@@ -48,19 +48,19 @@ const data2 = [
     id: 1,
     icon: <CreateProfile />,
     title: " Create Profile",
-    desc: "Describe your project needs and budget",
+    desc: "Describe your job needs and budget",
   },
   {
     id: 2,
     icon: <BrowseIcon />,
     title: " Browse & Apply",
-    desc: "Find projects that match your expertise",
+    desc: "Find jobs that match your expertise",
   },
   {
     id: 3,
     icon: <DeleverIcon />,
     title: "Deliver",
-    desc: "Complete project to client specifications",
+    desc: "Complete job to client specifications",
   },
   {
     id: 4,

@@ -19,7 +19,7 @@ const reviews = [
     jobTitle: "I will do SEO backlinks with blogger outreach for high quality link building",
     price: 400,
     message:
-      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
+      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any job.",
     previewImage: "/images/vedio.png.jpg",
     reviews: 338,
   },
@@ -35,7 +35,7 @@ const reviews = [
     jobTitle: "Create a modern minimalist logo design for tech startup",
     price: 150,
     message:
-      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the project deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any project.",
+      "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any job.",
     previewImage: "/images/vedio.png.jpg",
     reviews: 328,
   },

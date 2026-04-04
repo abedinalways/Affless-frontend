@@ -95,7 +95,7 @@ export default function JobDetails({ id }: propType) {
                                     <DolarIcon />
                                 </div>
                                     <div>
-                                        <p className="text-lg text-[18px] font-semibold">Project Budget</p>
+                                        <p className="text-lg text-[18px] font-semibold">Job Budget</p>
                                         <p className="text-[16px] font-medium leading-150% mt-1.5 ">${Number(job.total)?.toFixed(2)}</p>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@ export default function JobDetails({ id }: propType) {
 
                                     </div>
                                         <div>
-                                            <p className="text-lg text-[18px] font-semibold">Project Duration</p>
+                                            <p className="text-lg text-[18px] font-semibold">Job Duration</p>
                                             <p className="text-[16px] font-medium leading-150% mt-1.5 ">{job.duration} Days</p>
                                         </div>
                                     </div>

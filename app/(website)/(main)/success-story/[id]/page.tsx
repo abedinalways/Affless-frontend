@@ -71,7 +71,7 @@ export default async function StoryDetails({
 
           <p className="text-[#333] text-[16px] font-normal leading-[150%]">
             After joining the Editor Marketplace, Sarah created a professional
-            profile showcasing her best work. She started with small projects to
+            profile showcasing her best work. She started with small jobs to
             build her portfolio and reputation on the platform.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default async function StoryDetails({
 
           <p className="text-[#333] text-[16px] font-normal leading-[150%]">
             After joining the Editor Marketplace, Sarah created a professional
-            profile showcasing her best work. She started with small projects to
+            profile showcasing her best work. She started with small jobs to
             build her portfolio and reputation on the platform.
           </p>
         </div>

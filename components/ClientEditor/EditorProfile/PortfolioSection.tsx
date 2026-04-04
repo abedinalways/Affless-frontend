@@ -13,7 +13,7 @@ export default function PortfolioSection({ showAddBtn = true }: { showAddBtn?: b
       {/* ✅ Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-[24px] font-medium text-[#333] leading-150%">
-          Portfolio of Past Projects
+          Portfolio of Past Jobs
         </h3>
 
         {showAddBtn && <button

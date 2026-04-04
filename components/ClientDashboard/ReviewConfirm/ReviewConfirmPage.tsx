@@ -35,7 +35,7 @@ export default function ReviewConfirmPage() {
     <div className="containers mx-auto py-10 px-5">
       <h1 className="text-[30px] md:text-[35px] lg:text-[40px] font-medium text-[#333] pb-3">Review & Confirm</h1>
       <p className="text-[#4A4C56] text-[16px]">
-        Please review your project details before sending the hire request.
+        Please review your job details before sending the hire request.
       </p>
 
       {/* Editor Info */}
@@ -48,11 +48,11 @@ export default function ReviewConfirmPage() {
 
       {/* Project Details */}
       <div className="bg-white p-6 rounded-xl shadow-sm mb-8">
-        <h3 className="text-lg font-medium mb-4 text-[#333]">Project Details</h3>
+        <h3 className="text-lg font-medium mb-4 text-[#333]">Job Details</h3>
 
         <div className="space-y-6 text-sm">
           <div>
-            <p className="text-[#777980] flex gap-2 text-sm pb-3"><ProjectTitleIcon /> Project Title</p>
+            <p className="text-[#777980] flex gap-2 text-sm pb-3"><ProjectTitleIcon /> Job Title</p>
             <p className="font-medium">{data.projectTitle}</p>
           </div>
 
@@ -86,7 +86,7 @@ export default function ReviewConfirmPage() {
 
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
-            <p className="text-[#333] text-[16px] font-normal leading-150%">Project Budget</p>
+            <p className="text-[#333] text-[16px] font-normal leading-150%">Job Budget</p>
             <p className="font-medium">${data.budget}</p>
           </div>
  <div className="flex justify-between">
@@ -98,7 +98,7 @@ export default function ReviewConfirmPage() {
             <p className="font-medium">${data.platfrom}</p>
           </div>
           <div className="flex justify-between">
-            <p className="text-[#333] text-[16px] font-normal leading-150%">Project Duration</p>
+            <p className="text-[#333] text-[16px] font-normal leading-150%">Job Duration</p>
             <p className="font-medium">{data.duration}</p>
           </div>
 
