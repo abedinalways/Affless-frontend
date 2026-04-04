@@ -121,25 +121,28 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                             <p className="text-[13px] text-[#4A4C56]">Next Tier Unlocks at: Under 1 hour.</p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-lg border px-4 py-3">
-                            <p className="text-[12px] text-[#777980]">Search Exposure</p>
-                            <p className="text-[16px] font-semibold text-[#333]">
-                                {exposure}
-                            </p>
+                    <div className="space-y-1">
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="rounded-lg border px-4 py-3">
+                                <p className="text-[12px] text-[#777980]">Search Exposure</p>
+                                <p className="text-[16px] font-semibold text-[#333]">
+                                    {exposure}
+                                </p>
+                            </div>
+                            <div className="rounded-lg border px-4 py-3">
+                                <p className="text-[12px] text-[#777980]">Quick Match Priority</p>
+                                <p className="text-[16px] font-semibold text-[#333]">
+                                    {quickMatch}
+                                </p>
+                            </div>
                         </div>
-                        <div className="rounded-lg border px-4 py-3">
-                            <p className="text-[12px] text-[#777980]">Quick Match Priority</p>
-                            <p className="text-[16px] font-semibold text-[#333]">
-                                {quickMatch}
-                            </p>
-                        </div>
+                        <p className="text-xs text-[#777980]">Your profile gets 10.3× more views in Search Results and a 500% increase in Quick Match priority when responding in under 1 hour.</p>
                     </div>
                 </div>
 
                 <div className="overflow-hidden rounded-lg border">
                     <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f3f4f6] px-3 py-2 text-[12px] font-medium text-[#4A4C56]">
-                        <div className="overflow-hidden">Average Response Time</div>
+                        <div className="overflow-hidden pr-1.5">Average Response Time</div>
                         <div className="pr-1 overflow-hidden">Search Exposure</div>
                         <div className=" overflow-hidden">Quick Match Priority</div>
                     </div>
