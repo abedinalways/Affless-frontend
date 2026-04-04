@@ -23,7 +23,7 @@ export default function Frequently() {
         {
           question: "What is Editor Marketplace?",
           answer:
-            "Editor Marketplace is a platform that connects YouTubers and other creators with skilled video editors. Clients can easily post projects, set their budgets, and hire editors with confidence through our secure escrow system. Editors can showcase their skills, receive work opportunities, and get paid safely.",
+            "Editor Marketplace is a platform that connects YouTubers and other creators with skilled video editors. Clients can easily post jobs, set their budgets, and hire editors with confidence through our secure escrow system. Editors can showcase their skills, receive work opportunities, and get paid safely.",
         },
         {
           question: "Who can use Editor Marketplace?",
@@ -37,8 +37,8 @@ export default function Frequently() {
       icon:<PaymentFaqIcon/>,
       category: "Payments & Fees",
       items: [
-        { question: "How do payments work?", answer: "Clients deposit funds into an escrow system before work begins. Editors complete the project, deliver the work, and once the client approves, the payment is released from escrow to the editor." },
-        { question: "What fees do clients pay?", answer: "Clients pay a 20% service fee on top of each project. This fee helps support secure payments, customer support, platform safety, and dispute protection." },
+        { question: "How do payments work?", answer: "Clients deposit funds into an escrow system before work begins. Editors complete the job, deliver the work, and once the client approves, the payment is released from escrow to the editor." },
+        { question: "What fees do clients pay?", answer: "Clients pay a 20% service fee on top of each job. This fee helps support secure payments, customer support, platform safety, and dispute protection." },
         { question: "Are there payment processor fees?", answer: "Yes. Standard payment processor fees (Stripe, PayPal, etc.) apply depending on the client’s location and payment method. These fees are displayed during checkout." },
         { question: "When do editors get paid?", answer: "Editors are paid immediately after the client approves the final delivery. If the client does not respond within the auto-approval time window, the payment will be released automatically." },
       ],
@@ -49,7 +49,7 @@ export default function Frequently() {
       category: "Escrow, Disputes & Refunds",
       items: [
         { question: "What is escrow?", answer: "Escrow protects both clients and editors by securely holding the client’s funds until the work is completed and approved. This ensures editors are paid fairly and clients receive the quality they expect." },
-        { question: "Can I get a refund?", answer: "Refunds may be possible if the editor fails to deliver work or if a project is canceled before any work begins. Refund requests are reviewed by our support team to ensure fairness." },
+        { question: "Can I get a refund?", answer: "Refunds may be possible if the editor fails to deliver work or if a job is canceled before any work begins. Refund requests are reviewed by our support team to ensure fairness." },
         {
           question: "What if an editor never delivers?",
           answer: "If an editor misses the delivery deadline and does not communicate, clients may request cancellation. Escrow funds will be returned after review.",

@@ -72,12 +72,12 @@ export default function DisputeResolutionPage() {
 
           <h4 className="font-semibold mt-6 mb-2" id="for-freelancers">For Editors:</h4>
           <p className="mb-4">
-            Editors should communicate clearly with clients regarding project scope, deliverables, and where their service responsibilities begin and end. The Resolution Center should be used to clarify issues, provide updates, and maintain transparency. Proper communication helps keep projects healthy and protects all parties involved.
+            Editors should communicate clearly with clients regarding job scope, deliverables, and where their service responsibilities begin and end. The Resolution Center should be used to clarify issues, provide updates, and maintain transparency. Proper communication helps keep jobs healthy and protects all parties involved.
           </p>
 
           <h4 className="font-semibold mt-6 mb-2" id="for-clients">For Clients:</h4>
           <p>
-            Clients are encouraged to give editors an opportunity to address concerns before escalating to cancellation. Clearly communicating expectations at the beginning of a project helps prevent most disputes and leads to better outcomes.
+            Clients are encouraged to give editors an opportunity to address concerns before escalating to cancellation. Clearly communicating expectations at the beginning of a job helps prevent most disputes and leads to better outcomes.
           </p>
         </section>
       </div>

@@ -52,7 +52,7 @@ export default function PlatformSefetyPage() {
             {/* Section Title */}
             <div className="py-6 lg:py-8">
               <h3 className="text-[20px] lg:text-[24px]  text-[#4A4C56]  mb-3">How It Works</h3>
-              <p className=" font-normal text-[16px] text-[#333] flex items-center">Editor Marketplace makes it simple for clients and editors to work together safely and professionally. Follow these rules to keep every project fair, secure, and on-platform.</p>
+              <p className=" font-normal text-[16px] text-[#333] flex items-center">Editor Marketplace makes it simple for clients and editors to work together safely and professionally. Follow these rules to keep every job fair, secure, and on-platform.</p>
             </div>
 
             <div className="space-y-8">
@@ -121,7 +121,7 @@ export default function PlatformSefetyPage() {
                   </span>
                   Violations & Consequences
                 </h4>
-                <p className="font-normal text-[16px] text-[#333] flex items-center pt-3 pb-6">Any attempt by either party (client or editor) to take a project or Payment off-platform will result in:</p>
+                <p className="font-normal text-[16px] text-[#333] flex items-center pt-3 pb-6">Any attempt by either party (client or editor) to take a job or Payment off-platform will result in:</p>
 
                 {/* First Violation */}
                 <div className=" border border-[#FF4D4F] bg-[#FFEEEE] p-5 rounded-xl">
@@ -148,7 +148,7 @@ export default function PlatformSefetyPage() {
 
                   <ul className="list-disc ml-6 space-y-2.5 text-sm text-[16px] font-normal leading-150% text-[#333] ">
                     <li>Permanently deactivate your account immediately</li>
-                    <li>Remove access to funds and project history</li>
+                    <li>Remove access to funds and job history</li>
                     <li>Flag the account as "Terminated for Policy Breach"</li>
                     <li>Block the user from creating new accounts on the platform</li>
                   </ul>
@@ -191,7 +191,7 @@ export default function PlatformSefetyPage() {
                     <FaSquareCheck className="text-green-500" /> Allowed
                   </h5>
                   <p className="text-[18px] font-normal leading-150% pt-3.5">
-                    Sharing project files through Editor Marketplace’s built-in upload system. All work-related files, feedback, and deliverables should use our secure file sharing.
+                    Sharing job files through Editor Marketplace’s built-in upload system. All work-related files, feedback, and deliverables should use our secure file sharing.
                   </p>
                 </div>
 
@@ -206,7 +206,7 @@ export default function PlatformSefetyPage() {
                     <li>Let’s continue this on WhatsApp — it’s faster.</li>
                     <li>Can you give me your PayPal? I’ll pay you directly.</li>
                     <li>Message me on Instagram for faster communication.</li>
-                    <li>Call me at (555) 123-4567 to discuss the project.</li>
+                    <li>Call me at (555) 123-4567 to discuss the job.</li>
                   </ul>
                 </div>
               </div>

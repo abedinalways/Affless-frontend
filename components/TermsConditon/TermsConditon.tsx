@@ -24,13 +24,13 @@ export default function TermsConditionPage() {
         <h2 className="text-[20px] md:text-[32px] font-medium pb-3 leading-150% text-[#333]">TERMS & CONDITIONS</h2>
 
         <h3 className="text-[14px] font-normal  leading-150%">Last Updated: January 8, 2026</h3>
-        <p className="text-[14px] font-normal  leading-150% pt-4 pb-3"> Welcome to Editor Marketplace. These Terms & Conditions govern your use of our platform, where clients and editors connect to complete projects efficiently and professionally. By accessing or using our services, you agree to comply with these Terms.</p>
+        <p className="text-[14px] font-normal  leading-150% pt-4 pb-3"> Welcome to Editor Marketplace. These Terms & Conditions govern your use of our platform, where clients and editors connect to complete jobs efficiently and professionally. By accessing or using our services, you agree to comply with these Terms.</p>
       </div>
 
         {/* ---------------- 1. Introduction ---------------- */}
         <h2 className="text-[20px] md:text-[24px] font-medium pb-3 leading-150% text-[#333]">1. Introduction</h2>
         <p className="mb-6 text-4 lg:text-[18px] font-normal leading-[26px]">
-        Editor Marketplace provides an online platform that enables clients to submit projects and editors to offer professional editing services. These Terms apply to all users of the platform, including editors and clients. By using our platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.
+        Editor Marketplace provides an online platform that enables clients to submit jobs and editors to offer professional editing services. These Terms apply to all users of the platform, including editors and clients. By using our platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.
         </p>
 
         {/* ---------------- 2. Personal Information We Collect ---------------- */}
@@ -51,7 +51,7 @@ export default function TermsConditionPage() {
           <li>Register an account</li>
           <li>Subscribe to newsletters</li>
           <li>Participate in surveys or promotional campaigns</li>
-          <li>Submit projects, orders, or job proposals</li>
+          <li>Submit jobs, orders, or job proposals</li>
         </ul>
 
         {/* ---------------- 3. How We Use Your Information ---------------- */}
@@ -59,7 +59,7 @@ export default function TermsConditionPage() {
         <p className="mb-4 text-4 lg:text-[18px] font-normal leading-[26px]">Your information is used to:</p>
 
         <ol className="list-decimal ml-6 space-y-1 mb-4">
-          <li>Personalize your user experience and match you with relevant project opportunities</li>
+          <li>Personalize your user experience and match you with relevant job opportunities</li>
           <li>Improve platform functionality and overall user experience</li>
           <li>Administer surveys, promotions, contests, or platform-related activities</li>
           <li>Facilitate secure payments and communication between clients and editors</li>
@@ -76,7 +76,7 @@ export default function TermsConditionPage() {
 
         <ul className="list-disc ml-6 space-y-1 mb-4">
           <li>Provide accurate and truthful information on your profile</li>
-          <li>Respect deadlines and project agreements</li>
+          <li>Respect deadlines and job agreements</li>
           <li>Communicate professionally with all users</li>
           <li>Follow dispute resolution procedures if conflicts arise</li>
         </ul>
@@ -86,14 +86,14 @@ export default function TermsConditionPage() {
         </p>
 
         {/* ---------------- 5. Project and Payment Terms ---------------- */}
-    <h2 className="text-[20px] md:text-[24px] font-medium pb-3 leading-150%">5. Project and Payment Terms</h2>
+    <h2 className="text-[20px] md:text-[24px] font-medium pb-3 leading-150%">5. Job and Payment Terms</h2>
 
         <ul className="list-disc ml-6 space-y-1 mb-6">
           <li>All payments must be made exclusively through Editor Marketplace’s secure payment system.</li>
           <li>Off-platform payment or communication is strictly prohibited and may result in account termination.</li>
           <li>Refunds, revisions, and cancellations are governed by our dispute resolution policy.</li>
-          <li>Editors must deliver work according to agreed specifications, deadlines, and project requirements.</li>
-          <li>Clients must provide clear project briefs, reference materials, and timely feedback.</li>
+          <li>Editors must deliver work according to agreed specifications, deadlines, and job requirements.</li>
+          <li>Clients must provide clear job briefs, reference materials, and timely feedback.</li>
 
         </ul>
 
@@ -116,7 +116,7 @@ export default function TermsConditionPage() {
         <ul className="list-disc ml-6 space-y-1 mb-4">
           <li>Editors retain ownership of their original work unless otherwise agreed in writing.</li>
           <li>
-         Clients receive usage rights only for work purchased through the platform, according to the project agreement.
+         Clients receive usage rights only for work purchased through the platform, according to the job agreement.
           </li>
           <li>Uploading copyrighted, illegal, or harmful content is strictly prohibited.</li>
           <li>Users must ensure they have legal rights to any materials submitted for editing.</li>

@@ -129,7 +129,7 @@ export default function JobDetailse({ params }: { params: { id: string } }) {
           </button>
 
           <div className="pt-2 space-y-1 text-sm">
-            <p className="flex justify-between"><span>Project Level:</span><span>Expensive</span></p>
+            <p className="flex justify-between"><span>Job Level:</span><span>Expensive</span></p>
             <p className="flex justify-between"><span>Languages:</span><span>French</span></p>
             <p className="flex justify-between"><span>English Level:</span><span>Native</span></p>
           </div>

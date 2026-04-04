@@ -293,7 +293,7 @@ export const browsejobbids = [
     avatar: "/images/jerome.png",
     time: "1 day ago",
     description:
-      "I will handle your project professionally. You will get unlimited revisions and fast response.",
+      "I will handle your job professionally. You will get unlimited revisions and fast response.",
   },
 ];
 

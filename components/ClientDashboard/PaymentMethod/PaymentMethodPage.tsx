@@ -55,7 +55,7 @@ export default function PaymentMethodPage() {
           to the editor.
           <p className="pt-4.5 opacity-80 text-[#4A4C56] text-sm">
             Your payment will only be released once the editor accepts the
-            project.
+            job.
           </p>
         </div>
 
@@ -99,7 +99,7 @@ export default function PaymentMethodPage() {
               <div>
                 <p className="font-medium">PayPal</p>
                 <p className="text-xs text-gray-500 mt-3.5">
-                  Divide your project into stages with milestone payments.
+                  Divide your job into stages with milestone payments.
                 </p>
               </div>
             </div>

@@ -76,7 +76,7 @@ export default function Popularcategory() {
       >Popular Categories</h2>
       <p className="text-[#4A4C56] text-center font-[Poppins] text-[18px] font-normal leading-[150%] mt-4"
       >
-        Find the perfect editor for any project
+        Find the perfect editor for any job
       </p>
 
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-3 lg:gap-6 justify-center pt-[50px]">

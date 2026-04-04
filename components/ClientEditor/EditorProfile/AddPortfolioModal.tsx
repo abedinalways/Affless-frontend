@@ -23,17 +23,17 @@ export default function AddPortfolioModal({
     <Modal open={open} onClose={onClose} title="Add New Portfolio">
       <div className="space-y-4">
         <div>
-          <p className="text-sm font-semibold mb-2">Project Title</p>
+          <p className="text-sm font-semibold mb-2">Job Title</p>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Project Title..."
+            placeholder="Job Title..."
             className="w-full border rounded-lg p-3 outline-none"
           />
         </div>
 
         <div>
-          <p className="text-sm font-semibold mb-2">Project Type</p>
+          <p className="text-sm font-semibold mb-2">Job Type</p>
           <input
             value={type}
             onChange={(e) => setType(e.target.value)}
