@@ -17,7 +17,14 @@ type MessageBodyProps = {
 type ConversationState = Record<string, { muted?: boolean; blocked?: boolean; reported?: boolean; deleted?: boolean }>;
 
 export default function MessageBody({ conversationId }: MessageBodyProps) {
-    const { conversationDirectory, deleteConversation, onSelectConversation, selectedConversationId } = useMessageContext();
+    const {
+        conversationDirectory,
+        deleteConversation,
+        onSelectConversation,
+        selectedConversationId,
+        onBlockConversation,
+        onMuteConversation
+    } = useMessageContext();
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirectUrl = searchParams.get("redirect") || "";
@@ -176,8 +183,15 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
     const handleConfirmAction = () => {
         if (!pendingAction) return;
         performMenuAction(pendingAction);
-        setPendingAction(null);
         setIsConfirmOpen(false);
+        if (pendingAction === 'block' && !activeConversationMeta.blocked) {
+            onBlockConversation(activeConversationId);
+            return;
+        } else if (pendingAction === 'mute') {
+            onMuteConversation(activeConversationId);
+            return;
+        }
+        setPendingAction(null);
     };
 
     const isMuted = Boolean(activeConversationMeta.muted);

@@ -198,8 +198,8 @@ export default function EditorCard({
       </p>
       {/* Skills */}
       <div className='w-full py-6 overflow-hidden'>
-        <Carousel opts={{ loop: true }}>
-          <CarouselContent className="-ml-2">
+        <Carousel >
+          <CarouselContent className="mx-8.75">
             {visibleSkills.map((skill, idx) => (
               <CarouselItem key={idx} className="basis-auto pl-2">
                 <span
@@ -211,7 +211,7 @@ export default function EditorCard({
             ))}
           </CarouselContent>
           <CarouselPrevious className="bg-white disabled:bg-gray-400 left-0 z-99 cursor-pointer disabled:cursor-not-allowed" />
-          <CarouselNext className="bg-white right-0 z-10 cursor-pointer disabled:cursor-not-allowed" />
+          <CarouselNext className="bg-white disabled:bg-gray-400 right-0 z-10 cursor-pointer disabled:cursor-not-allowed" />
         </Carousel>
       </div>
 

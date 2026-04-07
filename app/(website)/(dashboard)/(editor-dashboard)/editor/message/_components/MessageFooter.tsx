@@ -202,7 +202,7 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
                     disabled={!activeConversationId || activeConversationMeta.blocked || activeConversationMeta.deleted}
-                    className="flex-1 px-2 min-w-[130px] sm:min-w-[250px] sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e74c4c] text-sm"
+                    className="flex-1 px-2 min-w-[130px]  sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e74c4c] text-sm"
                 />
                 <button
                     onClick={handleSendMessage}

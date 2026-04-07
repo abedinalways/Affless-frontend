@@ -85,7 +85,7 @@ export default function JobProposalTable({ data }: PropType) {
             )
         },
         {
-            label: "Days Awaiting Client Acceptance",
+            label: "Hours Awaiting Client Acceptance",
             accessor: "timeLeft",
             width: "150px",
             formatter: (accessor: number) => (

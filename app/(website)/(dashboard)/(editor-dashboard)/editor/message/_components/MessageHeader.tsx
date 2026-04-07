@@ -19,6 +19,8 @@ type PropsType = {
     activeConversation?: {
         name: string;
         status: 'online' | 'offline';
+        isMuted?: boolean;
+        isBlocked?: boolean;
     };
     activeConversationMeta: {
         muted?: boolean | undefined;
@@ -58,15 +60,17 @@ export default function MessageHeader({ otherUserId, activeConversation, activeC
                         {activeConversation?.name || 'Select a conversation'}
                     </button>
                     <p className={`text-xs font-medium ${activeConversation?.status === 'online' ? 'text-green-600' : 'text-gray-500'}`}>
-                        {activeConversationMeta.blocked ? (
+                        {activeConversation?.isBlocked && (
                             <MdBlock className="inline h-4 w-4" title="Blocked" aria-label="Blocked" />
-                        ) : activeConversationMeta.muted ? (
+                        )}
+                        {activeConversation?.isMuted && (
                             <IoMdNotificationsOff className="inline h-4 w-4" title="Muted" aria-label="Muted" />
-                        ) : activeConversationMeta.reported ? (
+                        )}
+                        {activeConversationMeta.reported && !activeConversation?.isBlocked ? (
                             'Reported'
-                        ) : activeConversation?.status === 'online' ? (
+                        ) : activeConversation?.status === 'online' && !activeConversation?.isBlocked ? (
                             'Online'
-                        ) : activeConversation ? (
+                        ) : activeConversation && !activeConversation?.isBlocked ? (
                             'Offline'
                         ) : (
                             ''

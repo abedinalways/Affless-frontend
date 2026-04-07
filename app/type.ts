@@ -61,6 +61,8 @@ export interface Conversation {
   deleted?: boolean;
   country?: string;
   memberSince?: string;
+  isMuted?: boolean;
+  isBlocked?: boolean;
 }
 
 
@@ -69,6 +71,8 @@ export type MessageContextType = {
   deleteConversation: (id: string) => void;
   selectedConversationId: string;
   onSelectConversation: (id: string) => void;
+  onBlockConversation: (id: string) => void;
+  onMuteConversation: (id: string) => void;
 }
 
 

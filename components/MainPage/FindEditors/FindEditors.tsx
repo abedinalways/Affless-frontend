@@ -76,13 +76,13 @@ export default function FindEditors() {
 
         {/* Editors List */}
         <div className='flex-1 space-y-6'>
-          <div className="grid grid-cols-[1fr_auto] gap-3 items-center justify-between mt-8">
+          <div className="flex flex-col-reverse sm:grid sm:grid-cols-[1fr_auto] gap-3 sm:items-center sm:justify-between mt-8">
             <p className="text-sm sm:text-base">Showing {displayedEditors.length} editors out of {editors.length} total editors on the platform.</p>
-            <div className='grid grid-cols-1 items-center justify-end lg:hidden'>
+            <div className='w-full grid grid-cols-1 items-center justify-center lg:hidden'>
               <button
                 type='button'
                 onClick={() => setMobileMenu(true)}
-                className='flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300'>
+                className='w-fit flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300'>
                 <FaSitemap />
                 <span>Filters</span>
               </button>

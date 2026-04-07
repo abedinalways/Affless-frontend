@@ -8,8 +8,9 @@ interface JobProposalCardProps {
   image: string;
   title: string;
   total: number;
-  status: "in_progress"  | "in_revision" | "late" | "delivered" | "completed" | "canceled" | "pending";
+  status: "in_progress" | "in_revision" | "late" | "delivered" | "completed" | "canceled" | "pending";
   id: string;
+  timeLeft: number; // New prop for hours/days left
 
   // ✅ old behavior (keep)
   onAction: (id: string) => void;
@@ -23,6 +24,7 @@ const JobProposalCard: React.FC<JobProposalCardProps> = ({
   title,
   total,
   status,
+  timeLeft,
   onAction,
   onOpen,
   id,
@@ -56,20 +58,21 @@ const JobProposalCard: React.FC<JobProposalCardProps> = ({
         </div>
       </div>
 
-      <div className="flex justify-between pt-7">
-        <p className="text-sm text-gray-500">Total: {total}</p>
-
-        {/* ✅ Button click: must NOT trigger card click */}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation(); // ✅ fixes double-call bug everywhere
-            onAction(id);
-          }}
-          className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${JOB_STATUS_DEFINITIONS[status].colorClass}`}
-        >
-          {JOB_STATUS_DEFINITIONS[status].label}
-        </button>
+      <div className="flex flex-col items-center pt-7 gap-3">
+        <p className="text-sm font-medium">Total: ${total.toFixed(2)}</p>
+        <div className="flex flex-col items-center gap-5">
+          <p className="text-xs text-end">Awaiting Client Acceptance for {timeLeft} Hours</p>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onAction(id);
+            }}
+            className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${JOB_STATUS_DEFINITIONS[status].colorClass}`}
+          >
+            {JOB_STATUS_DEFINITIONS[status].label}
+          </button>
+        </div>
       </div>
     </div>
   );

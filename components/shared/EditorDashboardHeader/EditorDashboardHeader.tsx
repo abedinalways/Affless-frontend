@@ -310,13 +310,13 @@ export default function EditorDashboardHeader() {
                   <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer hover:text-[#FF4D4F]" />
                 </button>
                 <div
-                  className={`leading-normal absolute left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-0 mt-3 w-[412px] max-w-[80vw] rounded-xl border bg-white shadow-lg transition-all duration-200 z-50 ${showNotifications ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"}`}
+                  className={`leading-normal absolute -right-1/2 translate-x-1/4 md:left-auto md:translate-x-0 md:right-0 mt-3 w-[412px] max-w-[80vw] rounded-xl border bg-white shadow-lg transition-all duration-200 z-50 ${showNotifications ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"}`}
                 >
                   <Notification data={inboxData} />
                 </div>
               </div>
 
-              <Link href="/editor/message?redirect=dashboardeditor" className="relative group">
+              <Link href="/editor/message/1?redirect=dashboardeditor" className="relative group">
                 {/* Icon */}
                 <MdMailOutline
                   className={`w-7 h-7 cursor-pointer ${isActive("/editor/message") ? "text-[#FF4D4F]" : "text-[#333] hover:text-[#FF4D4F] transition-colors duration-300"

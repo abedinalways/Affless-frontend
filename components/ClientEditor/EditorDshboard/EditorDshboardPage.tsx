@@ -86,11 +86,12 @@ const columns: ColumnDef<Order>[] = [
   },
 ];
 
-const getExposureTierForHours = (hours: number) => {
+const getExposureTierForHours = (hours: number, minutes: number) => {
   const cappedHours = Math.min(Math.max(hours, 0), 48);
+  const totalHours = (cappedHours * 60) + minutes;
   return (
     exposureTiers.find(
-      (tier) => cappedHours >= tier.minHours && cappedHours <= tier.maxHours
+      (tier) => totalHours >= tier.minHours && totalHours <= tier.maxHours
     ) ?? exposureTiers[exposureTiers.length - 1]
   );
 };
@@ -106,7 +107,7 @@ export default function EditorDashboard() {
   const redirectUrl = searchParams.get("redirect");
   const averageResponseHours = 1;
   const averageResponseMinutes = 12;
-  const exposureTier = getExposureTierForHours(averageResponseHours);
+  const exposureTier = getExposureTierForHours(averageResponseHours, averageResponseMinutes);
 
   // Pagination state
   const [page, setPage] = useState(1);

@@ -67,9 +67,9 @@ export default function BrowseJob() {
     }
   }, [page, totalPages]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("Source in BrowseJob:", bannerLinks);
-  },[bannerLinks])
+  }, [bannerLinks])
 
   return (
     <div>
@@ -96,15 +96,18 @@ export default function BrowseJob() {
             />
           </div>
 
-          <div className="grid items-center justify-end lg:hidden pt-4">
-            <button
-              type="button"
-              onClick={() => setMobileMenu(true)}
-              className="flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300"
-            >
-              <FaSitemap />
-              <span>Filters</span>
-            </button>
+          <div className="flex flex-col-reverse sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:justify-end lg:hidden pt-4 gap-4">
+            <p className="text-sm sm:text-base">Showing {paginatedData.length > PAGE_SIZE ? PAGE_SIZE : paginatedData.length} jobs out of {filteredData.length} total jobs on the platform.</p>
+            <div className="flex items-center justify-end">
+              <button
+                type="button"
+                onClick={() => setMobileMenu(true)}
+                className="w-fit flex items-center gap-2 border px-5 py-1 rounded-md text-[#ff4d4f] border-[#ff4d4f] font-medium cursor-pointer hover:bg-[#ff4d4f] hover:text-white duration-300"
+              >
+                <FaSitemap />
+                <span>Filters</span>
+              </button>
+            </div>
           </div>
 
           <div className="w-full">
@@ -112,7 +115,7 @@ export default function BrowseJob() {
               {paginatedData.map((item) => (
                 <div key={item.id} className="bg-white p-4 lg:p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link href={`/editor/browse-job/${item.id}?redirect=${ source ? source + "_" : ""}browsejobs:${clientid}`} className="w-full">
+                    <Link href={`/editor/browse-job/${item.id}?redirect=${source ? source + "_" : ""}browsejobs:${clientid}`} className="w-full">
                       <Image
                         src={item.img}
                         alt="editor"
@@ -167,7 +170,7 @@ export default function BrowseJob() {
               <Pagination
                 page={page}
                 pageSize={PAGE_SIZE}
-                total={filteredData.length}
+                total={paginatedData.length}
                 onPageChange={(p) => setPage(p)}
                 totalPages={totalPages}
               />
