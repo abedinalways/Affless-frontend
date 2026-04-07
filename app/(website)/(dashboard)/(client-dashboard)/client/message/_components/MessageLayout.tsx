@@ -34,6 +34,20 @@ export function MessageProvider({ children }: { children: ReactNode }) {
         selectedConversationId: selectedConversationId,
         onSelectConversation: (id: string) => {
             setSelectedConversationId(id);
+        },
+        onBlockConversation: (id: string) => {
+            setAllConversationDirectory((prev) =>
+                prev.map((conv) =>
+                    conv.id === id ? { ...conv, isBlocked: !conv.isBlocked || true } : conv
+                )
+            );
+        },
+        onMuteConversation: (id: string) => {
+            setAllConversationDirectory((prev) =>
+                prev.map((conv) =>
+                    conv.id === id ? { ...conv, isMuted: !conv.isMuted || true } : conv
+                )
+            );
         }
     };
 
@@ -84,7 +98,7 @@ export default function MessageLayout({
                 </div>
                 <div className="w-full h-full min-h-0 grid grid-cols-1 gap-6 relative overflow-hidden">
                     <div className="w-full h-full min-h-0 grid grid-cols-[auto_1fr]">
-                        <div className={`p-2 sm:p-4 bg-white w-fit h-full min-h-0 rounded-lg overflow-y-auto xl:w-full`} style={{
+                        <div className={`p-2 sm:p-4 bg-white w-fit max-w-[290px] h-full min-h-0 rounded-lg overflow-y-auto xl:w-full`} style={{
                             height: 'calc(100vh - 147px)'
                         }}>
                             <Sidebar />

@@ -134,40 +134,29 @@ export default function JobProposalPage() {
           <div>
             <div className="flex justify-between py-4">
               <p className="font-medium">Job Proposals</p>
-              <button type="button" className="border border-gray-300 p-3 rounded-lg flex gap-3 cursor-pointer">
+              {/* <button type="button" className="border border-gray-300 p-3 rounded-lg flex gap-3 cursor-pointer">
                 Proposals <SlidersHorizontal />
-              </button>
+              </button> */}
             </div>
 
             <div className="flex justify-between items-center mb-6 text-[18px] font-normal">
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => setStatusFilter("pending")}
-                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "in_progress" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                  className={`p-1.5 sm:p-3.5 text-xs sm:text-base rounded-md cursor-pointer whitespace-nowrap ${statusFilter === "pending" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                     }`}
                 >
-                  Accept
+                  Jobs Awaiting Your Editor Selection
                 </button>
 
                 <button
                   onClick={() => setStatusFilter("canceled")}
-                  className={`p-3.5 rounded-md cursor-pointer ${statusFilter === "canceled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
+                  className={`p-1.5 sm:p-3.5 text-xs sm:text-base rounded-md cursor-pointer whitespace-nowrap ${statusFilter === "canceled" ? "bg-[#FF4D4F] text-white" : "bg-[#FFEDED] text-[#FF4D4F]"
                     }`}
                 >
-                  Declined
+                  Canceled Jobs
                 </button>
               </div>
-
-              <select
-                className="rounded-lg p-2.5 border border-gray-300 text-sm"
-                value={timeFilter}
-                onChange={(e) => setTimeFilter(e.target.value as "ALL" | "5" | "7" | "3")}
-              >
-                <option value="ALL">ALL</option>
-                <option value="5">5 Days</option>
-                <option value="7">7 Days</option>
-                <option value="3">3 Days</option>
-              </select>
             </div>
           </div>
 
@@ -180,6 +169,7 @@ export default function JobProposalPage() {
               title={proposal.job.title}
               total={proposal.amount}
               status={proposal.status}
+              timeLeft={proposal.timeLeft}
               onOpen={(id: string) => goToDetail(id, proposal.status)} // card click
               onAction={(id: string) => goToDetail(id, proposal.status)}
             />

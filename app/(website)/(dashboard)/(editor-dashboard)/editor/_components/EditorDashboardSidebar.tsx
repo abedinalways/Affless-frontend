@@ -107,7 +107,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
 
                 <div className="grid grid-cols-1 gap-3">
                     <div className="space-y-2">
-                        <p className="text-[16px] text-[#4A4C56]">Your profile gets 10.3× more views in Search Results and a 500% increase in Quick Match priority when responding in under 1 hour.</p>
+                        <p className="text-[16px] text-[#4A4C56]">Your profile gets 6.5x more views in Search Results and a 300% increase in Quick Match priority when responding in under 1 hour.</p>
                         <p className="text-[13px] text-[#4A4C56]">Editors who respond quickly are prioritized across the platform. Faster replies increase exposure, ranking, and client match success.</p>
                     </div>
                     <div className="space-y-1">
@@ -136,7 +136,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                                 </p>
                             </div>
                         </div>
-                        <p className="text-xs text-[#777980]">Your profile gets 10.3× more views in Search Results and a 500% increase in Quick Match priority when responding in under 1 hour.</p>
+                        <p className="text-xs text-[#777980]">Your profile gets 6.5× more views in Search Results and a 300% increase in Quick Match priority when responding in under 1 hour.</p>
                     </div>
                 </div>
 
@@ -150,7 +150,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                         {exposureTiers.map((tier) => (
                             <div
                                 key={tier.label}
-                                className={`grid grid-cols-[1.2fr_1fr_1fr] px-3 py-2 text-[13px] ${tier.zone === "benefit"
+                                className={`grid grid-cols-[1.2fr_1fr_1fr] px-6 py-2 text-[13px] ${tier.zone === "benefit"
                                     ? "bg-[#F3FBF1]"
                                     : tier.zone === "neutral"
                                         ? "bg-[#FFF9E6]"

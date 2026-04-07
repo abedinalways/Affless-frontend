@@ -73,7 +73,6 @@ export default function EditorPrise({ id, redirect }: proposal) {
           {/* Reject */}
           <button
             type="button"
-            disabled={true}
             onClick={() => {
               setStatus("reject")
               toast.error("Awaiting backend completion.")

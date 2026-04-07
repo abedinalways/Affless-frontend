@@ -98,9 +98,14 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
       input.value = "";
       return;
     }
-
-    input.value = `$${numericValue}`;
+    console.log("Numeric value:", Number(numericValue));
+    if (Number(numericValue) < 2) {
+      input.value = `$2`;
+    } else {
+      input.value = `$${numericValue}`;
+    }
   };
+
   const handleDayBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const input = event.currentTarget;
     const numericValue = input.value.replace(/\D+/g, "");
@@ -259,7 +264,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
               setAnyDeliveryTime(nextValue);
               if (nextValue) {
                 setDeliveryTime([0]);
-              }else{
+              } else {
                 setDeliveryTime([10]);
               }
             }}
@@ -282,7 +287,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
               min={1}
               step={1}
               value={deliveryTime}
-              onClick={()=>setAnyDeliveryTime(false)}
+              onClick={() => setAnyDeliveryTime(false)}
               onValueChange={(value) => {
                 setDeliveryTime(value);
                 if (anyDeliveryTime) {

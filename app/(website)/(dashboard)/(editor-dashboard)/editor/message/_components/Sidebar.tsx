@@ -22,15 +22,15 @@ export default function Sidebar() {
     const redirect = searchParams.get("redirect") || "";
     const pathname = usePathname();
 
-    useEffect(()=>{
-        if(pathname){
+    useEffect(() => {
+        if (pathname) {
             onSelectConversation(pathname.split("/").slice(-1)[0]);
         }
-    },[pathname])
+    }, [pathname])
 
-    useEffect(()=>{
+    useEffect(() => {
         setConversations(conversationDirectory);
-    },[conversationDirectory])
+    }, [conversationDirectory])
 
     useEffect(() => {
         if (!showSearch) return;
@@ -45,6 +45,10 @@ export default function Sidebar() {
         window.addEventListener('mousedown', handleOutsideClick);
         return () => window.removeEventListener('mousedown', handleOutsideClick);
     }, [showSearch]);
+
+    useEffect(() => {
+        console.log("Current conversations:", conversations);
+    }, [conversations])
 
     return (
         <div className="h-full">
@@ -113,9 +117,15 @@ export default function Sidebar() {
                                 {/* Conversation Info */}
                                 <div className="flex-1 min-w-0 hidden xl:block">
                                     <div className="flex items-center justify-between mb-1">
-                                        <h3 className="font-semibold text-gray-900 text-sm truncate">
-                                            {conversation.name}
-                                        </h3>
+                                        <div className='flex items-center gap-1'>
+                                            <h3 className="font-semibold text-gray-900 text-sm truncate">
+                                                {conversation.name}
+                                            </h3>
+                                            <div className='flex items-center gap-px'>
+                                                {conversation.isMuted && <IoMdNotificationsOff className="h-3.5 w-3.5" title="Muted" aria-label="Muted" />}
+                                                {conversation.isBlocked && <MdBlock className="h-3.5 w-3.5" title="Blocked" aria-label="Blocked" />}
+                                            </div>
+                                        </div>
                                         <div className='flex items-center gap-1'>
                                             {(conversation.muted || conversation.blocked || conversation.reported) && (
                                                 <span className="ml-2 flex items-center text-gray-500">
@@ -123,13 +133,13 @@ export default function Sidebar() {
                                                         <MdBlock className="h-3.5 w-3.5" title="Blocked" aria-label="Blocked" />
                                                     ) : conversation.muted ? (
                                                         <IoMdNotificationsOff className="h-3.5 w-3.5" title="Muted" aria-label="Muted" />
-                                                    ) : (
+                                                    ) : ( 
                                                         <span className="text-[10px]">Reported</span>
                                                     )}
                                                 </span>
                                             )}
                                             {conversation.unread && (
-                                                <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: '#e74c4c' }} />
+                                                <div className="w-2! h-2! rounded-full shrink-0" style={{ backgroundColor: '#e74c4c' }} />
                                             )}
                                         </div>
                                     </div>
