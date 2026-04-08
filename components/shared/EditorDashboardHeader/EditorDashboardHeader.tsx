@@ -307,7 +307,7 @@ export default function EditorDashboardHeader() {
                 onMouseLeave={handleNotificationMouseLeave}
               >
                 <button type="button" className="" onClick={handleNotificationClick}>
-                  <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer hover:text-[#FF4D4F]" />
+                  <IoMdNotificationsOutline className={`w-7 h-7 cursor-pointer hover:text-[#FF4D4F] ${showNotifications ? "text-[#FF4D4F]" : ""}`} />
                 </button>
                 <div
                   className={`leading-normal absolute -right-1/2 translate-x-1/4 md:left-auto md:translate-x-0 md:right-0 mt-3 w-[412px] max-w-[80vw] rounded-xl border bg-white shadow-lg transition-all duration-200 z-50 ${showNotifications ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"}`}

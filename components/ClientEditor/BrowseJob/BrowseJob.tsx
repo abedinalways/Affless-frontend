@@ -79,7 +79,7 @@ export default function BrowseJob() {
         desc={bannerDescription}
         links={bannerLinks}
       />
-      <div className="containers lg:py-20 ">
+      <div className="containers lg:py-20">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="hidden lg:block">
             <FilterSidebar />
@@ -110,7 +110,8 @@ export default function BrowseJob() {
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="w-full space-y-4">
+            <p className="text-sm sm:text-base hidden lg:block">Showing {paginatedData.length > PAGE_SIZE ? PAGE_SIZE : paginatedData.length} jobs out of {filteredData.length} total jobs on the platform.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
               {paginatedData.map((item) => (
                 <div key={item.id} className="bg-white p-4 lg:p-6 rounded-lg">

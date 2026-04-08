@@ -75,7 +75,7 @@ export default function EarningPage() {
       accessorKey: "commission",
       header: "Platform Fee",
       cell: ({ row }) => <div className="flex justify-center">
-        ${(row.original.amount / 100) * (row.original.transactionType === "client" ? 20 : 10)} {row?.original.transactionType === "client" ? "(20%)" : "(10%)"}
+        ${(row.original.amount / 100) * (row.original.transactionType === "client" ? 20 : 20)} {row?.original.transactionType === "client" ? "(20%)" : "(20%)"}
       </div>,
     },
     {

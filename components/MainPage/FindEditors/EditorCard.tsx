@@ -183,7 +183,7 @@ export default function EditorCard({
       {/* Budget + Rating */}
       <div className='mt-4 flex items-center gap-5'>
         <p className='text-[16px] text-[#777980]  font-medium' title="The minimum job price set by the editor. The final cost may vary based on the amount of work.">
-          Starting Price : <span className=''>${Number(budget).toFixed(2)}</span>
+          Starting Price: <span className=''>${Number(budget).toFixed(2)}</span>
         </p>
         <div className='flex items-center gap-1 text-[16px] text-[#777980]'>
           <Star size={18} className='text-yellow-500 fill-yellow-500' />
