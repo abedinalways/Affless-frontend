@@ -43,8 +43,8 @@ export default function RequestRevisionModal({ open, setOpen, handleSubmit }: Pr
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[760px] rounded-2xl p-0 overflow-hidden bg-white">
+    <Dialog open={open} onOpenChange={setOpen} >
+      <DialogContent className="sm:max-w-[760px] rounded-2xl p-0 overflow-hidden bg-white z-999">
         <form onSubmit={formSubmit(onSubmit)} className="p-8">
           <DialogTitle className="text-xl font-semibold mb-4">Request Your Revision — You Have 3 Revisions Left</DialogTitle>
           <textarea

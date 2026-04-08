@@ -294,15 +294,9 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
                   setAnyDeliveryTime(false);
                 }
               }}
-              disabled={anyDeliveryTime}
+              // disabled={anyDeliveryTime}
               className="w-full"
             />
-            {anyDeliveryTime && (
-              <div
-                className='absolute inset-0 cursor-pointer z-10'
-                onClick={() => setAnyDeliveryTime(false)}
-              />
-            )}
           </div>
         </div>
       </div>
