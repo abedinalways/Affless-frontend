@@ -66,7 +66,7 @@ export default function ProfileHeaderCard({
             </span>
             <span className="inline-flex items-center gap-1.5">
               <span className="text-green-500 font-bold">✔</span>
-              Avg. Response Time: {profile.avgResponseTime || "N/A"}
+              Average Response Time: {profile.avgResponseTime || "N/A"}
             </span>
           </div>
 

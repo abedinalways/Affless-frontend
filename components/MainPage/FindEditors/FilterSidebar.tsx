@@ -6,9 +6,6 @@ import { Slider } from "@/components/ui/slider";
 import React, { useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
-/* ----------------------------------------
-   JSON DATA
------------------------------------------*/
 export const jobCategories = [
   { label: "Long-Form YouTube", count: "54" },
   { label: "Shorts/Reels/TikToks", count: "9+" },
