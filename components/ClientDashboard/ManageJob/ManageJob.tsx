@@ -343,6 +343,7 @@ export default function ManageJobsPage() {
                 title={job.service}
                 total={job.total}
                 status={job.status}
+                timeLeft={job.timeLeft.days}
                 id={job.id}
                 onAction={() => goToDetail(job.id)}
               />
