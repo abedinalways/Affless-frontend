@@ -145,7 +145,7 @@ export default function EditorDashboard() {
 
         {/* RIGHT SIDE */}
         <div className="w-full">
-          <div className="flex items-center justify-between flex-wrap">
+          <div className="flex items-center justify-between flex-wrap gap-3">
             <div>
               <h1 className="text-2xl font-semibold">Welcome, Jane Cooper</h1>
               <p className="text-sm text-[#333]">
