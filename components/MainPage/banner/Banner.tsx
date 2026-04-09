@@ -38,7 +38,7 @@ export default function Banner() {
       const token = JSON.parse(CookieHelper.get({ key: 'user' }))
       if (token.status === 'logged_in') {
         if (token.user_type === 'editor') {
-          toast.success('You’re already an Editor. To post jobs, log out and log in as a Client.');
+          toast.success('You’re already an Editor. To post jobs, log out and sign in as a Client.');
           router.push("/editor");
         } else {
           toast.error('Only Editor accounts can access the Editor Dashboard. Please log out and create a new Editor account to continue.');

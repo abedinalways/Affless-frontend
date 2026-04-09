@@ -86,3 +86,15 @@ export type EditorJobProposalType = {
   timeLeft: number;
   status: "pending" | "canceled";
 }
+
+
+export type InboxItem = {
+  id: number;
+  name: string;
+  lastMessage: string;
+  time: string;
+  avatar: string; // image path
+  online?: boolean;
+  href?: string;
+  isRead: boolean;
+};

@@ -5,22 +5,14 @@ import { Mail } from "lucide-react";
 import { GrNotification } from "react-icons/gr";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useRouter } from "next/navigation";
-
-type InboxItem = {
-  id: number;
-  name: string;
-  lastMessage: string;
-  time: string;
-  avatar: string; // image path
-  online?: boolean;
-  href?: string;
-};
+import type { InboxItem } from "@/app/type";
 
 type Proptype = {
   data: InboxItem[];
+  handleClick?: (id: number) => void;
 }
 
-export default function Notification({ data }: Proptype) {
+export default function Notification({ data, handleClick }: Proptype) {
   const count = 1;
   const router = useRouter();
   return (
@@ -36,8 +28,15 @@ export default function Notification({ data }: Proptype) {
         {data.map((item, idx) => (
           <button
             key={item.id}
-            className={`w-full flex items-center justify-between gap-4 p-3 sm:px-5 sm:py-4 border-b last:border-b-0 hover:bg-gray-50 ${idx === 0 ? "bg-gray-100" : ""} transition ${item.href ? "cursor-pointer" : "cursor-default"}`}
-            onClick={() => item?.href && router.push(item.href)}
+            className={`w-full flex items-center justify-between gap-4 p-3 sm:px-5 sm:py-4 border-b last:border-b-0 hover:bg-gray-50 ${!item?.isRead ? "bg-gray-100" : ""} transition ${item.href ? "cursor-pointer" : "cursor-default"}`}
+            onClick={() => {
+              if (item?.href) {
+                router.push(item.href);
+              }
+              if (item.id) {
+                handleClick && handleClick?.(item.id);
+              }
+            }}
           >
             <div className="flex items-center gap-4">
               {/* Avatar */}
@@ -63,7 +62,7 @@ export default function Notification({ data }: Proptype) {
                 <p className="font-semibold text-[13px] sm:text-[16px] leading-5 text-gray-900">
                   {item.name}
                 </p>
-                <p className={`text-[11px] sm:text-[13px] text-gray-600 mt-1 ${idx === 0 ? "font-medium text-gray-900" : "font-normal"}`}>
+                <p className={`text-[11px] sm:text-[13px] text-gray-600 mt-1 ${!item?.isRead ? "font-medium text-gray-900" : "font-normal"}`}>
                   {item.lastMessage}
                 </p>
               </div>

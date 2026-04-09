@@ -1,4 +1,4 @@
-import { ExposureTier, Order, Message, Conversation, ClientQuickMatchResult, EditorJobProposalType } from "@/app/type";
+import { ExposureTier, Order, Message, Conversation, ClientQuickMatchResult, EditorJobProposalType, InboxItem } from "@/app/type";
 
 export const exposureTiers: ExposureTier[] = [
   {
@@ -739,3 +739,111 @@ export const editorJobProposals: EditorJobProposalType[] = [
     status: "pending",
   },
 ]
+
+
+export const inboxData: InboxItem[] = [
+  {
+    id: 1,
+    name: "Aisha Patel",
+    lastMessage: "Sent the revised storyboard and shot list for review.",
+    time: "2 hours ago",
+    avatar: "/images/jone1.png",
+    online: true,
+    href: "/editor/message/1?redirect=dashboardeditor",
+    isRead: false,
+  },
+  {
+    id: 2,
+    name: "Miguel Santos",
+    lastMessage: "Uploaded the color grade draft—feedback welcome.",
+    time: "Yesterday",
+    avatar: "/images/jone3.png",
+    online: true,
+    href: "/editor/message/2?redirect=dashboardeditor",
+    isRead: true,
+  },
+  {
+    id: 3,
+    name: "Priya Nair",
+    lastMessage: "Quick question about the intro music licensing.",
+    time: "3 days ago",
+    avatar: "/images/Jerome.jpg",
+    online: true,
+    href: "/editor/message/3?redirect=dashboardeditor",
+    isRead: true,
+  },
+  {
+    id: 4,
+    name: "Ethan Brooks",
+    lastMessage: "Final export is ready; scheduling delivery now.",
+    time: "1 week ago",
+    avatar: "/images/jone2.png",
+    online: false,
+    href: "/editor/message/4?redirect=dashboardeditor",
+    isRead: true,
+  },
+  {
+    id: 5,
+    name: "Support Team",
+    lastMessage: "Ticket #4821 resolved. Let us know if you need more help.",
+    time: "2 weeks ago",
+    avatar: "/images/headset.svg",
+    online: true,
+    isRead: true,
+    href: "/editor/message/5?redirect=dashboardeditor",
+  },
+];
+
+
+export const inboxDataForClient: InboxItem[] = [
+  {
+    id: 1,
+    name: "Aisha Patel",
+    lastMessage: "Sent the revised storyboard and shot list for review.",
+    time: "2 hours ago",
+    avatar: "/images/jone1.png",
+    online: true,
+    href: "/client/message/1?redirect=dashboardeditor",
+    isRead: false,
+  },
+  {
+    id: 2,
+    name: "Miguel Santos",
+    lastMessage: "Uploaded the color grade draft—feedback welcome.",
+    time: "Yesterday",
+    avatar: "/images/jone3.png",
+    online: true,
+    href: "/client/message/2?redirect=dashboardeditor",
+    isRead: true,
+  },
+  {
+    id: 3,
+    name: "Priya Nair",
+    lastMessage: "Quick question about the intro music licensing.",
+    time: "3 days ago",
+    avatar: "/images/Jerome.jpg",
+    online: true,
+    href: "/client/message/3?redirect=dashboardeditor",
+    isRead: true,
+  },
+  {
+    id: 4,
+    name: "Ethan Brooks",
+    lastMessage: "Final export is ready; scheduling delivery now.",
+    time: "1 week ago",
+    avatar: "/images/jone2.png",
+    online: false,
+    href: "/client/message/4?redirect=dashboardeditor",
+    isRead: true,
+  },
+  {
+    id: 5,
+    name: "Support Team",
+    lastMessage: "Ticket #4821 resolved. Let us know if you need more help.",
+    time: "2 weeks ago",
+    avatar: "/images/headset.svg",
+    online: true,
+    isRead: true,
+    href: "/client/message/5?redirect=dashboardeditor",
+  },
+];

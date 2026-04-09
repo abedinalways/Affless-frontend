@@ -107,7 +107,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
 
                 <div className="grid grid-cols-1 gap-3">
                     <div className="space-y-2">
-                        <p className="text-[16px] text-[#4A4C56]">Your profile gets 6.5x more views in Search Results and a 300% increase in Quick Match priority when responding in under 1 hour.</p>
+                        <p className="text-[16px] text-[#4A4C56]">Your profile gets 6.5x more views in Search Results and a 300% increase in Quick Match priority when responding in 1-2 hours.</p>
                         <p className="text-[13px] text-[#4A4C56]">Editors who respond quickly are prioritized across the platform. Faster replies increase exposure, ranking, and client match success.</p>
                     </div>
                     <div className="space-y-1">
@@ -136,7 +136,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                                 </p>
                             </div>
                         </div>
-                        <p className="text-xs text-[#777980]">Your profile gets 6.5× more views in Search Results and a 300% increase in Quick Match priority when responding in under 1 hour.</p>
+                        <p className="text-xs text-[#777980]">Your profile gets 6.5x more views in Search Results and a 300% increase in Quick Match priority when responding in 1-2 hours.</p>
                     </div>
                 </div>
 

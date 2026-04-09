@@ -25,12 +25,16 @@ export default function ClientLayout({
         if (user) {
             setLoading(false);
         } else {
-            if(msg === "to post a job" || msg === "as editor to create profile"){
-                toast.error(`Please signup ${msg || 'to access the dashboard'}`);
+            if(msg === "as a client to post a job" || msg === "as editor to create profile"){
+                toast.error(`Please sign up ${msg || 'to access the dashboard'}.`);
             }else{
-                toast.error(`Please login ${msg || 'to access the dashboard'}`);
+                toast.error(`Please login ${msg || 'to access the dashboard'}.`);
             }
-            if(msg === "to post a job" || msg === "as editor to create profile"){
+            if(msg === "as a client to post a job" || msg === "as editor to create profile"){
+                if(msg === "as a client to post a job"){
+                    router.push('/singup?redirect=' + (redirect || '/') + "&type=client");
+                    return;
+                }
                 router.push('/singup?redirect=' + (redirect || '/') + "&type=editor");
             }else{
                 router.push('/login?redirect=' + (redirect || '/'));

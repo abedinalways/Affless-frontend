@@ -26,10 +26,10 @@ export default function GettingStartedPage() {
     if (user === "editor") {
       router.push("/editor/editor-profile");
     } else if (user === 'client') {
-      toast.error("Please switch to an editor account to create a profile.");
+      toast.error("Please switch to an Editor account to create an editor profile.");
       router.push('/client')
     } else {
-      toast.error("Please login as a editor to create a profile")
+      toast.error("Please login as an Editor to create an editor profile.");
       router.push("/singup?redirect=/getting-started&type=editor");
     }
   };
