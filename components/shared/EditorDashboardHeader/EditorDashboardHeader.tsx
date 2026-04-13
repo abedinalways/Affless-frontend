@@ -13,63 +13,11 @@ import { FiLogOut } from "react-icons/fi";
 import Notification from "@/components/Notification/Notification";
 import { CookieHelper } from "@/helper/cookie.helper";
 import toast from "react-hot-toast";
+import { inboxData } from "@/public/demodata";
 
-type InboxItem = {
-  id: number;
-  name: string;
-  lastMessage: string;
-  time: string;
-  avatar: string; // image path
-  online?: boolean;
-  href?: string;
-};
 
-const inboxData: InboxItem[] = [
-  {
-    id: 1,
-    name: "Aisha Patel",
-    lastMessage: "Sent the revised storyboard and shot list for review.",
-    time: "2 hours ago",
-    avatar: "/images/jone1.png",
-    online: true,
-    href: "/editor/message/1?redirect=dashboardeditor"
-  },
-  {
-    id: 2,
-    name: "Miguel Santos",
-    lastMessage: "Uploaded the color grade draft—feedback welcome.",
-    time: "Yesterday",
-    avatar: "/images/jone3.png",
-    online: true,
-    href: "/editor/message/2?redirect=dashboardeditor"
-  },
-  {
-    id: 3,
-    name: "Priya Nair",
-    lastMessage: "Quick question about the intro music licensing.",
-    time: "3 days ago",
-    avatar: "/images/Jerome.jpg",
-    online: true,
-    href: "/editor/message/3?redirect=dashboardeditor"
-  },
-  {
-    id: 4,
-    name: "Ethan Brooks",
-    lastMessage: "Final export is ready; scheduling delivery now.",
-    time: "1 week ago",
-    avatar: "/images/jone2.png",
-    online: false,
-    href: "/editor/message/4?redirect=dashboardeditor"
-  },
-  {
-    id: 5,
-    name: "Support Team",
-    lastMessage: "Ticket #4821 resolved. Let us know if you need more help.",
-    time: "2 weeks ago",
-    avatar: "/images/headset.svg",
-    online: true,
-  },
-];
+
+
 
 export default function EditorDashboardHeader() {
   const pathname = usePathname();
@@ -88,7 +36,7 @@ export default function EditorDashboardHeader() {
   const closeDesktopJobDropdown = () => setOpen(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [notificationOpenMode, setNotificationOpenMode] = useState<"hover" | "click" | null>(null);
-
+  const [notificationData, setNotificationData] = useState(inboxData);
   const closeMobileAll = () => {
     setMobileDropdown(false);
     setMobileMenu(false);
@@ -185,6 +133,16 @@ export default function EditorDashboardHeader() {
     setNotificationOpenMode("click");
   };
 
+
+  const handleNotificationRead = (id: number) => {
+    console.log("Notification read with id:", id);
+    setNotificationData((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, isRead: true } : item
+      )
+    );
+  };
+
   return (
     <div className="bg-white">
       <div className="containers">
@@ -235,7 +193,7 @@ export default function EditorDashboardHeader() {
 
                         <Link
                           href="/editor/myproposal?redirect=dashboardeditor"
-                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/myproposal") || isActive("/editor/delivery") || isActive("/editor/extend-delivery") ? activeCls : inactiveCls }`}
+                          className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/myproposal") || isActive("/editor/delivery") || isActive("/editor/extend-delivery") ? activeCls : inactiveCls}`}
                           onClick={closeDesktopJobDropdown}
                         >
                           My Jobs
@@ -312,7 +270,7 @@ export default function EditorDashboardHeader() {
                 <div
                   className={`leading-normal absolute -right-1/2 translate-x-1/4 md:left-auto md:translate-x-0 md:right-0 mt-3 w-[412px] max-w-[80vw] rounded-xl border bg-white shadow-lg transition-all duration-200 z-50 ${showNotifications ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"}`}
                 >
-                  <Notification data={inboxData} />
+                  <Notification data={notificationData} handleClick={handleNotificationRead} />
                 </div>
               </div>
 
@@ -326,8 +284,17 @@ export default function EditorDashboardHeader() {
 
               {/* Profile Dropdown */}
               <div className="relative" ref={profileDropdownRef}>
-                <button onClick={() => setProfileDropdown(!profileDropdown)} className={`w-8 h-8 flex cursor-pointer rounded-full ${isActive("/editor/editor-profile") ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}>
-                  <Image src="/images/photographer.jpg" alt="profile" width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
+                <button
+                  onClick={() => setProfileDropdown(!profileDropdown)}
+                  className={`w-8 h-8 flex cursor-pointer border-2 rounded-full ${(isActive("/editor/editor-profile") || profileDropdown) ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}
+                >
+                  <Image
+                    src="/images/photographer.jpg"
+                    alt="profile"
+                    width={32}
+                    height={32}
+                    className="rounded-full object-cover"
+                  />
                 </button>
 
                 {profileDropdown && (

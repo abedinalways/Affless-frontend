@@ -22,10 +22,10 @@ export default function EditorLayout({
         if(user === "editor"){
             setLoading(false);
         }else if(user === "client"){
-            toast.error(`Please switch to an editor account ${msg || 'to access the editor dashboard'}.`);
+            toast.error(`Please switch to an Editor account ${msg || 'to access the editor dashboard'}.`);
             router.push('/client');
         }else{
-            toast.error(`Please login as an editor ${msg || 'to access the editor dashboard'}`);
+            toast.error(`Please login as an Editor ${msg || 'to access the editor dashboard'}`);
             router.push('/login?redirect=' + (redirect || '/'));
         }
     },[])
