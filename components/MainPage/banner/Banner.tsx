@@ -86,21 +86,13 @@ export default function Banner() {
             {/* Left aligned content */}
             <div className="relative z-10 ">
               <h3
-                className="
-              text-white font-[Poppins]
-              lg:text-[72px] md:text-[50px] text-[32px]
-              font-medium leading-[120%]
-            "
+                className="text-white font-[Poppins] lg:text-[72px] md:text-[50px] text-[32px] font-medium leading-[120%]"
               >
                 Find the Right Editor <br className="hidden md:block" /> or the
                 Right Client
               </h3>
-
               <p
-                className="
-              text-white font-[Poppins] text-[16px]
-              font-normal leading-[150%] mt-6 max-w-2xl
-            "
+                className="text-white font-[Poppins] text-[16px] font-normal leading-[150%] mt-6 max-w-2xl"
               >
                 Editor Marketplace connects clients and editors across YouTube,
                 Tiktok, Instagram, X (Twitter), Snapchat, Facebook, podcasts,
