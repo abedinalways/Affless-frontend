@@ -47,6 +47,12 @@ export default function AddMoney() {
     cvc.trim().length >= 3 &&
     holder.trim().length >= 2;
 
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+
   return (
     <div className=" bg-[#F8F8F8] py-10">
       <div className="mx-auto w-full max-w-[860px] space-y-8 px-4">
@@ -102,7 +108,7 @@ export default function AddMoney() {
                 canPay={canPay}
                 onBack={() => setStep("ADD_MONEY")}
                 onPay={() => {
-                  toast.success(`Paid $${amount.toFixed(2)} Successfully.`);
+                  toast.success(`Paid $${usFormat.format(amount)} Successfully.`);
                   setTimeout(() => {
                     setStep("BALANCE");
                     setAmount(0);
@@ -147,10 +153,14 @@ function BalanceStep({
   balance: number;
   onAddMoney: () => void;
 }) {
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   return (
     <div className="py-12 text-center">
       <div className="text-[38px] font-semibold text-gray-900">
-        ${balance.toFixed(2)}
+        ${usFormat.format(balance)}
       </div>
       <div className="mt-2 text-[14px] text-gray-500">Available to Spend</div>
 
@@ -325,16 +335,16 @@ function PaymentMethodStep({
               const inputType = (e.nativeEvent as InputEvent).inputType;
               const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 5);
               let formatted = digitsOnly;
-              if(digitsOnly.length === 1){
+              if (digitsOnly.length === 1) {
                 formatted = "0" + digitsOnly;
               }
-              if(digitsOnly.length > 4 && Number(digitsOnly[1]) < 2){
+              if (digitsOnly.length > 4 && Number(digitsOnly[1]) < 2) {
                 formatted = Number(digitsOnly).toString();
               }
-              if(Number(formatted) === 0){
+              if (Number(formatted) === 0) {
                 formatted = "";
               }
-              setExpiry(formatted.replace(/(\d{2})(?=\d)/g, "$1 / ").slice(0,7))
+              setExpiry(formatted.replace(/(\d{2})(?=\d)/g, "$1 / ").slice(0, 7))
             }}
             onBlur={() => {
               if (!expiry) return;

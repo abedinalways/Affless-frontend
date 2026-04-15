@@ -1,9 +1,18 @@
+"use client"
+
 import ArrowLeftIcon from '@/components/Icons/arrowleftIcon'
-import Navbar from '@/components/shared/Navbar/NavbarWithoutLogin'
+import { CookieHelper } from '@/helper/cookie.helper'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import { useEffect, useState } from 'react'
 export default function NotFound() {
+  const AccountType = CookieHelper.get({ key: "user" });
+  const [userType, setUserType] = useState<{ status?: string; user_type?: string } | null>(null);
+  useEffect(() => {
+    if (AccountType) {
+      setUserType(JSON.parse(AccountType));
+    }
+  }, [AccountType])
   return (
     <div>
       <div className="containers flex flex-col md:flex-row  justify-center items-center h-screen gap-10 pt-8">
@@ -18,14 +27,14 @@ export default function NotFound() {
           </p>
 
           <p className="text-[#4B4B4B] font-normal text-[18px] leading-[150%] font-poppins">
-            This page doesn't exist or was removed! <br /> We suggest you go back to the Home page.
+            This page doesn't exist or was removed! <br /> We suggest you go back to the {userType?.user_type === "client" ? "Client Dashboard" : userType?.user_type === "editor" ? "Editor Dashboard" : userType?.user_type === "admin" ? "Admin Dashboard" : "Home page"}.
           </p>
-
-          <Link href="/">
-          <button className="text-white font-normal text-[16px] leading-[150%] font-poppins bg-[#FF4D4F] px-4 py-2.5 rounded-lg mt-[54px] flex items-center gap-1.5 cursor-pointer">
-            <ArrowLeftIcon />
-            Back to home
-          </button></Link>
+          <Link href={userType?.user_type === "client" ? "/client" : userType?.user_type === "editor" ? "/editor" : userType?.user_type === "admin" ? "/admin-dashboard" : "/"}>
+            <button className="text-white font-normal text-[16px] leading-[150%] font-poppins bg-[#FF4D4F] px-4 py-2.5 rounded-lg mt-[54px] flex items-center gap-1.5 cursor-pointer">
+              <ArrowLeftIcon />
+              Back to {userType?.status !== "logged_in" ? "Home" : "Dashboard"}
+            </button>
+          </Link>
         </div>
 
         {/* Image */}
