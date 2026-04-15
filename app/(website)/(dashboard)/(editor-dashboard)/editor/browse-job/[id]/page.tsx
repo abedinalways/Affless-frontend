@@ -14,6 +14,8 @@ import Pagination from "@/components/reusable/pagination";
 import { useSearchParams } from "next/navigation";
 import { browsejobbids as bids } from "@/public/demodata";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const formatBidAmount = (value: string, minimum: number = 2) => {
   const sanitized = value
@@ -101,6 +103,15 @@ export default function JobDetails({ params }: PostPageProps) {
         bgImage="/findEditor.jpg"
         links={[...bannerLinks]}
       />
+      <div className="grid items-center justify-start px-6 pt-6 containers">
+        <Link
+          href={`/editor/browse-job?${redirectUrl ? `redirect=${redirectUrl?.split("_").slice(0, -1).join("_")}` : ""}`}
+          className="flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
+        >
+          <FaArrowLeft />
+          <span>Back to Browse Jobs</span>
+        </Link>
+      </div>
       <div className="containers">
         <div className="py-10 flex gap-9 flex-col lg:flex-row">
           {/* LEFT */}
@@ -181,7 +192,8 @@ export default function JobDetails({ params }: PostPageProps) {
                       placeholder="Write Your Proposal Details"
                       className="w-full outline-none border rounded-lg p-5 text-sm resize-none"
                       maxLength={2000}
-                      {...register("coverLetter", { required: true, minLength: 50,
+                      {...register("coverLetter", {
+                        required: true, minLength: 50,
                         onChange: (e) => {
                           let value = e.target.value;
                           if (value.length > 2000) {
@@ -197,7 +209,7 @@ export default function JobDetails({ params }: PostPageProps) {
                         {proposalDescription.length}/2000
                       </span>
                       {proposalDescription.length >= 1200 && proposalDescription.length < 2000 && (
-                        <span className={`${proposalDescription.length >= 1800 ? "text-gray-900 text-xs" : "text-gray-500 text-xs" }`}>Shorter proposals get more replies.</span>
+                        <span className={`${proposalDescription.length >= 1800 ? "text-gray-900 text-xs" : "text-gray-500 text-xs"}`}>Shorter proposals get more replies.</span>
                       )}
                       {proposalDescription.length === 2000 && (
                         <span className="text-red-500 text-xs">Maximum character limit reached.</span>

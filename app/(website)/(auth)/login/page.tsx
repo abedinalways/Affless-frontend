@@ -43,6 +43,7 @@ export default function SignInForm() {
       localStorage.setItem("isLogin", "true");
       if (data?.email === "client@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/client");
+        localStorage.setItem("userType", "client");
         CookieHelper.set({key : "user",value: JSON.stringify({
           status: 'logged_in',
           user_type: 'client'
@@ -50,6 +51,7 @@ export default function SignInForm() {
         setUser("client");
       } else if (data?.email === "editor@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/editor");
+        localStorage.setItem("userType", "editor");
         CookieHelper.set({key : "user",value: JSON.stringify({
           status: 'logged_in',
           user_type: 'editor'
@@ -57,6 +59,7 @@ export default function SignInForm() {
         setUser("editor");
       } else if (data?.email === "admin@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/admin");
+        localStorage.setItem("userType", "admin");
         CookieHelper.set({key : "user",value: JSON.stringify({
           status: 'logged_in',
           user_type: 'admin'

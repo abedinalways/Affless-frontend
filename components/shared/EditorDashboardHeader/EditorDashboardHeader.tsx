@@ -406,7 +406,7 @@ export default function EditorDashboardHeader() {
                   <li>
                     <Link
                       href="/editor/browse-job?redirect=dashboardeditor"
-                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${isActive("/browse-job") ? activeCls : inactiveCls
+                      className={`block px-3 py-2 hover:bg-gray-100 duration-300 ${(isActive("/editor/browse-job") || isActive("/editor/browse-job/")) ? activeCls : inactiveCls
                         }`}
                       onClick={() => setMobileMenu(false)}
                     >
