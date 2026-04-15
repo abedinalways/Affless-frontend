@@ -120,7 +120,7 @@ export const routes: Record<string, RouteConfig> = {
         href: "/contactus"
     },
     pricing: {
-        label: "Pricing",
+        label: "Pricing Plans",
         href: "/pricing"
     },
     trustsafety: {

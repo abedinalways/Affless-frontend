@@ -74,7 +74,7 @@ export default function Pricing() {
         toast('Subscription feature coming soon!');
       }
     }else{
-      router.push('/singup?redirect=/pricing');
+      router.push(`/singup?redirect=${redirect ? redirect : "home"}_pricing`);
     }
   };
 

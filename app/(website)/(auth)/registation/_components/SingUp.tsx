@@ -12,6 +12,7 @@ import { EyeClosed, EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { routes } from "@/helper/routes"
 
 type FormValues = {
   name: string;
@@ -23,7 +24,7 @@ type FormValues = {
 
 export default function SingUpForm() {
   const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect') || '/';
+  const redirect = searchParams.get('redirect');
   const signUpType = searchParams.get('type') || 'client';
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -46,6 +47,16 @@ export default function SingUpForm() {
     }, 2000);
   };
 
+  // console.log("Redirect : ", routes[redirect.split("_").slice(0, -1).join("_")]);
+
+  // Compute safe back link
+  let backHref;
+  if (redirect) {
+    const key = redirect.split("_").pop() || "";
+    backHref = routes[key] || "/";
+    console.log("Computed backHref:", backHref);
+  }
+
   return (
     <div
       className=" sm:px-[50px] 
@@ -55,11 +66,11 @@ export default function SingUpForm() {
       2xl:px-[300px]"
     >
       <div className="pb-3 px-2">
-        <Link href={"/"} className="pb-9 ">
+        <Link href={backHref?.href + `?redirect=${redirect?.split("_").slice(0, -1).join("_") || "home"}` || "/" + `?redirect=${redirect || "home"}`} className="pb-9 ">
           {" "}
           <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap capitalize">
             <FaArrowLeft className="mt-1" />
-            Back to Home
+            Back to {backHref?.label.toString() || "Home"}
           </button>
         </Link>
       </div>

@@ -175,7 +175,7 @@ export default function NavbarWithoutLogin() {
                       className={`${isActive("/contactus") ? activeCls : inactiveCls} cursor-pointer`}
                       onClick={() => setDesktopContactOpen(false)}
                     >
-                      Contact
+                      Contact Us
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -289,7 +289,7 @@ export default function NavbarWithoutLogin() {
             onClick={closeMobileMenu}
             className={`${isActive("/contactus") ? activeCls : inactiveCls} cursor-pointer`}
           >
-            Contact
+            Contact Us
           </Link>
 
           {/* Auth buttons */}
