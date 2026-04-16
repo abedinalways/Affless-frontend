@@ -217,7 +217,7 @@ export default function EditorDashboardHeader() {
                         </Link>
 
                         <Link
-                          href="/editor/editor-profile"
+                          href="/editor/editor-profile?redirect=dashboardeditor"
                           className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/editor-profile") ? activeCls : inactiveCls
                             }`}
                           onClick={closeDesktopJobDropdown}
@@ -300,7 +300,7 @@ export default function EditorDashboardHeader() {
                 {profileDropdown && (
                   <div className="absolute right-0 mt-3 w-48 bg-white shadow-lg rounded-lg py-3 z-50">
                     <Link
-                      href="/editor/editor-profile"
+                      href="/editor/editor-profile?redirect=dashboardeditor"
                       className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/editor/editor-profile") ? activeCls : inactiveCls
                         }`}
                       onClick={() => setProfileDropdown(false)}

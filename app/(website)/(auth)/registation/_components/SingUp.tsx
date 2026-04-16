@@ -33,7 +33,7 @@ export default function SingUpForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({defaultValues: { accountType: signUpType }});
+  } = useForm<FormValues>({ defaultValues: { accountType: signUpType } });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     setIsSubmitting(true);
@@ -68,7 +68,7 @@ export default function SingUpForm() {
       <div className="pb-3 px-2">
         <Link href={backHref?.href + `?redirect=${redirect?.split("_").slice(0, -1).join("_") || "home"}` || "/" + `?redirect=${redirect || "home"}`} className="pb-9 ">
           {" "}
-          <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap capitalize">
+          <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap">
             <FaArrowLeft className="mt-1" />
             Back to {backHref?.label.toString() || "Home"}
           </button>
@@ -152,7 +152,22 @@ export default function SingUpForm() {
             <div className="relative">
               <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
               <input
-                {...register("name", { required: "Username is required" })}
+                {...register("name", {
+                  required: "Username is required",
+                  minLength: {
+                    value: 3,
+                    message: "Username must be at least 3 characters",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "Username must not exceed 30 characters",
+                  },
+                  pattern: {
+                    value: /^(?=[A-Za-z0-9._]{3,30}$)(?=.*[A-Za-z])[A-Za-z0-9._]*$/,
+                    message:
+                      "Username can only contain letters, numbers, underscores, and dots; it must include at least one letter; no spaces or special characters are allowed.",
+                  },
+                })}
                 type="text"
                 placeholder="Enter Username"
                 className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
@@ -171,8 +186,8 @@ export default function SingUpForm() {
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Enter a valid email",
+                    value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+                    message: "Enter a valid email (TLD must be at least 2 characters)",
                   },
                 })}
                 type="email"
