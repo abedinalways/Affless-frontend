@@ -53,7 +53,7 @@ const allPlatforms = [
 export default function PostJobForm() {
   const searchParams = useSearchParams();
   const assignEditor = searchParams.get('assign');
-  const redirectUrl = searchParams.get('redirect') || '/';
+  const redirectUrl = searchParams.get('redirect') || '';
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
     "single"
   );
@@ -155,13 +155,13 @@ export default function PostJobForm() {
         console.log("Since you selected 'Thumbnails' as the category, video duration is not required and the minimum price is set to $3.00.");
         setMinPrice(3);
         return;
-      } else if(selectedCategory === "captions_subtitles") {
+      } else if (selectedCategory === "captions_subtitles") {
         setMinPrice(2);
         return;
-      } else if(selectedCategory === "color_audio") {
+      } else if (selectedCategory === "color_audio") {
         setMinPrice(2);
         return;
-      }else {
+      } else {
         if (length <= 39) {
           setMinPrice(2);
         } else if (length <= 59) {
@@ -199,12 +199,12 @@ export default function PostJobForm() {
     }));
   }, [redirectUrl]);
 
-  useEffect(()=>{
+  useEffect(() => {
     ["thumbnails", "captions_subtitles", "color_audio"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
-    if(!videoNotRequired || !(selectedCategory && videoLength)) {
+    if (!videoNotRequired || !(selectedCategory && videoLength)) {
       setValue("budget", "");
     }
-  },[selectedCategory])
+  }, [selectedCategory])
 
   return (
     <div>
@@ -269,7 +269,7 @@ export default function PostJobForm() {
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
                 if (e.target.value === "thumbnails") {
-                  console.log("Selected category:" , e.target.value);
+                  console.log("Selected category:", e.target.value);
                   setValue("videoDuration", '');
                 }
               }}
@@ -333,15 +333,21 @@ export default function PostJobForm() {
               <p className='text-red-500 text-sm'>{errors.budget.message}</p>
             )}
 
-            {videoNotRequired || (selectedCategory && videoLength) ? (
-              <p className='text-gray-600 text-sm mb-4'>
-                The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
-              </p>
-            ) : (
-              <p className='text-gray-600 text-sm mb-4'>
-                Please select a job category and enter the estimated video duration to enter the job budget.
-              </p>
-            )}
+            <div className="mb-4 space-y-2">
+              {videoNotRequired || (selectedCategory && videoLength) ? (
+                <p className='text-gray-600 text-sm'>
+                  The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
+                </p>
+              ) : (
+                <p className='text-gray-600 text-sm'>
+                  Please select a job category and enter the estimated video duration to enter the job budget.
+                </p>
+              )}
+
+              <Link href={`/payment-rules?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`} className='text-sm underline text-blue-600 hover:text-blue-900 transition-colors duration-300'>
+                Read the Full Payment Rules Here.
+              </Link>
+            </div>
 
             {/* Warning Box */}
             <div className='p-4 bg-red-50 border border-red-300 rounded-lg mb-6'>
@@ -359,8 +365,8 @@ export default function PostJobForm() {
               </p>
               <Link
                 href={`/platform-safety?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`}
-                className='text-red-600 underline text-sm mt-2 inline-block'>
-                Read Full Off-Platform Policy
+                className='text-red-600 underline text-sm mt-2 inline-block hover:text-red-400 transition-colors duration-300'>
+                Read the Full Platform Safety Rules Here.
               </Link>
             </div>
 
