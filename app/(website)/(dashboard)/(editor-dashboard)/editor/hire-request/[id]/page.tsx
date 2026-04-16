@@ -123,7 +123,7 @@ export default function page({ params }: { params: { id: string } }) {
             <h3 className="text-gray-500 font-medium">Client’s Chosen Job Payout</h3>
             <p className="text-[34px] font-bold">$350.00</p>
 
-            <button type="button" disabled={proposalPrice === 350} onClick={() => setShowConfirmation(true)} className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-red-500">
+            <button type="button" disabled={proposalPrice === 350} onClick={() => setShowConfirmation(true)} className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-green-500 disabled:text-green-500 disabled:border-green-500 disabled:opacity-30">
               { proposalPrice === 350 ? "You Matched the Client’s Chosen Job Payout" : "Match Client’s Chosen Job Payout" }
             </button>
 

@@ -224,7 +224,7 @@ export default function ManageJobsPage() {
               href={`/client/post-job?redirect=${redirect ? redirect + "_" : ""}managejobs`}
               className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300 flex items-center gap-1"
             >
-              <PlusIcon className="w-5"/> Create a New Job
+              <PlusIcon className="w-5"/> Post a New Job
             </Link>
           </div>
 
