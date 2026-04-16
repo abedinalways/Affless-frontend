@@ -10,8 +10,11 @@ import { PiToolboxDuotone } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 import UsaFlag from "@/components/Icons/UsaFlag";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function ProfilePage() {
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "";
   const editorsWorkedWith = [
     { id: 1, name: "Alex Turner", avatar: "/images/sarah.png" },
     { id: 2, name: "Jordan Smith", avatar: "/images/saramc.png" },
@@ -58,6 +61,9 @@ export default function ProfilePage() {
     { stars: 1, count: 56 },
   ];
 
+
+  console.log("Redirect URL:", redirectUrl);
+
   return (
     <div className="bg-[#f6f6f6] min-h-screen p-6 containers">
 
@@ -82,10 +88,10 @@ export default function ProfilePage() {
             <p className="text-gray-600 flex gap-2.5"><FiCalendar /> Member since Jan 2023</p>
 
             <Link
-              href="/post-job"
-              className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0 gap-1"
+              href={`/client/post-job?redirect=${ redirectUrl ? redirectUrl + "_clientprofile" : ""}`}
+              className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0 gap-1 whitespace-nowrap"
             >
-              <PlusIcon className="w-5"/> Post New Job
+              <PlusIcon className="w-5"/> Post a New Job
             </Link>
           </div>
         </div>

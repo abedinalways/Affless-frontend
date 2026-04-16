@@ -157,7 +157,7 @@ export default function EditorDashboard() {
               type="button"
               className="cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white flex items-center gap-1"
             >
-              <PlusIcon className="w-5"/> Find New Job
+              <PlusIcon className="w-5"/> Browse New Jobs
             </Link>
           </div>
 

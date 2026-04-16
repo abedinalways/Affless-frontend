@@ -148,7 +148,7 @@ function Panel({ children }: { children: React.ReactNode }) {
 
 function BalanceStep({
   balance,
-  onAddMoney,
+  onAddMoney
 }: {
   balance: number;
   onAddMoney: () => void;
@@ -157,6 +157,7 @@ function BalanceStep({
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+
   return (
     <div className="py-12 text-center">
       <div className="text-[38px] font-semibold text-gray-900">
@@ -197,6 +198,11 @@ function AddMoneyStep({
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+
+  useEffect(()=>{
+    setDisplayAmount(amount ? `$${usFormat.format(amount)}` : "");
+  },[])
+
   return (
     <div className="space-y-6">
       <div>

@@ -31,6 +31,10 @@ export const routes: Record<string, RouteConfig> = {
         label: "Profile",
         href: "/editor/editor-profile"
     },
+    clientprofile: {
+        label: "Profile",
+        href: "/client/profile"
+    },
     browsejobs: {
         label: (id?: string) => {
             if (id) {
