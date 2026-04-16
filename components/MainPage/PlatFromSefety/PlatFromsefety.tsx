@@ -8,10 +8,11 @@ import { LuTriangleAlert } from "react-icons/lu";
 import { TbAlertTriangle, TbAlertTriangleFilled } from "react-icons/tb";
 import { IoMdCheckbox } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
-import { FaSquareCheck } from "react-icons/fa6";
+import { FaArrowLeft, FaSquareCheck } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 
 export default function PlatformSefetyPage() {
@@ -35,6 +36,15 @@ export default function PlatformSefetyPage() {
 
       </div>
       <div className=" min-h-screen lg:py-20 containers ">
+        {redirectUrl?.split("_")?.pop() === "postajob" && <div className="grid items-center my-4">
+          <Link
+            href={`/client/post-job?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
+            className="w-fit flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
+          >
+            <FaArrowLeft />
+            <span>Back to Post a New Job</span>
+          </Link>
+        </div>}
         <div className=" bg-white ">
           <div className="  px-4 md:p-8 text-[#333]p-9">
 

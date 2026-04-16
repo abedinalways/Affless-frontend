@@ -66,7 +66,7 @@ export default function SingUpForm() {
       2xl:px-[300px]"
     >
       <div className="pb-3 px-2">
-        <Link href={backHref?.href + `?redirect=${redirect?.split("_").slice(0, -1).join("_") || "home"}` || "/" + `?redirect=${redirect || "home"}`} className="pb-9 ">
+        <Link href={backHref?.href + `?redirect=${redirect?.split("_").slice(0, -1).join("_") || ""}` || "/" + `?redirect=${redirect || "home"}`} className="pb-9 ">
           {" "}
           <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap">
             <FaArrowLeft className="mt-1" />
@@ -187,10 +187,10 @@ export default function SingUpForm() {
                   required: "Email is required",
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
-                    message: "Enter a valid email (TLD must be at least 2 characters)",
+                    message: "Enter a valid email (domain must be at least 2 characters)",
                   },
                 })}
-                type="email"
+                type="text"
                 placeholder="Enter Your Email"
                 className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
               />

@@ -186,13 +186,13 @@ export default function NavbarWithoutLogin() {
           </div>
 
           <div className="flex gap-5">
-            <Link href="/login" className="hidden xl:flex">
+            <Link href="/login?redirect=home" className="hidden xl:flex">
               <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer">
                 <DubbleUser /> Log In
               </button>
             </Link>
 
-            <Link href="/singup" className="hidden xl:flex">
+            <Link href="/singup?redirect=home" className="hidden xl:flex">
               <button className="flex items-center gap-2 bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer">
                 <DubbleUser /> Sign Up (Free)
               </button>
@@ -295,7 +295,7 @@ export default function NavbarWithoutLogin() {
           {/* Auth buttons */}
           <div className="flex gap-4 pt-4">
             <Link
-              href="/login"
+              href="/login?redirect=home"
               onClick={closeMobileMenu}
               className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer"
             >
@@ -305,7 +305,7 @@ export default function NavbarWithoutLogin() {
             </Link>
 
             <Link
-              href="/singup"
+              href="/singup?redirect=home"
               onClick={closeMobileMenu}
               className="bg-[#FF4D4F] text-white px-5 py-2 rounded-xl cursor-pointer"
             >
