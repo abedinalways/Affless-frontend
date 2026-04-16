@@ -37,10 +37,9 @@ export default function GetTouchPage() {
     <div>
       <div>
         <PageBanner
-          title='Contact us
-        '
+          title='Contact Us'
           bgImage='/findEditor.jpg'
-          links={[{ label: "Home", href: "/" }, { label: "Contact us" }]}
+          links={[{ label: "Home", href: "/" }, { label: "Contact Us" }]}
         />
       </div>
       <div className='containers'>

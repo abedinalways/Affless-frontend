@@ -6,6 +6,9 @@ import { FiPlus } from "react-icons/fi";
 import { MdStar } from "react-icons/md";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BiWorld } from "react-icons/bi";
+import Link from "next/link";
+import { PlusIcon } from "@/public/svgIcons/svgIcons";
+import { useSearchParams } from "next/navigation";
 
 export type ProfileState = {
   name: string;
@@ -27,6 +30,8 @@ export default function ProfileHeaderCard({
   profile: ProfileState;
   onEdit?: () => void;
 }) {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
   return (
     <div className="w-full rounded-xl border border-gray-200 bg-white p-6">
       <div className="flex items-start gap-6">
@@ -82,14 +87,23 @@ export default function ProfileHeaderCard({
             </span>
           </div>
 
-          {onEdit && <button
-            type="button"
-            onClick={onEdit}
-            className="mt-5 inline-flex items-center gap-2 rounded-md border border-gray-200 bg-white px-4 py-2 text-[13px] font-medium text-gray-700 hover:bg-gray-50 transition cursor-pointer"
-          >
-            <FiPlus />
-            Edit
-          </button>}
+          {onEdit && <div className="flex items-center gap-6 mt-5">
+            <button
+              type="button"
+              onClick={onEdit}
+              className="inline-flex items-center gap-2 rounded-md border border-gray-200 bg-white px-4 py-2.5 text-[13px] font-medium text-gray-700 hover:bg-gray-50 transition cursor-pointer"
+            >
+              <FiPlus />
+              Edit
+            </button>
+            <Link
+              href={`/editor/browse-job?redirect=${ redirect ? redirect + "_editorprofile" : "editorprofile" }`}
+              type="button"
+              className="w-fit cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[13px] font-medium text-white flex items-center gap-1"
+            >
+              <PlusIcon className="w-3.5" /> Browse New Jobs
+            </Link>
+          </div>}
         </div>
       </div>
     </div>
