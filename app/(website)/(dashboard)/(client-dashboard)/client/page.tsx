@@ -3,6 +3,8 @@ import React from 'react'
 
 export default function Dshboard() {
   return (
-    <div><ClientDashboard/></div>
+    <div>
+      <ClientDashboard />
+    </div>
   )
 }

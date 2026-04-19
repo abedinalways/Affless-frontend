@@ -41,6 +41,7 @@ export default function JobDetails({ params }: PostPageProps) {
     deliveryTime: string;
     coverLetter: string;
   }>();
+  const [actualBidAmount, setActualBidAmount] = useState("");
   const [proposalDescription, setProposalDescription] = useState("");
 
   const [job, setJob] = useState<any>(null);
@@ -125,6 +126,7 @@ export default function JobDetails({ params }: PostPageProps) {
                     <div className="w-full">
                       <input
                         type="text"
+                        autoComplete="off"
                         placeholder="Enter Your Pricing"
                         className="w-full outline-none border rounded-full p-5 text-sm"
                         {...register("bidAmount", {
@@ -135,6 +137,7 @@ export default function JobDetails({ params }: PostPageProps) {
                             const parts = rawValue.split(".");
                             rawValue = parts.shift() + (parts.length ? "." + parts.join("") : "");
                             e.target.value = rawValue;
+                            setActualBidAmount(rawValue);
                           },
 
                           onBlur: (e) => {
@@ -143,18 +146,23 @@ export default function JobDetails({ params }: PostPageProps) {
                         })}
 
                       />
+                        {errors.bidAmount && (
+                          <p className="text-red-500 text-xs mt-2 pl-4">
+                            Proposal amount is required
+                          </p>
+                        )}
+                        {(Number(actualBidAmount) < 2 && actualBidAmount && !errors.bidAmount) && (
+                          <p className="text-red-500 text-xs mt-2 pl-4">
+                            The minimum pricing for this job is $2.00.
+                          </p>
+                        )}
                       <button
                         type="button"
                         onClick={handleMatchClientBudget}
-                        className="text-sm border px-4 py-1 cursor-pointer rounded-lg mt-2 ml-4 bg-red-500 text-white hover:bg-red-600 transition duration-300"
+                        className="text-sm border px-4 py-1 cursor-pointer rounded-lg mt-1 ml-4 bg-red-500 text-white hover:bg-red-600 transition duration-300"
                       >
                         Match Client Budget
                       </button>
-                      {errors.bidAmount && (
-                        <p className="text-red-500 text-xs mt-1">
-                          Proposal amount is required
-                        </p>
-                      )}
                     </div>
                     <div className="w-full">
                       <input
@@ -218,8 +226,8 @@ export default function JobDetails({ params }: PostPageProps) {
                     {errors.coverLetter && (
                       <p className="text-red-500 text-xs mt-1">
                         {errors.coverLetter.type === "minLength"
-                          ? "Cover Letter must be at least 50 characters"
-                          : "Cover Letter is required"}
+                          ? "Proposal Details must be at least 50 characters"
+                          : "Proposal Details is required"}
                       </p>
                     )}
                   </div>

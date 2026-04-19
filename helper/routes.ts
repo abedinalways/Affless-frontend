@@ -153,7 +153,7 @@ export const routes: Record<string, RouteConfig> = {
         href: "/client/find-editor"
     },
     hireaneditor: {
-        label: "Hire a Editor",
+        label: "Hire a Video Editor",
         href: "/client/hire-vedio-editor"
     },
     paymentprotection: {

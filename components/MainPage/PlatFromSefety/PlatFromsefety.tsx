@@ -13,6 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { routes } from "@/helper/routes";
 
 
 export default function PlatformSefetyPage() {
@@ -36,13 +37,13 @@ export default function PlatformSefetyPage() {
 
       </div>
       <div className=" min-h-screen lg:py-20 containers ">
-        {redirectUrl?.split("_")?.pop() === "postajob" && <div className="grid items-center my-4">
+        {(redirectUrl?.split("_")?.slice(-1)[0] === "postajob" || redirectUrl?.split("_")?.slice(-1)[0] === "hireaneditor") && <div className="grid items-center my-4">
           <Link
-            href={`/client/post-job?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
+            href={`${routes[redirectUrl?.split("_")?.slice(-1)[0]].href}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
             className="w-fit flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
           >
             <FaArrowLeft />
-            <span>Back to Post a New Job</span>
+            <span>Back to {routes[redirectUrl?.split("_")?.slice(-1)[0]].label.toString()}</span>
           </Link>
         </div>}
         <div className=" bg-white ">

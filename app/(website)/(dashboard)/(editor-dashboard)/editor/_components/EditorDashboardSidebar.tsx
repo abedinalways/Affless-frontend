@@ -34,10 +34,19 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                     </div>
                     <div className="text-center">
                         <Link href="/editor/editor-profile" className="text-lg font-semibold underline">Jane Cooper</Link>
-                        <div className="pt-3 text-sm text-gray-500 flex">
-                            <p className="flex gap-2">
-                                <LocationIcon /> Pakistan <FaRegUser className="text-[#333333]" /> Editor
-                            </p>
+                        <div className="pt-3 text-sm text-gray-500 flex items-center gap-3">
+                            <div className="flex items-center gap-2">
+                                <div className="pb-0.5">
+                                    <LocationIcon className="w-4" />
+                                </div>
+                                <p>Pakistan</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="pb-1">
+                                    <FaRegUser className="w-4 h-4" />
+                                </div>
+                                <p>Editor</p>
+                            </div>
                         </div>
                     </div>
 

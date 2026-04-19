@@ -40,85 +40,85 @@ export default function ClientDashboard() {
   const paginated = ALL_JOBS.slice((page - 1) * pageSize, page * pageSize);
 
   const columns: ColumnDef<JobRow>[] = [
-      {
-        accessorKey: "service",
-        header: "Jobs",
-        cell: ({ row }) => {
-          const data = row.original;
-          return (
-            <div
-              className="flex items-center gap-4 cursor-pointer  p-2 rounded-md"
-            >
-              <div className="h-10 w-10 rounded-md overflow-hidden bg-gray-200">
-                <img
-                  src={data.thumbnail}
-                  alt={data.service}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <span className="text-sm font-medium text-gray-800 capitalize">
-                {data.service}
-              </span>
+    {
+      accessorKey: "service",
+      header: "Jobs",
+      cell: ({ row }) => {
+        const data = row.original;
+        return (
+          <div
+            className="flex items-center gap-4 cursor-pointer  p-2 rounded-md"
+          >
+            <div className="h-10 w-10 rounded-md overflow-hidden bg-gray-200">
+              <img
+                src={data.thumbnail}
+                alt={data.service}
+                className="h-full w-full object-cover"
+              />
             </div>
-          );
-        },
+            <span className="text-sm font-medium text-gray-800 capitalize">
+              {data.service}
+            </span>
+          </div>
+        );
       },
-  
-      {
-        accessorKey: "total",
-        header: "Amount",
-        cell: ({ row }) => {
-          const d = row.original;
-          return (
-            <div
-              className="cursor-pointer p-2 rounded-md"
-            >
-              ${d.total}
-            </div>
-          );
-        },
+    },
+
+    {
+      accessorKey: "total",
+      header: "Amount",
+      cell: ({ row }) => {
+        const d = row.original;
+        return (
+          <div
+            className="cursor-pointer p-2 rounded-md"
+          >
+            ${d.total}
+          </div>
+        );
       },
-  
-      {
-        accessorKey: "dueOn",
-        header: "Days Left",
-        cell: ({ row }) => {
-          const d = row.original;
-          const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-          return (
-            <>
-              {(d.status === "in_progress" || d.status === "late" || d.status === "in_revision" || d.status === "delivered") && (
-                <div
-                  className="cursor-pointer  p-2 rounded-md text-center"
-                >
-                  {Math.abs(d.timeLeft.days)} {d.timeLeft.days > 1 ? "days left" : d.timeLeft.days < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
-                </div>
-              )}
-            </>
-          );
-        },
-      },
-      {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => {
-          const d = row.original;
-          const statusDefinition = getJobStatusDefinition(d.status);
-          return (
-            <div
-              className="cursor-pointer  p-2 rounded-md grid items-center justify-center"
-            >
-              <span
-                title={statusDefinition.description}
-                className={`px-3 text-[16px] w-full py-1.5 rounded-md ${statusDefinition.colorClass}`}
+    },
+
+    {
+      accessorKey: "dueOn",
+      header: "Days Left",
+      cell: ({ row }) => {
+        const d = row.original;
+        const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+        return (
+          <>
+            {(d.status === "in_progress" || d.status === "late" || d.status === "in_revision" || d.status === "delivered") && (
+              <div
+                className="cursor-pointer  p-2 rounded-md text-center"
               >
-                {statusDefinition.label}
-              </span>
-            </div>
-          );
-        },
+                {Math.abs(d.timeLeft.days)} {d.timeLeft.days > 1 ? "days left" : d.timeLeft.days < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+              </div>
+            )}
+          </>
+        );
       },
-    ];
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => {
+        const d = row.original;
+        const statusDefinition = getJobStatusDefinition(d.status);
+        return (
+          <div
+            className="cursor-pointer  p-2 rounded-md grid items-center justify-center"
+          >
+            <span
+              title={statusDefinition.description}
+              className={`px-3 text-[16px] w-full py-1.5 rounded-md ${statusDefinition.colorClass}`}
+            >
+              {statusDefinition.label}
+            </span>
+          </div>
+        );
+      },
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] pt-12 pb-9 overflow-hidden">
@@ -136,10 +136,19 @@ export default function ClientDashboard() {
 
                 <div className="text-center">
                   <Link href="/client/profile" className="text-lg font-semibold underline">Zeeshan</Link>
-                  <div className="pt-3 text-sm text-gray-500 flex">
-                    <p className="flex gap-2">
-                      <LocationIcon /> Pakistan <FaRegUser className="text-[#333333]" /> Client
-                    </p>
+                  <div className="pt-3 text-sm text-gray-500 flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className="pb-0.5">
+                        <LocationIcon className="w-4" />
+                      </div>
+                      <p>Pakistan</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="pb-1">
+                        <FaRegUser className="w-4 h-4" />
+                      </div>
+                      <p>Client</p>
+                    </div>
                   </div>
                 </div>
 
@@ -181,7 +190,7 @@ export default function ClientDashboard() {
             <div className="w-full flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex-1">
                 <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="text-sm text-[#333]">
                   Manage your jobs from here.
                 </p>
               </div>
@@ -189,7 +198,7 @@ export default function ClientDashboard() {
                 href="/client/post-job?redirect=dashboardclient"
                 className="w-fit px-4 py-3 bg-red-500 text-white rounded-lg text-base inline-flex items-center mx-auto lg:ml-auto lg:mr-0 gap-1"
               >
-                <PlusIcon className="w-5"/> Post a New Job
+                <PlusIcon className="w-5" /> Post a New Job
               </Link>
             </div>
 
@@ -201,7 +210,7 @@ export default function ClientDashboard() {
                 pageSize={pageSize}
                 total={total}
                 onPageChange={setPage}
-                onRowClick={(data)=>router.push(`/client/manage-job/${data?.id}?redirect=dashboardclient_managejobs`)}
+                onRowClick={(data) => router.push(`/client/manage-job/${data?.id}?redirect=dashboardclient_managejobs`)}
               >
               </DataTable>
             </div>
