@@ -81,8 +81,8 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
             <InfoRow label="Total Jobs Posted:" value="50" />
             <InfoRow label="Hire Rate (%):" value="80%" />
             <InfoRow label="Average Response Time:" value="30 mins" />
-            <InfoRow label="Location:" value="Australia" />
             <InfoRow label="Member Since:" value="January, 2020" />
+            <InfoRow label="Location:" value="Australia" />
           </div>
         </div>
 
@@ -100,7 +100,7 @@ function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between text-sm py-1">
       <span className="text-gray-500 font-medium">{label}</span>
-      <span className="text-[#4A6375] font-medium text-[16px] leading-150%">{value}</span>
+      <span className="text-[#4A6375] font-medium text-sm leading-150%">{value}</span>
     </div>
   );
 }
