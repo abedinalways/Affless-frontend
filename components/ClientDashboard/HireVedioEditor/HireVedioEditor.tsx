@@ -195,7 +195,7 @@ export default function HireVideoEditorForm() {
   const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
   useEffect(() => {
     setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
-      currentLabel: assignedEditor?.name ? `Hire ${assignedEditor?.name.split("_").map(name=>name[0].toUpperCase() + name.slice(1)).join(" ")}` : 'Hire a Video Editor',
+      currentLabel: assignedEditor?.name ? `Hire ${assignedEditor?.name.split("_").map(name => name[0].toUpperCase() + name.slice(1)).join(" ")}` : 'Hire a Video Editor',
       fallbackBase: [{ label: "Home", href: "/" }],
     }));
   }, [redirectUrl]);
@@ -246,7 +246,7 @@ export default function HireVideoEditorForm() {
 
   useEffect(() => {
     ["thumbnails", "captions_subtitles", "color_audio"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
-    if(!videoNotRequired || !(selectedCategory && videoLength)) {
+    if (!videoNotRequired || !(selectedCategory && videoLength)) {
       setValue("budget", "");
     }
   }, [selectedCategory])
@@ -383,16 +383,21 @@ export default function HireVideoEditorForm() {
             {errors.budget && (
               <p className='text-red-500 text-sm'>{errors.budget.message}</p>
             )}
+            <div className="mb-4 space-y-2">
+              {videoNotRequired || (selectedCategory && videoLength) ? (
+                <p className='text-gray-600 text-sm mb-4'>
+                  The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
+                </p>
+              ) : (
+                <p className='text-gray-600 text-sm mb-4'>
+                  Please select a job category and enter the estimated video duration to enter the job budget.
+                </p>
+              )}
 
-            {videoNotRequired || (selectedCategory && videoLength) ? (
-              <p className='text-gray-600 text-sm mb-4'>
-                The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
-              </p>
-            ) : (
-              <p className='text-gray-600 text-sm mb-4'>
-                Please select a job category and enter the estimated video duration to enter the job budget.
-              </p>
-            )}
+              <Link href={`/payment-rules?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`} className='text-sm underline text-blue-600 hover:text-blue-900 transition-colors duration-300'>
+                Read the Full Payment Rules Here.
+              </Link>
+            </div>
 
             {/* Warning Box */}
             <div className='p-4 bg-red-50 border border-red-300 rounded-lg mb-6'>
@@ -410,8 +415,8 @@ export default function HireVideoEditorForm() {
               </p>
               <Link
                 href={`/platform-safety?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`}
-                className='text-red-600 underline text-sm mt-2 inline-block'>
-                Read Full Off-Platform Policy
+                className='text-red-600 underline text-sm mt-2 inline-block hover:text-red-400 transition-colors duration-300'>
+                Read the Full Platform Safety Rules Here.
               </Link>
             </div>
 
