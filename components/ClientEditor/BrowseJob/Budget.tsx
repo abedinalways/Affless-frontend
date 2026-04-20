@@ -80,7 +80,7 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
           <div className="bg-gray-50 border rounded-2xl p-4 mt-4">
             <InfoRow label="Total Jobs Posted:" value="50" />
             <InfoRow label="Hire Rate (%):" value="80%" />
-            <InfoRow label="Average Response Time:" value="30 mins" />
+            <InfoRow label="Average Response Time:" value="1 hour" />
             <InfoRow label="Member Since:" value="January, 2020" />
             <InfoRow label="Location:" value="Australia" />
           </div>

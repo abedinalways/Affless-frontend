@@ -65,7 +65,7 @@ export default function PostJobForm() {
   >([
     {
       key: "youtube_long_form",
-      label: "YouTube Long Form",
+      label: "Long-Form YouTube",
     },
     {
       key: "shorts_reels_tiktoks",
@@ -150,16 +150,16 @@ export default function PostJobForm() {
 
   useEffect(() => {
     if (videoLength) {
-      let length = selectedCategory === "shorts_reels_tiktoks" ? videoLength : videoLength * 60;
-      if (selectedCategory === "thumbnails") {
-        console.log("Since you selected 'Thumbnails' as the category, video duration is not required and the minimum price is set to $3.00.");
+      let length = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") ? videoLength : videoLength * 60;
+      if (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") {
+        if (length <= 39) {
+          setMinPrice(2);
+        } else {
+          setMinPrice(3);
+        }
+        return;
+      } else if (selectedCategory === "thumbnails") {
         setMinPrice(3);
-        return;
-      } else if (selectedCategory === "captions_subtitles") {
-        setMinPrice(2);
-        return;
-      } else if (selectedCategory === "color_audio") {
-        setMinPrice(2);
         return;
       } else {
         if (length <= 39) {
@@ -188,6 +188,11 @@ export default function PostJobForm() {
           setMinPrice(100);
         }
       }
+    } else if (selectedCategory === "thumbnails") {
+      setMinPrice(3);
+      return;
+    }else{
+      setMinPrice(2);
     }
   }, [videoLength, selectedCategory]);
 
@@ -200,7 +205,7 @@ export default function PostJobForm() {
   }, [redirectUrl]);
 
   useEffect(() => {
-    ["thumbnails", "captions_subtitles", "color_audio"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
+    ["thumbnails"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
     if (!videoNotRequired || !(selectedCategory && videoLength)) {
       setValue("budget", "");
     }
@@ -271,6 +276,7 @@ export default function PostJobForm() {
                 if (e.target.value === "thumbnails") {
                   console.log("Selected category:", e.target.value);
                   setValue("videoDuration", '');
+                  setVideoLength(0);
                 }
               }}
               className='w-full border rounded-lg p-3 mb-6'>
@@ -314,7 +320,6 @@ export default function PostJobForm() {
                 required: "Budget is required",
 
                 onChange: (e) => {
-                  // শুধু number allow
                   e.target.value = e.target.value.replace(/[^0-9.]/g, "");
                 },
 
@@ -380,6 +385,9 @@ export default function PostJobForm() {
             <input
               type='text'
               placeholder='5'
+              onFocus={(e) => {
+                e.target.value = e.target.value.replace(/\s*(day|days)$/i, "").trim();
+              }}
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               {...register("duration", {
                 required: "Duration is required",
@@ -415,22 +423,21 @@ export default function PostJobForm() {
               placeholder='Video Duration (Estimate)'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed'
               disabled={videoNotRequired}
+              onFocus={(e) => {
+                e.target.value = e.target.value.replace(/\s*(minutes|seconds)$/i, "").trim();
+              }}
               {...register("videoDuration", {
                 required: videoNotRequired ? false : "Video duration is required",
-
                 onChange: (e) => {
                   // শুধু number allow
                   e.target.value = e.target.value.replace(/[^0-9]/g, "");
                   setVideoLength(parseInt(e.target.value) || 0);
                 },
-
                 onBlur: (e) => {
                   let value = parseInt(e.target.value);
-
                   if (!value || value < 1) value = 1;
-
                   // auto format
-                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
+                  const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? "seconds" : "minutes";
                   e.target.value = `${value} ${unit}`;
                 },
               })}

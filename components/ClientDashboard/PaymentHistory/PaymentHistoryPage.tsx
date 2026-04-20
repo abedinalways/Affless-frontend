@@ -1,5 +1,6 @@
 "use client";
 
+import { getJobStatusDefinition } from "@/lib/job-status";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -84,15 +85,11 @@ export default function PaymentHistoryPage() {
 
             {/* Status */}
             <div className="hidden md:block">
-              {payment.status === "in_revision" ? (
-                <span className="px-4 py-1 rounded-lg bg-[#7C3AED] text-white text-[16px] font-medium">
-                  In Revision
-                </span>
-              ) : (
-                <span className="px-5 py-1 rounded-lg bg-[#166534] text-white text-[16px] font-medium">
-                  Completed
-                </span>
-              )}
+              <span
+                className={` w-fit px-4 py-1 rounded-md text-[14px] font-medium whitespace-nowrap ${getJobStatusDefinition(payment?.status).colorClass}`}
+              >
+                {getJobStatusDefinition(payment?.status).label}
+              </span>
             </div>
           </Link>
         ))}

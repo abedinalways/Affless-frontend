@@ -137,10 +137,10 @@ export default function JobDetails({ params }: PostPageProps) {
                             const parts = rawValue.split(".");
                             rawValue = parts.shift() + (parts.length ? "." + parts.join("") : "");
                             e.target.value = rawValue;
-                            setActualBidAmount(rawValue);
                           },
-
+                          
                           onBlur: (e) => {
+                            setActualBidAmount(e.target.value);
                             e.target.value = formatBidAmount(e.target.value, 2);
                           },
                         })}
@@ -159,7 +159,7 @@ export default function JobDetails({ params }: PostPageProps) {
                       <button
                         type="button"
                         onClick={handleMatchClientBudget}
-                        className="text-sm border px-4 py-1 cursor-pointer rounded-lg mt-1 ml-4 bg-red-500 text-white hover:bg-red-600 transition duration-300"
+                        className="text-sm border px-4 py-1 cursor-pointer rounded-lg mt-3.5 ml-4 bg-red-500 text-white hover:bg-red-600 transition duration-300"
                       >
                         Match Client Budget
                       </button>

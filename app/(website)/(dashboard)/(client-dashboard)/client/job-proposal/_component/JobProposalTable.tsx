@@ -2,46 +2,8 @@ import { EditorJobProposalType } from "@/app/type";
 import DynamicTable from "@/helper/DynamicTable"
 import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation";
+import { getJobStatusDefinition } from "@/lib/job-status";
 
-const StatusBadge = {
-  "in_progress": {
-    label: "Pending Your Approval of Editor",
-    colorClass: "bg-[#FFF7E8] text-[#FAAD14]",
-    description: "Work has started",
-  },
-  in_revision: {
-    label: "In Revision",
-    colorClass: "bg-[#7C3AED] text-white",
-    description: "Work is in revision",
-  },
-  delivered: {
-    label: "Delivered",
-    colorClass: "bg-[#22C55E] text-white",
-    description: "Work submitted by editor",
-  },
-  completed: {
-    label: "Completed",
-    colorClass: "bg-[#166534] text-white",
-    description: "Client accepted delivery",
-  },
-  canceled: {
-    label: "Canceled",
-    colorClass: "bg-[#FF4D4F] text-white",
-    description: "Job canceled by either party",
-  },
-  late: {
-    label: "Late",
-    colorClass: "bg-[#991B1B] text-white",
-    description: "Work is past the deadline",
-  },
-  pending: {
-    label: "Pending Your Approval of Editor",
-    colorClass: "bg-[#FFF7E8] text-[#FAAD14]",
-    description: "Job is pending",
-  }
-}
-
-type StatusBadgeType = keyof typeof StatusBadge;
 
 type PropType = {
     data: EditorJobProposalType[];
@@ -98,12 +60,12 @@ export default function JobProposalTable({ data }: PropType) {
             label: "Status",
             accessor: "status",
             width: "120px",
-            formatter: (accessor: StatusBadgeType) => (
+            formatter: (accessor: any) => (
                 <div className="w-full h-full text-center px-6 py-3 ">
                     <span
-                        className={` w-fit px-4 py-1 rounded-md text-[14px] font-medium whitespace-nowrap ${StatusBadge[accessor].colorClass}`}
+                        className={` w-fit px-4 py-1 rounded-md text-[14px] font-medium whitespace-nowrap ${getJobStatusDefinition(accessor).colorClass}`}
                     >
-                        {StatusBadge[accessor].label}
+                        {getJobStatusDefinition(accessor).label}
                     </span>
                 </div>
             )
