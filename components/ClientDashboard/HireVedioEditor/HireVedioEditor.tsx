@@ -50,6 +50,8 @@ const categoryPlatformMap: { [key: string]: string[] } = {
 export default function HireVideoEditorForm() {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || "/";
+  const id = searchParams.get("id") || "";
+  const name = searchParams.get("name") || "";
   const source = getNavigationSource(searchParams);
   const assignedEditorId = searchParams.get("assign") || "";
   const assignedEditor = conversationDirectory.find((editor) => editor.id === assignedEditorId);
@@ -195,7 +197,7 @@ export default function HireVideoEditorForm() {
   const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
   useEffect(() => {
     setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
-      currentLabel: assignedEditor?.name ? `Hire ${assignedEditor?.name.split("_").map(name => name[0].toUpperCase() + name.slice(1)).join(" ")}` : 'Hire a Video Editor',
+      currentLabel: name ? `Hire ${name.split(" ").map((s) => s[0].toUpperCase() + s.slice(1)).join(" ")}` : 'Hire a Video Editor',
       fallbackBase: [{ label: "Home", href: "/" }],
     }));
   }, [redirectUrl]);
@@ -255,7 +257,7 @@ export default function HireVideoEditorForm() {
     <div>
       <div>
         <PageBanner
-          title={assignedEditor?.name ? `Hire ${assignedEditor?.name.split("_").join(" ")}` : 'Hire a Video Editor'}
+          title={name ? `Hire ${name}` : 'Hire a Video Editor'}
           bgImage="/findEditor.jpg"
           links={bannerLinks}
         />

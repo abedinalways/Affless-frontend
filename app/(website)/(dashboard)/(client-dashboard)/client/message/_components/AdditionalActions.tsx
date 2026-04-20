@@ -53,7 +53,7 @@ export default function AdditionalActions({ activeConversation, conversationId, 
                 {conversationId && (
                     <button
                         type="button"
-                        onClick={() => router.push(`/client/hire-vedio-editor?assign=${activeConversation?.id || conversationId}&redirect=${redirectUrl ? redirectUrl + "_" : ""}messageclientid:${activeConversation?.id || conversationId}`)}
+                        onClick={() => router.push(`/client/hire-vedio-editor?id=${activeConversation?.id || conversationId}&name=${activeConversation?.name}&redirect=${redirectUrl ? redirectUrl + "_" : ""}messageclientid:${activeConversation?.id || conversationId}:${activeConversation?.name}`)}
                         className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                     >
                         Post a Job for {activeConversation?.name || "User"}
