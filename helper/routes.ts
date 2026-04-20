@@ -153,8 +153,19 @@ export const routes: Record<string, RouteConfig> = {
         href: "/client/find-editor"
     },
     hireaneditor: {
-        label: "Hire a Video Editor",
-        href: "/client/hire-vedio-editor"
+        label: (id?: string, name?: string) => {
+            if(name){
+                return `Hire ${name}`;
+            }
+            return "Hire a Video Editor";
+        },
+        href: "/client/hire-vedio-editor",
+        buildHref: (id?: string, name?: string) => {
+            if (id) {
+                return `/client/hire-vedio-editor?id=${id}`;
+            }
+            return `/client/hire-vedio-editor`
+        },
     },
     paymentprotection: {
         label: "Payment Protection",
@@ -206,9 +217,14 @@ export const routes: Record<string, RouteConfig> = {
         href: "/client/message"
     },
     messageclientid: {
-        label: "Direct Messages",
+        label: (id?: string, name?: string) => {
+            if(name){
+                return `${name}'s Direct Messages`;
+            }
+            return "Direct Messages";
+        },
         href: "/client/message",
-        buildHref: (id: string) => `/client/message/${id}`,
+        buildHref: (id: string, name?: string) => `/client/message/${id}`,
     },
     jobproposal: {
         label: "Job Proposals",
