@@ -1,6 +1,8 @@
 "use client";
 
 import { Image as ImageIcon, Headphones, BadgeCheck, AlertTriangle } from "lucide-react";
+import { SiSubtitleedit } from "react-icons/si";
+import { RiAdvertisementFill } from "react-icons/ri";
 
 export default function AdditionalPlatform() {
   return (
@@ -13,18 +15,20 @@ export default function AdditionalPlatform() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Photo Editing */}
         <div className="rounded-xl border border-gray-200 bg-white p-3 lg:p-8">
-          <div className="flex items-start gap-3">
+          <div className="w-full h-full grid grid-cols-[auto_1fr] items-start gap-3">
             <div className="h-8 w-8 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center">
-              <ImageIcon className="h-4 w-4 text-green-600" />
+              <SiSubtitleedit className="h-4 w-4 text-green-600" />
             </div>
 
-            <div className="flex-1">
-              <h4 className="text-[18px] font-semibold text-[#111827]">
-                Photo Editing
-              </h4>
-              <p className="mt-2 text-[13px] text-[#6B7280]">
-                Applies to general photo editing services
-              </p>
+            <div className="h-full grid grid-cols-1 justify-between">
+              <div>
+                <h4 className="text-[18px] font-semibold text-[#111827]">
+                  Captions/Subtitles
+                </h4>
+                <p className="mt-2 text-[13px] text-[#6B7280]">
+                  Applies to captions and subtitles editing services
+                </p>
+              </div>
 
               <div className="mt-6 flex items-end gap-2">
                 <span className="text-[20px] font-semibold text-green-600">$2</span>
@@ -35,19 +39,21 @@ export default function AdditionalPlatform() {
         </div>
 
         {/* Audio Editing */}
-        <div className="rounded-xl border border-gray-200 bg-white p-3 lg:p-8">
-          <div className="flex items-start gap-3">
+        <div className="w-full h-full rounded-xl border border-gray-200 bg-white p-3 lg:p-8">
+          <div className="w-full h-full grid grid-cols-[auto_1fr] items-start gap-3">
             <div className="h-8 w-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center">
-              <Headphones className="h-4 w-4 text-[#49B4D6]" />
+              <RiAdvertisementFill className="h-4 w-4 text-[#49B4D6]" />
             </div>
 
-            <div className="flex-1">
-              <h4 className="text-[18px] font-semibold text-[#111827]">
-                Audio Editing
-              </h4>
-              <p className="mt-2 text-[13px] text-[#6B7280]">
-                Applies to audio editing and mixing
-              </p>
+            <div className="h-full grid grid-cols-1 justify-between">
+              <div>
+                <h4 className="text-[18px] font-semibold text-[#111827]">
+                  Ads/UGC
+                </h4>
+                <p className="mt-2 text-[13px] text-[#6B7280]">
+                  Applies to commercial and user content
+                </p>
+              </div>
 
               <div className="mt-6 flex items-end gap-2">
                 <span className="text-[20px] font-semibold text-[#49B4D6]">$2</span>
@@ -61,7 +67,7 @@ export default function AdditionalPlatform() {
         <div className="rounded-xl border border-gray-200 bg-white p-3 lg:p-8">
           <div className="flex items-start gap-3">
             <div className="h-8 w-8 rounded-lg bg-red-50 border border-red-200 flex items-center justify-center">
-              <BadgeCheck className="h-4 w-4 text-red-500" />
+              <ImageIcon className="h-4 w-4 text-red-500" />
             </div>
 
             <div className="flex-1">

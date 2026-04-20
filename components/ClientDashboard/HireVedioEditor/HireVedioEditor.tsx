@@ -72,7 +72,7 @@ export default function HireVideoEditorForm() {
   >([
     {
       key: "youtube_long_form",
-      label: "YouTube Long Form",
+      label: "Long-Form YouTube",
     },
     {
       key: "shorts_reels_tiktoks",
@@ -204,16 +204,15 @@ export default function HireVideoEditorForm() {
 
   useEffect(() => {
     if (videoLength) {
-      let length = selectedCategory === "shorts_reels_tiktoks" ? videoLength : videoLength * 60;
-      if (selectedCategory === "captions_subtitles") {
-        setMinPrice(2);
+      let length = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") ? videoLength : videoLength * 60;
+      if (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") {
+        if (length <= 39) {
+          setMinPrice(2);
+        } else {
+          setMinPrice(3);
+        }
         return;
-      }
-      else if (selectedCategory === "color_audio") {
-        setMinPrice(2);
-        return;
-      }
-      else if (selectedCategory === "thumbnails") {
+      } else if (selectedCategory === "thumbnails") {
         setMinPrice(3);
         return;
       } else {
@@ -243,11 +242,16 @@ export default function HireVideoEditorForm() {
           setMinPrice(100);
         }
       }
+    } else if (selectedCategory === "thumbnails") {
+      setMinPrice(3);
+      return;
+    }else{
+      setMinPrice(2);
     }
   }, [videoLength, selectedCategory]);
 
   useEffect(() => {
-    ["thumbnails", "captions_subtitles", "color_audio"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
+    ["thumbnails"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
     if (!videoNotRequired || !(selectedCategory && videoLength)) {
       setValue("budget", "");
     }
@@ -324,7 +328,8 @@ export default function HireVideoEditorForm() {
               {...register("category", { required: true })}
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
-                setValue("videoDuration", ""); // Clear video duration when category changes
+                setValue("videoDuration", "");
+                setVideoLength(0);
               }}
               className='w-full border rounded-lg p-3 mb-6'>
               {jobCategory.map((category) => (
@@ -360,22 +365,19 @@ export default function HireVideoEditorForm() {
 
             <input
               type='text'
-              placeholder='$2.00'
+              placeholder={`$${minPrice.toFixed(2)}`}
               disabled={videoNotRequired || (selectedCategory && videoLength) ? false : true}
               className='w-full border rounded-lg p-3 mb-2 disabled:bg-gray-100 disabled:cursor-not-allowed'
               {...register("budget", {
                 required: "Budget is required",
 
                 onChange: (e) => {
-                  // শুধু number allow
                   e.target.value = e.target.value.replace(/[^0-9.]/g, "");
                 },
 
                 onBlur: (e) => {
                   let value = parseFloat(e.target.value);
-
                   if (isNaN(value) || value < minPrice) value = minPrice;
-
                   // auto format
                   e.target.value = `$${value.toFixed(2)}`;
                 },
@@ -433,6 +435,9 @@ export default function HireVideoEditorForm() {
               type='text'
               placeholder='5'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
+              onFocus={(e) => {
+                e.target.value = e.target.value.replace(/\s*(days|seconds)$/i, "").trim();
+              }}
               {...register("duration", {
                 required: "Duration is required",
 
@@ -466,6 +471,9 @@ export default function HireVideoEditorForm() {
               placeholder='Video Duration (Estimate)'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed'
               disabled={selectedCategory === "thumbnails"}
+              onFocus={(e) => {
+                e.target.value = e.target.value.replace(/\s*(minutes|seconds)$/i, "").trim();
+              }}
               {...register("videoDuration", {
                 required: "Video duration is required",
 
@@ -477,11 +485,9 @@ export default function HireVideoEditorForm() {
 
                 onBlur: (e) => {
                   let value = parseInt(e.target.value);
-
                   if (!value || value < 1) value = 1;
-
                   // auto format
-                  const unit = selectedCategory === "shorts_reels_tiktoks" ? "sec" : "min";
+                  const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? "seconds" : "minutes";
                   e.target.value = `${value} ${unit}`;
                 },
               })}
