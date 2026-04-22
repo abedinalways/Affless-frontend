@@ -22,25 +22,39 @@ type propType = {
     endDate?: Date;
 }
 
+
 export default function DatePicker({ onChange, placeHolderText, initialDate, startDate: propStartDate, endDate: propEndDate }: propType) {
     const [startDate, setStartDate] = useState<Date | undefined>(propStartDate);
     const [endDate, setEndDate] = useState<Date | undefined>(propEndDate);
     const [datePickerOpen, setDatePickerOpen] = useState(false);
+    const [activeField, setActiveField] = useState<'start' | 'end' | null>(null);
 
+    // For single date selection
+    const handleSingleSelect = (date: Date | undefined) => {
+        if (activeField === 'start') {
+            setStartDate(date);
+            // Optionally clear end date if before new start
+            if (endDate && date && endDate < date) {
+                setEndDate(undefined);
+            }
+        } else if (activeField === 'end') {
+            setEndDate(date);
+            // Optionally clear start date if after new end
+            if (startDate && date && startDate > date) {
+                setStartDate(undefined);
+            }
+        }
+        setDatePickerOpen(false);
+        setActiveField(null);
+    };
 
+    // For range selection (default)
     const handleRangeSelect = (range?: DateRange) => {
         if (!range) {
             setStartDate(undefined);
             setEndDate(undefined);
             return false;
         }
-
-        if(!startDate && !endDate && range.from === range.to) {
-            setStartDate(range.from);
-            setEndDate(undefined);
-            return false;
-        }
-
         setStartDate(range.from ?? startDate);
         setEndDate(range.to);
         return Boolean(range.to);
@@ -68,34 +82,49 @@ export default function DatePicker({ onChange, placeHolderText, initialDate, sta
                         <Button
                             variant="outline"
                             className="w-fit justify-between font-normal cursor-pointer"
+                            onClick={() => { setActiveField('start'); setDatePickerOpen(true); }}
                         >
-                            {startDate ? startDate.toLocaleDateString() : "Start date"}
+                            {startDate ? startDate.toLocaleDateString() : "Start Date"}
                         </Button>
                         <Button
                             variant="outline"
                             className="w-fit justify-between font-normal cursor-pointer"
+                            onClick={() => { setActiveField('end'); setDatePickerOpen(true); }}
                         >
-                            {endDate ? endDate.toLocaleDateString() : "End date"}
+                            {endDate ? endDate.toLocaleDateString() : "End Date"}
                         </Button>
                     </div>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-                    <Calendar
-                        mode="range"
-                        selected={
-                            startDate || endDate
-                                ? { from: startDate, to: endDate }
-                                : undefined
-                        }
-                        captionLayout="dropdown"
-                        disabled={{ after: new Date() }}
-                        onSelect={(range) => {
-                            const isRangeComplete = handleRangeSelect(range);
-                            if (isRangeComplete) {
-                                setDatePickerOpen(false);
+                    {activeField === 'start' || activeField === 'end' ? (
+                        <Calendar
+                            mode="single"
+                            selected={activeField === 'start' ? startDate : endDate}
+                            // Optionally highlight the range visually if your Calendar supports modifiers
+                            modifiers={startDate && endDate ? { selectedRange: { from: startDate, to: endDate } } : undefined}
+                            captionLayout="dropdown"
+                            disabled={{ after: new Date() }}
+                            onSelect={handleSingleSelect}
+                        />
+                    ) : (
+                        <Calendar
+                            mode="range"
+                            selected={
+                                startDate || endDate
+                                    ? { from: startDate, to: endDate }
+                                    : undefined
                             }
-                        }}
-                    />
+                            captionLayout="dropdown"
+                            disabled={{ after: new Date() }}
+                            onSelect={(range) => {
+                                const isRangeComplete = handleRangeSelect(range);
+                                if (isRangeComplete) {
+                                    setDatePickerOpen(false);
+                                    setActiveField(null);
+                                }
+                            }}
+                        />
+                    )}
                 </PopoverContent>
             </Popover>
         </div>

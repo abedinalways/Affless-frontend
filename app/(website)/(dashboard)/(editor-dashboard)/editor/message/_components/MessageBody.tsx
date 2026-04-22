@@ -228,16 +228,15 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
         const lastUserMessage = [...messages].reverse().find((m) => m.sender === 'user');
         if (!lastUserMessage || lastUserMessage.readAt) return;
 
-        const deliveryTimeoutId = setTimeout(() => {
-            setConversationMessages((prev) => ({
-                ...prev,
-                [activeConversationId]: (prev[activeConversationId] || []).map((msg) =>
-                    msg.id === lastUserMessage.id
-                        ? { ...msg, deliveredAt: msg.deliveredAt || new Date().toISOString() }
-                        : msg
-                ),
-            }));
-        }, 600);
+
+        setConversationMessages((prev) => ({
+            ...prev,
+            [activeConversationId]: (prev[activeConversationId] || []).map((msg) =>
+                msg.id === lastUserMessage.id
+                    ? { ...msg, deliveredAt: msg.deliveredAt || new Date().toISOString() }
+                    : msg
+            ),
+        }));
 
         const timeoutId = setTimeout(() => {
             setConversationMessages((prev) => ({
@@ -251,7 +250,6 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
         }, 1400);
 
         return () => {
-            clearTimeout(deliveryTimeoutId);
             clearTimeout(timeoutId);
         };
     }, [messages, isConversationOpen, activeConversationId]);
