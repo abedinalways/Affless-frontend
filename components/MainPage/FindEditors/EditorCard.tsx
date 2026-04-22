@@ -21,14 +21,14 @@ export const editors = [
     name: "Jane Cooper",
     country: "United States",
     avatar: "/images/jonekeper.png",
-    budget: "562",
+    budget: "5",
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
 
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
+    skills: ["Long-Form YouTube", "Within 3 Days", "127 Jobs Completed", "5 Revisions Included", "Responds in 2-4 hours", "Current Time: 12:21 PM", "Software (Adobe Premiere Pro)"],
     description:
-      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
+      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L” to “In this digital age, a video is a powerful tool that can engage with millions of people around the world, and convey stories in a way that words can't.",
   },
   {
     id: "2",
@@ -39,10 +39,10 @@ export const editors = [
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
+    skills: ["Long-Form YouTube", "Within 3 Days", "127 Jobs Completed", "5 Revisions Included", "Responds in 2-4 hours", "Current Time: 12:21 PM", "Software (Adobe Premiere Pro)"],
 
     description:
-      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
+      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L” to “In this digital age, a video is a powerful tool that can engage with millions of people around the world, and convey stories in a way that words can't.",
   },
   {
     id: "3",
@@ -53,10 +53,10 @@ export const editors = [
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
+    skills: ["Long-Form YouTube", "Within 3 Days", "127 Jobs Completed", "5 Revisions Included", "Responds in 2-4 hours", "Current Time: 12:21 PM", "Software (Adobe Premiere Pro)"],
 
     description:
-      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
+      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L” to “In this digital age, a video is a powerful tool that can engage with millions of people around the world, and convey stories in a way that words can't.",
   },
   {
     id: "4",
@@ -68,9 +68,9 @@ export const editors = [
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
 
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
+    skills: ["Long-Form YouTube", "Within 3 Days", "127 Jobs Completed", "5 Revisions Included", "Responds in 2-4 hours", "Current Time: 12:21 PM", "Software (Adobe Premiere Pro)"],
     description:
-      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
+      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L” to “In this digital age, a video is a powerful tool that can engage with millions of people around the world, and convey stories in a way that words can't.",
   },
   {
     id: "5",
@@ -82,17 +82,17 @@ export const editors = [
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
     skills: [
-      "YouTube Long-form",
+      "Long-Form YouTube",
       "Within 3 Days",
       "127 Jobs Completed",
-      "5 Revisions included",
-      "Fast response / Communication",
-      "Timezone overlap / Language",
-      "Tools (Adobe Premiere Pro)"
+      "5 Revisions Included",
+      "Responds in 2-4 hours",
+      "Current Time: 12:21 PM",
+      "Software (Adobe Premiere Pro)"
     ],
 
     description:
-      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
+      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L” to “In this digital age, a video is a powerful tool that can engage with millions of people around the world, and convey stories in a way that words can't.",
   },
   {
     id: "6",
@@ -103,10 +103,10 @@ export const editors = [
     rating: 4.9,
     reviews: 338,
     // skills: ["Final Cut Pro", "Sony Vegas Pro", "Filmora"],
-    skills: ["YouTube Long-form", "Within 3 Days", "127 Jobs Completed", "5 Revisions included", "Fast response / Communication", "Timezone overlap / Language", "Tools (Adobe Premiere Pro)"],
+    skills: ["Long-Form YouTube", "Within 3 Days", "127 Jobs Completed", "5 Revisions Included", "Responds in 2-4 hours", "Current Time: 12:21 PM", "Software (Adobe Premiere Pro)"],
 
     description:
-      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L",
+      "In this digital age, video is a powerful tool that can engage with millions of people around the world,and convey stories in a way that words can'L” to “In this digital age, a video is a powerful tool that can engage with millions of people around the world, and convey stories in a way that words can't.",
   },
 ];
 
@@ -182,13 +182,13 @@ export default function EditorCard({
       </div>
       {/* Budget + Rating */}
       <div className='mt-4 flex items-center gap-5'>
-        <p className='text-[16px] text-[#777980]  font-medium' title="The minimum job price set by the editor. The final cost may vary based on the amount of work.">
+        <p className='text-[16px] text-black  font-medium' title="The minimum job price set by the editor. The final cost may vary based on the amount of work.">
           Starting Price: <span className=''>${Number(budget).toFixed(2)}</span>
         </p>
         <div className='flex items-center gap-1 text-[16px] text-[#777980]'>
           <Star size={18} className='text-yellow-500 fill-yellow-500' />
-          <span>
-            {rating}({reviews} Reviews)
+          <span >
+            {rating} ({reviews} Reviews)
           </span>
         </div>
       </div>

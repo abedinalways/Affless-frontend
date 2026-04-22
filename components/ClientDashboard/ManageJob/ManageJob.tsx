@@ -103,7 +103,7 @@ export default function ManageJobsPage() {
   const columns: ColumnDef<JobRow>[] = [
     {
       accessorKey: "service",
-      header: "Jobs",
+      header: "Job Title",
       cell: ({ row }) => {
         const data = row.original;
         return (
@@ -132,9 +132,9 @@ export default function ManageJobsPage() {
         const d = row.original;
         return (
           <div
-            className="cursor-pointer p-2 rounded-md"
+            className="cursor-pointer p-2 rounded-md text-center"
           >
-            ${d.total}
+            ${d.total.toFixed(2)}
           </div>
         );
       },
@@ -164,16 +164,17 @@ export default function ManageJobsPage() {
       header: "Status",
       cell: ({ row }) => {
         const d = row.original;
-        const statusDefinition = getJobStatusDefinition(d.status);
         return (
-          <div
-            className="cursor-pointer  p-2 rounded-md grid items-center justify-center"
-          >
+          <div className="flex justify-center">
             <span
-              title={statusDefinition.description}
-              className={`px-3 text-[16px] w-full py-1.5 rounded-md ${statusDefinition.colorClass}`}
+              title={getJobStatusDefinition(d.status).description}
+              className={`
+                                inline-block w-40 px-4 py-1 rounded-md
+                                text-[14px] font-medium text-center capitalize
+                                ${getJobStatusDefinition(d.status).colorClass ?? "bg-[#F3F4F6] text-[#374151]"}
+                              `}
             >
-              {statusDefinition.label}
+              {d.status.split("_").join(" ")}
             </span>
           </div>
         );
@@ -204,7 +205,7 @@ export default function ManageJobsPage() {
       <div className="containers py-8">
         {/* DESKTOP VIEW */}
         <div className="hidden md:block">
-
+          <h2 className="text-xl font-semibold mb-4">Manage Jobs</h2>
           {/* TABS */}
           <div className="flex items-center justify-between mb-6">
             <div className="grid grid-cols-5 gap-4 text-sm font-medium">
@@ -224,7 +225,7 @@ export default function ManageJobsPage() {
               href={`/client/post-job?redirect=${redirect ? redirect + "_" : ""}managejobs`}
               className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300 flex items-center gap-1"
             >
-              <PlusIcon className="w-5"/> Post a New Job
+              <PlusIcon className="w-5" /> Post a New Job
             </Link>
           </div>
 

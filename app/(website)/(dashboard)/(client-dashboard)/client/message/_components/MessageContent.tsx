@@ -127,6 +127,7 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
                                             ? 'text-blue-100'
                                             : 'text-gray-500 text-end'
                                             }`}
+                                            title={messageDate.toLocaleString()}
                                     >
                                         {formatTime(messageDate)}
                                     </p>

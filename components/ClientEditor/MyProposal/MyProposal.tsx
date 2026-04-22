@@ -124,7 +124,7 @@ export default function MyProposal() {
     [
       {
         accessorKey: "service",
-        header: "Job title",
+        header: "Job Title",
         cell: ({ row }: any) => (
           <div className="grid grid-cols-[48px_1fr] justify-center items-center gap-4">
             <Image
@@ -255,7 +255,7 @@ export default function MyProposal() {
                 <option value="this_week" className="cursor-pointer">This week</option>
                 <option value="this_month" className="cursor-pointer">This month</option>
                 <option value="lifetime" className="cursor-pointer">Lifetime</option>
-                <option value="custom_date" className="cursor-pointer">Custome Date</option>
+                <option value="custom_date" className="cursor-pointer">Custom Date</option>
               </select>
             </div>
 
