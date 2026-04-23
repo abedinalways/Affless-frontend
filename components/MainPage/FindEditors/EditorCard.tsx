@@ -14,6 +14,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useSearchParams } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 export const editors = [
   {
@@ -134,6 +135,7 @@ export default function EditorCard({
   description,
 }: EditorCardProps) {
   const [startIndex, setStartIndex] = useState(0);
+  const { user } = useUser();
   const ITEMS_PER_PAGE = 3;
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
@@ -218,13 +220,13 @@ export default function EditorCard({
       {/* Hire Button */}
       <div className='flex w-full gap-4'>
         <Link
-          href={`/client/hire-vedio-editor?id=${id}&name=${name}&redirect=${redirect ? redirect + "_" : ""}findeditors`}
+          href={`/client/hire-vedio-editor?id=${id}&name=${name}&redirect=${redirect ? redirect + "_" : ""}${user ? `findeditors` : "findeditor&msg=as a Client to browse and find editors"}`}
           className='cursor-pointer w-full'>
           <div className=' text-center bg-red-500 cursor-pointer w-full text-white  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 '>
             Hire Editor
           </div>
         </Link>
-        <Link href={`/client/message/${id}?redirect=${redirect ? redirect + "_" : ""}findeditors`} className='cursor-pointer w-full'>
+        <Link href={`/client/message/${id}?redirect=${redirect ? redirect + "_" : ""}${user ? `findeditors` : "findeditor&msg=as a Client to send messages to editors"}`} className='cursor-pointer w-full'>
           <div className=' text-center bg-[#FFEDED] cursor-pointer w-full text-[#FF4D4F]  p-3 rounded-lg font-medium hover:bg-red-100 duration-300 '>
             Message
           </div>

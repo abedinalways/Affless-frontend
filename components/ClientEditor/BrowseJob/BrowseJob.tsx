@@ -12,11 +12,13 @@ import { browseJobData as data } from "@/public/demodata";
 import { appendNavigationSource, getNavigationSource } from "@/lib/navigation-source";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { conversationDirectory } from "@/public/demodata";
+import { useUser } from "@/context/UserContext";
 
 
 const PAGE_SIZE = 4;
 
 export default function BrowseJob() {
+  const { user } = useUser();
   const searchParams = useSearchParams();
   const [page, setPage] = useState(1);
   const source = getNavigationSource(searchParams);
@@ -116,7 +118,7 @@ export default function BrowseJob() {
               {paginatedData.map((item) => (
                 <div key={item.id} className="bg-white p-4 lg:p-6 rounded-lg">
                   <div className="flex flex-row lg:flex-col gap-1.5">
-                    <Link href={`/editor/browse-job/${item.id}?redirect=${source ? source + "_" : ""}browsejobs:${clientid}`} className="w-full">
+                    <Link href={`/editor/browse-job/${item.id}?msg=as an Editor to browse and apply for jobs&redirect=${source ? source + "_" : ""}${user ? `browsejobs:${clientid}` : "jobs"}`} className="w-full">
                       <Image
                         src={item.img}
                         alt="editor"

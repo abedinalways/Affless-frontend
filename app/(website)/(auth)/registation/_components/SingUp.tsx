@@ -66,11 +66,11 @@ export default function SingUpForm() {
       2xl:px-[300px]"
     >
       <div className="pb-3 px-2">
-        <Link href={backHref?.href + `?redirect=${redirect?.split("_").slice(0, -1).join("_") || ""}` || "/" + `?redirect=${redirect || "home"}`} className="pb-9 ">
+        <Link href={backHref?.href + `?redirect=${redirect?.split("_").slice(0, -1).join("_") || ""}` || "/" + `?redirect=${redirect || "home"}`} className="pb-9">
           {" "}
           <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap">
             <FaArrowLeft className="mt-1" />
-            Back to {backHref?.label.toString() || "Home"}
+            Back to {backHref?.label?.toString() || "Home"}
           </button>
         </Link>
       </div>

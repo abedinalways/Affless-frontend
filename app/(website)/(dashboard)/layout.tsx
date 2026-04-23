@@ -25,13 +25,13 @@ export default function ClientLayout({
         if (user) {
             setLoading(false);
         } else {
-            if(msg === "as a client to post a job" || msg === "as editor to create profile"){
+            if(msg === "as a client to post a job" || msg === "as editor to create profile" || msg === "as an Editor to browse and apply for jobs" || msg === "as a Client to browse and find editors" || msg === "as a Client to post a job" || msg === "as a Client to send messages to editors"){
                 toast.error(`Please sign up ${msg || 'to access the dashboard'}.`);
             }else{
                 toast.error(`Please login ${msg || 'to access the dashboard'}.`);
             }
-            if(msg === "as a client to post a job" || msg === "as editor to create profile"){
-                if(msg === "as a client to post a job"){
+            if(msg === "as a client to post a job" || msg === "as editor to create profile" || msg === "as an Editor to browse and apply for jobs" || msg === "as a Client to browse and find editors" || msg === "as a Client to post a job" || msg === "as a Client to send messages to editors"){
+                if(msg === "as a client to post a job" || msg === "as a Client to browse and find editors" || msg === "as a Client to post a job" || msg === "as a Client to send messages to editors"){
                     router.push('/singup?redirect=' + (redirect || '/') + "&type=client");
                     return;
                 }
