@@ -44,44 +44,52 @@ export default function SignInForm() {
       if (data?.email === "client@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/client");
         localStorage.setItem("userType", "client");
-        CookieHelper.set({key : "user",value: JSON.stringify({
-          status: 'logged_in',
-          user_type: 'client'
-        })})
+        CookieHelper.set({
+          key: "user", value: JSON.stringify({
+            status: 'logged_in',
+            user_type: 'client'
+          })
+        })
         setUser("client");
       } else if (data?.email === "editor@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/editor");
         localStorage.setItem("userType", "editor");
-        CookieHelper.set({key : "user",value: JSON.stringify({
-          status: 'logged_in',
-          user_type: 'editor'
-        })})
+        CookieHelper.set({
+          key: "user", value: JSON.stringify({
+            status: 'logged_in',
+            user_type: 'editor'
+          })
+        })
         setUser("editor");
       } else if (data?.email === "admin@gmail.com" && data?.password === "Pa$$w0rd!") {
         router.push("/admin");
         localStorage.setItem("userType", "admin");
-        CookieHelper.set({key : "user",value: JSON.stringify({
-          status: 'logged_in',
-          user_type: 'admin'
-        })})
+        CookieHelper.set({
+          key: "user", value: JSON.stringify({
+            status: 'logged_in',
+            user_type: 'admin'
+          })
+        })
         setUser("admin");
       } else {
         toast.error("Invalid email or password");
-        CookieHelper.destroy({key : "user"});
+        CookieHelper.destroy({ key: "user" });
       }
     }, 2000);
   };
 
-  const handleBack =()=>{
+  const handleBack = () => {
     router.push("/")
   }
 
   return (
     <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
       <div className="ml-2">
-        <button onClick={handleBack} className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2">
-          <FaArrowLeft className="mt-1" />
-          Back to Home
+        <button onClick={handleBack} className="w-full cursor-pointer">
+          <div className="bg-red-500 p-2 text-white w-fit rounded-lg flex gap-2">
+            <FaArrowLeft className="mt-1" />
+            Back to Home
+          </div>
         </button>
       </div>
       <div

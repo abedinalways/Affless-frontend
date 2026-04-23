@@ -53,6 +53,10 @@ export const routes: Record<string, RouteConfig> = {
             return `/editor/browse-job`
         },
     },
+    jobs:{
+        label: "Browse Jobs",
+        href: "/jobs"
+    },
     browsejobdetails: {
         label: "Job Details",
         href: "/editor/browse-job/",
@@ -151,6 +155,10 @@ export const routes: Record<string, RouteConfig> = {
     findeditors: {
         label: "Find Editors",
         href: "/client/find-editor"
+    },
+    findeditor:{
+        label: "Find Editors",
+        href: "/find-editors"
     },
     hireaneditor: {
         label: (id?: string, name?: string) => {

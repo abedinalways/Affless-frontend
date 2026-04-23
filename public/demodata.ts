@@ -803,7 +803,7 @@ export const inboxDataForClient: InboxItem[] = [
     time: "2 hours ago",
     avatar: "/images/jone1.png",
     online: true,
-    href: "/client/message/1?redirect=dashboardeditor",
+    href: "/client/message/1?redirect=dashboardclient",
     isRead: false,
   },
   {
@@ -813,7 +813,7 @@ export const inboxDataForClient: InboxItem[] = [
     time: "Yesterday",
     avatar: "/images/jone3.png",
     online: true,
-    href: "/client/message/2?redirect=dashboardeditor",
+    href: "/client/message/2?redirect=dashboardclient",
     isRead: true,
   },
   {
@@ -823,7 +823,7 @@ export const inboxDataForClient: InboxItem[] = [
     time: "3 days ago",
     avatar: "/images/Jerome.jpg",
     online: true,
-    href: "/client/message/3?redirect=dashboardeditor",
+    href: "/client/message/3?redirect=dashboardclient",
     isRead: true,
   },
   {
@@ -833,7 +833,7 @@ export const inboxDataForClient: InboxItem[] = [
     time: "1 week ago",
     avatar: "/images/jone2.png",
     online: false,
-    href: "/client/message/4?redirect=dashboardeditor",
+    href: "/client/message/4?redirect=dashboardclient",
     isRead: true,
   },
   {
@@ -844,6 +844,6 @@ export const inboxDataForClient: InboxItem[] = [
     avatar: "/images/headset.svg",
     online: true,
     isRead: true,
-    href: "/client/message/5?redirect=dashboardeditor",
+    href: "/client/message/5?redirect=dashboardclient",
   },
 ];
