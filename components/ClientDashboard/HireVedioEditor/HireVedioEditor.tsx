@@ -266,13 +266,13 @@ export default function HireVideoEditorForm() {
           links={bannerLinks}
         />
       </div>
-      {(redirectUrl.includes("quickmatchclient") || redirectUrl.includes("findeditors")) && <div className="grid items-center justify-start px-6 pt-6 containers">
+      {(redirectUrl.includes("quickmatchclient") || redirectUrl.includes("findeditors") || redirectUrl.includes("messageclientid")) && <div className="grid items-center justify-start px-6 pt-6 containers">
         <Link
-          href={`${redirectUrl.includes("quickmatchclient") ? "/client/find-editor-match" : "/client/find-editor"}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
+          href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.href}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
           className="flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
         >
           <FaArrowLeft />
-          <span>Back to {redirectUrl.includes("quickmatchclient") ? "Quick-Match Results" : "Find Editors"}</span>
+          <span>Back to {buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.label || "Dashboard"}</span>
         </Link>
       </div>}
       <form

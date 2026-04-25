@@ -5,12 +5,25 @@ import Link from "next/link";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
+type DataType = {
+  id: string;
+  name: string;
+  type: string;
+  totalJobsPosted: number;
+  hireRate: number;
+  averageResponseTime: string;
+  memberSince: string;
+  location: string;
+}
+
 type propType = {
   btnText: string;
   returnLink?: string;
+  data: DataType;
+  showBudget?: boolean;
 }
 
-export default function BudgetPage({ btnText, returnLink }: propType) {
+export default function BudgetPage({ btnText, returnLink, data, showBudget }: propType) {
 
   const handleAddWishlist = () => {
     console.log("Added to wishlist");
@@ -26,7 +39,7 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
     <div className="w-full grid sm:grid-cols-[1fr_1fr] lg:grid-cols-1 mx-auto  gap-6 ]">
 
       {/* Budget Box */}
-      <div className="bg-[#FFFFFF] rounded-2xl p-6 text-center space-y-4 ">
+      <div className={`bg-[#FFFFFF] rounded-2xl p-6 text-center space-y-4 ${!showBudget ? "hidden" : ""}`}>
         <h2 className="text-lg font-bold text-[#4A4C56]">Budget</h2>
 
         <p className="text-[30px] log:text-[40px] font-bold text-gray-900">$350</p>
@@ -47,9 +60,9 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
 
       {/* About Client */}
       <div className="space-y-6">
-        <div className="bg-white rounded-2xl shadow p-6 border">
-          <h2 className="text-xl font-semibold text-center mb-4 text-gray-900">
-            About Client
+        <div className="bg-white rounded-2xl shadow p-4 border">
+          <h2 className="text-xl font-semibold text-center mb-4 text-gray-900 capitalize">
+            About {data?.type}
           </h2>
 
           {/* Buyer Avatar */}
@@ -66,7 +79,7 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
               </Link>
             </div>
 
-            <Link href="/client-profile/1" className="text-lg font-semibold">Bessie Cooper</Link>
+            <Link href="/client-profile/1" className="text-lg font-semibold capitalize">{data?.name}</Link>
 
             {/* Small Badge Icons */}
             <div className="flex items-center gap-2 mt-2">
@@ -77,12 +90,12 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
           </div>
 
           {/* Buyer Info */}
-          <div className="bg-gray-50 border rounded-2xl p-4 mt-4">
-            <InfoRow label="Total Jobs Posted:" value="50" />
-            <InfoRow label="Hire Rate (%):" value="80%" />
-            <InfoRow label="Average Response Time:" value="1 hour" />
-            <InfoRow label="Member Since:" value="January, 2020" />
-            <InfoRow label="Location:" value="Australia" />
+          <div className="bg-gray-50 border rounded-2xl p-3 mt-4">
+            <InfoRow label={data?.type === "editor" ? "total jobs completed:" : "Total Jobs Posted:"} value={`${data?.totalJobsPosted || 0}`} />
+            <InfoRow label={data?.type === "editor" ? "job completion rate:" : "Hire Rate (%):"} value={`${data?.hireRate || 0}%`} />
+            <InfoRow label="Average Response Time:" value={data?.averageResponseTime || ""} />
+            <InfoRow label="Member Since:" value={data?.memberSince || ""} />
+            <InfoRow label="Location:" value={data?.location || ""} />
           </div>
         </div>
 
@@ -99,7 +112,7 @@ export default function BudgetPage({ btnText, returnLink }: propType) {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between text-sm py-1">
-      <span className="text-gray-500 font-medium">{label}</span>
+      <span className="text-gray-500 font-medium capitalize">{label}</span>
       <span className="text-[#4A6375] font-medium text-sm leading-150%">{value}</span>
     </div>
   );

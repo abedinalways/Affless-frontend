@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import BudgetPage from "../BrowseJob/Budget";
 
 type proposal = {
   id: string;
@@ -13,6 +14,9 @@ type proposal = {
 
 export default function EditorPrise({ id, redirect }: proposal) {
   const [status, setStatus] = useState<"accept" | "reject" | null>(null);
+
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || redirect || "";
 
   return (
     <div className="grid sm:grid-cols-[1fr_1fr] lg:grid-cols-1 w-full lg:max-w-[380px] bg-white rounded-2xl overflow-hidden">
@@ -89,52 +93,21 @@ export default function EditorPrise({ id, redirect }: proposal) {
       </div>
 
       {/* About Editor */}
-      <div className="bg-[#F8F8F8]">
-        <div className="bg-white rounded-2xl shadow p-6 border">
-          <h2 className="text-xl font-semibold text-center mb-4 text-gray-900">
-            About Editor
-          </h2>
-
-          {/* Buyer Avatar */}
-          <div className="flex flex-col items-center space-y-2">
-            <div className="w-20 h-20 rounded-full overflow-hidden border">
-              <Link href="/editor-profile/1">
-                <Image
-                  src="/images/jerome.png"
-                  alt="Editor"
-                  width={80}
-                  height={80}
-                  className="object-cover"
-                />
-              </Link>
-            </div>
-
-            <Link href="/editor-profile/1" className="text-lg font-semibold">Bessie Cooper</Link>
-
-            {/* Small Badge Icons */}
-            <div className="flex items-center gap-2 mt-2">
-              <Image src="/images/coper1.png" alt="img" width={30} height={30}></Image>
-              {/* <Image src="/images/coper2.png" alt="img" width={30} height={30}></Image>
-              <Image src="/images/coper3.png" alt="img" width={30} height={30}></Image> */}
-            </div>
-          </div>
-
-          {/* Buyer Info */}
-          <div className="bg-gray-50 border rounded-2xl p-4 mt-4">
-            <InfoRow label="Total Jobs Completed:" value="50" />
-            <InfoRow label="Job Completion Rate (%):" value="80%" />
-            <InfoRow label="Average Response Time:" value="1 hour" />
-            <InfoRow label="Member Since:" value="January, 2026" />
-          </div>
-        </div>
-
-        {/* Contact */}
-        <Link href={`/client/message/3?redirect=${redirect}`} className="block">
-          <button className="mt-6 w-full py-3 rounded-xl bg-[#FF4D4F] text-white font-medium text-[16px] cursor-pointer hover:opacity-90 transition">
-            Chat With Editor
-          </button>
-        </Link>
-      </div>
+      <BudgetPage
+        btnText="Chat With Client"
+        returnLink={`${redirectUrl ? `${redirectUrl}_` : ""}browsejobdetails:${id}`}
+        showBudget={true}
+        data={{
+          id: `${new Date()?.getDate?.toString()}`,
+          name: "Jane Smith",
+          type: "editor",
+          totalJobsPosted: 50,
+          hireRate: 90,
+          averageResponseTime: "1 hour",
+          memberSince: "January, 2020",
+          location: "Australia",
+        }}
+      />
     </div>
   );
 }

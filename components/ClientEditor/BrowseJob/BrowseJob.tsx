@@ -13,6 +13,8 @@ import { appendNavigationSource, getNavigationSource } from "@/lib/navigation-so
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { conversationDirectory } from "@/public/demodata";
 import { useUser } from "@/context/UserContext";
+import { FaArrowLeft } from "react-icons/fa6";
+import { routes } from "@/helper/routes";
 
 
 const PAGE_SIZE = 4;
@@ -20,6 +22,7 @@ const PAGE_SIZE = 4;
 export default function BrowseJob() {
   const { user } = useUser();
   const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "";
   const [page, setPage] = useState(1);
   const source = getNavigationSource(searchParams);
   const clientid = searchParams.get("clientid") || "";
@@ -41,6 +44,7 @@ export default function BrowseJob() {
   const [deliveryTime, setDeliveryTime] = useState("");
   const [budget, setBudget] = useState("");
   const [mobileMenu, setMobileMenu] = useState(false);
+
 
   // Filtering Logic
   const filteredData = useMemo(() => {
@@ -69,9 +73,11 @@ export default function BrowseJob() {
     }
   }, [page, totalPages]);
 
-  useEffect(() => {
-    console.log("Source in BrowseJob:", bannerLinks);
-  }, [bannerLinks])
+
+  useEffect(()=>{
+    console.log("Redirect URL in BrowseJob:", buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.href);
+  },[bannerLinks])
+
 
   return (
     <div>
@@ -82,6 +88,15 @@ export default function BrowseJob() {
         links={bannerLinks}
       />
       <div className="containers lg:py-20">
+        {(redirectUrl?.split("_")?.pop()?.includes("editormessagesid")) && <div className="grid items-center my-4">
+          <Link
+            href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())[0]?.href}}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
+            className="w-fit flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
+          >
+            <FaArrowLeft />
+            <span>Back to {routes[redirectUrl?.split("_")?.pop()?.split(":")[0] || ""]?.label.toString()}</span>
+          </Link>
+        </div>}
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="hidden lg:block">
             <FilterSidebar />
@@ -99,7 +114,7 @@ export default function BrowseJob() {
           </div>
 
           <div className="flex flex-col-reverse sm:grid sm:grid-cols-[1fr_auto] sm:items-center sm:justify-end lg:hidden pt-4 gap-4">
-            <p className="text-sm sm:text-base">Showing {paginatedData.length > PAGE_SIZE ? PAGE_SIZE : paginatedData.length} jobs out of {filteredData.length} total jobs on the platform.</p>
+            <p className="text-sm sm:text-base">Showing {paginatedData.length > PAGE_SIZE ? PAGE_SIZE : paginatedData.length} jobs out of {filteredData.length} total active jobs {client? "this client has posted" : "on the platform"}.</p>
             <div className="flex items-center justify-end">
               <button
                 type="button"
@@ -113,7 +128,7 @@ export default function BrowseJob() {
           </div>
 
           <div className="w-full space-y-4">
-            <p className="text-sm sm:text-base hidden lg:block">Showing {paginatedData.length > PAGE_SIZE ? PAGE_SIZE : paginatedData.length} jobs out of {filteredData.length} total jobs on the platform.</p>
+            <p className="text-sm sm:text-base hidden lg:block">Showing {paginatedData.length > PAGE_SIZE ? PAGE_SIZE : paginatedData.length} jobs out of {filteredData.length} total jobs {client? "this client has posted" : "on the platform"}.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
               {paginatedData.map((item) => (
                 <div key={item.id} className="bg-white p-4 lg:p-6 rounded-lg">

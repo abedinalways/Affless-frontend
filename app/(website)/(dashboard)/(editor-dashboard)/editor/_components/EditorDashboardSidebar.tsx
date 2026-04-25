@@ -24,10 +24,10 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                     <div className="h-20 w-20 rounded-full overflow-hidden">
                         <Link href="/editor/editor-profile">
                             <Image
-                                src="/images/photographer.jpg"
+                                src="/images/Annette.jpg"
                                 alt="Zeeshan"
-                                width={1000}
-                                height={1000}
+                                width={80}
+                                height={80}
                                 className="h-20 w-20 object-cover"
                             />
                         </Link>

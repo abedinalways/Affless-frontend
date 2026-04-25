@@ -81,7 +81,7 @@ export default function Sidebar() {
                         <div
                             key={conversation.id}
                             onClick={() => {
-                                onSelectConversation(conversation.id);
+                                router.push(`/client/message/${conversation.id}?redirect=${redirect}`);
                                 setConversations((prevConversations) =>
                                     prevConversations.map((conv) =>
                                         conv.id === conversation.id ? { ...conv, unread: false } : conv

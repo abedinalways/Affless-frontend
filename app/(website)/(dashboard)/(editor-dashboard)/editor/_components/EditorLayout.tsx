@@ -25,7 +25,7 @@ export default function EditorLayout({
             toast.error(`Please switch to an Editor account ${msg || 'to access the editor dashboard'}.`);
             router.push('/client');
         }else{
-            toast.error(`Please login as an Editor ${msg || 'to access the editor dashboard'}`);
+            toast.error(`Please login as an Editor ${msg || 'to access the editor dashboard'}.`);
             router.push('/login?redirect=' + (redirect || '/'));
         }
     },[])

@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 import { useParams, useSearchParams } from "next/navigation";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import BudgetPage from "@/components/ClientEditor/BrowseJob/Budget";
 
 interface UploadedFile {
   name: string;
@@ -124,7 +125,7 @@ export default function page({ params }: { params: { id: string } }) {
             <p className="text-[34px] font-bold">$350.00</p>
 
             <button type="button" disabled={proposalPrice === 350} onClick={() => setShowConfirmation(true)} className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-green-500 disabled:text-green-500 disabled:border-green-500 disabled:opacity-30">
-              { proposalPrice === 350 ? "You Matched the Client’s Chosen Job Payout" : "Match Client’s Chosen Job Payout" }
+              {proposalPrice === 350 ? "You Matched the Client’s Chosen Job Payout" : "Match Client’s Chosen Job Payout"}
             </button>
 
             {/* <div className="pt-2 space-y-1 text-sm">
@@ -148,7 +149,7 @@ export default function page({ params }: { params: { id: string } }) {
                   height={40}
                 />
                 <div>
-                  <p className="font-semibold pb-1.5 text-[18px] text-[#333] capitalize truncate" style={{maxWidth: 'calc(100% - 40px)'}} title="Instructions for the editor">
+                  <p className="font-semibold pb-1.5 text-[18px] text-[#333] capitalize truncate" style={{ maxWidth: 'calc(100% - 40px)' }} title="Instructions for the editor">
                     Instructions for the editor
                   </p>
                 </div>
@@ -163,7 +164,7 @@ export default function page({ params }: { params: { id: string } }) {
                   height={40}
                 />
                 <div>
-                  <p className="font-semibold pb-1.5 text-[18px] text-[#333] capitalize truncate" style={{maxWidth: 'calc(100% - 40px)'}} title="Script for the video">
+                  <p className="font-semibold pb-1.5 text-[18px] text-[#333] capitalize truncate" style={{ maxWidth: 'calc(100% - 40px)' }} title="Script for the video">
                     Script for the video
                   </p>
                 </div>
@@ -172,36 +173,21 @@ export default function page({ params }: { params: { id: string } }) {
           </div>
 
           {/* About Buyer */}
-          <div className="border rounded-xl p-6 bg-white shadow-sm">
-            <h3 className="text-lg font-semibold mb-4">About Client</h3>
-
-            <div className="flex items-center gap-4">
-              <Link href="/client-profile/1">
-                <Image
-                  src="/images/headset.svg"
-                  alt="Client profile image"
-                  className="h-14 w-14 rounded-full object-cover"
-                  width={500}
-                  height={500}
-                />
-              </Link>
-              <div>
-                <Link href="/client-profile/1" className="font-semibold">Bessie Cooper</Link>
-                <p className="text-sm text-gray-500">Australia</p>
-              </div>
-            </div>
-
-            <div className="mt-4 text-sm space-y-1">
-              <p className="flex  justify-between"><span className="text-base">Total Jobs Posted:</span> 45</p>
-              <p className="flex  justify-between"><span className="text-base">Hire Rate (%):</span> 92%</p>
-              <p className="flex  justify-between"><span className="text-base">Average Response Time:</span> 1 hour</p>
-              <p className="flex  justify-between"><span className="text-base">Member Since:</span> January, 2023</p>
-            </div>
-
-            <Link href={`/editor/message/${id}?redirect=${redirectUrl ? redirectUrl + "_" : ''}myjobproposalsdetails:${id}`} className="inline-block text-center w-full mt-4 py-3 rounded-lg bg-[#FF4D4F] text-white font-medium cursor-pointer hover:bg-red-600 transition">
-              Message Client
-            </Link>
-          </div>
+          <BudgetPage
+            btnText="Chat With Client"
+            returnLink={`${redirectUrl ? `${redirectUrl}_` : ""}browsejobdetails:${id}`}
+            showBudget={false}
+            data={{
+              id: `${new Date()?.getDate?.toString()}`,
+              name: "John Doe",
+              type: "client",
+              totalJobsPosted: 50,
+              hireRate: 90,
+              averageResponseTime: "1 hour",
+              memberSince: "January, 2020",
+              location: "Australia",
+            }}
+          />
         </div>
       </div>
       <ConfirmationPopup

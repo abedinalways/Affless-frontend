@@ -254,6 +254,17 @@ export default function JobDetails({ params }: PostPageProps) {
             <BudgetPage
               btnText="Chat With Client"
               returnLink={`${redirectUrl ? `${redirectUrl}_` : ""}browsejobdetails:${id}`}
+              showBudget={true}
+              data={{
+                id: `${new Date()?.getDate?.toString()}`,
+                name: "John Doe",
+                type: "client",
+                totalJobsPosted: 50,
+                hireRate: 90,
+                averageResponseTime: "1 hour",
+                memberSince: "January, 2020",
+                location: "Australia",
+              }}
             />
           </div>
         </div>

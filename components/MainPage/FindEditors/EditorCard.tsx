@@ -220,7 +220,7 @@ export default function EditorCard({
       {/* Hire Button */}
       <div className='flex w-full gap-4'>
         <Link
-          href={`/client/hire-vedio-editor?id=${id}&name=${name}&redirect=${redirect ? redirect + "_" : ""}${user ? `findeditors` : "findeditor&msg=as a Client to browse and find editors"}`}
+          href={`/client/hire-vedio-editor?id=${id}&name=${name}&redirect=${redirect ? redirect + "_" : ""}${user ? `findeditors` : "findeditor&msg=as a Client to browse for and hire editors"}`}
           className='cursor-pointer w-full'>
           <div className=' text-center bg-red-500 cursor-pointer w-full text-white  p-3 rounded-lg font-medium hover:bg-red-600 duration-300 '>
             Hire Editor
