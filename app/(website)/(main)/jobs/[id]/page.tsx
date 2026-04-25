@@ -6,6 +6,7 @@ import BudgetPage from "@/components/ClientEditor/BrowseJob/Budget";
 import BidCard from "@/components/reusable/Bids";
 import { useRouter } from "next/navigation";
 import React, { use, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 // Simulated job data (this would normally come from an API)
 const jobData = [
@@ -50,6 +51,8 @@ type PostPageProps = {
 export default function JobDetails({ params }: PostPageProps) {
   const parameters = use(params);
   const { id } = parameters;
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
 
   const router = useRouter();
 
@@ -87,9 +90,21 @@ export default function JobDetails({ params }: PostPageProps) {
           </div>
         </div>
         <div className="w-full lg:w-3/4">
-          <BudgetPage 
-           btnText="Chat with Buyer"
-          />
+          <BudgetPage
+              btnText="Chat With Client"
+              returnLink={`${redirectUrl ? `${redirectUrl}_` : ""}browsejobdetails:${id}`}
+              showBudget={true}
+              data={{
+                id: `${new Date()?.getDate?.toString()}`,
+                name: "John Doe",
+                type: "client",
+                totalJobsPosted: 50,
+                hireRate: 90,
+                averageResponseTime: "1 hour",
+                memberSince: "January, 2020",
+                location: "Australia",
+              }}
+            />
         </div>
       </div>
 
