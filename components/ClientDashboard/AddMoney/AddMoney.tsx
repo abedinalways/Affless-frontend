@@ -22,8 +22,7 @@ const isValidExpiryDate = (value: string) => {
 
 type Step = "BALANCE" | "ADD_MONEY" | "PAYMENT";
 
-export default function AddMoney() {
-  const [step, setStep] = useState<Step>("BALANCE");
+export default function AddMoney({ currentStep, setStep }: { currentStep: Step; setStep: (step: Step) => void }) {
 
   // Demo balance
   const balance = 0;
@@ -58,7 +57,7 @@ export default function AddMoney() {
       <div className="mx-auto w-full max-w-[860px] space-y-8 px-4">
 
         {/* STEP: BALANCE */}
-        {step === "BALANCE" && (
+        {currentStep === "BALANCE" && (
           <>
             <SectionHeader title="Your Balance" subtitle="" />
             <Panel>
@@ -71,7 +70,7 @@ export default function AddMoney() {
         )}
 
         {/* STEP: ADD MONEY */}
-        {step === "ADD_MONEY" && (
+        {currentStep === "ADD_MONEY" && (
           <>
             <SectionHeader title="Add Money" subtitle="Add funds to your wallet to pay editors quickly and securely for completed jobs." />
             <Panel>
@@ -88,7 +87,7 @@ export default function AddMoney() {
         )}
 
         {/* STEP: PAYMENT METHOD */}
-        {step === "PAYMENT" && (
+        {currentStep === "PAYMENT" && (
           <>
             <SectionHeader
               title="Payment Method"

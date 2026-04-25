@@ -57,7 +57,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
 
     useEffect(() => {
         attachmentsRef.current = attachments;
-        console.log("Current attachments:", attachments);
+        // console.log("Current attachments:", attachments);
     }, [attachments]);
 
     useEffect(() => {
@@ -80,7 +80,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
     }, []);
 
     useEffect(() => {
-        console.log("Available conversations:", conversationId);
+        // console.log("Available conversations:", conversationId);
         if (!conversationId && !selectedConversationId && availableConversations.length > 0) {
             onSelectConversation?.(availableConversations[0].id);
         }

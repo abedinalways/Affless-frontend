@@ -89,7 +89,7 @@ export default function Footer() {
             <h3 className="text-lg font-poppins font-medium mb-4">For Clients</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
               <li><Link href={user ? "/client/post-job?msg=to post jobs&redirect=home" : "/client/post-job?msg=as a Client to post a job&redirect=home"}>Post a Job</Link></li>
-              <li><Link href={user ? "/client/find-editor?msg=to browse and find editors&redirect=home" : "/find-editors?redirect=home" }>Find Editors</Link></li>
+              <li><Link href={user ? "/client/find-editor?msg=to browse for and find editors&redirect=home" : "/find-editors?redirect=home" }>Find Editors</Link></li>
               <li><Link href="/payment-protection?redirect=home">Payment Protection</Link></li>
               <li><Link href="/client-guide?redirect=home">Client Guide</Link></li>
               <li><Link href="/payment-rules?redirect=home">Payment Rules</Link></li>
@@ -100,7 +100,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-poppins font-medium mb-4">For Editors</h3>
             <ul className="space-y-3 text-[#D2D2D5] font-poppins text-[16px]">
-              <li><Link href={`/editor/editor-profile?msg=${user ? "to create an editor profile" : "as editor to create an editor profile"}&redirect=home`}>Create Profile</Link></li>
+              <li><Link href={`/editor/editor-profile?msg=${user ? "to create an editor profile" : "as an Editor to create an editor profile"}&redirect=home`}>Create Profile</Link></li>
               <li><Link href={user ? "/editor/browse-job?msg=to browse and apply for jobs&redirect=home" : "/jobs?redirect=home" }>Browse Jobs</Link></li>
               <li><Link href="/editor-resource?redirect=home">Editor Resources</Link></li>
             </ul>
