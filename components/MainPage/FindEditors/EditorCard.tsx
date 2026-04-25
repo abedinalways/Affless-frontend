@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/carousel";
 import { useSearchParams } from "next/navigation";
 import { useUser } from "@/context/UserContext";
+import ReactSwiper from "@/components/reusable/ReactSwiper";
 
 export const editors = [
   {
@@ -200,21 +201,7 @@ export default function EditorCard({
       </p>
       {/* Skills */}
       <div className='w-full py-6 overflow-hidden'>
-        <Carousel >
-          <CarouselContent className="mx-8.75">
-            {visibleSkills.map((skill, idx) => (
-              <CarouselItem key={idx} className="basis-auto pl-2">
-                <span
-                  key={idx}
-                  className='select-none whitespace-nowrap bg-gray-100 px-4 py-1 rounded-full text-[12px] md:text-sm text-center'>
-                  {skill}
-                </span>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="bg-white disabled:bg-gray-400 left-0 z-99 cursor-pointer disabled:cursor-not-allowed" />
-          <CarouselNext className="bg-white disabled:bg-gray-400 right-0 z-10 cursor-pointer disabled:cursor-not-allowed" />
-        </Carousel>
+        <ReactSwiper data={visibleSkills} />
       </div>
 
       {/* Hire Button */}

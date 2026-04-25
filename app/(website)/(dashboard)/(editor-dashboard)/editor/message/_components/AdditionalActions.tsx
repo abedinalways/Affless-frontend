@@ -59,7 +59,7 @@ export default function AdditionalActions({ activeConversation, conversationId, 
                         onClick={() => toast.success(`Request sent to ${activeConversation?.name}.`)}
                         className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                     >
-                        Request a job from {activeConversation?.name || "User"}
+                        Request a Job from {activeConversation?.name || "User"}
                     </button>
                 )}
                 <button

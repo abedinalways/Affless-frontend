@@ -305,7 +305,7 @@ export const conversationDirectory: Conversation[] = [
     avatar: "/images/avatars/john.png",
     lastMessage: "Hey, can you review my latest design?",
     timestamp: "2026-03-28T10:15:00Z",
-    unread: true,
+    unread: false,
     status: "online",
     country: "United States",
     memberSince: "08/02/2024",
