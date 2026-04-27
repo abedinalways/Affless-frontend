@@ -46,9 +46,9 @@ export default function Sidebar() {
         return () => window.removeEventListener('mousedown', handleOutsideClick);
     }, [showSearch]);
 
-    useEffect(() => {
-        console.log("Current conversations:", conversations);
-    }, [conversations])
+    // useEffect(() => {
+    //     console.log("Current conversations:", conversations);
+    // }, [conversations])
 
     return (
         <div className="h-full">

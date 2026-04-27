@@ -79,7 +79,7 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
             attachments: attachmentsToSend.length > 0 ? attachmentsToSend : undefined,
         };
 
-        console.log("Sending message with attachments:", newMessage);
+        //console.log("Sending message with attachments:", newMessage);
 
         onConversationMessagesChange(newMessage);
         setInputValue('');
@@ -223,11 +223,11 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
                                 type: "link" as const,
                             }))
                         ]);
-                        console.log("Added links from modal:", links.map((trimmed) => ({
-                            id: uuidv4(),
-                            url: trimmed,
-                            type: "link" as const,
-                        })));
+                        // console.log("Added links from modal:", links.map((trimmed) => ({
+                        //     id: uuidv4(),
+                        //     url: trimmed,
+                        //     type: "link" as const,
+                        // })));
                         setIsAttachmentMenuOpen(false);
                         setShowAddLinkModal(false);
                     }}
