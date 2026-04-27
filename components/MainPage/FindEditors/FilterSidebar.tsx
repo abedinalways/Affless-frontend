@@ -125,7 +125,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
     event.currentTarget.value = formatted;
 
     // Validate min/max as before
-    const getNumeric = (ref: React.RefObject<HTMLInputElement> | null) => {
+    const getNumeric = (ref: React.RefObject<HTMLInputElement | null>) => {
       if (!ref?.current) return 0;
       let val = ref.current.value;
       let m = val.match(/\d+(?:\.\d+)?/);
@@ -142,9 +142,8 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
   };
 
 
-  const handlePriceFocus = (ref: React.RefObject<HTMLInputElement> | null) => {
+  const handlePriceFocus = (ref: React.RefObject<HTMLInputElement | null>) => {
     setAnyPrice(false);
-    if(ref === null) return;
     if (ref.current) {
       let raw = ref.current.value.replace(/[^0-9.]/g, '');
       ref.current.value = raw;
