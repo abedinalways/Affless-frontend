@@ -303,7 +303,7 @@ export default function HireVideoEditorForm() {
             />
             {errors.jobTitle && (
               <p className='text-red-500 text-sm mb-4'>
-                Job title is redquired
+                Job title is required
               </p>
             )}
 
@@ -314,7 +314,7 @@ export default function HireVideoEditorForm() {
 
             <textarea
               {...register("jobDescription", {
-                required: "Job description is redquired",
+                required: "Job description is required",
                 minLength: {
                   value: 50,
                   message: "Job description must be at least 50 characters.",
@@ -359,13 +359,13 @@ export default function HireVideoEditorForm() {
               placeholder='e.g. Retention Editing, Storytelling, Color Correction'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               {...register("requiredSkills", {
-                required: "Required skills are redquired",
+                required: "Skills are required",
               })}
             />
 
             {errors.requiredSkills && (
               <p className='text-red-500 text-sm mb-4'>
-                {errors.requiredSkills.message || "Required skills are redquired"}
+                {errors.requiredSkills.message || "Required skills are required"}
               </p>
             )}
 
@@ -468,7 +468,7 @@ export default function HireVideoEditorForm() {
             />
             {errors.duration && (
               <p className='text-red-500 text-sm mb-4'>
-                {errors.duration.message || "Job Duration is redquired"}
+                {errors.duration.message || "Job Duration is required"}
               </p>
             )}
 
@@ -506,7 +506,7 @@ export default function HireVideoEditorForm() {
 
             {errors.videoDuration && (
               <p className='text-red-500 text-sm mb-4'>
-                {errors.videoDuration.message || "Video Duration is redquired"}
+                {errors.videoDuration.message || "Video Duration is required"}
               </p>
             )}
 

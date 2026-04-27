@@ -87,19 +87,19 @@ export default function BrowseJob() {
         desc={bannerDescription}
         links={bannerLinks}
       />
-      <div className="containers lg:py-20">
-        {(redirectUrl?.split("_")?.pop()?.includes("editormessagesid")) && <div className="grid items-center my-4">
+      <div className="containers lg:py-10">
+        {(redirectUrl?.split("_")?.pop()?.includes("editormessagesid")) && <div className="grid items-center mb-10">
           <Link
-            href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())[0]?.href}}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
+            href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())[0]?.href}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
             className="w-fit flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
           >
             <FaArrowLeft />
-            <span>Back to {routes[redirectUrl?.split("_")?.pop()?.split(":")[0] || ""]?.label.toString()}</span>
+            <span>Back to {buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.label || "Dashboard"}</span>
           </Link>
         </div>}
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="hidden lg:block">
-            <FilterSidebar />
+            <FilterSidebar priceLabel="Job Budget" />
           </div>
 
           <div
@@ -110,6 +110,7 @@ export default function BrowseJob() {
             <FilterSidebar
               isMobile={true}
               handleMenu={() => setMobileMenu(false)}
+              priceLabel="Job Budget"
             />
           </div>
 

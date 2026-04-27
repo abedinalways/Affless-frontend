@@ -38,7 +38,7 @@ const items = [
 
 export default function TrustSafety() {
   return (
-    <div className="containers mx-auto py-8 lg:py-20">
+    <div className="containers mx-auto py-8 lg:py-10">
       {/* Heading */}
       <h2 className="text-[#333] text-center f text-[32px] md:text-[40px] lg:text-[64px] font-medium leading-[124%] "
       >Trust & Safety</h2>

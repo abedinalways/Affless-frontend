@@ -50,10 +50,6 @@ export function MessageProvider({ children }: { children: ReactNode }) {
         }
     };
 
-    // useEffect(()=>{
-    //     // console.log("Updated conversation directory:", allConversationDirectory);
-    // },[allConversationDirectory])
-
     return (
         <MessageContext.Provider value={value}>
             {children}

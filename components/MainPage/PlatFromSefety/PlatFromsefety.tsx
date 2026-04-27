@@ -36,8 +36,8 @@ export default function PlatformSefetyPage() {
         />
 
       </div>
-      <div className=" min-h-screen lg:py-20 containers ">
-        {(redirectUrl?.split("_")?.slice(-1)[0] === "postajob" || redirectUrl?.split("_")?.slice(-1)[0] === "hireaneditor") && <div className="grid items-center my-4">
+      <div className=" min-h-screen lg:py-10 containers ">
+        {(redirectUrl?.split("_")?.slice(-1)[0] === "postajob" || redirectUrl?.split("_")?.slice(-1)[0] === "hireaneditor") && <div className="grid items-center mb-10">
           <Link
             href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.href}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
             className="w-fit flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"

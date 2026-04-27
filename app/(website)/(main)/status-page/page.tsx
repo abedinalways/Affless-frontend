@@ -22,7 +22,7 @@ export default function StatusPage() {
         links={[{ label: "Home", href: "/" }, { label: "Status Page" }]}
       />
 
-      <div className='containers mx-auto py-12 lg:py-20'>
+      <div className='containers mx-auto py-12 lg:py-10'>
         <div className='max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8 border border-gray-100'>
           <h2 className='text-[#333] font-poppins text-[28px] md:text-[32px] font-semibold leading-[120%] mb-4'>
             Status Page

@@ -148,7 +148,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                 if (availableConversations.length > 0) {
                     const nextConversation = availableConversations.find((conv) => conv.id !== activeConversationId);
                     //console.log("Next conversation selected:", nextConversation?.id);
-                    router.push(`/client/message${nextConversation?.id ? `/${nextConversation.id}` : ''}?redirect=${redirectUrl}`);
+                    router.push(`/editor/message${nextConversation?.id ? `/${nextConversation.id}` : ''}?redirect=${redirectUrl}`);
                 } else {
                     onSelectConversation?.('');
                 }
