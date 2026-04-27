@@ -77,9 +77,16 @@ export const routes: Record<string, RouteConfig> = {
         href: "/editor/message"
     },
     editormessagesid: {
-        label: "Direct Messages",
+        label: (_id: string, name: string) => {
+            if(name){
+                return `${name}'s Direct Messages`;
+            }
+            return "Direct Messages";
+        },
         href: "/editor/message/",
-        buildHref: (id: string) => `/editor/message/${id}`,
+        buildHref: (id: string) => {
+            return `/editor/message/${id}`;
+        },
     },
     editorjobs: {
         label: "My Jobs",

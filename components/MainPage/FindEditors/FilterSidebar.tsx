@@ -36,6 +36,7 @@ export const deliveryTimes = [
 type propType = {
   isMobile?: boolean;
   handleMenu?: () => void;
+  priceLabel?: string;
 };
 
 /* ----------------------------------------
@@ -71,7 +72,7 @@ function CheckboxRow({ label, count, defaultChecked }: CheckboxProps) {
 /* ----------------------------------------
    FILTER SIDEBAR
 -----------------------------------------*/
-export default function FilterSidebar({ isMobile, handleMenu }: propType) {
+export default function FilterSidebar({ isMobile, handleMenu, priceLabel }: propType) {
   // ✅ HOOK MUST BE INSIDE COMPONENT
   const [priceRange, setPriceRange] = useState([]);
   const [anyPrice, setAnyPrice] = useState(true);
@@ -142,7 +143,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
   };
 
 
-  const handlePriceFocus = (ref: React.RefObject<HTMLInputElement | null>) => {
+  const handlePriceFocus = (ref: React.RefObject<HTMLInputElement>) => {
     setAnyPrice(false);
     if (ref.current) {
       let raw = ref.current.value.replace(/[^0-9.]/g, '');
@@ -216,7 +217,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
 
       {/* Delivery Time */}
       <div className='pt-8'>
-        <h2 className='text-[#333] font-semibold text-xl mb-4'>Price</h2>
+        <h2 className='text-[#333] font-semibold text-xl mb-4'>{priceLabel ? priceLabel : "Price"}</h2>
 
         {/* Any Price Checkbox */}
         <label className='flex items-center gap-3 mb-2 cursor-pointer'>
@@ -234,7 +235,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
             }}
             className='w-5 h-5 accent-black cursor-pointer'
           />
-          <span className='text-[#333] text-[16px]'>Any Price</span>
+          <span className='text-[#333] text-[16px]'>Any {priceLabel ? priceLabel : "Price"}</span>
         </label>
 
         {/* Min & Max Inputs */}
@@ -245,11 +246,15 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
               placeholder='Min'
               inputMode='numeric'
               ref={minPriceRef}
-              disabled={anyPrice}
+              // disabled={anyPrice}
               onInput={handleNumericInput}
               onBlur={handleCurrencyBlur}
-              onFocus={() => handlePriceFocus(minPriceRef)}
-              className={`border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700 ${anyPrice ? 'cursor-not-allowed bg-gray-100' : ''
+              onFocus={(e) => {
+                setAnyPrice(false);
+                let raw = e.target.value.replace(/[^0-9.]/g, '');
+                e.target.value = raw;
+              }}
+              className={`border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700 ${anyPrice ? 'cursor-pointer bg-gray-100' : ''
                 }`}
             />
           </div>
@@ -259,11 +264,14 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
               placeholder='Max'
               inputMode='numeric'
               ref={maxPriceRef}
-              disabled={anyPrice}
               onInput={handleNumericInput}
               onBlur={handleCurrencyBlur}
-              onFocus={() => handlePriceFocus(maxPriceRef)}
-              className={`border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700 ${anyPrice ? 'cursor-not-allowed bg-gray-100' : ''
+              onFocus={(e) => {
+                setAnyPrice(false);
+                let raw = e.target.value.replace(/[^0-9.]/g, '');
+                e.target.value = raw;
+              }}
+              className={`border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700 ${anyPrice ? 'cursor-pointer bg-gray-100' : ''
                 }`}
             />
           </div>

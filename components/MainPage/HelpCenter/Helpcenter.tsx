@@ -267,7 +267,7 @@ export default function HelpCenterPage() {
         links={[{ label: "Home", href: "/" }, { label: "Help Center" }]}
       />
 
-      <div className="bg-[#F7F7F7] min-h-screen lg:py-20">
+      <div className="bg-[#F7F7F7] min-h-screen lg:py-10">
         <div className="containers mx-auto px-4">
           <h1 className="text-[36px] font-semibold text-[#333] mb-6">Help Center</h1>
 

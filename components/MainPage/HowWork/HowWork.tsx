@@ -73,7 +73,7 @@ const data2 = [
 export default function HowWork() {
   return (
     <div className="bg-[#F9FAFB]">
-      <div className="containers mx-auto py-8 lg:py-20">
+      <div className="containers mx-auto py-8 lg:py-10">
         <div>
           <h3 className="text-[#333] text-center font-[Poppins]  text-[28px] md:text-[40px] lg:text-[64px] font-normal leading-[124%] ">
             How It Works

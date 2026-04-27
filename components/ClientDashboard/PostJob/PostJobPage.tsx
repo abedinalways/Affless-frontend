@@ -211,6 +211,17 @@ export default function PostJobForm() {
     }
   }, [selectedCategory])
 
+
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+
+  const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   return (
     <div>
       <div>
@@ -238,7 +249,7 @@ export default function PostJobForm() {
             />
             {errors.jobTitle && (
               <p className='text-red-500 text-sm mb-4'>
-                Job title is required.
+                Job title is required
               </p>
             )}
 
@@ -249,7 +260,7 @@ export default function PostJobForm() {
 
             <textarea
               {...register("jobDescription", {
-                required: "Job description is required.",
+                required: "Job description is required",
                 minLength: {
                   value: 50,
                   message: "Job description must be at least 50 characters.",
@@ -297,13 +308,13 @@ export default function PostJobForm() {
               placeholder='e.g. Retention Editing, Storytelling, Color Correction'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               {...register("requiredSkills", {
-                required: "Required skills are required.",
+                required: "Skills are required",
               })}
             />
 
             {errors.requiredSkills && (
               <p className='text-red-500 text-sm mb-4'>
-                {errors.requiredSkills.message || "Required skills are required."}
+                {errors.requiredSkills.message || "Required skills are required"}
               </p>
             )}
 
@@ -317,7 +328,7 @@ export default function PostJobForm() {
               disabled={videoNotRequired || (selectedCategory && videoLength) ? false : true}
               className='w-full border rounded-lg p-3 mb-2 disabled:bg-gray-100 disabled:cursor-not-allowed'
               {...register("budget", {
-                required: "Budget is required",
+                required: "Job budget is required",
 
                 onChange: (e) => {
                   e.target.value = e.target.value.replace(/[^0-9.]/g, "");
@@ -329,7 +340,7 @@ export default function PostJobForm() {
                   if (isNaN(value) || value < minPrice) value = minPrice;
 
                   // auto format
-                  e.target.value = `$${value.toFixed(2)}`;
+                  e.target.value = `$${usFormatWithDecimals.format(value)}`;
                 },
               })}
             />
@@ -390,7 +401,7 @@ export default function PostJobForm() {
               }}
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               {...register("duration", {
-                required: "Duration is required",
+                required: "Job duration is required",
 
                 onChange: (e) => {
                   // শুধু number allow
@@ -403,13 +414,13 @@ export default function PostJobForm() {
                   if (!value || value < 1) value = 1;
 
                   // auto format
-                  e.target.value = `${value} day${value > 1 ? "s" : ""}`;
+                  e.target.value = `${usFormat.format(value)} day${value > 1 ? "s" : ""}`;
                 },
               })}
             />
             {errors.duration && (
               <p className='text-red-500 text-sm mb-4'>
-                {errors.duration.message || "Job Duration is required."}
+                {errors.duration.message || "Job Duration is required"}
               </p>
             )}
 
@@ -438,7 +449,7 @@ export default function PostJobForm() {
                   if (!value || value < 1) value = 1;
                   // auto format
                   const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? "seconds" : "minutes";
-                  e.target.value = `${value} ${unit}`;
+                  e.target.value = `${usFormat.format(value)} ${unit}`;
                 },
               })}
             />
@@ -446,7 +457,7 @@ export default function PostJobForm() {
 
             {errors.videoDuration && (
               <p className='text-red-500 text-sm mb-4'>
-                {errors.videoDuration.message || "Video Duration is required."}
+                {errors.videoDuration.message || "Video Duration is required"}
               </p>
             )}
 

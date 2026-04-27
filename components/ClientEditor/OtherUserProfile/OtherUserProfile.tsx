@@ -55,7 +55,7 @@ export default function OtherUserProfile() {
         },
     ];
     return (
-        <div className="containers py-10 lg:py-20">
+        <div className="containers py-10 lg:py-10">
             <div className="space-y-10">
                 {/* PROFILE HEADER */}
                 <div className=" p-6 rounded-2xl border border-gray-200 flex items-center gap-5">

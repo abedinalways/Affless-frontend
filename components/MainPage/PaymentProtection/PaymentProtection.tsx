@@ -21,7 +21,7 @@ export default function PaymentProtectionPage() {
 
       {/* 🔹 HERO SECTION */}
       <div
-        className="h-full md:h-[394px] bg-cover bg-center relative overflow-hidden py-8 lg:py-20"
+        className="h-full md:h-[394px] bg-cover bg-center relative overflow-hidden py-8 lg:py-10"
         style={{ backgroundImage: `url('/images/Phone.jpg')` }}
       >
         <div className="absolute inset-0 bg-black/70"></div>

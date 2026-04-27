@@ -64,7 +64,7 @@ export default function AdditionalActions({ activeConversation, conversationId, 
                 )}
                 <button
                     type="button"
-                    onClick={() => router.push(`/editor/browse-job?client=${activeConversation?.name || ""}&redirect=${redirectUrl ? redirectUrl + "_" : ""}editormessagesid:${conversationId}&clientid=${conversationId}`)}
+                    onClick={() => router.push(`/editor/browse-job?client=${activeConversation?.name || ""}&redirect=${redirectUrl ? redirectUrl + "_" : ""}editormessagesid:${conversationId}:${activeConversation?.name}&clientid=${conversationId}`)}
                     className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                 >
                     View All Client’s Jobs

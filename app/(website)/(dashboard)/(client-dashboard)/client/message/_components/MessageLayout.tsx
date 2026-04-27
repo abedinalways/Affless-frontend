@@ -28,7 +28,6 @@ export function MessageProvider({ children }: { children: ReactNode }) {
     const value: MessageContextType = {
         conversationDirectory: allConversationDirectory,
         deleteConversation: (id: string) => {
-            console.log("Deleting conversation with id:", id);
             setAllConversationDirectory((prev) => prev.filter((conv) => conv.id !== id));
         },
         selectedConversationId: selectedConversationId,
@@ -50,6 +49,10 @@ export function MessageProvider({ children }: { children: ReactNode }) {
             );
         }
     };
+
+    useEffect(()=>{
+        console.log("Conversation directory updated:", allConversationDirectory);
+    },[allConversationDirectory])
 
     return (
         <MessageContext.Provider value={value}>

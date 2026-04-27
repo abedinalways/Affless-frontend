@@ -45,7 +45,7 @@ export default function GettingStartedPage() {
       />
 
       {/* Main Content */}
-      <div className='containers mx-auto py-12 lg:py-20'>
+      <div className='containers mx-auto py-12 lg:py-10'>
         <div className='text-center mb-12'>
           <h2 className='text-[#333] font-poppins text-[32px] md:text-[40px] lg:text-[48px] font-semibold leading-[120%]'>
             Welcome to Editor Marketplace

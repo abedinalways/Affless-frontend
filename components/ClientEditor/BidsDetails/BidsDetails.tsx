@@ -47,9 +47,9 @@ const BidsDetails = ({ id }: { id: string }) => {
       </div>
 
       {/* Page Content */}
-      <div className="containers py-10 lg:py-20 ">
+      <div className="containers py-10 lg:py-10 ">
         <div className="space-y-4 mb-6">
-          <Link href={`/client/job-proposal/${id}?redirect=${redirect ? redirect.split("_").slice(0, -1).join("_") : ""}`} className="block">
+          <Link href={`/client/job-proposal/${id}?redirect=${redirect ? redirect.split("_").slice(0, -1).join("_") : ""}`} className="block mb-10">
             <button className="px-4 py-2 border rounded-md bg-[#e74c4c] hover:bg-[#c0392b] text-white text-center text-[18px] font-normal leading-[150%] cursor-pointer duration-300 flex items-center gap-2">
               <FaArrowLeft />
               Back to Job Proposals Details
