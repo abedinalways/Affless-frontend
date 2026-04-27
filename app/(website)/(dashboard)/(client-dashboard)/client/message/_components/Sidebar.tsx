@@ -30,7 +30,7 @@ export default function Sidebar() {
 
     useEffect(() => {
         setConversations(conversationDirectory);
-    }, [conversationDirectory])
+    }, [])
 
     useEffect(() => {
         if (!showSearch) return;
@@ -81,12 +81,12 @@ export default function Sidebar() {
                         <div
                             key={conversation.id}
                             onClick={() => {
-                                router.push(`/client/message/${conversation.id}?redirect=${redirect}`);
-                                setConversations((prevConversations) =>
-                                    prevConversations.map((conv) =>
-                                        conv.id === conversation.id ? { ...conv, unread: false } : conv
-                                    )
-                                );
+                                // router.push(`/client/message/${conversation.id}?redirect=${redirect}`);
+                                // setConversations((prevConversations) =>
+                                //     prevConversations.map((conv) =>
+                                //         conv.id === conversation.id ? { ...conv, unread: false } : conv
+                                //     )
+                                // );
                                 router.push(`/client/message/${conversation.id}?redirect=${redirect}`);
                             }}
                             className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedConversationId) === conversation.id

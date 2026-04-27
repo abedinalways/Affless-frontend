@@ -57,7 +57,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
 
     useEffect(() => {
         attachmentsRef.current = attachments;
-        console.log("Current attachments:", attachments);
+        //console.log("Current attachments:", attachments);
     }, [attachments]);
 
     useEffect(() => {
@@ -80,7 +80,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
     }, []);
 
     useEffect(() => {
-        console.log("Available conversations:", conversationId);
+        //console.log("Available conversations:", conversationId);
         if (!conversationId && !selectedConversationId && availableConversations.length > 0) {
             onSelectConversation?.(availableConversations[0].id);
         }
@@ -94,7 +94,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
 
 
     const performMenuAction = (action: 'mute' | 'block' | 'unblock' | 'report' | 'delete') => {
-        console.log(`Menu action: ${action}`);
+        //console.log(`Menu action: ${action}`);
         switch (action) {
             case 'mute':
                 persistConversationState({
@@ -147,7 +147,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                 deleteConversation?.(activeConversationId);
                 if (availableConversations.length > 0) {
                     const nextConversation = availableConversations.find((conv) => conv.id !== activeConversationId);
-                    console.log("Next conversation selected:", nextConversation?.id);
+                    //console.log("Next conversation selected:", nextConversation?.id);
                     router.push(`/client/message${nextConversation?.id ? `/${nextConversation.id}` : ''}?redirect=${redirectUrl}`);
                 } else {
                     onSelectConversation?.('');
@@ -222,37 +222,42 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
         prevMessageCount.current = messages.length;
     }, [messages, soundsEnabled, isConversationOpen, activeConversationId]);
 
+    const lastUserMessageId = useMemo(() => {
+        const msgList = conversationMessages[activeConversationId] || [];
+        const lastUserMsg = [...msgList].reverse().find(m => m.sender === 'user');
+        return lastUserMsg?.id;
+    }, [conversationMessages, activeConversationId]);
+
     useEffect(() => {
-        if (!isConversationOpen) return;
+        if (!isConversationOpen || !lastUserMessageId) return;
 
-        const lastUserMessage = [...messages].reverse().find((m) => m.sender === 'user');
-        if (!lastUserMessage || lastUserMessage.readAt) return;
+        // Set deliveredAt (only once) – using functional update to avoid stale closure
+        setConversationMessages(prev => {
+            const msgs = prev[activeConversationId] || [];
+            const targetMsg = msgs.find(m => m.id === lastUserMessageId);
+            if (!targetMsg || targetMsg.readAt || targetMsg.deliveredAt) return prev;
 
-
-        setConversationMessages((prev) => ({
-            ...prev,
-            [activeConversationId]: (prev[activeConversationId] || []).map((msg) =>
-                msg.id === lastUserMessage.id
-                    ? { ...msg, deliveredAt: msg.deliveredAt || new Date().toISOString() }
-                    : msg
-            ),
-        }));
+            const newMsgs = msgs.map(m =>
+                m.id === lastUserMessageId ? { ...m, deliveredAt: new Date().toISOString() } : m
+            );
+            return { ...prev, [activeConversationId]: newMsgs };
+        });
 
         const timeoutId = setTimeout(() => {
-            setConversationMessages((prev) => ({
-                ...prev,
-                [activeConversationId]: (prev[activeConversationId] || []).map((msg) =>
-                    msg.id === lastUserMessage.id
-                        ? { ...msg, readAt: new Date().toISOString() }
-                        : msg
-                ),
-            }));
+            setConversationMessages(prev => {
+                const msgs = prev[activeConversationId] || [];
+                const targetMsg = msgs.find(m => m.id === lastUserMessageId);
+                if (!targetMsg || targetMsg.readAt) return prev;
+
+                const newMsgs = msgs.map(m =>
+                    m.id === lastUserMessageId ? { ...m, readAt: new Date().toISOString() } : m
+                );
+                return { ...prev, [activeConversationId]: newMsgs };
+            });
         }, 1400);
 
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    }, [messages, isConversationOpen, activeConversationId]);
+        return () => clearTimeout(timeoutId);
+    }, [lastUserMessageId, isConversationOpen, activeConversationId]);
 
 
     return (
@@ -279,7 +284,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                     activeConversationMeta={activeConversationMeta}
                     activeConversationId={activeConversationId}
                     onConversationMessagesChange={(newMessage: Message) => {
-                        console.log("New message added:", newMessage);
+                        //console.log("New message added:", newMessage);
                         setConversationMessages((prev) => ({
                             ...prev,
                             [activeConversationId]: [...messages, newMessage],

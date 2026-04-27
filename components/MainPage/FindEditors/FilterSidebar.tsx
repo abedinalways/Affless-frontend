@@ -84,37 +84,70 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
   const [priceError, setPriceError] = useState("");
 
   const handleNumericInput = (event: React.FormEvent<HTMLInputElement>) => {
-    const input = event.currentTarget;
-    input.value = input.value.replace(/\D+/g, "");
+    let value = event.currentTarget.value;
+    // Remove all characters except digits and decimal point
+    let cleaned = value.replace(/[^0-9.]/g, '');
+    // Ensure only one decimal point
+    const parts = cleaned.split('.');
+    if (parts.length > 2) {
+      cleaned = parts[0] + '.' + parts.slice(1).join('');
+    }
+    // Prevent multiple leading zeros? Optional.
+    event.currentTarget.value = cleaned;
   };
 
   const handleCurrencyBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const input = event.currentTarget;
-    // Remove all non-digits, then remove leading zeros
-    let numericValue = input.value.replace(/\D+/g, "");
-    numericValue = numericValue.replace(/^0+/, "");
-
-    if (!numericValue) {
-      input.value = "";
-      setPriceError("");
+    let value = event.currentTarget.value;
+    // Extract number string: allow optional decimal part
+    let match = value.match(/^(\d*\.?\d*)/);
+    let numericStr = match ? match[1] : '';
+    if (!numericStr) {
+      // Empty or invalid
+      event.currentTarget.value = '';
+      setPriceError('');
       return;
     }
-    if (Number(numericValue) < 2) {
-      setPriceError("The minimum pricing is $2.00.");
-      input.value = `$2.00`;
+    // Parse as float
+    let num = parseFloat(numericStr);
+    if (isNaN(num)) {
+      event.currentTarget.value = '';
+      setPriceError('');
       return;
-    } else {
-      input.value = `$${numericValue}.00`;
     }
+    // Enforce minimum 2
+    if (num < 2) {
+      setPriceError('The minimum pricing is $2.00.');
+      event.currentTarget.value = '$2.00';
+      return;
+    }
+    // Format to two decimals
+    let formatted = '$' + num.toFixed(2);
+    event.currentTarget.value = formatted;
 
-    // Validate min/max
-    const minVal = minPriceRef.current ? Number(minPriceRef.current.value.replace(/\D+/g, "").replace(/^0+/, "")) : 0;
-    const maxVal = maxPriceRef.current ? Number(maxPriceRef.current.value.replace(/\D+/g, "").replace(/^0+/, "")) : 0;
+    // Validate min/max as before
+    const getNumeric = (ref: React.RefObject<HTMLInputElement> | null) => {
+      if (!ref?.current) return 0;
+      let val = ref.current.value;
+      let m = val.match(/\d+(?:\.\d+)?/);
+      return m ? parseFloat(m[0]) : 0;
+    };
+    const minVal = getNumeric(minPriceRef);
+    const maxVal = getNumeric(maxPriceRef);
     if (minVal && maxVal && maxVal < minVal) {
       setPriceError("Maximum price can't be less than the minimum price.");
-      input.value = "";
+      // Optionally clear or revert
     } else {
       setPriceError("");
+    }
+  };
+
+
+  const handlePriceFocus = (ref: React.RefObject<HTMLInputElement> | null) => {
+    setAnyPrice(false);
+    if(ref === null) return;
+    if (ref.current) {
+      let raw = ref.current.value.replace(/[^0-9.]/g, '');
+      ref.current.value = raw;
     }
   };
 
@@ -183,11 +216,7 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
       </div> */}
 
       {/* Delivery Time */}
-      <div className=''>
-        {/* {deliveryTimes.map((d, idx) => (
-          <CheckboxRow key={idx} label={d} />
-        ))} */}
-        {/* Price Section */}
+      <div className='pt-8'>
         <h2 className='text-[#333] font-semibold text-xl mb-4'>Price</h2>
 
         {/* Any Price Checkbox */}
@@ -198,33 +227,31 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
             onChange={() => {
               const nextValue = !anyPrice;
               setAnyPrice(nextValue);
-              setPriceRange([]);
               if (nextValue) {
-                if (minPriceRef.current) minPriceRef.current.value = "";
-                if (maxPriceRef.current) maxPriceRef.current.value = "";
+                if (minPriceRef.current) minPriceRef.current.value = '';
+                if (maxPriceRef.current) maxPriceRef.current.value = '';
+                setPriceError('');
               }
             }}
             className='w-5 h-5 accent-black cursor-pointer'
           />
-          <span className='text-[#333] text-[16px]'>
-            Any Price
-          </span>
+          <span className='text-[#333] text-[16px]'>Any Price</span>
         </label>
 
-        {/* Min Max Inputs */}
+        {/* Min & Max Inputs */}
         <div className='flex gap-3 items-center'>
           <div className='relative w-full'>
             <input
               type='text'
               placeholder='Min'
               inputMode='numeric'
-              pattern="[0-9]*"
-              // disabled={anyPrice}
               ref={minPriceRef}
+              disabled={anyPrice}
               onInput={handleNumericInput}
               onBlur={handleCurrencyBlur}
-              onFocus={()=>setAnyPrice(false)}
-              className={`border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700 ${anyPrice ? "cursor-pointer bg-gray-100" : ""}`}
+              onFocus={() => handlePriceFocus(minPriceRef)}
+              className={`border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700 ${anyPrice ? 'cursor-not-allowed bg-gray-100' : ''
+                }`}
             />
           </div>
           <div className='relative w-full'>
@@ -232,18 +259,22 @@ export default function FilterSidebar({ isMobile, handleMenu }: propType) {
               type='text'
               placeholder='Max'
               inputMode='numeric'
-              pattern="[0-9]*"
-              // disabled={anyPrice}
               ref={maxPriceRef}
+              disabled={anyPrice}
               onInput={handleNumericInput}
               onBlur={handleCurrencyBlur}
-              onFocus={()=>setAnyPrice( prev => prev ? false : prev)}
-              className={`border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700 ${anyPrice ? "cursor-pointer bg-gray-100" : ""}`}
+              onFocus={() => handlePriceFocus(maxPriceRef)}
+              className={`border border-gray-300 rounded-md px-3 py-2 w-full text-gray-700 ${anyPrice ? 'cursor-not-allowed bg-gray-100' : ''
+                }`}
             />
           </div>
         </div>
+
         {priceError && (
-          <div className={`text-red-500 ${priceError === "The minimum pricing is $2.00." ? "text-sm pt-1" :"text-[10px]"} mt-1`}>{priceError}</div>
+          <div className={`text-red-500 ${priceError === 'The minimum pricing is $2.00.' ? 'text-sm pt-1' : 'text-[10px]'
+            } mt-1`}>
+            {priceError}
+          </div>
         )}
       </div>
 
