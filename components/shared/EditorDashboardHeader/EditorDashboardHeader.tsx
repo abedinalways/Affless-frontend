@@ -289,7 +289,7 @@ export default function EditorDashboardHeader() {
                   className={`flex cursor-pointer border-2 rounded-full ${(isActive("/client/profile") || profileDropdown) ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}
                 >
                   <Image
-                    src="/images/Annette.jpg"
+                    src="/images/jonekeper.png"
                     alt="profile"
                     width={80}
                     height={80}
