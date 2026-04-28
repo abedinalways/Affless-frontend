@@ -24,7 +24,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                     <div className="h-20 w-20 rounded-full overflow-hidden">
                         <Link href="/editor/editor-profile">
                             <Image
-                                src="/images/Annette.jpg"
+                                src="/images/jonekeper.png"
                                 alt="Zeeshan"
                                 width={80}
                                 height={80}
