@@ -105,17 +105,30 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
                                                         {attachment.url}
                                                     </a>
                                                 ) : attachment?.name?.match(/\.(png|jpe?g|gif|webp|bmp|svg)$/i) ? (
-                                                    // eslint-disable-next-line @next/next/no-img-element
-                                                    <Image src={attachment.url} alt={attachment.name} width={100} height={100} className="h-full w-full object-cover" />
+                                                    <a
+                                                        href={attachment.url}
+                                                        download={`${new Date().getTime()}_${attachment.name}`}
+                                                        className="hover:underline text-xs"
+                                                        title={`Download ${attachment.name}`}
+                                                    >
+                                                        <Image src={attachment.url} alt={attachment.name} width={100} height={100} className="h-full w-full object-cover" />
+                                                    </a>
                                                 ) : attachment?.name?.match(/\.(mp4|webm|ogg|mov|avi)$/i) ? (
                                                     <video controls width={200} className="h-full w-full object-cover">
-                                                        <source src={attachment.url} type={`video/${attachment.name.split('.').pop()?.toLowerCase()}`}/>
+                                                        <source src={attachment.url} type={`video/${attachment.name.split('.').pop()?.toLowerCase()}`} />
                                                         Your browser does not support the video tag.
                                                     </video>
                                                 ) : (
-                                                    <span className="text-[10px] pr-1 text-start">
-                                                        {attachment.name}
-                                                    </span>
+                                                    <div className="flex items-center">
+                                                        <a
+                                                            href={attachment.url}
+                                                            download={`${new Date().getTime()}_${attachment.name}`}
+                                                            className="hover:underline text-xs"
+                                                            title={`Download ${attachment.name}`}
+                                                        >
+                                                            {attachment.name}
+                                                        </a>
+                                                    </div>
                                                 )}
                                             </div>
                                         ))}
@@ -127,7 +140,7 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
                                             ? 'text-blue-100'
                                             : 'text-gray-500 text-end'
                                             }`}
-                                            title={messageDate.toLocaleString()}
+                                        title={messageDate.toLocaleString()}
                                     >
                                         {formatTime(messageDate)}
                                     </p>

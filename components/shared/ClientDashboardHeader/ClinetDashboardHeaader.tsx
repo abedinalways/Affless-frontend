@@ -51,7 +51,7 @@ export default function ClientDashboardHeader() {
     "/client/hire-vedio-editor",
     "/client/find-editor",
     "/confirm-deposit",
-    "/client/bids-details"
+    "/client/bids-details",
   ];
 
   const handleNotificationMouseEnter = () => {
@@ -212,7 +212,7 @@ export default function ClientDashboardHeader() {
 
                       <Link
                         href="/client/find-editor?redirect=dashboardclient"
-                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/find-editor") || isActive("/client/hire-video-editor") || isActive("/client/confirm-deposit") ? activeCls : inactiveCls
+                        className={`block px-4 py-2 hover:bg-gray-100 ${isActive("/client/find-editor") || isActive("/client/hire-vedio-editor") || isActive("/client/confirm-deposit") ? activeCls : inactiveCls
                           }`}
                         onClick={() => setOpen(false)}
                       >
