@@ -655,13 +655,14 @@ export default function HireVideoEditorForm() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 py-4">
-              {(redirectUrl.includes("quickmatchclient") || redirectUrl.includes("findeditors")) && <button
-                type='button'
-                onClick={() => router?.back()}
-                className='w-full text-red-500 border border-red-500 py-3 rounded-lg hover:bg-red-50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed duration-300'>
-                Back
-              </button>}
+            <div className="grid grid-cols-2 items-center gap-4 py-4">
+              {(redirectUrl.includes("quickmatchclient") || redirectUrl.includes("findeditors") || redirectUrl.includes("messageclientid")) &&
+                <Link
+                  href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.href}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
+                  className="w-full text-center border border-red-500 text-red-500 hover:text-white py-3 rounded-lg hover:bg-red-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed duration-300"
+                >
+                  Back
+                </Link>}
               <button
                 type='submit'
                 disabled={loading}
