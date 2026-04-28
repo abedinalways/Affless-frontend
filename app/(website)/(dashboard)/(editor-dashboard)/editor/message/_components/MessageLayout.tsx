@@ -52,6 +52,13 @@ export function MessageProvider({ children }: { children: ReactNode }) {
                     conv.id === id ? { ...conv, isMuted: !conv.isMuted || true } : conv
                 )
             );
+        },
+        onReportConversation: () => {
+            setAllConversationDirectory((prev) =>
+                prev.map((conv) =>
+                    conv.id === selectedConversationId ? { ...conv, reported: !conv.reported || true } : conv
+                )
+            );
         }
     };
 
