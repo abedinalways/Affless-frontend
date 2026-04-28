@@ -191,7 +191,7 @@ export default function ClientDashboard() {
             </div>
           </div>
           {/* RIGHT */}
-          <div className="w-full lg:w-2/3 space-y-4">
+          <div className="w-full space-y-4">
             <div className="w-full flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex-1">
                 <h1 className="text-2xl font-semibold">Welcome, Zeeshan</h1>

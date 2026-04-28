@@ -299,7 +299,7 @@ export default function ClientDashboardHeader() {
             <div className="relative" ref={profileDropdownRef}>
               <button
                 onClick={() => setProfileDropdown(!profileDropdown)}
-                className={`w-8 h-8 flex cursor-pointer border-2 rounded-full ${(isActive("/client/profile") || profileDropdown) ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}
+                className={`flex cursor-pointer border-2 rounded-full ${(isActive("/client/profile") || profileDropdown) ? "border-[#FF4D4F]" : "border-transparent hover:border-[#FF4D4F] transition-border duration-300"}`}
               >
                 <Image
                   src="/images/jone3.png"
