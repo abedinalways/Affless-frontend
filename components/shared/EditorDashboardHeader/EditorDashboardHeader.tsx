@@ -294,7 +294,7 @@ export default function EditorDashboardHeader() {
                     width={80}
                     height={80}
                     quality={100}
-                    className="rounded-full object-cover"
+                    className="w-8 h-8 rounded-full object-cover"
                   />
                 </button>
 

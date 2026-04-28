@@ -306,7 +306,7 @@ export default function ClientDashboardHeader() {
                   alt="profile"
                   width={32}
                   height={32}
-                  className="rounded-full"
+                  className="w-8 h-8 rounded-full"
                 />
               </button>
 
