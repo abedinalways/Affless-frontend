@@ -73,6 +73,7 @@ export type MessageContextType = {
   onSelectConversation: (id: string) => void;
   onBlockConversation: (id: string) => void;
   onMuteConversation: (id: string) => void;
+  onReportConversation: () => void;
 }
 
 

@@ -33,6 +33,11 @@ export function MessageProvider({ children }: { children: ReactNode }) {
         selectedConversationId: selectedConversationId,
         onSelectConversation: (id: string) => {
             setSelectedConversationId(id);
+            setAllConversationDirectory((prevConversations) =>
+                prevConversations.map((conv) =>
+                    conv.id === id ? { ...conv, unread: false } : conv
+                )
+            );
         },
         onBlockConversation: (id: string) => {
             setAllConversationDirectory((prev) =>
@@ -45,6 +50,13 @@ export function MessageProvider({ children }: { children: ReactNode }) {
             setAllConversationDirectory((prev) =>
                 prev.map((conv) =>
                     conv.id === id ? { ...conv, isMuted: !conv.isMuted || true } : conv
+                )
+            );
+        },
+        onReportConversation: () => {
+            setAllConversationDirectory((prev) =>
+                prev.map((conv) =>
+                    conv.id === selectedConversationId ? { ...conv, reported: !conv.reported || true } : conv
                 )
             );
         }

@@ -77,7 +77,7 @@ export default function PublicClientProfile() {
                             alt="User"
                             width={500}
                             height={500}
-                            className="rounded-lg object-cover w-full h-full"
+                            className="rounded-full object-cover w-full h-full"
                         />
                     </div>
 

@@ -33,6 +33,11 @@ export function MessageProvider({ children }: { children: ReactNode }) {
         selectedConversationId: selectedConversationId,
         onSelectConversation: (id: string) => {
             setSelectedConversationId(id);
+            setAllConversationDirectory((prevConversations) =>
+                prevConversations.map((conv) =>
+                    conv.id === id ? { ...conv, unread: false } : conv
+                )
+            );
         },
         onBlockConversation: (id: string) => {
             setAllConversationDirectory((prev) =>

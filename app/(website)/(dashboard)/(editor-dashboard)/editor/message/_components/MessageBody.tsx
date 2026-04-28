@@ -12,11 +12,12 @@ import { useMessageContext } from './MessageLayout';
 
 type MessageBodyProps = {
     conversationId?: string;
+    onReportUser: () => void;
 };
 
 type ConversationState = Record<string, { muted?: boolean; blocked?: boolean; reported?: boolean; deleted?: boolean }>;
 
-export default function MessageBody({ conversationId }: MessageBodyProps) {
+export default function MessageBody({ conversationId, onReportUser }: MessageBodyProps) {
     const {
         conversationDirectory,
         deleteConversation,
@@ -123,15 +124,6 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                     },
                 });
                 break;
-            case 'report':
-                persistConversationState({
-                    ...conversationState,
-                    [activeConversationId]: {
-                        ...conversationState[activeConversationId],
-                        reported: true,
-                    },
-                });
-                break;
             case 'delete':
                 persistConversationState({
                     ...conversationState,
@@ -162,7 +154,7 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
         if (!activeConversationId) return;
 
         if (action === 'report') {
-            setIsReportModalOpen(true);
+            onReportUser();
             return;
         }
 
@@ -295,14 +287,6 @@ export default function MessageBody({ conversationId }: MessageBodyProps) {
                     setAttachments={setAttachments}
                 />
             </div>
-
-            <ReportUserModal
-                isOpen={isReportModalOpen}
-                onClose={() => setIsReportModalOpen(false)}
-                userName={activeConversation?.name || 'User'}
-                userId={otherUserId}
-                onReportSubmit={handleReportUser}
-            />
 
             <ConfirmationPopup
                 isOpen={isConfirmOpen}

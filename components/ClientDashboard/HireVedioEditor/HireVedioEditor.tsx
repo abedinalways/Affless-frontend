@@ -179,20 +179,61 @@ export default function HireVideoEditorForm() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  // Submit handler
   const onSubmit = (data: FormValues) => {
     setLoading(true);
-    if (minPrice > parseFloat(data.budget.replace("$", ""))) {
+    console.log("Form Submitted:", data, "Payment Type:", paymentType);
+    if (minPrice > parseFloat(data.budget.replace(/[^0-9.]/g, ""))) {
       toast.error(`Minimum budget for this Job is $${minPrice}`);
       setLoading(false);
       return;
     }
-    console.log("Form Submitted:", data, "Payment Type:", paymentType);
+
+    localStorage.setItem("postJobData", JSON.stringify({
+      ...data,
+      budget: parseFloat(data.budget.replace("$", "")),
+      duration: parseInt(data.duration.replace(/[^0-9]/g, "")),
+      videoDuration: parseInt(data.videoDuration.replace(/[^0-9]/g, "")),
+      styleReference: styleReference ? {
+        name: styleReference.name,
+        type: styleReference.type,
+        size: styleReference.size,
+      } : null,
+      pdfFile: pdfFile ? {
+        name: pdfFile.name,
+        type: pdfFile.type,
+        size: pdfFile.size,
+      } : null,
+      textDocument: textDocument ? {
+        name: textDocument.name,
+        type: textDocument.type,
+        size: textDocument.size,
+      } : null,
+    }));
+
     setTimeout(() => {
       setLoading(false);
-      router?.push(`/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`);
+      router?.push(`/client/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`);
     }, 500);
   };
+
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("postJobData");
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? "seconds" : "minutes";
+      setValue("jobTitle", parsedData.jobTitle || "");
+      setValue("jobDescription", parsedData.jobDescription || "");
+      setValue("category", parsedData.category || "youtube_long_form");
+      setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > "1" ? " days" : "day"}` || "");
+      setValue("platform", parsedData.platform || "");
+      setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
+      setValue("requiredSkills", parsedData.requiredSkills || "");
+      setSelectedCategory(parsedData.category || "youtube_long_form");
+      setVideoLength(parseInt(parsedData.videoDuration) || 0);
+      setValue("budget", `$${usFormatWithDecimals.format(parsedData.budget)}` || "");
+    }
+  }, [])
 
   const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
   useEffect(() => {
@@ -252,9 +293,6 @@ export default function HireVideoEditorForm() {
 
   useEffect(() => {
     ["thumbnails"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
-    if (!videoNotRequired || !(selectedCategory && videoLength)) {
-      setValue("budget", "");
-    }
   }, [selectedCategory])
 
   const usFormat = new Intl.NumberFormat("en-US", {
@@ -378,6 +416,9 @@ export default function HireVideoEditorForm() {
               placeholder={`$${minPrice.toFixed(2)}`}
               disabled={videoNotRequired || (selectedCategory && videoLength) ? false : true}
               className='w-full border rounded-lg p-3 mb-2 disabled:bg-gray-100 disabled:cursor-not-allowed'
+              onFocus={(e) => {
+                e.target.value = e.target.value.replace(/[^0-9.]/g, "");
+              }}
               {...register("budget", {
                 required: "Job budget is required",
 
@@ -387,7 +428,11 @@ export default function HireVideoEditorForm() {
 
                 onBlur: (e) => {
                   let value = parseFloat(e.target.value);
+
+                  console.log("Parsed budget value:", value, "Min price:", minPrice, "Raw input value: ", e.target.value);
+
                   if (isNaN(value) || value < minPrice) value = minPrice;
+
                   // auto format
                   e.target.value = `$${usFormatWithDecimals.format(value)}`;
                 },
@@ -446,7 +491,8 @@ export default function HireVideoEditorForm() {
               placeholder='5'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               onFocus={(e) => {
-                e.target.value = e.target.value.replace(/\s*(days|seconds)$/i, "").trim();
+                e.target.value = e.target.value.replace(/\s*(days|day)$/i, "").trim();
+                e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
               {...register("duration", {
                 required: "Job duration is required",
@@ -483,6 +529,7 @@ export default function HireVideoEditorForm() {
               disabled={selectedCategory === "thumbnails"}
               onFocus={(e) => {
                 e.target.value = e.target.value.replace(/\s*(minutes|seconds)$/i, "").trim();
+                e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
               {...register("videoDuration", {
                 required: "Video duration is required",

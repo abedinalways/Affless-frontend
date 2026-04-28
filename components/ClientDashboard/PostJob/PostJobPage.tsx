@@ -142,11 +142,54 @@ export default function PostJobForm() {
       setLoading(false);
       return;
     }
+
+    localStorage.setItem("postJobData", JSON.stringify({
+      ...data,
+      budget: parseFloat(data.budget.replace(/[^0-9.]/g, "")),
+      duration: parseInt(data.duration.replace(/[^0-9]/g, "")),
+      videoDuration: parseInt(data.videoDuration.replace(/[^0-9]/g, "")),
+      styleReference: styleReference ? {
+        name: styleReference.name,
+        type: styleReference.type,
+        size: styleReference.size,
+      } : null,
+      pdfFile: pdfFile ? {
+        name: pdfFile.name,
+        type: pdfFile.type,
+        size: pdfFile.size,
+      } : null,
+      textDocument: textDocument ? {
+        name: textDocument.name,
+        type: textDocument.type,
+        size: textDocument.size,
+      } : null,
+    }));
+
     setTimeout(() => {
       setLoading(false);
       router?.push(`/client/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob&assign=` + (assignEditor || ""));
     }, 500);
   };
+
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("postJobData");
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? "seconds" : "minutes";
+      // console.log("Parsed data from localStorage:", parsedData, "Unit for video duration:", unit);
+      setValue("jobTitle", parsedData.jobTitle || "");
+      setValue("jobDescription", parsedData.jobDescription || "");
+      setValue("category", parsedData.category || "youtube_long_form");
+      setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > "1" ? " days" : "day"}` || "");
+      setValue("platform", parsedData.platform || "");
+      setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
+      setValue("requiredSkills", parsedData.requiredSkills || "");
+      setSelectedCategory(parsedData.category || "youtube_long_form");
+      setVideoLength(parseInt(parsedData.videoDuration) || 0);
+      setValue("budget", `$${usFormatWithDecimals.format(parsedData.budget)}` || "");
+    }
+  }, [])
 
   useEffect(() => {
     if (videoLength) {
@@ -191,7 +234,7 @@ export default function PostJobForm() {
     } else if (selectedCategory === "thumbnails") {
       setMinPrice(3);
       return;
-    }else{
+    } else {
       setMinPrice(2);
     }
   }, [videoLength, selectedCategory]);
@@ -206,9 +249,6 @@ export default function PostJobForm() {
 
   useEffect(() => {
     ["thumbnails"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
-    if (!videoNotRequired || !(selectedCategory && videoLength)) {
-      setValue("budget", "");
-    }
   }, [selectedCategory])
 
 
@@ -327,6 +367,9 @@ export default function PostJobForm() {
               placeholder={`$${minPrice.toFixed(2)}`}
               disabled={videoNotRequired || (selectedCategory && videoLength) ? false : true}
               className='w-full border rounded-lg p-3 mb-2 disabled:bg-gray-100 disabled:cursor-not-allowed'
+              onFocus={(e) => {
+                e.target.value = e.target.value.replace(/[^0-9.]/g, "");
+              }}
               {...register("budget", {
                 required: "Job budget is required",
 
@@ -336,6 +379,8 @@ export default function PostJobForm() {
 
                 onBlur: (e) => {
                   let value = parseFloat(e.target.value);
+
+                  console.log("Parsed budget value:", value, "Min price:", minPrice, "Raw input value: ", e.target.value);
 
                   if (isNaN(value) || value < minPrice) value = minPrice;
 
@@ -398,6 +443,7 @@ export default function PostJobForm() {
               placeholder='5'
               onFocus={(e) => {
                 e.target.value = e.target.value.replace(/\s*(day|days)$/i, "").trim();
+                e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               {...register("duration", {
@@ -436,6 +482,7 @@ export default function PostJobForm() {
               disabled={videoNotRequired}
               onFocus={(e) => {
                 e.target.value = e.target.value.replace(/\s*(minutes|seconds)$/i, "").trim();
+                e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
               {...register("videoDuration", {
                 required: videoNotRequired ? false : "Video duration is required",
