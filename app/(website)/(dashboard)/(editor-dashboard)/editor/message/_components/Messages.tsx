@@ -55,6 +55,7 @@ export default function Messages({ id }: PropType) {
                 }}>
                     <MessageBody
                         conversationId={id}
+                        onReportUser={() => setIsReportModalOpen(true)}
                     />
                 </div>
                 <AdditionalActions

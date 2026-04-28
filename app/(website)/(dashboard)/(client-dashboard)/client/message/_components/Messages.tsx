@@ -16,7 +16,7 @@ type PropType = {
 }
 
 export default function Messages({ id }: PropType) {
-    const { conversationDirectory } = useMessageContext();
+    const { conversationDirectory, onReportConversation } = useMessageContext();
     const searchParams = useSearchParams();
     const redirectUrl = searchParams.get("redirect") || "";
     const [deletedConversationIds, setDeletedConversationIds] = useState<string[]>([]);
@@ -34,14 +34,7 @@ export default function Messages({ id }: PropType) {
 
     const handleReportUser = async (reportData: any) => {
         try {
-            // const response = await UserService.reportUser(reportData);
-
-            // if (response.status === 201 || response.status === 200) {
-            //     // Report submitted successfully
-            //     console.log("Report submitted successfully", response);
-            // } else {
-            //     throw new Error("Failed to submit report");
-            // }
+            onReportConversation();
         } catch (error: any) {
             const errorMessage = error?.response?.data?.message || error.message || "Failed to submit report";
             throw new Error(errorMessage);
@@ -56,6 +49,7 @@ export default function Messages({ id }: PropType) {
                 }}>
                     <MessageBody
                         conversationId={id}
+                        onReportUser={() => setIsReportModalOpen(true)}
                     />
                 </div>
                 <AdditionalActions

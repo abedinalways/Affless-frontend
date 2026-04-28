@@ -39,6 +39,11 @@ export default function ClientDashboard() {
   const total = ALL_JOBS.length;
   const paginated = ALL_JOBS.slice((page - 1) * pageSize, page * pageSize);
 
+  const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   const columns: ColumnDef<JobRow>[] = [
     {
       accessorKey: "service",
@@ -73,7 +78,7 @@ export default function ClientDashboard() {
           <div
             className="cursor-pointer p-2 rounded-md"
           >
-            ${d.total}
+            ${usFormatWithDecimals.format(d.total)}
           </div>
         );
       },

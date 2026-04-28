@@ -21,6 +21,7 @@ export default function ConfirmDepositPage() {
   const handleSubmit = async () => {
     setLoading(true);
     // Submit logic here
+    localStorage.removeItem("postJobData");
     setTimeout(() => {
       if(assignEditor){
         toast.success(`Deposit confirmed! Assigned to ${assignEditor}`);
