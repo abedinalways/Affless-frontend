@@ -150,7 +150,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                 </div>
 
                 <div className="overflow-hidden rounded-lg border">
-                    <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f3f4f6] px-3 py-2 text-[9px] font-medium text-[#4A4C56]">
+                    <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-[#f3f4f6] px-3 py-2 text-[8px] font-medium text-[#4A4C56]">
                         <div className="overflow-hidden pr-1.5">Average Response Time</div>
                         <div className="pr-1 overflow-hidden">Search Exposure</div>
                         <div className=" overflow-hidden">Quick Match Priority</div>
@@ -159,7 +159,7 @@ export default function EditorDashboardSidebar({ averageResponseHours, averageRe
                         {exposureTiers.map((tier) => (
                             <div
                                 key={tier.label}
-                                className={`grid grid-cols-[1.2fr_1fr_1fr] px-6 py-2 text-[9px] ${tier.zone === "benefit"
+                                className={`grid grid-cols-[1.2fr_1fr_1fr] px-6 py-2 text-[8px] ${tier.zone === "benefit"
                                     ? "bg-[#F3FBF1]"
                                     : tier.zone === "neutral"
                                         ? "bg-[#FFF9E6]"
