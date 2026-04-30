@@ -78,7 +78,7 @@ export default function DatePicker({ onChange, placeHolderText, initialDate, sta
         <div className="flex flex-wrap items-center gap-4">
             <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
                 <PopoverTrigger asChild>
-                    <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center gap-3">
                         <Button
                             variant="outline"
                             className="w-fit justify-between font-normal cursor-pointer"

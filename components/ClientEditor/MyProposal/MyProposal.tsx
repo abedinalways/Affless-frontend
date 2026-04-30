@@ -73,8 +73,10 @@ export default function MyProposal() {
       if (startDate && endDate) {
         data = data.filter(job => {
           const jobDate = job.deliveryDate;
-          if(jobDate) {
-            return jobDate >= startDate && jobDate <= endDate;
+          if (jobDate) {
+            const endOfDay = new Date(endDate);
+            endOfDay.setHours(23, 59, 59, 999);
+            return jobDate >= startDate && jobDate <= endOfDay;
           }
           return false;
         });
@@ -218,7 +220,7 @@ export default function MyProposal() {
               href={`/editor/browse-job?redirect=${redirectUrl ? `${redirectUrl}_` : ""}editorjobs`}
               className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300 flex items-center gap-1"
             >
-              <PlusIcon className="w-5"/>
+              <PlusIcon className="w-5" />
               <span>Browse New Jobs</span>
             </Link>
           </div>

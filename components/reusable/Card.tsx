@@ -16,16 +16,25 @@ const StatCard: React.FC<StatCardProps> = ({
   onClick,
 }) => {
   const numericAmount = Number(amount.replace(/[^0-9.-]/g, ""));
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+
+  const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   return (
     <div className=" rounded-2xl bg-white p-6 shadow-sm border border-gray-100 flex justify-center items-center">
       <div className="">
-        <h2 className="text-3xl font-semibold text-gray-900">${numericAmount.toFixed(2)}</h2>
+        <h2 className="text-3xl font-semibold text-gray-900">${usFormatWithDecimals.format(numericAmount)}</h2>
       <p className="mt-1 text-sm text-gray-500">{label}</p>
 
       {buttonText && (
         <button
           onClick={onClick}
-          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 transition cursor-pointer"
+          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 hover:rounded transition-all duration-300 cursor-pointer"
         >
           {buttonText}
           <span>↗</span>
@@ -59,7 +68,7 @@ const StatsCards = () => {
       <ConfirmationPopup 
         isOpen={isWithdrawPopupOpen}
         onCancel={() => setIsWithdrawPopupOpen(false)}
-        title="Withdrawals coming soon"
+        title="Withdrawals are coming soon"
         description="Withdrawal is not available at the moment. This feature will be available in future updates."
         onConfirm={() => {
           setIsWithdrawPopupOpen(false);

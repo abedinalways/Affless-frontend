@@ -83,8 +83,10 @@ export default function DashboardPage() {
               </div>
             </div>
             <div>
-              <Select>
-                <SelectTrigger className="">
+              <Select
+                defaultValue="yearly"
+              >
+                <SelectTrigger className="cursor-pointer">
                   <SelectValue className='text-[#62676C]' placeholder="Select a period" />
                 </SelectTrigger>
                 <SelectContent>
@@ -103,14 +105,18 @@ export default function DashboardPage() {
         <div className='bg-white p-4.5 border border-[#E9E9E9] rounded-lg shadow-[0px_4px_33px_8px_rgba(0,0,0,0.04)] flex flex-col gap-4'>
           <div className='flex justify-between items-center gap-4 whitespace-nowrap font-["Poppins"]'>
             <h3 className='text-[#4A4C56] text-lg font-medium leading-[21.6px]'>Top Clients</h3>
-            <Link href="/admin/usermanagement?type=client" className='text-[#4A4C56] font-["Poppins"] text-sm leading-[21px] px-3.5 py-2 border border-[#E9E9E9] rounded-md cursor-pointer'>View All</Link>
+            <Link href="/admin/usermanagement?type=client" className='text-[#4A4C56] font-["Poppins"] text-sm leading-[21px] px-3.5 py-2 border border-[#E9E9E9] rounded-md cursor-pointer hover:rounded hover:bg-gray-100 transition-all duration-300'>View All</Link>
           </div>
           <div className='border border-[#FAFBFC]'>
             <TopClientTable />
           </div>
         </div>
       </div>
-      <div className='bg-white p-4.5 border border-[#E9E9E9] rounded-lg'>
+      <div className='bg-white p-4.5 border border-[#E9E9E9] rounded-lg space-y-6'>
+        <div className='flex items-center justify-between gap-6'>
+          <h3 className='text-[#4A4C56] text-lg font-medium leading-[21.6px]'>Top Editors</h3>
+          <Link href="/admin/usermanagement?type=editor" className='text-[#4A4C56] font-["Poppins"] text-sm leading-[21px] px-3.5 py-2 border border-[#E9E9E9] rounded-md cursor-pointer hover:rounded hover:bg-gray-100 transition-all duration-300'>View All</Link>
+        </div>
         <TopEditorTable />
       </div>
     </div>

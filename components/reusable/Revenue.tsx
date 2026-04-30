@@ -3,6 +3,14 @@
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import type { ApexOptions } from "apexcharts";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 // SSR issue এড়াতে dynamic import
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
@@ -25,6 +33,11 @@ const RevenueChart = () => {
     { month: "Nov", earned: 1320, orders: 20 },
     { month: "Dec", earned: 910, orders: 12 },
   ];
+
+  const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   const series = useMemo(
     () => [
@@ -96,7 +109,7 @@ const RevenueChart = () => {
             ">
               <div style="margin-bottom:4px;">
                 <span style="color:#6b7280;">Earned:</span>
-                <span style="font-weight:600; margin-left:6px;">$${item.earned.toFixed(2)}</span>
+                <span style="font-weight:600; margin-left:6px;">$${usFormatWithDecimals.format(item.earned)}</span>
               </div>
               <div>
                 <span style="color:#6b7280;">Jobs Completed:</span>
@@ -121,11 +134,26 @@ const RevenueChart = () => {
       {/* Top bar: title + filters */}
       <div className="mb-4 flex items-center justify-between gap-3">
         <h2 className="text-sm font-semibold text-slate-900">
-          Revenue Analytic
+          Revenue Analytics
         </h2>
 
         <div className="flex items-center gap-2">
-          
+          <Select
+            defaultValue={new Date().getFullYear().toString()}
+          >
+            <SelectTrigger className="w-full border-gray-200 max-w-40 focus-visible:ring-0 focus-visible:border-gray-200">
+              <SelectValue placeholder="Select Year" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="2026">2026</SelectItem>
+                <SelectItem value="2025">2025</SelectItem>
+                <SelectItem value="2024">2024</SelectItem>
+                <SelectItem value="2023">2023</SelectItem>
+                <SelectItem value="2022">2022</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 

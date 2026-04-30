@@ -63,7 +63,9 @@ export default function ManageJobsPage() {
       if (startDate && endDate) {
         data = data.filter(job => {
           const jobDate = job.deliveryDate;
-          return jobDate >= startDate && jobDate <= endDate;
+          const endOfDay = new Date(endDate);
+          endOfDay.setHours(23, 59, 59, 999);
+          return jobDate >= startDate && jobDate <= endOfDay;
         });
       }
     } else {
