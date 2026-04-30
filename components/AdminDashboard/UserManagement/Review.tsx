@@ -14,6 +14,17 @@ import { TiStarFullOutline } from "react-icons/ti";
 import toast,{Toaster} from "react-hot-toast";
 
 export default function Review() {
+  
+  const usFormats = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+
+  const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   const jobs = [
     {
       id: 1,
@@ -22,9 +33,9 @@ export default function Review() {
       description:
         "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any job.",
 
-      priceRange: "$400",
-      software: "2",
-      duration: "7 days",
+      priceRange: 400,
+      software: 2,
+      duration: 7,
       thumbnail: "/images/vedio.png.jpg",
       time: "1 month ago"
     },
@@ -35,9 +46,9 @@ export default function Review() {
       description:
         "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any job.",
 
-      priceRange: "$500",
-      software: "1",
-      duration: "12 days",
+      priceRange: 500,
+      software: 1,
+      duration: 12,
       thumbnail: "/images/vedio.png.jpg",
       time: "1 month ago"
     },
@@ -57,7 +68,7 @@ export default function Review() {
 
       <div className="bg-white rounded-2xl">
         <div className=" rounded-xl  p-6 mx-w-md lg:max-w-lg">
-          <h2 className="text-xl font-medium text-[18px] lg:text-[24px] pb-6">1,058 Reviews</h2>
+          <h2 className="text-xl font-medium text-[18px] lg:text-[24px] pb-6">{usFormats.format(1058)} Reviews</h2>
 
           <div className="space-y-4">
             {reviews.map((r) => (
@@ -71,7 +82,7 @@ export default function Review() {
                   ></div>
                 </div>
 
-                <span className="text-gray-600 text-sm">{r.count}</span>
+                <span className="text-gray-600 text-sm">{usFormats.format(r.count)}</span>
               </div>
             ))}
           </div>
@@ -114,7 +125,7 @@ export default function Review() {
                           <TiStarFullOutline className="text-yellow-400" />
                           <TiStarFullOutline className="text-gray-500" />
                         </div>
-                        <p className="text-sm">4.9(338 reviews)</p>
+                        <p className="text-sm">4.9({usFormats.format(338)} reviews)</p>
                       </div>
                       <p className="text-sm">{job.time}</p>
                     </div>
@@ -155,7 +166,7 @@ export default function Review() {
                     <div className="p-6 flex gap-6">
                       <div>
                         <p className="text-[#4A4C56] text-[14px]">Price</p>
-                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.priceRange}</p>
+                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">${usFormatWithDecimals.format(job.priceRange)}</p>
                       </div>
                       <div className="border hidden md:block border-r-gray-300 mx-6">
 
@@ -165,7 +176,7 @@ export default function Review() {
                     <div className="p-6 flex  gap-6">
                       <div>
                         <p className="text-[#4A4C56] text-[14px]">Number of Revisions</p>
-                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.software}</p>
+                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{usFormats.format(job.software)}</p>
                       </div>
                       <div className="border hidden md:block border-r-gray-300 mx-6">
 

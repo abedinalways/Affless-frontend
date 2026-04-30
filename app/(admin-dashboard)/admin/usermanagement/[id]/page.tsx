@@ -17,6 +17,16 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
   const [activeTab, setActiveTab] = useState<"details" | "job" | "earning">("details");
   const router = useRouter();
 
+
+  const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+
   return (
     <div className="space-y-6">
       <button
@@ -29,13 +39,13 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
       {/* TOP CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="bg-white p-6 shadow rounded-xl text-center">
-          <h2 className="text-3xl font-bold">12</h2>
+          <h2 className="text-3xl font-bold">{usFormat.format(12)}</h2>
           <p className="text-gray-500">Successfully Completed Jobs</p>
         </div>
 
         <div className="bg-white p-6 shadow rounded-xl text-center">
           <div>
-            <h2 className="text-3xl font-bold">$500.00</h2>
+            <h2 className="text-3xl font-bold">${usFormatWithDecimals.format(500.00)}</h2>
           </div>
           <p className="text-gray-500">Total Earnings</p>
         </div>
