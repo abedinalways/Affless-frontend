@@ -43,9 +43,9 @@ const DashboardHeader = () => {
                         <DropdownMenuTrigger asChild>
                             <div className='flex flex-col sm:flex-row items-center justify-center gap-2.5'>
                                 <div className='flex gap-8'>
-                                    <Image src="/images/headset.svg" alt='profile' height={53} width={53}></Image>
+                                    <Image src="/images/headset.svg" alt='profile' height={53} width={53} className='w-10 sm:w-13'></Image>
                                 </div>
-                                <p className='text-[16px] font-normal leading-150% text-center'>Headset</p>
+                                <p className='text-sm sm:text-[16px] font-normal leading-150% text-center'>Headset</p>
                             </div>
                         </DropdownMenuTrigger>
                     </div>
