@@ -139,8 +139,8 @@ export default function Review() {
               </div>
 
               {/* TITLE */}
-              <div className="flex flex-col  gap-6 sm:pt-2.5">
-                <div className="w-full lg:w-3/4">
+              <div className="grid grid-cols-[1fr_auto] gap-6 sm:pt-2.5">
+                <div className="w-full max-w-[700px]">
 
                   {/* DESCRIPTION */}
                   <p className="text-gray-600 text-sm leading-relaxed mb-3">
@@ -199,10 +199,10 @@ export default function Review() {
                     src={job.thumbnail}
 
                     alt="Job Thumbnail" 
-                    width={1000}
-                    height={1000}
+                    width={1940}
+                    height={1940}
                     quality={100}
-                    className="w-[3000px] h-auto rounded-lg" />
+                    className="w-full md:w-[300px] h-auto rounded-lg" />
                 </div>
               </div>
             </div>
