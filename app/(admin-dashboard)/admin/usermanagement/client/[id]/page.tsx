@@ -1,22 +1,29 @@
 "use client";
 
-import EarningTab from "@/components/AdminDashboard/UserManagement/EditorEarningTab";
-import UserProfile from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
-import UserDetails from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
-import JobPage from "@/components/AdminDashboard/UserManagement/EditorJobDetails";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import BillingHistoryPage from "@/components/AdminDashboard/UserManagement/ClientEarnTab";
 import ClientJob from "@/components/AdminDashboard/UserManagement/ClientJobTab";
 import { FaStar } from "react-icons/fa";
+import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa6";
 export default function UserProfilePage({ params }: { params: { id: string } }) {
   const userId = params.id;
 
   const [activeTab, setActiveTab] = useState<"details" | "job" | "earning">("details");
-
+  const router = useRouter();
   return (
-    <div className="">
+    <div className="space-y-6">
+
+      <button
+        type="button"
+        onClick={()=>router.back()}
+        className="w-fit flex items-center gap-2 border px-5 py-2 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
+      >
+        <FaArrowLeft />
+        <span>Back to Client List</span>
+      </button>
 
       {/* TOP CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -40,10 +47,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
       </div>
 
       {/* TABS */}
-      <div className="flex gap-4 mt-6 border-b pb-2">
-
-
-
+      <div className="flex gap-4 border-b pb-2">
         <Tabs defaultValue="Jobs" className="w-full">
           <TabsList>
             <TabsTrigger value="Jobs" className="cursor-pointer">Jobs</TabsTrigger>
@@ -56,10 +60,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
             <BillingHistoryPage />
           </TabsContent>
         </Tabs>
-
       </div>
-
-
     </div>
   );
 }

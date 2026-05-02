@@ -40,10 +40,18 @@ const billingHistory: BillingRow[] = [
   { date: "12/18/2025", invoice: "#51251592", orderWith: "Esther Howard", service: "High quality sound", price: 450 },
 ];
 
+
+const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+
 export default function BillingHistoryPage() {
   const [page, setPage] = useState(1);
   const rating = 4.7;
   const ratingCount = 950;
+  const [isLifeTimeActive, setIsLifeTimeActive] = useState(false);
 
   const renderStars = (value: number) =>
     Array.from({ length: 5 }, (_, index) => {
@@ -106,7 +114,7 @@ export default function BillingHistoryPage() {
       accessorKey: "price",
       header: "Price",
       cell: ({ row }) => (
-        <span className="font-semibold">${row.original.price.toFixed(2)}</span>
+        <span className="font-semibold">${usFormatWithDecimals.format(row.original.price)}</span>
       ),
     },
     {
@@ -130,12 +138,19 @@ export default function BillingHistoryPage() {
 
           <div className="flex items-end flex-wrap gap-4">
             <input
-              className="border rounded-lg px-4 py-2 w-72 text-base placeholder:text-xs"
+              className="border rounded-lg px-4 py-2 w-72 text-base placeholder:text-xs cursor-pointer focus:cursor-text outline-none"
               placeholder="Search by invoice or order number"
             />
-            <DatePickerWithRange />
+            <DatePickerWithRange isActive={isLifeTimeActive} setIsActive={()=>setIsLifeTimeActive(false)} />
             <div>
-              <input type="checkbox" name="lifetime" id="lifetime" />
+              <input 
+                type="checkbox" 
+                name="lifetime" 
+                id="lifetime" 
+                className="cursor-pointer"
+                checked={isLifeTimeActive}
+                onChange={(e) => setIsLifeTimeActive(e.target.checked)}
+              />
               <label htmlFor="lifetime" className="ml-2 text-sm text-gray-600 select-none cursor-pointer">Lifetime</label>
             </div>
           </div>
@@ -159,7 +174,7 @@ export default function BillingHistoryPage() {
         <div className="bg-white rounded-2xl p-6 shadow-sm">
           {/* Profile Image */}
           <div className="relative mx-auto w-24 h-24 mb-4">
-            <Link href="#">
+            <Link href={`/client-profile/${1}`}>
               <Image
                 src="/images/musicArt.png"
                 alt="profile"
@@ -171,7 +186,7 @@ export default function BillingHistoryPage() {
           </div>
 
           {/* Name + Email */}
-          <Link href="#" className="block text-center font-semibold text-lg">MusicArt</Link>
+          <Link href={`/client-profile/${1}`} className="block text-center font-semibold text-lg">MusicArt</Link>
           <p className="text-center text-gray-500 text-sm">musicart@gmail.com</p>
 
           {/* Rating */}
@@ -186,22 +201,26 @@ export default function BillingHistoryPage() {
 
           {/* Info Rows */}
           <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <span>From</span>
-              <span>Mexican</span>
+              <span>Mexico</span>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <span>Member since</span>
-              <span>May 2025</span>
+              <span>{new Date().toLocaleDateString("en-US",{
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+              })}</span>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <span>Unique Editors Worked With</span>
               <span>5</span>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <span>Rating</span>
               <span>⭐ 4.7</span>
             </div>
@@ -213,17 +232,23 @@ export default function BillingHistoryPage() {
   );
 }
 
-function DatePickerWithRange() {
+
+type DatePickerType = {
+  isActive: boolean;
+  setIsActive: () => void;
+}
+
+function DatePickerWithRange({ isActive, setIsActive }: DatePickerType) {
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(new Date().getFullYear(), 0, 20),
     to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
   });
 
   return (
-    <Field className="w-[260px]">
+    <Field className="w-[260px]" onClick={setIsActive}>
       <FieldLabel htmlFor="date-picker-range">Date range</FieldLabel>
       <Popover>
-        <PopoverTrigger asChild className="cursor-pointer">
+        <PopoverTrigger asChild className="cursor-pointer disabled:cursor-pointer" disabled={isActive}>
           <Button
             variant="outline"
             id="date-picker-range"

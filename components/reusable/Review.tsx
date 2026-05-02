@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export interface ReviewType {
   id: number;
@@ -22,7 +23,7 @@ export default function ReviewList({ reviews }: { reviews: ReviewType[] }) {
           <div key={review.id} className="flex gap-5 items-start">
 
             {/* Avatar */}
-            <div className="min-w-[60px] h-[60px] rounded-full overflow-hidden">
+            <Link href={`/editor-profile/${review.id}`} className="block min-w-[60px] h-[60px] rounded-full overflow-hidden">
               <Image
                 src={review.img}
                 alt={review.name}
@@ -30,16 +31,16 @@ export default function ReviewList({ reviews }: { reviews: ReviewType[] }) {
                 height={60}
                 className="object-cover h-full w-full"
               />
-            </div>
+            </Link>
 
             {/* Content */}
             <div className="flex-1">
 
               {/* Name + Time */}
               <div className="flex justify-between">
-                <h3 className="text-[20px] font-semibold text-[#333]">
+                <Link href={`/editor-profile/${review.id}`} className="text-[20px] font-semibold text-[#333]">
                   {review.name}
-                </h3>
+                </Link>
                 <p className="text-[14px] text-[#777]">{review.timeAgo}</p>
               </div>
 
