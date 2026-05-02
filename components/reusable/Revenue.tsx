@@ -138,6 +138,7 @@ const RevenueChart = () => {
         </h2>
 
         <div className="flex items-center gap-2">
+          <button type="button" disabled={true} className="border border-gray-200 px-3 py-1.25 rounded-md disabled:opacity-50 disabled:cursor-not-allowed">Earnings</button>
           <Select
             defaultValue={new Date().getFullYear().toString()}
           >

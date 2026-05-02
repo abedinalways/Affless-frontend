@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
 import Image from "next/image";
 import Link from "next/link";
+import DynamicTable from "@/helper/DynamicTable";
 
 interface JobRow {
   client: {
@@ -74,76 +75,94 @@ export default function JobHistoryPage() {
     return jobHistory.slice(start, start + PAGE_SIZE);
   }, [page]);
 
-  const columns: ColumnDef<JobRow>[] = [
+  const usFormatsWithDecimal = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  const columns = [
     {
-      accessorKey: "client",
-      header: "Client",
-      cell: ({ row }) => (
-        <div className="flex items-center gap-3">
+      accessor: "client",
+      label: "Client",
+      width: "150px",
+      formatter: (accessor: any, row: any) => (
+        <div className=" w-full grid grid-cols-[40px_1fr] items-center gap-3 px-3 py-2">
           <Image
-            src={row.original.client.avatar}
-            alt={row.original.client.name}
+            src={row.client?.avatar}
+            alt={row.client?.name}
             width={40}
             height={40}
-            className="rounded-full"
+            className="w-10 h-10 rounded-full"
           />
-          <span className="font-medium text-gray-800">{row.original.client.name}</span>
+          <span className="font-medium text-gray-800 whitespace-nowrap">{row?.client?.name}</span>
         </div>
       ),
     },
     {
-      accessorKey: "service",
-      header: "Job Title",
-      cell: ({ row }) => (
-        <span className="text-gray-700">{row.original.service}</span>
+      accessor: "service",
+      label: "Job Title",
+      width: "100px",
+      formatter: (accessor: string) => (
+        <div className="px-3 py-2 text-nowrap">
+          <span className="text-gray-700">{accessor}</span>
+        </div>
       ),
     },
     {
-      accessorKey: "price",
-      header: "Amount",
-      cell: ({ row }) => (
-        <span className="font-semibold text-gray-900">
-          ${row.original.price.toFixed(2)}
-        </span>
+      accessor: "price",
+      label: "Amount",
+      width: "100px",
+      formatter: (accessor: number) => (
+        <div className="px-3 py-2 text-center">
+          <span className="font-semibold text-gray-900">
+            ${usFormatsWithDecimal.format(accessor)}
+          </span>
+        </div>
       ),
     },
     {
-      accessorKey: "delivery",
-      header: "Delivery Date",
-      cell: ({ row }) => (
-        <span className="text-gray-600 text-sm">
-          {row.original.delivery}
-        </span>
+      accessor: "delivery",
+      label: "Delivery Date",
+      width: "100px",
+      formatter: (accessor: string) => (
+        <div className="px-3 py-2 text-center">
+          <span className="text-gray-600 text-sm">
+            {accessor}
+          </span>
+        </div>
       ),
     },
     {
-      accessorKey: "status",
-      header: "Status",
-      cell: ({ row }) => {
-        const status = row.original.status;
+      accessor: "status",
+      label: "Status",
+      width: "100px",
+      formatter: (accessor: string) => {
+        const status = accessor as JobRow["status"];
 
         const colors: Record<string, string> = {
           "In Progress": "bg-pink-100 text-pink-600",
           "In Revision": "bg-orange-100 text-orange-600",
-          "Late" : "bg-green-100 text-green-700",
+          "Late": "bg-green-100 text-green-700",
           Delivered: "bg-green-100 text-green-700",
           Completed: "bg-blue-100 text-blue-600",
           Canceled: "bg-red-100 text-red-600",
         };
 
         return (
-          <span
-            className={`px-3 py-1 text-sm rounded-md font-medium ${colors[status]}`}
-          >
-            {status}
-          </span>
+          <div className="px-3 py-2 text-center">
+            <span
+              className={`px-3 py-1 text-sm rounded-md font-medium ${colors[status]}`}
+            >
+              {status}
+            </span>
+          </div>
         );
       },
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6">
       {/* LEFT SIDE — TABLE AREA */}
       <div className="w-full">
         <div className="bg-white p-6 rounded-2xl mb-6">
@@ -164,28 +183,33 @@ export default function JobHistoryPage() {
 
         {/* TABLE */}
         <div className="bg-white p-6 rounded-2xl">
-          <DataTable
+          <DynamicTable
             columns={columns}
             data={paginatedData}
-            page={page}
-            pageSize={PAGE_SIZE}
-            total={total}
-            onPageChange={setPage}
+            header={{
+              padding: "8px 12px 8px 12px",
+              bg: "#F9FAFB",
+              position: "justify-center"
+            }}
+            rowStyle={{
+              hover: true,
+              hoverbg: "hover:bg-gray-100 cursor-default transition-colors duration-300"
+            }}
           />
         </div>
       </div>
 
       {/* RIGHT SIDE — PROFILE CARD */}
-      <div className="w-full">
+      <div className="w-full lg:w-[300px]">
         <div className="bg-white rounded-2xl p-6 shadow-sm">
           <div className="relative mx-auto w-24 h-24 mb-4">
             <Link href="/editor-profile/1">
               <Image
-              src="/images/profile.png"
-              alt="profile"
-              fill
-              className="rounded-full object-cover"
-            />
+                src="/images/profile.png"
+                alt="profile"
+                fill
+                className="rounded-full object-cover"
+              />
             </Link>
             <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></span>
           </div>

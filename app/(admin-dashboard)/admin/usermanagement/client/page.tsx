@@ -4,30 +4,14 @@ import Pagination from "@/components/reusable/pagination";
 import Image from "next/image";
 import Link from "next/link";
 
-type User = {
-  id: number;
-  name: string;
-  rating: number;
-  img: string;
-};
 
-const users: User[] = [
-  { id: 1, name: "Darrell Steward", rating: 4.7, img: "/images/profile.png" },
-  { id: 2, name: "Leslie Alexander", rating: 4.7, img: "/images/profile.png" },
-  { id: 3, name: "MusicArt", rating: 4.7, img: "/images/profile.png" },
-  { id: 4, name: "Annette Black", rating: 4.7, img: "/images/profile.png" },
-  { id: 5, name: "Ralph Edwards", rating: 4.7, img: "/images/profile.png" },
-  { id: 6, name: "Cody Fisher", rating: 4.7, img: "/images/profile.png" },
-  { id: 7, name: "Devon Lane", rating: 4.7, img: "/images/profile.png" },
-  { id: 8, name: "Savannah Nguyen", rating: 4.7, img: "/images/profile.png" },
-];
 
-export default function ClientPage() {
+export default function ClientPage({ data }: { data: any[] }) {
   return (
     <div className="">
       {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-        {users.map((user) => (
+        {data?.map((user) => (
           <div
             key={user.id}
             className="bg-white shadow rounded-xl p-6 flex flex-col items-center text-center border"
@@ -66,7 +50,7 @@ export default function ClientPage() {
         <Pagination
           page={1}
           pageSize={10}
-          total={users.length}
+          total={data?.length}
           onPageChange={() => {}}
           totalPages={1}
         />
