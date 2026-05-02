@@ -17,6 +17,12 @@ import ReviewBreakdown from "@/components/reusable/reviews";
 import ReviewList, { ReviewType } from "@/components/reusable/Review";
 import toast from "react-hot-toast";
 
+const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+
 export default function ClientJob() {
   const jobs = [
     {
@@ -26,7 +32,7 @@ export default function ClientJob() {
       description:
         "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any job.",
 
-      priceRange: "$600",
+      priceRange: 600,
       software: "3",
       duration: "7 days",
       thumbnail: "/images/vedio.png.jpg",
@@ -39,7 +45,7 @@ export default function ClientJob() {
       description:
         "Absolutely outstanding work! The seller went above and beyond, delivering exceptional quality well ahead of the job deadline. Their professionalism, attention to detail, and ability to collaborate seamlessly made the entire process smooth and stress-free. Truly a remarkable partner for any job.",
 
-      priceRange: "$400",
+      priceRange: 400,
       software: "5",
       duration: "12 days",
       thumbnail: "/images/vedio.png.jpg",
@@ -171,7 +177,7 @@ export default function ClientJob() {
                     <div className="p-6 flex gap-6">
                       <div>
                         <p className="text-[#4A4C56] text-[14px]">Price</p>
-                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.priceRange}</p>
+                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">${usFormatWithDecimals.format(job.priceRange)}</p>
                       </div>
                       <div className="border hidden md:block border-r-gray-300 mx-6">
 

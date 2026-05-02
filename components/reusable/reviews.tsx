@@ -19,11 +19,17 @@ export default function ReviewBreakdown({
     0
   );
 
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+
+
   return (
     <div className="bg-white rounded-2xl">
       <div className="rounded-xl p-6 mt-10 mx-w-md lg:max-w-lg">
         <h2 className="text-xl font-medium text-[18px] lg:text-[24px] pb-6">
-          {totalReviews.toLocaleString()} {title}
+          {usFormat.format(totalReviews)} {title}
         </h2>
 
         <div className="space-y-4">
@@ -40,7 +46,7 @@ export default function ReviewBreakdown({
                 />
               </div>
 
-              <span className="text-gray-600 text-sm">{r.count}</span>
+              <span className="text-gray-600 text-sm">{usFormat.format(r.count)}</span>
             </div>
           ))}
         </div>
