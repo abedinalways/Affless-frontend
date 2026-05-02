@@ -10,7 +10,7 @@ export default function VideoPlayer({ url }: { url: string }) {
   useEffect(() => {
     const handler = () => {
       if (!document.fullscreenElement) {
-        setKey(prev => prev + 1); // force remount after exit
+        setKey(prev => prev + 1);
       }
     };
     document.addEventListener('fullscreenchange', handler);

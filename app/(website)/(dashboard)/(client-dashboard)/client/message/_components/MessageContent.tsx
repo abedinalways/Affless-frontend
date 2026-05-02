@@ -1,3 +1,4 @@
+import VideoPlayer from "@/app/(website)/(dashboard)/(editor-dashboard)/editor/message/_components/VideoPlayer";
 import { Message } from "@/app/type";
 import Image from "next/image";
 import { IoIosEye } from "react-icons/io";
@@ -114,10 +115,9 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
                                                         <Image src={attachment.url} alt={attachment.name} width={100} height={100} className="h-full w-full object-cover" />
                                                     </a>
                                                 ) : attachment?.name?.match(/\.(mp4|webm|ogg|mov|avi)$/i) ? (
-                                                    <video controls width={200} className="h-full w-full object-cover">
-                                                        <source src={attachment.url} type={`video/${attachment.name.split('.').pop()?.toLowerCase()}`} />
-                                                        Your browser does not support the video tag.
-                                                    </video>
+                                                    <VideoPlayer 
+                                                        url={attachment.url}
+                                                    />
                                                 ) : (
                                                     <div className="flex items-center">
                                                         <a
