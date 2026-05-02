@@ -11,7 +11,7 @@ export default function ClientPage({ data }: { data: any[] }) {
     <div className="">
       {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-        {data.map((user) => (
+        {data?.map((user) => (
           <div
             key={user.id}
             className="bg-white shadow rounded-xl p-6 flex flex-col items-center text-center border"
@@ -50,7 +50,7 @@ export default function ClientPage({ data }: { data: any[] }) {
         <Pagination
           page={1}
           pageSize={10}
-          total={data.length}
+          total={data?.length}
           onPageChange={() => {}}
           totalPages={1}
         />

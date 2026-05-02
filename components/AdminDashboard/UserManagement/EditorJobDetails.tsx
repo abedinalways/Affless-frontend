@@ -191,6 +191,10 @@ export default function JobHistoryPage() {
               bg: "#F9FAFB",
               position: "justify-center"
             }}
+            rowStyle={{
+              hover: true,
+              hoverbg: "hover:bg-gray-100 cursor-default transition-colors duration-300"
+            }}
           />
         </div>
       </div>

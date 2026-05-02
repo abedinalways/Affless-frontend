@@ -114,7 +114,7 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
                                                         <Image src={attachment.url} alt={attachment.name} width={100} height={100} className="h-full w-full object-cover" />
                                                     </a>
                                                 ) : attachment?.name?.match(/\.(mp4|webm|ogg|mov|avi)$/i) ? (
-                                                    <video controls width={200} className="h-full w-full object-cover">
+                                                    <video controls className="h-full w-full object-cover">
                                                         <source src={attachment.url} type={`video/${attachment.name.split('.').pop()?.toLowerCase()}`} />
                                                         Your browser does not support the video tag.
                                                     </video>
