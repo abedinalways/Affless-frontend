@@ -3,6 +3,7 @@ import Image from "next/image";
 import { IoIosEye } from "react-icons/io";
 import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from "react-icons/io5";
 import ReactPlayer from "react-player";
+import VideoPlayer from "./VideoPlayer";
 
 type PropTypes = {
     messages: Message[];
@@ -115,12 +116,8 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
                                                         <Image src={attachment.url} alt={attachment.name} width={100} height={100} className="h-full w-full object-cover" />
                                                     </a>
                                                 ) : attachment?.name?.match(/\.(mp4|webm|ogg|mov|avi)$/i) ? (
-                                                    <ReactPlayer
-                                                        src={attachment.url}
-                                                        controls
-                                                        width="100%"
-                                                        height="100%"
-                                                        className="react-player h-full w-full object-cover"
+                                                    <VideoPlayer 
+                                                        url={attachment.url}
                                                     />
                                                 ) : (
                                                     <div className="flex items-center">
