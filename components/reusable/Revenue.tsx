@@ -38,6 +38,10 @@ const RevenueChart = () => {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+  const usFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   const series = useMemo(
     () => [
@@ -86,7 +90,7 @@ const RevenueChart = () => {
       },
       yaxis: {
         labels: {
-          formatter: (value) => `$${value}`,
+          formatter: (value) => `$${usFormat.format(value)}`,
           style: {
             colors: "#9ca3af",
             fontSize: "11px",
@@ -147,6 +151,8 @@ const RevenueChart = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
+                <SelectItem value="2028">2028</SelectItem>
+                <SelectItem value="2027">2027</SelectItem>
                 <SelectItem value="2026">2026</SelectItem>
                 <SelectItem value="2025">2025</SelectItem>
                 <SelectItem value="2024">2024</SelectItem>
