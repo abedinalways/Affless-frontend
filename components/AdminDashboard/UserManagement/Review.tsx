@@ -11,10 +11,10 @@ import UsaFlag from "@/components/Icons/UsaFlag";
 import Link from "next/link";
 import StarIcon from "@/components/Icons/StarIcon";
 import { TiStarFullOutline } from "react-icons/ti";
-import toast,{Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Review() {
-  
+
   const usFormats = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
@@ -139,7 +139,7 @@ export default function Review() {
               </div>
 
               {/* TITLE */}
-              <div className="grid grid-cols-[1fr_auto] gap-6 sm:pt-2.5">
+              <div className="grid grid-cols-1 xl:grid-cols-[1fr_auto] gap-6 sm:pt-2.5">
                 <div className="w-full max-w-[700px]">
 
                   {/* DESCRIPTION */}
@@ -162,35 +162,18 @@ export default function Review() {
                       <span className="font-medium">12 Jobs Completed</span>
                     </div>
                   </div> */}
-                  <div className=" grid grid-cols-2 md:grid-cols-3 justify-between text-sm text-gray-700">
-                    <div className="md:p-6 flex gap-6">
-                      <div>
-                        <p className="text-[#4A4C56] text-[14px]">Price</p>
-                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">${usFormatWithDecimals.format(job.priceRange)}</p>
-                      </div>
-                      <div className="border hidden md:block border-r-gray-300 mx-6">
-
-                      </div>
+                  <div className=" grid grid-cols-3 justify-between text-sm text-gray-700">
+                    <div className="w-full border-r pr-4">
+                      <p className="text-[#4A4C56] text-[14px]">Price</p>
+                      <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">${usFormatWithDecimals.format(job.priceRange)}</p>
                     </div>
-
-                    <div className="md:p-6 flex  gap-6">
-                      <div>
-                        <p className="text-[#4A4C56] text-[14px]">Number of Revisions</p>
-                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{usFormats.format(job.software)}</p>
-                      </div>
-                      <div className="border hidden md:block border-r-gray-300 mx-6">
-
-                      </div>
+                    <div className="w-full border-r">
+                      <p className="text-[#4A4C56] text-[14px]">Number of Revisions</p>
+                      <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{usFormats.format(job.software)}</p>
                     </div>
-
-                    <div className="md:p-6 flex gap-6">
-                      <div>
-                        <p className="text-[#4A4C56] text-[14px]">Job duration</p>
-                        <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
-                      </div>
-                      <div className="border hidden md:block border-r-gray-300 mx-6">
-
-                      </div>
+                    <div className="w-full">
+                      <p className="text-[#4A4C56] text-[14px]">Job duration</p>
+                      <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
                     </div>
                   </div>
                 </div>
@@ -198,7 +181,7 @@ export default function Review() {
                   <Image
                     src={job.thumbnail}
 
-                    alt="Job Thumbnail" 
+                    alt="Job Thumbnail"
                     width={1940}
                     height={1940}
                     quality={100}

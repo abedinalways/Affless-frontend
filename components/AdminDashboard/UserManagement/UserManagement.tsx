@@ -7,6 +7,14 @@ import { useEffect, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Pagination from "@/components/reusable/pagination";
 import { useSearchParams } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 type User = {
   id: number;
@@ -69,7 +77,7 @@ export default function UserManagement() {
         const jobsB = b.jobs;
         return jobsB - jobsA; // Descending order
       });
-    }else if (sortBy === "money") {
+    } else if (sortBy === "money") {
       users = users.slice().sort((a, b) => {
         const spentA = a.spent;
         const spentB = b.spent;
@@ -82,8 +90,8 @@ export default function UserManagement() {
   const filteredClients = useMemo(() => {
     let users = clientUsers.filter((user) =>
       user.name.toLowerCase().includes(search.toLowerCase()) ||
-      user.jobs === parseInt(search) ||
-      user.rating.toString().includes(search)
+      user.rating.toString().includes(search) ||
+      user.spent.toString().includes(search)
     );
     if (sortBy === "jobs") {
       users = users.slice().sort((a, b) => {
@@ -92,10 +100,11 @@ export default function UserManagement() {
         const jobsB = b.jobs;
         return jobsB - jobsA; // Descending order
       });
-    }else if (sortBy === "money") {
+    } else if (sortBy === "money") {
       users = users.slice().sort((a, b) => {
         const spentA = a.spent;
         const spentB = b.spent;
+        console.log("Sorting by money:", spentA, spentB);
         return spentB - spentA;
       });
     }
@@ -127,23 +136,41 @@ export default function UserManagement() {
           </button>
         </div> */}
 
-        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "editor" | "client")} className="w-full">
-          <div className="flex justify-between items-center mb-6 border border-[#DCDDDD] rounded-lg p-3 gap-4">
+        <Tabs value={activeTab} onValueChange={(value) => {
+          setActiveTab(value as "editor" | "client")
+          setSortBy("all")
+          setSearch("")
+        }} className="w-full">
+          <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 border border-[#DCDDDD] rounded-lg p-3 gap-4">
             <div>
               <TabsList className="flex gap-9">
                 <TabsTrigger value="editor" className="cursor-pointer">Editor</TabsTrigger>
                 <TabsTrigger value="client" className="cursor-pointer">Client</TabsTrigger>
               </TabsList>
             </div>
-            <div className="flex gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-4">
               <div>
-                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} className="border rounded-lg px-4 py-2 w-full" placeholder="Search Here..." />
+                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} className="border rounded-lg px-4 py-2 w-full cursor-pointer focus:cursor-text" placeholder="Search Here..." />
               </div>
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="border rounded-lg px-4 py-2 w-full max-w-40 focus-visible:ring-0 focus-visible:border">
-                <option value="all">All</option>
-                <option value="jobs">Jobs Completed</option>
-                <option value="money">Money Spent</option>
-              </select>
+              <Select
+                defaultValue={sortBy}
+                onValueChange={(value) => setSortBy(value)}
+              >
+                <SelectTrigger className="border rounded-lg px-4 py-5 w-full min-w-25 sm:max-w-45 focus-visible:ring-0 focus-visible:border cursor-pointer">
+                  <SelectValue placeholder="Select to sort" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="all" className="cursor-pointer">All</SelectItem>
+                    {activeTab === "editor" && (
+                      <SelectItem value="jobs" className="cursor-pointer">Jobs Completed</SelectItem>
+                    )}
+                    {activeTab === "client" && (
+                      <SelectItem value="money" className="cursor-pointer">Money Spent</SelectItem>
+                    )}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -194,7 +221,7 @@ export default function UserManagement() {
             </>
           </TabsContent>
           <TabsContent value="client">
-            <ClientPage 
+            <ClientPage
               data={filteredClients.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)}
             />
           </TabsContent>

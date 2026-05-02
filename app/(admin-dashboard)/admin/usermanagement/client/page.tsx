@@ -4,7 +4,10 @@ import Pagination from "@/components/reusable/pagination";
 import Image from "next/image";
 import Link from "next/link";
 
-
+const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
 export default function ClientPage({ data }: { data: any[] }) {
   return (
@@ -27,11 +30,11 @@ export default function ClientPage({ data }: { data: any[] }) {
 
             {/* Name */}
             <h3 className="mt-4 text-lg font-semibold">{user.name}</h3>
-
+            <p className="text-gray-500">${usFormatWithDecimals.format(user.spent)} Spent</p>
             {/* Rating */}
             <div className="flex items-center gap-1 text-yellow-500 text-sm mt-1">
               ⭐ <span className="text-black">{user.rating}</span>
-              <span className="text-gray-500">(950+)</span>
+              <span className="text-gray-500">(950)</span>
             </div>
 
             {/* View Profile Button */}
@@ -40,7 +43,7 @@ export default function ClientPage({ data }: { data: any[] }) {
               className="w-full mt-4"
             >
               <button className="w-full border rounded-lg py-2 hover:bg-gray-100 text-sm cursor-pointer">
-                View profile
+                View Profile
               </button>
             </Link>
           </div>
