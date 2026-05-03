@@ -134,34 +134,34 @@ export default function EarningsPage() {
 
       </div>
       <div className="w-full xl:max-w-[300px]">
-        <div className="bg-white rounded-2xl p-6 flex flex-col sm:flex-row items-center xl:flex-col xl:justify-center">
-          <div className="space-y-4">
+        <div className="bg-white rounded-2xl p-4 flex flex-col sm:flex-row items-center xl:flex-col xl:justify-center">
+          {/* <div className="space-y-4">
             <Image src="/images/robatfox.png" alt="img" width={100} height={100} className="flex justify-center items-center mx-auto rounded-lg xl:rounded-full"></Image>
             <div>
               <h3 className="text-center">Jane Cooper</h3>
               <p className="text-center">musicart@gmail.com</p>
             </div>
-          </div>
-          <div className="w-full  p-6 rounded-xl  h-fit">
-            <h3 className="text-[20px] font-medium leading-150% pb-6">Lifetime Stats</h3>
-            <div className="flex justify-between text-gray-700 mb-4">
+          </div> */}
+          <div className="w-full  p-4 rounded-xl  h-fit">
+            <h3 className="text-[20px] font-medium leading-150% pb-4">Lifetime Stats</h3>
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Lifetime Earnings</span>
               <span>$12,480</span>
             </div>
-            <div className="flex justify-between text-gray-700 mb-4">
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Taxes & Other Fees</span>
               <span>$1,320</span>
             </div>
-            <div className="flex justify-between text-gray-700 mb-4">
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Platform Fee Rate</span>
               <span>20%</span>
             </div>
-            <div className="flex justify-between text-gray-700 mb-4">
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Jobs Completed</span>
               <span>46</span>
             </div>
             <hr className="my-4" />
-            <div className="flex justify-between text-gray-700 mb-4">
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Total Paid Out</span>
               <span>$11,160</span>
             </div>

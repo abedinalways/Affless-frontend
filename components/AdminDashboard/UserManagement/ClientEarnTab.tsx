@@ -34,7 +34,7 @@ const billingHistory: BillingRow[] = [
   { date: "05/31/2025", invoice: "#51251585", orderWith: "Alex Kim", service: "Crystal Clear Audio", price: 400 },
   { date: "07/01/2025", invoice: "#51251587", orderWith: "Savannah Nguyen", service: "Premium Sound", price: 250 },
   { date: "08/10/2025", invoice: "#51251588", orderWith: "Marvin McKinney", service: "High quality sound", price: 320 },
-  { date: "09/20/2025", invoice: "#51251589", orderWith: "Cameron Williamson", service: "Superior Audio Re", price: 600 },
+  { date: "09/20/2025", invoice: "#51251589", orderWith: "Cameron Williamson", service: "Superior Audio Recording", price: 600 },
   { date: "10/05/2025", invoice: "#51251590", orderWith: "Bessie Cooper", service: "Crystal Clear Audio", price: 500 },
   { date: "11/12/2025", invoice: "#51251591", orderWith: "Ronald Richards", service: "Premium Sound", price: 350 },
   { date: "12/18/2025", invoice: "#51251592", orderWith: "Esther Howard", service: "High quality sound", price: 450 },

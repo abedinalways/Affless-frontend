@@ -78,6 +78,10 @@ export default function EditorDetails() {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
+  const usFormatWithSingleDigits = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
   return (
     <div>
       <div className="space-y-6">
@@ -118,7 +122,7 @@ export default function EditorDetails() {
                     </div>
                     <div className="flex flex-row md:flex-col items-center md:items-start gap-0.5 md:gap-0">
                       <h2 className="text-xs md:text-base">Rating</h2>
-                      <p className="flex gap-1 items-center font-semibold"><TiStarFullOutline className="text-yellow-400" />{item.total}</p>
+                      <p className="flex gap-1 items-center font-semibold"><TiStarFullOutline className="text-yellow-400" />{usFormatWithSingleDigits.format(item.total)}</p>
                     </div>
                   </div>
                 </div>
