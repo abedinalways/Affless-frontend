@@ -16,7 +16,7 @@ export interface ReviewType {
 export default function ReviewList({ reviews }: { reviews: ReviewType[] }) {
   return (
     <div className="space-y-8">
-      <h2 className="text-[32px] font-semibold text-[#333]">Review</h2>
+      <h2 className="text-[32px] font-semibold text-[#333]">Reviews</h2>
 
       <div className="space-y-10">
         {reviews.map((review) => (

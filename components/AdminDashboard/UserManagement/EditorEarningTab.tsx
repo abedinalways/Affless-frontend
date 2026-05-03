@@ -17,6 +17,7 @@ import {
 import { addDays, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { type DateRange } from "react-day-picker";
+import DatePicker from "@/components/ClientDashboard/ManageJob/DatePicker";
 
 interface EarningRow {
   date: string;
@@ -26,22 +27,27 @@ interface EarningRow {
   tooltip: string;
 }
 
+const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 const PAGE_SIZE = 8;
 
 const earningData: EarningRow[] = [
-  { date: "06/05/2025", order: "#41527541", status: "Withdrawal Requested", amount: 400,tooltip: "The editor has requested a payout. Processing is in progress." },
+  { date: "06/05/2025", order: "#41527541", status: "Withdrawal Requested", amount: 400, tooltip: "The editor has requested a payout. Processing is in progress." },
   { date: "06/03/2025", order: "#41526398", status: "Pending", amount: 250, tooltip: "Funds are being processed and will be available for the editor soon." },
   { date: "06/03/2025", order: "#41526398", status: "Pending", amount: 250, tooltip: "Funds are being processed and will be available for the editor soon." },
-  { date: "06/05/2025", order: "#41527541", status: "Withdrawal Requested", amount: 400,tooltip: "The editor has requested a payout. Processing is in progress." },
+  { date: "06/05/2025", order: "#41527541", status: "Withdrawal Requested", amount: 400, tooltip: "The editor has requested a payout. Processing is in progress." },
   { date: "06/03/2025", order: "#41526398", status: "Pending", amount: 250, tooltip: "Funds are being processed and will be available for the editor soon." },
-  { date: "06/05/2025", order: "#41527541", status: "Withdrawal Requested", amount: 400,tooltip: "The editor has requested a payout. Processing is in progress." },
+  { date: "06/05/2025", order: "#41527541", status: "Withdrawal Requested", amount: 400, tooltip: "The editor has requested a payout. Processing is in progress." },
   { date: "06/03/2025", order: "#41526398", status: "Pending", amount: 250, tooltip: "Funds are being processed and will be available for the editor soon." },
   { date: "06/03/2025", order: "#41526398", status: "Canceled ", amount: 250, tooltip: "This payout was canceled and will not be processed." },
 ];
 
 export default function EarningsPage() {
   const [page, setPage] = useState(1);
-
+  const [isLifeTimeActive, setIsLifeTimeActive] = useState(false);
   const total = earningData.length;
 
   const paginatedData = useMemo(() => {
@@ -54,21 +60,22 @@ export default function EarningsPage() {
       accessorKey: "date",
       header: "Date",
       cell: ({ row }) => (
-        <span className="text-gray-700 text-[16px]">{row.original.date}</span>
+        <div className="text-gray-700 text-[16px] text-center">{row.original.date}</div>
       ),
     },
     {
       accessorKey: "order",
       header: "Order Number",
       cell: ({ row }) => (
-        <span className="text-gray-900 font-medium">{row.original.order}</span>
+        <div className="text-gray-900 font-medium text-center">{row.original.order}</div>
       ),
     },
     {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => (
-        <span
+        <div className="flex items-center justify-center">
+          <span
           className={`px-3 py-1 rounded-md text-sm font-medium ${row.original.status === "Withdrawal Requested"
             ? "bg-green-100 text-green-700"
             : row.original.status === "Pending"
@@ -79,15 +86,16 @@ export default function EarningsPage() {
         >
           {row.original.status}
         </span>
+        </div>
       ),
     },
     {
       accessorKey: "amount",
       header: "Amount",
       cell: ({ row }) => (
-        <span className="text-gray-800 font-semibold">
-          ${row.original.amount.toFixed(2)}
-        </span>
+        <div className="text-gray-800 font-semibold text-center">
+          ${usFormatWithDecimals.format(row.original.amount)}
+        </div>
       ),
     },
   ];
@@ -99,17 +107,17 @@ export default function EarningsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-white border rounded-xl p-6 text-center">
             <p className="text-gray-600 mb-1">Available Funds for Withdrawal</p>
-            <h2 className="text-3xl font-semibold">$900.00</h2>
+            <h2 className="text-3xl font-semibold">${usFormatWithDecimals.format(900)}</h2>
           </div>
 
           <div className="bg-white border rounded-xl p-6 text-center">
             <p className="text-gray-600 mb-1">Payments Being Cleared</p>
-            <h2 className="text-3xl font-semibold">$250.00</h2>
+            <h2 className="text-3xl font-semibold">${usFormatWithDecimals.format(250)}</h2>
           </div>
 
           <div className="bg-white border rounded-xl p-6 text-center">
             <p className="text-gray-600 mb-1">Payments for Active Orders</p>
-            <h2 className="text-3xl font-semibold">$115.00</h2>
+            <h2 className="text-3xl font-semibold">${usFormatWithDecimals.format(115)}</h2>
           </div>
         </div>
 
@@ -117,7 +125,26 @@ export default function EarningsPage() {
           {/* TABLE TITLE */}
           <div className="flex flex-wrap gap-3 justify-between items-center mb-3">
             <h2 className="text-xl font-semibold">Earning History</h2>
-            <DatePickerWithRange />
+            <div className="flex items-end">
+              <DatePickerWithRange 
+                isActive={isLifeTimeActive}
+                setIsActive={() => setIsLifeTimeActive(false)}
+                onDateChange={(startDate, endDate) => {
+                  console.log("Selected date range:", startDate, endDate);
+                }}
+              />
+              <div>
+                <input
+                  type="checkbox"
+                  name="lifetime"
+                  id="lifetime"
+                  className="cursor-pointer"
+                  checked={isLifeTimeActive}
+                  onChange={(e) => setIsLifeTimeActive(e.target.checked)}
+                />
+                <label htmlFor="lifetime" className="ml-2 text-sm text-gray-600 select-none cursor-pointer">Lifetime</label>
+              </div>
+            </div>
           </div>
 
 
@@ -179,47 +206,33 @@ export default function EarningsPage() {
   );
 }
 
-function DatePickerWithRange() {
+type DatePickerType = {
+  isActive: boolean;
+  setIsActive: () => void;
+  onDateChange: (startDate: Date | undefined, endDate: Date | undefined) => void;
+}
+
+function DatePickerWithRange({ isActive, setIsActive, onDateChange }: DatePickerType) {
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(new Date().getFullYear(), 0, 20),
     to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
   });
 
   return (
-    <Field className="w-[260px]">
-      <FieldLabel htmlFor="date-picker-range">Date range</FieldLabel>
-      <Popover>
-        <PopoverTrigger asChild className="cursor-pointer">
-          <Button
-            variant="outline"
-            id="date-picker-range"
-            className="w-full justify-start gap-2 px-2.5 py-5 font-normal"
-          >
-            <CalendarIcon className="h-4 w-4" />
-            {date?.from ? (
-              date.to ? (
-                <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
-                </>
-              ) : (
-                format(date.from, "LLL dd, y")
-              )
-            ) : (
-              <span>Pick a date</span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={2}
-          />
-        </PopoverContent>
-      </Popover>
-    </Field>
+    <div className="w-[260px] space-y-0.5">
+      <p>Select Date Range</p>
+      <DatePicker
+        startDate={date?.from}
+        endDate={date?.to}
+        onChange={(date) => {
+          setDate({ from: date[0], to: date[1] });
+          console.log("Selected date range:", date);
+        }}
+        isActive={isActive}
+        onActiveChange={()=>{
+          setIsActive();
+        }}
+      />
+    </div>
   );
 }
