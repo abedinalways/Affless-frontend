@@ -91,7 +91,7 @@ export default function JobHistoryPage() {
   const columns = [
     {
       accessor: "client",
-      label: "Client",
+      label: "Client Worked With",
       width: "150px",
       formatter: (accessor: any, row: any) => (
         <div className=" w-full grid grid-cols-[40px_1fr] items-center gap-3 px-3 py-2">
@@ -209,7 +209,7 @@ export default function JobHistoryPage() {
             }}
             rowStyle={{
               hover: true,
-              hoverbg: "hover:bg-gray-100 cursor-default transition-colors duration-300"
+              hoverbg: "hover:bg-gray-100 cursor-pointer transition-colors duration-300"
             }}
           />
         </div>
