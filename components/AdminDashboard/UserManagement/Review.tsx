@@ -148,7 +148,7 @@ export default function Review() {
                   </p>
 
                   {/* TAGS */}
-                  {/* <div className="flex flex-wrap gap-3 py-6">
+                  <div className="flex flex-wrap gap-3 py-6">
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
                       <span className="text-[#777980]">Platform: </span>
                       <span className="font-medium">YouTube</span>
@@ -161,7 +161,7 @@ export default function Review() {
                       <span className="text-[#777980]">Editor Experience: </span>
                       <span className="font-medium">12 Jobs Completed</span>
                     </div>
-                  </div> */}
+                  </div>
                   <div className=" grid grid-cols-3 justify-between text-sm text-gray-700">
                     <div className="w-full border-r pr-4">
                       <p className="text-[#4A4C56] text-[14px]">Price</p>
@@ -173,7 +173,7 @@ export default function Review() {
                     </div>
                     <div className="w-full pl-4">
                       <p className="text-[#4A4C56] text-[14px]">Job duration</p>
-                      <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
+                      <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration} days</p>
                     </div>
                   </div>
                 </div>

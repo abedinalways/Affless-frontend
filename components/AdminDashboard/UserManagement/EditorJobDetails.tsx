@@ -6,6 +6,14 @@ import { DataTable } from "@/components/reusable/DataTable";
 import Image from "next/image";
 import Link from "next/link";
 import DynamicTable from "@/helper/DynamicTable";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 interface JobRow {
   client: {
@@ -103,7 +111,7 @@ export default function JobHistoryPage() {
       label: "Job Title",
       width: "100px",
       formatter: (accessor: string) => (
-        <div className="px-3 py-2 text-nowrap">
+        <div className="px-3 py-2 text-nowrap text-center">
           <span className="text-gray-700">{accessor}</span>
         </div>
       ),
@@ -168,16 +176,24 @@ export default function JobHistoryPage() {
         <div className="bg-white p-6 rounded-2xl mb-6">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold">Job History</h2>
-
-            <select className="border px-3 py-2 rounded-lg text-sm text-gray-700">
-              <option>All Statuses</option>
-              <option>In Progress</option>
-              <option>In Revision</option>
-              <option>Late</option>
-              <option>Delivered</option>
-              <option>Completed</option>
-              <option>Canceled</option>
-            </select>
+            <Select
+              defaultValue="all"
+            >
+              <SelectTrigger className="w-fit max-w-[180px] border px-3 py-2 rounded-lg text-sm text-gray-700">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent className="z-99">
+                <SelectGroup>
+                  <SelectItem value="all">All Statuses</SelectItem>
+                  <SelectItem value="in_progress">In Progress</SelectItem>
+                  <SelectItem value="in_revision">In Revision</SelectItem>
+                  <SelectItem value="late">Late</SelectItem>
+                  <SelectItem value="delivered">Delivered</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                  <SelectItem value="canceled">Canceled</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

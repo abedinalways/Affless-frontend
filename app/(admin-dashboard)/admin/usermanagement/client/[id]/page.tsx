@@ -90,20 +90,22 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
         </div>
       </div>
       <div className="grid md:grid-cols-[auto_1fr] gap-4">
-        <Image
-          src="/images/Courtney.jpg"
-          alt="Editor Profile"
-          width={500}
-          height={500}
-          className="w-full aspect-square object-cover max-w-[250px] rounded-lg"
-        />
+        <Link href="/client-profile/1">
+          <Image
+            src="/images/Courtney.jpg"
+            alt="Editor Profile"
+            width={500}
+            height={500}
+            className="w-full aspect-square object-cover max-w-[250px] rounded-lg"
+          />
+        </Link>
         <div>
           <div className="flex items-start gap-4 mb-2">
-            <h1 className="text-3xl font-semibold text-[#1f2937]">Annette Black</h1>
-            <p className="text-xs mt-1 bg-[#ff4d4f] text-white px-1 rounded">Active</p>
+            <Link href="/client-profile/1" className="text-3xl font-semibold text-[#1f2937]">Annette Black</Link>
+            <p className="text-xs mt-1 bg-gray-500 text-white px-1 rounded">Inactive</p>
           </div>
           <div className="space-y-1">
-            <p className="text-gray-600">Active Projects: <span className="text-gray-900">5</span></p>
+            <p className="text-gray-600">Active Jobs: <span className="text-gray-900">5</span></p>
             <p className="text-gray-600">Total Jobs Posted: <span className="text-gray-900">12</span></p>
             <p className="text-gray-600">Hire Rate (%): <span className="text-gray-900">85%</span></p>
             <p className="text-gray-600">Average Response Time: <span className="text-gray-900">2 hours</span></p>

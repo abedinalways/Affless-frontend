@@ -14,6 +14,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import Image from "next/image";
 import ConfirmationPopup from "@/components/shared/ConfirmationPopup";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const actionMeta = {
   ban: {
@@ -77,7 +78,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
         <div className="flex items-center justify-end gap-3">
           <button
             type="button"
-            onClick={()=>handleActionClick("warn")}
+            onClick={() => handleActionClick("warn")}
             className="w-fit flex items-center gap-2 border px-5 py-2 rounded-md text-amber-600 border-amber-600 bg-white font-medium cursor-pointer hover:bg-amber-50 hover:rounded transition-all duration-300"
           >
             Warning
@@ -85,7 +86,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
 
           <button
             type="button"
-            onClick={()=>handleActionClick("suspend")}
+            onClick={() => handleActionClick("suspend")}
             className="w-fit flex items-center gap-2 border px-5 py-2 rounded-md text-white border-slate-600 bg-slate-600 font-medium cursor-pointer hover:bg-slate-700 hover:rounded transition-all duration-300"
           >
             Suspend
@@ -93,7 +94,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
 
           <button
             type="button"
-            onClick={()=>handleActionClick("ban")}
+            onClick={() => handleActionClick("ban")}
             className="w-fit flex items-center gap-2 border px-5 py-2 rounded-md text-white border-[#ff4d4f] bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:rounded transition-all duration-300 shadow-sm"
           >
             Ban User
@@ -102,20 +103,24 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
       </div>
 
       <div className="grid md:grid-cols-[auto_1fr] gap-4">
-        <Image
-          src="/images/Annette.jpg"
-          alt="Editor Profile"
-          width={500}
-          height={500}
-          className="w-full aspect-square object-cover max-w-[250px] rounded-lg"
-        />
+        <Link
+          href="/editor-profile/1"
+        >
+          <Image
+            src="/images/Annette.jpg"
+            alt="Editor Profile"
+            width={500}
+            height={500}
+            className="w-full aspect-square object-cover max-w-[250px] rounded-lg"
+          />
+        </Link>
         <div>
           <div className="flex items-start gap-4 mb-2">
-            <h1 className="text-3xl font-semibold text-[#1f2937]">Annette Black</h1>
+            <Link href="/editor-profile/1" className="text-3xl font-semibold text-[#1f2937]">Annette Black</Link>
             <p className="text-xs mt-1 bg-[#ff4d4f] text-white px-1 rounded">Active</p>
           </div>
           <div className="space-y-1">
-            <p className="text-gray-600">Active Projects: <span className="text-gray-900">5</span></p>
+            <p className="text-gray-600">Active Jobs: <span className="text-gray-900">5</span></p>
             <p className="text-gray-600">Worked With: <span className="text-gray-900">12 clients</span></p>
             <p className="text-gray-600">Average Response Time: <span className="text-gray-900">2 hours</span></p>
             <p className="text-gray-600">Job Completion Rate (%): <span className="text-gray-900">85%</span></p>
@@ -167,7 +172,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
           <EarningsPage />
         </TabsContent>
       </Tabs>
-      {confirmationOpen && <ConfirmationPopup 
+      {confirmationOpen && <ConfirmationPopup
         loading={loading}
         isOpen={confirmationOpen}
         title={confirmationAction ? actionMeta[confirmationAction].title : ""}
