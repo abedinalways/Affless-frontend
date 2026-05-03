@@ -1,12 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import LocationIcon from "@/components/Icons/LocationIcon";
-import WorldIcon from "@/components/Icons/WorldIcon";
-import { CalendarHeartIcon, Star } from "lucide-react";
-import { FiCalendar } from "react-icons/fi";
-import { PiToolboxDuotone } from "react-icons/pi";
-import { FaStar } from "react-icons/fa6";
 import UsaFlag from "@/components/Icons/UsaFlag";
 import Link from "next/link";
 import StarIcon from "@/components/Icons/StarIcon";
@@ -68,7 +62,7 @@ export default function Review() {
 
       <div className="bg-white rounded-2xl">
         <div className=" rounded-xl p-4 md:p-6 mx-w-md lg:max-w-lg">
-          <h2 className="font-medium text-[18px] lg:text-[24px] pb-6">{usFormats.format(1058)} Reviews</h2>
+          <h2 className="font-medium text-[18px] lg:text-[24px] pb-6">{usFormats.format(1070)} Reviews</h2>
 
           <div className="space-y-4">
             {reviews.map((r) => (
