@@ -20,10 +20,12 @@ type propType = {
     initialDate?: Date;
     startDate?: Date;
     endDate?: Date;
+    isActive?: boolean;
+    onActiveChange?: () => void;
 }
 
 
-export default function DatePicker({ onChange, placeHolderText, initialDate, startDate: propStartDate, endDate: propEndDate }: propType) {
+export default function DatePicker({ onChange, placeHolderText, initialDate, startDate: propStartDate, endDate: propEndDate, isActive, onActiveChange }: propType) {
     const [startDate, setStartDate] = useState<Date | undefined>(propStartDate);
     const [endDate, setEndDate] = useState<Date | undefined>(propEndDate);
     const [datePickerOpen, setDatePickerOpen] = useState(false);
@@ -78,18 +80,20 @@ export default function DatePicker({ onChange, placeHolderText, initialDate, sta
         <div className="flex flex-wrap items-center gap-4">
             <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
                 <PopoverTrigger asChild>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3" onClick={onActiveChange}>
                         <Button
                             variant="outline"
-                            className="w-fit justify-between font-normal cursor-pointer"
+                            className="w-fit justify-between font-normal cursor-pointer disabled:cursor-pointer"
                             onClick={() => { setActiveField('start'); setDatePickerOpen(true); }}
+                            disabled={isActive}
                         >
                             {startDate ? startDate.toLocaleDateString() : "Start Date"}
                         </Button>
                         <Button
                             variant="outline"
-                            className="w-fit justify-between font-normal cursor-pointer"
+                            className="w-fit justify-between font-normal cursor-pointer disabled:cursor-pointer"
                             onClick={() => { setActiveField('end'); setDatePickerOpen(true); }}
+                            disabled={isActive}
                         >
                             {endDate ? endDate.toLocaleDateString() : "End Date"}
                         </Button>
@@ -100,7 +104,6 @@ export default function DatePicker({ onChange, placeHolderText, initialDate, sta
                         <Calendar
                             mode="single"
                             selected={activeField === 'start' ? startDate : endDate}
-                            // Optionally highlight the range visually if your Calendar supports modifiers
                             modifiers={startDate && endDate ? { selectedRange: { from: startDate, to: endDate } } : undefined}
                             captionLayout="dropdown"
                             disabled={{ after: new Date() }}

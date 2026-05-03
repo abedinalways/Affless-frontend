@@ -98,9 +98,9 @@ export default function ClientJob() {
 
   return (
     <div className=" min-h-screen ">
-
+      <h2 className="py-5 text-[32px] font-semibold text-[#333]">Active & Past Jobs Posted by this Client</h2>
       {/* PROFILE HEADER */}
-      <div className="space-y-6 pt-10">
+      <div className="space-y-6">
         {jobs.map((job) => (
           <div
             key={job.id}

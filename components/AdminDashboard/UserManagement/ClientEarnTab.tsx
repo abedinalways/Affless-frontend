@@ -19,6 +19,7 @@ import { CalendarIcon } from "lucide-react";
 import { type DateRange } from "react-day-picker";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import DatePicker from "@/components/ClientDashboard/ManageJob/DatePicker";
 
 interface BillingRow {
   date: string;
@@ -80,7 +81,7 @@ export default function BillingHistoryPage() {
       return (row.invoice.toLowerCase().includes(searchTerm) ||
         row.orderWith.toLowerCase().includes(searchTerm) ||
         row.service.toLowerCase().includes(searchTerm)) ||
-        row.price.toString().includes(searchTerm)||
+        row.price.toString().includes(searchTerm) ||
         row.date.toLowerCase().includes(searchTerm);
     });
     return filtered.slice(start, start + PAGE_SIZE);
@@ -161,7 +162,7 @@ export default function BillingHistoryPage() {
             />
             <DatePickerWithRange isActive={isLifeTimeActive} setIsActive={() => setIsLifeTimeActive(false)} onDateChange={(startDate, endDate) => {
               console.log("Selected date range:", startDate, endDate);
-            }}/>
+            }} />
             <div>
               <input
                 type="checkbox"
@@ -272,40 +273,17 @@ function DatePickerWithRange({ isActive, setIsActive, onDateChange }: DatePicker
   }, [date, onDateChange]);
 
   return (
-    <Field className="w-[260px]" onClick={setIsActive}>
-      <FieldLabel htmlFor="date-picker-range">Date range</FieldLabel>
-      <Popover>
-        <PopoverTrigger asChild className="cursor-pointer disabled:cursor-pointer" disabled={isActive}>
-          <Button
-            variant="outline"
-            id="date-picker-range"
-            className="w-full justify-start gap-2 px-2.5 py-5 font-normal cursor-pointer disabled:cursor-not-allowed"
-          >
-            <CalendarIcon className="h-4 w-4" />
-            {date?.from ? (
-              date.to ? (
-                <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
-                </>
-              ) : (
-                format(date.from, "LLL dd, y")
-              )
-            ) : (
-              <span>Pick a date</span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={2}
-          />
-        </PopoverContent>
-      </Popover>
-    </Field>
+    <div className="w-[260px] space-y-0.5" onClick={setIsActive}>
+      <p >Select Date Range</p>
+      <DatePicker
+        startDate={date?.from}
+        endDate={date?.to}
+        onChange={(date) => {
+          setDate({ from: date[0], to: date[1] });
+          console.log("Selected date range:", date);
+        }}
+        isActive={isActive}
+      />
+    </div>
   );
 }

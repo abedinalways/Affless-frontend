@@ -89,6 +89,8 @@ export default function Review() {
         </div>
       </div>
 
+      <h2 className="text-[32px] font-semibold text-[#333]">Reviews</h2>
+
       <div className="space-y-6">
         {jobs.map((job) => (
           <div
@@ -154,7 +156,7 @@ export default function Review() {
                       <span className="font-medium">YouTube</span>
                     </div>
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
-                      <span className="text-[#777980]">job Type: </span>
+                      <span className="text-[#777980]">Job Type: </span>
                       <span className="font-medium">YouTube Long-Form</span>
                     </div>
                     <div className="bg-[#F6F6F6] px-4 py-2 rounded-lg text-sm text-[#333]">
