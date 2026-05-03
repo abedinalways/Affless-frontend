@@ -167,11 +167,11 @@ export default function Review() {
                       <p className="text-[#4A4C56] text-[14px]">Price</p>
                       <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">${usFormatWithDecimals.format(job.priceRange)}</p>
                     </div>
-                    <div className="w-full border-r">
+                    <div className="w-full border-r px-4">
                       <p className="text-[#4A4C56] text-[14px]">Number of Revisions</p>
                       <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{usFormats.format(job.software)}</p>
                     </div>
-                    <div className="w-full">
+                    <div className="w-full pl-4">
                       <p className="text-[#4A4C56] text-[14px]">Job duration</p>
                       <p className="font-medium pt-2 text-[#333] text-[18px] leading-120%">{job.duration}</p>
                     </div>

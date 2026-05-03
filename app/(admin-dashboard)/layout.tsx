@@ -8,7 +8,7 @@ import Loading from "@/components/shared/Loading";
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Suspense fallback={<Loading />}>
-      <div>
+      <div className="w-full max-w-[1600px] mx-auto">
         <Toaster position="top-right" />
         <div className="w-full h-screen grid grid-cols-[auto_1fr]">
           <div className="w-full h-full ">

@@ -14,7 +14,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 type User = {
   id: number;
@@ -139,7 +139,7 @@ export default function UserManagement() {
         <Tabs value={activeTab} onValueChange={(value) => {
           setActiveTab(value as "editor" | "client")
           setSortBy("all")
-          setSearch("")
+          setSearch("");
         }} className="w-full">
           <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 border border-[#DCDDDD] rounded-lg p-3 gap-4">
             <div>

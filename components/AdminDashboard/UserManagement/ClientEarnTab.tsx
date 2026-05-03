@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/reusable/DataTable";
@@ -42,9 +42,9 @@ const billingHistory: BillingRow[] = [
 
 
 const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
 
 
 export default function BillingHistoryPage() {
@@ -52,6 +52,7 @@ export default function BillingHistoryPage() {
   const rating = 4.7;
   const ratingCount = 950;
   const [isLifeTimeActive, setIsLifeTimeActive] = useState(false);
+  const [search, setSearch] = useState("");
 
   const renderStars = (value: number) =>
     Array.from({ length: 5 }, (_, index) => {
@@ -74,22 +75,34 @@ export default function BillingHistoryPage() {
   const total = billingHistory.length;
   const paginatedData = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
-    return billingHistory.slice(start, start + PAGE_SIZE);
-  }, [page]);
+    const filtered = billingHistory.filter((row) => {
+      const searchTerm = search.toLowerCase();
+      return (row.invoice.toLowerCase().includes(searchTerm) ||
+        row.orderWith.toLowerCase().includes(searchTerm) ||
+        row.service.toLowerCase().includes(searchTerm)) ||
+        row.price.toString().includes(searchTerm)||
+        row.date.toLowerCase().includes(searchTerm);
+    });
+    return filtered.slice(start, start + PAGE_SIZE);
+  }, [page, search, isLifeTimeActive]);
 
   const columns: ColumnDef<BillingRow>[] = [
     {
       accessorKey: "date",
       header: "Date",
-      cell: ({ row }) => row.original.date,
+      cell: ({ row }) => (
+        <div className="text-center">
+          {row.original.date}
+        </div>
+      ),
     },
     {
       accessorKey: "invoice",
       header: "Invoice",
       cell: ({ row }) => (
-        <span className="font-semibold text-[#2E3135]">
+        <p className="font-semibold text-[#2E3135] text-center">
           {row.original.invoice}
-        </span>
+        </p>
       ),
     },
     {
@@ -114,16 +127,18 @@ export default function BillingHistoryPage() {
       accessorKey: "price",
       header: "Price",
       cell: ({ row }) => (
-        <span className="font-semibold">${usFormatWithDecimals.format(row.original.price)}</span>
+        <p className="font-semibold text-center">${usFormatWithDecimals.format(row.original.price)}</p>
       ),
     },
     {
       id: "details",
       header: "Details",
       cell: () => (
-        <button onClick={()=>toast.success("Coming soon!")} className="flex items-center gap-1 text-gray-600 cursor-pointer">
-          <span className="text-lg"><LuDownload /></span> PDF
-        </button>
+        <div className="flex items-center justify-center">
+          <button onClick={() => toast.success("Coming soon!")} className="flex items-center gap-1 text-gray-600 cursor-pointer">
+            <span className="text-lg"><LuDownload /></span> PDF
+          </button>
+        </div>
       ),
     },
   ];
@@ -138,15 +153,20 @@ export default function BillingHistoryPage() {
 
           <div className="flex items-end flex-wrap gap-4">
             <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="border rounded-lg px-4 py-2 w-72 text-base placeholder:text-xs cursor-pointer focus:cursor-text outline-none"
               placeholder="Search by invoice or order number"
             />
-            <DatePickerWithRange isActive={isLifeTimeActive} setIsActive={()=>setIsLifeTimeActive(false)} />
+            <DatePickerWithRange isActive={isLifeTimeActive} setIsActive={() => setIsLifeTimeActive(false)} onDateChange={(startDate, endDate) => {
+              console.log("Selected date range:", startDate, endDate);
+            }}/>
             <div>
-              <input 
-                type="checkbox" 
-                name="lifetime" 
-                id="lifetime" 
+              <input
+                type="checkbox"
+                name="lifetime"
+                id="lifetime"
                 className="cursor-pointer"
                 checked={isLifeTimeActive}
                 onChange={(e) => setIsLifeTimeActive(e.target.checked)}
@@ -208,7 +228,7 @@ export default function BillingHistoryPage() {
 
             <div className="flex justify-between gap-2">
               <span>Member since</span>
-              <span>{new Date().toLocaleDateString("en-US",{
+              <span>{new Date().toLocaleDateString("en-US", {
                 day: "numeric",
                 month: "short",
                 year: "numeric"
@@ -236,13 +256,20 @@ export default function BillingHistoryPage() {
 type DatePickerType = {
   isActive: boolean;
   setIsActive: () => void;
+  onDateChange: (startDate: Date | undefined, endDate: Date | undefined) => void;
 }
 
-function DatePickerWithRange({ isActive, setIsActive }: DatePickerType) {
+function DatePickerWithRange({ isActive, setIsActive, onDateChange }: DatePickerType) {
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(new Date().getFullYear(), 0, 20),
     to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
   });
+
+  useEffect(() => {
+    if (date) {
+      onDateChange(date.from, date.to);
+    }
+  }, [date, onDateChange]);
 
   return (
     <Field className="w-[260px]" onClick={setIsActive}>
@@ -252,7 +279,7 @@ function DatePickerWithRange({ isActive, setIsActive }: DatePickerType) {
           <Button
             variant="outline"
             id="date-picker-range"
-            className="w-full justify-start gap-2 px-2.5 py-5 font-normal"
+            className="w-full justify-start gap-2 px-2.5 py-5 font-normal cursor-pointer disabled:cursor-not-allowed"
           >
             <CalendarIcon className="h-4 w-4" />
             {date?.from ? (
