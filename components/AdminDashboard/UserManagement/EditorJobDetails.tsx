@@ -24,7 +24,7 @@ interface JobRow {
   service: string;
   price: number;
   delivery: string;
-  status: "late" | "in_progress" | "delivered" | "completed" | "canceled";
+  status: "late" | "in_progress" | "delivered" | "completed" | "canceled" | "in_revision";
 }
 
 const PAGE_SIZE = 8;
@@ -49,7 +49,7 @@ const jobHistory: JobRow[] = [
     service: "Voice over for commercials",
     price: 300,
     delivery: "1/7/2026",
-    status: "delivered",
+    status: "in_revision",
   },
   {
     client: { name: "Derek Lee", avatar: "/images/profile.png" },
@@ -96,14 +96,18 @@ export default function JobHistoryPage() {
       width: "150px",
       formatter: (accessor: any, row: any) => (
         <div className=" w-full grid grid-cols-[40px_1fr] items-center gap-3 px-3 py-2">
-          <Image
-            src={row.client?.avatar}
-            alt={row.client?.name}
-            width={40}
-            height={40}
-            className="w-10 h-10 rounded-full"
-          />
-          <span className="font-medium text-gray-800 whitespace-nowrap">{row?.client?.name}</span>
+          <Link href="/client-profile/1">
+            <Image
+              src={row.client?.avatar}
+              alt={row.client?.name}
+              width={40}
+              height={40}
+              className="w-10 h-10 rounded-full"
+            />
+          </Link>
+          <Link href="/client-profile/1" className="font-medium text-gray-800 whitespace-nowrap">
+            {row?.client?.name}
+          </Link>
         </div>
       ),
     },
@@ -231,7 +235,7 @@ export default function JobHistoryPage() {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Member since</span>
-              <span className="font-medium text-gray-800">{new Date().toLocaleDateString("en-US",{
+              <span className="font-medium text-gray-800">{new Date().toLocaleDateString("en-US", {
                 day: "numeric",
                 month: "short",
                 year: "numeric"

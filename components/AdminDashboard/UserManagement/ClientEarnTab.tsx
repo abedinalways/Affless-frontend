@@ -110,9 +110,9 @@ export default function BillingHistoryPage() {
       accessorKey: "orderWith",
       header: "Editor Worked With",
       cell: ({ row }) => (
-        <div className="text-center">
+        <Link href="/editor-profile/1" className="text-center block">
           {row.original.orderWith}
-        </div>
+        </Link>
       ),
     },
     {
