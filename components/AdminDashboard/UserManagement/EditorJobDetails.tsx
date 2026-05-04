@@ -13,7 +13,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { getJobStatusDefinition } from "@/lib/job-status";
 
 interface JobRow {
   client: {
@@ -23,7 +24,7 @@ interface JobRow {
   service: string;
   price: number;
   delivery: string;
-  status: "Late" | "In Progress" | "Delivered" | "Completed" | "Canceled";
+  status: "late" | "in_progress" | "delivered" | "completed" | "canceled";
 }
 
 const PAGE_SIZE = 8;
@@ -34,42 +35,42 @@ const jobHistory: JobRow[] = [
     service: "High quality sound recorded",
     price: 400,
     delivery: "1/5/2026",
-    status: "Late",
+    status: "late",
   },
   {
     client: { name: "Jasper Kline", avatar: "/images/profile.png" },
     service: "Custom sound design",
     price: 750,
     delivery: "1/6/2026",
-    status: "In Progress",
+    status: "in_progress",
   },
   {
     client: { name: "Sophie Turner", avatar: "/images/profile.png" },
     service: "Voice over for commercials",
     price: 300,
     delivery: "1/7/2026",
-    status: "Delivered",
+    status: "delivered",
   },
   {
     client: { name: "Derek Lee", avatar: "/images/profile.png" },
     service: "Podcast editing and mixing",
     price: 200,
     delivery: "1/8/2026",
-    status: "Delivered",
+    status: "delivered",
   },
   {
     client: { name: "Maya Johnson", avatar: "/images/profile.png" },
     service: "Background music composition",
     price: 500,
     delivery: "1/9/2026",
-    status: "Completed",
+    status: "completed",
   },
   {
     client: { name: "Eliot Spencer", avatar: "/images/profile.png" },
     service: "Audio restoration services",
     price: 600,
     delivery: "1/10/2026",
-    status: "Canceled",
+    status: "canceled",
   },
 ];
 
@@ -146,22 +147,12 @@ export default function JobHistoryPage() {
       width: "100px",
       formatter: (accessor: string) => {
         const status = accessor as JobRow["status"];
-
-        const colors: Record<string, string> = {
-          "In Progress": "bg-pink-100 text-pink-600",
-          "In Revision": "bg-orange-100 text-orange-600",
-          "Late": "bg-green-100 text-green-700",
-          Delivered: "bg-green-100 text-green-700",
-          Completed: "bg-blue-100 text-blue-600",
-          Canceled: "bg-red-100 text-red-600",
-        };
-
         return (
           <div className="px-3 py-2 text-center">
             <span
-              className={`px-3 py-1 text-sm rounded-md font-medium ${colors[status]}`}
+              className={`px-3 py-1 text-sm rounded-md font-medium whitespace-nowrap capitalize ${getJobStatusDefinition(status)?.colorClass}`}
             >
-              {status}
+              {status?.split("_").join(" ")}
             </span>
           </div>
         );
@@ -240,7 +231,11 @@ export default function JobHistoryPage() {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Member since</span>
-              <span className="font-medium text-gray-800"> May, 2025</span>
+              <span className="font-medium text-gray-800">{new Date().toLocaleDateString("en-US",{
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+              })}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Unique Clients Worked With</span>

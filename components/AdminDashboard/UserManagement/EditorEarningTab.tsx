@@ -18,6 +18,7 @@ import { addDays, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { type DateRange } from "react-day-picker";
 import DatePicker from "@/components/ClientDashboard/ManageJob/DatePicker";
+import { getJobStatusDefinition } from "@/lib/job-status";
 
 interface EarningRow {
   date: string;
@@ -30,6 +31,10 @@ interface EarningRow {
 const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
+});
+const usFormat = new Intl.NumberFormat("en-US", {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
 });
 
 const PAGE_SIZE = 8;
@@ -77,10 +82,10 @@ export default function EarningsPage() {
         <div className="flex items-center justify-center">
           <span
           className={`px-3 py-1 rounded-md text-sm font-medium ${row.original.status === "Withdrawal Requested"
-            ? "bg-green-100 text-green-700"
+            ? getJobStatusDefinition("canceled").colorClass
             : row.original.status === "Pending"
-              ? "bg-orange-100 text-orange-600"
-              : "bg-red-100 text-red-600"
+              ? getJobStatusDefinition("completed").colorClass
+              : "bg-red-300 text-red-700"
             }`}
           title={row.original.tooltip}
         >
@@ -173,11 +178,15 @@ export default function EarningsPage() {
             <h3 className="text-[20px] font-medium leading-150% pb-4">Lifetime Stats</h3>
             <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Lifetime Earnings</span>
-              <span>$12,480</span>
+              <span>${usFormatWithDecimals.format(12480)}</span>
             </div>
             <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Taxes & Other Fees</span>
-              <span>$1,320</span>
+              <span>${usFormatWithDecimals.format(1320)}</span>
+            </div>
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
+              <span>Total Withdrawals Made</span>
+              <span>{usFormat.format(11)}</span>
             </div>
             <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Platform Fee Rate</span>
@@ -185,12 +194,12 @@ export default function EarningsPage() {
             </div>
             <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Jobs Completed</span>
-              <span>46</span>
+              <span>{usFormat.format(46)}</span>
             </div>
             <hr className="my-4" />
             <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Total Paid Out</span>
-              <span>$11,160</span>
+              <span>${usFormatWithDecimals.format(11160)}</span>
             </div>
 
 
