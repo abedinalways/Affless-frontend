@@ -20,7 +20,7 @@ export default function Footer() {
           md:grid-cols-3
           lg:grid-cols-5
           gap-4
-          lg:gap-
+          md:gap-8
         ">
 
           {/* LEFT COLUMN */}
