@@ -217,7 +217,7 @@ export default function SignInForm() {
               {/* Sign Up */}
               <p className="text-center text-sm text-[#333] font-poppins leading-[150%]">
                 Don’t have an account?{" "}
-                <Link href="/singup">
+                <Link href="/singup?redirect=home">
                   <span className="text-red-500 cursor-pointer ">Sign Up</span>
                 </Link>
 

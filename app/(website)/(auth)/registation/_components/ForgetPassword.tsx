@@ -85,23 +85,22 @@ export default function ForgotPasswordForm() {
                   <label htmlFor="email" className="block text-left">Enter the email address you registered with to create your account.</label>
 
                   {/* Email */}
-                  <div className="relative w-full">
-                    <MailIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-
+                  <div className="relative">
+                    <MailIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
                     <input
-                      id="email"
                       {...register("email", {
                         required: "Email is required",
                         pattern: {
-                          value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
-                          message: "Enter a valid email",
+                          value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+                          message: "Enter a valid email (domain must be at least 2 characters)",
                         },
                       })}
-                      type="email"
-                      placeholder="Email"
-                      className="w-full px-6 py-[18px] pl-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
+                      type="text"
+                      placeholder="Enter Your Email"
+                      className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
                     />
                   </div>
+
                 </div>
 
                 {errors.email && (
