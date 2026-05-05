@@ -77,7 +77,7 @@ export default function FilterSidebar({ isMobile, handleMenu, priceLabel }: prop
   const [priceRange, setPriceRange] = useState([]);
   const [anyPrice, setAnyPrice] = useState(true);
   const [anyDeliveryTime, setAnyDeliveryTime] = useState(true);
-  const [deliveryTime, setDeliveryTime] = useState([25]);
+  const [deliveryTime, setDeliveryTime] = useState([0]);
   const minPriceRef = useRef<HTMLInputElement | null>(null);
   const maxPriceRef = useRef<HTMLInputElement | null>(null);
   const minDeliveryRef = useRef<HTMLInputElement | null>(null);
@@ -305,7 +305,7 @@ export default function FilterSidebar({ isMobile, handleMenu, priceLabel }: prop
               if (nextValue) {
                 setDeliveryTime([0]);
               } else {
-                setDeliveryTime([10]);
+                setDeliveryTime([0]);
               }
             }}
             className='w-5 h-5 accent-black cursor-pointer'

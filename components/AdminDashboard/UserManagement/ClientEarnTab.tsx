@@ -47,6 +47,11 @@ const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
+const usFormat = new Intl.NumberFormat("en-US", {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
+
 
 export default function BillingHistoryPage() {
   const [page, setPage] = useState(1);
@@ -191,62 +196,101 @@ export default function BillingHistoryPage() {
       </div>
 
       {/* RIGHT SIDE - PROFILE CARD */}
-      <div className="w-full">
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          {/* Profile Image */}
-          <div className="relative mx-auto w-24 h-24 mb-4">
-            <Link href={`/client-profile/${1}`}>
-              <Image
-                src="/images/musicArt.png"
-                alt="profile"
-                fill
-                className="rounded-full object-cover fill w-full h-full "
-              />
-            </Link>
-            <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></span>
+      <div className="w-full xl:max-w-[400px] space-y-6">
+        <div className="w-full">
+          <div className="bg-white rounded-2xl p-6 shadow-sm">
+            {/* Profile Image */}
+            <div className="relative mx-auto w-24 h-24 mb-4">
+              <Link href={`/client-profile/${1}`}>
+                <Image
+                  src="/images/musicArt.png"
+                  alt="profile"
+                  fill
+                  className="rounded-full object-cover fill w-full h-full "
+                />
+              </Link>
+              <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></span>
+            </div>
+
+            {/* Name + Email */}
+            <Link href={`/client-profile/${1}`} className="block text-center font-semibold text-lg">MusicArt</Link>
+            <p className="text-center text-gray-500 text-sm">musicart@gmail.com</p>
+
+            {/* Rating */}
+            <div className="flex items-center justify-center mt-2 gap-1">
+              <div className="flex items-center gap-0.5">
+                {renderStars(rating)}
+              </div>
+              <span className="text-gray-800">{rating} ({ratingCount})</span>
+            </div>
+
+            <hr className="my-4" />
+
+            {/* Info Rows */}
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between gap-2">
+                <span>From</span>
+                <span>Mexico</span>
+              </div>
+
+              <div className="flex justify-between gap-2">
+                <span>Member since</span>
+                <span>{new Date().toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric"
+                })}</span>
+              </div>
+
+              <div className="flex justify-between gap-2">
+                <span>Unique Editors Worked With</span>
+                <span>5</span>
+              </div>
+
+              <div className="flex justify-between gap-2">
+                <span>Rating</span>
+                <span>⭐ 4.7</span>
+              </div>
+            </div>
+
           </div>
-
-          {/* Name + Email */}
-          <Link href={`/client-profile/${1}`} className="block text-center font-semibold text-lg">MusicArt</Link>
-          <p className="text-center text-gray-500 text-sm">musicart@gmail.com</p>
-
-          {/* Rating */}
-          <div className="flex items-center justify-center mt-2 gap-1">
-            <div className="flex items-center gap-0.5">
-              {renderStars(rating)}
+        </div>
+        <div className="bg-white rounded-2xl p-4 flex flex-col sm:flex-row items-center xl:flex-col xl:justify-center">
+          {/* <div className="space-y-4">
+            <Image src="/images/robatfox.png" alt="img" width={100} height={100} className="flex justify-center items-center mx-auto rounded-lg xl:rounded-full"></Image>
+            <div>
+              <h3 className="text-center">Jane Cooper</h3>
+              <p className="text-center">musicart@gmail.com</p>
             </div>
-            <span className="text-gray-800">{rating} ({ratingCount})</span>
+          </div> */}
+          <div className="w-full  p-4 rounded-xl  h-fit">
+            <h3 className="text-[20px] font-medium leading-150% pb-4">Lifetime Stats</h3>
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
+              <span>Client's Total Spending</span>
+              <span>${usFormatWithDecimals.format(12480)}</span>
+            </div>
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
+              <span>Taxes & Other Fees</span>
+              <span>${usFormatWithDecimals.format(1320)}</span>
+            </div>
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
+              <span>Editor Marketplace’s 20% Cut</span>
+              <span>${usFormatWithDecimals.format(2496)}</span>
+            </div>
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
+              <span>Total Jobs Posted</span>
+              <span>{usFormat.format(11)}</span>
+            </div>
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
+              <span>Total Jobs Completed</span>
+              <span>{usFormat.format(46)}</span>
+            </div>
+
+            {/* <div className="flex justify-between font-semibold text-gray-900">
+              <span>Total Payment</span>
+              <span>$654.00</span>
+            </div> */}
           </div>
-
-          <hr className="my-4" />
-
-          {/* Info Rows */}
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between gap-2">
-              <span>From</span>
-              <span>Mexico</span>
-            </div>
-
-            <div className="flex justify-between gap-2">
-              <span>Member since</span>
-              <span>{new Date().toLocaleDateString("en-US", {
-                day: "numeric",
-                month: "short",
-                year: "numeric"
-              })}</span>
-            </div>
-
-            <div className="flex justify-between gap-2">
-              <span>Unique Editors Worked With</span>
-              <span>5</span>
-            </div>
-
-            <div className="flex justify-between gap-2">
-              <span>Rating</span>
-              <span>⭐ 4.7</span>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>

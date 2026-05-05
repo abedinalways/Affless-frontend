@@ -255,7 +255,7 @@ export default function EditorDashboardHeader() {
                 onClick={handleBecomeClientClick}
                 className={`hidden lg:block cursor-pointer ${isActive("/client") ? activeCls : inactiveCls}`}
               >
-                Become an Client
+                Become a Client
               </button>
 
               <div

@@ -154,11 +154,15 @@ export default function MyProposal() {
           const d = row.original;
           return (
             <div className="text-center">
-              {(row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision" || row.original.status === "delivered") && (
+              {(row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision" || row.original.status === "delivered") ? (
                 <div
                   className="cursor-pointer  p-2 rounded-md text-center"
                 >
                   {Math.abs(d.timeLeft.days)} {d.timeLeft.days > 1 ? "days left" : d.timeLeft.days < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+                </div>
+              ) : (
+                <div>
+                  Not available
                 </div>
               )}
             </div>

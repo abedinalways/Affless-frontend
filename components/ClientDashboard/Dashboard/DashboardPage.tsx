@@ -92,11 +92,15 @@ export default function ClientDashboard() {
         const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
         return (
           <>
-            {(d.status === "in_progress" || d.status === "late" || d.status === "in_revision" || d.status === "delivered") && (
+            {(d.status === "in_progress" || d.status === "late" || d.status === "in_revision" || d.status === "delivered") ? (
               <div
                 className="cursor-pointer  p-2 rounded-md text-center"
               >
                 {Math.abs(d.timeLeft.days)} {d.timeLeft.days > 1 ? "days left" : d.timeLeft.days < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+              </div>
+            ): (
+              <div className="text-center">
+                Not available
               </div>
             )}
           </>
