@@ -55,11 +55,20 @@ const columns: ColumnDef<Order>[] = [
     header: "Days Left",
     cell: ({ row }) => {
       const d = row.original;
-      return (row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision" || row.original.status === "delivered") && (
-        <div
-          className="cursor-pointer  p-2 rounded-md text-center"
-        >
-          {Math.abs(d.days || 0)} {d.days || 0 > 1 ? "days left" : d.days || 0 < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+      return (
+        <div>
+          {(row.original.status === "in_progress" || row.original.status === "late" || row.original.status === "in_revision" || row.original.status === "delivered") ? (
+            <div
+              className="cursor-pointer  p-2 rounded-md text-center"
+            >
+              {Math.abs(d.days || 0)} {d.days || 0 > 1 ? "days left" : d.days || 0 < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+            </div>
+          ) : (
+            <div>
+              Not available
+            </div>
+          )}
+
         </div>
       )
     }
@@ -157,7 +166,7 @@ export default function EditorDashboard() {
               type="button"
               className="cursor-pointer rounded-lg bg-[#ff4b4b] py-2.5 px-4 text-[16px] font-medium text-white flex items-center gap-1"
             >
-              <PlusIcon className="w-5"/> Browse New Jobs
+              <PlusIcon className="w-5" /> Browse New Jobs
             </Link>
           </div>
 

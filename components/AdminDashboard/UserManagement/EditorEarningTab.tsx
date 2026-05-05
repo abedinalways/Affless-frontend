@@ -165,7 +165,7 @@ export default function EarningsPage() {
         </div>
 
       </div>
-      <div className="w-full xl:max-w-[300px]">
+      <div className="w-full xl:max-w-[400px]">
         <div className="bg-white rounded-2xl p-4 flex flex-col sm:flex-row items-center xl:flex-col xl:justify-center">
           {/* <div className="space-y-4">
             <Image src="/images/robatfox.png" alt="img" width={100} height={100} className="flex justify-center items-center mx-auto rounded-lg xl:rounded-full"></Image>
@@ -185,21 +185,16 @@ export default function EarningsPage() {
               <span>${usFormatWithDecimals.format(1320)}</span>
             </div>
             <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
+              <span>Editor Marketplace’s 20% Cut</span>
+              <span>${usFormatWithDecimals.format(2496)}</span>
+            </div>
+            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
               <span>Total Withdrawals Made</span>
               <span>{usFormat.format(11)}</span>
             </div>
             <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
-              <span>Platform Fee Rate</span>
-              <span>20%</span>
-            </div>
-            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
-              <span>Jobs Completed</span>
+              <span>Total Jobs Completed</span>
               <span>{usFormat.format(46)}</span>
-            </div>
-            <hr className="my-4" />
-            <div className="flex justify-between text-gray-700 mb-4 gap-3 whitespace-nowrap">
-              <span>Total Paid Out</span>
-              <span>${usFormatWithDecimals.format(11160)}</span>
             </div>
 
 

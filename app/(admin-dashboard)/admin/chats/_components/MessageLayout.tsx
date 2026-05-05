@@ -85,7 +85,7 @@ export default function MessageLayout({
 
     return (
         <MessageProvider>
-            <div className={`w-full border min-h-0 p-4 containers bg-[#f9f9f9] grid ${redirectUrl ? "grid-rows-[auto_1fr]" : "grid-rows-1"} gap-4`}>
+            <div className={`w-full min-h-0 grid ${redirectUrl ? "grid-rows-[auto_1fr]" : "grid-rows-1"} gap-4`}>
                 <div className={`${redirectUrl ? "flex" : "hidden"} items-center gap-4`}>
                     {redirectUrl && (
                         <button

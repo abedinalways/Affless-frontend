@@ -269,7 +269,7 @@ export default function ClientDashboardHeader() {
               className={`hidden lg:block cursor-pointer ${isActive("/editor") ? activeCls : inactiveCls
                 }`}
             >
-              Become a Editor
+              Become an Editor
             </Link>
 
             <div

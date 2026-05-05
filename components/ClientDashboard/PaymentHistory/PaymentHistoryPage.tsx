@@ -84,7 +84,7 @@ export default function PaymentHistoryPage() {
             <p className="text-gray-500  hidden md:block">{payment.day}</p>
 
             {/* Status */}
-            <div className="hidden md:block">
+            <div className="hidden md:block pr-15">
               <span
                 className={` w-fit px-4 py-1 rounded-md text-[14px] font-medium whitespace-nowrap ${getJobStatusDefinition(payment?.status).colorClass}`}
               >
