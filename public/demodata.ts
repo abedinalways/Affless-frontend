@@ -511,7 +511,7 @@ export const mockMessageThreads: Record<string, Message[]> = {
     { id: '3', sender: 'other', content: 'You’re welcome!', createdAt: new Date().toISOString() },
   ],
   '8': [
-    { id: '1', sender: 'user', content: 'Ava, campaign results look good.', createdAt: new Date(Date.now() - 86400000 * 3).toISOString() },
+    { id: '1', sender: 'user', content: 'Ava, campaign results look good.', createdAt: new Date(Date.now() - 86400000 * 3).toISOString(), deliveredAt: new Date(Date.now() - 86400000).toISOString(), readAt: new Date(Date.now() - 86400000).toISOString() },
     { id: '2', sender: 'other', content: 'Yes, we exceeded our targets!', createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
     { id: '3', sender: 'user', content: 'Let’s plan the next steps.', createdAt: new Date(Date.now() - 86400000).toISOString() },
   ],
@@ -521,7 +521,7 @@ export const mockMessageThreads: Record<string, Message[]> = {
     { id: '3', sender: 'other', content: 'Let me know if you need more testing.', createdAt: new Date().toISOString() },
   ],
   '10': [
-    { id: '1', sender: 'user', content: 'Sophia, is the support ticket resolved?', createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
+    { id: '1', sender: 'user', content: 'Sophia, is the support ticket resolved?', createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), deliveredAt: new Date(Date.now() - 86400000).toISOString(), readAt: new Date(Date.now() - 86400000).toISOString() },
     { id: '2', sender: 'other', content: 'Yes, resolved and closed.', createdAt: new Date(Date.now() - 86400000).toISOString() },
     { id: '3', sender: 'user', content: 'Thank you for the help!', createdAt: new Date().toISOString() },
   ],
@@ -531,7 +531,7 @@ export const mockMessageThreads: Record<string, Message[]> = {
     { id: '3', sender: 'other', content: 'Let me know if you have questions.', createdAt: new Date().toISOString() },
   ],
   '12': [
-    { id: '1', sender: 'user', content: 'Mia, is the research draft ready?', createdAt: new Date(Date.now() - 86400000 * 3).toISOString() },
+    { id: '1', sender: 'user', content: 'Mia, is the research draft ready?', createdAt: new Date(Date.now() - 86400000 * 3).toISOString(), deliveredAt: new Date(Date.now() - 86400000).toISOString(), readAt: new Date(Date.now() - 86400000).toISOString() },
     { id: '2', sender: 'other', content: 'Yes, I just finished it.', createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
     { id: '3', sender: 'user', content: 'Great, I will review and share feedback.', createdAt: new Date(Date.now() - 86400000).toISOString() },
   ],
@@ -541,7 +541,7 @@ export const mockMessageThreads: Record<string, Message[]> = {
     { id: '3', sender: 'other', content: 'Let me know if you need changes.', createdAt: new Date().toISOString() },
   ],
   '14': [
-    { id: '1', sender: 'user', content: 'Isabella, is the QA report finalized?', createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
+    { id: '1', sender: 'user', content: 'Isabella, is the QA report finalized?', createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), deliveredAt: new Date(Date.now() - 86400000).toISOString(), readAt: new Date(Date.now() - 86400000).toISOString() },
     { id: '2', sender: 'other', content: 'Yes, shared it with the team.', createdAt: new Date(Date.now() - 86400000).toISOString() },
     { id: '3', sender: 'user', content: 'Perfect, thank you!', createdAt: new Date().toISOString() },
   ],

@@ -197,45 +197,62 @@ export default function PostJobForm() {
       if (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") {
         if (length <= 39) {
           setMinPrice(2);
+          setValue("budget", `$${usFormatWithDecimals.format(2)}`);
         } else {
           setMinPrice(3);
+          setValue("budget", `$${usFormatWithDecimals.format(3)}`);
         }
         return;
       } else if (selectedCategory === "thumbnails") {
         setMinPrice(3);
+        setValue("budget", `$${usFormatWithDecimals.format(3)}`);
         return;
       } else {
         if (length <= 39) {
           setMinPrice(2);
+          setValue("budget", `$${usFormatWithDecimals.format(2)}`);
         } else if (length <= 59) {
           setMinPrice(3);
+          setValue("budget", `$${usFormatWithDecimals.format(3)}`);
         } else if (length <= 300 && length > 59) {
           setMinPrice(5);
+          setValue("budget", `$${usFormatWithDecimals.format(5)}`);
         } else if (length <= 600 && length > 300) {
           setMinPrice(8);
+          setValue("budget", `$${usFormatWithDecimals.format(8)}`);
         } else if (length <= 900 && length > 600) {
           setMinPrice(12);
+          setValue("budget", `$${usFormatWithDecimals.format(12)}`);
         } else if (length <= 1200 && length > 900) {
           setMinPrice(16);
+          setValue("budget", `$${usFormatWithDecimals.format(16)}`);
         } else if (length <= 1800 && length > 1200) {
           setMinPrice(20);
+          setValue("budget", `$${usFormatWithDecimals.format(20)}`);
         } else if (length <= 2400 && length > 1800) {
           setMinPrice(25);
+          setValue("budget", `$${usFormatWithDecimals.format(25)}`);
         } else if (length <= 3000 && length > 2400) {
           setMinPrice(30);
+          setValue("budget", `$${usFormatWithDecimals.format(30)}`);
         } else if (length <= 3600 && length > 3000) {
           setMinPrice(40);
+          setValue("budget", `$${usFormatWithDecimals.format(40)}`);
         } else if (length <= 7200 && length > 3600) {
           setMinPrice(50);
+          setValue("budget", `$${usFormatWithDecimals.format(50)}`);
         } else if (length > 7200) {
           setMinPrice(100);
+          setValue("budget", `$${usFormatWithDecimals.format(100)}`);
         }
       }
     } else if (selectedCategory === "thumbnails") {
       setMinPrice(3);
+      setValue("budget", `$${usFormatWithDecimals.format(3)}`);
       return;
     } else {
       setMinPrice(2);
+      setValue("budget", `$${usFormatWithDecimals.format(2)}`);
     }
   }, [videoLength, selectedCategory]);
 
