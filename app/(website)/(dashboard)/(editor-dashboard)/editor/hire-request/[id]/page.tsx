@@ -12,6 +12,8 @@ import Image from "next/image";
 import { useParams, useSearchParams } from "next/navigation";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import BudgetPage from "@/components/ClientEditor/BrowseJob/Budget";
+import { CiEdit } from "react-icons/ci";
+import EditJobProposal from "../_components/EditJobProposal";
 
 interface UploadedFile {
   name: string;
@@ -25,6 +27,7 @@ export default function page({ params }: { params: { id: string } }) {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirect") || "";
   const [proposalPrice, setProposalPrice] = useState(280);
+  const [openEditProposal, setOpenEditProposal] = useState(false);
 
   const [files, setFiles] = useState<UploadedFile[]>([{
     name: "SampleDocument.pdf",
@@ -67,7 +70,13 @@ export default function page({ params }: { params: { id: string } }) {
 
           {/* ===== Proposal Details ===== */}
           <div>
-            <h2 className="text-xl font-semibold mb-4">My Proposal Details</h2>
+            <div className="flex items-center justify-between py-1">
+              <h2 className="text-xl font-semibold mb-4">My Proposal Details</h2>
+              <button type="button" onClick={()=>setOpenEditProposal(true)} className="bg-red-500 text-white py-1 px-2 rounded-lg flex items-center gap-1 hover:bg-red-600 transition-colors duration-300 cursor-pointer">
+                <CiEdit size={20} />
+                <span>Edit</span>
+              </button>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               <div className="border rounded-xl p-4 bg-white">
@@ -124,9 +133,9 @@ export default function page({ params }: { params: { id: string } }) {
             <h3 className="text-gray-500 font-medium">Client’s Chosen Job Payout</h3>
             <p className="text-[34px] font-bold">$350.00</p>
 
-            <button type="button" disabled={proposalPrice === 350} onClick={() => setShowConfirmation(true)} className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-green-500 disabled:text-green-500 disabled:border-green-500 disabled:opacity-30">
+            {/* <button type="button" disabled={proposalPrice === 350} onClick={() => setShowConfirmation(true)} className="w-full border border-red-300 text-red-500 py-4 rounded-lg text-lg font-normal text-[16px] hover:bg-[#FF4D4F] hover:text-white cursor-pointer transition disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-green-500 disabled:text-green-500 disabled:border-green-500 disabled:opacity-30">
               {proposalPrice === 350 ? "You Matched the Client’s Chosen Job Payout" : "Match Client’s Chosen Job Payout"}
-            </button>
+            </button> */}
 
             {/* <div className="pt-2 space-y-1 text-sm">
               <p className="flex justify-between"><span>Project Level:</span><span>Expensive</span></p>
@@ -205,6 +214,15 @@ export default function page({ params }: { params: { id: string } }) {
         }}
         onCancel={() => setShowConfirmation(false)}
       />
+      {openEditProposal && (
+        <EditJobProposal 
+          onClose={() => setOpenEditProposal(false)}
+          onSubmit={(data) => {
+            console.log("Edited Proposal Data:", data);
+            setOpenEditProposal(false);
+            toast.success("Your proposal has been updated.");
+        }}
+      />)}
     </div>
   );
 }

@@ -51,6 +51,7 @@ export default function MessageBody({ conversationId, onReportUser }: MessageBod
     const otherUserId = activeConversation?.id || activeConversationId || '1';
     const isConversationOpen = Boolean(activeConversationId);
     const messages = conversationMessages[activeConversationId] || [];
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const persistConversationState = (nextState: ConversationState) => {
         setConversationState(nextState);
@@ -252,6 +253,11 @@ export default function MessageBody({ conversationId, onReportUser }: MessageBod
     }, [lastUserMessageId, isConversationOpen, activeConversationId]);
 
 
+    useEffect(() => {
+        containerRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [conversationMessages]);
+
+
     return (
         <div className="h-full grid grid-cols-1 min-h-0 bg-white rounded-lg lg:shadow-md overflow-hidden">
             {/* Header */}
@@ -269,6 +275,7 @@ export default function MessageBody({ conversationId, onReportUser }: MessageBod
                         messages={messages}
                         activeConversationMeta={activeConversationMeta}
                     />
+                    <div ref={containerRef}></div>
                 </div>
 
                 {/* Input Area */}

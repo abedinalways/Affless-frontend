@@ -86,7 +86,7 @@ export default function Sidebar() {
                             key={conversation.id}
                             onClick={() => {
                                 onSelectConversation(conversation.id);
-                                // router.push(`/editor/message/${conversation.id}?redirect=${redirect}`);
+                                router.push(`/admin/chats/${conversation.id}?redirect=${redirect}`);
                             }}
                             className={`w-12 h-12 sm:w-[60px] sm:h-[60px] xl:w-full xl:h-fit flex xl:block items-center  justify-center xl:p-3 rounded-lg cursor-pointer transition-all ${(selectedConversationId) === conversation.id
                                 ? 'xl:border-l-4 hover:bg-gray-100'
