@@ -389,8 +389,6 @@ export default function PostJobForm() {
                 e.target.value = e.target.value.replace(/[^0-9.]/g, "");
               }}
               {...register("budget", {
-                required: "Job budget is required",
-
                 onChange: (e) => {
                   e.target.value = e.target.value.replace(/[^0-9.]/g, "");
                 },
