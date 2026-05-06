@@ -91,7 +91,7 @@ export default function MessageContent({ messages, activeConversationMeta }: Pro
                                     <p className="text-sm wrap-break-word">{message.content}</p>
                                 )}
                                 {message.attachments && message.attachments.length > 0 && (
-                                    <div className={`mt-2 flex flex-col gap-1 p-2 rounded ${message?.sender === "user" ? "bg-[#e77272]" : ""}`}>
+                                    <div className={`w-full h-full mt-2 flex flex-col gap-1 p-2 rounded ${message?.sender === "user" ? "bg-[#e77272]" : ""}`}>
                                         {message.attachments.map((attachment) => (
                                             <div
                                                 key={attachment.id}

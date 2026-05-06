@@ -109,7 +109,10 @@ export default function OtpForm() {
                       ref={(el) => {
                         inputRefs.current[index] = el;
                       }}
-                      onChange={(e) => handleOtpChange(e.target.value, index)}
+                      onChange={(e) => {
+                        e.target.value = e.target.value.replace(/\D/, "");
+                        handleOtpChange(e.target.value, index);
+                      }}
                       onKeyDown={(e) => {
                         if (e.key === "Backspace") handleBackspace(index);
                       }}
