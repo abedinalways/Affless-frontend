@@ -1,9 +1,10 @@
 import { IoMdNotificationsOff } from "react-icons/io"
 import { MdBlock } from "react-icons/md"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThreeDotsIcon } from "@/public/svgIcons/svgIcons";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+import { useParams } from "next/navigation";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -13,9 +14,11 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { conversationDirectory } from "@/public/demodata";
+import { chatActons } from "@/public/staticData";
 
 type PropsType = {
-    otherUserId: string;
+    id: string;
     activeConversation?: {
         name: string;
         status: 'online' | 'offline';
@@ -28,20 +31,25 @@ type PropsType = {
         reported?: boolean | undefined;
         deleted?: boolean | undefined;
     };
-    handleMenuAction: (action: 'mute' | 'block' | 'report' | 'delete') => void;
 }
 
-export default function MessageHeader({ otherUserId, activeConversation, activeConversationMeta, handleMenuAction }: PropsType) {
-
+export default function MessageHeader() {
+    const params = useParams();
+    const id = params.id?.[0] || "";
     const router = useRouter();
     const menuRef = useRef<HTMLDivElement>(null);
+    const [activeConversation, setActiveConversation] = useState<PropsType["activeConversation"]>();
+
+    useEffect(() => {
+        setActiveConversation(conversationDirectory.find(conv => conv.id === id));
+    }, [id])
 
     return (
         <div className="border-b border-gray-200 p-2 sm:p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
                 <button
                     type="button"
-                    onClick={() => router.push(`/client-profile/${otherUserId}`)}
+                    onClick={() => router.push(`/client-profile/${id}`)}
                     className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer"
                     style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}
                 >
@@ -54,7 +62,7 @@ export default function MessageHeader({ otherUserId, activeConversation, activeC
                 <div>
                     <button
                         type="button"
-                        onClick={() => router.push(`/client-profile/${otherUserId}`)}
+                        onClick={() => router.push(`/client-profile/${id}`)}
                         className="font-semibold text-gray-900 cursor-pointer hover:underline"
                     >
                         {activeConversation?.name || 'Select a conversation'}
@@ -66,7 +74,7 @@ export default function MessageHeader({ otherUserId, activeConversation, activeC
                         {activeConversation?.isMuted && (
                             <IoMdNotificationsOff className="inline h-4 w-4" title="Muted" aria-label="Muted" />
                         )}
-                        {activeConversationMeta.reported && !activeConversation?.isBlocked ? (
+                        {/* {activeConversationMeta.reported && !activeConversation?.isBlocked ? (
                             'Reported'
                         ) : activeConversation?.status === 'online' && !activeConversation?.isBlocked ? (
                             'Online'
@@ -74,7 +82,7 @@ export default function MessageHeader({ otherUserId, activeConversation, activeC
                             'Offline'
                         ) : (
                             ''
-                        )}
+                        )} */}
                     </p>
                 </div>
             </div>
@@ -89,38 +97,16 @@ export default function MessageHeader({ otherUserId, activeConversation, activeC
                             </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="space-y-0">
-                            <DropdownMenuItem className="p-0">
-                                <button
-                                    onClick={() => handleMenuAction('mute')}
-                                    className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm first:rounded-t-lg cursor-pointer"
-                                >
-                                    {activeConversationMeta.muted ? 'Unmute Notifications' : 'Mute Notifications'}
-                                </button>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="p-0">
-                                <button
-                                    onClick={() => handleMenuAction('block')}
-                                    className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm cursor-pointer"
-                                >
-                                    {activeConversationMeta.blocked ? 'Unblock User' : 'Block User'}
-                                </button>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="p-0">
-                                <button
-                                    onClick={() => handleMenuAction('report')}
-                                    className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm cursor-pointer"
-                                >
-                                    Report Conversation
-                                </button>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="p-0">
-                                <button
-                                    onClick={() => handleMenuAction('delete')}
-                                    className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 text-sm last:rounded-b-lg cursor-pointer"
-                                >
-                                    Delete Conversation
-                                </button>
-                            </DropdownMenuItem>
+                            {chatActons?.map((action) => (
+                                <DropdownMenuItem className="p-0" key={action.action}>
+                                    <button
+                                        // onClick={() => handleMenuAction('mute')}
+                                        className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm first:rounded-t-lg cursor-pointer"
+                                    >
+                                        {action.label}
+                                    </button>
+                                </DropdownMenuItem>
+                            ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

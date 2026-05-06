@@ -151,7 +151,6 @@ export default function EditorDashboard() {
           quickMatch={exposureTier.quickMatch}
           exposureTiers={exposureTiers}
         />
-
         {/* RIGHT SIDE */}
         <div className="w-full">
           <div className="flex items-center justify-between flex-wrap gap-3">
@@ -169,7 +168,6 @@ export default function EditorDashboard() {
               <PlusIcon className="w-5" /> Browse New Jobs
             </Link>
           </div>
-
           {/* Summary */}
           <div className="my-5 rounded-xl bg-[#ffe1e1] px-6 py-6 text-[18px] font-medium text-[#FF4D4F] flex items-center justify-between">
             <span>Active Jobs: 5 (${totalAmount})</span>
