@@ -29,7 +29,7 @@ type ProposalFormData = {
 
 type PropType = {
     title?: string;
-    onSubmit: (data: { bidAmount: string; deliveryTime: string; coverLetter: string }) => void;
+    onSubmit?: (data: { bidAmount: string; deliveryTime: string; coverLetter: string }) => void;
     bidAmount?: string;
     deliveryTime?: string;
     coverLetter?: string;
@@ -91,7 +91,7 @@ export default function ProposalForm({ bidAmount, deliveryTime, coverLetter, tit
             }
             setProposalDescription("");
             setJobDurationError("");
-            onSubmit(data);
+            onSubmit && onSubmit(data);
         }, 1000);
     };
 
