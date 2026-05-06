@@ -318,7 +318,7 @@ export default function FilterSidebar({ isMobile, handleMenu, priceLabel }: prop
         {/* Delivery Time Slider */}
         <div className='w-full flex flex-col items-center gap-3 mb-4'>
           <div className='w-full flex justify-center px-2 text-gray-700 text-base font-medium'>
-            <span>{deliveryTime[0]} {deliveryTime[0] === 1 ? 'day' : 'days'}</span>
+            <span>Within {deliveryTime[0]} {deliveryTime[0] === 1 ? 'day' : 'days'}</span>
           </div>
 
           <div className='relative w-full'>

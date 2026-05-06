@@ -110,6 +110,7 @@ export default function PostJobForm() {
   const [minPrice, setMinPrice] = useState(2);
   const [videoLength, setVideoLength] = useState(0);
   const [videoNotRequired, setVideoNotRequired] = useState(false);
+  const [jobDurationError, setJobDurationError] = useState("");
 
   // Handle file uploads
   const handleStyleReferenceChange = (
@@ -474,6 +475,13 @@ export default function PostJobForm() {
                 onBlur: (e) => {
                   let value = parseInt(e.target.value);
 
+                  if (value > 50) {
+                    value = 50;
+                    setJobDurationError("Maximum job duration is 50 days.");
+                  } else {
+                    setJobDurationError("");
+                  }
+
                   if (!value || value < 1) value = 1;
 
                   // auto format
@@ -487,6 +495,11 @@ export default function PostJobForm() {
               </p>
             )}
 
+            {jobDurationError && (
+              <p className='text-red-500 text-sm mb-4 ml-3'>
+                {jobDurationError}
+              </p>
+            )}
 
             <label className='block mb-2 text-sm font-medium text-gray-600'>
               Video Duration

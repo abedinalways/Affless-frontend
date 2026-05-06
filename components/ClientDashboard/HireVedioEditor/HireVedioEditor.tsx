@@ -118,6 +118,7 @@ export default function HireVideoEditorForm() {
   const [minPrice, setMinPrice] = useState(2);
   const [videoLength, setVideoLength] = useState(0);
   const [videoNotRequired, setVideoNotRequired] = useState(false);
+  const [jobDurationError, setJobDurationError] = useState("");
 
   // Handle file uploads
   const handleStyleReferenceChange = (
@@ -505,6 +506,13 @@ export default function HireVideoEditorForm() {
                 onBlur: (e) => {
                   let value = parseInt(e.target.value);
 
+                    if (value > 50) {
+                      value = 50;
+                      setJobDurationError("Maximum job duration is 50 days.");
+                    } else {
+                      setJobDurationError("");
+                    }
+
                   if (!value || value < 1) value = 1;
 
                   // auto format
@@ -515,6 +523,12 @@ export default function HireVideoEditorForm() {
             {errors.duration && (
               <p className='text-red-500 text-sm mb-4'>
                 {errors.duration.message || "Job Duration is required"}
+              </p>
+            )}
+
+            {jobDurationError && (
+              <p className='text-red-500 text-sm mb-4 ml-3'>
+                {jobDurationError}
               </p>
             )}
 
