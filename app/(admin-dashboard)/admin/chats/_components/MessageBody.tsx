@@ -270,7 +270,7 @@ export default function MessageBody({ conversationId, onReportUser }: MessageBod
                 />
 
                 {/* Messages Area */}
-                <div className='grid w-full h-full min-h-0 overflow-y-auto'>
+                <div className='grid grid-cols-1 grid-rows-[1fr_auto] w-full h-full min-h-0 overflow-y-auto'>
                     <MessageContent
                         messages={messages}
                         activeConversationMeta={activeConversationMeta}
