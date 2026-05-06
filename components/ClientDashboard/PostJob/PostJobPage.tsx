@@ -188,7 +188,7 @@ export default function PostJobForm() {
       setValue("requiredSkills", parsedData.requiredSkills || "");
       setSelectedCategory(parsedData.category || "youtube_long_form");
       setVideoLength(parseInt(parsedData.videoDuration) || 0);
-      setValue("budget", `$${usFormatWithDecimals.format(parsedData.budget)}` || "");
+      setValue("budget", `$${usFormatWithDecimals.format(parsedData.budget < minPrice ? minPrice : parsedData.budget)}` || "");
     }
   }, [])
 
