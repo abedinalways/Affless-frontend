@@ -184,7 +184,7 @@ export default function HireVideoEditorForm() {
     setLoading(true);
     console.log("Form Submitted:", data, "Payment Type:", paymentType);
     if (minPrice > parseFloat(data.budget.replace(/[^0-9.]/g, ""))) {
-      toast.error(`Minimum budget for this Job is $${minPrice}`);
+      toast.error(`The minimum budget for this Job is $${minPrice}.`);
       setLoading(false);
       return;
     }
@@ -222,13 +222,15 @@ export default function HireVideoEditorForm() {
     const storedData = localStorage.getItem("postJobData");
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-      const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? "seconds" : "minutes";
+      const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? parsedData.duration === 1 ? "second" : "seconds" : parsedData.duration === 1 ? "minute" : "minutes";
       setValue("jobTitle", parsedData.jobTitle || "");
       setValue("jobDescription", parsedData.jobDescription || "");
       setValue("category", parsedData.category || "youtube_long_form");
-      setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > "1" ? " days" : "day"}` || "");
+      setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? " days" : "day"}` || "");
       setValue("platform", parsedData.platform || "");
-      setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
+      if(parsedData.category !== "thumbnails"){
+        setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
+      }
       setValue("requiredSkills", parsedData.requiredSkills || "");
       setSelectedCategory(parsedData.category || "youtube_long_form");
       setVideoLength(parseInt(parsedData.videoDuration) || 0);
@@ -250,45 +252,62 @@ export default function HireVideoEditorForm() {
       if (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") {
         if (length <= 39) {
           setMinPrice(2);
+          setValue("budget", `$${usFormatWithDecimals.format(2)}`);
         } else {
           setMinPrice(3);
+          setValue("budget", `$${usFormatWithDecimals.format(3)}`);
         }
         return;
       } else if (selectedCategory === "thumbnails") {
         setMinPrice(3);
+        setValue("budget", `$${usFormatWithDecimals.format(3)}`);
         return;
       } else {
         if (length <= 39) {
           setMinPrice(2);
+          setValue("budget", `$${usFormatWithDecimals.format(2)}`);
         } else if (length <= 59) {
           setMinPrice(3);
+          setValue("budget", `$${usFormatWithDecimals.format(3)}`);
         } else if (length <= 300 && length > 59) {
           setMinPrice(5);
+          setValue("budget", `$${usFormatWithDecimals.format(5)}`);
         } else if (length <= 600 && length > 300) {
           setMinPrice(8);
+          setValue("budget", `$${usFormatWithDecimals.format(8)}`);
         } else if (length <= 900 && length > 600) {
           setMinPrice(12);
+          setValue("budget", `$${usFormatWithDecimals.format(12)}`);
         } else if (length <= 1200 && length > 900) {
           setMinPrice(16);
+          setValue("budget", `$${usFormatWithDecimals.format(16)}`);
         } else if (length <= 1800 && length > 1200) {
           setMinPrice(20);
+          setValue("budget", `$${usFormatWithDecimals.format(20)}`);
         } else if (length <= 2400 && length > 1800) {
           setMinPrice(25);
+          setValue("budget", `$${usFormatWithDecimals.format(25)}`);
         } else if (length <= 3000 && length > 2400) {
           setMinPrice(30);
+          setValue("budget", `$${usFormatWithDecimals.format(30)}`);
         } else if (length <= 3600 && length > 3000) {
           setMinPrice(40);
+          setValue("budget", `$${usFormatWithDecimals.format(40)}`);
         } else if (length <= 7200 && length > 3600) {
           setMinPrice(50);
+          setValue("budget", `$${usFormatWithDecimals.format(50)}`);
         } else if (length > 7200) {
           setMinPrice(100);
+          setValue("budget", `$${usFormatWithDecimals.format(100)}`);
         }
       }
     } else if (selectedCategory === "thumbnails") {
       setMinPrice(3);
+      setValue("budget", `$${usFormatWithDecimals.format(3)}`);
       return;
     } else {
       setMinPrice(2);
+      setValue("budget", `$${usFormatWithDecimals.format(2)}`);
     }
   }, [videoLength, selectedCategory]);
 
@@ -398,7 +417,7 @@ export default function HireVideoEditorForm() {
               placeholder='e.g. Retention Editing, Storytelling, Color Correction'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               {...register("requiredSkills", {
-                required: "Skills are required",
+                required: "Required skills are required",
               })}
             />
 
@@ -409,7 +428,7 @@ export default function HireVideoEditorForm() {
             )}
 
             <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Job Budget*
+              Job Budget
             </label>
 
             <input
@@ -421,7 +440,6 @@ export default function HireVideoEditorForm() {
                 e.target.value = e.target.value.replace(/[^0-9.]/g, "");
               }}
               {...register("budget", {
-                
                 onChange: (e) => {
                   e.target.value = e.target.value.replace(/[^0-9.]/g, "");
                 },
@@ -442,18 +460,19 @@ export default function HireVideoEditorForm() {
             {errors.budget && (
               <p className='text-red-500 text-sm'>{errors.budget.message}</p>
             )}
+
             <div className="mb-4 space-y-2">
               {videoNotRequired || (selectedCategory && videoLength) ? (
-                <p className='text-gray-600 text-sm mb-4'>
-                  The minimum budget for this Job is <strong>${usFormatWithDecimals.format(minPrice)}</strong> based on the video length and category.
+                <p className='text-gray-600 text-sm'>
+                  The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
                 </p>
               ) : (
-                <p className='text-gray-600 text-sm mb-4'>
+                <p className='text-gray-600 text-sm'>
                   Please select a job category and enter the estimated video duration to enter the job budget.
                 </p>
               )}
 
-              <Link href={`/payment-rules?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`} className='text-sm underline text-blue-600 hover:text-blue-900 transition-colors duration-300'>
+              <Link href={`/payment-rules?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`} className='text-sm underline text-blue-600 hover:text-blue-900 transition-colors duration-300'>
                 Read the Full Payment Rules Here.
               </Link>
             </div>
@@ -505,17 +524,14 @@ export default function HireVideoEditorForm() {
                 onBlur: (e) => {
                   let value = parseInt(e.target.value);
 
-                    if (value > 50) {
-                      value = 50;
-                      setJobDurationError("Maximum job duration is 50 days.");
-                    } else {
-                      setJobDurationError("");
-                    }
-
+                  if (value > 50) {
+                    value = 50;
+                    setJobDurationError("Maximum job duration is 50 days.");
+                  } else {
+                    setJobDurationError("");
+                  }
                   if (!value || value < 1) value = 1;
-
-                  // auto format
-                  e.target.value = `${usFormat.format(value)} day${value > 1 ? "s" : ""}`;
+                  setValue("duration", `${usFormat.format(value)} day${value > 1 ? "s" : ""}`);
                 },
               })}
             />
@@ -545,7 +561,7 @@ export default function HireVideoEditorForm() {
                 e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
               {...register("videoDuration", {
-                required: "Video duration is required",
+                required: videoNotRequired ? false : "Video duration is required",
 
                 onChange: (e) => {
                   // শুধু number allow
@@ -557,14 +573,14 @@ export default function HireVideoEditorForm() {
                   let value = parseInt(e.target.value);
                   if (!value || value < 1) value = 1;
                   // auto format
-                  const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? "seconds" : "minutes";
+                  const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? value === 1 ? "second" : "seconds" : value === 1 ? "minute" : "minutes";
                   e.target.value = `${usFormat.format(value)} ${unit}`;
                 },
               })}
             />
 
 
-            {errors.videoDuration && (
+            {(errors.videoDuration && !videoNotRequired) && (
               <p className='text-red-500 text-sm mb-4'>
                 {errors.videoDuration.message || "Video Duration is required"}
               </p>

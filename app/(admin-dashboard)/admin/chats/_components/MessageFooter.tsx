@@ -5,37 +5,27 @@ import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import AddLinkModal from "./AddLinkModal";
 
-type PropType = {
-    activeConversationMeta: {
-        muted?: boolean; blocked?: boolean; reported?: boolean; deleted?: boolean
-    };
-    activeConversationId: string | null;
-    onConversationMessagesChange: (newMessage: Message) => void;
-    attachments: AttachmentItem[];
-    setAttachments: React.Dispatch<React.SetStateAction<AttachmentItem[]>>;
-}
-
-
-export default function MessageFooter({ activeConversationMeta, activeConversationId, onConversationMessagesChange, attachments, setAttachments }: PropType) {
+export default function MessageFooter() {
     const attachmentMenuRef = useRef<HTMLDivElement>(null);
     const [isAttachmentMenuOpen, setIsAttachmentMenuOpen] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileAccept, setFileAccept] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [showAddLinkModal, setShowAddLinkModal] = useState(false);
+    const [attachments, setAttachments] = useState<AttachmentItem[]>([]);
 
     const handleToggleAddLinkModal = () => {
         setShowAddLinkModal((prev) => !prev);
         setIsAttachmentMenuOpen(false);
     }
     const handleRemoveAttachment = (id: string) => {
-        setAttachments((prev) => {
-            const item = prev.find((entry) => entry.id === id);
-            if (item?.file) {
-                URL.revokeObjectURL(item.url);
-            }
-            return prev.filter((entry) => entry.id !== id);
-        });
+        // setAttachments((prev) => {
+        //     const item = prev.find((entry) => entry.id === id);
+        //     if (item?.file) {
+        //         URL.revokeObjectURL(item.url);
+        //     }
+        //     return prev.filter((entry) => entry.id !== id);
+        // });
     };
 
     const openFilePicker = (accept: string) => {
@@ -57,33 +47,33 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
             name: file.name,
         }));
 
-        setAttachments((prev) => [...prev, ...newItems]);
+        // setAttachments((prev) => [...prev, ...newItems]);
         event.target.value = '';
     };
 
     const handleSendMessage = () => {
-        if ((inputValue.trim() === '' && attachments.length === 0) || !activeConversationId || activeConversationMeta.blocked || activeConversationMeta.deleted) return;
+        // if ((inputValue.trim() === '' && attachments.length === 0) || !activeConversationId || activeConversationMeta.blocked || activeConversationMeta.deleted) return;
 
-        const attachmentsToSend = attachments.map(({ id, url, type, name }) => ({
-            id,
-            url,
-            type,
-            name,
-        }));
+        // const attachmentsToSend = attachments.map(({ id, url, type, name }) => ({
+        //     id,
+        //     url,
+        //     type,
+        //     name,
+        // }));
 
-        const newMessage: Message = {
-            id: uuidv4(),
-            sender: 'user',
-            content: inputValue,
-            createdAt: new Date().toISOString(),
-            attachments: attachmentsToSend.length > 0 ? attachmentsToSend : undefined,
-        };
+        // const newMessage: Message = {
+        //     id: uuidv4(),
+        //     sender: 'user',
+        //     content: inputValue,
+        //     createdAt: new Date().toISOString(),
+        //     attachments: attachmentsToSend.length > 0 ? attachmentsToSend : undefined,
+        // };
 
-        //console.log("Sending message with attachments:", newMessage);
+        // //console.log("Sending message with attachments:", newMessage);
 
-        onConversationMessagesChange(newMessage);
-        setInputValue('');
-        setAttachments([]);
+        // onConversationMessagesChange(newMessage);
+        // setInputValue('');
+        // setAttachments([]);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -197,16 +187,16 @@ export default function MessageFooter({ activeConversationMeta, activeConversati
                 />
                 <input
                     type="text"
-                    placeholder={activeConversationMeta.blocked ? 'You blocked this user' : 'Type your message...'}
+                    placeholder={'Type your message...'}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    disabled={!activeConversationId || activeConversationMeta.blocked || activeConversationMeta.deleted}
+                    disabled={false}
                     className="flex-1 px-2 min-w-[130px]  sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e74c4c] text-sm"
                 />
                 <button
                     onClick={handleSendMessage}
-                    disabled={(inputValue.trim() === '' && attachments.length === 0) || !activeConversationId || activeConversationMeta.blocked || activeConversationMeta.deleted}
+                    disabled={false}
                     className="p-1.5 sm:p-2 bg-[#e74c4c] hover:bg-[#c23b3b] disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors shrink-0 cursor-pointer"
                 >
                     <SendIcon className='w-5 h-5' />
