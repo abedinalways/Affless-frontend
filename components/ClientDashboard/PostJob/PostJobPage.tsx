@@ -139,7 +139,7 @@ export default function PostJobForm() {
     setLoading(true);
     console.log("Form Submitted:", data, "Payment Type:", paymentType);
     if (minPrice > parseFloat(data.budget.replace("$", ""))) {
-      toast.error(`Minimum budget for this Job is $${minPrice}`);
+      toast.error(`The minimum budget for this Job is $${minPrice}.`);
       setLoading(false);
       return;
     }
@@ -177,14 +177,16 @@ export default function PostJobForm() {
     const storedData = localStorage.getItem("postJobData");
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-      const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? "seconds" : "minutes";
+      const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? parsedData.duration === 1 ? "second" : "seconds" : parsedData.duration === 1 ? "minute" : "minutes";
       // console.log("Parsed data from localStorage:", parsedData, "Unit for video duration:", unit);
       setValue("jobTitle", parsedData.jobTitle || "");
       setValue("jobDescription", parsedData.jobDescription || "");
       setValue("category", parsedData.category || "youtube_long_form");
-      setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > "1" ? " days" : "day"}` || "");
+      setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? " days" : "day"}` || "");
       setValue("platform", parsedData.platform || "");
-      setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
+      if(parsedData.category !== "thumbnails"){
+        setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
+      }
       setValue("requiredSkills", parsedData.requiredSkills || "");
       setSelectedCategory(parsedData.category || "youtube_long_form");
       setVideoLength(parseInt(parsedData.videoDuration) || 0);
@@ -366,7 +368,7 @@ export default function PostJobForm() {
               placeholder='e.g. Retention Editing, Storytelling, Color Correction'
               className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
               {...register("requiredSkills", {
-                required: "Skills are required",
+                required: "Required skills are required",
               })}
             />
 
@@ -482,8 +484,9 @@ export default function PostJobForm() {
 
                   if (!value || value < 1) value = 1;
 
+                  
                   // auto format
-                  e.target.value = `${usFormat.format(value)} day${value > 1 ? "s" : ""}`;
+                  setValue("duration", `${usFormat.format(value)} day${value > 1 ? "s" : ""}`);
                 },
               })}
             />
@@ -523,14 +526,14 @@ export default function PostJobForm() {
                   let value = parseInt(e.target.value);
                   if (!value || value < 1) value = 1;
                   // auto format
-                  const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? "seconds" : "minutes";
+                  const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? value === 1 ? "second" : "seconds" : value === 1 ? "minute" : "minutes";
                   e.target.value = `${usFormat.format(value)} ${unit}`;
                 },
               })}
             />
 
 
-            {errors.videoDuration && (
+            {(errors.videoDuration && !videoNotRequired) && (
               <p className='text-red-500 text-sm mb-4'>
                 {errors.videoDuration.message || "Video Duration is required"}
               </p>

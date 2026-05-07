@@ -176,7 +176,6 @@ export default function ProposalForm({ bidAmount, deliveryTime, coverLetter, tit
                                 {...register("deliveryTime", {
                                     required: true,
                                     onChange: (e) => {
-                                        // শুধু number allow
                                         e.target.value = e.target.value.replace(/[^0-9]/g, "");
                                     },
 
@@ -188,11 +187,8 @@ export default function ProposalForm({ bidAmount, deliveryTime, coverLetter, tit
                                         } else {
                                             setJobDurationError("");
                                         }
-
                                         if (!value || value < 1) value = 1;
-
-                                        // auto format
-                                        e.target.value = `${value} days`;
+                                        e.target.value = `${value} day${value > 1 ? "s" : ""}`;
                                     },
                                 })}
                             />
