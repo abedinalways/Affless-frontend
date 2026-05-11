@@ -8,24 +8,20 @@ import { IoSearch } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { Conversation } from '@/app/type';
-import { conversationDirectory } from '@/public/demodata';
+import { useAdminMessageContext } from './AdminMessageContext';
 import { useParams } from 'next/navigation';
 
 
 export default function Sidebar() {
     const params = useParams();
     const selectedConversationId = params?.id;
-    const [conversations, setConversations] = useState<Conversation[]>([]);
+    const { conversations } = useAdminMessageContext();
     const [searchQuery, setSearchQuery] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const searchContainerRef = useRef<HTMLDivElement | null>(null);
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirect = searchParams.get("redirect") || "";
-
-    useEffect(() => {
-        setConversations(conversationDirectory);
-    }, [conversationDirectory])
 
     useEffect(() => {
         if (!showSearch) return;
@@ -69,7 +65,7 @@ export default function Sidebar() {
             </div>
             <div className="space-y-2">
                 {conversations.length > 0 ? (
-                    conversations.map((conversation) => (
+                    conversations?.filter(cnv => !cnv?.deleted).map((conversation) => (
                         <div
                             key={conversation.id}
                             onClick={() => {
@@ -105,14 +101,12 @@ export default function Sidebar() {
                                             </div>
                                         </div>
                                         <div className='flex items-center gap-1'>
-                                            {(conversation.muted || conversation.blocked || conversation.reported) && (
+                                            {(conversation.isMuted || conversation.isBlocked) && (
                                                 <span className="ml-2 flex items-center text-gray-500">
-                                                    {conversation.blocked ? (
+                                                    {conversation.isBlocked ? (
                                                         <MdBlock className="h-3.5 w-3.5" title="Blocked" aria-label="Blocked" />
-                                                    ) : conversation.muted ? (
+                                                    ) : (
                                                         <IoMdNotificationsOff className="h-3.5 w-3.5" title="Muted" aria-label="Muted" />
-                                                    ) : ( 
-                                                        <span className="text-[10px]">Reported</span>
                                                     )}
                                                 </span>
                                             )}

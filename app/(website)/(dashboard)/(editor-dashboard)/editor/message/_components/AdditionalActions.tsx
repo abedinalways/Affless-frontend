@@ -1,17 +1,16 @@
 import { Conversation } from "@/app/type"
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAdminMessageContext } from "@/app/(admin-dashboard)/admin/chats/_components/AdminMessageContext";
 
 type PropType = {
-    activeConversation: Conversation | undefined;
-    conversationId: string;
     onReportUser: () => void;
 }
 
-export default function AdditionalActions({ activeConversation, conversationId, onReportUser }: PropType) {
-
+export default function AdditionalActions({ onReportUser }: PropType) {
+    const { activeConversation } = useAdminMessageContext();
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirectUrl = searchParams.get("redirect") || "";
@@ -22,7 +21,7 @@ export default function AdditionalActions({ activeConversation, conversationId, 
             <div className="p-4 space-y-6 bg-white rounded-lg">
                 <div className="text-[#333] text-2xl font-medium leading-9">
                     <span>About </span>
-                    <Link href={`/client-profile/${activeConversation?.id}?redirect=${redirectUrl ? redirectUrl + "_" : ""}editormessagesid:${activeConversation?.id}`} className="underline">{activeConversation?.name || "Select a conversation"}</Link>
+                    <Link href={`/client-profile/${activeConversation?.id}?redirect=${redirectUrl ? redirectUrl + "_" : ""}editormessagesid:${activeConversation?.id}`} className="underline">Conversation</Link>
                 </div>
                 <div className="space-y-4 text-base text-[#333]">
                     <div className="flex items-center justify-between">
@@ -53,7 +52,7 @@ export default function AdditionalActions({ activeConversation, conversationId, 
                         Keep all communication on Editor Marketplace. Never share personal contact details or move payments off-platform.
                     </div>
                 </div>
-                {conversationId && (
+                {activeConversation?.id && (
                     <button
                         type="button"
                         onClick={() => toast.success(`Request sent to ${activeConversation?.name}.`)}
@@ -64,7 +63,7 @@ export default function AdditionalActions({ activeConversation, conversationId, 
                 )}
                 <button
                     type="button"
-                    onClick={() => router.push(`/editor/browse-job?client=${activeConversation?.name || ""}&redirect=${redirectUrl ? redirectUrl + "_" : ""}editormessagesid:${conversationId}:${activeConversation?.name}&clientid=${conversationId}`)}
+                    onClick={() => router.push(`/editor/browse-job?client=${activeConversation?.name || ""}&redirect=${redirectUrl ? redirectUrl + "_" : ""}editormessagesid:${activeConversation?.id}:${activeConversation?.name}&clientid=${activeConversation?.id}`)}
                     className="w-full px-5 py-2.5 border border-[#FF4D4F] rounded-lg flex items-center justify-center gap-2.5 cursor-pointer hover:bg-red-100 transition-colors duration-300 animate-floating"
                 >
                     View All Client’s Jobs
