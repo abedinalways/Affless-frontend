@@ -55,9 +55,6 @@ export interface Conversation {
   timestamp: string;
   unread: boolean;
   status: 'online' | 'offline';
-  muted?: boolean;
-  blocked?: boolean;
-  reported?: boolean;
   deleted?: boolean;
   country?: string;
   memberSince?: string;

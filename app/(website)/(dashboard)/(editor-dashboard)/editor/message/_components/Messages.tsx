@@ -8,28 +8,13 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import AdditionalActions from "./AdditionalActions";
-import { useMessageContext } from "./MessageLayout";
 
 type PropType = {
     id: string;
 }
 
 export default function Messages({ id }: PropType) {
-    const { conversationDirectory } = useMessageContext();
-    const searchParams = useSearchParams();
-    const redirectUrl = searchParams.get("redirect") || "";
-    const [deletedConversationIds, setDeletedConversationIds] = useState<string[]>([]);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
-    const router = useRouter();
-
-
-    const availableConversationDirectory = conversationDirectory.filter(
-        (item) => !deletedConversationIds.includes(item.id)
-    );
-
-    const activeConversation = availableConversationDirectory.find(
-        (item) => item.id === id
-    );
 
     const handleReportUser = async (reportData: any) => {
         try {
@@ -53,14 +38,9 @@ export default function Messages({ id }: PropType) {
                 <div className={`w-full h-full grid min-h-0 ${id === "" ? "hidden xl:block" : ""}`} style={{
                     height: 'calc(100vh - 148px)'
                 }}>
-                    <MessageBody
-                        conversationId={id}
-                        onReportUser={() => setIsReportModalOpen(true)}
-                    />
+                    <MessageBody />
                 </div>
                 <AdditionalActions
-                    activeConversation={activeConversation}
-                    conversationId={id}
                     onReportUser={() => setIsReportModalOpen(true)}
                 />
             </div>
@@ -69,8 +49,8 @@ export default function Messages({ id }: PropType) {
             <ReportUserModal
                 isOpen={isReportModalOpen}
                 onClose={() => setIsReportModalOpen(false)}
-                userName={activeConversation?.name || "User"}
-                userId={activeConversation?.id || id}
+                userName={"User"}
+                userId={id}
                 onReportSubmit={handleReportUser}
             />
         </div>

@@ -118,14 +118,12 @@ export default function Sidebar() {
                                             </div>
                                         </div>
                                         <div className='flex items-center gap-1'>
-                                            {(conversation.muted || conversation.blocked || conversation.reported) && (
+                                            {(conversation.isMuted || conversation.isBlocked) && (
                                                 <span className="ml-2 flex items-center text-gray-500">
-                                                    {conversation.blocked ? (
+                                                    {conversation.isBlocked ? (
                                                         <MdBlock className="h-3.5 w-3.5" title="Blocked" aria-label="Blocked" />
-                                                    ) : conversation.muted ? (
-                                                        <IoMdNotificationsOff className="h-3.5 w-3.5" title="Muted" aria-label="Muted" />
                                                     ) : (
-                                                        <span className="text-[10px]">Reported</span>
+                                                        <IoMdNotificationsOff className="h-3.5 w-3.5" title="Muted" aria-label="Muted" />
                                                     )}
                                                 </span>
                                             )}

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { conversationDirectory } from "@/public/demodata";
 import { chatActons } from "@/public/staticData";
+import { useAdminMessageContext } from "./AdminMessageContext";
 
 type PropsType = {
     id: string;
@@ -34,22 +35,37 @@ type PropsType = {
 }
 
 export default function MessageHeader() {
-    const params = useParams();
-    const id = params.id?.[0] || "";
+    const { activeConversation, onToggleMute, onStatusUpdateUser, onDeleteConversation } = useAdminMessageContext();
     const router = useRouter();
     const menuRef = useRef<HTMLDivElement>(null);
-    const [activeConversation, setActiveConversation] = useState<PropsType["activeConversation"]>();
 
-    useEffect(() => {
-        setActiveConversation(conversationDirectory.find(conv => conv.id === id));
-    }, [id])
+
+    const handleMenuAction = (action: string) => {
+        switch (action) {
+            case 'mute':
+                onToggleMute(!activeConversation?.isMuted);
+                break;
+            case 'block':
+                onStatusUpdateUser(!activeConversation?.isBlocked);
+                break;
+            case 'report':
+                // Implement report logic here
+                console.log('Report action triggered');
+                break;
+            case 'delete':
+                onDeleteConversation();
+                break;
+            default:
+                break;
+        }
+    }
 
     return (
         <div className="border-b border-gray-200 p-2 sm:p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
                 <button
                     type="button"
-                    onClick={() => router.push(`/client-profile/${id}`)}
+                    onClick={() => router.push(`/client-profile/${activeConversation?.id}`)}
                     className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer"
                     style={{ background: 'linear-gradient(135deg, #e74c4c 0%, #c23b3b 100%)' }}
                 >
@@ -62,7 +78,7 @@ export default function MessageHeader() {
                 <div>
                     <button
                         type="button"
-                        onClick={() => router.push(`/client-profile/${id}`)}
+                        onClick={() => router.push(`/client-profile/${activeConversation?.id}`)}
                         className="font-semibold text-gray-900 cursor-pointer hover:underline"
                     >
                         {activeConversation?.name || 'Select a conversation'}
@@ -97,10 +113,10 @@ export default function MessageHeader() {
                             </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="space-y-0">
-                            {chatActons?.map((action) => (
+                            {chatActons?.filter(action => action?.action !== "report")?.map((action) => (
                                 <DropdownMenuItem className="p-0" key={action.action}>
                                     <button
-                                        // onClick={() => handleMenuAction('mute')}
+                                        onClick={() => handleMenuAction(action?.action)}
                                         className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm first:rounded-t-lg cursor-pointer"
                                     >
                                         {action.label}

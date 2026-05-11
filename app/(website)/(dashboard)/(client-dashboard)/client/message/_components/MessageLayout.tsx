@@ -54,11 +54,11 @@ export function MessageProvider({ children }: { children: ReactNode }) {
             );
         },
         onReportConversation: () => {
-            setAllConversationDirectory((prev) =>
-                prev.map((conv) =>
-                    conv.id === selectedConversationId ? { ...conv, reported: !conv.reported || true } : conv
-                )
-            );
+            // setAllConversationDirectory((prev) =>
+            //     prev.map((conv) =>
+            //         conv.id === selectedConversationId ? { ...conv, reported: !conv.reported || true } : conv
+            //     )
+            // );
         }
     };
 
