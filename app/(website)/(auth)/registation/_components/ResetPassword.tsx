@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import KeyIcon from "@/components/Icons/KeyIcon";
@@ -27,7 +27,17 @@ export default function ResetPasswordForm() {
     handleSubmit,
     formState: { errors },
     getValues,
+    watch,
+    trigger,
   } = useForm<FormValues>();
+
+  const password = watch("password");
+
+  useEffect(() => {
+    if (getValues("confirmPassword")) {
+      trigger("confirmPassword");
+    }
+  }, [password, trigger]);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
@@ -46,49 +56,36 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    <div
-      className=" sm:px-[50px] 
-      md:px-[50px] 
-      lg:px-[100px] 
-      xl:px-[150px]
-      2xl:px-[300px] grid items-center"
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-[100px] gap-8">
+    <div className="grid items-center sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-[100px]">
         {/* Left Image */}
-        <div className="flex justify-center items-center ">
+        <div className="flex items-center justify-center">
           <Image
             src="/svgIcons/resetImage.svg"
             alt="reset password illustration"
             width={600}
             height={450}
-            className="
-              w-[260px]
-              sm:w-[360px]
-              md:w-[460px]
-              lg:w-[520px]
-              xl:w-[560px]
-              h-auto
-            "
+            className="h-auto w-[260px] sm:w-[360px] md:w-[460px] lg:w-[520px] xl:w-[560px]"
           />
         </div>
 
         {/* Right Panel */}
-        <div className="flex items-center justify-center bg-[#FFDBDC] rounded-2xl mb-8">
-          <div className="w-full max-w-lg py-10 px-4 sm:px-8">
+        <div className="mb-8 flex items-center justify-center rounded-2xl bg-[#FFDBDC]">
+          <div className="w-full max-w-lg px-4 py-10 sm:px-8">
             {/* Back + Title */}
             <div className="flex items-center gap-3 pb-3">
               <Link href="/otp">
-                <div className="text-[#333] text-2xl cursor-pointer">
+                <div className="cursor-pointer text-2xl text-[#333]">
                   <GoArrowLeft />
                 </div>
               </Link>
-              <h2 className="text-[#333] font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%]">
+              <h2 className="font-poppins text-[24px] leading-[150%] font-medium text-[#333] lg:text-[40px]">
                 Reset Password
               </h2>
             </div>
 
             {/* Subtitle */}
-            <p className="text-[#333] font-poppins text-base leading-[150%] pb-6">
+            <p className="font-poppins pb-6 text-base leading-[150%] text-[#333]">
               Your password must be 8-64 characters long.
             </p>
 
@@ -96,7 +93,7 @@ export default function ResetPasswordForm() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               {/* New Password */}
               <div className="relative">
-                <KeyIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#FF4D4F]" />
+                <KeyIcon className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-[#FF4D4F]" />
                 <input
                   {...register("password", {
                     required: "Password is required",
@@ -109,73 +106,70 @@ export default function ResetPasswordForm() {
                       message: "Password must not exceed 64 characters",
                     },
                     pattern: {
-                    value:
-                      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
-                    message:
-                      "Password must include at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 symbol",
-                  },
+                      value:
+                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]).{8,64}$/,
+                      message:
+                        "Password must include at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 symbol",
+                    },
                   })}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter Password"
-                  className="w-full px-6 py-3 pl-12 pr-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
+                  className="font-poppins w-full rounded-xl bg-white px-6 py-3 pr-12 pl-12 text-base text-[#333] focus:outline-none"
                 />
                 <button
                   type="button"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#333] cursor-pointer"
+                  className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-[#333]"
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
                   {showPassword ? (
-                    <EyeIcon className="w-5 h-5 text-gray-600" />
+                    <EyeIcon className="h-5 w-5 text-gray-600" />
                   ) : (
-                    <EyeOff className="w-6 h-6 text-gray-600" />
+                    <EyeOff className="h-6 w-6 text-gray-600" />
                   )}
                 </button>
               </div>
 
               {errors.password && (
-                <p className="text-red-500 text-sm font-poppins">
+                <p className="font-poppins text-sm text-red-500">
                   {errors.password.message}
                 </p>
               )}
 
               {/* Confirm Password */}
               <div className="relative">
-                <KeyIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#FF4D4F]" />
+                <KeyIcon className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-[#FF4D4F]" />
                 <input
                   {...register("confirmPassword", {
                     required: "Confirm password is required",
                     validate: (value) =>
-                      value === getValues("password") ||
-                      "Passwords do not match",
+                      value === password || "Passwords do not match",
                   })}
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Re-enter Password"
-                  className="w-full px-6 py-3 pl-12 pr-12 rounded-xl bg-white focus:outline-none text-[#333] font-poppins text-base"
+                  className="font-poppins w-full rounded-xl bg-white px-6 py-3 pr-12 pl-12 text-base text-[#333] focus:outline-none"
                 />
                 <button
                   type="button"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#333] cursor-pointer"
-                  onClick={() =>
-                    setShowConfirmPassword((prev) => !prev)
-                  }
+                  className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-[#333]"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
                 >
                   {showConfirmPassword ? (
-                    <EyeIcon className="w-6 h-6 text-gray-600" />
+                    <EyeIcon className="h-6 w-6 text-gray-600" />
                   ) : (
-                    <EyeOff className="w-6 h-6 text-gray-600" />
+                    <EyeOff className="h-6 w-6 text-gray-600" />
                   )}
                 </button>
               </div>
 
               {errors.confirmPassword && (
-                <p className="text-red-500 text-sm font-poppins">
+                <p className="font-poppins text-sm text-red-500">
                   {errors.confirmPassword.message}
                 </p>
               )}
 
-              <div className="text-sm text-[#333] space-y-1">
+              <div className="space-y-1 text-sm text-[#333]">
                 <p>Password Must Contain:</p>
-                <ul className="list-disc ml-5">
+                <ul className="ml-5 list-disc">
                   <li>8–64 characters</li>
                   <li>At least 1 uppercase letter</li>
                   <li>At least 1 lowercase letter</li>
@@ -188,7 +182,7 @@ export default function ResetPasswordForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-[#FF4D4F] text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl mt-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#e04345] transition-colors"
+                className="font-poppins mt-2 w-full cursor-pointer rounded-xl bg-[#FF4D4F] py-3 text-[16px] font-medium text-[#FDFDFD] transition-colors hover:bg-[#e04345] disabled:cursor-not-allowed disabled:opacity-50 lg:text-[24px]"
               >
                 {loading ? "Saving..." : "Save"}
               </button>
