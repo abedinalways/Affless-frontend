@@ -83,6 +83,7 @@ export default function ProposalForm({ bidAmount, deliveryTime, coverLetter, tit
 
     const onProposalSubmit = (data: { bidAmount: string; deliveryTime: string; coverLetter: string }) => {
         setIsSubmitting(true);
+        console.log("Proposal Submitted:", data);
         setTimeout(() => {
             setIsSubmitting(false);
             reset();
@@ -90,6 +91,7 @@ export default function ProposalForm({ bidAmount, deliveryTime, coverLetter, tit
                 toast.success("Proposal submitted successfully!");
             }
             setProposalDescription("");
+            setActualBidAmount("");
             setJobDurationError("");
             onSubmit && onSubmit(data);
         }, 1000);
@@ -142,15 +144,15 @@ export default function ProposalForm({ bidAmount, deliveryTime, coverLetter, tit
                                     },
 
                                     onBlur: (e) => {
-                                        setActualBidAmount(e.target.value);
-                                        e.target.value = `$${usFormatWithDecimals.format(e.target.value.replace(/[^0-9.]/g, ""))}`;
+                                        setActualBidAmount(e.target.value.replace(/[^0-9.]/g, ""));
+                                        setValue("bidAmount", `$${usFormatWithDecimals.format(e.target.value.replace(/[^0-9.]/g, "") >= 2 ? e.target.value.replace(/[^0-9.]/g, "") : 2)}`);
                                     },
                                 })}
 
                             />
                             {errors.bidAmount && (
                                 <p className="text-red-500 text-xs mt-2 pl-4">
-                                    Proposal amount is required
+                                    Proposal amount is required.
                                 </p>
                             )}
                             {(Number(actualBidAmount) < 2 && actualBidAmount && !errors.bidAmount) && (
@@ -188,13 +190,13 @@ export default function ProposalForm({ bidAmount, deliveryTime, coverLetter, tit
                                             setJobDurationError("");
                                         }
                                         if (!value || value < 1) value = 1;
-                                        e.target.value = `${value} day${value > 1 ? "s" : ""}`;
+                                        setValue("deliveryTime", `${value} day${value > 1 ? "s" : ""}`);
                                     },
                                 })}
                             />
                             {errors.deliveryTime && (
                                 <p className="text-red-500 text-xs mt-1">
-                                    Delivery Time is required
+                                    Delivery Time is required.
                                 </p>
                             )}
                             {jobDurationError && (
@@ -236,8 +238,8 @@ export default function ProposalForm({ bidAmount, deliveryTime, coverLetter, tit
                         {errors.coverLetter && (
                             <p className="text-red-500 text-xs mt-1">
                                 {errors.coverLetter.type === "minLength"
-                                    ? "Proposal Details must be at least 50 characters"
-                                    : "Proposal Details is required"}
+                                    ? "Proposal Details must be at least 50 characters."
+                                    : "Proposal Details is required."}
                             </p>
                         )}
                     </div>

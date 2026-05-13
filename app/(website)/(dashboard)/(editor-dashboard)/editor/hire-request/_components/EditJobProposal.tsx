@@ -11,7 +11,7 @@ type PropType = {
 export default function EditJobProposal({ onClose, onSubmit }: PropType) {
     return(
         <div className="fixed inset-0 bg-[#0003] backdrop-blur-xs z-999 flex items-center justify-center p-4" onClick={onClose}>
-            <div className="bg-white p-4 rounded-xl relative" onClick={(e)=>e.stopPropagation()}>
+            <div className="w-full max-w-[800px] bg-white p-4 rounded-xl relative" onClick={(e)=>e.stopPropagation()}>
                 <button type="button" className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-100 transition-colors duration-300 cursor-pointer" onClick={onClose}>
                     <IoClose className="text-xl"/>
                 </button>
