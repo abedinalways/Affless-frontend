@@ -1,6 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -51,6 +59,21 @@ export default function ConfirmationPopup({
       <div className="relative w-full max-w-sm space-y-2 rounded-xl bg-white p-5 shadow-xl">
         <h3 className="text-base font-semibold text-gray-900">{title}</h3>
         {description && <p className="text-sm text-gray-600">{description}</p>}
+        <div>
+          <Select
+            defaultValue="other"
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a reason..." />
+            </SelectTrigger>
+            <SelectContent className="z-999">
+              <SelectGroup>
+                <SelectItem value="violation_platform_safety_rules">Violation of Platform Safety Rules (off-platform payments and communications)</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="">
           {reason && (
             <textarea
@@ -83,7 +106,7 @@ export default function ConfirmationPopup({
             onClick={handleConfirm}
             className={
               confirmClassName ||
-              `rounded-lg bg-[#1570EF] px-3 py-1.5 text-sm font-medium text-white capitalize hover:bg-[#1266DD] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#1570EF]`
+              `cursor-pointer rounded-lg bg-[#1570EF] px-3 py-1.5 text-sm font-medium text-white capitalize hover:bg-[#1266DD] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#1570EF]`
             }
             disabled={loading}
           >
