@@ -124,8 +124,9 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
             <p className="text-gray-600">Worked With: <span className="text-gray-900">12 clients</span></p>
             <p className="text-gray-600">Average Response Time: <span className="text-gray-900">2 hours</span></p>
             <p className="text-gray-600">Job Completion Rate (%): <span className="text-gray-900">85%</span></p>
-            <p className="text-gray-600">Warning: <span className="text-gray-900">1/3</span></p>
-            <p className="text-gray-600">Suspended: <span className="text-gray-900">0/2</span></p>
+            <p className="text-gray-600">Common Warnings Count (Everything Except Violation of Off-Platform Rules): <span className="text-gray-900">1/3</span></p>
+            <p className="text-gray-600">Suspensions Count: <span className="text-gray-900">0/2</span></p>
+            <p className="text-gray-600">Violation of Off-Platform Safety Rules Policy Warnings Count: <span className="text-gray-900">0/2</span></p>
           </div>
         </div>
       </div>

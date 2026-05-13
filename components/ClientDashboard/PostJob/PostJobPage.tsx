@@ -32,13 +32,48 @@ type FormValues = {
 // Mapping of categories to available platforms
 const categoryPlatformMap: { [key: string]: string[] } = {
   youtube_long_form: ["youtube"],
-  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat", "youtube", "facebook", "x_twitter"],
+  shorts_reels_tiktoks: [
+    "tiktok",
+    "instagram",
+    "snapchat",
+    "youtube",
+    "facebook",
+    "x_twitter",
+  ],
   thumbnails: ["youtube"],
-  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter", "youtube", "snapchat"],
+  ads_ugc: [
+    "tiktok",
+    "instagram",
+    "facebook",
+    "x_twitter",
+    "youtube",
+    "snapchat",
+  ],
   podcasts: ["youtube", "tiktok", "x_twitter"],
-  weddings_events: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
-  captions_subtitles: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
-  color_audio: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
+  weddings_events: [
+    "youtube",
+    "instagram",
+    "facebook",
+    "tiktok",
+    "x_twitter",
+    "snapchat",
+  ],
+  captions_subtitles: [
+    "youtube",
+    "instagram",
+    "facebook",
+    "tiktok",
+    "x_twitter",
+    "snapchat",
+  ],
+  color_audio: [
+    "youtube",
+    "instagram",
+    "facebook",
+    "tiktok",
+    "x_twitter",
+    "snapchat",
+  ],
 };
 
 const allPlatforms = [
@@ -52,13 +87,17 @@ const allPlatforms = [
 
 export default function PostJobForm() {
   const searchParams = useSearchParams();
-  const assignEditor = searchParams.get('assign');
-  const redirectUrl = searchParams.get('redirect') || '';
+  const assignEditor = searchParams.get("assign");
+  const redirectUrl = searchParams.get("redirect") || "";
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
-    "single"
+    "single",
   );
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<string>("youtube_long_form");
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>("youtube_long_form");
+  const [jobDescription, setJobDescription] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [requiredSkills, setRequiredSkills] = useState("");
 
   const [jobCategory, setJobCategory] = useState<
     { key: string; label: string }[]
@@ -89,17 +128,17 @@ export default function PostJobForm() {
     },
     {
       key: "captions_subtitles",
-      label: "Captions/Subtitles"
+      label: "Captions/Subtitles",
     },
     {
       key: "color_audio",
-      label: "Color/Audio"
-    }
+      label: "Color/Audio",
+    },
   ]);
 
   // Filter platforms based on selected category
   const filteredPlatforms = allPlatforms.filter((plat) =>
-    categoryPlatformMap[selectedCategory]?.includes(plat.key)
+    categoryPlatformMap[selectedCategory]?.includes(plat.key),
   );
 
   // Define state for file inputs
@@ -114,7 +153,7 @@ export default function PostJobForm() {
 
   // Handle file uploads
   const handleStyleReferenceChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setStyleReference(e.target.files ? e.target.files[0] : null);
   };
@@ -131,7 +170,7 @@ export default function PostJobForm() {
     register,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
   } = useForm<FormValues>();
 
   // Submit handler
@@ -144,60 +183,102 @@ export default function PostJobForm() {
       return;
     }
 
-    localStorage.setItem("postJobData", JSON.stringify({
-      ...data,
-      budget: parseFloat(data.budget.replace(/[^0-9.]/g, "")),
-      duration: parseInt(data.duration.replace(/[^0-9]/g, "")),
-      videoDuration: parseInt(data.videoDuration.replace(/[^0-9]/g, "")),
-      styleReference: styleReference ? {
-        name: styleReference.name,
-        type: styleReference.type,
-        size: styleReference.size,
-      } : null,
-      pdfFile: pdfFile ? {
-        name: pdfFile.name,
-        type: pdfFile.type,
-        size: pdfFile.size,
-      } : null,
-      textDocument: textDocument ? {
-        name: textDocument.name,
-        type: textDocument.type,
-        size: textDocument.size,
-      } : null,
-    }));
+    localStorage.setItem(
+      "postJobData",
+      JSON.stringify({
+        ...data,
+        budget: parseFloat(data.budget.replace(/[^0-9.]/g, "")),
+        duration: parseInt(data.duration.replace(/[^0-9]/g, "")),
+        videoDuration: parseInt(data.videoDuration.replace(/[^0-9]/g, "")),
+        styleReference: styleReference
+          ? {
+              name: styleReference.name,
+              type: styleReference.type,
+              size: styleReference.size,
+            }
+          : null,
+        pdfFile: pdfFile
+          ? {
+              name: pdfFile.name,
+              type: pdfFile.type,
+              size: pdfFile.size,
+            }
+          : null,
+        textDocument: textDocument
+          ? {
+              name: textDocument.name,
+              type: textDocument.type,
+              size: textDocument.size,
+            }
+          : null,
+      }),
+    );
 
     setTimeout(() => {
       setLoading(false);
-      router?.push(`/client/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob&assign=` + (assignEditor || ""));
+      router?.push(
+        `/client/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob&assign=` +
+          (assignEditor || ""),
+      );
     }, 500);
   };
-
 
   useEffect(() => {
     const storedData = localStorage.getItem("postJobData");
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-      const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? parsedData.duration === 1 ? "second" : "seconds" : parsedData.duration === 1 ? "minute" : "minutes";
-      // console.log("Parsed data from localStorage:", parsedData, "Unit for video duration:", unit);
+      const unit =
+        parsedData.category === "shorts_reels_tiktoks" ||
+        parsedData.category === "ads_ugc" ||
+        parsedData.category === "captions_subtitles"
+          ? parsedData.duration === 1
+            ? "second"
+            : "seconds"
+          : parsedData.duration === 1
+            ? "minute"
+            : "minutes";
+      setJobDescription(parsedData.jobDescription || "");
       setValue("jobTitle", parsedData.jobTitle || "");
+      setJobTitle(parsedData.jobTitle || "");
       setValue("jobDescription", parsedData.jobDescription || "");
       setValue("category", parsedData.category || "youtube_long_form");
-      setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? " days" : "day"}` || "");
+      setValue(
+        "duration",
+        `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? " days" : "day"}` ||
+          "",
+      );
       setValue("platform", parsedData.platform || "");
-      if(parsedData.category !== "thumbnails"){
-        setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
+      if (parsedData.category !== "thumbnails") {
+        setValue(
+          "videoDuration",
+          `${usFormat.format(parsedData.videoDuration)} ${unit}` || "",
+        );
       }
       setValue("requiredSkills", parsedData.requiredSkills || "");
+      setRequiredSkills(parsedData.requiredSkills || "");
       setSelectedCategory(parsedData.category || "youtube_long_form");
       setVideoLength(parseInt(parsedData.videoDuration) || 0);
-      setValue("budget", `$${usFormatWithDecimals.format(parsedData.budget < minPrice ? minPrice : parsedData.budget)}` || "");
+      setValue(
+        "budget",
+        `$${usFormatWithDecimals.format(parsedData.budget < minPrice ? minPrice : parsedData.budget)}` ||
+          "",
+      );
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (videoLength) {
-      let length = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") ? videoLength : videoLength * 60;
-      if (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") {
+      let length =
+        selectedCategory === "shorts_reels_tiktoks" ||
+        selectedCategory === "captions_subtitles" ||
+        selectedCategory === "ads_ugc"
+          ? videoLength
+          : videoLength * 60;
+      if (
+        selectedCategory === "shorts_reels_tiktoks" ||
+        selectedCategory === "captions_subtitles" ||
+        selectedCategory === "ads_ugc"
+      ) {
         if (length <= 39) {
           setMinPrice(2);
           setValue("budget", `$${usFormatWithDecimals.format(2)}`);
@@ -259,18 +340,23 @@ export default function PostJobForm() {
     }
   }, [videoLength, selectedCategory]);
 
-  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  const [bannerLinks, setBannerLinks] = useState<
+    { label: string; href?: string }[]
+  >([]);
   useEffect(() => {
-    setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
-      currentLabel: "Post a Job",
-      fallbackBase: [{ label: "Home", href: "/" }],
-    }));
+    setBannerLinks(
+      buildSourceBreadcrumbs(redirectUrl, {
+        currentLabel: "Post a Job",
+        fallbackBase: [{ label: "Home", href: "/" }],
+      }),
+    );
   }, [redirectUrl]);
 
   useEffect(() => {
-    ["thumbnails"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
-  }, [selectedCategory])
-
+    ["thumbnails"].includes(selectedCategory)
+      ? setVideoNotRequired(true)
+      : setVideoNotRequired(false);
+  }, [selectedCategory]);
 
   const usFormat = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 0,
@@ -286,71 +372,128 @@ export default function PostJobForm() {
     <div>
       <div>
         <PageBanner
-          title='Post a Job'
-          bgImage='/findEditor.jpg'
+          title="Post a Job"
+          bgImage="/findEditor.jpg"
           links={bannerLinks}
         />
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='w-full flex p-6 containers'>
-        <div className='flex flex-col md:flex-row gap-8 w-full'>
+        className="containers flex w-full p-6"
+      >
+        <div className="flex w-full flex-col gap-8 md:flex-row">
           {/* LEFT SIDE */}
-          <div className='w-full md:w-2/3 bg-white p-6 rounded-xl shadow'>
+          <div className="w-full rounded-xl bg-white p-6 shadow md:w-2/3">
             {/* Job Title */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Job Title
-            </label>
-            <input
-              {...register("jobTitle", { required: true })}
-              type='text'
-              placeholder='I need...'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
-            />
-            {errors.jobTitle && (
-              <p className='text-red-500 text-sm mb-4'>
-                Job title is required
+            <div className="mb-4">
+              <label className="mb-2 block text-sm font-medium text-gray-600">
+                Job Title
+              </label>
+              <input
+                {...register("jobTitle", {
+                  required: true,
+                  minLength: {
+                    value: 5,
+                    message: "Job title must be at least 5 characters",
+                  },
+                  onChange(event) {
+                    let value = event.target.value;
+                    if (value.length > 100) {
+                      value = value.slice(0, 100);
+                    }
+                    setValue("jobTitle", value);
+                    setJobTitle(value);
+                  },
+                })}
+                type="text"
+                placeholder="I need..."
+                className="w-full rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
+              />
+              <p
+                className={`mt-1.5 text-sm text-gray-500 ${jobTitle.length >= 100 ? "text-red-500" : ""}`}
+              >
+                {jobTitle?.length}/100
               </p>
-            )}
+              {errors.jobTitle && (
+                <p className="mb-4 text-sm text-red-500">
+                  Job title is required
+                </p>
+              )}
+              {!errors.jobTitle && jobTitle.length >= 100 && (
+                <p className="mb-4 text-sm text-red-500">
+                  Maximum character limit reached
+                </p>
+              )}
+            </div>
 
             {/* Job Description */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Job Description
-            </label>
 
-            <textarea
-              {...register("jobDescription", {
-                required: "Job description is required",
-                minLength: {
-                  value: 50,
-                  message: "Job description must be at least 50 characters.",
-                },
-              })}
-              placeholder='Write Job Description'
-              className='w-full border rounded-lg p-3 mb-2 h-24 focus:outline-none focus:border-gray-400'
-            />
+            <div className="mb-4">
+              <div className="">
+                <label className="mb-2 block text-sm font-medium text-gray-600">
+                  Job Description
+                </label>
 
-            {errors.jobDescription && (
-              <p className='text-red-500 text-sm mb-4'>
-                {errors.jobDescription.message}
-              </p>
-            )}
+                <div className="flex flex-col gap-px">
+                  <textarea
+                    {...register("jobDescription", {
+                      required: "Job description is required",
+                      minLength: {
+                        value: 50,
+                        message:
+                          "Job description must be at least 50 characters",
+                      },
+                      maxLength: {
+                        value: 5000,
+                        message: "Maximum character limit reached.",
+                      },
+                      onChange: (e) => {
+                        let value = e.target.value;
+                        if (value.length > 5000) {
+                          value = value.slice(0, 5000);
+                        }
+                        setValue("jobDescription", value);
+                        e.target.value = value;
+                        setJobDescription(value);
+                      },
+                    })}
+                    placeholder="Write Job Description"
+                    className="h-26 w-full resize-none rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
+                    // onChange={(e) => setJobDescription(e.target.value)}
+                  />
+                  <p
+                    className={`mt-1.5 text-sm text-gray-500 ${jobDescription.length >= 5000 ? "text-red-500" : ""}`}
+                  >
+                    {jobDescription?.length}/5000
+                  </p>
+                </div>
+              </div>
+
+              {errors.jobDescription && (
+                <p className="mb-4 text-sm text-red-500">
+                  {errors.jobDescription.message}
+                </p>
+              )}
+              {!errors.jobDescription && jobDescription?.length >= 5000 && (
+                <p className="mb-4 text-sm text-red-500">
+                  Maximum character limit reached
+                </p>
+              )}
+            </div>
 
             {/* Category */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Job Category
             </label>
             <select
               {...register("category", { required: true })}
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
-                if (e.target.value === "thumbnails") {
-                  console.log("Selected category:", e.target.value);
-                  setValue("videoDuration", '');
-                  setVideoLength(0);
-                }
+                setValue("videoDuration", "");
+                setVideoLength(0);
               }}
-              className='w-full border rounded-lg p-3 mb-6'>
+              className="mb-6 w-full rounded-lg border p-3"
+            >
               {jobCategory.map((category) => (
                 <option key={category.key} value={category.key}>
                   {category.label}
@@ -359,34 +502,64 @@ export default function PostJobForm() {
             </select>
 
             {/* Required Skills */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Required Skills
-            </label>
+            <div className="mb-4">
+              <label className="mb-2 block text-sm font-medium text-gray-600">
+                Required Skills{" "}
+                <span className="text-xs">(comma separated)</span>
+              </label>
 
-            <input
-              type='text'
-              placeholder='e.g. Retention Editing, Storytelling, Color Correction'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
-              {...register("requiredSkills", {
-                required: "Required skills are required",
-              })}
-            />
-
-            {errors.requiredSkills && (
-              <p className='text-red-500 text-sm mb-4'>
-                {errors.requiredSkills.message || "Required skills are required"}
+              <input
+                type="text"
+                placeholder="e.g. Retention Editing, Storytelling, Color Correction"
+                className="w-full rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
+                {...register("requiredSkills", {
+                  required: "Required skills are required",
+                  minLength: {
+                    value: 5,
+                    message: "Required skills must be at least 5 characters",
+                  },
+                  onChange(e){
+                    let value = e.target.value;
+                    if(value.length > 100){
+                      value = value.slice(0, 100);
+                    }
+                    setValue("requiredSkills", value);
+                    e.target.value = value;
+                    setRequiredSkills(value);
+                  }
+                })}
+              />
+              <p className={`mt-1.5 text-sm text-gray-500 ${requiredSkills.length >= 100 ? "text-red-500" : ""}`}>
+                {requiredSkills?.length}/100
               </p>
-            )}
 
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+              {errors.requiredSkills && (
+                <p className="mb-4 text-sm text-red-500">
+                  {errors.requiredSkills.message ||
+                    "Required skills are required"}
+                </p>
+              )}
+
+              {!errors.requiredSkills && requiredSkills.length >= 100 && (
+                <p className="mb-4 text-sm text-red-500">
+                  Maximum character limit reached
+                </p>
+              )}
+            </div>
+
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Job Budget
             </label>
 
             <input
-              type='text'
+              type="text"
               placeholder={`$${minPrice.toFixed(2)}`}
-              disabled={videoNotRequired || (selectedCategory && videoLength) ? false : true}
-              className='w-full border rounded-lg p-3 mb-2 disabled:bg-gray-100 disabled:cursor-not-allowed'
+              disabled={
+                videoNotRequired || (selectedCategory && videoLength)
+                  ? false
+                  : true
+              }
+              className="mb-2 w-full rounded-lg border p-3 disabled:cursor-not-allowed disabled:bg-gray-100"
               onFocus={(e) => {
                 e.target.value = e.target.value.replace(/[^0-9.]/g, "");
               }}
@@ -398,7 +571,14 @@ export default function PostJobForm() {
                 onBlur: (e) => {
                   let value = parseFloat(e.target.value);
 
-                  console.log("Parsed budget value:", value, "Min price:", minPrice, "Raw input value: ", e.target.value);
+                  console.log(
+                    "Parsed budget value:",
+                    value,
+                    "Min price:",
+                    minPrice,
+                    "Raw input value: ",
+                    e.target.value,
+                  );
 
                   if (isNaN(value) || value < minPrice) value = minPrice;
 
@@ -409,34 +589,40 @@ export default function PostJobForm() {
             />
 
             {errors.budget && (
-              <p className='text-red-500 text-sm'>{errors.budget.message}</p>
+              <p className="text-sm text-red-500">{errors.budget.message}</p>
             )}
 
             <div className="mb-4 space-y-2">
               {videoNotRequired || (selectedCategory && videoLength) ? (
-                <p className='text-gray-600 text-sm'>
-                  The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
+                <p className="text-sm text-gray-600">
+                  The minimum budget for this Job is{" "}
+                  <strong>${minPrice.toFixed(2)}</strong> based on the video
+                  length and category.
                 </p>
               ) : (
-                <p className='text-gray-600 text-sm'>
-                  Please select a job category and enter the estimated video duration to enter the job budget.
+                <p className="text-sm text-gray-600">
+                  Please select a job category and enter the estimated video
+                  duration to enter the job budget.
                 </p>
               )}
 
-              <Link href={`/payment-rules?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`} className='text-sm underline text-blue-600 hover:text-blue-900 transition-colors duration-300'>
+              <Link
+                href={`/payment-rules?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`}
+                className="text-sm text-blue-600 underline transition-colors duration-300 hover:text-blue-900"
+              >
                 Read the Full Payment Rules Here.
               </Link>
             </div>
 
             {/* Warning Box */}
-            <div className='p-4 bg-red-50 border border-red-300 rounded-lg mb-6'>
-              <p className='text-red-600 font-semibold mb-2'>
+            <div className="mb-6 rounded-lg border border-red-300 bg-red-50 p-4">
+              <p className="mb-2 font-semibold text-red-600">
                 All payments must be processed through Editor Marketplace
               </p>
-              <p className='text-red-600 text-sm mb-2'>
+              <p className="mb-2 text-sm text-red-600">
                 DO NOT: Request or accept payment via external methods.
               </p>
-              <p className='text-red-600 text-sm'>
+              <p className="text-sm text-red-600">
                 <strong>Consequences:</strong>
                 <br />
                 • 1st violation: $25 penalty + warning
@@ -444,26 +630,28 @@ export default function PostJobForm() {
               </p>
               <Link
                 href={`/platform-safety?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`}
-                className='text-red-600 underline text-sm mt-2 inline-block hover:text-red-400 transition-colors duration-300'>
+                className="mt-2 inline-block text-sm text-red-600 underline transition-colors duration-300 hover:text-red-400"
+              >
                 Read the Full Platform Safety Rules Here.
               </Link>
             </div>
 
-
             {/* Duration */}
             {/* Job Duration (Days) */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Job Duration
             </label>
 
             <input
-              type='text'
-              placeholder='5'
+              type="text"
+              placeholder="5"
               onFocus={(e) => {
-                e.target.value = e.target.value.replace(/\s*(day|days)$/i, "").trim();
+                e.target.value = e.target.value
+                  .replace(/\s*(day|days)$/i, "")
+                  .trim();
                 e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
+              className="mb-2 w-full rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
               {...register("duration", {
                 required: "Job duration is required",
 
@@ -484,39 +672,45 @@ export default function PostJobForm() {
 
                   if (!value || value < 1) value = 1;
 
-                  
                   // auto format
-                  setValue("duration", `${usFormat.format(value)} day${value > 1 ? "s" : ""}`);
+                  setValue(
+                    "duration",
+                    `${usFormat.format(value)} day${value > 1 ? "s" : ""}`,
+                  );
                 },
               })}
             />
             {errors.duration && (
-              <p className='text-red-500 text-sm mb-4'>
+              <p className="mb-4 text-sm text-red-500">
                 {errors.duration.message || "Job Duration is required"}
               </p>
             )}
 
             {jobDurationError && (
-              <p className='text-red-500 text-sm mb-4 ml-3'>
+              <p className="mb-4 ml-3 text-sm text-red-500">
                 {jobDurationError}
               </p>
             )}
 
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Video Duration
             </label>
 
             <input
-              type='text'
-              placeholder='Video Duration (Estimate)'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed'
+              type="text"
+              placeholder="Video Duration (Estimate)"
+              className="mb-2 w-full rounded-lg border p-3 focus:border-gray-400 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100"
               disabled={videoNotRequired}
               onFocus={(e) => {
-                e.target.value = e.target.value.replace(/\s*(minutes|seconds)$/i, "").trim();
+                e.target.value = e.target.value
+                  .replace(/\s*(minutes|seconds)$/i, "")
+                  .trim();
                 e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
               {...register("videoDuration", {
-                required: videoNotRequired ? false : "Video duration is required",
+                required: videoNotRequired
+                  ? false
+                  : "Video duration is required",
                 onChange: (e) => {
                   // শুধু number allow
                   e.target.value = e.target.value.replace(/[^0-9]/g, "");
@@ -526,26 +720,35 @@ export default function PostJobForm() {
                   let value = parseInt(e.target.value);
                   if (!value || value < 1) value = 1;
                   // auto format
-                  const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? value === 1 ? "second" : "seconds" : value === 1 ? "minute" : "minutes";
+                  const unit =
+                    selectedCategory === "shorts_reels_tiktoks" ||
+                    selectedCategory === "ads_ugc" ||
+                    selectedCategory === "captions_subtitles"
+                      ? value === 1
+                        ? "second"
+                        : "seconds"
+                      : value === 1
+                        ? "minute"
+                        : "minutes";
                   e.target.value = `${usFormat.format(value)} ${unit}`;
                 },
               })}
             />
 
-
-            {(errors.videoDuration && !videoNotRequired) && (
-              <p className='text-red-500 text-sm mb-4'>
+            {errors.videoDuration && !videoNotRequired && (
+              <p className="mb-4 text-sm text-red-500">
                 {errors.videoDuration.message || "Video Duration is required"}
               </p>
             )}
 
             {/* Platform */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Platform
             </label>
             <select
               {...register("platform", { required: true })}
-              className='w-full border rounded-lg p-3 mb-6'>
+              className="mb-6 w-full rounded-lg border p-3"
+            >
               {filteredPlatforms.map((plat) => (
                 <option key={plat.key} value={plat.key}>
                   {plat.label}
@@ -561,109 +764,111 @@ export default function PostJobForm() {
             </div> */}
 
             {/* File Inputs */}
-            <div className='space-y-5 pb-3'>
+            <div className="space-y-5 pb-3">
               <div>
-                <label className='mb-2 block'>
-                  Style Reference
-                </label>
+                <label className="mb-2 block">Style Reference</label>
                 <input
                   {...register("styleReference", {
                     required: "Style reference is required",
                   })}
-                  id='style-reference-upload'
-                  className='hidden'
-                  type='file'
+                  id="style-reference-upload"
+                  className="hidden"
+                  type="file"
                   onChange={handleStyleReferenceChange}
                 />
-                <div className='flex items-center gap-3'>
+                <div className="flex items-center gap-3">
                   <label
-                    htmlFor='style-reference-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    htmlFor="style-reference-upload"
+                    className="cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                  >
                     Choose File
                   </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
+                  <span className="truncate text-sm text-gray-600 capitalize">
                     {styleReference?.name || "No file selected"}
                   </span>
                 </div>
                 {errors.styleReference && (
-                  <p className='text-red-500 text-sm mt-1'>
+                  <p className="mt-1 text-sm text-red-500">
                     {errors.styleReference.message}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className='mb-2 block'>PDF File:</label>
+                <label className="mb-2 block">PDF File:</label>
                 <input
                   {...register("pdfFile")}
-                  id='pdf-file-upload'
-                  className='hidden'
-                  type='file'
-                  accept='.pdf,application/pdf'
+                  id="pdf-file-upload"
+                  className="hidden"
+                  type="file"
+                  accept=".pdf,application/pdf"
                   onChange={handlePdfFileChange}
                 />
-                <div className='flex items-center gap-3'>
+                <div className="flex items-center gap-3">
                   <label
-                    htmlFor='pdf-file-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    htmlFor="pdf-file-upload"
+                    className="cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                  >
                     Choose File
                   </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
+                  <span className="truncate text-sm text-gray-600 capitalize">
                     {pdfFile?.name || "No file selected"}
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className='block'>Text Document:</label>
+                <label className="block">Text Document:</label>
                 <input
                   {...register("textFile")}
-                  id='text-document-upload'
-                  className='hidden'
-                  type='file'
-                  accept='.txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                  id="text-document-upload"
+                  className="hidden"
+                  type="file"
+                  accept=".txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                   onChange={handleTextDocumentChange}
                 />
-                <div className='flex items-center gap-3'>
+                <div className="flex items-center gap-3">
                   <label
-                    htmlFor='text-document-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    htmlFor="text-document-upload"
+                    className="cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                  >
                     Choose File
                   </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
+                  <span className="truncate text-sm text-gray-600 capitalize">
                     {textDocument?.name || "No file selected"}
                   </span>
                 </div>
               </div>
             </div>
             <button
-              type='submit'
+              type="submit"
               disabled={loading}
-              className='w-full bg-red-500 text-white py-3 rounded-lg mt-8 hover:bg-red-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'>
+              className="mt-8 w-full cursor-pointer rounded-lg bg-red-500 py-3 text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+            >
               Next
             </button>
           </div>
 
           {/* RIGHT SUMMARY */}
-          <div className="w-full md:w-[300px] flex flex-col gap-4">
-            <div className='w-full bg-white p-6 rounded-xl shadow h-fit'>
-              <h3 className='text-[20px] font-medium leading-150% pb-6'>
+          <div className="flex w-full flex-col gap-4 md:w-[300px]">
+            <div className="h-fit w-full rounded-xl bg-white p-6 shadow">
+              <h3 className="leading-150% pb-6 text-[20px] font-medium">
                 Budget & Payment
               </h3>
-              <div className='flex justify-between text-gray-700 mb-4'>
+              <div className="mb-4 flex justify-between text-gray-700">
                 <span>Job Budget</span>
                 <span>$20.00</span>
               </div>
-              <div className='flex justify-between text-gray-700 mb-4'>
+              <div className="mb-4 flex justify-between text-gray-700">
                 <span>Service Fee</span>
                 <span>$4.00</span>
               </div>
-              <div className='flex justify-between text-gray-700 mb-4'>
+              <div className="mb-4 flex justify-between text-gray-700">
                 <span>Taxes & Other Fees</span>
                 <span>$6.00</span>
               </div>
-              <hr className='my-4' />
-              <div className='flex justify-between text-gray-700 mb-4'>
+              <hr className="my-4" />
+              <div className="mb-4 flex justify-between text-gray-700">
                 <span>Total Payment</span>
                 <span>$40.00</span>
               </div>
@@ -673,8 +878,8 @@ export default function PostJobForm() {
               <span>$654.00</span>
               </div> */}
             </div>
-            <div className="bg-white p-6 rounded-xl shadow h-fit">
-              <div className='flex justify-between text-gray-700'>
+            <div className="h-fit rounded-xl bg-white p-6 shadow">
+              <div className="flex justify-between text-gray-700">
                 <span>Job Duration</span>
                 <span>5 Days</span>
               </div>

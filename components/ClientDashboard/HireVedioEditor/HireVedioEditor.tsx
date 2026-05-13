@@ -120,6 +120,10 @@ export default function HireVideoEditorForm() {
   const [videoNotRequired, setVideoNotRequired] = useState(false);
   const [jobDurationError, setJobDurationError] = useState("");
 
+  const [jobDescription, setJobDescription] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [requiredSkills, setRequiredSkills] = useState("");
+
   // Handle file uploads
   const handleStyleReferenceChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -224,7 +228,9 @@ export default function HireVideoEditorForm() {
       const parsedData = JSON.parse(storedData);
       const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? parsedData.duration === 1 ? "second" : "seconds" : parsedData.duration === 1 ? "minute" : "minutes";
       setValue("jobTitle", parsedData.jobTitle || "");
+      setJobTitle(parsedData.jobTitle || "");
       setValue("jobDescription", parsedData.jobDescription || "");
+      setJobDescription(parsedData.jobDescription || "");
       setValue("category", parsedData.category || "youtube_long_form");
       setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? " days" : "day"}` || "");
       setValue("platform", parsedData.platform || "");
@@ -232,6 +238,7 @@ export default function HireVideoEditorForm() {
         setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
       }
       setValue("requiredSkills", parsedData.requiredSkills || "");
+      setRequiredSkills(parsedData.requiredSkills || "");
       setSelectedCategory(parsedData.category || "youtube_long_form");
       setVideoLength(parseInt(parsedData.videoDuration) || 0);
       setValue("budget", `$${usFormatWithDecimals.format(parsedData.budget < minPrice ? minPrice : parsedData.budget)}` || "");
@@ -350,46 +357,105 @@ export default function HireVideoEditorForm() {
           {/* LEFT SIDE */}
           <div className='w-full md:w-2/3 bg-white p-6 rounded-xl shadow'>
             {/* Job Title */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Job Title
-            </label>
-            <input
-              {...register("jobTitle", { required: true })}
-              type='text'
-              placeholder='I need...'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
-            />
-            {errors.jobTitle && (
-              <p className='text-red-500 text-sm mb-4'>
-                Job title is required
+            {/* Job Title */}
+            <div className="mb-4">
+              <label className="mb-2 block text-sm font-medium text-gray-600">
+                Job Title
+              </label>
+              <input
+                {...register("jobTitle", {
+                  required: true,
+                  minLength: {
+                    value: 5,
+                    message: "Job title must be at least 5 characters",
+                  },
+                  onChange(event) {
+                    let value = event.target.value;
+                    if (value.length > 100) {
+                      value = value.slice(0, 100);
+                    }
+                    setValue("jobTitle", value);
+                    setJobTitle(value);
+                  },
+                })}
+                type="text"
+                placeholder="I need..."
+                className="w-full rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
+              />
+              <p
+                className={`mt-1.5 text-sm text-gray-500 ${jobTitle.length >= 100 ? "text-red-500" : ""}`}
+              >
+                {jobTitle?.length}/100
               </p>
-            )}
+              {errors.jobTitle && (
+                <p className="mb-4 text-sm text-red-500">
+                  Job title is required
+                </p>
+              )}
+              {!errors.jobTitle && jobTitle.length >= 100 && (
+                <p className="mb-4 text-sm text-red-500">
+                  Maximum character limit reached
+                </p>
+              )}
+            </div>
 
             {/* Job Description */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Job Description
-            </label>
 
-            <textarea
-              {...register("jobDescription", {
-                required: "Job description is required",
-                minLength: {
-                  value: 50,
-                  message: "Job description must be at least 50 characters.",
-                },
-              })}
-              placeholder='Write Job Description'
-              className='w-full border rounded-lg p-3 mb-2 h-24 focus:outline-none focus:border-gray-400'
-            />
+            <div className="mb-4">
+              <div className="">
+                <label className="mb-2 block text-sm font-medium text-gray-600">
+                  Job Description
+                </label>
 
-            {errors.jobDescription && (
-              <p className='text-red-500 text-sm mb-4'>
-                {errors.jobDescription.message}
-              </p>
-            )}
+                <div className="flex flex-col gap-px">
+                  <textarea
+                    {...register("jobDescription", {
+                      required: "Job description is required",
+                      minLength: {
+                        value: 50,
+                        message:
+                          "Job description must be at least 50 characters",
+                      },
+                      maxLength: {
+                        value: 5000,
+                        message: "Maximum character limit reached.",
+                      },
+                      onChange: (e) => {
+                        let value = e.target.value;
+                        if (value.length > 5000) {
+                          value = value.slice(0, 5000);
+                        }
+                        setValue("jobDescription", value);
+                        e.target.value = value;
+                        setJobDescription(value);
+                      },
+                    })}
+                    placeholder="Write Job Description"
+                    className="h-26 w-full resize-none rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
+                    // onChange={(e) => setJobDescription(e.target.value)}
+                  />
+                  <p
+                    className={`mt-1.5 text-sm text-gray-500 ${jobDescription.length >= 5000 ? "text-red-500" : ""}`}
+                  >
+                    {jobDescription?.length}/5000
+                  </p>
+                </div>
+              </div>
+
+              {errors.jobDescription && (
+                <p className="mb-4 text-sm text-red-500">
+                  {errors.jobDescription.message}
+                </p>
+              )}
+              {!errors.jobDescription && jobDescription?.length >= 5000 && (
+                <p className="mb-4 text-sm text-red-500">
+                  Maximum character limit reached
+                </p>
+              )}
+            </div>
 
             {/* Category */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Job Category
             </label>
             <select
@@ -399,7 +465,8 @@ export default function HireVideoEditorForm() {
                 setValue("videoDuration", "");
                 setVideoLength(0);
               }}
-              className='w-full border rounded-lg p-3 mb-6'>
+              className="mb-6 w-full rounded-lg border p-3"
+            >
               {jobCategory.map((category) => (
                 <option key={category.key} value={category.key}>
                   {category.label}
@@ -408,24 +475,50 @@ export default function HireVideoEditorForm() {
             </select>
 
             {/* Required Skills */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
-              Required Skills
-            </label>
+            <div className="mb-4">
+              <label className="mb-2 block text-sm font-medium text-gray-600">
+                Required Skills{" "}
+                <span className="text-xs">(comma separated)</span>
+              </label>
 
-            <input
-              type='text'
-              placeholder='e.g. Retention Editing, Storytelling, Color Correction'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
-              {...register("requiredSkills", {
-                required: "Required skills are required",
-              })}
-            />
-
-            {errors.requiredSkills && (
-              <p className='text-red-500 text-sm mb-4'>
-                {errors.requiredSkills.message || "Required skills are required"}
+              <input
+                type="text"
+                placeholder="e.g. Retention Editing, Storytelling, Color Correction"
+                className="w-full rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
+                {...register("requiredSkills", {
+                  required: "Required skills are required",
+                  minLength: {
+                    value: 5,
+                    message: "Required skills must be at least 5 characters",
+                  },
+                  onChange(e){
+                    let value = e.target.value;
+                    if(value.length > 100){
+                      value = value.slice(0, 100);
+                    }
+                    setValue("requiredSkills", value);
+                    e.target.value = value;
+                    setRequiredSkills(value);
+                  }
+                })}
+              />
+              <p className={`mt-1.5 text-sm text-gray-500 ${requiredSkills.length >= 100 ? "text-red-500" : ""}`}>
+                {requiredSkills?.length}/100
               </p>
-            )}
+
+              {errors.requiredSkills && (
+                <p className="mb-4 text-sm text-red-500">
+                  {errors.requiredSkills.message ||
+                    "Required skills are required"}
+                </p>
+              )}
+
+              {!errors.requiredSkills && requiredSkills.length >= 100 && (
+                <p className="mb-4 text-sm text-red-500">
+                  Maximum character limit reached
+                </p>
+              )}
+            </div>
 
             <label className='block mb-2 text-sm font-medium text-gray-600'>
               Job Budget
