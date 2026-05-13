@@ -303,7 +303,7 @@ export const conversationDirectory: Conversation[] = [
     id: "1",
     name: "John Designer",
     avatar: "/images/avatars/john.png",
-    lastMessage: "Hey, can you review my latest design?",
+    lastMessage: "Hey, can you review my latest design? lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     timestamp: "2026-03-28T10:15:00Z",
     unread: false,
     status: "online",
@@ -526,9 +526,9 @@ export const mockMessageThreads: Record<string, Message[]> = {
     { id: '9', sender: 'other', content: 'Uploading the new design now.', createdAt: '2026-05-10T17:00:00.000Z' },
   ],
   '2': [
-    { id: '1', sender: 'user', content: 'Hi Sarah, did you update the document?', createdAt: '2026-05-08T09:00:00.000Z' },
+    { id: '1', sender: 'user', content: 'Hi Sarah, did you update the document?', createdAt: '2026-05-08T09:00:00.000Z', deliveredAt: '2026-05-08T09:05:00.000Z', readAt: '2026-05-08T09:10:00.000Z' },
     { id: '2', sender: 'other', content: 'Yes, I just finished updating it.', createdAt: '2026-05-09T14:30:00.000Z' },
-    { id: '3', sender: 'user', content: 'Awesome, I will review it now.', createdAt: '2026-05-10T10:00:00.000Z' },
+    { id: '3', sender: 'user', content: 'Awesome, I will review it now.', createdAt: '2026-05-10T10:00:00.000Z', deliveredAt: '2026-05-10T10:05:00.000Z'},
   ],
   '3': [
     { id: '1', sender: 'other', content: 'Mike, do you have time for more revisions?', createdAt: '2026-05-07T08:00:00.000Z' },
@@ -536,7 +536,7 @@ export const mockMessageThreads: Record<string, Message[]> = {
     { id: '3', sender: 'other', content: 'Sent! Let me know if you have questions.', createdAt: '2026-05-09T10:00:00.000Z' },
   ],
   '4': [
-    { id: '1', sender: 'user', content: 'Emma, the video draft looks great!', createdAt: '2026-05-09T16:00:00.000Z' },
+    { id: '1', sender: 'user', content: 'Emma, the video draft looks great!', createdAt: '2026-05-09T16:00:00.000Z', deliveredAt: '2026-05-09T16:05:00.000Z', readAt: '2026-05-09T16:10:00.000Z' },
     { id: '2', sender: 'other', content: 'Thank you! Any feedback?', createdAt: '2026-05-10T10:00:00.000Z' },
     { id: '3', sender: 'user', content: 'Just minor tweaks on the intro.', createdAt: '2026-05-11T09:00:00.000Z', deliveredAt: '2026-05-11T09:05:00.000Z', readAt: '2026-05-11T09:10:00.000Z' },
   ],
@@ -546,9 +546,9 @@ export const mockMessageThreads: Record<string, Message[]> = {
     { id: '3', sender: 'other', content: 'Received, thanks!', createdAt: '2026-05-08T10:00:00.000Z' },
   ],
   '6': [
-    { id: '1', sender: 'user', content: 'Olivia, animation preview looks awesome!', createdAt: '2026-05-09T12:00:00.000Z' },
+    { id: '1', sender: 'user', content: 'Olivia, animation preview looks awesome!', createdAt: '2026-05-09T12:00:00.000Z', deliveredAt: '2026-05-09T12:05:00.000Z', readAt: '2026-05-09T12:10:00.000Z' },
     { id: '2', sender: 'other', content: 'Glad you liked it! Any changes?', createdAt: '2026-05-10T09:00:00.000Z' },
-    { id: '3', sender: 'user', content: 'No changes, it’s perfect.', createdAt: '2026-05-11T10:30:00.000Z' },
+    { id: '3', sender: 'user', content: 'No changes, it’s perfect.', createdAt: '2026-05-11T10:30:00.000Z', deliveredAt: '2026-05-11T10:35:00.000Z' },
   ],
   '7': [
     { id: '1', sender: 'other', content: 'Noah, bug fix is live.', createdAt: '2026-05-09T14:00:00.000Z' },
@@ -558,7 +558,7 @@ export const mockMessageThreads: Record<string, Message[]> = {
   '8': [
     { id: '1', sender: 'user', content: 'Ava, campaign results look good.', createdAt: '2026-05-08T10:00:00.000Z', deliveredAt: '2026-05-08T10:05:00.000Z', readAt: '2026-05-08T10:10:00.000Z' },
     { id: '2', sender: 'other', content: 'Yes, we exceeded our targets!', createdAt: '2026-05-09T11:00:00.000Z' },
-    { id: '3', sender: 'user', content: 'Let’s plan the next steps.', createdAt: '2026-05-10T09:00:00.000Z' },
+    { id: '3', sender: 'user', content: 'Let’s plan the next steps.', createdAt: '2026-05-10T09:00:00.000Z', deliveredAt: '2026-05-10T09:05:00.000Z', readAt: '2026-05-10T09:10:00.000Z' },
   ],
   '9': [
     { id: '1', sender: 'other', content: 'William, all tests passed.', createdAt: '2026-05-09T15:00:00.000Z' },
