@@ -34,11 +34,11 @@ export default function AdminJobActions() {
             <p className={`px-2 rounded text-sm ${jobStatus?.colorClass}`}>In Progress</p>
           </div>
           <div className="flex items-center py-0.5 gap-3">
-            <p className="text-lg font-medium text-shadow-black">Revision taken: </p>
+            <p className="text-lg font-medium text-shadow-black">Revisions taken: </p>
             <p className="text-sm">1</p>
           </div>
           <div className="flex items-center py-0.5 gap-3">
-            <p className="text-lg font-medium text-shadow-black">Extension taken: </p>
+            <p className="text-lg font-medium text-shadow-black">Extensions taken: </p>
             <p className="text-sm">1</p>
           </div>
           <div className="flex items-center py-0.5 gap-3">
@@ -46,11 +46,11 @@ export default function AdminJobActions() {
             <p className="text-sm">April 20, 2026</p>
           </div>
           <div className="flex items-center py-0.5 gap-3">
-            <p className="text-lg font-medium text-shadow-black">Assigned On: </p>
+            <p className="text-lg font-medium text-shadow-black">Assigned to Editor On: </p>
             <p className="text-sm">April 20, 2026</p>
           </div>
           <div className="flex items-center py-0.5 gap-3">
-            <p className="text-lg font-medium text-shadow-black">Deadline: </p>
+            <p className="text-lg font-medium text-shadow-black">Deadline for Editor: </p>
             <p className="text-sm">May 29, 2026</p>
           </div>
         </div>

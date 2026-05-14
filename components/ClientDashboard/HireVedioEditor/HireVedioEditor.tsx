@@ -170,13 +170,14 @@ export default function HireVideoEditorForm() {
   const handleStyleReferenceChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setStyleReference(e.target.files ? e.target.files[0] : null);
+    if(e.target.files && e.target.files[0]) {
+      setStyleReference(e.target.files[0]);
+    }
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
     if (!file) {
-      setThumbnail(null);
       return;
     }
     setThumbnail(file);
@@ -186,7 +187,6 @@ export default function HireVideoEditorForm() {
     const file = e.target.files?.[0] ?? null;
 
     if (!file) {
-      setPdfFile(null);
       return;
     }
 
@@ -196,7 +196,6 @@ export default function HireVideoEditorForm() {
     if (!isPdfType && !isPdfExtension) {
       toast.error("Only PDF files are allowed.");
       e.target.value = "";
-      setPdfFile(null);
       return;
     }
 
@@ -207,7 +206,6 @@ export default function HireVideoEditorForm() {
     const file = e.target.files?.[0] ?? null;
 
     if (!file) {
-      setTextDocument(null);
       return;
     }
 
@@ -221,7 +219,6 @@ export default function HireVideoEditorForm() {
     if (!isTxt && !isDocx) {
       toast.error("Only .txt and .docx files are allowed.");
       e.target.value = "";
-      setTextDocument(null);
       return;
     }
 

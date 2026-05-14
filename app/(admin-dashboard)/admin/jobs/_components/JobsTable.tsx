@@ -94,7 +94,7 @@ export default function JobsTable() {
       formatter: (accessor: any, row: any) => (
         <div className="flex items-center gap-1" onClick={(e)=> e.stopPropagation()}>
           <Link
-            href={`/admin/usermanagement/editor/${accessor.id}`}
+            href={`/admin/usermanagement/${accessor.id}`}
             className="rounded-md ring-gray-400 transition-all duration-300 hover:ring-2"
           >
             <Image
@@ -109,7 +109,7 @@ export default function JobsTable() {
           <div>
             <div className="flex items-center gap-2">
               <Link
-                href={`/admin/usermanagement/editor/${accessor.id}`}
+                href={`/admin/usermanagement/${accessor.id}`}
                 className="transition-all duration-300 hover:text-blue-400 hover:underline"
               >
               <h2 className="text-sm font-medium">{accessor.name}</h2>

@@ -160,19 +160,27 @@ export default function PostJobForm() {
   const handleStyleReferenceChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setStyleReference(e.target.files ? e.target.files[0] : null);
+    if (e.target.files && e.target.files[0]) {
+      setStyleReference(e.target.files[0]);
+    }
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setThumbnail(e.target.files ? e.target.files[0] : null);
+    if (e.target.files && e.target.files[0]) {
+      setThumbnail(e.target.files[0]);
+    }
   };
 
   const handlePdfFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPdfFile(e.target.files ? e.target.files[0] : null);
+    if (e.target.files && e.target.files[0]) {
+      setPdfFile(e.target.files[0]);
+    }
   };
 
   const handleTextDocumentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTextDocument(e.target.files ? e.target.files[0] : null);
+    if (e.target.files && e.target.files[0]) {
+      setTextDocument(e.target.files[0]);
+    }
   };
 
   const {
@@ -756,7 +764,7 @@ export default function PostJobForm() {
                     `${usFormat.format(value)} day${value > 1 ? "s" : ""}`,
                     {
                       shouldValidate: true,
-                    }
+                    },
                   );
                 },
               })}
