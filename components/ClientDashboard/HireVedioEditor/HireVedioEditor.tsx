@@ -152,10 +152,10 @@ export default function HireVideoEditorForm() {
   );
 
   // Define state for file inputs
-  const [styleReference, setStyleReference] = useState<File | null>(null);
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const [textDocument, setTextDocument] = useState<File | null>(null);
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [styleReference, setStyleReference] = useState<FileList | undefined>(undefined);
+  const [pdfFile, setPdfFile] = useState<FileList | undefined>(undefined);
+  const [textDocument, setTextDocument] = useState<FileList | undefined>(undefined);
+  const [thumbnail, setThumbnail] = useState<FileList | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const [minPrice, setMinPrice] = useState(2);
   const [videoLength, setVideoLength] = useState(0);
@@ -170,59 +170,28 @@ export default function HireVideoEditorForm() {
   const handleStyleReferenceChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if(e.target.files && e.target.files[0]) {
-      setStyleReference(e.target.files[0]);
+    if (e.target.files && e.target.files[0]) {
+      setStyleReference(e.target.files);
     }
   };
 
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
-    if (!file) {
-      return;
+    if (e.target.files && e.target.files[0]) {
+      console.log(e.target.files);
+      setThumbnail(e.target.files);
     }
-    setThumbnail(file);
   };
 
   const handlePdfFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
-
-    if (!file) {
-      return;
+    if (e.target.files && e.target.files[0]) {
+      setPdfFile(e.target.files);
     }
-
-    const isPdfType = file.type === "application/pdf";
-    const isPdfExtension = file.name.toLowerCase().endsWith(".pdf");
-
-    if (!isPdfType && !isPdfExtension) {
-      toast.error("Only PDF files are allowed.");
-      e.target.value = "";
-      return;
-    }
-
-    setPdfFile(file);
   };
 
   const handleTextDocumentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
-
-    if (!file) {
-      return;
+    if (e.target.files && e.target.files[0]) {
+      setTextDocument(e.target.files);
     }
-
-    const lowerFileName = file.name.toLowerCase();
-    const isTxt = lowerFileName.endsWith(".txt") || file.type === "text/plain";
-    const isDocx =
-      lowerFileName.endsWith(".docx") ||
-      file.type ===
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-
-    if (!isTxt && !isDocx) {
-      toast.error("Only .txt and .docx files are allowed.");
-      e.target.value = "";
-      return;
-    }
-
-    setTextDocument(file);
   };
 
   const {
@@ -250,23 +219,23 @@ export default function HireVideoEditorForm() {
         videoDuration: parseInt(data.videoDuration.replace(/[^0-9]/g, "")),
         styleReference: styleReference
           ? {
-              name: styleReference.name,
-              type: styleReference.type,
-              size: styleReference.size,
+              name: styleReference[0].name,
+              type: styleReference[0].type,
+              size: styleReference[0].size,
             }
           : null,
         pdfFile: pdfFile
           ? {
-              name: pdfFile.name,
-              type: pdfFile.type,
-              size: pdfFile.size,
+              name: pdfFile[0].name,
+              type: pdfFile[0].type,
+              size: pdfFile[0].size,
             }
           : null,
         textDocument: textDocument
           ? {
-              name: textDocument.name,
-              type: textDocument.type,
-              size: textDocument.size,
+              name: textDocument[0].name,
+              type: textDocument[0].type,
+              size: textDocument[0].size,
             }
           : null,
       }),
@@ -512,16 +481,26 @@ export default function HireVideoEditorForm() {
             </div>
 
             <div className="mb-4">
-              <label className="mb-2 block text-sm font-medium text-gray-600">Upload Thumbnail</label>
+              <label className="mb-2 block">Upload Thumbnail:</label>
               <input
-                {...register("thumbnail", {
-                  required: "Thumbnail is required",
-                  onChange: handleThumbnailChange
-                })}
                 id="thumbnail-upload"
                 className="hidden"
                 type="file"
                 accept="image/*"
+                onChange={(e) => {
+                  handleThumbnailChange(e);
+                  if (e.target.files && e.target.files[0]) {
+                    setValue("thumbnail", e.target.files, {
+                      shouldValidate: true,
+                    });
+                  }
+                }}
+              />
+              <input
+                {...register("thumbnail", {
+                  required: "Thumbnail is required",
+                })}
+                type="hidden"
               />
               <div className="flex items-center gap-3">
                 <label
@@ -531,7 +510,7 @@ export default function HireVideoEditorForm() {
                   {thumbnail ? (
                     <>
                       <Image
-                        src={URL.createObjectURL(thumbnail)}
+                        src={URL.createObjectURL(thumbnail?.[0])}
                         alt="Thumbnail"
                         width={200}
                         height={200}
@@ -541,8 +520,10 @@ export default function HireVideoEditorForm() {
                         type="button"
                         className="absolute top-2 right-2 cursor-pointer rounded-full border bg-white p-0.5 mix-blend-difference"
                         onClick={() => {
-                          setThumbnail(null);
-                          setValue("thumbnail", undefined);
+                          setThumbnail(undefined);
+                          setValue("thumbnail", undefined, {
+                            shouldValidate: true,
+                          });
                         }}
                       >
                         <IoClose className="text-base mix-blend-hard-light" />
@@ -868,7 +849,9 @@ export default function HireVideoEditorForm() {
                   let value = parseInt(e.target.value);
                   if (!value || value < 1) value = 1;
                   setVideoLength(value);
-                  setValue("videoDuration", value.toString(), { shouldValidate: true});
+                  setValue("videoDuration", value.toString(), {
+                    shouldValidate: true,
+                  });
                   // auto format
                   const unit =
                     selectedCategory === "shorts_reels_tiktoks" ||
@@ -918,13 +901,21 @@ export default function HireVideoEditorForm() {
               <div>
                 <label className="mb-2 block">Style Reference</label>
                 <input
-                  {...register("styleReference", {
-                    required: "Style reference is required",
-                  })}
                   id="style-reference-upload"
                   className="hidden"
                   type="file"
-                  onChange={handleStyleReferenceChange}
+                  onChange={(e) => {
+                    handleStyleReferenceChange(e);
+                    if (e.target.files && e.target.files[0]) {
+                      setValue("styleReference", e.target.files, { shouldValidate: true});
+                    }
+                  }}
+                />
+                <input
+                  {...register("styleReference", {
+                    required: "Style reference is required",
+                  })}
+                  type="hidden"
                 />
                 <div className="flex items-center gap-3">
                   <label
@@ -934,7 +925,7 @@ export default function HireVideoEditorForm() {
                     Choose File
                   </label>
                   <span className="truncate text-sm text-gray-600 capitalize">
-                    {styleReference?.name || "No file selected"}
+                    {styleReference?.[0]?.name || "No file selected"}
                   </span>
                 </div>
                 {errors.styleReference && (
@@ -947,13 +938,18 @@ export default function HireVideoEditorForm() {
               <div>
                 <label className="mb-2 block">PDF File:</label>
                 <input
-                  {...register("pdfFile")}
                   id="pdf-file-upload"
                   className="hidden"
                   type="file"
                   accept=".pdf,application/pdf"
-                  onChange={handlePdfFileChange}
+                  onChange={(e) => {
+                    handlePdfFileChange(e);
+                    if (e.target.files && e.target.files[0]) {
+                      setValue("pdfFile", e.target.files);
+                    }
+                  }}
                 />
+                <input {...register("pdfFile")} type="hidden" />
                 <div className="flex items-center gap-3">
                   <label
                     htmlFor="pdf-file-upload"
@@ -962,7 +958,7 @@ export default function HireVideoEditorForm() {
                     Choose File
                   </label>
                   <span className="truncate text-sm text-gray-600 capitalize">
-                    {pdfFile?.name || "No file selected"}
+                    {pdfFile?.[0]?.name || "No file selected"}
                   </span>
                 </div>
               </div>
@@ -970,13 +966,18 @@ export default function HireVideoEditorForm() {
               <div>
                 <label className="block">Text Document:</label>
                 <input
-                  {...register("textFile")}
                   id="text-document-upload"
                   className="hidden"
                   type="file"
                   accept=".txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                  onChange={handleTextDocumentChange}
+                  onChange={(e) => {
+                    handleTextDocumentChange(e);
+                    if (e.target.files && e.target.files[0]) {
+                      setValue("textFile", e.target.files);
+                    }
+                  }}
                 />
+                <input {...register("textFile")} type="hidden" />
                 <div className="flex items-center gap-3">
                   <label
                     htmlFor="text-document-upload"
@@ -985,7 +986,7 @@ export default function HireVideoEditorForm() {
                     Choose File
                   </label>
                   <span className="truncate text-sm text-gray-600 capitalize">
-                    {textDocument?.name || "No file selected"}
+                    {textDocument?.[0]?.name || "No file selected"}
                   </span>
                 </div>
               </div>
