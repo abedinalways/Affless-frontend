@@ -16,12 +16,11 @@ interface ConfirmationModalProps {
   description?: string;
   confirmText?: string;
   cancelText?: string;
-  onConfirm: ({ reason }: { reason?: string }) => void;
+  onConfirm: () => void;
   onCancel: () => void;
   confirmClassName?: string;
   cancelClassName?: string;
   loading?: boolean;
-  reason?: boolean;
 }
 
 export default function ConfirmationPopup({
@@ -35,18 +34,9 @@ export default function ConfirmationPopup({
   confirmClassName,
   cancelClassName,
   loading = false,
-  reason,
 }: ConfirmationModalProps) {
-  const [reasonInput, setReasonInput] = useState("");
-  const [error, setError] = useState("");
-
   const handleConfirm = () => {
-    if (reason && !reasonInput) {
-      setError("Please provide a reason for this action.");
-      return;
-    }
-
-    onConfirm({ reason: reasonInput });
+    onConfirm();
   };
 
   if (!isOpen) return null;
@@ -59,39 +49,6 @@ export default function ConfirmationPopup({
       <div className="relative w-full max-w-sm space-y-2 rounded-xl bg-white p-5 shadow-xl">
         <h3 className="text-base font-semibold text-gray-900">{title}</h3>
         {description && <p className="text-sm text-gray-600">{description}</p>}
-        <div>
-          <Select
-            defaultValue="other"
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a reason..." />
-            </SelectTrigger>
-            <SelectContent className="z-999">
-              <SelectGroup>
-                <SelectItem value="violation_platform_safety_rules">Violation of Platform Safety Rules (off-platform payments and communications)</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="">
-          {reason && (
-            <textarea
-              name="reason"
-              id="reason"
-              placeholder="Enter reason for this action..."
-              className="focus-ring-2 focus-ring-gray-300 h-20 w-full resize-none rounded-lg border px-2 py-1 text-sm"
-              value={reasonInput}
-              onChange={(e) => {
-                setReasonInput(e.target.value);
-                if (e.target.value) {
-                  setError("");
-                }
-              }}
-            ></textarea>
-          )}
-          {error && <p className="text-xs text-red-500">{error}</p>}
-        </div>
         <div className="mt-4 flex items-center justify-end gap-2">
           <button
             type="button"

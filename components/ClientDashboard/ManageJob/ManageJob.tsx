@@ -31,13 +31,15 @@ export default function ManageJobsPage() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
 
-
   const pageData = useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
     return filteredJobs.slice(start, start + PAGE_SIZE);
   }, [page, filteredJobs]);
 
-  const goToDetail = (id: string) => router.push(`/client/manage-job/${id}?redirect=${redirect ? redirect + "_" : ""}managejobs`);
+  const goToDetail = (id: string) =>
+    router.push(
+      `/client/manage-job/${id}?redirect=${redirect ? redirect + "_" : ""}managejobs`,
+    );
 
   useEffect(() => {
     const isCustomDateFilter = dateFilter === "custom_date";
@@ -50,18 +52,18 @@ export default function ManageJobsPage() {
 
     const timeoutId = shouldTriggerLoading
       ? setTimeout(() => {
-        setLoading(false);
-      }, 1000)
+          setLoading(false);
+        }, 1000)
       : undefined;
     let data = ALL_JOBS;
 
     if (activeTab !== "all") {
-      data = data.filter(job => job.status === activeTab);
+      data = data.filter((job) => job.status === activeTab);
     }
 
     if (dateFilter === "custom_date") {
       if (startDate && endDate) {
-        data = data.filter(job => {
+        data = data.filter((job) => {
           const jobDate = job.deliveryDate;
           const endOfDay = new Date(endDate);
           endOfDay.setHours(23, 59, 59, 999);
@@ -76,17 +78,35 @@ export default function ManageJobsPage() {
 
       if (dateFilter === "today") {
         const today = new Date();
-        data = data.filter(job => job.dueOn.toDateString() === today.toDateString());
+        data = data.filter(
+          (job) => job.dueOn.toDateString() === today.toDateString(),
+        );
       } else if (dateFilter === "this_week") {
         const today = new Date();
-        const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
-        const lastDayOfWeek = new Date(today.setDate(firstDayOfWeek.getDate() + 6));
-        data = data.filter(job => job.dueOn >= firstDayOfWeek && job.dueOn <= lastDayOfWeek);
+        const firstDayOfWeek = new Date(
+          today.setDate(today.getDate() - today.getDay()),
+        );
+        const lastDayOfWeek = new Date(
+          today.setDate(firstDayOfWeek.getDate() + 6),
+        );
+        data = data.filter(
+          (job) => job.dueOn >= firstDayOfWeek && job.dueOn <= lastDayOfWeek,
+        );
       } else if (dateFilter === "this_month") {
         const today = new Date();
-        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-        data = data.filter(job => job.dueOn >= firstDayOfMonth && job.dueOn <= lastDayOfMonth);
+        const firstDayOfMonth = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          1,
+        );
+        const lastDayOfMonth = new Date(
+          today.getFullYear(),
+          today.getMonth() + 1,
+          0,
+        );
+        data = data.filter(
+          (job) => job.dueOn >= firstDayOfMonth && job.dueOn <= lastDayOfMonth,
+        );
       }
     }
 
@@ -101,7 +121,6 @@ export default function ManageJobsPage() {
     };
   }, [activeTab, dateFilter, startDate, endDate]);
 
-
   const columns: ColumnDef<JobRow>[] = [
     {
       accessorKey: "service",
@@ -109,10 +128,8 @@ export default function ManageJobsPage() {
       cell: ({ row }) => {
         const data = row.original;
         return (
-          <div
-            className="flex items-center gap-4 cursor-pointer  p-2 rounded-md"
-          >
-            <div className="h-12 w-16 rounded-md overflow-hidden bg-gray-200">
+          <div className="flex cursor-pointer items-center gap-4 rounded-md p-2">
+            <div className="h-12 w-16 overflow-hidden rounded-md bg-gray-200">
               <img
                 src={data.thumbnail}
                 alt={data.service}
@@ -133,9 +150,7 @@ export default function ManageJobsPage() {
       cell: ({ row }) => {
         const d = row.original;
         return (
-          <div
-            className="cursor-pointer p-2 rounded-md text-center"
-          >
+          <div className="cursor-pointer rounded-md p-2 text-center">
             ${d.total.toFixed(2)}
           </div>
         );
@@ -147,19 +162,27 @@ export default function ManageJobsPage() {
       header: "Days Left",
       cell: ({ row }) => {
         const d = row.original;
-        const time = Math.ceil((d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+        const time = Math.ceil(
+          (d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24),
+        );
         return (
           <>
-            {(d.status === "in_progress" || d.status === "late" || d.status === "in_revision" || d.status === "delivered") ? (
-              <div
-                className="cursor-pointer  p-2 rounded-md text-center"
-              >
-                {Math.abs(d.timeLeft.days)} {d.timeLeft.days > 1 ? "days left" : d.timeLeft.days < 0 ? d.status === "late" ? "days overdue" : "days left" : "day left"}
+            {d.status === "in_progress" ||
+            d.status === "late" ||
+            d.status === "in_revision" ||
+            d.status === "delivered" ? (
+              <div className="cursor-pointer rounded-md p-2 text-center">
+                {Math.abs(d.timeLeft.days)}{" "}
+                {d.timeLeft.days > 1
+                  ? "days left"
+                  : d.timeLeft.days < 0
+                    ? d.status === "late"
+                      ? "days overdue"
+                      : "days left"
+                    : "day left"}
               </div>
             ) : (
-              <div className="text-center">
-                Not available
-              </div>
+              <div className="text-center">Not available</div>
             )}
           </>
         );
@@ -174,11 +197,7 @@ export default function ManageJobsPage() {
           <div className="flex justify-center">
             <span
               title={getJobStatusDefinition(d.status).description}
-              className={`
-                                inline-block w-40 px-4 py-1 rounded-md
-                                text-[14px] font-medium text-center capitalize
-                                ${getJobStatusDefinition(d.status).colorClass ?? "bg-[#F3F4F6] text-[#374151]"}
-                              `}
+              className={`inline-block w-40 rounded-md px-4 py-1 text-center text-[14px] font-medium capitalize ${getJobStatusDefinition(d.status).colorClass ?? "bg-[#F3F4F6] text-[#374151]"} `}
             >
               {d.status.split("_").join(" ")}
             </span>
@@ -188,13 +207,12 @@ export default function ManageJobsPage() {
     },
   ];
 
-
   if (loading) {
     return (
       <div>
         <Loading />
       </div>
-    )
+    );
   }
 
   return (
@@ -205,22 +223,35 @@ export default function ManageJobsPage() {
           bgImage="/findEditor.jpg"
           links={[
             { label: "Dashboard", href: "/client" },
-            { label: "Manage Jobs" }]}
+            { label: "Manage Jobs" },
+          ]}
         />
       </div>
       <div className="containers py-8">
         {/* DESKTOP VIEW */}
         <div className="hidden md:block">
-          <h2 className="text-xl font-semibold mb-4">Manage Jobs</h2>
+          <h2 className="mb-4 text-xl font-semibold">Manage Jobs</h2>
           {/* TABS */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="mb-6 flex items-center justify-between">
             <div className="grid grid-cols-5 gap-4 text-sm font-medium">
-              {["all", "in_progress", "pending", "in_revision", "late", "delivered", "completed", "canceled"].map((tab) => (
+              {[
+                "all",
+                "in_progress",
+                "pending",
+                "in_revision",
+                "late",
+                "delivered",
+                "completed",
+                "canceled",
+              ].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-3 py-2 rounded-md cursor-pointer bg-white capitalize ${activeTab === tab ? "text-black font-semibold shadow" : "text-gray-500"
-                    }`}
+                  className={`cursor-pointer rounded-md bg-white px-3 py-2 capitalize ${
+                    activeTab === tab
+                      ? "font-semibold text-black shadow"
+                      : "text-gray-500"
+                  }`}
                 >
                   {tab?.split("_").join(" ")}
                 </button>
@@ -229,7 +260,7 @@ export default function ManageJobsPage() {
 
             <Link
               href={`/client/post-job?redirect=${redirect ? redirect + "_" : ""}managejobs`}
-              className="bg-[#FF4D4F] text-white py-3 px-4 rounded-lg hover:bg-[#fc4447] duration-300 flex items-center gap-1"
+              className="flex items-center gap-1 rounded-lg bg-[#FF4D4F] px-4 py-3 text-white duration-300 hover:bg-[#fc4447]"
             >
               <PlusIcon className="w-5" /> Post a New Job
             </Link>
@@ -237,38 +268,49 @@ export default function ManageJobsPage() {
 
           {/* HEADER */}
           <div className="">
-            <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg">
+            <div className="mt-4 flex items-center justify-between rounded-lg bg-white p-4">
               <h2 className="text-lg font-semibold">
                 <span className="capitalize">
-                  {
-                    (activeTab?.split("_").join(" ") === "in progress" || activeTab?.split("_").join(" ") === "pending" || activeTab?.split("_").join(" ") === "in revision")
-                      ?
-                      "Jobs " + activeTab?.split("_").join(" ")
-                      :
-                      activeTab?.split("_").join(" ") + " Jobs"}
+                  {activeTab?.split("_").join(" ") === "in progress" ||
+                  activeTab?.split("_").join(" ") === "pending" ||
+                  activeTab?.split("_").join(" ") === "in revision"
+                    ? "Jobs " + activeTab?.split("_").join(" ")
+                    : activeTab?.split("_").join(" ") + " Jobs"}
                 </span>
               </h2>
-              {dateFilter === "custom_date" && <div>
-                <DatePicker
-                  startDate={startDate}
-                  endDate={endDate}
-                  onChange={(date) => {
-                    setStartDate(date[0]);
-                    setEndDate(date[1]);
-                    console.log("Selected date range:", date);
-                  }}
-                />
-              </div>}
+              {dateFilter === "custom_date" && (
+                <div>
+                  <DatePicker
+                    startDate={startDate}
+                    endDate={endDate}
+                    onChange={(date) => {
+                      setStartDate(date[0]);
+                      setEndDate(date[1]);
+                      console.log("Selected date range:", date);
+                    }}
+                  />
+                </div>
+              )}
               <select
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value)}
-                className="rounded-lg p-2 border border-gray-300 text-sm cursor-pointer"
+                className="cursor-pointer rounded-lg border border-gray-300 p-2 text-sm"
               >
-                <option value="today" className="cursor-pointer">Today</option>
-                <option value="this_week" className="cursor-pointer">This week</option>
-                <option value="this_month" className="cursor-pointer">This month</option>
-                <option value="lifetime" className="cursor-pointer">Lifetime</option>
-                <option value="custom_date" className="cursor-pointer">Custom Date</option>
+                <option value="today" className="cursor-pointer">
+                  Today
+                </option>
+                <option value="this_week" className="cursor-pointer">
+                  This week
+                </option>
+                <option value="this_month" className="cursor-pointer">
+                  This month
+                </option>
+                <option value="lifetime" className="cursor-pointer">
+                  Lifetime
+                </option>
+                <option value="custom_date" className="cursor-pointer">
+                  Custom Date
+                </option>
               </select>
             </div>
 
@@ -287,13 +329,13 @@ export default function ManageJobsPage() {
 
         {/* MOBILE VIEW */}
         <div className="">
-          <div className="md:hidden space-y-4">
-            <div className="flex justify-between items-center">
-              <h3 className="font-semibold text-[18px]">Manage Job</h3>
+          <div className="space-y-4 md:hidden">
+            <div className="flex items-center justify-between">
+              <h3 className="text-[18px] font-semibold">Manage Job</h3>
 
               <button
                 onClick={() => setMobileMenuOpen((v) => !v)}
-                className="border border-gray-300 px-4 py-3 rounded-lg flex gap-2 items-center text-sm cursor-pointer"
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-gray-300 px-4 py-3 text-sm"
               >
                 {activeTab} orders <SlidersHorizontal size={18} />
               </button>
@@ -301,41 +343,40 @@ export default function ManageJobsPage() {
 
             {/* Dropdown */}
             {mobileMenuOpen && (
-              <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4 space-y-3">
+              <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
                 <div className="grid grid-cols-2 gap-3 text-sm font-medium">
-                  {["Active", "Late", "Delivered", "Completed", "Canceled"].map((tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => {
-                        setActiveTab(tab);
-                        setMobileMenuOpen(false);
-                      }}
-                      className={`px-4 py-3 rounded-lg cursor-pointer border transition
-              ${activeTab === tab
-                          ? "bg-[#FF4D4F] text-white border-[#FF4D4F]"
-                          : "bg-white text-gray-700 border-gray-200"
+                  {["Active", "Late", "Delivered", "Completed", "Canceled"].map(
+                    (tab) => (
+                      <button
+                        key={tab}
+                        onClick={() => {
+                          setActiveTab(tab);
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`cursor-pointer rounded-lg border px-4 py-3 transition ${
+                          activeTab === tab
+                            ? "border-[#FF4D4F] bg-[#FF4D4F] text-white"
+                            : "border-gray-200 bg-white text-gray-700"
                         }`}
-                    >
-                      {tab}
-                    </button>
-                  ))}
+                      >
+                        {tab}
+                      </button>
+                    ),
+                  )}
                 </div>
-
-
               </div>
-
             )}
             <div className="flex justify-between gap-3">
               <div className="w-full">
                 <Link
                   href="/client/post-job"
-                  className="block text-center bg-[#FF4D4F] text-white py-3 rounded-lg font-medium"
+                  className="block rounded-lg bg-[#FF4D4F] py-3 text-center font-medium text-white"
                 >
                   + Create a new Job
                 </Link>
               </div>
               <div className="w-full">
-                <select className="rounded-lg p-2 border border-gray-300 text-sm w-full h-full">
+                <select className="h-full w-full rounded-lg border border-gray-300 p-2 text-sm">
                   <option>Today</option>
                   <option>This week</option>
                   <option>This month</option>
@@ -356,10 +397,7 @@ export default function ManageJobsPage() {
               />
             ))}
           </div>
-
-
         </div>
-
       </div>
     </div>
   );

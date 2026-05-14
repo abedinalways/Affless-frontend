@@ -1,4 +1,5 @@
 import Earning from "@/components/Icons/Earning";
+import { GraphUpIcon } from "@/public/svgIcons/svgIcons";
 import { BriefcaseBusiness, LayoutDashboard, LogOut, PackageSearch, Settings, User } from "lucide-react";
 import { FaRegUser } from "react-icons/fa6";
 import { MdMailOutline } from "react-icons/md";
@@ -33,6 +34,12 @@ export const SidebarData: SidebarDataType[] = [
     id: 4,
     name: "Analytics",
     href: "/admin/analytics",
+    icon: GraphUpIcon,
+  },
+  {
+    id: 4,
+    name: "Jobs",
+    href: "/admin/jobs",
     icon: BriefcaseBusiness,
   },
   {
