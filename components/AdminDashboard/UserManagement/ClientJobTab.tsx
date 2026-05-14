@@ -1,21 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import LocationIcon from "@/components/Icons/LocationIcon";
-import WorldIcon from "@/components/Icons/WorldIcon";
-import { CalendarHeartIcon, Star } from "lucide-react";
-import { FiCalendar } from "react-icons/fi";
-import { PiToolboxDuotone } from "react-icons/pi";
-import { FaStar } from "react-icons/fa6";
 import UsaFlag from "@/components/Icons/UsaFlag";
 import Link from "next/link";
-import StarIcon from "@/components/Icons/StarIcon";
 import { TiStarFullOutline } from "react-icons/ti";
-import Review from "./Review";
-import ReviewPage from "@/components/ClientDashboard/GraphicsDesigner/ReviewPage";
 import ReviewBreakdown from "@/components/reusable/reviews";
 import ReviewList, { ReviewType } from "@/components/reusable/Review";
-import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
@@ -24,6 +15,7 @@ const usFormatWithDecimals = new Intl.NumberFormat("en-US", {
 
 
 export default function ClientJob() {
+  const router = useRouter();
   const jobs = [
     {
       id: 1,
@@ -143,7 +135,7 @@ export default function ClientJob() {
                   </div>
                 </div>
                 <div>
-                  <button type="button" onClick={() => toast.success("Coming soon!")} className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
+                  <button type="button" onClick={() => router.push(`/admin/jobs/${job.id}`)} className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
                     View Job
                   </button>
                 </div>

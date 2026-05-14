@@ -391,7 +391,7 @@ export default function PostJobForm() {
               </label>
               <input
                 {...register("jobTitle", {
-                  required: true,
+                  required: "Job title is required",
                   minLength: {
                     value: 5,
                     message: "Job title must be at least 5 characters",
@@ -404,6 +404,11 @@ export default function PostJobForm() {
                     setValue("jobTitle", value);
                     setJobTitle(value);
                   },
+                  onBlur(event) {
+                    let value = event.target.value.trim();
+                    setValue("jobTitle", value);
+                    setJobTitle(value);
+                  }
                 })}
                 type="text"
                 placeholder="I need..."
@@ -416,7 +421,7 @@ export default function PostJobForm() {
               </p>
               {errors.jobTitle && (
                 <p className="mb-4 text-sm text-red-500">
-                  Job title is required
+                  {errors.jobTitle.message || "Job title is required"}
                 </p>
               )}
               {!errors.jobTitle && jobTitle.length >= 100 && (
@@ -456,6 +461,11 @@ export default function PostJobForm() {
                         e.target.value = value;
                         setJobDescription(value);
                       },
+                      onBlur(e){
+                        let value = e.target.value.trim();
+                        setValue("jobDescription", value);
+                        setJobDescription(value);
+                      }
                     })}
                     placeholder="Write Job Description"
                     className="h-26 w-full resize-none rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
@@ -525,6 +535,11 @@ export default function PostJobForm() {
                     }
                     setValue("requiredSkills", value);
                     e.target.value = value;
+                    setRequiredSkills(value);
+                  },
+                  onBlur(e){
+                    let value = e.target.value.trim();
+                    setValue("requiredSkills", value);
                     setRequiredSkills(value);
                   }
                 })}

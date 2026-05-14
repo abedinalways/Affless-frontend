@@ -6,8 +6,10 @@ import Link from "next/link";
 import StarIcon from "@/components/Icons/StarIcon";
 import { TiStarFullOutline } from "react-icons/ti";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Review() {
+  const router = useRouter();
 
   const usFormats = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 0,
@@ -97,7 +99,7 @@ export default function Review() {
               {/* USER INFO ROW */}
               <div className="flex justify-between">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">
-                  <Link href={`/client-profile/${job.id}`}>
+                  <Link href={`/admin/usermanagement/client/${job.id}`}>
                     <Image
                       src="/images/saramc.png"
                       width={40}
@@ -108,7 +110,7 @@ export default function Review() {
                   </Link>
 
                   <div>
-                    <Link href={`/client-profile/${job.id}`} className="font-medium text-[18px] text-[#333] capitalize">{job.user}</Link>
+                    <Link href={`/admin/usermanagement/client/${job.id}`} className="font-medium text-[18px] text-[#333] capitalize">{job.user}</Link>
                     <p className="text-sm text-[#4A4C56] flex items-center gap-1">
                       <UsaFlag /> {job.country}
                     </p>
@@ -128,7 +130,7 @@ export default function Review() {
                   </div>
                 </div>
                 <div>
-                  <button type="button" onClick={() => toast.success("Coming soon!")} className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
+                  <button type="button" onClick={() => router.push(`/admin/jobs/${job.id}`)} className=" top-2 right-2 text-red-500 text-sm cursor-pointer">
                     View Job
                   </button>
                 </div>

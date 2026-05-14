@@ -867,3 +867,194 @@ export const inboxDataForClient: InboxItem[] = [
     href: "/client/message/5?redirect=dashboardclient",
   },
 ];
+
+
+export type JobStatus = 
+  | "completed" 
+  | "in_progress" 
+  | "pending" 
+  | "in_revision" 
+  | "delivered" 
+  | "late" 
+  | "canceled";
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  image: string;
+  totalJobs: number;
+  rating: number;
+  reviewCount: number;
+}
+
+export interface Job {
+  id: string;
+  service: string; // Used for "Job Title"
+  thumbnail: string;
+  category?: string; // Used for "Category"
+  author: UserProfile; // Used for "Posted By"
+  editor: UserProfile; // Used for "Assigned Editor"
+  platform: "YouTube" | "TikTok" | "Instagram" | "Facebook";
+  total: number; // Used for "Amount"
+  extensionCount: number;
+  revisionCount: number;
+  postedAt: Date;
+  dueOn: Date; // Used for "Deadline" and calculating "Days Left"
+  status: JobStatus;
+  timeLeft: {
+    days: number;
+  };
+}
+
+export const adminJobs: Job[] = [
+  {
+    id: "J-001",
+    service: "YouTube long-form edit with multicam sync",
+    thumbnail: "https://picsum.photos/seed/job1/200/120",
+    author: { id: "u1", name: "John Doe", image: "/images/Annette.jpg", totalJobs: 123, rating: 4.5, reviewCount: 123 },
+    editor: { id: "e1", name: "Mark Johnson", image: "/images/Courtney.jpg", totalJobs: 85, rating: 4.8, reviewCount: 42 },
+    platform: "YouTube",
+    total: 654,
+    extensionCount: 0,
+    revisionCount: 1,
+    postedAt: new Date("2026-04-20T10:00:00Z"),
+    dueOn: new Date("2026-05-29T10:00:00Z"),
+    status: "completed",
+    timeLeft: { days: 0 }
+  },
+  {
+    id: "J-002",
+    service: "TikTok reel series with hooks and captions",
+    thumbnail: "https://picsum.photos/seed/job2/200/120",
+    author: { id: "u2", name: "Sarah Williams", image: "/images/Annette.jpg", totalJobs: 12, rating: 5.0, reviewCount: 8 },
+    editor: { id: "e2", name: "Jane Smith", image: "/images/Courtney.jpg", totalJobs: 210, rating: 4.9, reviewCount: 156 },
+    platform: "TikTok",
+    total: 743,
+    extensionCount: 2,
+    revisionCount: 3,
+    postedAt: new Date("2026-05-10T08:00:00Z"),
+    dueOn: new Date("2026-05-18T18:00:00Z"),
+    status: "in_revision",
+    timeLeft: { days: 3 }
+  },
+  {
+    id: "J-003",
+    service: "Instagram interview cut with subtitles",
+    thumbnail: "https://picsum.photos/seed/job3/200/120",
+    author: { id: "u1", name: "John Doe", image: "/images/Annette.jpg", totalJobs: 123, rating: 4.5, reviewCount: 123 },
+    editor: { id: "e3", name: "Kevin Hart", image: "/images/Courtney.jpg", totalJobs: 5, rating: 4.2, reviewCount: 2 },
+    platform: "Instagram",
+    total: 512,
+    extensionCount: 0,
+    revisionCount: 0,
+    postedAt: new Date("2026-05-12T14:48:00Z"),
+    dueOn: new Date("2026-05-20T14:48:00Z"),
+    status: "pending",
+    timeLeft: { days: 8 }
+  },
+  {
+    id: "J-004",
+    service: "Facebook product teaser with motion graphics",
+    thumbnail: "https://picsum.photos/seed/job4/200/120",
+    author: { id: "u3", name: "Robert Fox", image: "/images/Annette.jpg", totalJobs: 45, rating: 4.7, reviewCount: 30 },
+    editor: { id: "e1", name: "Mark Johnson", image: "/images/Courtney.jpg", totalJobs: 85, rating: 4.8, reviewCount: 42 },
+    platform: "Facebook",
+    total: 654,
+    extensionCount: 1,
+    revisionCount: 2,
+    postedAt: new Date("2026-05-01T09:00:00Z"),
+    dueOn: new Date("2026-05-25T09:00:00Z"),
+    status: "in_progress",
+    timeLeft: { days: 21 }
+  },
+  {
+    id: "J-005",
+    service: "X ad creative edit for campaign launch",
+    thumbnail: "https://picsum.photos/seed/job5/200/120",
+    author: { id: "u4", name: "Bessie Cooper", image: "/images/Annette.jpg", totalJobs: 2, rating: 4.0, reviewCount: 1 },
+    editor: { id: "e4", name: "Arlene McCoy", image: "/images/Courtney.jpg", totalJobs: 300, rating: 5.0, reviewCount: 280 },
+    platform: "YouTube",
+    total: 743,
+    extensionCount: 0,
+    revisionCount: 1,
+    postedAt: new Date("2026-05-05T12:00:00Z"),
+    dueOn: new Date("2026-05-10T12:00:00Z"),
+    status: "delivered",
+    timeLeft: { days: 5 }
+  },
+  {
+    id: "J-006",
+    service: "YouTube UGC ad versioning and audio mix",
+    thumbnail: "https://picsum.photos/seed/job6/200/120",
+    author: { id: "u5", name: "Wade Warren", image: "/images/Annette.jpg", totalJobs: 89, rating: 4.9, reviewCount: 70 },
+    editor: { id: "e5", name: "Guy Hawkins", image: "/images/Courtney.jpg", totalJobs: 12, rating: 3.8, reviewCount: 10 },
+    platform: "YouTube",
+    total: 512,
+    extensionCount: 3,
+    revisionCount: 4,
+    postedAt: new Date("2026-04-15T10:00:00Z"),
+    dueOn: new Date("2026-05-01T10:00:00Z"),
+    status: "late",
+    timeLeft: { days: -2 }
+  },
+  {
+    id: "J-007",
+    service: "Podcast episode repurpose into social clips",
+    thumbnail: "https://picsum.photos/seed/job7/200/120",
+    author: { id: "u6", name: "Leslie Alexander", image: "/images/Annette.jpg", totalJobs: 15, rating: 4.6, reviewCount: 12 },
+    editor: { id: "e6", name: "Esther Howard", image: "/images/Courtney.jpg", totalJobs: 45, rating: 4.4, reviewCount: 38 },
+    platform: "Instagram",
+    total: 654,
+    extensionCount: 0,
+    revisionCount: 0,
+    postedAt: new Date("2026-05-01T14:00:00Z"),
+    dueOn: new Date("2026-05-05T14:00:00Z"),
+    status: "canceled",
+    timeLeft: { days: 0 }
+  },
+  {
+    id: "J-008",
+    service: "YouTube thumbnail package for 10 episodes",
+    thumbnail: "https://picsum.photos/seed/job8/200/120",
+    author: { id: "u1", name: "John Doe", image: "/images/Annette.jpg", totalJobs: 123, rating: 4.5, reviewCount: 123 },
+    editor: { id: "e7", name: "Cameron Williamson", image: "/images/Courtney.jpg", totalJobs: 156, rating: 4.7, reviewCount: 130 },
+    platform: "YouTube",
+    total: 743,
+    extensionCount: 1,
+    revisionCount: 0,
+    postedAt: new Date("2026-05-08T11:00:00Z"),
+    dueOn: new Date("2026-05-12T11:00:00Z"),
+    status: "delivered",
+    timeLeft: { days: 2 }
+  },
+  {
+    id: "J-009",
+    service: "YouTube tutorial edit with chapter markers",
+    thumbnail: "https://picsum.photos/seed/job9/200/120",
+    author: { id: "u7", name: "Brooklyn Simmons", image: "/images/Annette.jpg", totalJobs: 4, rating: 5.0, reviewCount: 3 },
+    editor: { id: "e1", name: "Mark Johnson", image: "/images/Courtney.jpg", totalJobs: 85, rating: 4.8, reviewCount: 42 },
+    platform: "YouTube",
+    total: 512,
+    extensionCount: 0,
+    revisionCount: 0,
+    postedAt: new Date("2026-05-10T16:00:00Z"),
+    dueOn: new Date("2026-05-30T16:00:00Z"),
+    status: "in_progress",
+    timeLeft: { days: 16 }
+  },
+  {
+    id: "J-010",
+    service: "Real Estate promo video with drone shots",
+    thumbnail: "https://picsum.photos/seed/job10/200/120",
+    author: { id: "u8", name: "Jenny Wilson", image: "/images/Annette.jpg", totalJobs: 67, rating: 4.8, reviewCount: 50 },
+    editor: { id: "e8", name: "Jerome Bell", image: "/images/Courtney.jpg", totalJobs: 92, rating: 4.6, reviewCount: 88 },
+    platform: "Facebook",
+    total: 900,
+    extensionCount: 1,
+    revisionCount: 1,
+    postedAt: new Date("2026-05-01T10:00:00Z"),
+    dueOn: new Date("2026-05-25T10:00:00Z"),
+    status: "in_progress",
+    timeLeft: { days: 11 }
+  }
+];
