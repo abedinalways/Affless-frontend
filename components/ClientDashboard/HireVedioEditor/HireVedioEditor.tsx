@@ -16,7 +16,7 @@ import PdfIcon from "@/components/Icons/PdfIcon";
 import { FaArrowLeft } from "react-icons/fa";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { getNavigationSource } from "@/lib/navigation-source";
-import _ from 'lodash';
+import _ from "lodash";
 import { conversationDirectory } from "@/public/demodata";
 import { routes } from "@/helper/routes";
 
@@ -38,13 +38,48 @@ type FormValues = {
 // Mapping of categories to available platforms
 const categoryPlatformMap: { [key: string]: string[] } = {
   youtube_long_form: ["youtube"],
-  shorts_reels_tiktoks: ["tiktok", "instagram", "snapchat", "youtube", "facebook", "x_twitter"],
+  shorts_reels_tiktoks: [
+    "tiktok",
+    "instagram",
+    "snapchat",
+    "youtube",
+    "facebook",
+    "x_twitter",
+  ],
   thumbnails: ["youtube"],
-  ads_ugc: ["tiktok", "instagram", "facebook", "x_twitter", "youtube", "snapchat"],
+  ads_ugc: [
+    "tiktok",
+    "instagram",
+    "facebook",
+    "x_twitter",
+    "youtube",
+    "snapchat",
+  ],
   podcasts: ["youtube", "tiktok", "x_twitter"],
-  weddings_events: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
-  captions_subtitles: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
-  color_audio: ["youtube", "instagram", "facebook", "tiktok", "x_twitter", "snapchat",],
+  weddings_events: [
+    "youtube",
+    "instagram",
+    "facebook",
+    "tiktok",
+    "x_twitter",
+    "snapchat",
+  ],
+  captions_subtitles: [
+    "youtube",
+    "instagram",
+    "facebook",
+    "tiktok",
+    "x_twitter",
+    "snapchat",
+  ],
+  color_audio: [
+    "youtube",
+    "instagram",
+    "facebook",
+    "tiktok",
+    "x_twitter",
+    "snapchat",
+  ],
 };
 
 export default function HireVideoEditorForm() {
@@ -54,9 +89,11 @@ export default function HireVideoEditorForm() {
   const name = searchParams.get("name") || "";
   const source = getNavigationSource(searchParams);
   const assignedEditorId = searchParams.get("assign") || "";
-  const assignedEditor = conversationDirectory.find((editor) => editor.id === assignedEditorId);
+  const assignedEditor = conversationDirectory.find(
+    (editor) => editor.id === assignedEditorId,
+  );
   const [paymentType, setPaymentType] = useState<"single" | "milestone">(
-    "single"
+    "single",
   );
   const router = useRouter();
   const allPlatforms = [
@@ -96,18 +133,19 @@ export default function HireVideoEditorForm() {
     },
     {
       key: "captions_subtitles",
-      label: "Captions/Subtitles"
+      label: "Captions/Subtitles",
     },
     {
       key: "color_audio",
-      label: "Color/Audio"
-    }
+      label: "Color/Audio",
+    },
   ]);
 
-  const [selectedCategory, setSelectedCategory] = useState<string>("youtube_long_form");
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>("youtube_long_form");
 
   const filteredPlatforms = allPlatforms.filter((plat) =>
-    categoryPlatformMap[selectedCategory]?.includes(plat.key)
+    categoryPlatformMap[selectedCategory]?.includes(plat.key),
   );
 
   // Define state for file inputs
@@ -126,7 +164,7 @@ export default function HireVideoEditorForm() {
 
   // Handle file uploads
   const handleStyleReferenceChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setStyleReference(e.target.files ? e.target.files[0] : null);
   };
@@ -165,7 +203,7 @@ export default function HireVideoEditorForm() {
     const isDocx =
       lowerFileName.endsWith(".docx") ||
       file.type ===
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
     if (!isTxt && !isDocx) {
       toast.error("Only .txt and .docx files are allowed.");
@@ -193,70 +231,118 @@ export default function HireVideoEditorForm() {
       return;
     }
 
-    localStorage.setItem("postJobData", JSON.stringify({
-      ...data,
-      budget: parseFloat(data.budget.replace("$", "")),
-      duration: parseInt(data.duration.replace(/[^0-9]/g, "")),
-      videoDuration: parseInt(data.videoDuration.replace(/[^0-9]/g, "")),
-      styleReference: styleReference ? {
-        name: styleReference.name,
-        type: styleReference.type,
-        size: styleReference.size,
-      } : null,
-      pdfFile: pdfFile ? {
-        name: pdfFile.name,
-        type: pdfFile.type,
-        size: pdfFile.size,
-      } : null,
-      textDocument: textDocument ? {
-        name: textDocument.name,
-        type: textDocument.type,
-        size: textDocument.size,
-      } : null,
-    }));
+    localStorage.setItem(
+      "postJobData",
+      JSON.stringify({
+        ...data,
+        budget: parseFloat(data.budget.replace("$", "")),
+        duration: parseInt(data.duration.replace(/[^0-9]/g, "")),
+        videoDuration: parseInt(data.videoDuration.replace(/[^0-9]/g, "")),
+        styleReference: styleReference
+          ? {
+              name: styleReference.name,
+              type: styleReference.type,
+              size: styleReference.size,
+            }
+          : null,
+        pdfFile: pdfFile
+          ? {
+              name: pdfFile.name,
+              type: pdfFile.type,
+              size: pdfFile.size,
+            }
+          : null,
+        textDocument: textDocument
+          ? {
+              name: textDocument.name,
+              type: textDocument.type,
+              size: textDocument.size,
+            }
+          : null,
+      }),
+    );
 
     setTimeout(() => {
       setLoading(false);
-      router?.push(`/client/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`);
+      router?.push(
+        `/client/confirm-deposit?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`,
+      );
     }, 500);
   };
-
 
   useEffect(() => {
     const storedData = localStorage.getItem("postJobData");
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-      const unit = (parsedData.category === "shorts_reels_tiktoks" || parsedData.category === "ads_ugc" || parsedData.category === "captions_subtitles") ? parsedData.duration === 1 ? "second" : "seconds" : parsedData.duration === 1 ? "minute" : "minutes";
+      const unit =
+        parsedData.category === "shorts_reels_tiktoks" ||
+        parsedData.category === "ads_ugc" ||
+        parsedData.category === "captions_subtitles"
+          ? parsedData.duration === 1
+            ? "second"
+            : "seconds"
+          : parsedData.duration === 1
+            ? "minute"
+            : "minutes";
       setValue("jobTitle", parsedData.jobTitle || "");
       setJobTitle(parsedData.jobTitle || "");
       setValue("jobDescription", parsedData.jobDescription || "");
       setJobDescription(parsedData.jobDescription || "");
       setValue("category", parsedData.category || "youtube_long_form");
-      setValue("duration", `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? " days" : "day"}` || "");
+      setValue(
+        "duration",
+        `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? " days" : "day"}` ||
+          "",
+      );
       setValue("platform", parsedData.platform || "");
-      if(parsedData.category !== "thumbnails"){
-        setValue("videoDuration", `${usFormat.format(parsedData.videoDuration)} ${unit}` || "");
+      if (parsedData.category !== "thumbnails") {
+        setValue(
+          "videoDuration",
+          `${usFormat.format(parsedData.videoDuration)} ${unit}` || "",
+        );
       }
       setValue("requiredSkills", parsedData.requiredSkills || "");
       setRequiredSkills(parsedData.requiredSkills || "");
       setSelectedCategory(parsedData.category || "youtube_long_form");
       setVideoLength(parseInt(parsedData.videoDuration) || 0);
-      setValue("budget", `$${usFormatWithDecimals.format(parsedData.budget < minPrice ? minPrice : parsedData.budget)}` || "");
+      setValue(
+        "budget",
+        `$${usFormatWithDecimals.format(parsedData.budget < minPrice ? minPrice : parsedData.budget)}` ||
+          "",
+      );
     }
-  }, [])
+  }, []);
 
-  const [bannerLinks, setBannerLinks] = useState<{ label: string; href?: string }[]>([]);
+  const [bannerLinks, setBannerLinks] = useState<
+    { label: string; href?: string }[]
+  >([]);
   useEffect(() => {
-    setBannerLinks(buildSourceBreadcrumbs(redirectUrl, {
-      currentLabel: name ? `Hire ${name.split(" ").map((s) => s[0].toUpperCase() + s.slice(1)).join(" ")}` : 'Hire a Video Editor',
-      fallbackBase: [{ label: "Home", href: "/" }],
-    }));
+    setBannerLinks(
+      buildSourceBreadcrumbs(redirectUrl, {
+        currentLabel: name
+          ? `Hire ${name
+              .split(" ")
+              .map((s) => s[0].toUpperCase() + s.slice(1))
+              .join(" ")}`
+          : "Hire a Video Editor",
+        fallbackBase: [{ label: "Home", href: "/" }],
+      }),
+    );
   }, [redirectUrl]);
 
   useEffect(() => {
     if (videoLength) {
-      let length = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") ? videoLength : videoLength * 60;
-      if (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "captions_subtitles" || selectedCategory === "ads_ugc") {
+      let length =
+        selectedCategory === "shorts_reels_tiktoks" ||
+        selectedCategory === "captions_subtitles" ||
+        selectedCategory === "ads_ugc"
+          ? videoLength
+          : videoLength * 60;
+      if (
+        selectedCategory === "shorts_reels_tiktoks" ||
+        selectedCategory === "captions_subtitles" ||
+        selectedCategory === "ads_ugc"
+      ) {
         if (length <= 39) {
           setMinPrice(2);
           setValue("budget", `$${usFormatWithDecimals.format(2)}`);
@@ -319,8 +405,10 @@ export default function HireVideoEditorForm() {
   }, [videoLength, selectedCategory]);
 
   useEffect(() => {
-    ["thumbnails"].includes(selectedCategory) ? setVideoNotRequired(true) : setVideoNotRequired(false);
-  }, [selectedCategory])
+    ["thumbnails"].includes(selectedCategory)
+      ? setVideoNotRequired(true)
+      : setVideoNotRequired(false);
+  }, [selectedCategory]);
 
   const usFormat = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 0,
@@ -336,26 +424,35 @@ export default function HireVideoEditorForm() {
     <div>
       <div>
         <PageBanner
-          title={name ? `Hire ${name}` : 'Hire a Video Editor'}
+          title={name ? `Hire ${name}` : "Hire a Video Editor"}
           bgImage="/findEditor.jpg"
           links={bannerLinks}
         />
       </div>
-      {(redirectUrl.includes("quickmatchclient") || redirectUrl.includes("findeditors") || redirectUrl.includes("messageclientid")) && <div className="grid items-center justify-start px-6 pt-6 containers">
-        <Link
-          href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.href}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
-          className="flex items-center gap-2 border px-5 py-3 rounded-md text-white border-white bg-[#ff4d4f] font-medium cursor-pointer hover:bg-[#fd4447] hover:text-white duration-300"
-        >
-          <FaArrowLeft />
-          <span>Back to {buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.label || "Dashboard"}</span>
-        </Link>
-      </div>}
+      {(redirectUrl.includes("quickmatchclient") ||
+        redirectUrl.includes("findeditors") ||
+        redirectUrl.includes("messageclientid")) && (
+        <div className="containers grid items-center justify-start px-6 pt-6">
+          <Link
+            href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.href}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
+            className="flex cursor-pointer items-center gap-2 rounded-md border border-white bg-[#ff4d4f] px-5 py-3 font-medium text-white duration-300 hover:bg-[#fd4447] hover:text-white"
+          >
+            <FaArrowLeft />
+            <span>
+              Back to{" "}
+              {buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]
+                ?.label || "Dashboard"}
+            </span>
+          </Link>
+        </div>
+      )}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='w-full flex p-6 containers'>
-        <div className='flex flex-col md:flex-row gap-8 w-full'>
+        className="containers flex w-full p-6"
+      >
+        <div className="flex w-full flex-col gap-8 md:flex-row">
           {/* LEFT SIDE */}
-          <div className='w-full md:w-2/3 bg-white p-6 rounded-xl shadow'>
+          <div className="w-full rounded-xl bg-white p-6 shadow md:w-2/3">
             {/* Job Title */}
             {/* Job Title */}
             <div className="mb-4">
@@ -364,7 +461,7 @@ export default function HireVideoEditorForm() {
               </label>
               <input
                 {...register("jobTitle", {
-                  required: true,
+                  required: "Job title is required",
                   minLength: {
                     value: 5,
                     message: "Job title must be at least 5 characters",
@@ -374,6 +471,11 @@ export default function HireVideoEditorForm() {
                     if (value.length > 100) {
                       value = value.slice(0, 100);
                     }
+                    setValue("jobTitle", value);
+                    setJobTitle(value);
+                  },
+                  onBlur(event) {
+                    let value = event.target.value.trim();
                     setValue("jobTitle", value);
                     setJobTitle(value);
                   },
@@ -389,7 +491,7 @@ export default function HireVideoEditorForm() {
               </p>
               {errors.jobTitle && (
                 <p className="mb-4 text-sm text-red-500">
-                  Job title is required
+                  {errors.jobTitle.message || "Job title is required"}
                 </p>
               )}
               {!errors.jobTitle && jobTitle.length >= 100 && (
@@ -427,6 +529,11 @@ export default function HireVideoEditorForm() {
                         }
                         setValue("jobDescription", value);
                         e.target.value = value;
+                        setJobDescription(value);
+                      },
+                      onBlur: (e) => {
+                        let value = e.target.value.trim();
+                        setValue("jobDescription", value);
                         setJobDescription(value);
                       },
                     })}
@@ -491,18 +598,25 @@ export default function HireVideoEditorForm() {
                     value: 5,
                     message: "Required skills must be at least 5 characters",
                   },
-                  onChange(e){
+                  onChange(e) {
                     let value = e.target.value;
-                    if(value.length > 100){
+                    if (value.length > 100) {
                       value = value.slice(0, 100);
                     }
                     setValue("requiredSkills", value);
                     e.target.value = value;
                     setRequiredSkills(value);
-                  }
+                  },
+                  onBlur(e) {
+                    let value = e.target.value.trim();
+                    setValue("requiredSkills", value);
+                    setRequiredSkills(value);
+                  },
                 })}
               />
-              <p className={`mt-1.5 text-sm text-gray-500 ${requiredSkills.length >= 100 ? "text-red-500" : ""}`}>
+              <p
+                className={`mt-1.5 text-sm text-gray-500 ${requiredSkills.length >= 100 ? "text-red-500" : ""}`}
+              >
                 {requiredSkills?.length}/100
               </p>
 
@@ -520,15 +634,19 @@ export default function HireVideoEditorForm() {
               )}
             </div>
 
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Job Budget
             </label>
 
             <input
-              type='text'
+              type="text"
               placeholder={`$${minPrice.toFixed(2)}`}
-              disabled={videoNotRequired || (selectedCategory && videoLength) ? false : true}
-              className='w-full border rounded-lg p-3 mb-2 disabled:bg-gray-100 disabled:cursor-not-allowed'
+              disabled={
+                videoNotRequired || (selectedCategory && videoLength)
+                  ? false
+                  : true
+              }
+              className="mb-2 w-full rounded-lg border p-3 disabled:cursor-not-allowed disabled:bg-gray-100"
               onFocus={(e) => {
                 e.target.value = e.target.value.replace(/[^0-9.]/g, "");
               }}
@@ -540,7 +658,14 @@ export default function HireVideoEditorForm() {
                 onBlur: (e) => {
                   let value = parseFloat(e.target.value);
 
-                  console.log("Parsed budget value:", value, "Min price:", minPrice, "Raw input value: ", e.target.value);
+                  console.log(
+                    "Parsed budget value:",
+                    value,
+                    "Min price:",
+                    minPrice,
+                    "Raw input value: ",
+                    e.target.value,
+                  );
 
                   if (isNaN(value) || value < minPrice) value = minPrice;
 
@@ -551,34 +676,40 @@ export default function HireVideoEditorForm() {
             />
 
             {errors.budget && (
-              <p className='text-red-500 text-sm'>{errors.budget.message}</p>
+              <p className="text-sm text-red-500">{errors.budget.message}</p>
             )}
 
             <div className="mb-4 space-y-2">
               {videoNotRequired || (selectedCategory && videoLength) ? (
-                <p className='text-gray-600 text-sm'>
-                  The minimum budget for this Job is <strong>${minPrice.toFixed(2)}</strong> based on the video length and category.
+                <p className="text-sm text-gray-600">
+                  The minimum budget for this Job is{" "}
+                  <strong>${minPrice.toFixed(2)}</strong> based on the video
+                  length and category.
                 </p>
               ) : (
-                <p className='text-gray-600 text-sm'>
-                  Please select a job category and enter the estimated video duration to enter the job budget.
+                <p className="text-sm text-gray-600">
+                  Please select a job category and enter the estimated video
+                  duration to enter the job budget.
                 </p>
               )}
 
-              <Link href={`/payment-rules?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`} className='text-sm underline text-blue-600 hover:text-blue-900 transition-colors duration-300'>
+              <Link
+                href={`/payment-rules?redirect=${redirectUrl ? redirectUrl + "_" : ""}postajob`}
+                className="text-sm text-blue-600 underline transition-colors duration-300 hover:text-blue-900"
+              >
                 Read the Full Payment Rules Here.
               </Link>
             </div>
 
             {/* Warning Box */}
-            <div className='p-4 bg-red-50 border border-red-300 rounded-lg mb-6'>
-              <p className='text-red-600 font-semibold mb-2'>
+            <div className="mb-6 rounded-lg border border-red-300 bg-red-50 p-4">
+              <p className="mb-2 font-semibold text-red-600">
                 All payments must be processed through Editor Marketplace
               </p>
-              <p className='text-red-600 text-sm mb-2'>
+              <p className="mb-2 text-sm text-red-600">
                 DO NOT: Request or accept payment via external methods.
               </p>
-              <p className='text-red-600 text-sm'>
+              <p className="text-sm text-red-600">
                 <strong>Consequences:</strong>
                 <br />
                 • 1st violation: $25 penalty + warning
@@ -586,24 +717,26 @@ export default function HireVideoEditorForm() {
               </p>
               <Link
                 href={`/platform-safety?redirect=${redirectUrl ? redirectUrl + "_" : ""}hireaneditor`}
-                className='text-red-600 underline text-sm mt-2 inline-block hover:text-red-400 transition-colors duration-300'>
+                className="mt-2 inline-block text-sm text-red-600 underline transition-colors duration-300 hover:text-red-400"
+              >
                 Read the Full Platform Safety Rules Here.
               </Link>
             </div>
 
-
             {/* Duration */}
             {/* Job Duration (Days) */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Job Duration
             </label>
 
             <input
-              type='text'
-              placeholder='5'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400'
+              type="text"
+              placeholder="5"
+              className="mb-2 w-full rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
               onFocus={(e) => {
-                e.target.value = e.target.value.replace(/\s*(days|day)$/i, "").trim();
+                e.target.value = e.target.value
+                  .replace(/\s*(days|day)$/i, "")
+                  .trim();
                 e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
               {...register("duration", {
@@ -624,37 +757,44 @@ export default function HireVideoEditorForm() {
                     setJobDurationError("");
                   }
                   if (!value || value < 1) value = 1;
-                  setValue("duration", `${usFormat.format(value)} day${value > 1 ? "s" : ""}`);
+                  setValue(
+                    "duration",
+                    `${usFormat.format(value)} day${value > 1 ? "s" : ""}`,
+                  );
                 },
               })}
             />
             {errors.duration && (
-              <p className='text-red-500 text-sm mb-4'>
+              <p className="mb-4 text-sm text-red-500">
                 {errors.duration.message || "Job Duration is required"}
               </p>
             )}
 
             {jobDurationError && (
-              <p className='text-red-500 text-sm mb-4 ml-3'>
+              <p className="mb-4 ml-3 text-sm text-red-500">
                 {jobDurationError}
               </p>
             )}
 
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Video Duration
             </label>
 
             <input
-              type='text'
-              placeholder='Video Duration (Estimate)'
-              className='w-full border rounded-lg p-3 mb-2 focus:outline-none focus:border-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed'
+              type="text"
+              placeholder="Video Duration (Estimate)"
+              className="mb-2 w-full rounded-lg border p-3 focus:border-gray-400 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100"
               disabled={selectedCategory === "thumbnails"}
               onFocus={(e) => {
-                e.target.value = e.target.value.replace(/\s*(minutes|seconds)$/i, "").trim();
+                e.target.value = e.target.value
+                  .replace(/\s*(minutes|seconds)$/i, "")
+                  .trim();
                 e.target.value = e.target.value.replace(/[^0-9]/g, "");
               }}
               {...register("videoDuration", {
-                required: videoNotRequired ? false : "Video duration is required",
+                required: videoNotRequired
+                  ? false
+                  : "Video duration is required",
 
                 onChange: (e) => {
                   // শুধু number allow
@@ -666,26 +806,35 @@ export default function HireVideoEditorForm() {
                   let value = parseInt(e.target.value);
                   if (!value || value < 1) value = 1;
                   // auto format
-                  const unit = (selectedCategory === "shorts_reels_tiktoks" || selectedCategory === "ads_ugc" || selectedCategory === "captions_subtitles") ? value === 1 ? "second" : "seconds" : value === 1 ? "minute" : "minutes";
+                  const unit =
+                    selectedCategory === "shorts_reels_tiktoks" ||
+                    selectedCategory === "ads_ugc" ||
+                    selectedCategory === "captions_subtitles"
+                      ? value === 1
+                        ? "second"
+                        : "seconds"
+                      : value === 1
+                        ? "minute"
+                        : "minutes";
                   e.target.value = `${usFormat.format(value)} ${unit}`;
                 },
               })}
             />
 
-
-            {(errors.videoDuration && !videoNotRequired) && (
-              <p className='text-red-500 text-sm mb-4'>
+            {errors.videoDuration && !videoNotRequired && (
+              <p className="mb-4 text-sm text-red-500">
                 {errors.videoDuration.message || "Video Duration is required"}
               </p>
             )}
 
             {/* Platform */}
-            <label className='block mb-2 text-sm font-medium text-gray-600'>
+            <label className="mb-2 block text-sm font-medium text-gray-600">
               Platform
             </label>
             <select
               {...register("platform", { required: true })}
-              className='w-full border rounded-lg p-3 mb-6'>
+              className="mb-6 w-full rounded-lg border p-3"
+            >
               {filteredPlatforms.map((plat) => (
                 <option key={plat.key} value={plat.key}>
                   {plat.label}
@@ -701,76 +850,77 @@ export default function HireVideoEditorForm() {
             </div> */}
 
             {/* File Inputs */}
-            <div className='space-y-5 pb-3'>
+            <div className="space-y-5 pb-3">
               <div>
-                <label className='mb-2 block'>
-                  Style Reference
-                </label>
+                <label className="mb-2 block">Style Reference</label>
                 <input
                   {...register("styleReference", {
                     required: "Style reference is required",
                   })}
-                  id='style-reference-upload'
-                  className='hidden'
-                  type='file'
+                  id="style-reference-upload"
+                  className="hidden"
+                  type="file"
                   onChange={handleStyleReferenceChange}
                 />
-                <div className='flex items-center gap-3'>
+                <div className="flex items-center gap-3">
                   <label
-                    htmlFor='style-reference-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    htmlFor="style-reference-upload"
+                    className="cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                  >
                     Choose File
                   </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
+                  <span className="truncate text-sm text-gray-600 capitalize">
                     {styleReference?.name || "No file selected"}
                   </span>
                 </div>
                 {errors.styleReference && (
-                  <p className='text-red-500 text-sm mt-1'>
+                  <p className="mt-1 text-sm text-red-500">
                     {errors.styleReference.message}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className='mb-2 block'>PDF File:</label>
+                <label className="mb-2 block">PDF File:</label>
                 <input
                   {...register("pdfFile")}
-                  id='pdf-file-upload'
-                  className='hidden'
-                  type='file'
-                  accept='.pdf,application/pdf'
+                  id="pdf-file-upload"
+                  className="hidden"
+                  type="file"
+                  accept=".pdf,application/pdf"
                   onChange={handlePdfFileChange}
                 />
-                <div className='flex items-center gap-3'>
+                <div className="flex items-center gap-3">
                   <label
-                    htmlFor='pdf-file-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    htmlFor="pdf-file-upload"
+                    className="cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                  >
                     Choose File
                   </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
+                  <span className="truncate text-sm text-gray-600 capitalize">
                     {pdfFile?.name || "No file selected"}
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className='block'>Text Document:</label>
+                <label className="block">Text Document:</label>
                 <input
                   {...register("textFile")}
-                  id='text-document-upload'
-                  className='hidden'
-                  type='file'
-                  accept='.txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                  id="text-document-upload"
+                  className="hidden"
+                  type="file"
+                  accept=".txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                   onChange={handleTextDocumentChange}
                 />
-                <div className='flex items-center gap-3'>
+                <div className="flex items-center gap-3">
                   <label
-                    htmlFor='text-document-upload'
-                    className='cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600'>
+                    htmlFor="text-document-upload"
+                    className="cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                  >
                     Choose File
                   </label>
-                  <span className='text-sm text-gray-600 truncate capitalize'>
+                  <span className="truncate text-sm text-gray-600 capitalize">
                     {textDocument?.name || "No file selected"}
                   </span>
                 </div>
@@ -778,42 +928,46 @@ export default function HireVideoEditorForm() {
             </div>
 
             <div className="grid grid-cols-2 items-center gap-4 py-4">
-              {(redirectUrl.includes("quickmatchclient") || redirectUrl.includes("findeditors") || redirectUrl.includes("messageclientid")) &&
+              {(redirectUrl.includes("quickmatchclient") ||
+                redirectUrl.includes("findeditors") ||
+                redirectUrl.includes("messageclientid")) && (
                 <Link
                   href={`${buildSourceBreadcrumbs(redirectUrl?.split("_")?.pop())?.[0]?.href}?redirect=${redirectUrl ? redirectUrl?.split("_").slice(0, -1).join("_") : ""}`}
-                  className="w-full text-center border border-red-500 text-red-500 hover:text-white py-3 rounded-lg hover:bg-red-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed duration-300"
+                  className="w-full cursor-pointer rounded-lg border border-red-500 py-3 text-center text-red-500 duration-300 hover:bg-red-600 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Back
-                </Link>}
+                </Link>
+              )}
               <button
-                type='submit'
+                type="submit"
                 disabled={loading}
-                className='w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed duration-300'>
+                className="w-full cursor-pointer rounded-lg bg-red-500 py-3 text-white duration-300 hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+              >
                 Next
               </button>
             </div>
           </div>
 
           {/* RIGHT SUMMARY */}
-          <div className="w-full md:w-[300px] flex flex-col gap-4">
-            <div className='w-full bg-white p-6 rounded-xl shadow h-fit'>
-              <h3 className='text-[20px] font-medium leading-150% pb-6'>
+          <div className="flex w-full flex-col gap-4 md:w-[300px]">
+            <div className="h-fit w-full rounded-xl bg-white p-6 shadow">
+              <h3 className="leading-150% pb-6 text-[20px] font-medium">
                 Budget & Payment
               </h3>
-              <div className='flex justify-between text-gray-700 mb-4'>
+              <div className="mb-4 flex justify-between text-gray-700">
                 <span>Job Budget</span>
                 <span>$20.00</span>
               </div>
-              <div className='flex justify-between text-gray-700 mb-4'>
+              <div className="mb-4 flex justify-between text-gray-700">
                 <span>Service Fee</span>
                 <span>$4.00</span>
               </div>
-              <div className='flex justify-between text-gray-700 mb-4'>
+              <div className="mb-4 flex justify-between text-gray-700">
                 <span>Taxes & Other Fees</span>
                 <span>$6.00</span>
               </div>
-              <hr className='my-4' />
-              <div className='flex justify-between text-gray-700 mb-4'>
+              <hr className="my-4" />
+              <div className="mb-4 flex justify-between text-gray-700">
                 <span>Total Payment</span>
                 <span>$30.00</span>
               </div>
@@ -823,8 +977,8 @@ export default function HireVideoEditorForm() {
               <span>$654.00</span>
               </div> */}
             </div>
-            <div className="bg-white p-6 rounded-xl shadow h-fit">
-              <div className='flex justify-between text-gray-700'>
+            <div className="h-fit rounded-xl bg-white p-6 shadow">
+              <div className="flex justify-between text-gray-700">
                 <span>Job Duration</span>
                 <span>5 Days</span>
               </div>

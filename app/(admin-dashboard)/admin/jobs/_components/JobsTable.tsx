@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Loading from "@/components/shared/Loading";
 import { getJobStatusDefinition } from "@/lib/job-status";
-import { ALL_JOBS } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
+import { adminJobs } from "@/public/demodata";
 import DynamicTable from "@/helper/DynamicTable";
 import { formatAmount, formatFullDate, formatNumber } from "@/lib/utils";
 import Image from "next/image";
@@ -38,18 +38,18 @@ export default function JobsTable() {
       label: "Posted By",
       width: "260px",
       accessor: "author",
-      formatter: (accessor: string, row: any) => (
+      formatter: (accessor: any, row: any) => (
         <div
           className="flex items-center gap-1"
           onClick={(e) => e.stopPropagation()}
         >
           <Link
-            href="/client-profile/1"
+            href={`/admin/usermanagement/client/${accessor.id}`}
             className="rounded-md ring-gray-400 transition-all duration-300 hover:ring-2"
           >
             <Image
-              src="/images/Annette.jpg"
-              alt={accessor}
+              src={accessor.image}
+              alt={accessor.name}
               width={100}
               height={100}
               quality={100}
@@ -59,13 +59,13 @@ export default function JobsTable() {
           <div>
             <div className="flex items-center gap-2">
               <Link
-                href="/client-profile/1"
+                href={`/admin/usermanagement/client/${accessor.id}`}
                 className="transition-all duration-300 hover:text-blue-400 hover:underline"
               >
-                <h2 className="text-sm font-medium">John Doe</h2>
+                <h2 className="text-sm font-medium">{accessor.name}</h2>
               </Link>
               <Link
-                href="/admin/chats/1"
+                href={`/admin/chats/${accessor.id}`}
                 title="Chat with Client"
                 className="rounded-full p-1 transition-colors duration-300 hover:bg-gray-200"
               >
@@ -74,13 +74,13 @@ export default function JobsTable() {
             </div>
             <div className="flex items-center gap-1 text-[13px]">
               <p className="whitespace-nowrap">Total Jobs Posted: </p>
-              <p>{formatNumber({ value: "123" })}</p>
+              <p>{formatNumber({ value: accessor.totalJobs })}</p>
             </div>
             <div className="flex items-center gap-0.5">
               <MdStar className="text-yellow-400" />
               <div className="flex items-center text-xs">
-                <p>4.5</p>
-                <span>(123 reviews)</span>
+                <p>{accessor.rating}</p>
+                <span>({formatNumber({ value: accessor.reviewCount })} reviews)</span>
               </div>
             </div>
           </div>
@@ -90,16 +90,16 @@ export default function JobsTable() {
     {
       label: "Assigned Editor",
       width: "260px",
-      accessor: "author",
-      formatter: (accessor: string, row: any) => (
-        <div className="flex items-center gap-1">
+      accessor: "editor",
+      formatter: (accessor: any, row: any) => (
+        <div className="flex items-center gap-1" onClick={(e)=> e.stopPropagation()}>
           <Link
-            href="/editor-profile/2"
+            href={`/admin/usermanagement/editor/${accessor.id}`}
             className="rounded-md ring-gray-400 transition-all duration-300 hover:ring-2"
           >
             <Image
-              src="/images/Courtney.jpg"
-              alt={accessor}
+              src={accessor.image}
+              alt={accessor.name}
               width={100}
               height={100}
               quality={100}
@@ -109,13 +109,13 @@ export default function JobsTable() {
           <div>
             <div className="flex items-center gap-2">
               <Link
-                href="/editor-profile/2"
+                href={`/admin/usermanagement/editor/${accessor.id}`}
                 className="transition-all duration-300 hover:text-blue-400 hover:underline"
               >
-              <h2 className="text-sm font-medium">Mark Johnson</h2>
+              <h2 className="text-sm font-medium">{accessor.name}</h2>
               </Link>
               <Link
-                href="/admin/chats/2"
+                href={`/admin/chats/${accessor.id}`}
                 title="Chat with Editor"
                 className="rounded-full p-1 transition-colors duration-300 hover:bg-gray-200"
               >
@@ -124,13 +124,13 @@ export default function JobsTable() {
             </div>
             <div className="flex items-center gap-1 text-[13px]">
               <p className="whitespace-nowrap">Total Jobs Completed: </p>
-              <p>{formatNumber({ value: "123" })}</p>
+              <p>{formatNumber({ value: accessor.totalJobs })}</p>
             </div>
             <div className="flex items-center gap-0.5">
               <MdStar className="text-yellow-400" />
               <div className="flex items-center text-xs">
-                <p>4.5</p>
-                <span>(123 reviews)</span>
+                <p>{accessor.rating}</p>
+                <span>({formatNumber({ value: accessor.reviewCount })} reviews)</span>
               </div>
             </div>
           </div>
@@ -160,43 +160,40 @@ export default function JobsTable() {
     },
     {
       label: "Extension Count",
-      accessor: "total",
+      accessor: "extensionCount",
       width: "100px",
       formatter: (accessor: string) => (
         <div className="px-4 py-2 text-center text-sm whitespace-nowrap">
-          {formatNumber({ value: "5" })}
+          {formatNumber({ value: accessor })}
         </div>
       ),
     },
     {
       label: "Revision Count",
-      accessor: "total",
+      accessor: "revisionCount",
       width: "100px",
       formatter: (accessor: string) => (
         <div className="px-4 py-2 text-center text-sm whitespace-nowrap">
-          {formatNumber({ value: "2" })}
+          {formatNumber({ value: accessor })}
         </div>
       ),
     },
     {
       label: "Posted At",
-      accessor: "total",
+      accessor: "postedAt",
       width: "100px",
-      formatter: (accessor: string) => (
+      formatter: (accessor: Date) => (
         <div className="px-4 py-2 text-center text-sm whitespace-nowrap">
-          {formatFullDate(new Date("2026-04-20T14:48:00.000Z"))}
+          {formatFullDate(accessor)}
         </div>
       ),
     },
     {
-      accessor: "dueOn",
+      accessor: "timeLeft",
       label: "Days Left",
       width: "150px",
-      formatter: (accessor: string, row: any) => {
+      formatter: (accessor: any, row: any) => {
         const d = row;
-        const time = Math.ceil(
-          (d.dueOn.getTime() - Date.now()) / (1000 * 60 * 60 * 24),
-        );
         return (
           <>
             {d.status === "in_progress" ||
@@ -204,10 +201,10 @@ export default function JobsTable() {
             d.status === "in_revision" ||
             d.status === "delivered" ? (
               <div className="cursor-pointer rounded-md p-2 text-center text-sm">
-                {Math.abs(d.timeLeft.days)}{" "}
-                {d.timeLeft.days > 1
+                {Math.abs(accessor.days)}{" "}
+                {accessor.days > 1
                   ? "days left"
-                  : d.timeLeft.days < 0
+                  : accessor.days < 0
                     ? d.status === "late"
                       ? "days overdue"
                       : "days left"
@@ -222,11 +219,11 @@ export default function JobsTable() {
     },
     {
       label: "Deadline",
-      accessor: "total",
+      accessor: "dueOn",
       width: "150px",
-      formatter: (accessor: string) => (
+      formatter: (accessor: Date) => (
         <div className="px-4 py-2 text-center text-sm whitespace-nowrap">
-          {formatFullDate(new Date("2026-05-29T14:48:00.000Z"))}
+          {formatFullDate(accessor)}
         </div>
       ),
     },
@@ -262,7 +259,7 @@ export default function JobsTable() {
     <div className="my-4 rounded-lg bg-white">
       <DynamicTable
         columns={columns}
-        data={ALL_JOBS}
+        data={adminJobs}
         header={{
           padding: "16px",
           fontSize: "18px",

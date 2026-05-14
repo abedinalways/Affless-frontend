@@ -2,10 +2,11 @@ import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-d
 import DesktopIcon from "@/components/Icons/Desktop";
 import DolarIcon from "@/components/Icons/DolarIcon";
 import WorldIcon from "@/components/Icons/WorldIcon";
+import { Job } from "@/public/demodata";
 import { Clapperboard, Clock4 } from "lucide-react";
 
 type Props = {
-    job: JobRow
+    job: Job;
 }
 
 export default function JobDetailsInfoCards({ job }: Props) {
@@ -20,7 +21,7 @@ export default function JobDetailsInfoCards({ job }: Props) {
             <div>
               <p className="text-lg text-[18px] font-semibold">Job Category</p>
               <p className="leading-150% mt-1.5 text-[16px] font-medium capitalize">
-                {job.category || "N/A"}
+                {job?.category || "N/A"}
               </p>
             </div>
           </div>
@@ -65,13 +66,13 @@ export default function JobDetailsInfoCards({ job }: Props) {
             <div>
               <p className="text-lg text-[18px] font-semibold">Job Duration</p>
               <p className="leading-150% mt-1.5 text-[16px] font-medium">
-                {job.duration} Days
+                {7} Days
               </p>
             </div>
           </div>
         </div>
 
-        {job.videoLength && (
+        {/* {job?.videoLength && ( */}
           <div className="rounded-xl border bg-[#E6F7D9] p-4">
             <div className="grid grid-cols-[auto_1fr] gap-4">
               <div className="flex w-6 items-center justify-center">
@@ -82,7 +83,7 @@ export default function JobDetailsInfoCards({ job }: Props) {
                   Footage Duration
                 </p>
                 <p className="leading-150% mt-1.5 text-[16px] font-medium">
-                  {job.videoLength}{" "}
+                  {20 } {}
                   {job.category === "Shorts/Reels/TikToks"
                     ? "seconds"
                     : "minutes"}
@@ -90,7 +91,7 @@ export default function JobDetailsInfoCards({ job }: Props) {
               </div>
             </div>
           </div>
-        )}
+        {/* )} */}
       </div>
     </div>
   );
