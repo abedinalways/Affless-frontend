@@ -13,6 +13,9 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
+import { FaPhotoVideo } from "react-icons/fa";
+import Image from "next/image";
+import { IoClose } from "react-icons/io5";
 
 type FormValues = {
   jobTitle: string;
@@ -27,6 +30,7 @@ type FormValues = {
   styleReference?: FileList;
   videoDuration: string;
   requiredSkills?: string;
+  thumbnail?: FileList;
 };
 
 // Mapping of categories to available platforms
@@ -144,6 +148,7 @@ export default function PostJobForm() {
   // Define state for file inputs
   const [styleReference, setStyleReference] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [textDocument, setTextDocument] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [minPrice, setMinPrice] = useState(2);
@@ -156,6 +161,10 @@ export default function PostJobForm() {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setStyleReference(e.target.files ? e.target.files[0] : null);
+  };
+
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setThumbnail(e.target.files ? e.target.files[0] : null);
   };
 
   const handlePdfFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -177,7 +186,7 @@ export default function PostJobForm() {
   const onSubmit = (data: FormValues) => {
     setLoading(true);
     console.log("Form Submitted:", data, "Payment Type:", paymentType);
-    if (minPrice > parseFloat(data.budget.replace("$", ""))) {
+    if (minPrice > parseFloat(data.budget.replace(/[^0-9.]/g, ""))) {
       toast.error(`The minimum budget for this Job is $${minPrice}.`);
       setLoading(false);
       return;
@@ -244,7 +253,7 @@ export default function PostJobForm() {
       setValue("category", parsedData.category || "youtube_long_form");
       setValue(
         "duration",
-        `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? " days" : "day"}` ||
+        `${usFormat.format(parsedData.duration)} ${parsedData.duration > 1 ? "days" : "day"}` ||
           "",
       );
       setValue("platform", parsedData.platform || "");
@@ -408,7 +417,7 @@ export default function PostJobForm() {
                     let value = event.target.value.trim();
                     setValue("jobTitle", value);
                     setJobTitle(value);
-                  }
+                  },
                 })}
                 type="text"
                 placeholder="I need..."
@@ -427,6 +436,57 @@ export default function PostJobForm() {
               {!errors.jobTitle && jobTitle.length >= 100 && (
                 <p className="mb-4 text-sm text-red-500">
                   Maximum character limit reached
+                </p>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label className="mb-2 block">Upload Thumbnail:</label>
+              <input
+                {...register("thumbnail", {
+                  required: "Thumbnail is required",
+                  onChange: handleThumbnailChange,
+                })}
+                id="thumbnail-upload"
+                className="hidden"
+                type="file"
+                accept="image/*"
+              />
+              <div className="flex items-center gap-3">
+                <label
+                  htmlFor="thumbnail-upload"
+                  className="relative block h-60 w-full cursor-pointer rounded-md border border-dashed"
+                >
+                  {thumbnail ? (
+                    <>
+                      <Image
+                        src={URL.createObjectURL(thumbnail)}
+                        alt="Thumbnail"
+                        width={200}
+                        height={200}
+                        className="h-full w-full rounded-md object-cover"
+                      />
+                      <button
+                        type="button"
+                        className="absolute top-2 right-2 cursor-pointer rounded-full border bg-white p-0.5 mix-blend-difference"
+                        onClick={() => {
+                          setThumbnail(null);
+                          setValue("thumbnail", undefined);
+                        }}
+                      >
+                        <IoClose className="text-base mix-blend-hard-light" />
+                      </button>
+                    </>
+                  ) : (
+                    <div className="flex h-full items-center justify-center p-4">
+                      <FaPhotoVideo className="text-5xl text-red-400" />
+                    </div>
+                  )}
+                </label>
+              </div>
+              {errors.thumbnail && (
+                <p className="mb-4 text-sm text-red-500">
+                  {errors.thumbnail.message}
                 </p>
               )}
             </div>
@@ -461,11 +521,11 @@ export default function PostJobForm() {
                         e.target.value = value;
                         setJobDescription(value);
                       },
-                      onBlur(e){
+                      onBlur(e) {
                         let value = e.target.value.trim();
                         setValue("jobDescription", value);
                         setJobDescription(value);
-                      }
+                      },
                     })}
                     placeholder="Write Job Description"
                     className="h-26 w-full resize-none rounded-lg border p-3 focus:border-gray-400 focus:outline-none"
@@ -528,23 +588,25 @@ export default function PostJobForm() {
                     value: 5,
                     message: "Required skills must be at least 5 characters",
                   },
-                  onChange(e){
+                  onChange(e) {
                     let value = e.target.value;
-                    if(value.length > 100){
+                    if (value.length > 100) {
                       value = value.slice(0, 100);
                     }
                     setValue("requiredSkills", value);
                     e.target.value = value;
                     setRequiredSkills(value);
                   },
-                  onBlur(e){
+                  onBlur(e) {
                     let value = e.target.value.trim();
                     setValue("requiredSkills", value);
                     setRequiredSkills(value);
-                  }
+                  },
                 })}
               />
-              <p className={`mt-1.5 text-sm text-gray-500 ${requiredSkills.length >= 100 ? "text-red-500" : ""}`}>
+              <p
+                className={`mt-1.5 text-sm text-gray-500 ${requiredSkills.length >= 100 ? "text-red-500" : ""}`}
+              >
                 {requiredSkills?.length}/100
               </p>
 
@@ -596,6 +658,7 @@ export default function PostJobForm() {
                   );
 
                   if (isNaN(value) || value < minPrice) value = minPrice;
+                  setValue("budget", `$${usFormatWithDecimals.format(value)}`);
 
                   // auto format
                   e.target.value = `$${usFormatWithDecimals.format(value)}`;
@@ -691,6 +754,9 @@ export default function PostJobForm() {
                   setValue(
                     "duration",
                     `${usFormat.format(value)} day${value > 1 ? "s" : ""}`,
+                    {
+                      shouldValidate: true,
+                    }
                   );
                 },
               })}
@@ -735,6 +801,9 @@ export default function PostJobForm() {
                   let value = parseInt(e.target.value);
                   if (!value || value < 1) value = 1;
                   setVideoLength(value);
+                  setValue("videoDuration", value.toString(), {
+                    shouldValidate: true,
+                  });
                   // auto format
                   const unit =
                     selectedCategory === "shorts_reels_tiktoks" ||

@@ -13,12 +13,14 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import PdfIcon from "@/components/Icons/PdfIcon";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaPhotoVideo } from "react-icons/fa";
 import { buildSourceBreadcrumbs } from "@/lib/source-breadcrumb";
 import { getNavigationSource } from "@/lib/navigation-source";
 import _ from "lodash";
 import { conversationDirectory } from "@/public/demodata";
 import { routes } from "@/helper/routes";
+import Image from "next/image";
+import { IoClose } from "react-icons/io5";
 
 type FormValues = {
   jobTitle: string;
@@ -33,6 +35,7 @@ type FormValues = {
   styleReference?: FileList;
   videoDuration: string;
   requiredSkills: string;
+  thumbnail?: FileList;
 };
 
 // Mapping of categories to available platforms
@@ -152,6 +155,7 @@ export default function HireVideoEditorForm() {
   const [styleReference, setStyleReference] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [textDocument, setTextDocument] = useState<File | null>(null);
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [minPrice, setMinPrice] = useState(2);
   const [videoLength, setVideoLength] = useState(0);
@@ -167,6 +171,15 @@ export default function HireVideoEditorForm() {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setStyleReference(e.target.files ? e.target.files[0] : null);
+  };
+
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    if (!file) {
+      setThumbnail(null);
+      return;
+    }
+    setThumbnail(file);
   };
 
   const handlePdfFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -501,6 +514,57 @@ export default function HireVideoEditorForm() {
               )}
             </div>
 
+            <div className="mb-4">
+              <label className="mb-2 block text-sm font-medium text-gray-600">Upload Thumbnail</label>
+              <input
+                {...register("thumbnail", {
+                  required: "Thumbnail is required",
+                  onChange: handleThumbnailChange
+                })}
+                id="thumbnail-upload"
+                className="hidden"
+                type="file"
+                accept="image/*"
+              />
+              <div className="flex items-center gap-3">
+                <label
+                  htmlFor="thumbnail-upload"
+                  className="relative block h-60 w-full cursor-pointer rounded-md border border-dashed"
+                >
+                  {thumbnail ? (
+                    <>
+                      <Image
+                        src={URL.createObjectURL(thumbnail)}
+                        alt="Thumbnail"
+                        width={200}
+                        height={200}
+                        className="h-full w-full rounded-md object-cover"
+                      />
+                      <button
+                        type="button"
+                        className="absolute top-2 right-2 cursor-pointer rounded-full border bg-white p-0.5 mix-blend-difference"
+                        onClick={() => {
+                          setThumbnail(null);
+                          setValue("thumbnail", undefined);
+                        }}
+                      >
+                        <IoClose className="text-base mix-blend-hard-light" />
+                      </button>
+                    </>
+                  ) : (
+                    <div className="flex h-full items-center justify-center p-4">
+                      <FaPhotoVideo className="text-5xl text-red-400" />
+                    </div>
+                  )}
+                </label>
+              </div>
+              {errors.thumbnail && (
+                <p className="mb-4 text-sm text-red-500">
+                  {errors.thumbnail.message}
+                </p>
+              )}
+            </div>
+
             {/* Job Description */}
 
             <div className="mb-4">
@@ -668,7 +732,7 @@ export default function HireVideoEditorForm() {
                   );
 
                   if (isNaN(value) || value < minPrice) value = minPrice;
-
+                  setValue("budget", `$${usFormatWithDecimals.format(value)}`);
                   // auto format
                   e.target.value = `$${usFormatWithDecimals.format(value)}`;
                 },
@@ -760,6 +824,7 @@ export default function HireVideoEditorForm() {
                   setValue(
                     "duration",
                     `${usFormat.format(value)} day${value > 1 ? "s" : ""}`,
+                    { shouldValidate: true },
                   );
                 },
               })}
@@ -806,6 +871,7 @@ export default function HireVideoEditorForm() {
                   let value = parseInt(e.target.value);
                   if (!value || value < 1) value = 1;
                   setVideoLength(value);
+                  setValue("videoDuration", value.toString(), { shouldValidate: true});
                   // auto format
                   const unit =
                     selectedCategory === "shorts_reels_tiktoks" ||
