@@ -1,22 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import JobDetailsPage from "@/components/ClientDashboard/GraphicsDesigner/JobDetailsPa";
 import { adminJobs } from "@/public/demodata";
-import { JobRow } from "@/components/ClientDashboard/ManageJob/manage-job-demo-data";
 import Loading from "@/components/shared/Loading";
-import DesktopIcon from "@/components/Icons/Desktop";
-import DolarIcon from "@/components/Icons/DolarIcon";
-import PdfIcon from "@/components/Icons/PdfIcon";
-import WorldIcon from "@/components/Icons/WorldIcon";
-import {
-  FileText,
-  File,
-  YoutubeIcon,
-  Clapperboard,
-  Clock4,
-} from "lucide-react";
-import Link from "next/link";
 import UserCard from "./UserCard";
 import JobDetailsInfoCards from "../jobs/_components/JobDetailsInfoCards";
 import JobDescription from "../jobs/_components/JobDescription";
@@ -29,14 +15,6 @@ type propType = {
 
 export default function JobDetails({ id }: propType) {
   const [job, setJob] = useState<Job | null>(null);
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const [textFile, setTextFile] = useState<File | null>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -51,24 +29,6 @@ export default function JobDetails({ id }: propType) {
     return () => clearTimeout(timer);
   }, [job]);
 
-  useEffect(() => {
-    if (!job?.dueOn) return;
-
-    const updateTimeLeft = () => {
-      const now = new Date().getTime();
-      const target = new Date(job.dueOn).getTime();
-      const diff = Math.max(target - now, 0);
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      setTimeLeft({ days, hours, minutes, seconds });
-    };
-
-    updateTimeLeft();
-    const interval = setInterval(updateTimeLeft, 1000);
-    return () => clearInterval(interval);
-  }, [job]);
 
   if (!job)
     return (
