@@ -734,6 +734,7 @@ export default function PostJobForm() {
                 onBlur: (e) => {
                   let value = parseInt(e.target.value);
                   if (!value || value < 1) value = 1;
+                  setVideoLength(value);
                   // auto format
                   const unit =
                     selectedCategory === "shorts_reels_tiktoks" ||
