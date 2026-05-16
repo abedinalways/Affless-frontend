@@ -66,7 +66,11 @@ export default function WarningModal({
           <label htmlFor=""></label>
           <Select
             value={selectedWarningType}
-            onValueChange={setSelectedWarningType}
+            onValueChange={(value: string) => {
+              setSelectedWarningType(value);
+              setOtherCategoryError("");
+              setOtherCategoryInput("");
+            }}
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select a reason..." />
@@ -93,6 +97,9 @@ export default function WarningModal({
               placeholder="Enter other warning category..."
               onChange={(e) => {
                 setOtherCategoryInput(e.target.value);
+                if (e.target.value) {
+                  setOtherCategoryError("");
+                }
               }}
               className="focus-ring-2 focus-ring-gray-300 w-full resize-none rounded-lg border px-2 py-2 text-sm"
             />

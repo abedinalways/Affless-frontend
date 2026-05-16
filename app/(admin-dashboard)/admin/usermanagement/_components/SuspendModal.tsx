@@ -76,14 +76,18 @@ export default function SuspendModal({
             onChange={(e) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
               setDurationInput(e.target.value);
+              if(e.target.value) {
+                setDurationError("");
+              }
             }}
             onBlur={(e) => {
               if (e.target.value) {
-                e.target.value = formatNumber({ value: e.target.value }) || "";
-                e.target.value =
+                const unit =
                   Number(e.target.value) > 1
-                    ? `${e.target.value} days`
-                    : `${e.target.value} day`;
+                    ? `days`
+                    : `day`;
+                e.target.value = formatNumber({ value: e.target.value }) || "";
+                e.target.value = `${e.target.value} ${unit}`;
               }
             }}
             className="focus-ring-2 focus-ring-gray-300 w-full resize-none rounded-lg border px-2 py-2 text-sm"
