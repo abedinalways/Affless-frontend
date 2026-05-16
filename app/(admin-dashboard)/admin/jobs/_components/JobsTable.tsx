@@ -79,8 +79,8 @@ export default function JobsTable() {
             <div className="flex items-center gap-0.5">
               <MdStar className="text-yellow-400" />
               <div className="flex items-center text-xs">
-                <p>{accessor.rating}</p>
-                <span>({formatNumber({ value: accessor.reviewCount })} reviews)</span>
+                <p>{formatAmount({ value: accessor.rating, range: 1 })}</p>
+                <span>({formatNumber({ value: accessor.reviewCount })} { accessor?.reviewCount === 1 ? "review" : "reviews" })</span>
               </div>
             </div>
           </div>
@@ -129,8 +129,8 @@ export default function JobsTable() {
             <div className="flex items-center gap-0.5">
               <MdStar className="text-yellow-400" />
               <div className="flex items-center text-xs">
-                <p>{accessor.rating}</p>
-                <span>({formatNumber({ value: accessor.reviewCount })} reviews)</span>
+                <p>{formatAmount({ value: accessor.rating , range: 1 })}</p>
+                <span>({formatNumber({ value: accessor.reviewCount })} { accessor?.reviewCount === 1 ? "review" : "reviews" })</span>
               </div>
             </div>
           </div>
@@ -179,7 +179,7 @@ export default function JobsTable() {
       ),
     },
     {
-      label: "Posted At",
+      label: "Posted On",
       accessor: "postedAt",
       width: "100px",
       formatter: (accessor: Date) => (

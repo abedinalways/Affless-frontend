@@ -12,7 +12,7 @@ import Image from "next/image";
 import BanModal from "../../_components/BanModal";
 import SuspendModal from "../../_components/SuspendModal";
 import WarningModal from "../../_components/WarningModal";
-
+import toast from "react-hot-toast";
 
 export default function UserProfilePage({
   params,
@@ -100,7 +100,7 @@ export default function UserProfilePage({
               Active Jobs: <span className="text-gray-900">5</span>
             </p>
             <p className="text-gray-600">
-              Total Jobs Posted: <span className="text-gray-900">12</span>
+              Total Jobs Posted: <span className="text-gray-900">12 jobs</span>
             </p>
             <p className="text-gray-600">
               Hire Rate (%): <span className="text-gray-900">85%</span>
@@ -110,10 +110,15 @@ export default function UserProfilePage({
               <span className="text-gray-900">2 hours</span>
             </p>
             <p className="text-gray-600">
-              Warning: <span className="text-gray-900">1/3</span>
+              Common Warnings Count (Everything Except Violation of Off-Platform
+              Rules): <span className="text-gray-900">1/3</span>
             </p>
             <p className="text-gray-600">
-              Suspended: <span className="text-gray-900">0/2</span>
+              Suspensions Count: <span className="text-gray-900">0/2</span>
+            </p>
+            <p className="text-gray-600">
+              Violation of Off-Platform Safety Rules Policy Warnings Count:{" "}
+              <span className="text-gray-900">0/2</span>
             </p>
           </div>
         </div>
@@ -168,6 +173,9 @@ export default function UserProfilePage({
             setTimeout(() => {
               setConfirmationOpen(false);
               setLoading(false);
+              toast.success(
+                "Warning has been issued to the user successfully.",
+              );
             }, 3000);
           }}
           onCancel={() => {
@@ -185,6 +193,7 @@ export default function UserProfilePage({
             setTimeout(() => {
               setConfirmationOpen(false);
               setLoading(false);
+              toast.success("User has been suspended successfully.");
             }, 3000);
           }}
           onCancel={() => {
@@ -201,6 +210,7 @@ export default function UserProfilePage({
             setTimeout(() => {
               setConfirmationOpen(false);
               setLoading(false);
+              toast.success("User has been banned successfully.");
             }, 3000);
           }}
           onCancel={() => {

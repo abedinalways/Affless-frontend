@@ -49,7 +49,7 @@ export default function MessageLayout({
         <MessageContextProvider>
           <div className="grid h-full min-h-0 w-full grid-cols-[auto_1fr]">
             <div
-              className={`h-[calc(100vh-174px)] min-h-0 w-full overflow-y-auto rounded-lg bg-white p-2 sm:h-[calc(100vh-218px)] sm:p-4 xl:w-full`}
+              className={`h-[calc(100vh-174px)] min-h-0 w-full overflow-y-auto rounded-lg bg-white p-2 sm:h-[calc(100vh-218px)] sm:p-4 xl:w-full xl:max-w-[350px]`}
             >
               <Sidebar />
             </div>

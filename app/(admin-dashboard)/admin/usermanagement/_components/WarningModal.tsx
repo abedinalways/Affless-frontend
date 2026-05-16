@@ -33,8 +33,14 @@ export default function WarningModal({
   const [reasonInput, setReasonInput] = useState("");
   const [reasonError, setReasonError] = useState("");
   const [selectedWarningType, setSelectedWarningType] = useState("other");
+  const [otherCategoryInput, setOtherCategoryInput] = useState("");
+  const [otherCategoryError, setOtherCategoryError] = useState("");
 
   const handleConfirm = () => {
+    if (selectedWarningType === "other" && !otherCategoryInput) {
+      setOtherCategoryError("Please specify the category for the warning.");
+      return;
+    }
     if (!reasonInput) {
       setReasonError("Please provide a reason for the warning.");
       return;
@@ -57,7 +63,7 @@ export default function WarningModal({
           recorded on their profile.
         </p>
         <div>
-            <label htmlFor=""></label>
+          <label htmlFor=""></label>
           <Select
             value={selectedWarningType}
             onValueChange={setSelectedWarningType}
@@ -76,6 +82,25 @@ export default function WarningModal({
             </SelectContent>
           </Select>
         </div>
+        {selectedWarningType === "other" && (
+          <div>
+            <label htmlFor="duration" className="text-sm text-gray-800">
+              Other Warning Category
+            </label>
+            <input
+              type="text"
+              id="duration"
+              placeholder="Enter other warning category..."
+              onChange={(e) => {
+                setOtherCategoryInput(e.target.value);
+              }}
+              className="focus-ring-2 focus-ring-gray-300 w-full resize-none rounded-lg border px-2 py-2 text-sm"
+            />
+            {otherCategoryError && (
+              <p className="text-xs text-red-500">{otherCategoryError}</p>
+            )}
+          </div>
+        )}
         <div className="">
           <textarea
             name="reason"
@@ -104,9 +129,7 @@ export default function WarningModal({
           <button
             type="button"
             onClick={handleConfirm}
-            className={
-              `bg-amber-600 hover:bg-amber-700 text-white px-4 py-1 rounded-lg cursor-pointer duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-amber-600`
-            }
+            className={`cursor-pointer rounded-lg bg-amber-600 px-4 py-1 text-white duration-300 hover:bg-amber-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-amber-600`}
             disabled={loading}
           >
             {loading ? "Loading..." : "Issue Warning"}
