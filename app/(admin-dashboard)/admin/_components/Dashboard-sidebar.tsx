@@ -37,19 +37,19 @@ export const SidebarData: SidebarDataType[] = [
     icon: GraphUpIcon,
   },
   {
-    id: 4,
+    id: 5,
     name: "Jobs",
     href: "/admin/jobs",
     icon: BriefcaseBusiness,
   },
   {
-    id: 5,
+    id: 6,
     name: "Chats",
     href: "/admin/chats",
     icon: MdMailOutline,
   },
   {
-    id: 6,
+    id: 7,
     name: "Settings",
     href: "/admin/setting",
     icon: Settings,

@@ -17,6 +17,7 @@ import WarningModal from "../_components/WarningModal";
 import SuspendModal from "../_components/SuspendModal";
 import BanModal from "../_components/BanModal";
 import { formatAmount, formatNumber } from "@/lib/utils";
+import toast from "react-hot-toast";
 
 
 export default function UserProfilePage({
@@ -103,7 +104,7 @@ export default function UserProfilePage({
           </div>
           <div className="space-y-1">
             <p className="text-gray-600">
-              Active Jobs: <span className="text-gray-900">5</span>
+              Active Jobs Working On: <span className="text-gray-900">5</span>
             </p>
             <p className="text-gray-600">
               Worked With: <span className="text-gray-900">12 clients</span>
@@ -190,6 +191,7 @@ export default function UserProfilePage({
             setTimeout(() => {
               setConfirmationOpen(false);
               setLoading(false);
+              toast.success("Warning has been issued to the user successfully.");
             }, 3000);
           }}
           onCancel={() => {
@@ -207,6 +209,7 @@ export default function UserProfilePage({
             setTimeout(() => {
               setConfirmationOpen(false);
               setLoading(false);
+              toast.success("User has been suspended successfully.");
             }, 3000);
           }}
           onCancel={() => {
@@ -223,6 +226,7 @@ export default function UserProfilePage({
             setTimeout(() => {
               setConfirmationOpen(false);
               setLoading(false);
+              toast.success("User has been banned successfully.");
             }, 3000);
           }}
           onCancel={() => {

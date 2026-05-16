@@ -71,10 +71,10 @@ export default function SuspendModal({
             id="duration"
             placeholder="Enter the suspension duration"
             onFocus={(e) => {
-              e.target.value = e.target.value.replace(/[^0-9.]/g, "");
+              e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
             onChange={(e) => {
-              e.target.value = e.target.value.replace(/[^0-9.]/g, "");
+              e.target.value = e.target.value.replace(/[^0-9]/g, "");
               setDurationInput(e.target.value);
             }}
             onBlur={(e) => {

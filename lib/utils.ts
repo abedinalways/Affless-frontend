@@ -6,10 +6,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export const formatAmount = ({type , value}:{type?: string, value: string}) => 
+export const formatAmount = ({type , value, range}:{type?: string, value: string, range?: number}) => 
   new Intl.NumberFormat(type || "en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: range || 2,
+    maximumFractionDigits: range || 2,
   }).format(Number(value));
 
 export const formatNumber = ({type, value}:{type?: string, value: string}) => new Intl.NumberFormat(type || "en-US" , {
