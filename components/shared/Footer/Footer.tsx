@@ -127,7 +127,7 @@ export default function Footer() {
             <Link href="#" className="border-2 border-white p-2 rounded-full">
               <Facebook width={23} height={23} />
             </Link>
-            <Link target="_blank" href="https://www.instagram.com/editor_marketplace?igsh=cDhjOTRzbmJsMHF5&utm_source=qr" className="border-2 border-white p-2 rounded-full">
+            <Link target="_blank" href="#" className="border-2 border-white p-2 rounded-full">
               <Instagram width={23} height={23} />
             </Link>
             <Link href="#" className="border-2 border-white p-2 rounded-full">
