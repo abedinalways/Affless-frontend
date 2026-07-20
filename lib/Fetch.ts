@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { AppConfig } from "@/config/app.config";
- 
+import { APP_CONFIG } from "@/config/app.config";
+  
 const config = {
 
   headers: {
@@ -22,7 +22,7 @@ type AdapterOption = "fetch" | "axios";
 
 export class Fetch {
 
-  private static _baseUrl = `${AppConfig().app.apiUrl}`;
+  private static _baseUrl = APP_CONFIG.apiUrl;
 
   private static _adapter: AdapterOption = "axios";
  
