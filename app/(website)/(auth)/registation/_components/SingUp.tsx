@@ -11,8 +11,8 @@ import Link from "next/link";
 import { EyeClosed, EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
-import toast from "react-hot-toast";
 import { routes } from "@/helper/routes"
+import { useAuth } from "@/hooks/useAuth";
 
 type FormValues = {
   name: string;
@@ -28,6 +28,7 @@ export default function SingUpForm() {
   const signUpType = searchParams.get('type') || 'client';
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { register: registerAccount } = useAuth();
   const {
     register,
     handleSubmit,
@@ -35,16 +36,19 @@ export default function SingUpForm() {
     formState: { errors },
   } = useForm<FormValues>({ defaultValues: { accountType: signUpType } });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsSubmitting(true);
-    console.log("Form Submitted:", data);
-    // Simulate an async operation like form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success("Registration successful!");
+    try {
+      await registerAccount({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        role: data.accountType as "client" | "editor",
+      });
       reset();
-      // Reset form or show success message here
-    }, 2000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // console.log("Redirect : ", routes[redirect.split("_").slice(0, -1).join("_")]);

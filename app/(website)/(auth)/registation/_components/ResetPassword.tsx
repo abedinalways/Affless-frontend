@@ -9,6 +9,7 @@ import { GoArrowLeft } from "react-icons/go";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { EyeIcon, EyeOff } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 type FormValues = {
   password: string;
@@ -21,6 +22,7 @@ export default function ResetPasswordForm() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+  const { resetPassword } = useAuth();
 
   const {
     register,
@@ -43,11 +45,15 @@ export default function ResetPasswordForm() {
     try {
       setLoading(true);
 
-      // TODO: replace with real API call
-      console.log("Reset password data:", data);
-
-      toast.success("Password reset successfully!");
-      router.push("/login");
+      const token = sessionStorage.getItem("passwordResetToken");
+      if (!token) {
+        toast.error("Your reset session has expired. Please request a new code.");
+        router.push("/forgetpassword");
+        return;
+      }
+      await resetPassword({ token, password: data.password });
+      sessionStorage.removeItem("passwordResetEmail");
+      sessionStorage.removeItem("passwordResetToken");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

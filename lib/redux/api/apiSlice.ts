@@ -1,6 +1,13 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  createApi,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { APP_CONFIG, COOKIE_KEYS } from "@/config/app.config";
 import { CookieHelper } from "@/helper/cookie.helper";
+import { tokenRefreshed } from "@/lib/redux/slices/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: APP_CONFIG.apiUrl,
@@ -16,7 +23,41 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth: typeof baseQuery = async (args, api, extraOptions) => {
+let refreshPromise: Promise<boolean> | null = null;
+
+const clearClientSession = () => {
+  CookieHelper.destroy({ key: COOKIE_KEYS.ACCESS_TOKEN });
+  CookieHelper.destroy({ key: COOKIE_KEYS.REFRESH_TOKEN });
+  CookieHelper.destroy({ key: COOKIE_KEYS.USER });
+};
+
+const refreshAccessToken = async (
+  api: Parameters<typeof baseQuery>[1],
+  extraOptions: Parameters<typeof baseQuery>[2],
+) => {
+  const refreshToken = CookieHelper.get({ key: COOKIE_KEYS.REFRESH_TOKEN });
+  if (!refreshToken) return false;
+
+  const refreshResult = await baseQuery(
+    { url: "/auth/refresh", method: "POST", body: { refreshToken } },
+    api,
+    extraOptions,
+  );
+  const response = refreshResult.data as
+    | { accessToken?: string; refreshToken?: string; data?: { accessToken?: string; refreshToken?: string } }
+    | undefined;
+  const tokens = response?.data ?? response;
+
+  if (!tokens?.accessToken) return false;
+  CookieHelper.set({ key: COOKIE_KEYS.ACCESS_TOKEN, value: tokens.accessToken });
+  if (tokens.refreshToken) {
+    CookieHelper.set({ key: COOKIE_KEYS.REFRESH_TOKEN, value: tokens.refreshToken });
+  }
+  api.dispatch(tokenRefreshed({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken }));
+  return true;
+};
+
+const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error?.status === 401) {
@@ -26,52 +67,18 @@ const baseQueryWithReauth: typeof baseQuery = async (args, api, extraOptions) =>
       return result;
     }
 
-    const refreshToken = CookieHelper.get({ key: COOKIE_KEYS.REFRESH_TOKEN });
-
-    if (refreshToken) {
-      try {
-        const refreshResult = await baseQuery(
-          {
-            url: "/auth/refresh",
-            method: "POST",
-            body: { refreshToken },
-          },
-          api,
-          extraOptions
-        );
-
-        if (refreshResult.data) {
-          const data = refreshResult.data as { accessToken: string; refreshToken?: string };
-          CookieHelper.set({ key: COOKIE_KEYS.ACCESS_TOKEN, value: data.accessToken });
-          if (data.refreshToken) {
-            CookieHelper.set({ key: COOKIE_KEYS.REFRESH_TOKEN, value: data.refreshToken });
-          }
-
-          // Retry original query with new token
-          result = await baseQuery(args, api, extraOptions);
-        } else {
-          // Refresh failed - force logout
-          CookieHelper.destroy({ key: COOKIE_KEYS.ACCESS_TOKEN });
-          CookieHelper.destroy({ key: COOKIE_KEYS.REFRESH_TOKEN });
-          CookieHelper.destroy({ key: COOKIE_KEYS.USER });
-          if (typeof window !== "undefined") {
-            window.location.href = "/login";
-          }
-        }
-      } catch {
-        // On refresh error, logout user
-        CookieHelper.destroy({ key: COOKIE_KEYS.ACCESS_TOKEN });
-        CookieHelper.destroy({ key: COOKIE_KEYS.REFRESH_TOKEN });
-        CookieHelper.destroy({ key: COOKIE_KEYS.USER });
-        if (typeof window !== "undefined") {
-          window.location.href = "/login";
-        }
+    try {
+      // All requests that fail together share one refresh request.
+      refreshPromise ??= refreshAccessToken(api, extraOptions).finally(() => {
+        refreshPromise = null;
+      });
+      if (await refreshPromise) {
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        clearClientSession();
       }
-    } else {
-      // No refresh token - redirect to login
-      if (typeof window !== "undefined") {
-        window.location.href = "/login";
-      }
+    } catch {
+      clearClientSession();
     }
   }
 

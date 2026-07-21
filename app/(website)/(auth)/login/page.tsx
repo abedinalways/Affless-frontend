@@ -8,12 +8,9 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { RxRotateCounterClockwise } from "react-icons/rx";
-import toast from "react-hot-toast";
-import { useUser } from "@/context/UserContext";
 import { EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
-import { CookieHelper } from "@/helper/cookie.helper";
-import { useSearchParams } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 type FormValues = {
   email: string;
@@ -27,55 +24,18 @@ export default function SignInForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect');
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { setUser } = useUser();
+  const { login } = useAuth();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    // console.log("Form Submitted:", data);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setLoading(true);
-    // Simulate an async operation like form submission
-    setTimeout(() => {
+    try {
+      await login({ email: data.email, password: data.password });
+    } finally {
       setLoading(false);
-      localStorage.setItem("isLogin", "true");
-      if (data?.email === "client@gmail.com" && data?.password === "Pa$$w0rd!") {
-        router.push("/client");
-        localStorage.setItem("userType", "client");
-        CookieHelper.set({
-          key: "user", value: JSON.stringify({
-            status: 'logged_in',
-            user_type: 'client'
-          })
-        })
-        setUser("client");
-      } else if (data?.email === "editor@gmail.com" && data?.password === "Pa$$w0rd!") {
-        router.push("/editor");
-        localStorage.setItem("userType", "editor");
-        CookieHelper.set({
-          key: "user", value: JSON.stringify({
-            status: 'logged_in',
-            user_type: 'editor'
-          })
-        })
-        setUser("editor");
-      } else if (data?.email === "admin@gmail.com" && data?.password === "Pa$$w0rd!") {
-        router.push("/admin");
-        localStorage.setItem("userType", "admin");
-        CookieHelper.set({
-          key: "user", value: JSON.stringify({
-            status: 'logged_in',
-            user_type: 'admin'
-          })
-        })
-        setUser("admin");
-      } else {
-        toast.error("Invalid email or password");
-        CookieHelper.destroy({ key: "user" });
-      }
-    }, 2000);
+    }
   };
 
   const handleBack = () => {

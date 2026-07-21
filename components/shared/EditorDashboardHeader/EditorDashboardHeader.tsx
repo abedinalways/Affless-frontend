@@ -12,6 +12,7 @@ import Inbox from "@/components/ClientEditor/Inbox/Inbox";
 import { FiLogOut } from "react-icons/fi";
 import Notification from "@/components/Notification/Notification";
 import { CookieHelper } from "@/helper/cookie.helper";
+import { useAuth } from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 import { inboxData } from "@/public/demodata";
 
@@ -29,6 +30,7 @@ export default function EditorDashboardHeader() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { user, setUser } = useUser();
+  const { logout } = useAuth();
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const profileDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -102,10 +104,9 @@ export default function EditorDashboardHeader() {
     }
   }
 
-  const handleLogout = () => {
-    CookieHelper.destroy({ key: "user" });
+  const handleLogout = async () => {
     setUser("");
-    router.push("/");
+    await logout();
   };
 
   const handleNotificationMouseEnter = () => {

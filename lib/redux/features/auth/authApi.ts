@@ -1,11 +1,15 @@
 import { api } from "../../api/apiSlice";
 import { User, ApiResponse } from "@/types/api.types";
 
+export interface LoginPayload { email: string; password: string; }
+export interface RegisterPayload extends LoginPayload { name: string; role: "client" | "editor"; }
+export interface AuthSession { user: User; accessToken: string; refreshToken?: string; }
+
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<
-      ApiResponse<{ user: User; accessToken: string; refreshToken: string }>,
-      Record<string, unknown>
+      ApiResponse<AuthSession>,
+      LoginPayload
     >({
       query: (credentials) => ({
         url: "/auth/login",
@@ -15,8 +19,8 @@ export const authApi = api.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
     register: builder.mutation<
-      ApiResponse<{ user: User; accessToken: string; refreshToken: string }>,
-      Record<string, unknown>
+      ApiResponse<AuthSession>,
+      RegisterPayload
     >({
       query: (data) => ({
         url: "/auth/register",
@@ -49,7 +53,7 @@ export const authApi = api.injectEndpoints({
         body: data,
       }),
     }),
-    resetPassword: builder.mutation<ApiResponse<void>, Record<string, unknown>>({
+    resetPassword: builder.mutation<ApiResponse<void>, { token: string; password: string }>({
       query: (data) => ({
         url: "/auth/reset-password",
         method: "POST",

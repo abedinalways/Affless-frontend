@@ -10,7 +10,10 @@ export const useMessages = () => {
   const [deleteTarget, setDeleteTarget] = useState<Conversation | null>(null);
 
   const { data: conversationsData, isLoading: isLoadingConversations, refetch: refetchConversations } = useGetConversationsQuery();
-  const { data: messagesData, isLoading: isLoadingMessages, refetch: refetchMessages } = useGetMessagesQuery(selectedConversationId || "");
+  const { data: messagesData, isLoading: isLoadingMessages, refetch: refetchMessages } = useGetMessagesQuery(
+    selectedConversationId!,
+    { skip: !selectedConversationId },
+  );
 
   const [sendMessageMutation] = useSendMessageMutation();
 

@@ -6,8 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 type FormValues = {
   otp: string[];
@@ -22,11 +21,11 @@ export default function OtpForm() {
 
   const otpValues = watch("otp");
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [otpError, setOtpError] = useState("");
+  const { verifyOTP } = useAuth();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const code = data.otp.join("");
     if (code.length !== 6) {
       setOtpError("Please enter a valid 6-digit Reset Code.");
@@ -35,11 +34,17 @@ export default function OtpForm() {
 
     setOtpError("");
     setLoading(true);
-    toast.success(`Reset Code Validation Successful.`);
-    setTimeout(() => {
-      router.push('/resetPassword');
+    try {
+      const email = sessionStorage.getItem("passwordResetEmail");
+      if (!email) {
+        setOtpError("Your reset session has expired. Please request a new code.");
+        return;
+      }
+      const token = await verifyOTP(email, code);
+      if (token) sessionStorage.setItem("passwordResetToken", token);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   const handleOtpChange = (value: string, index: number) => {

@@ -19,6 +19,20 @@ import {
   useVerifyOTPMutation,
   useResetPasswordMutation,
 } from "@/lib/redux/features/auth/authApi";
+import { api } from "@/lib/redux/api/apiSlice";
+
+const dashboardForRole = (role: string) => {
+  if (role === "admin") return "/admin";
+  return role === "editor" ? "/editor" : "/client";
+};
+
+const errorMessage = (error: unknown, fallback: string) => {
+  if (typeof error === "object" && error && "data" in error) {
+    const data = (error as { data?: { message?: string } }).data;
+    if (data?.message) return data.message;
+  }
+  return error instanceof Error ? error.message : fallback;
+};
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -53,10 +67,10 @@ export const useAuth = () => {
             })
           );
           toast.success(response.message || "Login successful!");
-          router.push("/dashboard");
+          router.push(dashboardForRole(response.data.user.role));
         }
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Login failed";
+        const message = errorMessage(err, "Login failed");
         dispatch(setError(message));
         toast.error(message);
       }
@@ -65,7 +79,7 @@ export const useAuth = () => {
   );
 
   const register = useCallback(
-    async (data: { name: string; email: string; password: string }) => {
+    async (data: { name: string; email: string; password: string; role: "client" | "editor" }) => {
       try {
         dispatch(clearError());
         const response = await registerMutation(data).unwrap();
@@ -79,10 +93,10 @@ export const useAuth = () => {
             })
           );
           toast.success(response.message || "Registration successful!");
-          router.push("/dashboard");
+          router.push(dashboardForRole(response.data.user.role));
         }
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Registration failed";
+        const message = errorMessage(err, "Registration failed");
         dispatch(setError(message));
         toast.error(message);
       }
@@ -94,9 +108,11 @@ export const useAuth = () => {
     try {
       await logoutMutation().unwrap();
       dispatch(logoutAction());
+      dispatch(api.util.resetApiState());
       toast.success("Logged out successfully");
     } catch (err) {
       dispatch(logoutAction());
+      dispatch(api.util.resetApiState());
       toast.error("Logout failed");
     }
     router.push("/login");
@@ -108,9 +124,9 @@ export const useAuth = () => {
         dispatch(clearError());
         const response = await forgotPasswordMutation({ email }).unwrap();
         toast.success(response.message || "OTP sent to your email");
-        router.push("/verify-otp");
+        router.push("/otp");
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to send OTP";
+        const message = errorMessage(err, "Failed to send OTP");
         dispatch(setError(message));
         toast.error(message);
       }
@@ -122,29 +138,33 @@ export const useAuth = () => {
     async (email: string, otp: string) => {
       try {
         dispatch(clearError());
-        await verifyOTPMutation({ email, otp }).unwrap();
+        const response = await verifyOTPMutation({ email, otp }).unwrap();
         toast.success("OTP verified successfully");
-        router.push("/reset-password");
+        router.push("/resetPassword");
+        return response.data?.token ?? null;
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Invalid OTP";
+        const message = errorMessage(err, "Invalid OTP");
         dispatch(setError(message));
         toast.error(message);
+        return null;
       }
     },
     [dispatch, verifyOTPMutation, router]
   );
 
   const resetPassword = useCallback(
-    async (data: Record<string, unknown>) => {
+    async (data: { token: string; password: string }) => {
       try {
         dispatch(clearError());
         await resetPasswordMutation(data).unwrap();
         toast.success("Password reset successfully");
         router.push("/login");
+        return true;
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Failed to reset password";
+        const message = errorMessage(err, "Failed to reset password");
         dispatch(setError(message));
         toast.error(message);
+        return false;
       }
     },
     [dispatch, resetPasswordMutation, router]

@@ -1,5 +1,5 @@
 import { api } from "../../api/apiSlice";
-import { ApiResponse } from "@/types/api.types";
+import { ApiResponse, PaginationParams } from "@/types/api.types";
 
 export interface Job {
   id: string;
@@ -25,12 +25,15 @@ export interface Job {
 
 export const jobsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getJobs: builder.query<ApiResponse<Job[]>, Record<string, unknown>>({
+    getJobs: builder.query<ApiResponse<Job[]>, PaginationParams>({
       query: (params) => ({
         url: "/jobs",
         params,
       }),
-      providesTags: ["Jobs"],
+      providesTags: (result) => [
+        { type: "Jobs", id: "LIST" },
+        ...(result?.data?.map(({ id }) => ({ type: "Jobs" as const, id })) ?? []),
+      ],
     }),
     getJobDetails: builder.query<ApiResponse<Job>, string>({
       query: (id) => `/jobs/${id}`,
@@ -42,7 +45,7 @@ export const jobsApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Jobs"],
+      invalidatesTags: [{ type: "Jobs", id: "LIST" }],
     }),
     updateJob: builder.mutation<ApiResponse<Job>, { id: string; data: Record<string, unknown> }>({
       query: ({ id, data }) => ({
@@ -50,14 +53,14 @@ export const jobsApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => ["Jobs", { type: "Jobs", id }],
+      invalidatesTags: (result, error, { id }) => [{ type: "Jobs", id: "LIST" }, { type: "Jobs", id }],
     }),
     deleteJob: builder.mutation<ApiResponse<void>, string>({
       query: (id) => ({
         url: `/jobs/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Jobs"],
+      invalidatesTags: [{ type: "Jobs", id: "LIST" }],
     }),
   }),
 });

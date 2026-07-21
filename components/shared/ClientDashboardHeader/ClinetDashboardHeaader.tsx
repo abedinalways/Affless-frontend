@@ -11,6 +11,7 @@ import { useUser } from "@/context/UserContext";
 import { FiLogOut } from "react-icons/fi";
 import Notification from "@/components/Notification/Notification";
 import { CookieHelper } from "@/helper/cookie.helper";
+import { useAuth } from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 import type { InboxItem } from "@/app/type";
 import { inboxDataForClient } from "@/public/demodata";
@@ -25,6 +26,7 @@ export default function ClientDashboardHeader() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { user, setUser } = useUser();
+  const { logout } = useAuth();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const profileDropdownRef = useRef<HTMLDivElement | null>(null);
   const notificationRef = useRef<HTMLDivElement | null>(null);
@@ -132,10 +134,9 @@ export default function ClientDashboardHeader() {
     }
   }
 
-  const handleLogout = () => {
-    CookieHelper.destroy({ key: "user" });
+  const handleLogout = async () => {
     setUser("");
-    router.push("/");
+    await logout();
   };
 
   const handleNotificationRead = (id: number) => {

@@ -3,6 +3,12 @@ import { AuthState, User } from "@/types/api.types";
 import { CookieHelper } from "@/helper/cookie.helper";
 import { COOKIE_KEYS } from "@/config/app.config";
 
+const persistSession = (user: User, accessToken: string, refreshToken?: string) => {
+  CookieHelper.set({ key: COOKIE_KEYS.USER, value: JSON.stringify(user) });
+  CookieHelper.set({ key: COOKIE_KEYS.ACCESS_TOKEN, value: accessToken });
+  if (refreshToken) CookieHelper.set({ key: COOKIE_KEYS.REFRESH_TOKEN, value: refreshToken });
+};
+
 const getUserFromCookie = (): User | null => {
   if (typeof window === "undefined") return null;
   const userCookie = CookieHelper.get({ key: COOKIE_KEYS.USER });
@@ -42,20 +48,17 @@ const authSlice = createSlice({
       action: PayloadAction<{
         user: User;
         accessToken: string;
-        refreshToken: string;
+        refreshToken?: string;
       }>
     ) => {
       const { user, accessToken, refreshToken } = action.payload;
       state.user = user;
       state.accessToken = accessToken;
-      state.refreshToken = refreshToken;
+      state.refreshToken = refreshToken ?? null;
       state.isAuthenticated = true;
       state.error = null;
 
-      // Set cookies
-      CookieHelper.set({ key: COOKIE_KEYS.USER, value: JSON.stringify(user) });
-      CookieHelper.set({ key: COOKIE_KEYS.ACCESS_TOKEN, value: accessToken });
-      CookieHelper.set({ key: COOKIE_KEYS.REFRESH_TOKEN, value: refreshToken });
+      persistSession(user, accessToken, refreshToken);
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -66,6 +69,11 @@ const authSlice = createSlice({
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
+    },
+    tokenRefreshed: (state, action: PayloadAction<{ accessToken: string; refreshToken?: string }>) => {
+      state.accessToken = action.payload.accessToken;
+      if (action.payload.refreshToken) state.refreshToken = action.payload.refreshToken;
+      state.isAuthenticated = true;
     },
     logout: (state) => {
       state.user = null;
@@ -93,6 +101,7 @@ export const {
   setError,
   clearError,
   setLoading,
+  tokenRefreshed,
   logout,
   updateUser,
 } = authSlice.actions;

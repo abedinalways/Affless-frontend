@@ -5,9 +5,8 @@ import MailIcon from "@/components/Icons/MailIcon";
 import Link from "next/link";
 import Image from "next/image";
 import { GoArrowLeft } from "react-icons/go";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 type FormValues = {
   email: string;
@@ -20,16 +19,17 @@ export default function ForgotPasswordForm() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { forgotPassword } = useAuth();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setLoading(true);
-    toast.success("Reset code sent to your email address.");
-    setTimeout(() => {
-      router?.push("/otp");
+    try {
+      sessionStorage.setItem("passwordResetEmail", data.email);
+      await forgotPassword(data.email);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (

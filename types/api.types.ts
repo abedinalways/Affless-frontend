@@ -29,6 +29,19 @@ export interface ApiError {
   errors?: Record<string, string[]>;
 }
 
+/** Shape returned by RTK Query when the API responds with an error. */
+export interface ApiErrorResponse {
+  status: number | "FETCH_ERROR" | "PARSING_ERROR" | "TIMEOUT_ERROR" | "CUSTOM_ERROR";
+  data: ApiError | { message?: string; errors?: Record<string, string[]> } | string;
+}
+
+export interface PaginationParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  cursor?: string;
+}
+
 export interface AuthState {
   user: User | null;
   accessToken: string | null;
