@@ -46,14 +46,21 @@ export default function ResetPasswordForm() {
       setLoading(true);
 
       const token = sessionStorage.getItem("passwordResetToken");
-      if (!token) {
+      const email = sessionStorage.getItem("passwordResetEmail");
+      if (!token || !email) {
         toast.error("Your reset session has expired. Please request a new code.");
         router.push("/forgetpassword");
         return;
       }
-      await resetPassword({ token, password: data.password });
+      const success = await resetPassword({ email, token, password: data.password });
       sessionStorage.removeItem("passwordResetEmail");
       sessionStorage.removeItem("passwordResetToken");
+      if (success) {
+        toast.success("Reset Password Successfully");
+        setTimeout(() => {
+          router.push("/login");
+        }, 1800);
+      }
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

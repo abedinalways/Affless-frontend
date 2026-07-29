@@ -27,12 +27,18 @@ const dashboardForRole = (type: string) => {
   return type === "EDITOR" ? "/editor" : "/client";
 };
 
-const errorMessage = (error: unknown, fallback: string) => {
+const errorMessage = (error: unknown, fallback: string): string => {
   if (typeof error === "object" && error && "data" in error) {
-    const data = (error as { data?: { message?: string } }).data;
-    if (data?.message) return data.message;
+    const data = (error as { data?: { message?: unknown } }).data;
+    if (typeof data?.message === "string") return data.message;
   }
-  return error instanceof Error ? error.message : fallback;
+  if (typeof error === "object" && error !== null) {
+    const err = error as Record<string, unknown>;
+    if (typeof err.message === "string") return err.message;
+  }
+  if (error instanceof Error) return error.message;
+  if (typeof error === "string") return error;
+  return fallback;
 };
 
 export const useAuth = () => {
@@ -85,7 +91,7 @@ export const useAuth = () => {
               refreshToken,
             }),
           );
-          toast.success(response.message || "Login successful!");
+          toast.success(typeof response.message === "string" ? response.message : "Login successful!");
           const targetPath = dashboardForRole(userType);
           router.push(targetPath);
         }
@@ -108,8 +114,7 @@ export const useAuth = () => {
       try {
         dispatch(clearError());
         const response = await registerMutation(data).unwrap();
-        toast.success(response.message || "OTP sent to your email!");
-        // Store email in session storage for the OTP verification page
+        toast.success(typeof response.message === "string" ? response.message : "OTP sent to your email!");
         sessionStorage.setItem("registrationEmail", data.email);
         router.push("/verify-email");
       } catch (err) {
@@ -126,7 +131,7 @@ export const useAuth = () => {
       try {
         dispatch(clearError());
         const response = await verifyEmailMutation({ email, token }).unwrap();
-        toast.success(response.message || "Email verified successfully!");
+        toast.success(typeof response.message === "string" ? response.message : "Email verified successfully!");
         router.push("/login");
         return true;
       } catch (err) {
@@ -150,7 +155,9 @@ export const useAuth = () => {
       dispatch(api.util.resetApiState());
       toast.error("Logout failed");
     }
-    router.push("/login");
+    setTimeout(() => {
+      router.push("/login");
+    }, 1500);
   }, [dispatch, logoutMutation, logoutAction, router]);
 
   const forgotPassword = useCallback(
@@ -158,42 +165,40 @@ export const useAuth = () => {
       try {
         dispatch(clearError());
         const response = await forgotPasswordMutation({ email }).unwrap();
-        toast.success(response.message || "OTP sent to your email");
-        router.push("/otp");
+        return response.success;
       } catch (err) {
         const message = errorMessage(err, "Failed to send OTP");
         dispatch(setError(message));
         toast.error(message);
+        return false;
       }
     },
-    [dispatch, forgotPasswordMutation, router],
+    [dispatch, forgotPasswordMutation],
   );
 
   const verifyOTP = useCallback(
-    async (email: string, otp: string) => {
+    async (email: string, token: string) => {
       try {
         dispatch(clearError());
-        const response = await verifyOTPMutation({ email, otp }).unwrap();
-        toast.success("OTP verified successfully");
-        router.push("/resetPassword");
-        return response.data?.token ?? null;
+        await verifyOTPMutation({ email, token }).unwrap();
+        sessionStorage.setItem("passwordResetEmail", email);
+        sessionStorage.setItem("passwordResetToken", token);
+        return true;
       } catch (err) {
         const message = errorMessage(err, "Invalid OTP");
         dispatch(setError(message));
         toast.error(message);
-        return null;
+        return false;
       }
     },
-    [dispatch, verifyOTPMutation, router],
+    [dispatch, verifyOTPMutation],
   );
 
   const resetPassword = useCallback(
-    async (data: { token: string; password: string }) => {
+    async (data: { email: string; token: string; password: string }) => {
       try {
         dispatch(clearError());
         await resetPasswordMutation(data).unwrap();
-        toast.success("Password reset successfully");
-        router.push("/login");
         return true;
       } catch (err) {
         const message = errorMessage(err, "Failed to reset password");
@@ -202,7 +207,7 @@ export const useAuth = () => {
         return false;
       }
     },
-    [dispatch, resetPasswordMutation, router],
+    [dispatch, resetPasswordMutation],
   );
 
   return {

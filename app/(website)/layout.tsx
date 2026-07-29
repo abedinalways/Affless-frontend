@@ -4,7 +4,6 @@ import RootMainLayout from "@/components/shared/RootMainLayout";
 
 export const dynamic = 'force-dynamic'
 import { UserProvider } from "@/context/UserContext";
-import { Toaster } from "react-hot-toast";
 
 
 // const geistMono = Geist_Mono({
@@ -24,7 +23,6 @@ export default function RootLayout({
 }>) {
   return (
     <div>
-        <Toaster position="top-right" />
         <UserProvider>
           <RootMainLayout>
             {children}

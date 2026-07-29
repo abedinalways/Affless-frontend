@@ -85,14 +85,14 @@ export const authApi = api.injectEndpoints({
         body: data,
       }),
     }),
-    verifyOTP: builder.mutation<ApiResponse<{ token: string }>, { email: string; otp: string }>({
+    verifyOTP: builder.mutation<ApiResponse<{ token: string }>, { email: string; token: string }>({
       query: (data) => ({
-        url: "/auth/verify-otp",
+        url: "/auth/verify-token",
         method: "POST",
         body: data,
       }),
     }),
-    resetPassword: builder.mutation<ApiResponse<void>, { token: string; password: string }>({
+    resetPassword: builder.mutation<ApiResponse<void>, { email: string; token: string; password: string }>({
       query: (data) => ({
         url: "/auth/reset-password",
         method: "POST",

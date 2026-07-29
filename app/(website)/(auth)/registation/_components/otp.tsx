@@ -6,7 +6,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 
 type FormValues = {
   otp: string[];
@@ -24,6 +26,7 @@ export default function OtpForm() {
   const [loading, setLoading] = useState(false);
   const [otpError, setOtpError] = useState("");
   const { verifyOTP } = useAuth();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const code = data.otp.join("");
@@ -40,8 +43,16 @@ export default function OtpForm() {
         setOtpError("Your reset session has expired. Please request a new code.");
         return;
       }
-      const token = await verifyOTP(email, code);
-      if (token) sessionStorage.setItem("passwordResetToken", token);
+      const success = await verifyOTP(email, code);
+      if (success) {
+        toast.success("OTP verified successfully");
+        sessionStorage.setItem("passwordResetToken", code);
+        setTimeout(() => {
+          router.push("/resetPassword");
+        }, 1200);
+      }
+    } catch {
+      // handled inside hook
     } finally {
       setLoading(false);
     }

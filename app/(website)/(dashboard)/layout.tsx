@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 // External libraries
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 // Internal components & hooks
 import { CookieHelper } from "@/helper/cookie.helper";
@@ -50,7 +50,6 @@ export default function ClientLayout({
       "as a Client to browse for and hire editors",
       "as a Client to post a job",
       "as a Client to send messages to editors",
-      "as an Editor to create an editor profile",
     ];
 
     if (signupMsgs.includes(msg || "")) {
@@ -87,7 +86,6 @@ export default function ClientLayout({
 
   return (
     <div className="grid h-full w-full grid-rows-[1fr_auto]">
-      <Toaster position="top-right" />
       {children}
       <Footer />
     </div>

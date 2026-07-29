@@ -6,7 +6,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { GoArrowLeft } from "react-icons/go";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 
 type FormValues = {
   email: string;
@@ -20,13 +22,20 @@ export default function ForgotPasswordForm() {
   } = useForm<FormValues>();
 
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const { forgotPassword } = useAuth();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setLoading(true);
     try {
       sessionStorage.setItem("passwordResetEmail", data.email);
-      await forgotPassword(data.email);
+      const success = await forgotPassword(data.email);
+      if (success) {
+        toast.success("We have sent an OTP code to your email");
+        setTimeout(() => {
+          router.push("/otp");
+        }, 1200);
+      }
     } finally {
       setLoading(false);
     }
