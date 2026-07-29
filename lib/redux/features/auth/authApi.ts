@@ -2,13 +2,36 @@ import { api } from "../../api/apiSlice";
 import { User, ApiResponse } from "@/types/api.types";
 
 export interface LoginPayload { email: string; password: string; }
-export interface RegisterPayload extends LoginPayload { name: string; role: "client" | "editor"; }
-export interface AuthSession { user: User; accessToken: string; refreshToken?: string; }
+export interface RegisterPayload { name: string; email: string; password: string; type: "CLIENT" | "EDITOR"; }
+export interface VerifyEmailPayload { email: string; token: string; }
+
+/** The actual login response from the backend */
+export interface LoginResponse {
+  success: boolean;
+  message: string;
+  authorization: {
+    type: "bearer";
+    access_token: string;
+    refresh_token: string;
+  };
+  type: "CLIENT" | "EDITOR" | "ADMIN";
+}
+
+/** The actual refresh response from the backend (inferred similar structure) */
+export interface RefreshResponse {
+  success: boolean;
+  message: string;
+  authorization: {
+    type: "bearer";
+    access_token: string;
+    refresh_token: string;
+  };
+}
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<
-      ApiResponse<AuthSession>,
+      LoginResponse,
       LoginPayload
     >({
       query: (credentials) => ({
@@ -19,14 +42,30 @@ export const authApi = api.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
     register: builder.mutation<
-      ApiResponse<AuthSession>,
+      ApiResponse<{ message: string }>,
       RegisterPayload
     >({
       query: (data) => ({
         url: "/auth/register",
         method: "POST",
+        body: {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          type: data.type,
+        },
+      }),
+    }),
+    verifyEmail: builder.mutation<
+      ApiResponse<{ message: string }>,
+      VerifyEmailPayload
+    >({
+      query: (data) => ({
+        url: "/auth/verify-email",
+        method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Auth"],
     }),
     getCurrentUser: builder.query<ApiResponse<User>, void>({
       query: () => "/auth/me",
@@ -66,6 +105,7 @@ export const authApi = api.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
+  useVerifyEmailMutation,
   useGetCurrentUserQuery,
   useLogoutMutation,
   useForgotPasswordMutation,

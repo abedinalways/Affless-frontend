@@ -1,0 +1,149 @@
+"use client";
+
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import { GoArrowLeft } from "react-icons/go";
+import { useAuth } from "@/hooks/useAuth";
+
+type FormValues = {
+  otp: string[];
+};
+
+export default function VerifyEmailForm() {
+  const { register, handleSubmit, setValue, watch } = useForm<FormValues>({
+    defaultValues: {
+      otp: ["", "", "", "", "", ""],
+    },
+  });
+
+  const otpValues = watch("otp");
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [otpError, setOtpError] = useState("");
+  const { verifyEmail } = useAuth();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const code = data.otp.join("");
+    if (code.length !== 6) {
+      setOtpError("Please enter a valid 6-digit verification code.");
+      return;
+    }
+
+    setOtpError("");
+    setLoading(true);
+    try {
+      const email = sessionStorage.getItem("registrationEmail");
+      if (!email) {
+        setOtpError("Your registration session has expired. Please sign up again.");
+        return;
+      }
+      await verifyEmail(email, code);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOtpChange = (value: string, index: number) => {
+    if (!/^\d?$/.test(value)) return;
+
+    if (otpError) {
+      setOtpError("");
+    }
+
+    setValue(`otp.${index}`, value);
+
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleBackspace = (index: number) => {
+    if (otpValues[index] === "" && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  return (
+    <div className="px-4 sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px] grid items-center">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] lg:gap-[100px] gap-8">
+        <div className="flex items-center justify-center bg-white rounded-2xl h-full">
+          <Image
+            src="/svgIcons/otp.svg"
+            alt="verify email"
+            width={500}
+            height={450}
+            className="w-[260px] sm:w-[340px] md:w-[420px] lg:w-[480px] xl:w-[520px] h-auto object-contain"
+          />
+        </div>
+
+        {/* Right Content */}
+        <div className="h-full flex flex-col justify-center bg-[#FFDBDC] rounded-2xl max-w-[400px] lg:max-w-full">
+          <div className="w-full max-w-lg mx-auto p-10">
+            {/* Back + Title */}
+            <div className="flex items-center gap-3 pb-4">
+              <Link href="/singup">
+                <div className="text-[#333] text-2xl cursor-pointer">
+                  <GoArrowLeft />
+                </div>
+              </Link>
+              <h2
+                className="text-[#333] font-poppins text-[24px] lg:text-[40px] font-medium leading-[130%]"
+              >
+                Verify Email
+              </h2>
+            </div>
+
+            {/* Subtitle */}
+            <p className="text-[#333] font-poppins text-base leading-[150%] pb-6">
+              Please enter the verification code we have sent to your email address.
+            </p>
+
+            {/* OTP Form */}
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+              <div className="space-y-2">
+                <div className="flex justify-center gap-2">
+                  {[0, 1, 2, 3, 4, 5].map((index) => (
+                    <Input
+                      key={index}
+                      maxLength={1}
+                      {...register(`otp.${index}` as const)}
+                      ref={(el) => {
+                        inputRefs.current[index] = el;
+                      }}
+                      onChange={(e) => {
+                        e.target.value = e.target.value.replace(/\D/, "");
+                        handleOtpChange(e.target.value, index);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Backspace") handleBackspace(index);
+                      }}
+                      className="w-12! h-12! aspect-square text-center text-xl rounded-full border border-gray-300 focus:border-[#FF4D4F] focus:ring-0 font-poppins bg-white"
+                    />
+                  ))}
+                </div>
+                {otpError && (
+                  <p className="text-red-500 text-center text-sm font-poppins">
+                    {otpError}
+                  </p>
+                )}
+              </div>
+
+              <div className="">
+                <button
+                  disabled={loading}
+                  type="submit"
+                  className="w-full py-3 bg-[#FF4D4F] text-white text-[16px] lg:text-[24px] font-poppins rounded-xl cursor-pointer hover:bg-[#e04344] transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? "Verifying..." : "Verify"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

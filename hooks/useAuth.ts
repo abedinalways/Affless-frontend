@@ -13,6 +13,7 @@ import {
 import {
   useLoginMutation,
   useRegisterMutation,
+  useVerifyEmailMutation,
   useGetCurrentUserQuery,
   useLogoutMutation,
   useForgotPasswordMutation,
@@ -21,9 +22,9 @@ import {
 } from "@/lib/redux/features/auth/authApi";
 import { api } from "@/lib/redux/api/apiSlice";
 
-const dashboardForRole = (role: string) => {
-  if (role === "admin") return "/admin";
-  return role === "editor" ? "/editor" : "/client";
+const dashboardForRole = (type: string) => {
+  if (type === "ADMIN") return "/admin";
+  return type === "EDITOR" ? "/editor" : "/client";
 };
 
 const errorMessage = (error: unknown, fallback: string) => {
@@ -37,12 +38,12 @@ const errorMessage = (error: unknown, fallback: string) => {
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { user, accessToken, isAuthenticated, isLoading, error } = useAppSelector(
-    (state) => state.auth
-  );
+  const { user, accessToken, isAuthenticated, isLoading, error } =
+    useAppSelector((state) => state.auth);
 
   const [loginMutation] = useLoginMutation();
   const [registerMutation] = useRegisterMutation();
+  const [verifyEmailMutation] = useVerifyEmailMutation();
   const [logoutMutation] = useLogoutMutation();
   const [forgotPasswordMutation] = useForgotPasswordMutation();
   const [verifyOTPMutation] = useVerifyOTPMutation();
@@ -58,16 +59,35 @@ export const useAuth = () => {
         dispatch(clearError());
         const response = await loginMutation(credentials).unwrap();
 
-        if (response.data) {
+        const accessToken = response.authorization?.access_token;
+        const refreshToken = response.authorization?.refresh_token;
+        const userType = response.type;
+
+        if (accessToken) {
           dispatch(
             setCredentials({
-              user: response.data.user,
-              accessToken: response.data.accessToken,
-              refreshToken: response.data.refreshToken,
-            })
+              user: {
+                id: "",
+                name: "",
+                email: credentials.email,
+                role:
+                  userType === "ADMIN"
+                    ? "admin"
+                    : userType === "EDITOR"
+                      ? "editor"
+                      : "client",
+                user_type: userType,
+                is_verified: true,
+                created_at: "",
+                updated_at: "",
+              },
+              accessToken,
+              refreshToken,
+            }),
           );
           toast.success(response.message || "Login successful!");
-          router.push(dashboardForRole(response.data.user.role));
+          const targetPath = dashboardForRole(userType);
+          router.push(targetPath);
         }
       } catch (err) {
         const message = errorMessage(err, "Login failed");
@@ -75,33 +95,48 @@ export const useAuth = () => {
         toast.error(message);
       }
     },
-    [dispatch, loginMutation, router]
+    [dispatch, loginMutation, router],
   );
 
   const register = useCallback(
-    async (data: { name: string; email: string; password: string; role: "client" | "editor" }) => {
+    async (data: {
+      name: string;
+      email: string;
+      password: string;
+      type: "CLIENT" | "EDITOR";
+    }) => {
       try {
         dispatch(clearError());
         const response = await registerMutation(data).unwrap();
-
-        if (response.data) {
-          dispatch(
-            setCredentials({
-              user: response.data.user,
-              accessToken: response.data.accessToken,
-              refreshToken: response.data.refreshToken,
-            })
-          );
-          toast.success(response.message || "Registration successful!");
-          router.push(dashboardForRole(response.data.user.role));
-        }
+        toast.success(response.message || "OTP sent to your email!");
+        // Store email in session storage for the OTP verification page
+        sessionStorage.setItem("registrationEmail", data.email);
+        router.push("/verify-email");
       } catch (err) {
         const message = errorMessage(err, "Registration failed");
         dispatch(setError(message));
         toast.error(message);
       }
     },
-    [dispatch, registerMutation, router]
+    [dispatch, registerMutation, router],
+  );
+
+  const verifyEmail = useCallback(
+    async (email: string, token: string) => {
+      try {
+        dispatch(clearError());
+        const response = await verifyEmailMutation({ email, token }).unwrap();
+        toast.success(response.message || "Email verified successfully!");
+        router.push("/login");
+        return true;
+      } catch (err) {
+        const message = errorMessage(err, "Email verification failed");
+        dispatch(setError(message));
+        toast.error(message);
+        return false;
+      }
+    },
+    [dispatch, verifyEmailMutation, router],
   );
 
   const handleLogout = useCallback(async () => {
@@ -131,7 +166,7 @@ export const useAuth = () => {
         toast.error(message);
       }
     },
-    [dispatch, forgotPasswordMutation, router]
+    [dispatch, forgotPasswordMutation, router],
   );
 
   const verifyOTP = useCallback(
@@ -149,7 +184,7 @@ export const useAuth = () => {
         return null;
       }
     },
-    [dispatch, verifyOTPMutation, router]
+    [dispatch, verifyOTPMutation, router],
   );
 
   const resetPassword = useCallback(
@@ -167,7 +202,7 @@ export const useAuth = () => {
         return false;
       }
     },
-    [dispatch, resetPasswordMutation, router]
+    [dispatch, resetPasswordMutation, router],
   );
 
   return {
@@ -178,6 +213,7 @@ export const useAuth = () => {
     error,
     login,
     register,
+    verifyEmail,
     logout: handleLogout,
     forgotPassword,
     verifyOTP,

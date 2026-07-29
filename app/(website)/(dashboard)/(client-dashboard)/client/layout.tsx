@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import ClientLayout from "./_components/ClientLayout";
 import ContactUs from "@/components/MainPage/Contact-Us/Contact-Us";
 import ClientDashboardHeader from "@/components/shared/ClientDashboardHeader/ClinetDashboardHeaader";

@@ -44,16 +44,18 @@ const refreshAccessToken = async (
     extraOptions,
   );
   const response = refreshResult.data as
-    | { accessToken?: string; refreshToken?: string; data?: { accessToken?: string; refreshToken?: string } }
+    | { authorization?: { access_token?: string; refresh_token?: string } }
     | undefined;
-  const tokens = response?.data ?? response;
 
-  if (!tokens?.accessToken) return false;
-  CookieHelper.set({ key: COOKIE_KEYS.ACCESS_TOKEN, value: tokens.accessToken });
-  if (tokens.refreshToken) {
-    CookieHelper.set({ key: COOKIE_KEYS.REFRESH_TOKEN, value: tokens.refreshToken });
+  const accessToken = response?.authorization?.access_token;
+  const newRefreshToken = response?.authorization?.refresh_token;
+
+  if (!accessToken) return false;
+  CookieHelper.set({ key: COOKIE_KEYS.ACCESS_TOKEN, value: accessToken });
+  if (newRefreshToken) {
+    CookieHelper.set({ key: COOKIE_KEYS.REFRESH_TOKEN, value: newRefreshToken });
   }
-  api.dispatch(tokenRefreshed({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken }));
+  api.dispatch(tokenRefreshed({ accessToken, refreshToken: newRefreshToken }));
   return true;
 };
 

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import RootMainLayout from "@/components/shared/RootMainLayout";
+
+export const dynamic = 'force-dynamic'
 import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "react-hot-toast";
 

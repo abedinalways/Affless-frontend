@@ -11,7 +11,7 @@ import Link from "next/link";
 import { EyeClosed, EyeIcon, EyeOff } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
-import { routes } from "@/helper/routes"
+import { getRouteHref } from "@/helper/routes";
 import { useAuth } from "@/hooks/useAuth";
 
 type FormValues = {
@@ -24,8 +24,8 @@ type FormValues = {
 
 export default function SingUpForm() {
   const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect');
-  const signUpType = searchParams.get('type') || 'client';
+  const redirect = searchParams.get("redirect");
+  const signUpType = searchParams.get("type") || "client";
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { register: registerAccount } = useAuth();
@@ -39,11 +39,14 @@ export default function SingUpForm() {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsSubmitting(true);
     try {
+      if (redirect) {
+        sessionStorage.setItem("loginRedirect", redirect);
+      }
       await registerAccount({
         name: data.name,
         email: data.email,
         password: data.password,
-        role: data.accountType as "client" | "editor",
+        type: data.accountType.toUpperCase() as "CLIENT" | "EDITOR",
       });
       reset();
     } finally {
@@ -51,39 +54,20 @@ export default function SingUpForm() {
     }
   };
 
-  // console.log("Redirect : ", routes[redirect.split("_").slice(0, -1).join("_")]);
-
-  // Compute safe back link
-  let backHref;
-  if (redirect) {
-    const key = redirect.split("_").pop() || "";
-    backHref = routes[key] || "/";
-    console.log("Computed backHref:", backHref);
-  }
+  const backHref = redirect ? getRouteHref(redirect) : "/";
+  const backRedirect = redirect ? redirect : "home";
 
   return (
-    <div
-      className=" sm:px-[50px] 
-      md:px-[50px] 
-      lg:px-[100px] 
-      xl:px-[150px]
-      2xl:px-[300px]"
-    >
-      <div className="pb-3 px-2">
-        <Link href={backHref?.href + `?redirect=${redirect?.split("_").slice(0, -1).join("_") || ""}` || "/" + `?redirect=${redirect || "home"}`} className="pb-9">
-          {" "}
-          <button className="bg-red-500 p-2 text-white cursor-pointer w-fit rounded-lg flex gap-2 text-nowrap">
+    <div className="sm:px-[50px] md:px-[50px] lg:px-[100px] xl:px-[150px] 2xl:px-[300px]">
+      <div className="px-2 pb-3">
+        <Link href={`${backHref}?redirect=${backRedirect}`} className="pb-9">
+          <button className="flex w-fit cursor-pointer gap-2 rounded-lg bg-red-500 p-2 text-nowrap text-white">
             <FaArrowLeft className="mt-1" />
-            Back to {backHref?.label?.toString() || "Home"}
+            Back to {typeof backHref === "string" ? "Home" : "Dashboard"}
           </button>
         </Link>
       </div>
-      <div
-        className="
-        grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 
-        lg:gap-[100px] space-y-8
-      "
-      >
+      <div className="grid grid-cols-1 space-y-8 md:grid-cols-1 lg:grid-cols-2 lg:gap-[100px]">
         {/* Left Image */}
         <div className="flex w-full">
           <Image
@@ -91,18 +75,18 @@ export default function SingUpForm() {
             alt="signup"
             height={457}
             width={545}
-            className="w-full "
+            className="w-full"
           />
         </div>
 
         {/* Right Form */}
-        <div className="w-full  bg-[#FFDBDC] rounded-3xl shadow-md p-8 sm:p-10 mx-auto ">
-          <h2 className="text-[#333] text-center font-poppins text-[24px] lg:text-[40px] font-medium leading-[150%] pb-6 ">
+        <div className="mx-auto w-full rounded-3xl bg-[#FFDBDC] p-8 shadow-md sm:p-10">
+          <h2 className="font-poppins pb-6 text-center text-[24px] leading-[150%] font-medium text-[#333] lg:text-[40px]">
             Sign Up
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <p className="text-[18px] font-normal text-[#1D1F2C] mb-3">
+            <p className="mb-3 text-[18px] font-normal text-[#1D1F2C]">
               Select Account Type:
             </p>
 
@@ -110,7 +94,7 @@ export default function SingUpForm() {
               {/* Client */}
               <label
                 htmlFor="client"
-                className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg cursor-pointer"
+                className="flex w-full cursor-pointer items-center gap-2 rounded-lg bg-white px-3 py-2.5"
               >
                 <input
                   type="radio"
@@ -118,10 +102,10 @@ export default function SingUpForm() {
                   {...register("accountType", {
                     required: "Account type is required",
                   })}
-                  className="h-5 w-5 accent-red-500 cursor-pointer"
+                  className="h-5 w-5 cursor-pointer accent-red-500"
                   id="client"
                 />
-                <p className="text-[#333] font-poppins text-base select-none">
+                <p className="font-poppins text-base text-[#333] select-none">
                   Client
                 </p>
               </label>
@@ -129,7 +113,7 @@ export default function SingUpForm() {
               {/* Editor */}
               <label
                 htmlFor="editor"
-                className="flex items-center gap-2 bg-white w-full px-3 py-2.5 rounded-lg cursor-pointer"
+                className="flex w-full cursor-pointer items-center gap-2 rounded-lg bg-white px-3 py-2.5"
               >
                 <input
                   type="radio"
@@ -138,23 +122,23 @@ export default function SingUpForm() {
                   {...register("accountType", {
                     required: "Account type is required",
                   })}
-                  className="h-5 w-5 accent-red-500 cursor-pointer"
+                  className="h-5 w-5 cursor-pointer accent-red-500"
                 />
-                <p className="text-[#333] font-poppins text-base select-none">
+                <p className="font-poppins text-base text-[#333] select-none">
                   Editor
                 </p>
               </label>
             </div>
 
             {errors.accountType && (
-              <p className="text-red-500 text-sm mt-2">
+              <p className="mt-2 text-sm text-red-500">
                 {errors.accountType.message}
               </p>
             )}
 
             {/* Name */}
             <div className="relative">
-              <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+              <UserIcon className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-500" />
               <input
                 {...register("name", {
                   required: "Username is required",
@@ -167,47 +151,49 @@ export default function SingUpForm() {
                     message: "Username must not exceed 30 characters",
                   },
                   pattern: {
-                    value: /^(?=[A-Za-z0-9._]{3,30}$)(?=.*[A-Za-z])[A-Za-z0-9._]*$/,
+                    value:
+                      /^(?=[A-Za-z0-9._]{3,30}$)(?=.*[A-Za-z])[A-Za-z0-9._]*$/,
                     message:
                       "Username can only contain letters, numbers, underscores, and dots; it must include at least one letter; no spaces or special characters are allowed.",
                   },
                 })}
                 type="text"
                 placeholder="Enter Username"
-                className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
+                className="font-poppins w-full rounded-xl bg-white px-6 py-4 pl-12 text-base text-[#333] focus:outline-none"
               />
             </div>
             {errors.name && (
-              <p className="text-red-500 text-sm font-poppins">
+              <p className="font-poppins text-sm text-red-500">
                 {errors.name.message}
               </p>
             )}
 
             {/* Email */}
             <div className="relative">
-              <MailIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+              <MailIcon className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-500" />
               <input
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
-                    message: "Enter a valid email (domain must be at least 2 characters)",
+                    message:
+                      "Enter a valid email (domain must be at least 2 characters)",
                   },
                 })}
                 type="text"
                 placeholder="Enter Your Email"
-                className="w-full px-6 py-4 pl-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
+                className="font-poppins w-full rounded-xl bg-white px-6 py-4 pl-12 text-base text-[#333] focus:outline-none"
               />
             </div>
             {errors.email && (
-              <p className="text-red-500 text-sm font-poppins">
+              <p className="font-poppins text-sm text-red-500">
                 {errors.email.message}
               </p>
             )}
 
             {/* Password */}
             <div className="relative">
-              <KeyIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+              <KeyIcon className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-500" />
 
               <input
                 {...register("password", {
@@ -229,29 +215,29 @@ export default function SingUpForm() {
                 })}
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
-                className="w-full px-6 py-4 pl-12 pr-12 bg-white rounded-xl focus:outline-none text-[#333] font-poppins text-base"
+                className="font-poppins w-full rounded-xl bg-white px-6 py-4 pr-12 pl-12 text-base text-[#333] focus:outline-none"
               />
 
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
+                className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer"
               >
                 {showPassword ? (
-                  <EyeIcon className="w-6 h-6 text-gray-600" />
+                  <EyeIcon className="h-6 w-6 text-gray-600" />
                 ) : (
-                  <EyeOff className="w-6 h-6 text-gray-600" />
+                  <EyeOff className="h-6 w-6 text-gray-600" />
                 )}
               </button>
             </div>
             {errors.password && (
-              <p className="text-red-500 text-sm font-poppins">
+              <p className="font-poppins text-sm text-red-500">
                 {errors.password.message}
               </p>
             )}
-            <div className="text-sm text-[#333] space-y-1">
+            <div className="space-y-1 text-sm text-[#333]">
               <p>Password Must Contain:</p>
-              <ul className="list-disc ml-5">
+              <ul className="ml-5 list-disc">
                 <li>8–64 characters</li>
                 <li>At least 1 uppercase letter</li>
                 <li>At least 1 lowercase letter</li>
@@ -261,23 +247,26 @@ export default function SingUpForm() {
             </div>
 
             {/* Terms Text */}
-            <div className="bg-[#FFECEC] p-4 rounded-xl text-[#333] text-sm font-poppins">
-              By signing up, you agree to our Terms of Service and Privacy Policy.  You’ll join a community of video editors and clients, and gain access to collaboration tools, job features, secure payments, and marketplace opportunities.
+            <div className="font-poppins rounded-xl bg-[#FFECEC] p-4 text-sm text-[#333]">
+              By signing up, you agree to our Terms of Service and Privacy
+              Policy. You’ll join a community of video editors and clients, and
+              gain access to collaboration tools, job features, secure payments,
+              and marketplace opportunities.
             </div>
 
             {/* Terms Checkbox */}
-            <label className="flex items-start gap-3 text-[#333] font-poppins text-base cursor-pointer">
+            <label className="font-poppins flex cursor-pointer items-start gap-3 text-base text-[#333]">
               <input
                 type="checkbox"
                 {...register("terms", {
                   required: "You must accept the terms",
                 })}
-                className="mt-1 cursor-pointer "
+                className="mt-1 cursor-pointer"
               />
               I agree to the Terms of Service and Privacy Policy
             </label>
             {errors.terms && (
-              <p className="text-red-500 text-sm font-poppins">
+              <p className="font-poppins text-sm text-red-500">
                 {errors.terms.message}
               </p>
             )}
@@ -286,16 +275,16 @@ export default function SingUpForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 bg-[#FF4D4F] hover:bg-red-500 hover:delay-50 text-[#FDFDFD] font-poppins text-[16px] lg:text-[24px] font-medium rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="font-poppins w-full cursor-pointer rounded-xl bg-[#FF4D4F] py-3 text-[16px] font-medium text-[#FDFDFD] hover:bg-red-500 hover:delay-50 disabled:cursor-not-allowed disabled:opacity-50 lg:text-[24px]"
             >
               {isSubmitting ? "Signing Up..." : "Sign Up"}
             </button>
 
             {/* Sign In link */}
-            <p className="text-center text-sm text-[#333] font-poppins">
+            <p className="font-poppins text-center text-sm text-[#333]">
               Already have an account?{" "}
               <Link href="/login">
-                <span className="text-red-500 cursor-pointer font-medium">
+                <span className="cursor-pointer font-medium text-red-500">
                   Log In
                 </span>
               </Link>

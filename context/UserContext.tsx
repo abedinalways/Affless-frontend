@@ -1,7 +1,7 @@
 'use client'
 
-import { CookieHelper } from '@/helper/cookie.helper';
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useAppSelector } from "@/lib/redux/hooks";
+import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 
 interface UserContextType {
     user: string;
@@ -12,19 +12,17 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUserState] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(true);
+    const authUser = useAppSelector((state) => state.auth.user);
+    const user = authUser?.role || '';
+    const loading = false;
 
     useEffect(() => {
-        const userTypeFromStorage = JSON.parse(CookieHelper.get({key: "user"}) || '{}').user_type;
-        if (userTypeFromStorage) {
-            setUserState(userTypeFromStorage);
-        }
-        setLoading(false);
+        // Sync legacy call if needed
     }, []);
 
-    const setUser = (userType: string) => {
-        setUserState(userType);
+    const setUser = (_userType: string) => {
+        // No-op: User type is now derived from Redux auth state
+        // Actual user type changes only through login/auth actions
     };
 
     return (
