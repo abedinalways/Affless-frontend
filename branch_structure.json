@@ -1,0 +1,24 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "abedin",
+    "main",
+    "miraz",
+    "origin",
+    "sujon"
+  ],
+  "parent": {
+    "abedin": "main",
+    "main": null,
+    "miraz": "main",
+    "origin": "main",
+    "sujon": "main"
+  },
+  "order": [
+    "main",
+    "abedin",
+    "miraz",
+    "origin",
+    "sujon"
+  ]
+}
